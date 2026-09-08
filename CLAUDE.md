@@ -6196,6 +6196,47 @@ place du marché, pour dire les contractants sans les incarner. Au ras du
 pavé elles se confondaient avec celle de l'étal. Ne pas le reproposer sous
 cette forme.
 
+### La plus-value : le fil, et la ligne qu'il écrit (mission `glossaire-mondes-6`, sept. 2026)
+
+Marx donne lui-même les deux images, et elles n'en font qu'une : au
+chapitre VII l'exemple est **le fileur** (du coton, une broche, du fil) ; au
+chapitre IX il représente la journée par **une ligne droite coupée en b**,
+a—b le travail nécessaire, b—c le surtravail. Or le fil qui sort de la
+broche EST cette ligne — il ne s'arrête pas quand l'ouvrier a filé la valeur
+de sa propre force, il continue dans le même geste, et c'est ce prolongement
+qui est la plus-value. La page est cette longueur.
+
+**Une NATURE MORTE SERRÉE**, pas une salle : le bout d'un établi sous une
+lampe, la broche, la bobine qui grossit, la craie sur le bois, les pièces.
+C'est le cadrage qui fait la différence entre un objet et un « dessin 3D » —
+la table du fétichisme marchait pour cette raison. La ligne est **dessinée
+sur une texture de canevas** redessinée quand ses valeurs changent, ce qui
+lui donne la main tremblante de la craie ; elle ne s'allonge que parce que le
+fil s'enroule.
+
+#### La leçon de cadrage, qui vaut pour toutes les pages « plein »
+
+Trois recadrages ratés d'affilée avant de la poser en calculant. À 38° et en
+paysage, **la largeur vue vaut 1,07 fois la distance**. La colonne de texte
+occupe **43 % de la largeur** : il reste 57 % pour la scène, et l'ensemble
+doit y tenir **entier**, sinon on lit une ligne dont la moitié est sous le
+texte. Deux façons de s'y prendre, et j'ai essayé les deux :
+
+1. **écarter la caméra** — mais tout devient petit et le sol vide domine ;
+2. **raccourcir l'ensemble** — c'est le bon geste. Ramené de 2,3 à 1,5 unité,
+   il se pose entre 51 % et 92 % de la largeur, dégagé du texte.
+
+Le décalage de visée se calcule alors : `(0,715 − 0,5) × largeur vue`, soit
+**0,80** ici. Un plafond repris d'une autre scène ne vaut rien — sur la force
+de travail il était de 1,4, et posé ici à 0,10 puis à 0,80 sans recalculer il
+a d'abord tout collé au bord gauche, puis tout jeté hors du bord droit.
+
+**Et une colonne verticale contrarie une figure horizontale.** La mise en
+page « marge » a été essayée : dans une colonne de rapport 0,58, le champ
+n'est large que de 1,4 unité et la ligne de 1,6 n'y tenait pas. Une scène qui
+s'étend en largeur veut « plein » ; une scène qui tient dans un carré peut
+prendre la colonne.
+
 ### Ce qui reste
 
 - Le pilote a été validé et fusionné ; les trois suivantes vivent sur
