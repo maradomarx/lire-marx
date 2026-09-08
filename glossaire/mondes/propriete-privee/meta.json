@@ -1,0 +1,44 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/propriete-privee.",
+  "titre": "Propriété privée",
+  "de": "Privateigentum",
+  "chapo": "Dans les Manuscrits de 1844, la propriété privée n'est pas la cause du travail aliéné mais son produit — quoiqu'elle agisse ensuite sur lui en retour. Marx en tire une conséquence sur les hommes eux-mêmes : elle réduit tous les rapports au monde à un seul, le sens de l'avoir, et les autres s'atrophient faute d'être exercés.",
+  "description": "La propriété privée chez le jeune Marx : pourquoi elle est le produit du travail aliéné et non sa cause, ce qu'est le « sens de l'avoir », et pourquoi son dépassement se définit comme une émancipation des sens.",
+  "source": {
+    "work": "manuscrits-1844",
+    "s": 4,
+    "cite": "Karl Marx, <i>Manuscrits de 1844</i>, premier et troisième manuscrits — traduction Émile Bottigelli, Éditions sociales (1962)"
+  },
+  "ou": "<i>Manuscrits de 1844</i> : le renversement est établi à la fin du premier manuscrit, dans « Le travail aliéné » ; le « sens de l'avoir » et l'émancipation des sens sont au troisième. ⚠️ La traduction que ce site sert est protégée : le texte est PARAPHRASÉ et situé, jamais cité entre guillemets.",
+  "outils": [
+    {
+      "label": "La carte des concepts — l'atelier des Manuscrits",
+      "url": "/oeuvres/manuscrits-1844#labo=carte"
+    }
+  ],
+  "voisins": [
+    "Travail aliéné",
+    "Argent",
+    "Besoins",
+    "Communisme",
+    "Objectivation",
+    "Accumulation primitive"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : UN SEUL OBJET, VU DEUX FOIS. Marx donne la figure au troisième manuscrit — le marchand de minéraux ne voit pas la beauté ni la nature propre du minéral, il en voit la valeur marchande. Un cristal facetté tourne sous une lampe et ses facettes accrochent la lumière ; on approche la balance, on lui noue une étiquette, un nombre paraît — et il S'ÉTEINT : le matériau devient mat, les éclats meurent, il ne reste lisible que le chiffre. Au dernier temps l'étiquette tombe et il reprend la lumière en jetant des couleurs sur le bois. Rien n'a changé dans la pierre : c'est le regard qui a changé, et c'est exactement ce que dit le concept.",
+    "layout": "plein",
+    "alt": "Un cristal facetté sur une étoffe, sous une lampe, avec une balance de laiton à côté et une étiquette portant un prix nouée à un fil.",
+    "etapes": {
+      "fait": "Un minéral tourne sous la lampe, et ses facettes accrochent la lumière. C'est ce qu'il est : une forme, une matière, une manière de renvoyer le jour.",
+      "renversement": "La balance approche. L'économie politique mesure la propriété privée sans jamais l'expliquer — elle la pose comme un fait, comme on pose une donnée de la nature.",
+      "avoir": "L'étiquette se noue, le nombre paraît. Un objet ne nous semble plus nôtre que lorsque nous l'avons : tous les sens ont été remplacés par un seul, le sens de l'avoir.",
+      "sens": "La pierre s'éteint. Rien n'a changé en elle — c'est l'œil qui n'a plus qu'une grandeur à percevoir. Un sens qui ne s'exerce pas s'atrophie, parce qu'un sens est un produit de l'histoire.",
+      "ouvre": "L'étiquette tombe, et la pierre reprend la lumière en jetant des couleurs sur le bois. La suppression positive de la propriété privée est l'émancipation de tous les sens humains.",
+      "lectures": "Elle tourne, la balance vide derrière elle. Ce n'est pas une utopie esthétique : c'est un critère, et il ne juge pas en faveur d'une société qui produit beaucoup et ne forme rien."
+    },
+    "fixe": {
+      "g": 4.0,
+      "legende": "L'étiquette est nouée, le prix est lisible, et la pierre s'est éteinte. Rien n'a changé en elle : c'est le regard qui n'a plus qu'une grandeur à percevoir."
+    }
+  }
+}

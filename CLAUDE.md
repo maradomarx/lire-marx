@@ -6383,6 +6383,37 @@ transcrivent pas une ligne.
 antérieure à cette règle. Si la question devait être tranchée dans le sens
 de la prudence, c'est elle qu'il faudrait reprendre.
 
+### La propriété privée : un seul objet, vu deux fois (mission `glossaire-mondes-11`, sept. 2026)
+
+Neuvième page-monde. La thèse pivot des *Manuscrits* — la propriété privée
+n'est pas la cause du travail aliéné mais son produit, quoiqu'elle agisse
+ensuite sur lui en retour — et sa conséquence sur les hommes&nbsp;: elle réduit
+tous les rapports au monde à un seul, le sens de l'avoir, et les autres
+s'atrophient faute d'être exercés.
+
+**Marx donne lui-même la figure**, et c'est elle qu'on montre&nbsp;: le marchand
+de minéraux ne voit pas la beauté ni la nature propre du minéral, il en voit
+la valeur marchande. La scène est donc UN SEUL OBJET VU DEUX FOIS — un
+cristal tourne sous une lampe, ses facettes accrochent le jour&nbsp;; on approche
+la balance, on lui noue une étiquette, un nombre paraît, et **il s'éteint**&nbsp;;
+au dernier temps l'étiquette tombe et il reprend la lumière en jetant des
+couleurs sur le bois. Rien n'a changé dans la pierre.
+
+Trois corrections à retenir, toutes vues à la première image&nbsp;:
+
+1. **Un icosaèdre régulier se reconnaît pour ce qu'il est** — un dé à vingt
+   faces. On tire ses sommets au hasard (en les appariant par position, pour
+   que les faces restent jointives) et on l'étire&nbsp;: il redevient une pierre
+   clivée.
+2. **Sous une lampe chaude et le tone mapping ACES, un rouge sombre vire au
+   SAUMON.** L'étoffe sous la pierre, en `0x2a120f`, rendait rose vif et
+   tirait tout l'œil. Passée au gris (`0x231d19`), elle se tient. Se méfier
+   des bruns-rouges très sombres dans les scènes à lampe.
+3. **L'extinction doit être franche pour se lire** : de `0.78` à `0.27` en
+   clair et de `0.10` à `0.97` en rugosité. À mi-course elle ne se voyait
+   pas, et l'image fixe a été déplacée de 3,6 à 4,0 pour tomber sur le temps
+   que sa légende décrit.
+
 ### Ce qui reste
 
 - Le pilote a été validé et fusionné ; les trois suivantes vivent sur
