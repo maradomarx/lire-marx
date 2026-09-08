@@ -135,21 +135,7 @@
       "de": "Gesetz des tendenziellen Falls der Profitrate",
       "def": "La hausse de la composition organique fait baisser le taux de profit à taux d'exploitation constant. Une tendance, contrariée par des forces inverses — pas un destin.",
       "page": {
-        "chapo": "Le taux de profit baisse à mesure que la part des machines grandit dans le capital — non parce que l'exploitation faiblirait, mais parce que la plus-value ne sort que du travail vivant, dont la part relative diminue.",
-        "ou": "Livre III, troisième section — établie par Engels d'après les manuscrits de Marx. Le Livre I en pose les éléments au chapitre XV, sur le machinisme.",
-        "corps": [
-          "Le mécanisme tient dans une fraction. Le taux de profit rapporte la plus-value au capital <b>total</b> avancé&nbsp;: p′ = pl / (c + v). Or la plus-value ne naît que de v, la part dépensée en salaires. Quand la productivité monte, il faut plus de machines et de matières par ouvrier&nbsp;: c grossit plus vite que v, la <b>composition organique</b> s'élève. À taux d'exploitation inchangé, le numérateur suit v pendant que le dénominateur suit c — et la fraction baisse.",
-          "Le paradoxe est que rien n'y est irrationnel. Chaque capitaliste mécanise parce que cela lui donne, à lui, une avance sur ses concurrents&nbsp;: il produit moins cher que la moyenne et empoche la différence. Mais quand tous ont suivi, l'avance a disparu et la composition organique est montée pour toute la branche. <b>La somme de décisions individuellement justes érode le taux général</b>&nbsp;: c'est le fonctionnement du système, non son dérèglement.",
-          "Marx consacre ensuite un chapitre entier aux <b>contre-tendances</b>, et c'est ce qui fait de sa loi une tendance et non un destin&nbsp;: élever le taux d'exploitation, faire baisser le prix des éléments du capital constant, le commerce extérieur, la surpopulation relative qui maintient des branches à faible composition. La loi ne dit pas que le taux baisse&nbsp;; elle dit qu'il tend à baisser, et que ce qui l'en empêche a un coût.",
-          "L'instrument du dossier permet d'en faire l'expérience&nbsp;: on fixe un taux d'exploitation, on fait monter la composition organique, et l'on voit p′ décrocher. On voit surtout autre chose — qu'une hausse suffisante du taux d'exploitation masque la baisse un long moment. C'est exactement ce que dit Marx, et c'est ce qui rend la loi si difficile à lire dans les chiffres d'une seule année."
-        ],
-        "voisins": [
-          "Taux de profit",
-          "Composition organique",
-          "Contre-tendances",
-          "Plus-value",
-          "Accumulation"
-        ]
+        "dossier": "loi-tendancielle"
       }
     },
     "M — A — M": {
