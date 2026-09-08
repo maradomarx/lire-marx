@@ -293,7 +293,10 @@
     },
     "Armée de réserve": {
       "de": "industrielle Reservearmee",
-      "def": "La population ouvrière rendue superflue par l'accumulation elle-même. Elle n'est pas un accident du marché : le capital la produit, et s'en sert pour peser sur les salaires."
+      "def": "La population ouvrière rendue superflue par l'accumulation elle-même. Elle n'est pas un accident du marché : le capital la produit, et s'en sert pour peser sur les salaires.",
+      "page": {
+        "dossier": "armee-de-reserve"
+      }
     },
     "Travail aliéné": {
       "page": {

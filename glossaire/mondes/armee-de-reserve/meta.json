@@ -1,0 +1,48 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/armee-de-reserve.",
+  "titre": "Armée de réserve",
+  "de": "industrielle Reservearmee",
+  "chapo": "La population ouvrière disponible n'est pas une donnée que l'accumulation rencontre : c'est un produit qu'elle fabrique. Rendue superflue par la hausse de la composition du capital, cette surpopulation relative devient à son tour le levier de l'accumulation — un réservoir de bras que le capital n'a pas payé pour l'entretenir, et dont la seule présence pèse sur ceux qui travaillent.",
+  "description": "L'armée industrielle de réserve chez Marx : pourquoi l'accumulation produit elle-même la population qu'elle déclare en trop, comment cette réserve règle les salaires, et ce que dit exactement la « loi générale, absolue » du chapitre XXV.",
+  "source": {
+    "work": "capital-1",
+    "s": 7,
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XXV — traduction Joseph Roy (1872)"
+  },
+  "ou": "Livre&nbsp;I, septième section, chapitre XXV, « La loi générale de l'accumulation capitaliste », troisième partie — après l'accumulation à composition constante et le changement de composition, dont elle est la conséquence.",
+  "outils": [
+    {
+      "label": "Accumulation et armée de réserve — le laboratoire",
+      "url": "/oeuvres/capital-1#labo=s-accum"
+    }
+  ],
+  "voisins": [
+    "Accumulation",
+    "Composition organique",
+    "Demande de travail",
+    "Régulation des salaires",
+    "Loi générale",
+    "Force de travail"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : L'APPAREIL — LA COLONNE, LE BASSIN ET L'AIGUILLE. Le vocabulaire hydraulique est celui de Marx lui-même : réservoir, canaux de décharge, forme flottante, attirer et repousser, engagée et dégagée, tendre et détendre. La figure le prend au mot. Une colonne de verre (l'armée active) et une cuve large (la réserve) tiennent le même liquide ; une pompe (l'accumulation) prend dans la cuve et verse dans la colonne. Quand la composition change, un trop-plein s'ouvre au haut de la colonne : la pompe a beau battre plus vite, tout le surplus repart à la cuve. Un flotteur suit le niveau de la réserve, un fléau renverse son mouvement, et l'aiguille du PRIX DU TRAVAIL descend d'autant que la réserve monte. Au dernier temps, un filet d'eau arrive du dehors — l'accroissement naturel de la population — et sa minceur, comparée à ce que déverse le trop-plein, est la réponse à Malthus.",
+    "layout": "plein",
+    "alt": "Un appareil de verre et de laiton : une colonne étroite et une cuve large tenant le même liquide, une pompe entre elles, et un fléau reliant un flotteur à l'aiguille d'un cadran gradué.",
+    "source": {
+      "texte": "D'après le texte — Livre I, chapitre XXV",
+      "q": "un réservoir inépuisable de forces disponibles"
+    },
+    "etapes": {
+      "fait": "L'appareil au repos. La colonne est à moitié pleine, la cuve presque vide : on croit voir un manque de bras, ou un excédent selon l'humeur du jour.",
+      "ou": "La pompe se met à battre. La colonne monte, la cuve baisse, l'aiguille remonte : à composition constante, l'accumulation appelle des bras et le salaire suit.",
+      "distinction": "Le trop-plein s'ouvre. La colonne cesse de monter quoi que fasse la pompe, et tout le surplus repart à la cuve : la demande de travail croît en masse et décroît en proportion.",
+      "mecanisme": "La cuve monte, le flotteur avec elle, le fléau bascule — et l'aiguille du prix du travail descend. La réserve ne fait rien : elle pèse.",
+      "formes": "La pompe accélère et ralentit, la colonne monte et redescend deux fois. Le partage change à chaque phase du cycle ; le niveau moyen de la cuve, lui, ne redescend plus.",
+      "lectures": "Un filet arrive du dehors — l'accroissement naturel de la population. Comparez-le à ce que déverse le trop-plein : ce n'est pas lui qui remplit la cuve."
+    },
+    "fixe": {
+      "g": 3.6,
+      "legende": "La cuve monte, le fléau bascule, et l'aiguille du prix du travail descend d'autant. Ce que le capital dégage d'un côté, il le fait peser de l'autre."
+    }
+  }
+}
