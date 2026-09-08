@@ -6444,6 +6444,45 @@ Deux points de fabrication&nbsp;:
   4,1 à 3,4 pour tomber sur le moment où les deux mouvements se voient
   ensemble, plutôt que sur le plus sombre.
 
+### Les trois dernières des Manuscrits (mission `glossaire-mondes-13`, sept. 2026)
+
+**Toutes les notions du glossaire qui méritaient une page en ont une.**
+Objectivation, être générique, communisme — écrites d'un trait, chacune avec
+sa figure, et toutes **sans citation liée** (règle Bottigelli, voir la mission
+`glossaire-mondes-10`).
+
+- **Objectivation — le cachet et la cire.** Le concept est le fait NEUTRE
+  dont l'aliénation n'est qu'une modalité&nbsp;: il fallait donc une figure qui
+  montre un passage de forme, et rien de plus — la dépossession, la page du
+  travail aliéné la porte déjà. Un cachet presse, se relève&nbsp;; la forme est
+  passée dans la cire, et **le cachet est intact**. La scène devait être belle
+  plutôt que sombre&nbsp;: objectiver n'est pas perdre.
+- **Être générique — une mesure, ou toutes.** Le concept se démontre par une
+  comparaison, la figure en est donc une&nbsp;: à gauche des cellules hexagonales
+  identiques qui se répètent, à droite cinq formes dont aucune ne ressemble à
+  la précédente, la dernière ne répondant à aucun besoin — et c'est elle que
+  la lumière prend. Au dernier temps tout retombe à la mesure unique.
+- **Communisme — le retour qui n'est pas un cercle.** Ni scène ni objet,
+  parce que le concept n'est ni l'un ni l'autre&nbsp;: c'est la **forme d'un
+  mouvement**. Deux tracés partis du même point — un cercle en pointillé qui
+  se referme (le communisme grossier revient exactement d'où il est parti),
+  une spirale pleine qui revient au-dessus (la suppression positive, accomplie
+  en conservant toute la richesse acquise) — et l'écart mesuré entre les deux
+  arrivées.
+
+#### Deux pièges revus, et une règle de cadrage confirmée
+
+1. **Un rouge sombre vire au saumon sous une lampe chaude** — déjà noté pour
+   la propriété privée, repayé sur la cire du cachet. Descendre franchement
+   le rouge (`0.56, 0.09, 0.06`) et couper l'émissif.
+2. **Un objet qui monte sort du cadre par le haut** : le cachet relevé à 0,62
+   avait la tête coupée. Vérifier la course VERTICALE comme on vérifie la
+   largeur.
+3. **La règle de cadrage vaut aussi pour une RANGÉE** : l'ensemble de l'être
+   générique faisait 2,3 unités, la moitié droite n'en offrait que 1,95, et la
+   cinquième forme — celle qui porte l'argument — sortait. Resserrée à 2,0 et
+   la caméra portée à 3,4, elle tient.
+
 ### Ce qui reste
 
 - Le pilote a été validé et fusionné ; les trois suivantes vivent sur

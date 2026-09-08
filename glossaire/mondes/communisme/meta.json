@@ -1,0 +1,45 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/communisme.",
+  "titre": "Communisme",
+  "de": "Kommunismus",
+  "chapo": "Dans le troisième manuscrit de 1844, Marx ne défend pas le mot : il le divise. Il écarte le communisme grossier, qui abolit la propriété privée en la généralisant, et la forme encore politique, qui pense le dépassement dans les catégories du droit ; il ne retient que la suppression positive — un retour de l'homme à lui-même accompli en conservant toute la richesse du développement antérieur.",
+  "description": "Le communisme dans les Manuscrits de 1844 : les trois formes que Marx distingue, sa critique du communisme grossier, et pourquoi la suppression positive n'est pas un retour en arrière.",
+  "source": {
+    "work": "manuscrits-1844",
+    "s": 4,
+    "cite": "Karl Marx, <i>Manuscrits de 1844</i>, troisième manuscrit — traduction Émile Bottigelli, Éditions sociales (1962)"
+  },
+  "ou": "<i>Manuscrits de 1844</i>, troisième manuscrit, « Propriété privée et communisme ». ⚠️ La traduction que ce site sert est protégée : le texte est PARAPHRASÉ et situé, jamais cité entre guillemets.",
+  "outils": [
+    {
+      "label": "La carte des concepts — l'atelier des Manuscrits",
+      "url": "/oeuvres/manuscrits-1844#labo=carte"
+    }
+  ],
+  "voisins": [
+    "Propriété privée",
+    "Travail aliéné",
+    "Être générique",
+    "Besoins",
+    "Argent",
+    "Accumulation primitive"
+  ],
+  "monde": {
+    "_": "LA FIGURE EST LA FORME D'UN MOUVEMENT — ni scène ni objet, parce que le concept n'est ni l'un ni l'autre. Tout le fragment tient dans une distinction entre DEUX RETOURS, partant du même point : le communisme grossier revient exactement d'où il est parti (un cercle qui se referme, en pointillé) ; la suppression positive revient AU-DESSUS (une spirale pleine qui passe outre et continue), parce qu'elle s'accomplit en conservant toute la richesse du développement antérieur. Le dernier temps mesure l'écart entre les deux points d'arrivée : ce n'est pas un retour en arrière. Moteur 2d.",
+    "moteur": "2d",
+    "layout": "plein",
+    "alt": "Une planche dessinée : un cercle en pointillé qui se referme sur son point de départ, et une spirale pleine partie du même point qui revient au-dessus de lui.",
+    "etapes": {
+      "mot": "Un point, marqué. Le mot ne désigne encore rien de précis : la première chose que Marx en fait n'est pas de le défendre, c'est de le diviser.",
+      "grossier": "Le cercle se trace, et il se referme exactement où il a commencé. Le communisme grossier abolit la propriété privée en la généralisant : la communauté devient le propriétaire universel, et le rapport d'avoir demeure.",
+      "politique": "Le cercle est bouclé. Une forme plus avancée reste prisonnière des catégories du droit et de la répartition — elle change l'attribution des choses et laisse le rapport de production intact.",
+      "positif": "Un second tracé part du même point, et il ne se referme pas : il s'écarte à mesure qu'il tourne. La suppression est positive parce qu'elle ne se contente pas de nier.",
+      "enigme": "La spirale revient au-dessus du départ. Le retour de l'homme à lui-même s'accomplit en conservant toute la richesse du développement antérieur — les forces, les sciences, les besoins nouveaux.",
+      "lectures": "L'écart entre les deux arrivées est mesuré. Ce n'est pas un retour en arrière : c'est ce qui sépare absolument la position de Marx d'une nostalgie."
+    },
+    "fixe": {
+      "g": 5.5,
+      "legende": "Deux retours partis du même point : le cercle en pointillé se referme sur lui, la spirale revient au-dessus. Tout le fragment tient dans cet écart."
+    }
+  }
+}
