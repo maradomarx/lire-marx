@@ -6483,6 +6483,44 @@ sa figure, et toutes **sans citation liée** (règle Bottigelli, voir la mission
    cinquième forme — celle qui porte l'argument — sortait. Resserrée à 2,0 et
    la caméra portée à 3,4, elle tient.
 
+### La journée de travail, et l'ouverture du seuil (mission `glossaire-mondes-14`, sept. 2026)
+
+Le propriétaire a demandé de passer **aux autres notions du glossaire**. Il
+faut le noter, parce que cela desserre une règle écrite ici même&nbsp;: « on
+n'écrit une page que lorsqu'on a quatre cents mots à dire », qui avait
+justifié de laisser soixante-deux notions dans l'abécédaire.
+
+**La règle n'est pas abolie, elle est appliquée avec un seuil plus bas.** Sur
+les soixante-deux, la plupart restent des moments d'un même argument —
+« Forme simple », « Département I », « Moyen de paiement », « Valeur
+transférée » — qui se lisent mieux dans l'abécédaire et dans le laboratoire
+qu'étirés sur mille cinq cents mots. **Une douzaine portent un chapitre
+entier**, et c'est celles-là qui prennent une page&nbsp;: journée de travail,
+coopération, division du travail et manufacture, machinisme, armée de
+réserve, capital constant et variable, travail mort et vivant, la valeur qui
+se valorise, valeur d'usage et valeur, la forme-valeur (une page pour la
+séquence entière, pas cinq), subsomption réelle, accumulation.
+
+**La journée de travail — la toise, et la barre.** Une toise verticale
+graduée en heures&nbsp;; deux traits gravés, la limite morale et la limite
+physiologique&nbsp;; un index de laiton qui monte de dix à dix-huit, passe la
+première sans rien rencontrer, approche la seconde&nbsp;; puis une barre de fer
+se fixe en travers et l'index redescend contre elle. **Elle est VERTICALE, et
+c'est délibéré**&nbsp;: la ligne a—b—c de la plus-value est horizontale, et deux
+pages voisines ne doivent pas se ressembler.
+
+Deux pièges, dont un pour la troisième fois&nbsp;:
+
+- **Une figure HAUTE ne tient pas dans un cadre en paysage.** À 3,7 unités la
+  toise sortait par les deux bouts, et il aurait fallu reculer de six pour la
+  voir entière — la graduation devenait alors illisible. La règle de cadrage
+  déjà écrite pour la largeur vaut pour la HAUTEUR&nbsp;: la hauteur vue vaut
+  0,69 fois la distance à 38°.
+- **Un rouge clair vire au saumon sous une lampe chaude** — troisième fois
+  (l'étoffe de la propriété privée, la cire du cachet, la colonne d'heures).
+  Descendre franchement le rouge, et se méfier de tout rouge vif dans une
+  scène à lampe.
+
 ### Ce qui reste
 
 - Le pilote a été validé et fusionné ; les trois suivantes vivent sur

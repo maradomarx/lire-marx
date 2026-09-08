@@ -114,7 +114,10 @@
     },
     "Journée de travail": {
       "de": "Arbeitstag",
-      "def": "Sa longueur n'est pas fixée par la nature : entre une limite physique et une limite morale, capital et ouvriers se disputent chaque heure. Entre deux droits égaux, c'est la force qui tranche."
+      "def": "Sa longueur n'est pas fixée par la nature : entre une limite physique et une limite morale, capital et ouvriers se disputent chaque heure. Entre deux droits égaux, c'est la force qui tranche.",
+      "page": {
+        "dossier": "journee-de-travail"
+      }
     },
     "Législation sanglante": {
       "de": "Blutgesetzgebung",

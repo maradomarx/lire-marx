@@ -1,0 +1,48 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/journee-de-travail.",
+  "titre": "Journée de travail",
+  "de": "Arbeitstag",
+  "chapo": "La longueur de la journée de travail n'est fixée par aucune loi économique : le contrat vend la force de travail pour un jour sans dire ce qu'est un jour. Entre le droit de l'acheteur d'en tirer le plus grand usage et celui du vendeur d'en préserver la source, deux droits également fondés s'opposent — et c'est la force qui décide.",
+  "description": "La journée de travail chez Marx : pourquoi sa longueur est indéterminée par l'échange, ce qu'est l'antinomie du droit contre droit, et pourquoi sa limitation légale enregistre un rapport de forces au lieu de le précéder.",
+  "source": {
+    "work": "capital-1",
+    "s": 3,
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre X — traduction Joseph Roy (1872)"
+  },
+  "ou": "Livre&nbsp;I, troisième section, chapitre X, « La journée de travail » — le plus long du livre, et le seul dont la preuve soit d'espèce historique. Le chapitre XII enchaîne sur la plus-value relative, c'est-à-dire sur ce qui reste au capital quand la journée est bornée.",
+  "outils": [
+    {
+      "label": "La journée de travail — le laboratoire",
+      "url": "/oeuvres/capital-1#labo=s-jour"
+    }
+  ],
+  "voisins": [
+    "Plus-value",
+    "Surtravail",
+    "Travail nécessaire",
+    "Force de travail",
+    "La forme-salaire",
+    "Plus-value absolue"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : LA TOISE, ET LA BARRE. Le chapitre démontre qu'une grandeur décisive n'est réglée par aucune loi économique — il fallait donc montrer une LONGUEUR QUI MONTE et que rien n'arrête, jusqu'à ce que quelque chose l'arrête. Une toise verticale graduée en heures contre le mur de l'atelier ; deux traits gravés, la limite morale plus bas, la limite physiologique tout en haut ; un index de laiton qui monte de dix à dix-huit heures, passe la première sans rien rencontrer, approche la seconde. Puis une barre de fer se fixe en travers, et l'index redescend contre elle : la loi n'a pas précédé le mouvement, elle l'a enregistré. ELLE EST VERTICALE, et c'est délibéré : la ligne a—b—c de la plus-value est horizontale, et deux pages voisines ne doivent pas se ressembler.",
+    "layout": "plein",
+    "alt": "Une toise de bois graduée de zéro à vingt-quatre heures contre un mur d'atelier, avec un index de laiton, deux traits gravés et une barre de fer fixée en travers.",
+    "source": {
+      "texte": "D'après le texte — Livre I, chapitre X",
+      "q": "Il y a donc ici une antinomie, droit contre droit"
+    },
+    "etapes": {
+      "grandeur": "Une toise graduée de zéro à vingt-quatre. L'index est à dix heures — mais rien, dans le contrat, ne dit pourquoi dix plutôt que douze ou dix-huit.",
+      "antinomie": "Deux traits se gravent : la limite morale, plus bas ; la limite physiologique, tout en haut. Elles existent, et elles ne fixent rien — elles sont très élastiques et laissent la plus grande latitude.",
+      "soif": "L'index monte : douze, quatorze, seize. Il passe la limite morale sans rien rencontrer. Ce n'est pas la cupidité d'un homme : le capital est de la valeur qui ne se conserve qu'en s'accroissant.",
+      "loi": "Il approche la limite physiologique. Le capital vole jusqu'au temps qui devrait être employé à respirer l'air libre — et rien dans le rapport ne l'en empêche.",
+      "apres": "Une barre de fer se pose en travers, à dix heures, et l'index redescend contre elle. La loi n'a pas précédé le mouvement : elle l'a enregistré.",
+      "lectures": "La barre tient, et la toise reste. Ce qui est daté, ce sont les chiffres ; ce qui ne l'est pas, c'est la structure — une grandeur que le contrat laisse indéterminée, et une issue qui dépend d'un rapport de forces."
+    },
+    "fixe": {
+      "g": 4.2,
+      "legende": "L'index a passé la limite morale sans rien rencontrer et approche la limite physiologique. Entre deux droits également fondés, rien dans l'échange ne tranche."
+    }
+  }
+}
