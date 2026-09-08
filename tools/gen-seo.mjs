@@ -877,7 +877,7 @@ function identite(nom) {
     const plein = meta.monde && meta.monde.layout === 'plein';
     const credit = meta.monde && meta.monde.credit ? `    <p class="nt-monde-credit">${meta.monde.credit}</p>\n` : '';
     const monde = `  <aside class="nt-monde${plein ? ' nt-monde--plein' : ''}" aria-label="Le monde de la notion"${aScene
-      ? ` data-three="/vendor/three.min.js?v=${hashV('vendor/three.min.js')}" data-scene="/${dossier}/monde.js?v=${hashV(`${dossier}/monde.js`)}"` : ''}>
+      ? `${meta.monde && meta.monde.moteur === '2d' ? '' : ` data-three="/vendor/three.min.js?v=${hashV('vendor/three.min.js')}"`} data-scene="/${dossier}/monde.js?v=${hashV(`${dossier}/monde.js`)}"` : ''}>
     <canvas hidden role="img" aria-label="${alt}"></canvas>
 ${still ? `    <img class="nt-monde-still" src="/${still}" alt="${alt}" width="1200" height="750" decoding="async">` : `    <div class="nt-monde-still" role="img" aria-label="${alt}"></div>`}
 ${meta.monde && meta.monde.source ? `    <p class="nt-monde-src"><a href="${lien(src.s, meta.monde.source.q)}" title="Lire ce passage dans le texte">${meta.monde.source.texte} →</a></p>\n` : ''}    <p class="nt-monde-cap">${legende0}</p>

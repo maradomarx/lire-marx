@@ -6100,6 +6100,40 @@ c'est le piège Palmier.**
 `sortie-usine`, `halles-paris`) restent marquées « licence à confirmer » : ne
 pas bâtir une pièce maîtresse dessus.
 
+#### Puis la photographie EST devenue le monde (2e passe, arbitrage du propriétaire)
+
+« Contente-toi de faire une animation au scroll avec la photo, elle est déjà
+très bien, et très expressive. » Le travelling 3D qui menait à elle a donc
+été **entièrement supprimé** — la rue, la place, l'arche, l'étal, le sablier,
+l'atelier : tout. Il ne reste que le tirage, et **ce que le défilement y fait
+regarder** : de la salle et de ses machines aux quatre hommes qui s'y
+tiennent, puis retour, la salle n'étant plus la même une fois qu'on sait ce
+qu'on y voit.
+
+**Le troisième temps est un cadeau du tirage** : les quatre hommes sont
+DEBOUT, bras croisés — ils ne travaillent pas. La distinction qui fait le
+concept (ce qui s'achète est une puissance ; le travail n'existe pas encore)
+est là, littéralement, dans l'image.
+
+**`"moteur": "2d"` dans `meta.json`** : un contexte 2D recadre une image
+mieux qu'un plan texturé, et sans WebGL. Le gabarit n'émet alors pas
+`data-three`, et `monde-driver.js` (`NEED3D = !!aside.dataset.three`) ne
+charge ni la bibliothèque ni ne teste WebGL — **148 Ko de moins sur la
+page**. Les scènes 3D sont inchangées : elles déclarent toujours l'attribut.
+
+Deux points de fabrication :
+
+- **Le sujet n'est pas centré** : la colonne de texte occupe la gauche, le
+  cadre se décale donc de `0,20 × largeur de cadre` pour que le sujet vive
+  dans la moitié droite — le même parti que la visée décalée des scènes en
+  trois dimensions, et il s'annule de lui-même à pleine largeur, où il n'y a
+  plus de place.
+- **`?width=` est une DEMANDE, pas une garantie.** Commons a servi 3840 px
+  pour une demande de 2600 : le recadrage de la bordure du tirage, calculé en
+  pixels pour 2600, a taillé un coin de l'image, et les hommes se sont
+  retrouvés coupés aux genoux. Relire les dimensions réelles (`sips -g`)
+  après tout téléchargement, et calculer les recadrages en FRACTIONS.
+
 #### Travail aliéné — l'ombre portée
 
 Ici la photographie n'avait **pas de place honnête** : pas de seuil à
