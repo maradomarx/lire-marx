@@ -1,0 +1,49 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/loi-tendancielle.",
+  "titre": "Loi tendancielle",
+  "de": "Gesetz des tendenziellen Falls der Profitrate",
+  "chapo": "La loi tendancielle énonce que la hausse de la composition organique du capital fait baisser le taux de profit à taux d'exploitation constant : seul le travail vivant produit de la plus-value, et sa part dans le capital avancé décroît à mesure que la productivité s'élève. C'est une tendance, contrariée par des forces inverses — non un destin.",
+  "description": "La loi tendancielle de la baisse du taux de profit : ce qu'elle énonce, la distinction du taux de plus-value et du taux de profit, les forces qui la contrarient, et l'état de la discussion.",
+  "source": {
+    "work": "capital-1",
+    "s": 7,
+    "cite": "Prémisse : Karl Marx, <i>Le Capital</i>, Livre I, chapitre XXV — traduction Joseph Roy (1872). La loi elle-même est exposée au Livre III, section III, que ce site ne sert pas."
+  },
+  "ou": "Livre&nbsp;III, section&nbsp;III, chapitres XIII à XV — manuscrits laissés inachevés, publiés par Engels en 1894. ⚠️ Ce site ne sert que le Livre&nbsp;I : le Livre&nbsp;III est donc paraphrasé et situé, jamais cité entre guillemets. La PRÉMISSE — la composition du capital et son mouvement dans l'accumulation — est au Livre&nbsp;I, chapitre XXV, et c'est d'elle que viennent les citations liées.",
+  "outils": [
+    {
+      "label": "Le taux de profit — le laboratoire",
+      "url": "/oeuvres/capital-1#labo"
+    }
+  ],
+  "voisins": [
+    "Composition organique",
+    "Taux de profit",
+    "Plus-value",
+    "Accumulation",
+    "Force de travail",
+    "La forme-salaire"
+  ],
+  "monde": {
+    "_": "LA SCÈNE EST UNE PLANCHE, ET NON UN OBJET — pas de 3D, et c'est le concept qui le commande : la loi ne porte sur aucune chose, elle énonce le comportement d'un RAPPORT DE GRANDEURS. Sa figure propre est donc un dessin : des axes, la composition du capital en barres sous l'abscisse, les deux formules dont le dénominateur du taux de profit ENFLE, puis deux courbes. Celle de la TENDANCE tombe de moitié à un septième ; les forces contraires la poussent par en dessous ; celle qu'on OBSERVE reste presque plate. C'est le cœur de la notion : une série statistique qui ne montre rien ne réfute pas la loi, et le chapitre des forces contraires l'annonce. Moteur 2d — ni WebGL ni Three.js.",
+    "moteur": "2d",
+    "layout": "plein",
+    "alt": "Une planche dessinée : deux courbes du taux de profit sur des axes, l'une qui tombe de moitié à un septième, l'autre presque plate, et sous l'abscisse des barres où la part du capital variable diminue.",
+    "source": {
+      "texte": "La prémisse — Livre I, chapitre XXV",
+      "q": "le décroissement de la partie variable du capital par rapport à sa partie constante"
+    },
+    "etapes": {
+      "enonce": "Une planche vide, et deux axes. Ce qu'on va suivre n'est pas une chose mais un rapport : de la plus-value au capital avancé tout entier.",
+      "premisse": "Sous l'abscisse, la composition du capital : la part qui paie le travail — v, en or — décroît à mesure que l'accumulation avance. Elle décroît relativement, non absolument.",
+      "distinction": "Deux formules, même numérateur. À gauche pl/v, l'exploitation. À droite pl/(c+v), le rendement — et son dénominateur enfle. Les deux taux peuvent varier en sens contraire.",
+      "mecanisme": "La courbe tombe : de moitié à un septième, sans que rien ait changé dans le partage de la journée. Un rapport dont le haut est borné et le bas ne l'est pas tend vers le bas.",
+      "contrariee": "Les forces contraires poussent la courbe par en dessous — le taux d'exploitation relevé, le capital constant qui se déprécie, le commerce extérieur. C'est pourquoi la loi est dite tendancielle.",
+      "lectures": "Ce qu'on observe reste presque plat, alors que la tendance, en pointillé, est tombée. Une série qui ne montre rien ne réfute donc rien — et c'est exactement ce que le chapitre des forces contraires annonce."
+    },
+    "fixe": {
+      "g": 5.6,
+      "legende": "La tendance, en pointillé, est tombée de moitié à un septième ; ce qu'on observe, une fois le taux d'exploitation relevé, reste presque plat. La loi n'est pas démentie par une série qui ne montre rien."
+    }
+  }
+}

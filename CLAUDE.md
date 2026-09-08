@@ -6308,6 +6308,43 @@ Le cadrage a été posé du premier coup en appliquant la règle écrite pour la
 plus-value&nbsp;: ensemble d'une unité et demie, distance calculée pour que la
 largeur vue laisse 57&nbsp;% à droite, décalage de visée 0,55.
 
+### La loi tendancielle : une PLANCHE, et non une scène (mission `glossaire-mondes-9`, sept. 2026)
+
+Septième page-monde, la dernière du *Capital*, et la première qui **ne soit
+pas une scène** — sur remarque du propriétaire (« n'oublie pas que tu peux
+faire autre chose que la 3D si besoin »), mais c'est surtout le concept qui
+le commande&nbsp;: **la loi ne porte sur aucun objet**. Elle énonce le comportement
+d'un rapport de grandeurs, `pl/(c+v)`, quand `c/v` s'élève. Sa figure propre
+est donc un dessin — des axes, la composition du capital en barres sous
+l'abscisse, les deux formules dont le dénominateur du taux de profit ENFLE,
+et deux courbes. Une nature morte n'aurait ajouté qu'un décor.
+
+Ce que la planche fait voir est le cœur de la notion&nbsp;: la courbe de la
+**tendance** tombe de moitié à un septième&nbsp;; les forces contraires la
+poussent par en dessous&nbsp;; celle qu'on **observe** reste presque plate. Une
+série statistique qui ne montre rien ne réfute donc pas la loi — et c'est
+exactement ce que le chapitre des forces contraires annonce.
+
+⚠️ **LA LOI EST AU LIVRE III, QUE LE SITE NE SERT PAS.** Ses citations ne
+seraient vérifiables nulle part, et la règle du dossier est que toute
+citation mène au passage. Le Livre&nbsp;III est donc **paraphrasé et situé,
+jamais cité entre guillemets**&nbsp;; les cinq citations liées portent sur la
+PRÉMISSE — la composition du capital et son mouvement —, qui est bien au
+Livre&nbsp;I, chapitre XXV. La page le dit au lecteur dans son premier temps,
+plutôt que de laisser croire à un oubli. **Tout dossier portant sur un livre
+non servi doit faire de même.**
+
+La page signale aussi le **théorème d'Okishio** (1961) et ne tranche pas la
+discussion&nbsp;: une page qui présenterait la loi comme acquise donnerait une
+idée fausse de l'état de la question.
+
+**Le moteur 2d sert ici sa vraie fonction** : un contexte 2D dessine un trait
+mieux qu'un plan texturé, et la page ne charge ni WebGL ni Three.js
+(vérifié&nbsp;: zéro `data-three`). Deux réglages de composition à garder — la
+planche vit dans la moitié droite (X de 0,475 à 0,905 de la largeur), et
+**les formules vivent AU-DESSUS des axes**&nbsp;: posées dedans, elles tombaient
+sur les courbes et sur les flèches.
+
 ### Ce qui reste
 
 - Le pilote a été validé et fusionné ; les trois suivantes vivent sur
