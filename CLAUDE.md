@@ -6345,6 +6345,44 @@ planche vit dans la moitié droite (X de 0,475 à 0,905 de la largeur), et
 **les formules vivent AU-DESSUS des axes**&nbsp;: posées dedans, elles tombaient
 sur les courbes et sur les flèches.
 
+### L'argent : une inversion typographique (mission `glossaire-mondes-10`, sept. 2026)
+
+Huitième page-monde, et la **première des Manuscrits** à passer en dossier
+après le travail aliéné. Le fragment de 1844 ne décrit pas un objet mais un
+**opérateur**&nbsp;: l'argent détache chaque qualité de celui qui la porte et
+permet de réaliser le contraire de ce qu'on est. Sa figure propre n'est donc
+ni une scène ni un graphique — c'est une **inversion**, et une inversion se
+montre par des mots qui changent de côté.
+
+Un filet vertical partage la page&nbsp;: à gauche ce que je suis, à droite ce que
+mon argent peut. Une pièce descend le filet, et chaque mot qu'elle dépasse
+traverse et devient son contraire — *laid/beau*, *boiteux/agile*, *sans
+esprit/spirituel*, *lâche/hardi*, *malhonnête/honoré*. Au dernier temps la
+pièce se retire, les contraires tombent, les mots reviennent, et paraît ce
+que le texte oppose à l'argent&nbsp;: aimer suppose de susciter l'amour.
+
+**C'est le quatrième registre du glossaire**, et il faut les tenir
+distincts&nbsp;: la SCÈNE (fétichisme, travail aliéné, plus-value, forme-salaire,
+accumulation primitive), la PHOTOGRAPHIE (force de travail), la PLANCHE (loi
+tendancielle), l'INVERSION TYPOGRAPHIQUE (argent). Le choix se fait sur ce
+que le concept est — un objet, un fait, un rapport de grandeurs, une
+opération — jamais sur ce qu'on sait faire.
+
+#### ⚠️ AUCUNE CITATION LIÉE, ET C'EST LA RÈGLE POUR LES MANUSCRITS
+
+Le texte des Manuscrits que le site sert est la traduction d'Émile
+Bottigelli, **protégée jusqu'en 2046**. En reproduire vingt passages sur une
+page publique et indexée n'est pas une décision technique&nbsp;: le troisième
+manuscrit est donc **paraphrasé et situé, jamais cité entre guillemets** —
+exactement comme le Livre&nbsp;III sur la page de la loi tendancielle, et comme
+le faisaient déjà les versions courtes des notions des Manuscrits. Les cinq
+couples de mots de la figure donnent la teneur du passage&nbsp;; ils n'en
+transcrivent pas une ligne.
+
+**La page du travail aliéné, elle, cite vingt-quatre passages** — elle est
+antérieure à cette règle. Si la question devait être tranchée dans le sens
+de la prudence, c'est elle qu'il faudrait reprendre.
+
 ### Ce qui reste
 
 - Le pilote a été validé et fusionné ; les trois suivantes vivent sur

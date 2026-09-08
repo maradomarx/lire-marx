@@ -1,0 +1,45 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/argent.",
+  "titre": "Argent",
+  "de": "Geld",
+  "chapo": "Dans le troisième manuscrit de 1844, l'argent n'est pas analysé comme monnaie mais comme puissance : il donne à son possesseur les propriétés qu'il n'a pas, et détache ainsi chaque qualité de celui qui la porte. Marx y voit le pouvoir aliéné de l'humanité — l'inversion universelle de toutes les déterminations.",
+  "description": "L'argent dans les Manuscrits de 1844 : pourquoi Marx en fait le pouvoir aliéné de l'humanité, comment il sépare l'avoir de l'être, et ce qui distingue ce fragment de la théorie monétaire du Capital.",
+  "source": {
+    "work": "manuscrits-1844",
+    "s": 4,
+    "cite": "Karl Marx, <i>Manuscrits de 1844</i>, troisième manuscrit — traduction Émile Bottigelli, Éditions sociales (1962)"
+  },
+  "ou": "<i>Manuscrits de 1844</i>, troisième manuscrit, dernier fragment — après les pages sur la propriété privée et le communisme, et après celles sur les besoins. ⚠️ La traduction que ce site sert est protégée : le fragment est PARAPHRASÉ et situé, jamais cité entre guillemets, comme le Livre&nbsp;III l'est sur la page de la loi tendancielle.",
+  "outils": [
+    {
+      "label": "La carte des concepts — l'atelier des Manuscrits",
+      "url": "/oeuvres/manuscrits-1844#labo=carte"
+    }
+  ],
+  "voisins": [
+    "Propriété privée",
+    "Besoins",
+    "Travail aliéné",
+    "Objectivation",
+    "Communisme",
+    "Fétichisme"
+  ],
+  "monde": {
+    "_": "LA FIGURE EST UNE INVERSION TYPOGRAPHIQUE — ni scène ni graphique. Le fragment ne décrit pas un objet mais un OPÉRATEUR : l'argent détache chaque qualité de celui qui la porte et permet de réaliser le contraire de ce qu'on est. Un filet vertical partage la page ; à gauche ce que je suis, à droite ce que mon argent peut. Une pièce descend le filet, et chaque mot qu'elle dépasse traverse et devient son contraire — laid/beau, boiteux/agile, sans esprit/spirituel, lâche/hardi, malhonnête/honoré. Au dernier temps la pièce se retire, les contraires tombent, les mots reviennent, et paraît ce que le texte oppose à l'argent : aimer suppose de susciter l'amour. Les cinq couples donnent la teneur du passage, ils n'en transcrivent pas une ligne. Moteur 2d.",
+    "moteur": "2d",
+    "layout": "plein",
+    "alt": "Un filet vertical partage la page : à gauche des mots — laid, boiteux, sans esprit, lâche, malhonnête — et à droite leurs contraires, tandis qu'une pièce d'or descend le filet.",
+    "etapes": {
+      "puissance": "Cinq mots, et un filet. À gauche ce que je suis ; l'argent va se charger du reste — non de me changer, mais de me dispenser de l'être.",
+      "ou": "La pièce paraît en haut du filet. Ces pages closent le troisième cahier : elles ne fondent rien, elles achèvent — l'aliénation devenue un objet qu'on tient dans la main.",
+      "distinction": "Deux colonnes, et toute la distinction : d'un côté mes facultés réelles, de l'autre ce que mon argent peut. Dans la première, mes propriétés valent ce que je vaux ; dans la seconde, ce qu'il vaut.",
+      "inversion": "La pièce descend, et chaque mot qu'elle dépasse passe de l'autre côté. Rien n'est caché — et pourtant chaque chose se présente à l'envers de ce qu'elle est.",
+      "ouvre": "Tout est passé à droite. La richesse n'est plus l'étendue de ce qu'on peut réellement, mais de ce qu'on peut acheter : ce que l'argent supprime, ce ne sont pas des biens, c'est la nécessité des capacités.",
+      "lectures": "La pièce se retire, les contraires tombent, les mots reviennent. Ce que le texte oppose à l'argent n'est pas l'abstinence, c'est un critère : aimer suppose de susciter l'amour."
+    },
+    "fixe": {
+      "g": 4.3,
+      "legende": "La pièce descend le filet : ce qu'elle a dépassé est déjà passé de l'autre côté, ce qu'elle n'a pas atteint tient encore. L'inversion n'est pas une tromperie — rien n'est caché."
+    }
+  }
+}
