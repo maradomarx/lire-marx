@@ -6550,6 +6550,82 @@ ce qui est réellement soulevé.
    descendre franchement (0x584f45 dans la texture) pour qu'une pierre se lise
    comme une pierre. C'est le cousin du piège du rouge qui vire au saumon.
 
+### L'armée de réserve : l'appareil, et le côté où l'on met la preuve (mission `glossaire-mondes-16`, sept. 2026)
+
+Le chapitre&nbsp;XXV renverse une prémisse que la lecture malthusienne et la
+lecture conjoncturelle partagent&nbsp;: la population ouvrière disponible n'est
+pas une donnée que l'accumulation rencontre, c'est un produit qu'elle
+fabrique — et qui devient ensuite le levier de l'accumulation et le poids
+qui pèse sur les salaires.
+
+**LE VOCABULAIRE HYDRAULIQUE EST CELUI DE MARX**, et c'est ce qui autorise la
+figure&nbsp;: réservoir, canaux de décharge, forme flottante, attirer et
+repousser, engagée et dégagée, tendre et détendre. Une colonne de verre —
+l'armée active — et une cuve large — la réserve — tiennent le même liquide&nbsp;;
+une pompe, l'accumulation, prend dans la cuve et verse dans la colonne&nbsp;; puis
+un TROP-PLEIN s'ouvre au haut de la colonne et tout le surplus repart à la
+cuve, ce qui est la thèse même (la demande de travail croît en masse et
+décroît en proportion). Un flotteur suit la réserve, un FLÉAU renverse son
+mouvement, et l'aiguille du prix du travail descend d'autant qu'elle monte&nbsp;:
+**l'inversion est faite mécaniquement, à la vue de tous, et la liaison est
+rigide** — sans quoi elle serait une affirmation et non une démonstration.
+
+#### ⚠️ SUR UNE PAGE « PLEIN », LA PREUVE VA À DROITE
+
+Le défaut le plus grave de cette scène a vécu trois versions&nbsp;: **le cadran
+était à gauche**. Or le voile de `.nt--plein` est opaque à 94&nbsp;% jusqu'à
+560&nbsp;px, encore à 55&nbsp;% à 820&nbsp;px, et ne s'efface qu'à 1040&nbsp;px — soit, à
+1380&nbsp;px de large, **au-delà de 75&nbsp;% seulement**. Mesuré&nbsp;: le cadran tombait
+à 47&nbsp;% de la largeur, c'est-à-dire dans le noir. La démonstration se jouait
+sous le texte.
+
+La règle qui en sort, et elle vaut pour toute scène « plein » à venir&nbsp;:
+**ce qui est grand supporte d'être assombri, ce qui est fin ne le supporte
+pas.** L'appareil a donc été retourné — colonne à gauche, cuve au milieu,
+cadran au bout&nbsp;: mesuré après coup, colonne 49–55&nbsp;%, cuve 61–82&nbsp;%, cadran
+**84–92&nbsp;%**. C'est ce que faisait déjà, sans que ce soit écrit, la règle à
+deux index de la coopération.
+
+#### Quatre autres corrections, toutes vues à l'image
+
+1. **Un texte de cartouche doit tenir dans sa texture.** « ARMÉE ACTIVE » à
+   62&nbsp;px débordait de quarante pixels et se lisait « RMÉE ACTIV ». La taille
+   se cherche à la mesure (`measureText`) jusqu'à tenir.
+2. **La tuyauterie se range EN PROFONDEUR.** À la même distance, quatre tubes
+   se lisaient comme un enchevêtrement&nbsp;: le refoulement passe derrière, le
+   trop-plein devant, et chacun se suit du regard. Une conduite qui s'arrête
+   en l'air DEVANT un récipient n'y entre pas&nbsp;: elle doit passer derrière.
+3. **Un mouvement de section doit s'éteindre avec elle.** Le cycle industriel
+   — une oscillation en fonction de `g` — courait encore sous le dernier
+   temps, où l'on compare deux arrivées et où rien d'autre ne doit bouger.
+4. **Une comparaison exige que les deux termes soient là EN MÊME TEMPS.** Le
+   dernier temps oppose le filet du dehors (l'accroissement naturel de la
+   population) à ce que déverse le trop-plein&nbsp;; la pompe étant alors à
+   l'arrêt, il n'y avait rien à comparer et l'argument ne se voyait pas. Elle
+   reprend une demi-section plus tôt. Et deux objets voisins mal joints — le
+   bec et son filet, décalés pendant une arrivée glissée — se lisent comme
+   une erreur, pas comme un mouvement.
+
+#### Un piège d'outillage, à ajouter à la liste
+
+**Le serveur de test doit servir le FICHIER avant le DOSSIER.**
+`oeuvres/capital-1` est à la fois `capital-1.html` et le dossier des textes&nbsp;;
+un serveur qui teste le dossier d'abord rend 404 (ou redirige), et l'on croit
+la page cassée. C'est écrit depuis `seo-maillage-interne` — je l'ai repayé.
+
+#### Vérifié
+
+Les **treize citations** relevées une par une dans le texte que la liseuse
+sert réellement (chargé en vrai, 326&nbsp;694 caractères&nbsp;: zéro manquante) — c'est
+le seul contrôle qui vaille, le générateur ne pouvant pas le faire. Sonde de
+contraste sur le rendu&nbsp;: **0 échec sur 115 mesures**, minimum 4,56 (le blanc
+sur rouge du bouton, valeur maison), aucun texte sous 11&nbsp;px, aucune cible
+sous 24&nbsp;×&nbsp;24. Détecteur statique&nbsp;: **0 constat**. Chorégraphie relevée
+position par position à la sonde (le rAF est gelé dans l'onglet piloté) et
+**entièrement réversible** — on remonte, l'appareil se range exactement.
+Zéro débordement horizontal à 1380 et 375&nbsp;px&nbsp;; à 375&nbsp;px, pas de Three.js,
+image fixe et légende. `gen-seo --check` à jour et idempotent.
+
 ### Ce qui reste
 
 - Le pilote a été validé et fusionné ; les trois suivantes vivent sur
