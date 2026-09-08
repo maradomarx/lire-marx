@@ -1,0 +1,44 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/besoins.",
+  "titre": "Besoins",
+  "de": "Bedürfnisse",
+  "chapo": "Dans le troisième manuscrit de 1844, le besoin n'est pas une donnée naturelle mais un objet de production : chacun spécule sur la création d'un besoin nouveau chez l'autre pour le placer dans une dépendance nouvelle. Le même mouvement multiplie les jouissances d'un côté et abaisse de l'autre le seuil de ce qui compte comme besoin — jusqu'à la lumière et l'air.",
+  "description": "Les besoins chez le jeune Marx : pourquoi l'économie politique est à la fois la science de la richesse et celle du renoncement, ce qui distingue l'extension des besoins de leur richesse, et ce que serait un besoin non aliéné.",
+  "source": {
+    "work": "manuscrits-1844",
+    "s": 4,
+    "cite": "Karl Marx, <i>Manuscrits de 1844</i>, troisième manuscrit — traduction Émile Bottigelli, Éditions sociales (1962)"
+  },
+  "ou": "<i>Manuscrits de 1844</i>, troisième manuscrit — après les pages sur la propriété privée et le communisme, avant celles sur l'argent qui closent le cahier. ⚠️ La traduction que ce site sert est protégée : le texte est PARAPHRASÉ et situé, jamais cité entre guillemets.",
+  "outils": [
+    {
+      "label": "La carte des concepts — l'atelier des Manuscrits",
+      "url": "/oeuvres/manuscrits-1844#labo=carte"
+    }
+  ],
+  "voisins": [
+    "Propriété privée",
+    "Argent",
+    "Travail aliéné",
+    "Force de travail",
+    "Communisme",
+    "Objectivation"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : UNE FENÊTRE QUI SE RESSERRE, UN REBORD QUI SE CHARGE. Le fragment dit deux mouvements et affirme qu'ils n'en font qu'un — on invente des jouissances d'un côté, on abaisse de l'autre le seuil de ce qui compte comme besoin, la lumière et l'air cessant d'en être. La scène les montre EN MÊME TEMPS, dans une seule image. ET LE DERNIER TEMPS NE VIDE PAS LE REBORD : ce serait le contresens que l'essai écarte, puisque c'est l'économie politique qui prêche le renoncement, non Marx. La fenêtre se rouvre plus grande qu'au départ, et les mêmes objets, espacés et éclairés, redeviennent distincts — ce qui sépare un besoin d'un autre n'est pas son objet mais son rapport. L'ouverture est un VRAI TROU : quatre panneaux mobiles, jamais un faux trou noir devant un mur plein.",
+    "layout": "plein",
+    "alt": "L'intérieur d'une pièce au plâtre sale : une fenêtre dont l'ouverture se resserre, et sur son rebord une rangée de petits objets serrés les uns contre les autres.",
+    "etapes": {
+      "paradoxe": "Une pièce, une fenêtre, le jour. Rien encore — sinon la question : comment la science de la richesse peut-elle être en même temps celle du renoncement ?",
+      "ou": "Un premier objet sur le rebord. Le besoin n'est pas une donnée qu'on satisfait : c'est une chose qu'on produit, comme on produit ce qui la comble.",
+      "distinction": "Le rebord se charge, et l'ouverture commence à se refermer. Les deux vont ensemble : l'extension des besoins d'un côté, l'abaissement du seuil de l'autre.",
+      "mecanisme": "La fenêtre s'est resserrée, le jour a baissé. La lumière, l'air, la propreté la plus élémentaire ont cessé d'être des besoins — pendant qu'on en inventait d'autres, ailleurs.",
+      "ouvre": "Elle se rouvre, et plus grande qu'au départ. L'homme riche n'est pas celui qui possède le plus, mais celui qui a besoin de la totalité des manifestations humaines de la vie.",
+      "lectures": "Les objets sont toujours là, mais espacés et éclairés, chacun distinct. Ce qui sépare un besoin d'un autre n'est pas son objet : c'est son rapport — Marx ne prêche pas la frugalité, c'est l'adversaire qui la prêche."
+    },
+    "fixe": {
+      "g": 3.4,
+      "legende": "La fenêtre s'est resserrée et le jour a baissé, pendant que le rebord se chargeait. Les deux mouvements n'en font qu'un : le même impératif étend les besoins d'un côté et les comprime de l'autre."
+    }
+  }
+}

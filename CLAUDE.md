@@ -6414,6 +6414,36 @@ Trois corrections à retenir, toutes vues à la première image&nbsp;:
    pas, et l'image fixe a été déplacée de 3,6 à 4,0 pour tomber sur le temps
    que sa légende décrit.
 
+### Les besoins : la fenêtre qui se resserre (mission `glossaire-mondes-12`, sept. 2026)
+
+Dixième page-monde. Le fragment du troisième manuscrit énonce deux mouvements
+et affirme qu'ils n'en font qu'un&nbsp;: d'un côté on invente des jouissances
+pour ceux qui peuvent payer, de l'autre on abaisse le seuil de ce qui compte
+comme besoin — la lumière, l'air, la propreté la plus élémentaire cessant
+d'en être. La scène les montre **en même temps, dans une seule image**&nbsp;: le
+rebord d'une fenêtre se charge d'objets pendant que l'ouverture se referme et
+que le jour baisse.
+
+**LE DERNIER TEMPS NE VIDE PAS LE REBORD**, et c'est un point de doctrine, pas
+un choix plastique. Vider serait faire dire au texte l'inverse de ce qu'il
+dit&nbsp;: c'est l'économie politique qui prêche le renoncement, et Marx le lui
+reproche. La fenêtre se rouvre **plus grande qu'au départ**, et les mêmes
+objets, espacés et éclairés, redeviennent distincts — ce qui sépare un besoin
+d'un autre n'est pas son objet mais son rapport.
+
+Deux points de fabrication&nbsp;:
+
+- **L'ouverture est un VRAI TROU** — quatre panneaux mobiles autour d'elle,
+  jamais un faux trou noir devant un mur plein. C'est la leçon de la force de
+  travail, et ici elle sert deux fois, puisque ce sont les panneaux qui
+  referment le jour.
+- **Une pièce qui perd sa lumière tombe au NOIR ABSOLU**, et l'image ne dit
+  alors plus rien&nbsp;: on ne voit plus le rebord se charger, c'est-à-dire la
+  moitié de l'argument. Une veilleuse chaude très faible, qui ne vient de
+  nulle part, garde les objets lisibles&nbsp;; et l'image fixe a été reculée de
+  4,1 à 3,4 pour tomber sur le moment où les deux mouvements se voient
+  ensemble, plutôt que sur le plus sombre.
+
 ### Ce qui reste
 
 - Le pilote a été validé et fusionné ; les trois suivantes vivent sur
