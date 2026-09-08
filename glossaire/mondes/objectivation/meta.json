@@ -1,0 +1,44 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/objectivation.",
+  "titre": "Objectivation",
+  "de": "Vergegenständlichung",
+  "chapo": "L'objectivation est le fait que le travail se réalise dans un objet, où il se fixe et demeure : le produit est du travail devenu chose. C'est un fait anthropologique, vrai de tout travail — et non l'aliénation, qui est la modalité sociale sous laquelle ce dépôt revient au travailleur comme une puissance étrangère.",
+  "description": "L'objectivation chez le jeune Marx : pourquoi le travail se réalise dans un objet, ce qui la distingue de l'aliénation, et pourquoi cette distinction est le point où Marx se sépare de Hegel.",
+  "source": {
+    "work": "manuscrits-1844",
+    "s": 3,
+    "cite": "Karl Marx, <i>Manuscrits de 1844</i>, premier manuscrit — traduction Émile Bottigelli, Éditions sociales (1962)"
+  },
+  "ou": "<i>Manuscrits de 1844</i>, premier manuscrit, au seuil de « Le travail aliéné » ; la critique de Hegel qui clôt le troisième manuscrit y revient. ⚠️ La traduction que ce site sert est protégée : le texte est PARAPHRASÉ et situé, jamais cité entre guillemets.",
+  "outils": [
+    {
+      "label": "La carte des concepts — l'atelier des Manuscrits",
+      "url": "/oeuvres/manuscrits-1844#labo=carte"
+    }
+  ],
+  "voisins": [
+    "Travail aliéné",
+    "Être générique",
+    "Propriété privée",
+    "Plus-value",
+    "Argent",
+    "Communisme"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : LE CACHET ET LA CIRE. Le concept est le fait NEUTRE dont l'aliénation n'est qu'une modalité — il fallait donc une figure qui montre un passage de forme, et rien de plus : la dépossession, la page du travail aliéné la porte déjà. Un cachet descend sur une goutte de cire, presse, se relève ; la forme est PASSÉE — elle est dans la cire, dure, séparée, durable — et le cachet est intact, rien ne lui a été pris. C'est pourquoi la scène doit être belle plutôt que sombre : objectiver n'est pas perdre.",
+    "layout": "plein",
+    "alt": "Sur une table, une goutte de cire à cacheter rouge et un cachet de laiton à manche de bois qui descend vers elle.",
+    "etapes": {
+      "fait": "Une goutte de cire, molle et luisante. Travailler n'est pas dépenser une énergie qui se dissipe : c'est faire passer une activité dans une chose, où elle se fixe et demeure.",
+      "distinction": "Le cachet descend. Ce qui va se passer n'est pas une perte : c'est un passage de forme. Objectiver n'est pas aliéner, et c'est la distinction la plus souvent manquée.",
+      "ou": "Il presse. Marx part de ce fait — il y a un produit — et n'ajoute qu'ensuite la détermination sociale : ce produit ne revient pas à celui qui l'a fait.",
+      "matiere": "La cire cède, parce qu'il fallait une matière. On ne dépose pas une activité dans le vide : la nature est le corps prolongé de celui qui travaille.",
+      "ouvre": "Le cachet se relève, et la forme est passée. Elle est maintenant dans la cire — séparée, durable — et le cachet est intact. Vingt ans plus tard, ce sera du travail cristallisé.",
+      "lectures": "La cire durcit, le sceau reste. Confondre ce passage avec une dépossession, c'est le contresens qui fait de Marx un romantique — et c'est très exactement ce qu'il reproche à Hegel."
+    },
+    "fixe": {
+      "g": 3.6,
+      "legende": "Le cachet se relève : la forme est passée dans la cire, séparée et durable — et le cachet est intact. Objectiver n'est pas perdre."
+    }
+  }
+}

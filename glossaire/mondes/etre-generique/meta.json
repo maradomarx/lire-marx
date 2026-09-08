@@ -1,0 +1,44 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/etre-generique.",
+  "titre": "Être générique",
+  "de": "Gattungswesen",
+  "chapo": "L'être générique est celui dont le rapport à sa propre espèce fait partie de ce qu'il est. Chez Marx, ce rapport passe par le travail : l'animal produit d'une seule manière, sous l'empire du besoin immédiat ; l'homme produit selon la mesure de toute espèce, et même selon aucune — d'après les lois de la beauté.",
+  "description": "L'être générique (Gattungswesen) chez le jeune Marx : ce que le mot veut dire, en quoi la production humaine est universelle, et pourquoi le travail aliéné constitue une mutilation précisément située.",
+  "source": {
+    "work": "manuscrits-1844",
+    "s": 3,
+    "cite": "Karl Marx, <i>Manuscrits de 1844</i>, premier manuscrit, « Le travail aliéné » — traduction Émile Bottigelli, Éditions sociales (1962)"
+  },
+  "ou": "<i>Manuscrits de 1844</i>, premier manuscrit, troisième détermination du travail aliéné. ⚠️ La traduction que ce site sert est protégée : le texte est PARAPHRASÉ et situé, jamais cité entre guillemets.",
+  "outils": [
+    {
+      "label": "La carte des concepts — l'atelier des Manuscrits",
+      "url": "/oeuvres/manuscrits-1844#labo=carte"
+    }
+  ],
+  "voisins": [
+    "Travail aliéné",
+    "Objectivation",
+    "Propriété privée",
+    "Communisme",
+    "Besoins",
+    "Argent"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : UNE MESURE, OU TOUTES. Le concept se démontre par une comparaison, la figure en est donc une : à gauche de l'établi, des cellules hexagonales identiques qui se répètent sans jamais varier — l'animal produit d'une seule manière, celle de son espèce ; à droite, des formes qui arrivent une à une et dont aucune ne ressemble à la précédente, la dernière ne répondant à aucun besoin, et c'est elle que la lumière prend. Au dernier temps tout retombe à la mesure unique : c'est ce que le travail aliéné fait du rapport générique.",
+    "layout": "plein",
+    "alt": "Un établi partagé par un filet gravé : à gauche des cellules hexagonales identiques, à droite cinq formes toutes différentes, dont la dernière est éclairée à part.",
+    "etapes": {
+      "mot": "Des cellules hexagonales, toutes pareilles. L'animal produit lui aussi — mais d'une seule manière, celle de son espèce, et seulement ce dont il a immédiatement besoin.",
+      "distinction": "De l'autre côté du filet, une forme paraît, puis une autre, et aucune ne ressemble à la précédente. Produire selon la mesure de toute espèce, et non selon une seule.",
+      "conscience": "Les formes s'accumulent, chacune avec sa mesure propre. Ce qui les rend possibles n'est pas l'habileté : c'est qu'on puisse considérer son activité au lieu de l'être.",
+      "mutilation": "Une dernière forme, qui ne répond à aucun besoin, et que la lumière prend à part. Produire même libre du besoin physique — c'est là seulement qu'on produit vraiment.",
+      "ouvre": "Le côté humain s'éteint, une à une. Le travail aliéné ne rend pas le travail pénible : il retire à la production ce qui la distinguait de celle de l'animal.",
+      "lectures": "Il ne reste que la mesure unique. Ce qui est mutilé n'est pas une nature originelle — c'est une capacité, dont l'étendue dépend des rapports où elle s'exerce."
+    },
+    "fixe": {
+      "g": 4.2,
+      "legende": "Cinq formes, cinq mesures, et la dernière ne répond à aucun besoin : c'est elle que la lumière prend. En face, la cellule que l'espèce répète sans varier."
+    }
+  }
+}
