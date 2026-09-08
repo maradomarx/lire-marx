@@ -332,20 +332,7 @@
     },
     "Propriété privée": {
       "page": {
-        "ou": "Manuscrits de 1844 — le renversement au premier manuscrit, « Le travail aliéné » ; la reprise au troisième, « Propriété privée et communisme ».",
-        "chapo": "La propriété privée n'est pas la cause du travail aliéné mais son résultat — avant de devenir, en retour, le moyen par lequel il se perpétue.",
-        "corps": [
-          "L'économie politique part de la propriété privée et ne l'explique jamais. Elle en fait un fait premier, une donnée à partir de laquelle tout se déduit. Marx compare ce geste à celui de la théologie qui explique l'origine du mal par le péché originel&nbsp;: <b>on suppose sous forme d'un fait, d'un événement, ce qu'il faudrait déduire</b>. La question qu'elle ne pose pas est celle d'où vient ce qu'elle présuppose.",
-          "La démonstration de Marx tient en une question. Si le produit du travail est arraché à l'ouvrier, à qui appartient-il&nbsp;? Pas aux dieux, pas à la nature&nbsp;: <b>à un autre homme</b>. Le rapport de l'ouvrier au travail engendre donc le rapport du non-ouvrier à ce travail et à son produit — c'est-à-dire la propriété privée. Elle est le produit, la conséquence nécessaire du travail aliéné, et non son origine.",
-          "Marx ajoute aussitôt la précision qui empêche de lire cela comme un simple renversement de causalité&nbsp;: le rapport devient ensuite <b>réciproque</b>. Il prend l'exemple des dieux, qui ne sont pas la cause de l'égarement religieux mais son effet, et qui l'entretiennent une fois posés. La propriété privée est de même le résultat du travail aliéné, puis le moyen par lequel il se reconduit.",
-          "La conséquence politique est immédiate, et Marx la tire contre les réformateurs de son temps. Réclamer une hausse des salaires, ce serait <b>mieux payer l'esclave sans abolir l'esclavage</b> — l'égalité des salaires, telle que Proudhon la voulait, ne ferait que transformer le rapport de la société actuelle en rapport du capitaliste collectif. Ce qu'il faut abolir n'est pas un niveau de revenu&nbsp;: c'est le rapport qui produit la propriété privée."
-        ],
-        "voisins": [
-          "Travail aliéné",
-          "Objectivation",
-          "Communisme",
-          "Argent"
-        ]
+        "dossier": "propriete-privee"
       }
     },
     "Argent": {
