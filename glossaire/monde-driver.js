@@ -26,7 +26,10 @@
       return !!(c.getContext('webgl') || c.getContext('experimental-webgl')); }
     catch (e) { return false; }
   }
-  if (REDUCE || !WIDE || !hasGL()) return;
+  /* une scène en 2D ne déclare pas data-three : elle ne demande alors ni
+     WebGL ni la bibliothèque — cent quarante-huit kilo-octets de moins */
+  var NEED3D = !!aside.dataset.three;
+  if (REDUCE || !WIDE || (NEED3D && !hasGL())) return;
 
   function load(src){
     return new Promise(function(res, rej){
@@ -35,7 +38,7 @@
       document.head.appendChild(s);
     });
   }
-  var p = (typeof THREE === 'undefined') ? load(aside.dataset.three) : Promise.resolve();
+  var p = (NEED3D && typeof THREE === 'undefined') ? load(aside.dataset.three) : Promise.resolve();
   p.then(function(){ return load(aside.dataset.scene); }).then(start).catch(function(){});
 
   function start(){

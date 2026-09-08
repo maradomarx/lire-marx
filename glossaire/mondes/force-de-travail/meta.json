@@ -26,25 +26,26 @@
     "Fétichisme"
   ],
   "monde": {
-    "_": "La scène : LE PASSAGE, en plein écran. Le chapitre VI se termine en franchissant un seuil ; la page est ce travelling, et la MATIÈRE change au seuil. Dehors, la place du marché est dessinée — l'étal des subsistances qui font la valeur de la force, le sablier (ce qui se vend est un temps), l'arche gravée LIBERTÉ · ÉGALITÉ · PROPRIÉTÉ · BENTHAM — et elle est VIDE DE TOUT CORPS : dans l'Éden des droits, les deux contractants ne sont que des rôles. Derrière la porte, ce n'est plus de la 3D : c'est une photographie de filature, seuls vrais corps de la page, et ils regardent l'objectif. Tout est fonction de la position de lecture, donc réversible.",
+    "_": "LA PHOTOGRAPHIE EST LE MONDE. Plus de décor : le chapitre VI finit par quitter « cette sphère bruyante où tout se passe à la surface » pour le laboratoire secret de la production — on y est d'emblée, et la page n'est que ce que le défilement y fait REGARDER. De la salle et de ses machines aux quatre hommes qui s'y tiennent, puis retour : la salle n'est plus la même une fois qu'on sait ce qu'on y voit. Le troisième temps est un cadeau du tirage — les quatre hommes sont DEBOUT, bras croisés, ils ne travaillent pas : la distinction qui fait le concept est là, littéralement. Moteur 2d (un contexte 2D recadre une image mieux qu'un plan texturé, et sans charger Three.js).",
     "layout": "plein",
-    "alt": "Une place de marché déserte au XIXe siècle, un étal de subsistances et une arche gravée Liberté, Égalité, Propriété, Bentham ; au fond, la porte ouverte d'un atelier laisse voir une photographie de filature.",
+    "alt": "Photographie d'archive : la salle des métiers d'une filature en 1912, ses arbres de transmission au plafond, et quatre jeunes ouvriers pieds nus debout au milieu, bras croisés, qui regardent l'objectif.",
     "source": {
-      "texte": "D'après le texte — Livre I, chapitre VI",
+      "texte": "Le laboratoire secret — Livre I, chapitre VI",
       "q": "pour les suivre tous deux dans le laboratoire secret de la production"
     },
     "credit": "Photographie : Lewis W. Hine, <i>The Mule Room in the New Bedford Cotton Mill</i>, 1912 — Library of Congress, collection National Child Labor Committee (nclc.02476), domaine public.",
     "etapes": {
-      "enigme": "La place du marché, en plein jour — et personne. Deux échangistes au même titre : l'un a de l'argent, l'autre n'a que sa force.",
-      "definition": "Sur l'étal, ce qu'il faut pour vivre un jour ; dans le sablier, le temps pour lequel la force se vend — jamais en bloc, sinon de marchand on se fait marchandise.",
-      "distinction": "Personne sur la place : dans l'Éden des droits, l'égalité est formelle et les contractants ne sont que des rôles. Ce qui s'achète est une puissance — le travail, lui, n'existe pas encore.",
-      "valeur": "La force vaut ses subsistances : six heures, trois shillings posés sur l'étal. Son usage, une journée entière.",
-      "seuil": "Quitter l'Éden — Liberté, Égalité, Propriété, Bentham — pour le laboratoire secret. C'est le lecteur que la caméra fait avancer jusqu'au seuil.",
-      "lectures": "Derrière la porte, la matière change : une filature, ses métiers, ses arbres de transmission, et quatre ouvriers qui regardent l'objectif. Deux échangistes égaux sont un maître et un subordonné — le contrat ne mentait pas."
+      "enigme": "La salle, ses métiers, ses courroies — et quatre hommes au milieu. D'où vient le plus de A—M—A′ ? De rien de ce qui se passe à la surface de l'échange.",
+      "definition": "On entre. Ce qui a été acheté, ce ne sont ni la salle ni les machines : c'est ce que ces hommes peuvent faire, et pour un temps convenu.",
+      "distinction": "Ils sont debout, bras croisés : ils ne travaillent pas. La distinction qui fait le concept est là, dans l'image — ce qui s'achète est une puissance ; le travail, lui, n'existe pas encore.",
+      "valeur": "Les corps, les pieds nus. La force vaut ce qu'il faut pour la refaire chaque jour : sa valeur se lit là, et pas dans ce qu'elle produira.",
+      "seuil": "Les hommes dans la salle. On est de l'autre côté de la porte, dans le laboratoire secret — et ce qu'on y voit est un rapport, non un échange.",
+      "lectures": "La salle entière, de nouveau, et elle n'est plus la même : deux échangistes égaux y sont un maître et un subordonné. Le contrat ne mentait pas."
     },
     "fixe": {
-      "g": 5.9,
-      "legende": "Le seuil franchi : derrière la porte de l'atelier, la photographie prend le relais du dessin — une filature en 1912, et quatre ouvriers qui regardent."
-    }
+      "g": 2.05,
+      "legende": "Les quatre hommes, debout, bras croisés : ce qui a été acheté n'est pas leur travail — il n'a pas commencé — mais leur capacité d'en fournir, pour la journée."
+    },
+    "moteur": "2d"
   }
 }
