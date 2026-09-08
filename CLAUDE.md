@@ -6273,6 +6273,41 @@ lumière de l'image, et il n'est éclairé par rien.
 avancé.** Elle était d'abord posée sur le clos achevé ; les pieux seuls, à
 mi-course, disent mieux le concept — une ligne, et rien encore de pris.
 
+### La forme-salaire : une limite qu'on recouvre (mission `glossaire-mondes-8`, sept. 2026)
+
+Sixième page-monde, et le maillon qui manquait à la chaîne&nbsp;: la force de
+travail est achetée, la plus-value est produite — et le **salaire** est la
+forme sous laquelle tout cela se présente à ceux qui y sont pris. La page se
+tient sur une difficulté que Marx pose d'entrée&nbsp;: « le travail est la
+substance et la mesure inhérente des valeurs, mais il n'a lui-même aucune
+valeur », de sorte que « prix du travail » est une expression irrationnelle
+— qui n'est pourtant pas une bévue de vocabulaire, mais la forme phénoménale
+du rapport.
+
+**La scène est une limite qu'on recouvre.** Douze jetons de laiton sur un
+comptoir, une marque rouge après le sixième, les six francs comptés à côté&nbsp;;
+puis une bande de papier posée en travers, qui couvre les jetons et la
+marque, et sur laquelle il n'y a plus qu'une ligne — *douze heures, six
+francs*. Au dernier temps, une lumière prend SOUS le comptoir et la coupure
+reparaît par transparence.
+
+Trois points de fabrication&nbsp;:
+
+- **Le passage au travers est DESSINÉ sur la texture du papier**, pas obtenu
+  par un matériau translucide&nbsp;: un plan opaque ne laisse rien voir, un plan
+  translucide laisse voir n'importe quoi, et l'on veut ici que la marque du
+  sixième jeton se lise exactement.
+- **L'écriture en haut de la bande, la transparence en bas.** Posées au même
+  endroit elles se disputaient le papier et l'on ne lisait ni l'une ni
+  l'autre.
+- **L'apparence pâlit quand la lumière prend dessous** (le texte tombe à 45&nbsp;%
+  quand la transparence monte) — c'est le geste de la page&nbsp;: ce qui se dit
+  recule quand ce qui est reparaît.
+
+Le cadrage a été posé du premier coup en appliquant la règle écrite pour la
+plus-value&nbsp;: ensemble d'une unité et demie, distance calculée pour que la
+largeur vue laisse 57&nbsp;% à droite, décalage de visée 0,55.
+
 ### Ce qui reste
 
 - Le pilote a été validé et fusionné ; les trois suivantes vivent sur

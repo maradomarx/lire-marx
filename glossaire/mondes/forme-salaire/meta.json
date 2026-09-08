@@ -1,0 +1,48 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/forme-salaire.",
+  "titre": "La forme-salaire",
+  "de": "Arbeitslohn",
+  "chapo": "La forme-salaire est la manière dont le rapport de capital se présente à ceux qui y sont pris : comme le paiement d'une journée de travail. Ce qui est acheté est pourtant la force de travail, et payé à sa valeur ; ce qui paraît payé est le travail tout entier. La forme n'ajoute aucun mensonge à l'échange — elle en efface la coupure.",
+  "description": "La forme-salaire chez Marx : pourquoi « prix du travail » est une expression irrationnelle, comment le salaire fait disparaître la limite entre travail payé et travail non payé, et ce que cette forme engendre.",
+  "source": {
+    "work": "capital-1",
+    "s": 6,
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, sixième section, chapitres XIX à XXII — traduction Joseph Roy (1872)"
+  },
+  "ou": "Livre&nbsp;I, sixième section, « Le salaire » (ch. XIX-XXII). Le chapitre XIX transforme la valeur de la force de travail en salaire et montre l'irrationalité du « prix du travail » ; le XX traite du salaire au temps, le XXI du salaire aux pièces, le XXII des différences nationales.",
+  "outils": [
+    {
+      "label": "La journée de travail — le laboratoire",
+      "url": "/oeuvres/capital-1#labo=s-jour"
+    }
+  ],
+  "voisins": [
+    "Force de travail",
+    "Plus-value",
+    "Surtravail",
+    "Travail nécessaire",
+    "Le « prix du travail »",
+    "Fétichisme"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : UNE LIMITE QU'ON RECOUVRE. Douze jetons de laiton sur un comptoir — les douze heures —, une marque rouge après le sixième, les pièces comptées à côté ; puis une BANDE DE PAPIER posée en travers, qui couvre les jetons et la marque, et sur laquelle il n'y a plus qu'une ligne : douze heures, six francs. La rangée se lit alors d'une seule venue. Au dernier temps une lumière prend SOUS le comptoir et la division reparaît par transparence — « il faut distinguer entre les apparences des choses et leur réalité ». Le passage au travers est DESSINÉ sur la texture du papier : un plan opaque ne laisse rien voir, et l'on veut ici que la marque se lise exactement.",
+    "layout": "plein",
+    "alt": "Sur un comptoir sombre, douze jetons de laiton alignés et une marque rouge après le sixième ; une bande de papier posée en travers les recouvre, où on lit « douze heures — six francs ».",
+    "source": {
+      "texte": "D'après le texte — Livre I, sixième section",
+      "q": "même le surtravail ou travail non payé revêt l’apparence de travail payé"
+    },
+    "etapes": {
+      "irrationnelle": "Douze jetons se posent, un par heure. C'est la journée, et elle est encore lisible heure par heure — ce qui ne durera pas.",
+      "ou": "La marque tombe après le sixième jeton : jusque-là, l'ouvrier a reproduit la valeur de sa force ; au-delà, il travaille pour rien. La limite existe, et on la voit.",
+      "distinction": "Six pièces comptées à côté. Le paiement est exact, le contrat est tenu : ce que la forme escamote n'est pas une somme, c'est la coupure.",
+      "mecanisme": "La bande de papier se pose en travers et couvre tout — les jetons et la marque. La rangée n'a plus de milieu : il n'y a plus qu'une journée, et un prix.",
+      "ouvre": "Sur le papier, une seule ligne : douze heures, six francs. C'est de cette apparence que dérivent les notions juridiques, les illusions libérales et les faux-fuyants de l'économie vulgaire.",
+      "lectures": "Une lumière prend sous le comptoir, et la coupure reparaît à travers le papier. Elle n'a jamais cessé d'être là : la forme ne la supprime pas, elle la rend invisible."
+    },
+    "fixe": {
+      "g": 5.6,
+      "legende": "La lumière prise sous le comptoir : à travers la feuille qui ne dit que « douze heures — six francs », les douze jetons et la marque du sixième reparaissent."
+    }
+  }
+}
