@@ -103,7 +103,10 @@
     },
     "La forme-salaire": {
       "de": "Arbeitslohn",
-      "def": "Le paiement à la journée ou à la pièce efface la coupure entre travail payé et non payé. Toute la journée paraît rémunérée — et c'est de cette apparence que vit le rapport."
+      "def": "Le paiement à la journée ou à la pièce efface la coupure entre travail payé et non payé. Toute la journée paraît rémunérée — et c'est de cette apparence que vit le rapport.",
+      "page": {
+        "dossier": "forme-salaire"
+      }
     },
     "Le hiéroglyphe social": {
       "de": "gesellschaftliche Hieroglyphe",
