@@ -1,0 +1,48 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/accumulation-primitive.",
+  "titre": "Accumulation primitive",
+  "de": "ursprüngliche Akkumulation",
+  "chapo": "L'accumulation primitive est le nom que Marx donne, en le recevant de l'économie politique et en le retournant contre elle, au processus historique qui a institué le rapport de capital. Elle n'est pas une épargne très ancienne mais une séparation : celle du producteur d'avec ses moyens de production, sans laquelle il n'aurait jamais eu à vendre sa force de travail.",
+  "description": "L'accumulation primitive chez Marx : pourquoi le capital ne pouvait pas naître de l'échange, ce que la « séparation radicale du producteur d'avec les moyens de production » veut dire, et pourquoi ces chapitres ferment le Livre I.",
+  "source": {
+    "work": "capital-1",
+    "s": 8,
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, huitième section, chapitres XXVI à XXXIII — traduction Joseph Roy (1872)"
+  },
+  "ou": "Livre&nbsp;I, huitième section, « L'accumulation primitive » (ch. XXVI-XXXIII) — la dernière du livre. Le chapitre XXVI pose le cercle et démonte la fable de l'origine ; le XXVII suit l'expropriation des cultivateurs ; le XXVIII la législation sanguinaire contre les expropriés ; le XXXI la genèse du capitaliste industriel ; le XXXII la tendance historique.",
+  "outils": [
+    {
+      "label": "La frise : l'ordre historique, à côté de l'ordre logique",
+      "url": "/oeuvres/capital-1#chrono"
+    }
+  ],
+  "voisins": [
+    "Force de travail",
+    "Plus-value",
+    "Travail aliéné",
+    "Propriété privée",
+    "Fétichisme",
+    "Communisme"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : LA TERRE QU'ON FERME. Le concept ne dit pas un entassement mais une SÉPARATION — il fallait donc montrer non des richesses qui s'amassent, mais une ligne qui se pose, et une terre qui, sans changer, cesse d'être accessible. L'enclosure : des pieux plantés de gauche à droite, une haie qui les relie, la chaumière qui perd son toit (« la guerre aux chaumières »), et les moutons dans le clos — les villages ayant été détruits « pour faire des parcs à moutons ». TOUT EST EN SILHOUETTE contre un ciel de crépuscule : un pieu noir sur un ciel d'or est un pieu, une boîte grise éclairée n'est qu'une boîte. La ligne ne s'arrête pas au dernier temps : la séparation se reproduit sur une échelle progressive.",
+    "layout": "plein",
+    "alt": "Une plaine au crépuscule : une rangée de pieux noirs traverse le champ, une haie les relie, et derrière la clôture une chaumière sans toit et quelques moutons.",
+    "source": {
+      "texte": "D'après le texte — Livre I, huitième section",
+      "q": "la guerre aux chaumières, voilà les procédés idylliques de l’accumulation primitive"
+    },
+    "etapes": {
+      "cercle": "Un champ ouvert, au soir. Rien n'y a encore changé — et c'est là toute la question : comment ce qui n'appartient à personne en particulier a-t-il pu devenir le point de départ du capital ?",
+      "ou": "La chaumière fume au bout du champ. Ici, on vit de la terre sans avoir à vendre son travail : c'est très exactement ce qui va cesser.",
+      "separation": "Les pieux se plantent, un à un, en travers du champ. Rien n'est encore pris ; une ligne, seulement — mais la ligne est le concept : au fond du système, la séparation du producteur d'avec ses moyens de production.",
+      "procedes": "La haie ferme la ligne, et le toit de la chaumière tombe. La guerre aux chaumières n'est pas une image : c'est un procédé, et il a des dates, des statuts et des lois.",
+      "ouvre": "Le clos est fait, les moutons y sont, la nuit vient. La terre n'a pas bougé ; ce qui a changé, c'est qui peut y poser le pied — et le capital a désormais devant lui des bras sans feu ni lieu.",
+      "lectures": "La ligne continue au-delà du cadre. Ce n'est pas un préalable révolu : la séparation, une fois le système établi, se reproduit sur une échelle progressive."
+    },
+    "fixe": {
+      "g": 2.9,
+      "legende": "La ligne des pieux traverse le champ commun. Rien n'est encore pris — une ligne, seulement ; mais la ligne est le concept."
+    }
+  }
+}
