@@ -44,7 +44,10 @@
     },
     "Coopération": {
       "de": "Kooperation",
-      "def": "Le travail de plusieurs ouvriers réunis dans un même procès. Leur force collective n'est pas la somme des forces isolées — et le capital l'obtient sans la payer."
+      "def": "Le travail de plusieurs ouvriers réunis dans un même procès. Leur force collective n'est pas la somme des forces isolées — et le capital l'obtient sans la payer.",
+      "page": {
+        "dossier": "cooperation"
+      }
     },
     "Corvée · esclave · salarié": {
       "def": "Trois formes du même partage entre travail payé et non payé. La corvée le montre en journées distinctes, l'esclavage fait tout paraître non payé, le salariat tout paraître payé."

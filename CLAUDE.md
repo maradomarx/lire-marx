@@ -6521,6 +6521,35 @@ Deux pièges, dont un pour la troisième fois&nbsp;:
   Descendre franchement le rouge, et se méfier de tout rouge vif dans une
   scène à lampe.
 
+### La coopération : la poutre, les cordes, et l'écart (mission `glossaire-mondes-15`, sept. 2026)
+
+Le chapitre XIII ne dit pas que plusieurs font plus qu'un&nbsp;: il dit qu'ils
+font **plus que leur somme**, et que cet excédent n'est le prix de personne —
+le capitaliste achète chaque force à sa valeur et ne paie rien pour la
+combinaison, qui n'est la propriété d'aucun vendeur. La figure devait donc
+rendre l'écart **mesurable**, sans quoi elle ne dirait que « à plusieurs on
+soulève mieux », ce qui n'est pas le concept.
+
+Une poutre de pierre, des cordes qui s'attellent une à une vers une chèvre,
+et à côté une règle à **deux index**&nbsp;: la somme des forces individuelles, et
+ce qui est réellement soulevé.
+
+#### Trois erreurs de figure, dont deux valent pour toute scène à démonstration
+
+1. **L'ÉCART DOIT PERSISTER AU BOUT DE LA COURSE.** Premier jet&nbsp;: la hauteur
+   réelle suivait une racine, si bien qu'à pleine charge les deux index se
+   rejoignaient — la force collective n'existait plus qu'à mi-course, et la
+   figure démontrait le contraire de la thèse. La somme reste linéaire, le
+   tout lui ajoute un terme **quadratique**&nbsp;: l'excédent grandit avec le
+   nombre, ce qui est bien ce que dit le chapitre.
+2. **Une structure à quatre montants clairs passe pour un MEUBLE.** La chèvre
+   lisait comme une chaise et la pierre comme son assise. Deux montants
+   sombres et minces, la charge nettement décollée du sol, son ombre dessous&nbsp;:
+   la même géométrie redevient un palan.
+3. **Sous une lampe chaude, un gris moyen passe pour du bois clair.** Il faut
+   descendre franchement (0x584f45 dans la texture) pour qu'une pierre se lise
+   comme une pierre. C'est le cousin du piège du rouge qui vire au saumon.
+
 ### Ce qui reste
 
 - Le pilote a été validé et fusionné ; les trois suivantes vivent sur

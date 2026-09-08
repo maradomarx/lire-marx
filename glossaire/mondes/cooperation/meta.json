@@ -1,0 +1,48 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/cooperation.",
+  "titre": "Coopération",
+  "de": "Kooperation",
+  "chapo": "La coopération n'ajoute pas les forces : elle en crée une nouvelle, qui ne fonctionne que comme force collective et cesse avec la réunion. Le capitaliste achète chaque force de travail à sa valeur et ne paie rien pour leur combinaison, qui n'est la propriété d'aucun vendeur — de sorte que la puissance des hommes réunis lui apparaît comme une puissance du capital.",
+  "description": "La coopération chez Marx : pourquoi le travail réuni produit plus que la somme des travaux isolés, pourquoi cet excédent n'est le prix de personne, et comment il finit par paraître une force propre au capital.",
+  "source": {
+    "work": "capital-1",
+    "s": 4,
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XIII — traduction Joseph Roy (1872)"
+  },
+  "ou": "Livre&nbsp;I, quatrième section, chapitre XIII, « Coopération » — la prémisse des deux chapitres suivants : la manufacture organise la combinaison, la grande industrie l'incorpore dans un système de machines.",
+  "outils": [
+    {
+      "label": "Coopération, manufacture, grande industrie — les explorations",
+      "url": "/oeuvres/capital-1#explore=x-coop"
+    }
+  ],
+  "voisins": [
+    "Travailleur collectif",
+    "Division du travail",
+    "Plus-value relative",
+    "Journée de travail",
+    "Force productive",
+    "Fétichisme"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : LA POUTRE, LES CORDES, ET L'ÉCART. Le chapitre ne dit pas que plusieurs font plus qu'un — il dit qu'ils font PLUS QUE LEUR SOMME, et que cet excédent n'est le prix de personne. La figure devait donc rendre l'écart MESURABLE, sans quoi elle ne dirait que « à plusieurs on soulève mieux ». Une poutre de pierre, des cordes qui montent vers une chèvre et s'attellent une à une ; à côté, une règle porte deux index — la somme des forces individuelles, qui monte proportionnellement, et la hauteur réelle, qui monte plus vite. L'écart entre les deux est la force collective. Au dernier temps une pièce se pose au pied de chaque corde, et l'écart n'en reçoit aucune.",
+    "layout": "plein",
+    "alt": "Une poutre de pierre soulevée par plusieurs cordes tendues vers une chèvre de bois, et à côté une règle graduée portant deux index à des hauteurs différentes.",
+    "source": {
+      "texte": "D'après le texte — Livre I, chapitre XIII",
+      "q": "Parce que la force sociale du travail ne coûte rien au capital"
+    },
+    "etapes": {
+      "fait": "Une poutre au sol, une corde. Elle ne bouge pas. Ce que douze hommes lèvent, un seul ne le lèverait pas en douze fois plus de temps : il ne le lèverait jamais.",
+      "distinction": "Les cordes s'attellent, et la règle dresse ses deux index. L'un suit la somme des forces individuelles ; l'autre, ce qui est réellement soulevé — et il monte plus vite.",
+      "renversement": "L'écart se creuse. Il n'est le fait d'aucune corde en particulier : c'est une force nouvelle, qui ne fonctionne que comme force collective et qui cesse avec la réunion.",
+      "echelle": "La poutre est haute. Il a fallu un capital assez grand pour acheter d'un coup toutes ces forces — la coopération suppose une concentration préalable.",
+      "ouvre": "Une pièce se pose au pied de chaque corde : chacune est payée à sa valeur, et le contrat est tenu. L'écart, lui, n'en reçoit aucune.",
+      "lectures": "Rien n'a été volé, et pourtant l'excédent n'est le prix de personne. C'est pourquoi il semble être une force dont le capital est doué par nature."
+    },
+    "fixe": {
+      "g": 4.3,
+      "legende": "Les deux index de la règle : la somme des forces individuelles, et ce qui est réellement soulevé. L'écart entre eux est la force collective — et il n'est le prix de personne."
+    }
+  }
+}
