@@ -26,25 +26,25 @@
     "Fétichisme"
   ],
   "monde": {
-    "_": "La scène : LE PASSAGE, en plein écran. Le chapitre VI se termine en franchissant un seuil ; la page est ce travelling. Une rue : à gauche la place du marché en plein jour — l'étal des subsistances qui font la valeur de la force (pain, toile, charbon), le sablier (ce qui se vend est un temps), l'arche gravée LIBERTÉ · ÉGALITÉ · PROPRIÉTÉ · BENTHAM ; à droite l'atelier, sa porte, son écriteau No admittance except on business, et dedans l'établi, le métier, l'horloge à douze heures. Deux VRAIS corps scannés (Smithsonian, CC0) : l'homme aux écus, un abolitionniste en redingote du groupe The Fugitive's Story de John Rogers (1869), coiffé d'un haut-de-forme et d'une canne ; le possesseur de force de travail, le laboureur de The Wounded Scout (1864). Égaux sur le marché, face à face ; à la cinquième étape ils marchent vers la porte, le premier devant, le second derrière, le jour tombe ; à la sixième on est dedans, et le fileur travaille. Tout est fonction de la position de lecture, donc réversible.",
+    "_": "La scène : LE PASSAGE, en plein écran. Le chapitre VI se termine en franchissant un seuil ; la page est ce travelling, et la MATIÈRE change au seuil. Dehors, la place du marché est dessinée — l'étal des subsistances qui font la valeur de la force, le sablier (ce qui se vend est un temps), l'arche gravée LIBERTÉ · ÉGALITÉ · PROPRIÉTÉ · BENTHAM — et elle est VIDE DE TOUT CORPS : dans l'Éden des droits, les deux contractants ne sont que des rôles. Derrière la porte, ce n'est plus de la 3D : c'est une photographie de filature, seuls vrais corps de la page, et ils regardent l'objectif. Tout est fonction de la position de lecture, donc réversible.",
     "layout": "plein",
-    "alt": "Une place de marché au XIXe siècle, un étal de subsistances, une arche gravée Liberté, Égalité, Propriété, Bentham ; deux hommes, l'un en redingote et haut-de-forme, l'autre en chemise, marchent vers la porte sombre d'un atelier.",
+    "alt": "Une place de marché déserte au XIXe siècle, un étal de subsistances et une arche gravée Liberté, Égalité, Propriété, Bentham ; au fond, la porte ouverte d'un atelier laisse voir une photographie de filature.",
     "source": {
       "texte": "D'après le texte — Livre I, chapitre VI",
       "q": "pour les suivre tous deux dans le laboratoire secret de la production"
     },
-    "credit": "Figures : d'après un abolitionniste de The Fugitive's Story (1869) et le laboureur de The Wounded Scout (1864), John Rogers — scans du Smithsonian (NMAAHC), CC0.",
+    "credit": "Photographie : Lewis W. Hine, <i>The Mule Room in the New Bedford Cotton Mill</i>, 1912 — Library of Congress, collection National Child Labor Committee (nclc.02476), domaine public.",
     "etapes": {
-      "enigme": "La place du marché, en plein jour. Deux échangistes au même titre : l'un a de l'argent, l'autre n'a que sa force.",
+      "enigme": "La place du marché, en plein jour — et personne. Deux échangistes au même titre : l'un a de l'argent, l'autre n'a que sa force.",
       "definition": "Sur l'étal, ce qu'il faut pour vivre un jour ; dans le sablier, le temps pour lequel la force se vend — jamais en bloc, sinon de marchand on se fait marchandise.",
-      "distinction": "Face à face, comme deux vendeurs. Ce qui s'achète est une puissance : le travail, lui, n'existe pas encore.",
+      "distinction": "Personne sur la place : dans l'Éden des droits, l'égalité est formelle et les contractants ne sont que des rôles. Ce qui s'achète est une puissance — le travail, lui, n'existe pas encore.",
       "valeur": "La force vaut ses subsistances : six heures, trois shillings posés sur l'étal. Son usage, une journée entière.",
-      "seuil": "Ils quittent l'Éden — Liberté, Égalité, Propriété, Bentham — pour le laboratoire secret. L'un prend les devants ; l'autre suit, comme qui a porté sa peau au marché.",
-      "lectures": "Dedans : un établi, un métier, une horloge à douze heures. Deux échangistes égaux sont un maître et un subordonné — le contrat ne mentait pas."
+      "seuil": "Quitter l'Éden — Liberté, Égalité, Propriété, Bentham — pour le laboratoire secret. C'est le lecteur que la caméra fait avancer jusqu'au seuil.",
+      "lectures": "Derrière la porte, la matière change : une filature, ses métiers, ses arbres de transmission, et quatre ouvriers qui regardent l'objectif. Deux échangistes égaux sont un maître et un subordonné — le contrat ne mentait pas."
     },
     "fixe": {
-      "g": 4.6,
-      "legende": "Le seuil du laboratoire secret : l'homme aux écus prend les devants, le possesseur de force de travail le suit ; derrière eux, l'Éden du marché."
+      "g": 5.9,
+      "legende": "Le seuil franchi : derrière la porte de l'atelier, la photographie prend le relais du dessin — une filature en 1912, et quatre ouvriers qui regardent."
     }
   }
 }

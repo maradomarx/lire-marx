@@ -1,15 +1,21 @@
 /* LE MONDE DU TRAVAIL ALIÉNÉ — le sculpteur et la statue.
-   Marx donne l'image : l'homme « façonne aussi d'après les lois de la
-   beauté », et « plus l'homme met de choses en Dieu, moins il en garde en
-   lui-même ». Un sculpteur taille une statue, et chaque coup lui est ôté.
-   On ne voit de lui que son OMBRE au mur (une vraie ombre portée par la
-   lanterne) et le geste du maillet ; la statue est un vrai scan — Théodoric
-   le Grand, Peter Vischer, Innsbruck 1513, threedscans.com, sans droits —
-   qui sort du bloc de marbre à mesure qu'on lit (plan de coupe qui descend,
-   bloc qui se réduit, éclats). Puis : elle se dresse achevée devant lui
+   « L'ouvrier devient d'autant plus pauvre qu'il produit plus de richesse » ;
+   « plus l'homme met de choses en Dieu, moins il en garde en lui-même ».
+   Un sculpteur taille une statue, et chaque coup lui est ôté.
+   IL N'EST PAS REPRÉSENTÉ : il est son OMBRE PORTÉE sur le mur — le
+   dispositif de la page du fétichisme, et ici c'est le concept pris au mot.
+   Le corps qui la porte n'est jamais rendu (des primitives en matériau sans
+   écriture de couleur ni de profondeur, qui restent dans la passe d'ombres).
+   Il rapetisse à mesure que la statue prend la lumière. Le scan de plâtre
+   qui tenait ce rôle, détaché au plan d'un groupe de Rogers, était amputé
+   par construction : une silhouette pardonne ce qu'un corps ne pardonne pas.
+   La statue est un vrai scan — Théodoric le Grand, Peter Vischer l'Ancien
+   d'après Dürer, 1512-13, Hofkirche d'Innsbruck, threedscans.com (Oliver
+   Laric), sans restriction de droits.
+   Elle sort du bloc au défilement (plan de coupe) ; achevée, elle se dresse
    (1re détermination) ; le maillet frappe seul (2e) ; elle se tourne et lui
    fait face (3e) ; le marbre devient bronze, c'est un homme en armure (4e) ;
-   le socle garde les traces du ciseau. Tout est fonction de g, réversible. */
+   la caméra redescend au socle. Tout est fonction de g, donc réversible. */
 window.LM_MONDE = function (canvas) {
   'use strict';
   if (typeof THREE === 'undefined') return null;
@@ -57,10 +63,15 @@ window.LM_MONDE = function (canvas) {
   /* ── la lumière : une lanterne qui porte les ombres ── */
   scene.add(new THREE.AmbientLight(0x3a2c1c, 0.35));
   var hemi = new THREE.HemisphereLight(0x6a5540, 0x0c0906, 0.25); scene.add(hemi);
-  var LAMP = new THREE.Vector3(-1.6, 3.0, 1.9);
+  /* LA LANTERNE EST BASSE, ET DANS L'AXE DE LA FIGURE. Haute, elle jetait
+     l'ombre au SOL (le rayon plonge) et, décalée de trois unités en x, la
+     projetait deux mètres hors du cadre. Une ombre portée haute exige une
+     source basse, et un faible écart latéral : le grandissement vaut le
+     rapport des distances lampe→mur et lampe→figure. */
+  var LAMP = new THREE.Vector3(2.30, 1.15, 2.30);
   var spot = new THREE.SpotLight(0xffc27a, 2.4, 16, 0.75, 0.55, 1.3); spot.position.copy(LAMP); spot.castShadow = true;
   spot.shadow.mapSize.set(2048, 2048); spot.shadow.bias = -0.0006; spot.shadow.radius = 3; spot.shadow.camera.near = 0.5; spot.shadow.camera.far = 14;
-  spot.target.position.set(0.4, 0.9, -1.8); scene.add(spot); scene.add(spot.target);
+  spot.target.position.set(1.35, 1.15, -1.2); scene.add(spot); scene.add(spot.target);
   var fill = new THREE.PointLight(0xffb15c, 0.7, 10, 1.8); fill.position.set(2.6, 1.6, 2.4); scene.add(fill);
   var cold = new THREE.DirectionalLight(0x9fb4d0, 0); cold.position.set(3, 4, -2); scene.add(cold);
   var warm = new THREE.PointLight(0xffc27a, 0, 9, 1.5); warm.position.set(3.2, 2.4, 2.6); scene.add(warm);
@@ -122,56 +133,60 @@ window.LM_MONDE = function (canvas) {
     return statue;
   }).catch(function () { return null; });
 
-  /* ── le sculpteur : un vrai travailleur, scanné ──
-     Le laboureur du groupe de John Rogers, The Wounded Scout (1864, plâtre
-     peint, Smithsonian American Art Museum, domaine public) : chemise aux
-     manches relevées, pantalon, pieds nus. Détaché de l'autre figure par
-     tools/import-scan.mjs (deux plans, plus grande composante) ; son bras
-     droit, qui enlaçait le soldat, est parti avec la coupe : c'est celui
-     qu'on remplace, levé, avec le maillet. Habillé par couleurs de sommets
-     (chemise, pantalon, peau) selon la hauteur — il se tient droit, les
-     bandes suffisent. Il regarde la statue, sa coupe tournée vers le mur. */
+  /* ── le sculpteur : UNE OMBRE PORTÉE ──
+     « Plus l'homme met de choses en Dieu, moins il en garde en lui-même. »
+     Il n'est pas représenté : il est son ombre sur le mur, portée par la
+     lanterne — le dispositif de la page du fétichisme, et ici c'est le
+     concept même, pris au mot. Le corps qui la porte n'est JAMAIS rendu :
+     des primitives grossières en matériau sans écriture de couleur ni de
+     profondeur, qui restent dans la passe d'ombres (celle-ci a son propre
+     matériau de profondeur et ne regarde que castShadow). Une silhouette
+     pardonne ce qu'un corps ne pardonne pas — le scan de plâtre qui vivait
+     ici, détaché au plan d'un groupe de Rogers, était amputé par
+     construction, et ça se voyait. */
   var sculptor = new THREE.Group();
   var SC_H = 1.72;
-  var SKIN = new THREE.Color(0x8a6244), SHIRT = new THREE.Color(0xd9cdb4), PANTS = new THREE.Color(0x4a3b2e), LEATHER = new THREE.Color(0x5a3a22);
-  var workerMat = std({ vertexColors: true, roughness: 0.85 });
-  var workerMesh = null;
-  var readyWorker = loadBin('sculpteur.bin').then(function (geo) {
-    var bb = geo.boundingBox, size = new THREE.Vector3(); bb.getSize(size); var k = SC_H / size.y;
-    geo.translate(-(bb.min.x + bb.max.x) / 2, -bb.min.y, -(bb.min.z + bb.max.z) / 2); geo.scale(k, k, k);
-    geo.computeVertexNormals();
-    var p = geo.attributes.position.array, n = geo.attributes.position.count, col = new Float32Array(n * 3);
-    var NECK = SC_H * 0.905, WAIST = SC_H * 0.585, ANKLE = SC_H * 0.11, HANDX = SC_H * 0.10, SLEEVEX = SC_H * 0.09;
-    for (var i = 0; i < n; i++) {
-      var x = p[i * 3], y = p[i * 3 + 1], z = p[i * 3 + 2], c;
-      if (y > NECK) c = SKIN;
-      else if (y > WAIST) { c = SHIRT; if (x > SLEEVEX && y < SC_H * 0.75) c = SKIN; if (z > SC_H * 0.05 && y < SC_H * 0.8) c = LEATHER; }
-      else if (y > ANKLE) { c = PANTS; if (x > HANDX && y > SC_H * 0.38 && y < WAIST) c = SKIN; if (z > SC_H * 0.05 && y > SC_H * 0.3) c = LEATHER; }
-      else c = SKIN;
-      col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b;
-    }
-    geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
-    workerMesh = new THREE.Mesh(geo, workerMat); workerMesh.castShadow = true; workerMesh.receiveShadow = true;
-    sculptor.add(workerMesh); return workerMesh;
-  }).catch(function () { return null; });
+  var ghost = new THREE.MeshBasicMaterial({ colorWrite: false, depthWrite: false });
+  function bone(g, x, y, z, rx) { var m = new THREE.Mesh(g, ghost); m.position.set(x, y, z); if (rx) m.rotation.x = rx; m.castShadow = true; sculptor.add(m); return m; }
+  bone(new THREE.SphereGeometry(0.10, 12, 10), 0, SC_H * 0.94, 0);
+  bone(new THREE.CylinderGeometry(0.055, 0.06, 0.1, 8), 0, SC_H * 0.86, 0);
+  bone(new THREE.CylinderGeometry(0.135, 0.165, SC_H * 0.30, 10), 0, SC_H * 0.70, 0); /* le torse */
+  bone(new THREE.CylinderGeometry(0.155, 0.14, SC_H * 0.12, 10), 0, SC_H * 0.50, 0);  /* les hanches */
+  [-0.085, 0.085].forEach(function (x) {
+    bone(new THREE.CylinderGeometry(0.062, 0.048, SC_H * 0.26, 8), x, SC_H * 0.35, 0);
+    bone(new THREE.CylinderGeometry(0.048, 0.04, SC_H * 0.24, 8), x, SC_H * 0.11, 0);
+  });
+  /* le bras gauche, qui tient le ciseau contre la pierre */
+  var sArmL = new THREE.Group(); sArmL.position.set(0.02, SC_H * 0.83, 0.14); sArmL.rotation.x = 0.85;
+  var lUp = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.05, 0.34, 8), ghost); lUp.position.y = -0.17; lUp.castShadow = true; sArmL.add(lUp);
+  var lFo = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.038, 0.32, 8), ghost); lFo.position.set(0, -0.48, 0.06); lFo.rotation.x = -0.4; lFo.castShadow = true; sArmL.add(lFo);
+  sculptor.add(sArmL);
+  var workerMesh = null, readyWorker = Promise.resolve(null);
   /* son bras droit, levé, et le maillet — le bras que la coupe a emporté */
-  var sleeve = std({ color: 0xd9cdb4, roughness: 0.9 }), skinMat = std({ color: 0x8a6244, roughness: 0.8 });
+  var sleeve = ghost, skinMat = ghost;
   var sArmR = new THREE.Group();
   var upper = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.05, 0.34, 10), sleeve); upper.position.y = -0.17; sArmR.add(upper);
   var elbow = new THREE.Group(); elbow.position.y = -0.34; sArmR.add(elbow);
   var fore = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.038, 0.32, 10), skinMat); fore.position.y = -0.16; elbow.add(fore);
   var hand = new THREE.Mesh(new THREE.SphereGeometry(0.05, 10, 8), skinMat); hand.position.y = -0.33; hand.scale.set(0.8, 1, 0.6); elbow.add(hand);
   var mallet = new THREE.Group();
-  var mHead = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.16, 12), std({ color: 0x4a3018, roughness: 0.85 })); mHead.rotation.z = Math.PI / 2; mHead.position.y = 0.16; mallet.add(mHead);
-  var mHandle = new THREE.Mesh(new THREE.CylinderGeometry(0.014, 0.016, 0.3, 8), std({ color: 0x5a3b20, roughness: 0.8 })); mHandle.position.y = 0.03; mallet.add(mHandle);
+  var mHead = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.16, 12), ghost); mHead.rotation.z = Math.PI / 2; mHead.position.y = 0.16; mallet.add(mHead);
+  var mHandle = new THREE.Mesh(new THREE.CylinderGeometry(0.014, 0.016, 0.3, 8), ghost); mHandle.position.y = 0.03; mallet.add(mHandle);
   mallet.position.y = -0.33; elbow.add(mallet);
   sArmR.traverse(function (o) { if (o.isMesh) o.castShadow = true; });
-  sArmR.position.set(-0.21, SC_H * 0.84, 0.02); sculptor.add(sArmR);
-  var chisel = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.008, 0.28, 8), std({ color: 0x8e9299, metalness: 0.85, roughness: 0.35 })); chisel.castShadow = true; scene.add(chisel);
+  /* À rotation.y = −π/2, l'axe X local devient le Z du MONDE : le bras
+     balance alors dans le plan X-Y, celui que la lanterne éclaire de face,
+     et son ombre se découpe. Et son épaule doit être décalée en Z local
+     pour atterrir en X du monde, du côté de la statue — sinon le bras se
+     projette DERRIÈRE le tronc et l'ombre n'est qu'une masse. */
+  sArmR.position.set(0.02, SC_H * 0.84, 0.21); sculptor.add(sArmR);
+  var chisel = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.008, 0.28, 8), ghost); chisel.castShadow = true; scene.add(chisel);
   /* à droite de la statue, face à elle ; sa coupe (son côté droit) regarde le mur */
-  var SCULPT0 = new THREE.Vector3(STATUE.x + 1.35, 0, STATUE.z - 0.1);
-  /* trois quarts face : on voit son visage et le bras au maillet ; sa coupe (son côté droit) part vers le mur */
-  sculptor.position.copy(SCULPT0); sculptor.rotation.y = -Math.PI / 2 + 0.55; scene.add(sculptor);
+  var SCULPT0 = new THREE.Vector3(STATUE.x + 1.10, 0, STATUE.z + 0.65);
+  /* DE PROFIL par rapport à la lanterne : c'est la seule pose où le bras
+     levé et le maillet se découpent hors du tronc. De trois quarts, le
+     geste se confond avec le corps et l'ombre n'est plus qu'une masse. */
+  sculptor.position.copy(SCULPT0); sculptor.rotation.y = -Math.PI / 2; scene.add(sculptor);
   ready = Promise.all([ready, readyWorker]).then(function (r) { return r[0]; });
 
   /* ── les éclats ── */
@@ -208,14 +223,19 @@ window.LM_MONDE = function (canvas) {
     var bh = Math.max(0.001, H * st.cut); block.scale.y = bh; block.position.set(STATUE.x, BASE_H + bh / 2, STATUE.z);
     block.visible = st.cut > 0.003;
     /* le sculpteur : présent, puis de moins en moins — il rapetisse un peu
-       et s'assombrit jusqu'à n'être plus qu'une silhouette, pendant que la
-       statue prend la lumière */
+       à mesure que la statue prend la lumière : ce qu'il met dans l'objet,
+       il ne l'a plus */
     var sc = 1 - 0.55 * st.shrink; sculptor.scale.setScalar(Math.max(0.3, sc));
-    workerMat.color.setRGB(1 - 0.85 * st.shrink, 1 - 0.85 * st.shrink, 1 - 0.85 * st.shrink);
-    sleeve.color.copy(SHIRT).multiplyScalar(1 - 0.85 * st.shrink); skinMat.color.copy(SKIN).multiplyScalar(1 - 0.85 * st.shrink);
+    /* il n'y a plus de couleur à éteindre : le corps n'est jamais rendu.
+       C'est l'ÉCHELLE qui dit la diminution — l'ombre rapetisse à mesure
+       que la statue prend la lumière. */
     var work = st.carve * (1 - st.alone);
     var swing = work * (0.5 + 0.5 * Math.sin(T * 6.5));
-    sArmR.rotation.x = -2.3 + swing * 1.2; elbow.rotation.x = 0.9 - swing * 0.5;
+    /* le bras se lève PRESQUE À LA VERTICALE : à 42° il pointait vers la
+       statue, et son ombre se noyait dans celle de la statue, qui occupe
+       tout ce côté du mur. Redressé, le maillet passe au-dessus de la tête,
+       dans la part éclairée. */
+    sArmR.rotation.x = -2.78 + swing * 0.95; elbow.rotation.x = 0.9 - swing * 0.5;
     /* le ciseau : à la main gauche, contre le bloc, puis seul, au point de coupe */
     var cutPoint = new THREE.Vector3(STATUE.x + BW * 0.5 + 0.02, cutY, STATUE.z + BW * 0.5);
     var hand = new THREE.Vector3(0.22, SC_H * 0.5, 0.05).applyAxisAngle(new THREE.Vector3(0, 1, 0), sculptor.rotation.y).multiplyScalar(sc).add(sculptor.position);
