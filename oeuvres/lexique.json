@@ -21,21 +21,7 @@
       "de": "ursprüngliche Akkumulation",
       "def": "La séparation historique des producteurs d'avec leurs moyens de production. Non le péché originel d'une fable économique, mais l'expropriation, la conquête et la loi.",
       "page": {
-        "chapo": "L'accumulation primitive est la séparation historique des producteurs d'avec leurs moyens de production. Non le péché originel d'une fable économique, mais l'expropriation, la conquête et la loi.",
-        "corps": [
-          "Le raisonnement du livre bute sur un cercle. L'accumulation suppose de la plus-value, la plus-value suppose des salariés, et les salariés supposent des hommes qui n'ont que leur force de travail à vendre. Mais d'où viennent-ils&nbsp;? L'économie politique répond par une idylle&nbsp;: il y eut jadis une élite diligente et économe, et une masse de paresseux qui dissipèrent tout. Marx traite cette histoire comme la théologie traitait le péché originel — une faute lointaine qui explique une misère présente.",
-          "Le procès réel, il le prend en Angleterre, du XVe au XVIIIe siècle. Le déguerpissement des paysans, la clôture des terres communes, la dissolution des suites féodales, le pillage des biens d'Église&nbsp;: à chaque étape, des hommes sont libérés — de la terre autant que de leur seigneur. Ce qui se produit alors n'est pas une accumulation de richesses&nbsp;; c'est <b>la fabrication d'un rapport social</b>, en séparant par la force ce qui était uni.",
-          "Encore faut-il que l'exproprié devienne un ouvrier, et il ne le devient pas de lui-même. Jeté sur les routes, il est traité en criminel&nbsp;: la <b>législation sanglante</b> contre le vagabondage le fouette, le marque au fer, le pend au troisième délit. Marx souligne qu'il a fallu des siècles de contrainte ouverte pour produire une classe qui prendrait ensuite les exigences du capital pour des lois naturelles.",
-          "Reste un point de méthode, souvent manqué&nbsp;: ce chapitre vient à la <b>fin</b> du Livre I, non au début. Ce que l'exposition logique doit poser comme présupposé — l'existence du salarié — l'histoire le pose comme résultat. Et une fois le rapport institué, la violence ouverte cède la place à ce que Marx appelle la contrainte muette des rapports économiques&nbsp;: le salarié reconduit lui-même, chaque jour, sa propre dépendance."
-        ],
-        "voisins": [
-          "Expropriation / enclosures",
-          "Législation sanglante",
-          "Le passage de relais",
-          "Force de travail",
-          "Accumulation"
-        ],
-        "ou": "Livre I, chapitres XXVI à XXXIII — la huitième et dernière section du livre."
+        "dossier": "accumulation-primitive"
       }
     },
     "Appendice de la machine": {

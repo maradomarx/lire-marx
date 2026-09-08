@@ -6237,6 +6237,42 @@ n'est large que de 1,4 unité et la ligne de 1,6 n'y tenait pas. Une scène qui
 s'étend en largeur veut « plein » ; une scène qui tient dans un carré peut
 prendre la colonne.
 
+### L'accumulation primitive : la terre qu'on ferme (mission `glossaire-mondes-7`, sept. 2026)
+
+Cinquième page-monde, et la dernière grande pièce du Livre&nbsp;I. Le concept
+ne dit pas un entassement mais une **séparation** — « au fond du système
+capitaliste il y a donc la séparation radicale du producteur d'avec les
+moyens de production ». Il fallait donc montrer, non des richesses qui
+s'amassent, mais **une ligne qui se pose**, et une terre qui, sans changer,
+cesse d'être accessible : l'enclosure. Des pieux plantés un à un en travers
+du champ, une haie qui les relie, la chaumière qui perd son toit (« la guerre
+aux chaumières »), les moutons dans le clos — les villages ayant été détruits
+« pour faire des parcs à moutons ». Au dernier temps la ligne **continue
+hors du cadre** : la séparation « se reproduit sur une échelle progressive ».
+
+**LA LEÇON DE CETTE SCÈNE : une scène de plein air se joue en SILHOUETTE.**
+Premier jet, tout était brun sur brun et l'on ne reconnaissait rien — un
+alignement de patates. Deux causes, et les deux comptent :
+
+1. **L'appoint tuait la silhouette.** Ambiante à 0,55 et hémisphérique à
+   0,5 éclairaient la face tournée vers nous. Ramenées à 0,12 et 0,14, le
+   soleil restant DERRIÈRE les objets, un pieu redevient noir. Un pieu noir
+   sur un ciel d'or est un pieu ; le même pieu éclairé de face n'est qu'une
+   boîte.
+2. **La caméra était trop haute.** À 3,4 de haut, la ligne passait SOUS
+   l'horizon, donc sur la terre sombre : plus de silhouette du tout. Elle
+   reste désormais **à hauteur d'homme** (1,0 à 1,7), ce qui fait passer les
+   pieux au-dessus de l'horizon, sur le ciel. C'est la condition, pas un
+   goût.
+
+Le ciel est un dégradé dessiné sur un canevas de 8 × 256, redessiné seulement
+quand la lumière change assez (seuil de 0,012) : c'est lui qui donne la
+lumière de l'image, et il n'est éclairé par rien.
+
+**L'image fixe se choisit sur le temps le plus PARLANT, pas sur le plus
+avancé.** Elle était d'abord posée sur le clos achevé ; les pieux seuls, à
+mi-course, disent mieux le concept — une ligne, et rien encore de pris.
+
 ### Ce qui reste
 
 - Le pilote a été validé et fusionné ; les trois suivantes vivent sur
