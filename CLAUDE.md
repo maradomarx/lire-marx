@@ -6059,6 +6059,109 @@ marche, le sujet n'est pas la porte mais les deux figures (la visée les
 suit). L'étal est placé **à droite des figures** parce qu'il est le sujet des
 étapes 2 et 4 : à leur gauche, il tombait sous le voile.
 
+### Les statues s'en vont (mission `glossaire-mondes-4`, sept. 2026)
+
+Verdict du propriétaire sur les deux pages à figures scannées : « pourquoi
+t'être embêté à partir de statues ? là ça rend pas, absolument pas ». Il
+avait raison, et la cause était nette : **les seuls scans libres de figures
+humaines du XIXᵉ sont des GROUPES sculptés** (les plâtres de John Rogers).
+Pour en détacher une figure il faut la couper au plan — ce qui **ampute par
+construction** : l'ouvrier sans tête, les jambes finissant en flaque, un
+morceau du voisin resté aux pieds.
+
+**LA RÈGLE : on ne découpe pas une figure dans un groupe sculpté.** Et plus
+largement, une figure à demi lisible vaut moins que pas de figure — mieux
+vaut retirer que livrer un dispositif à moitié tenu.
+
+Arbitrage du propriétaire pour les remplacer : **la photographie d'archive**.
+
+#### Force de travail — la matière change au seuil
+
+Le chapitre VI se termine en changeant de registre : on quitte « cette
+sphère bruyante où tout se passe à la surface » pour « le laboratoire secret
+de la production ». La scène change donc de MATIÈRE au franchissement.
+Dehors tout reste dessiné, et **la place est vide** : dans l'Éden des droits,
+les deux contractants ne sont que des rôles. Derrière la porte, une
+photographie — **Lewis W. Hine, « The Mule Room in the New Bedford Cotton
+Mill », 1912** (Library of Congress, collection National Child Labor
+Committee, `nclc.02476`, domaine public, `atelier-1912.webp`). Seuls corps de
+la page, et ils regardent l'objectif. La caméra ne suit personne : c'est le
+LECTEUR qu'elle fait entrer.
+
+**La provenance a été prise sur Wikimedia Commons, pas sur loc.gov** : la
+Library of Congress est derrière un contrôle anti-robot (curl comme le
+navigateur piloté reçoivent le défi), qu'on ne contourne pas. Commons
+mirroite ces tirages avec leur notice complète et une API ouverte —
+`Special:FilePath/<nom>?width=N` sert le fichier. **Ne pas se fier au résumé
+d'un moteur de recherche pour une mention de droits qu'on va imprimer :
+c'est le piège Palmier.**
+
+⚠️ Les quatre photographies d'ouvriers du fonds (`manufacture`, `filature`,
+`sortie-usine`, `halles-paris`) restent marquées « licence à confirmer » : ne
+pas bâtir une pièce maîtresse dessus.
+
+#### Travail aliéné — l'ombre portée
+
+Ici la photographie n'avait **pas de place honnête** : pas de seuil à
+franchir, et un détourage propre est hors de portée de l'outillage du poste
+(ni ImageMagick, ni PIL, ni numpy — seulement `sips` et le canvas d'un
+Chrome piloté). Le concept en donnait une meilleure : « plus l'homme met de
+choses en Dieu, moins il en garde en lui-même » — **le sculpteur n'est plus
+que son ombre portée au mur**, et elle rapetisse à mesure que la statue
+prend la lumière. C'est le dispositif de la page du fétichisme, pris au mot.
+
+Le corps qui porte l'ombre **n'est jamais rendu** : des primitives grossières
+en `MeshBasicMaterial({colorWrite:false, depthWrite:false})`, qui restent
+dans la passe d'ombres (celle-ci a son propre matériau de profondeur et ne
+regarde que `castShadow`). Une silhouette pardonne ce qu'un corps ne
+pardonne pas.
+
+**La statue était trouée par MA réduction de maillage, pas par le scan** :
+`import-scan.mjs` ramenait deux millions de triangles à cinquante mille sur
+une grille de 120 cellules — la jupe d'armure en dentelle, le visage effacé.
+Réimportée à 188 cellules (120 000 triangles, 1 Mo au lieu de 443 Ko), elle
+est solide. **Le commentaire de l'outil dit « fidèle au-delà de 150 cellules
+sur le grand axe » : c'est un seuil, pas une indication.**
+
+#### Cinq pièges, tous mesurés après que le raisonnement eut échoué
+
+1. **UNE PORTE DOIT ÊTRE UN VRAI TROU.** La façade de l'atelier était un
+   BLOC PLEIN dont la porte n'était qu'un faux trou noir posé devant (deux
+   plans). Depuis la rue on regardait donc un mur, et la scène ne
+   fonctionnait que parce que la caméra le TRAVERSAIT. Quatre panneaux
+   autour de l'ouverture — la règle est déjà écrite pour `mkWall` dans la
+   bibliothèque.
+2. **LES FAÇADES DE RUE SONT DES BOÎTES, ET ELLES PÉNÈTRENT.** Un bâtiment
+   du décor (profondeur 4) mordait dans le volume de l'atelier et se voyait
+   PAR-DESSUS le tirage, sur le bord du cadre. Trouvé au **lancer de rayon**
+   depuis la caméra (`Raycaster.setFromCamera` sur quelques abscisses
+   normalisées, puis lecture des objets touchés) — après trois hypothèses
+   fausses de suite. Agrandir l'enceinte ne sert à rien : une boîte n'exclut
+   pas ce qui est dedans, il faut déplacer l'intrus.
+3. **UN DÉCALAGE DE VISÉE PROPORTIONNEL À LA DISTANCE DOIT ÊTRE PLAFONNÉ.**
+   La règle maison « viser à gauche du sujet pour qu'il vive dans la moitié
+   droite, sous la colonne de texte » valait `0,3 × distance` : sur un plan
+   large (dix unités) cela fait trois unités, et le sujet sort du cadre.
+   `Math.min(0,28 × dist, 1,4)`.
+4. **UNE OMBRE PORTÉE HAUTE EXIGE UNE SOURCE BASSE.** La lanterne pendait à
+   trois mètres : le rayon plongeait, l'ombre tombait au SOL, et son écart
+   latéral de trois unités la projetait deux mètres hors du cadre. Le
+   grandissement vaut le rapport des distances lampe→mur et lampe→figure ;
+   l'écart latéral commande où elle atterrit. Lanterne abaissée à 1,15 et
+   ramenée dans l'axe de la figure.
+5. **UN MEMBRE NE SE DÉCOUPE QUE S'IL BALANCE DANS LE PLAN DE LA LUMIÈRE.**
+   Le bras au maillet se projetait DERRIÈRE le tronc. À `rotation.y = −π/2`
+   l'axe X local devient le Z du monde : le bras balance alors dans le plan
+   X-Y, celui que la lanterne éclaire de face. Il faut AUSSI décaler l'épaule
+   en Z local pour qu'elle atterrisse en X du monde. Et à 42° le bras
+   pointait vers la statue, où son ombre se noyait dans celle de la statue :
+   redressé à la verticale, le maillet passe dans la part éclairée.
+
+**Un essai a été écrit puis retiré** : deux ombres portées au sol sur la
+place du marché, pour dire les contractants sans les incarner. Au ras du
+pavé elles se confondaient avec celle de l'étal. Ne pas le reproposer sous
+cette forme.
+
 ### Ce qui reste
 
 - Le pilote a été validé et fusionné ; les trois suivantes vivent sur
