@@ -20,7 +20,6 @@
   if (!canvas || !secs.length) return;
 
   var REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var WIDE = matchMedia('(min-width: 1100px)').matches;
   function hasGL(){
     try { var c = document.createElement('canvas');
       return !!(c.getContext('webgl') || c.getContext('experimental-webgl')); }
@@ -29,7 +28,7 @@
   /* une scène en 2D ne déclare pas data-three : elle ne demande alors ni
      WebGL ni la bibliothèque — cent quarante-huit kilo-octets de moins */
   var NEED3D = !!aside.dataset.three;
-  if (REDUCE || !WIDE || (NEED3D && !hasGL())) return;
+  if (REDUCE || (NEED3D && !hasGL())) return;
 
   function load(src){
     return new Promise(function(res, rej){
@@ -38,8 +37,31 @@
       document.head.appendChild(s);
     });
   }
-  var p = (NEED3D && typeof THREE === 'undefined') ? load(aside.dataset.three) : Promise.resolve();
-  p.then(function(){ return load(aside.dataset.scene); }).then(start).catch(function(){});
+
+  /* ── LE FILET ─────────────────────────────────────────────────────────
+     La décision se prend au moment de décider, et une seule mesure ne
+     suffit pas : au moment où ce script s'exécute, la fenêtre peut encore
+     annoncer une largeur qui n'est pas la sienne (onglet ouvert en
+     arrière-plan, fenêtre restaurée, onglet piloté). Sans filet, la scène
+     ne s'armait JAMAIS et la page restait sur son image fixe pour de bon —
+     vécu en vérifiant le déploiement dans une pane étroite. Le seuil est
+     donc redemandé au chargement et au premier redimensionnement, comme
+     l'accueil et l'entrée du carnet le font déjà. */
+  var lance = false;
+  function armer(){
+    if (lance || !matchMedia('(min-width: 1100px)').matches) return;
+    lance = true;
+    window.removeEventListener('resize', armer);
+    window.removeEventListener('load', armer);
+    var p = (NEED3D && typeof THREE === 'undefined') ? load(aside.dataset.three) : Promise.resolve();
+    p.then(function(){ return load(aside.dataset.scene); }).then(start).catch(function(){});
+  }
+  armer();
+  if (!lance) {
+    window.addEventListener('resize', armer);
+    window.addEventListener('load', armer);
+    setTimeout(armer, 400);
+  }
 
   function start(){
     if (typeof window.LM_MONDE !== 'function') return;
