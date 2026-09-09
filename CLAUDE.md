@@ -7302,28 +7302,78 @@ méritent d'être justifiés parce qu'ils auraient pu recevoir une page :
 cercles » pour section de distinction ; et le **taux de profit**, qui vit au
 Livre III et ne porterait aucune citation liée.
 
+### L'abécédaire est bouclé (mission `glossaire-mondes-26`, sept. 2026)
+
+**Les soixante-quinze fiches de l'abécédaire mènent toutes à une page** :
+**39 pages-monde et 36 renvois `voir`**, plus une seule sans destination. La
+demande du propriétaire — un concept, une page — est tenue.
+
+#### La législation sanglante — LA FORGE QUI S'ÉTEINT
+
+Le chapitre XXVIII ne s'achève pas sur les statuts mais sur leur RELÈVE : « la
+sourde pression des rapports économiques achève le despotisme du capitaliste
+sur le travailleur », et le fer rouge devient une pièce d'arsenal qu'on garde
+sans s'en servir. La figure montre donc un appareil de contrainte qu'on monte
+puis qu'on démonte, et le fait que rien ne le remplace visiblement : le
+brasier, les fers, la planche d'essai qui prend ses trois lettres, l'anneau ;
+puis le tableau du tarif, avec son trait de plafond en haut et RIEN en
+dessous — la loi fixe un maximum et se garde de prescrire un minimum ; puis
+tout se refroidit, le tableau est décroché, il n'en reste qu'un rectangle pâle
+sur la suie et un clou vide, et un seul fer demeure au râtelier.
+
+**LA LUMIÈRE CHANGE DE SOURCE**, et c'est le geste de la page : au premier
+temps la scène est éclairée d'en bas par les braises, au dernier par la seule
+lampe. C'est un registre neuf dans le dossier — jusqu'ici la lumière était un
+décor, ici elle est l'argument.
+
+#### Trois corrections, et la règle des 4,7 confirmée
+
+1. **UN ÉMISSIF POUSSÉ À 1 LAVE VERS LE BLANC** : les braises rendaient crème
+   et les fers rouges paraissaient de cire. Intensité 0,16-0,58 et émissif
+   franchement rougi (0xd82e08).
+2. **La rouille écrite 0x28 sort vers 190**, c'est-à-dire beige clair, et les
+   fers ne se distinguaient plus de leurs manches de bois. **La règle des 4,7
+   vaut aussi pour les matières qu'on croit sombres par nature.**
+3. **UN OBJET QU'ON ÔTE D'UN MUR DESCEND.** Le tableau montait hors cadre et
+   l'on croyait qu'il s'envolait.
+
+Et une leçon de composition, mesurée : **quand l'ensemble est plus large que
+la colonne, il ne suffit pas de reculer, il faut RESSERRER.** Le bout du
+râtelier tombait à −4 % et le tableau à 97 % ; les deux se sont rapprochés et
+la distance a suivi. Reculer aurait rendu la planche d'essai illisible.
+
+#### Les deux espèces de renvoi, et pourquoi elles ne se traitent pas pareil
+
+- **Les moments d'un argument déjà développé** (« valeur transférée »,
+  « travail payé », « ΔA », « contre-tendances »…) : le renvoi est la bonne
+  réponse, une page servirait le même texte à une seconde adresse.
+- **Les intitulés d'exploration du site** (« Lever le voile », « Le
+  hiéroglyphe social », « Les contre-mondes », « Le passage de relais ») : ils
+  renvoient au fétichisme et à la législation sanglante, qui traitent ce
+  qu'ils nomment — vérifié dans les essais. **Le renvoi ne ferme pas la
+  question de leur renommage dans `CONCEPTS`**, qui touche l'atelier et
+  attend toujours l'arbitrage du propriétaire : il est purement additif.
+- **Ce qui est d'un livre non servi** (Département I, Département II, la
+  condition `I(v+pl)=II(c)`, au Livre II) : **un renvoi vers une page qui ne
+  les traite pas serait pire que rien.** La page de la reproduction simple
+  gagne donc un paragraphe qui les NOMME et dit où ils sont, sans les citer
+  faute de texte servi où le vérifier. C'est le geste déjà posé pour la loi
+  tendancielle et la subsomption réelle.
+
 ### Ce qui reste
 
-- **Trente-huit pages-monde, vingt-neuf renvois `voir`, et huit notions qui
-  n'ont ni l'un ni l'autre.** Soit **67 fiches sur 75** qui mènent à une
-  page. La demande du propriétaire — un concept, une page — est donc tenue
-  pour l'essentiel, et le reste se répartit en trois cas nets.
-- **Quatre entrées ne sont pas des concepts de Marx** mais les intitulés
-  d'exploration du site : « Lever le voile », « Le hiéroglyphe social »,
-  « Les contre-mondes », « Le passage de relais ». Les renommer toucherait
-  `CONCEPTS` dans `capital-1.html`, donc l'atelier : **signalé au
-  propriétaire, sans réponse à ce jour.**
-- **Trois entrées sont du Livre II**, que le site ne sert pas : Département
-  I, Département II, la condition d'équilibre `I(v+pl)=II(c)`. Même cas que
-  le taux de profit — aucune citation ne serait vérifiable.
-- **La législation sanglante** (chapitre XXVIII) a de quoi tenir une page,
-  et c'est la prochaine.
+- **Rien à écrire dans l'abécédaire** : les 75 fiches ont leur destination.
+  Une notion nouvelle n'apparaîtra que si une œuvre entre au corpus avec son
+  `CONCEPTS=`.
+- **Quatre entrées ne sont pas des concepts de Marx** et pourraient être
+  renommées dans `CONCEPTS` (`capital-1.html`) — ce qui touche l'atelier.
+  Elles ont un renvoi en attendant. **Signalé trois fois, sans réponse.**
 - **La page du travail aliéné cite vingt-quatre passages de Bottigelli**,
   protégé jusqu'en 2046, et contredit donc la règle que les autres pages des
   Manuscrits suivent. C'est la seule dans ce cas, et c'est son arbitrage.
 - **Le slug `valeur-d-usage-vs-valeur`** porte le titre affiché « Valeur
-  d'usage et valeur ». `page.slug` permettrait de le corriger, mais l'URL
-  est publique : il faudrait une redirection, donc son accord.
+  d'usage et valeur ». `page.slug` permettrait de le corriger, mais l'URL est
+  publique : il faudrait une redirection, donc son accord.
 - Le `Article` en JSON-LD signe `Organization` : la page n'a pas de byline
   nominative, et un schéma n'affirme que ce que la page imprime.
 

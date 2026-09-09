@@ -45,10 +45,12 @@
       }
     },
     "Condition I(v+pl)=II(c)": {
-      "def": "La condition d'équilibre de la reproduction simple : ce que le secteur des moyens de production verse en salaires et en plus-value doit égaler ce que l'autre consomme en moyens de production."
+      "def": "La condition d'équilibre de la reproduction simple : ce que le secteur des moyens de production verse en salaires et en plus-value doit égaler ce que l'autre consomme en moyens de production.",
+      "voir": "Reproduction simple"
     },
     "Les contre-mondes": {
-      "def": "Les situations que Marx oppose à la production marchande — Robinson, le servage, l'économie familiale, les producteurs associés — où le rapport social se voit sans avoir à être déchiffré."
+      "def": "Les situations que Marx oppose à la production marchande — Robinson, le servage, l'économie familiale, les producteurs associés — où le rapport social se voit sans avoir à être déchiffré.",
+      "voir": "Fétichisme"
     },
     "Contre-tendances": {
       "de": "entgegenwirkende Ursachen",
@@ -76,11 +78,13 @@
     },
     "Département I": {
       "de": "Abteilung I",
-      "def": "Le secteur qui produit les moyens de production. Dans les schémas de reproduction, son produit doit remplacer le capital constant usé des deux secteurs."
+      "def": "Le secteur qui produit les moyens de production. Dans les schémas de reproduction, son produit doit remplacer le capital constant usé des deux secteurs.",
+      "voir": "Reproduction simple"
     },
     "Département II": {
       "de": "Abteilung II",
-      "def": "Le secteur qui produit les moyens de consommation. Son produit doit couvrir ce que les salaires et la plus-value des deux secteurs dépensent."
+      "def": "Le secteur qui produit les moyens de consommation. Son produit doit couvrir ce que les salaires et la plus-value des deux secteurs dépensent.",
+      "voir": "Reproduction simple"
     },
     "Division du travail": {
       "de": "Teilung der Arbeit",
@@ -151,7 +155,8 @@
     },
     "Le hiéroglyphe social": {
       "de": "gesellschaftliche Hieroglyphe",
-      "def": "La valeur ne s'annonce pas : les hommes l'ont déchiffrée sans savoir qu'ils lisaient. En découvrir le secret ne dissipe pas l'apparence, mais en explique la nécessité."
+      "def": "La valeur ne s'annonce pas : les hommes l'ont déchiffrée sans savoir qu'ils lisaient. En découvrir le secret ne dissipe pas l'apparence, mais en explique la nécessité.",
+      "voir": "Fétichisme"
     },
     "Journée de travail": {
       "de": "Arbeitstag",
@@ -162,11 +167,15 @@
     },
     "Législation sanglante": {
       "de": "Blutgesetzgebung",
-      "def": "Les lois contre le vagabondage qui, du XVe au XVIIIe siècle, dressent les expropriés à la discipline de l'atelier — par le fouet, la marque et la potence."
+      "def": "Les lois contre le vagabondage qui, du XVe au XVIIIe siècle, dressent les expropriés à la discipline de l'atelier — par le fouet, la marque et la potence.",
+      "page": {
+        "dossier": "legislation-sanglante"
+      }
     },
     "Lever le voile": {
       "de": "mystischer Nebelschleier",
-      "def": "Le brouillard mystique ne se dissipe que le jour où la production devient l'affaire d'hommes librement associés, agissant sous leur contrôle conscient et selon un plan."
+      "def": "Le brouillard mystique ne se dissipe que le jour où la production devient l'affaire d'hommes librement associés, agissant sous leur contrôle conscient et selon un plan.",
+      "voir": "Fétichisme"
     },
     "Loi de la circulation": {
       "def": "La masse de monnaie nécessaire égale la somme des prix divisée par le nombre de rotations d'une même pièce. Ce sont les prix qui commandent la quantité, non l'inverse.",
@@ -215,7 +224,8 @@
       "voir": "Mesure des valeurs"
     },
     "Le passage de relais": {
-      "def": "Le moment où la contrainte ouverte cède la place à la contrainte muette des rapports économiques : le salarié reconduit lui-même, chaque jour, sa propre dépendance."
+      "def": "Le moment où la contrainte ouverte cède la place à la contrainte muette des rapports économiques : le salarié reconduit lui-même, chaque jour, sa propre dépendance.",
+      "voir": "Législation sanglante"
     },
     "Plus-value absolue": {
       "de": "absoluter Mehrwert",
