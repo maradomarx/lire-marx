@@ -91,7 +91,10 @@
     },
     "Force productive": {
       "de": "Produktivkraft",
-      "def": "Ce que le travail rend en une heure. Quand elle monte, la valeur des subsistances baisse, le travail nécessaire raccourcit — et le surtravail s'allonge d'autant."
+      "def": "Ce que le travail rend en une heure. Quand elle monte, la valeur des subsistances baisse, le travail nécessaire raccourcit — et le surtravail s'allonge d'autant.",
+      "page": {
+        "dossier": "force-productive"
+      }
     },
     "Forme argent": {
       "de": "Geldform",
