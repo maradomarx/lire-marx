@@ -32,7 +32,13 @@ const dossier = path.join(SITE, 'glossaire/mondes', slug);
 if (!fs.existsSync(path.join(dossier, 'monde.js'))) die(`${dossier}/monde.js est absent.`);
 const meta = JSON.parse(fs.readFileSync(path.join(dossier, 'meta.json'), 'utf8'));
 const fixe = (meta.monde && meta.monde.fixe) || {};
-const G = typeof fixe.g === 'number' ? fixe.g : 0;
+/* Une PLANCHE-CONTACT : `--g=4.8` photographie une autre position que
+   celle du dossier, et `--out=<fichier>` l'écrit ailleurs que dans le
+   dossier — c'est ainsi qu'on CHOISIT meta.monde.fixe.g au lieu de le
+   deviner, et qu'on relit une chorégraphie temps par temps. */
+const opt = (n) => { const a = process.argv.find((x) => x.startsWith('--' + n + '=')); return a ? a.slice(n.length + 3) : null; };
+const G = opt('g') !== null ? Number(opt('g')) : (typeof fixe.g === 'number' ? fixe.g : 0);
+const OUT = opt('out');
 if (!fs.existsSync(CHROME)) die(`Chrome introuvable : ${CHROME}`);
 
 const require = createRequire(path.join(JEU, 'package.json'));
@@ -80,6 +86,11 @@ try {
   }, G, W, H);
   const png = path.join(dossier, 'monde.png');
   await page.screenshot({ path: png, clip: { x: 0, y: 0, width: W, height: H } });
+  if (OUT) {
+    execFileSync('sips', ['-s', 'format', 'jpeg', '-s', 'formatOptions', '84', png, '--out', OUT], { stdio: 'ignore' });
+    console.log(`✓ ${slug} — g = ${G} → ${OUT}`);
+    process.exit(0);
+  }
   execFileSync('cwebp', ['-q', '80', '-quiet', png, '-o', path.join(dossier, 'monde.webp')]);
   execFileSync('sips', ['-s', 'format', 'jpeg', '-s', 'formatOptions', '82', png, '--out', path.join(dossier, 'monde.jpg')], { stdio: 'ignore' });
   fs.unlinkSync(png);

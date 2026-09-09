@@ -1,0 +1,47 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/capital-constant-et-variable.",
+  "titre": "Capital constant et capital variable",
+  "de": "konstantes und variables Kapital",
+  "chapo": "Une même avance, deux comportements. La partie qui devient coton, broches et bâtiments rend exactement ce qu'elle a reçu : sa valeur reparaît dans le produit sans y rien ajouter. La partie qui achète des journées de travail rembourse ce qu'elle a coûté et va au-delà. Marx appelle la première constante et la seconde variable — et c'est de cette coupure que dépendent le taux de la plus-value, la composition du capital et tout le Livre III.",
+  "description": "Capital constant et capital variable chez Marx : pourquoi la valeur des moyens de production ne fait que reparaître dans le produit, pourquoi seule la force de travail en crée de nouvelle, et ce que la distinction rend calculable.",
+  "source": {
+    "work": "capital-1",
+    "s": 3,
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre VIII — traduction Joseph Roy (1872)"
+  },
+  "ou": "Livre&nbsp;I, troisième section, chapitre VIII, « Capital constant et capital variable » — entre le chapitre VII, qui montre comment naît la plus-value, et le chapitre IX, qui en donne le taux : il fallait d'abord établir par rapport à quoi ce taux se calcule.",
+  "outils": [
+    {
+      "label": "Le circuit du capital — le jeu",
+      "url": "/jeu/"
+    }
+  ],
+  "voisins": [
+    "Valeur transférée",
+    "Valeur nouvelle",
+    "Composition organique",
+    "Taux de plus-value",
+    "Travail mort",
+    "Loi tendancielle"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : LE COMPTOIR, ET LES DEUX PILES. Le chapitre compare deux COMPORTEMENTS DE GRANDEUR : il faut donc pouvoir compter. Une avance en une seule colonne, indistincte comme elle l'est dans les livres ; elle se partage, les deux parts sont dépensées, le comptoir reste vide. Puis le produit se monte de deux manières : les pièces sombres REPARAISSENT (métempsycose, le mot est de Marx), les claires ne viennent d'aucune pile. L'anneau marque l'avance ; ce qui dépasse est la plus-value. Au cinquième temps on double le prix du coton, et l'écart entre l'anneau et le sommet ne bouge pas d'une pièce.",
+    "alt": "Sur un comptoir, une colonne de pièces qui se partage en deux, une balle de coton et une broche, et une seconde colonne qui se monte à côté d'une tige portant un anneau : la part sombre de la colonne ne fait que reparaître, la part claire la dépasse.",
+    "source": {
+      "texte": "D'après le texte — Livre I, chapitre VIII",
+      "q": "leur valeur est sujette à une espèce de métempsycose"
+    },
+    "etapes": {
+      "fait": "Une avance, en une seule colonne. Rien ne distingue ce qui achètera du coton de ce qui paiera une journée : c'est un seul décaissement, porté à un seul compte.",
+      "ou": "La colonne se partage. À gauche ce qui deviendra moyens de production, à droite ce qui achètera la force de travail — deux parts d'une même somme, et rien encore ne les oppose.",
+      "distinction": "Les deux parts sont dépensées. Il reste du coton et une broche d'un côté, rien du tout de l'autre : la journée a été payée, et le comptoir est vide.",
+      "mecanisme": "Le produit se monte. Les pièces sombres reparaissent — autant qu'il en était entré, jamais une de plus. Les claires ne viennent d'aucune pile : elles se forment au-dessus et tombent.",
+      "ouvre": "L'anneau marque l'avance. La part claire l'a dépassé : ce qui est au-dessus n'a été avancé par personne, et c'est là-dessus que se calcule le taux.",
+      "lectures": "On double le prix du coton. La part sombre double, la colonne monte d'autant, l'anneau monte d'autant — et l'écart entre l'anneau et le sommet ne bouge pas d'une pièce."
+    },
+    "fixe": {
+      "g": 5.7,
+      "legende": "Le prix du coton a doublé : la part sombre de la colonne a doublé avec lui et l'anneau de l'avance est monté d'autant. L'écart entre l'anneau et le sommet — la plus-value — n'a pas bougé d'une pièce. Une seule chose a été déplacée, et elle prouve que ce sont deux grandeurs."
+    }
+  }
+}

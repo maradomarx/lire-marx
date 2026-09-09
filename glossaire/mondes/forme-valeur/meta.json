@@ -1,0 +1,48 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/forme-valeur.",
+  "titre": "La forme-valeur",
+  "de": "Wertform",
+  "chapo": "Une marchandise seule ne peut pas dire ce qu'elle vaut : sa valeur n'est nulle part dans son corps, et il lui faut une autre marchandise pour lui servir de miroir. De cette impossibilité initiale, Marx tire toute la genèse de la monnaie — la forme simple, la forme développée, la forme générale, la forme argent — et l'or n'y apparaît qu'à la fin, comme une place occupée et non comme une nature.",
+  "description": "La forme-valeur chez Marx : pourquoi une marchandise ne peut exprimer sa valeur que dans le corps d'une autre, ce que sont la forme relative et la forme équivalent, et comment le simple renversement d'une série engendre la forme argent.",
+  "source": {
+    "work": "capital-1",
+    "s": 1,
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre premier, section III — traduction Joseph Roy (1872)"
+  },
+  "ou": "Livre&nbsp;I, première section, chapitre premier, « La marchandise », troisième partie, « Forme de la valeur » — après la substance et la grandeur de la valeur, et avant le fétichisme, dont elle est la matrice.",
+  "outils": [
+    {
+      "label": "Le hiéroglyphe social — les explorations",
+      "url": "/oeuvres/capital-1#explore=x-feti"
+    }
+  ],
+  "voisins": [
+    "Valeur d’usage vs valeur",
+    "Fétichisme",
+    "Travaux privés",
+    "Le hiéroglyphe social",
+    "Mesure des valeurs",
+    "Argent"
+  ],
+  "monde": {
+    "_": "LA PLANCHE : LES QUATRE FORMES, IMPRIMÉES. Marx les donne lui-même sous forme de planches, et la dernière porte une accolade — sa figure propre est typographique, pas plastique. Les mêmes termes changent de place : entre la forme développée et la forme générale il n'écrit aucune équation nouvelle, il lit la série à l'envers, et c'est cela qu'il faut voir. Le côté droit est toujours celui de l'équivalent, imprimé CREUX : ce qui sert de miroir n'exprime pas sa propre valeur.",
+    "alt": "Une planche imprimée : « 20 mètres de toile = 1 habit », qui devient une liste de marchandises, puis se retourne autour d'une accolade pour que toutes s'expriment dans la toile, puis dans l'or.",
+    "source": {
+      "texte": "D'après le texte — Livre I, chapitre premier, section III",
+      "q": "Le mystère de toute forme de valeur gît dans cette forme simple"
+    },
+    "etapes": {
+      "fait": "Vingt mètres de toile, et un blanc en face. La valeur n'est nulle part dans le corps de la toile : il n'y a rien à écrire de ce côté-là tant qu'une autre marchandise ne s'est pas présentée.",
+      "ou": "Un habit vient occuper le blanc. C'est l'expression de valeur la plus pauvre qui soit, et Marx avertit que le mystère de toutes les autres y est déjà contenu.",
+      "distinction": "Les deux membres n'ont pas le même rôle. Celui de droite est imprimé creux : il sert de miroir et n'exprime pas sa propre valeur. L'équation bascule une fois et revient — les deux formes s'excluent.",
+      "mecanisme": "La série se déploie : thé, café, or, fer, et ainsi de suite. Chaque terme est vrai, aucun n'est le dernier, et chaque marchandise aurait la sienne — donc aucune expression commune.",
+      "ouvre": "Le renversement. Les lignes traversent l'accolade sans qu'une seule équation soit ajoutée : la série a été lue à l'envers, et une marchandise est devenue le miroir de toutes.",
+      "lectures": "L'or sort du rang et prend la pointe ; la toile redescend parmi les autres et exprime enfin sa valeur. Rien n'a changé que l'occupant de la place."
+    },
+    "fixe": {
+      "g": 4.8,
+      "legende": "La forme générale : les mêmes termes qu'à la planche précédente, du côté opposé de l'accolade. Aucune équation n'a été ajoutée — la série a été lue à l'envers, et la toile, devenue le miroir de toutes, est imprimée creux parce qu'elle n'exprime plus la sienne."
+    },
+    "moteur": "2d"
+  }
+}

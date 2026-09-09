@@ -6870,12 +6870,178 @@ PROJECTION en portrait (les six objets extrêmes entre 6&nbsp;% et 93&nbsp;% de 
 largeur). Zéro débordement horizontal, console sans erreur, `gen-seo --check`
 à jour et idempotent.
 
+### Les paires, et le renvoi (mission `glossaire-mondes-20`, sept. 2026)
+
+Trois notions restaient en plan, et pour la même raison : ce sont des
+**paires** ou des **séries**. Capital constant et capital variable, travail
+mort et travail vivant, les six formes de la valeur. Marx les pose ensemble
+et elles ne se comprennent pas séparément — mais deux entrées de lexique
+pointant le même dossier auraient servi le même texte à deux adresses, ce
+qu'un moteur compte comme du doublon ; et le générateur refuse par ailleurs
+une clé de lexique qui ne correspond à aucune fiche de l'atelier, de sorte
+qu'on ne pouvait pas inventer un terme « La forme-valeur ».
+
+**Le remède est celui du dictionnaire : `voir` dans le lexique.** Une entrée
+porte la page, les autres RENVOIENT vers elle. Elles gardent leur définition
+et leur place dans l'abécédaire — on cherche « forme argent », il faut la
+trouver à F — mais leur lien mène à la page commune. Une seule URL, aucun
+doublon, et **rien à changer dans les fiches de l'atelier**. Le générateur
+échoue bruyamment si un `voir` nomme une notion inexistante ou une notion
+sans page.
+
+**`page.slug` va avec.** L'adresse d'une notion est d'ordinaire le slug de
+son nom ; quand la page porte un titre que le lexique ne peut pas porter,
+elle nomme son adresse (`/glossaire/forme-valeur` pour l'entrée « Forme
+simple »). Deux notions qui demanderaient la même adresse font échouer la
+génération.
+
+#### La forme-valeur — LES QUATRE PLANCHES, et pas de 3D
+
+Une nature morte de six marchandises sur un comptoir a été construite
+d'abord, puis **abandonnée** : six solides génériques vus de trois quarts
+restent six solides génériques, et c'est le reproche déjà entendu. La bonne
+figure était sous la main : **Marx donne lui-même la forme-valeur sous forme
+IMPRIMÉE**, en quatre planches dont la dernière porte une accolade. Le
+concept n'est pas un objet mais une manière de s'exprimer ; sa figure propre
+est typographique.
+
+Les quatre formes sont **les mêmes termes qui changent de place**, et c'est
+tout l'argument du chapitre : entre la forme développée et la forme
+générale, Marx n'écrit aucune équation nouvelle, il lit la série à l'envers.
+Le lecteur le voit parce que rien n'apparaît ni ne disparaît — les lignes
+traversent l'accolade.
+
+Deux dispositifs typographiques portent ce que le texte seul peine à tenir.
+Le côté droit est toujours celui de l'équivalent, et il est **imprimé
+CREUX** : ce qui sert de miroir n'exprime pas sa propre valeur. Et au
+troisième temps la ligne **se recompose** — les deux membres s'effacent, les
+places s'échangent, ils reparaissent de l'autre côté avec leurs deux noms.
+Ils ne se croisent pas : premier jet, ils se traversaient au milieu du cadre
+et l'on lisait deux mots imprimés au même endroit. On ne peut pas lire
+l'équation dans les deux sens à la fois, et la figure doit le dire.
+
+Trois points de fabrication : **il n'y a qu'UN signe d'égalité par ligne**,
+et il appartient à la série, non au terme qui lui fait face (un signe par
+terme en donnait deux dans la forme simple) ; sa place ne dépend pas du
+terme mais de la planche, au milieu du blanc tant qu'il n'y a pas
+d'accolade, contre la colonne de gauche dès qu'il y en a une ; et **le blanc
+autour du signe doit loger le signe ET l'accolade** — posés au même endroit,
+le « = » se lisait comme un défaut d'impression.
+
+#### Capital constant et variable — LE COMPTOIR, ET LES DEUX PILES
+
+Le chapitre VIII ne classe pas des choses, il compare deux **comportements
+de grandeur** : il faut donc pouvoir COMPTER, et un atelier avec un ouvrier
+et une machine aurait montré des choses là où il fallait montrer des
+nombres. D'où les pièces — une avance en une seule colonne, indistincte
+comme elle l'est dans les livres ; elle se partage ; les deux parts sont
+dépensées et le comptoir reste vide ; puis le produit se monte de deux
+manières, les pièces sombres qui REPARAISSENT (métempsycose, le mot est de
+Marx) et les claires qui ne viennent d'aucune pile.
+
+**Le dernier temps est la démonstration, et il tient à un second crochet.**
+On double le prix du coton : la part sombre double, la colonne monte
+d'autant, l'anneau de l'avance monte d'autant. **Deux crochets de même
+longueur à deux hauteurs différentes** — le témoin d'avant et celui d'après
+— disent alors que l'écart n'a pas bougé d'une pièce. Sans le second, la
+figure ne prouvait rien.
+
+⚠️ **UN `metalness` PROCHE DE 1 SANS ENVIRONNEMENT REND NOIR.** Il ne rend
+que ce qu'il réfléchit, et il n'y a rien à réfléchir dans ces scènes : les
+pièces claires sortaient **plus sombres que les sombres**, c'est-à-dire que
+la figure disait le contraire de l'argument. On descend le métal (0,4-0,5)
+et l'on garde la couleur. Vaut pour toute scène à métal.
+
+#### Travail mort et vivant — LE FER ET LA FLAMME
+
+La paire n'a pas de chapitre à elle (VII, VIII, IX, X, XV), et la page le
+dit d'emblée : c'est un **fil**, non un concept local, et un rapport ne se
+démontre qu'en le suivant là où il agit. D'où deux sections de citations.
+
+Les deux images sont de Marx à la lettre : « le fer se rouille, le bois
+pourrit », et le travail vivant « lèche de sa flamme » ce qu'il ressuscite.
+Ce que la flamme atteint tourne, ce qu'elle quitte s'arrête et se rouille ;
+au troisième temps elle se retire tout à fait, et la démonstration ne coûte
+qu'un aller-retour. Puis la masse grossit et tourne seule, et la flamme est
+portée sur une orbite qu'elle ne choisit pas.
+
+**L'angle des roues est ACCUMULÉ, et c'est le seul endroit du dossier où la
+règle « tout est fonction de g » cède.** La raison : ce qui doit se voir,
+c'est qu'une roue S'ARRÊTE quand la flamme s'en va. Une rotation calculée
+sur la position reviendrait en arrière au lieu de s'arrêter, et dirait le
+contraire de l'argument. Tout le reste reste réversible.
+
+**DU FER GRIS SUR DU NOIR RESTE BOUEUX quoi qu'on fasse.** Les valeurs ont
+été renversées : un mur ÉMISSIF — chaud, constant, indépendant de la flamme
+— et la masse en SILHOUETTE devant lui. C'est la leçon de l'enclosure
+(« une scène de plein air se joue en silhouette »), transposée à
+l'intérieur, et elle vaut pour toute masse sombre : il faut un fond clair,
+pas plus de lumière sur l'objet.
+
+#### Deux pièges de méthode, tous deux payés dans cette mission
+
+1. **ON ÉCHANTILLONNE LES PIXELS AVANT DE CONCLURE QUOI QUE CE SOIT SUR UNE
+   COULEUR** — déjà écrit pour la tête de marteau, et j'ai failli
+   « corriger » une scène correcte. La masse de fer paraissait saturée au
+   blanc ; mesurée, elle est à (136,105,70) là où la flamme la lèche et à
+   (59,45,32) ailleurs. C'est le noir voisin qui trompait l'œil. La sonde de
+   pixels rend le canevas puis lit `toDataURL` **dans la même image** —
+   après, le tampon est déjà effacé.
+2. **PASSER D'UN HASH À L'AUTRE NE RECHARGE PAS LA LISEUSE.** Le contrôle
+   des citations naviguait de `#s=3` à `#s=4` : même document, seul le hash
+   change, et il vérifiait cinq citations du chapitre XV contre le texte du
+   chapitre IX. Cinq « citations introuvables » qui n'étaient qu'un défaut
+   d'outil. Une clé de cache neuve, plus un **titre attendu par section**
+   (`CHAPITRE XIV` pour la quatrième…), et l'on sait qu'on lit la bonne.
+
+#### Deux outils, et un plancher
+
+- **`capture-monde.mjs` accepte `--g=` et `--out=`** : une planche-contact.
+  C'est ainsi qu'on CHOISIT `meta.monde.fixe.g` au lieu de le deviner, et
+  qu'on relit une chorégraphie temps par temps.
+- **Le plancher des 11 px n'était pas tenu sur les pages-monde** : la ligne
+  « D'après le texte », qui est le renvoi menant au passage, valait `.62rem`
+  sous 480 px — 9,9 px, sur les vingt-quatre pages. Elle passe à `.72rem`,
+  l'interlettrage et le rembourrage se resserrant en échange.
+
+#### Vérifié
+
+**Soixante-deux citations** sur les trois pages, relevées une par une dans
+le texte que la liseuse sert (sections I, III et IV chargées en vrai :
+218 532, 272 881 et 387 714 caractères, zéro manquante). Les citations du
+chapitre VIII ont été **extraites du fichier caractère par caractère** et
+non recopiées à la main : le texte y est plein de traits d'union insécables
+(« c'est‑à‑dire », « lui‑même », « vingt‑quatre »), qu'une copie manuelle
+aurait manqués et que la liseuse n'aurait pas retrouvés. Détecteur :
+**0 constat sur les trois pages** — celui des tirets cadratins avait raison
+sur le fond (trente en prose, un pour 433 caractères, et c'était une vraie
+tique d'écriture, non la notation d'une formule comme sur la page de la
+valeur qui se valorise) ; douze sont devenus deux-points, virgules ou
+parenthèses. Contraste : **0 échec** à 1380 et à 375 px, minimum 4,56, plus
+petit texte 11,2 px, aucune cible sous 24 × 24, zéro débordement, console
+sans erreur. Cadrages vérifiés **par projection** aux deux formats — un
+bloc tombait à 99 % de la largeur, hors cadre, et seule la projection l'a
+dit. Courses relevées position par position, 0 → 6 et retour à l'identique.
+`gen-seo --check` à jour et idempotent.
+
 ### Ce qui reste
 
-- Le pilote a été validé et fusionné ; les trois suivantes vivent sur
-  `glossaire-mondes-2`, à relire.
-- Les huit autres pages de notion sont encore sur l'ancien gabarit court ;
-  chacune passera en dossier à son tour, avec sa scène.
+- **Vingt-cinq pages-monde**, et **toutes les notions du glossaire qui
+  méritaient un développement en ont une**. Les cinquante autres restent
+  dans l'abécédaire, et c'est le bon état : ce sont des moments d'un même
+  argument, qui se lisent mieux à leur place qu'étirés sur mille cinq cents
+  mots. Ne pas générer une page par terme.
+- **PLUS AUCUNE page de notion n'est sur l'ancien gabarit court** (`page:
+  {chapo, corps…}`) — vérifié dans le lexique : les vingt-cinq ont leur
+  dossier. Le générateur sert encore les deux chemins, et c'est sans usage ;
+  si une notion devait un jour n'avoir qu'un texte court, il est là.
+- **La page du travail aliéné cite vingt-quatre passages de Bottigelli**,
+  protégé jusqu'en 2046, et elle contredit donc la règle que les autres
+  pages des Manuscrits suivent (paraphraser et situer, ne pas citer). C'est
+  la seule dans ce cas. À reprendre, et c'est un arbitrage du propriétaire.
+- **Le slug `valeur-d-usage-vs-valeur`** est en ligne avec le titre affiché
+  « Valeur d'usage et valeur ». `page.slug` permet désormais de le corriger,
+  mais l'URL est publique : il faudrait une redirection, donc son accord.
 - Le `Article` en JSON-LD signe `Organization` : la page n'a pas de byline
   nominative, et un schéma n'affirme que ce que la page imprime.
 
