@@ -1,0 +1,47 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/travail-necessaire.",
+  "titre": "Travail nécessaire",
+  "de": "notwendige Arbeit",
+  "chapo": "La portion de la journée pendant laquelle l'ouvrier ne fait que reproduire la valeur de sa force de travail. Marx forge le terme en donnant deux raisons, et non une : nécessaire pour le travailleur, parce qu'il faut vivre sous tous les régimes ; nécessaire pour le capital, parce que ce monde a pour base l'existence du travailleur. Ce n'est pas un minimum vital&nbsp;: la grandeur comporte un élément historique et moral, et c'est ce qui la rend disputable.",
+  "description": "Le travail nécessaire chez Marx : ce que « nécessaire » veut dire et pour qui, pourquoi ce n'est pas un minimum de survie, la différence entre reproduire et produire, et pourquoi cette portion commande le taux de la plus-value.",
+  "source": {
+    "work": "capital-1",
+    "s": 3,
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre IX — traduction Joseph Roy (1872)"
+  },
+  "ou": "Livre&nbsp;I, troisième section, chapitre IX, « Le taux de la plus-value » — le terme naît à quelques lignes de son contraire, et les deux se définissent l'un par l'autre : le travail nécessaire est celui qui reproduit, le surtravail est ce qui dépasse.",
+  "outils": [
+    {
+      "label": "Le circuit du capital — le jeu",
+      "url": "/jeu/"
+    }
+  ],
+  "voisins": [
+    "Surtravail",
+    "Force de travail",
+    "Taux de plus-value",
+    "Plus-value relative",
+    "La forme-salaire",
+    "Journée de travail"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : L'ÉTAGÈRE, ET L'ÉTABLI. Les deux nécessités se font face. À gauche l'entretien — le pain, le charbon, le vêtement — qui se vide dans la journée ; à droite l'établi, dont la bobine se remplit du même geste, sans que rien ne signale le passage d'une portion à l'autre. Un repère monte le long du montant : quand il atteint la marque, l'étagère est regarnie. Au cinquième temps on essaie de s'en passer, et l'établi s'éteint. C'est la seconde nécessité, et elle ne se dit pas autrement.",
+    "alt": "Une étagère portant du pain, un seau de charbon et un vêtement, face à un établi dont la bobine se remplit ; entre les deux, une tige de laiton où un repère monte vers une marque rouge.",
+    "source": {
+      "texte": "D'après le texte — Livre I, chapitre IX",
+      "q": "nécessaire pour le capital et le monde capitaliste, parce que ce monde a pour base l’existence du travailleur"
+    },
+    "etapes": {
+      "fait": "Une étagère et un établi. Sur l'une, ce qu'il faut pour vivre ; sur l'autre, ce qui se produit, et la journée va se partager entre les deux sans qu'on voie où.",
+      "ou": "Le repère et sa marque se posent. La marque est le point où ce qui a été produit vaut exactement ce que l'entretien a coûté&nbsp;: ni le patron ni la nature ne l'ont fixée.",
+      "distinction": "Ce n'est pas un minimum de survie. Ce que contient l'étagère dépend de ce qu'une société tient pour une vie acceptable&nbsp;: la grandeur est déterminée sans être fixe.",
+      "mecanisme": "La bobine se remplit du même geste, du début à la fin. Rien dans le travail ne marque le passage&nbsp;: le repère atteint la marque, l'étagère est regarnie, et le fil continue de venir.",
+      "ouvre": "Au-delà de la marque, tout ce qui vient va ailleurs. C'est de cette portion-là que se calcule le taux, et c'est sur elle que porte la lutte.",
+      "lectures": "On essaie de s'en passer : l'étagère reste vide et l'établi s'éteint. Le monde qui emploie l'ouvrier a besoin qu'il soit encore là demain. La seconde nécessité n'est pas une bonté, c'est une condition."
+    },
+    "fixe": {
+      "g": 3.6,
+      "legende": "Le repère a passé la marque : ce qui a été produit vaut désormais plus que ce que l'entretien a coûté. Rien pourtant ne l'a signalé&nbsp;: la bobine se remplit du même geste, et c'est ce qui rend possible que la forme-salaire fasse disparaître le partage."
+    }
+  }
+}

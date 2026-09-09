@@ -1,0 +1,47 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/taux-de-plus-value.",
+  "titre": "Taux de la plus-value",
+  "de": "Rate des Mehrwerts",
+  "chapo": "Un excédent seul ne dit rien : tout est dans ce à quoi on le rapporte. Marx le rapporte au seul capital variable, et non à l'avance totale — parce que le capital constant n'a rien engendré, il a traversé. Le nombre qui en sort mesure un partage, non un rendement : c'est, dit-il, l'expression exacte du degré d'exploitation.",
+  "description": "Le taux de la plus-value chez Marx : pourquoi le dénominateur est le capital variable et non l'avance totale, en quoi il diffère du taux de profit, comment il se traduit en heures, et comment il démolit la « dernière heure » de Nassau Senior.",
+  "source": {
+    "work": "capital-1",
+    "s": 3,
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre IX — traduction Joseph Roy (1872)"
+  },
+  "ou": "Livre&nbsp;I, troisième section, chapitre IX, « Le taux de la plus-value » — immédiatement après le chapitre VIII, qui partage le capital en constant et variable : il fallait ce partage pour qu'un rapport entre les deux ait un sens.",
+  "outils": [
+    {
+      "label": "Le circuit du capital — le jeu",
+      "url": "/jeu/"
+    }
+  ],
+  "voisins": [
+    "Surtravail",
+    "Travail nécessaire",
+    "Capital constant",
+    "Taux de profit",
+    "Plus-value",
+    "Composition organique"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : LA MÊME MASSE, DEUX PESÉES. L'excédent pesé est le même des deux côtés ; seul le contrepoids change. À gauche le capital variable seul, et le fléau s'équilibre — cent pour cent. À droite l'avance entière, et il bouge à peine — dix-huit. Le même fait, deux nombres, deux questions. Au dernier temps un poids étranger, le capital constant, est glissé du côté du contrepoids de gauche : c'est l'erreur de Senior, et elle a servi des années contre la limitation de la journée.",
+    "alt": "Deux balances de laiton côte à côte, portant chacune la même masse dorée sur son plateau gauche ; à droite les contrepoids diffèrent, et l'un des fléaux est presque horizontal quand l'autre penche fortement.",
+    "source": {
+      "texte": "D'après le texte — Livre I, chapitre IX",
+      "q": "Le taux de la plus-value est donc l’expression exacte du degré d’exploitation de la force de travail par le capital"
+    },
+    "etapes": {
+      "fait": "Deux balances, et rien encore dessus. Un excédent seul ne dit rien : ce qui décide de ce qu'il signifie, c'est ce contre quoi on le pèse.",
+      "ou": "La même masse est posée sur les deux plateaux de gauche. C'est le même fait, le même excédent, et il ne sera pas question d'autre chose.",
+      "distinction": "À gauche, le contrepoids est le seul capital variable, et le fléau s'équilibre. Le nombre qui en sort dit quelle part du travail vivant n'a pas été payée.",
+      "mecanisme": "À droite, le contrepoids est l'avance entière, constant compris, et le fléau bouge à peine. Le nombre qui en sort dit tout autre chose : le rendement de ce qui a été engagé.",
+      "ouvre": "Les deux balances sont justes. Elles ne répondent pas à la même question, et c'est de les confondre que viennent presque tous les malentendus sur les chiffres de Marx.",
+      "lectures": "Un poids étranger paraît à gauche : le capital constant, glissé du côté du contrepoids. La balance ment aussitôt — et c'est très exactement le calcul par lequel Nassau Senior démontrait que tout le profit vient de la dernière heure."
+    },
+    "fixe": {
+      "g": 4.4,
+      "legende": "La même masse, deux contrepoids. À gauche le capital variable seul : cent pour cent, et le fléau s'équilibre. À droite l'avance entière : dix-huit pour cent, et il bouge à peine. Aucun des deux nombres n'est faux, et ils ne mesurent pas la même chose."
+    }
+  }
+}
