@@ -198,7 +198,11 @@
     },
     "Plus-value absolue": {
       "de": "absoluter Mehrwert",
-      "def": "Celle qu'on obtient en allongeant la journée, la productivité restant la même. Sa limite est physique — et c'est la première forme que prend l'exploitation."
+      "def": "Celle qu'on obtient en allongeant la journée, la productivité restant la même. Sa limite est physique — et c'est la première forme que prend l'exploitation.",
+      "page": {
+        "dossier": "plus-value-absolue",
+        "slug": "plus-value-absolue"
+      }
     },
     "Plus-value relative": {
       "de": "relativer Mehrwert",
