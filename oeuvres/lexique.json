@@ -66,7 +66,10 @@
     },
     "Division du travail": {
       "de": "Teilung der Arbeit",
-      "def": "Dans la manufacture, le métier est décomposé en opérations parcellaires attachées à vie à un même ouvrier. La productivité monte ; l'ouvrier devient un organe."
+      "def": "Dans la manufacture, le métier est décomposé en opérations parcellaires attachées à vie à un même ouvrier. La productivité monte ; l'ouvrier devient un organe.",
+      "page": {
+        "dossier": "division-du-travail"
+      }
     },
     "Expropriation / enclosures": {
       "de": "Expropriation",

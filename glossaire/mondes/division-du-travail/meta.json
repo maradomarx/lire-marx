@@ -1,0 +1,47 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/division-du-travail.",
+  "titre": "Division du travail",
+  "de": "Teilung der Arbeit",
+  "chapo": "Diviser les tâches est vieux comme le travail. Ce que le chapitre XIV isole, c'est une division d'une espèce particulière : celle qui ne se règle pas par l'échange entre producteurs indépendants mais par l'autorité de celui qui les a réunis, qui décompose le métier en opérations attachées à vie à un même homme, et dont la forme finale est un organisme de production dont les membres sont des hommes.",
+  "description": "La division du travail chez Marx : ce qui sépare la division sociale de la division manufacturière, comment l'outil se différencie et la proportion devient loi technique, et pourquoi la manufacture prépare la machine qui la supprimera.",
+  "source": {
+    "work": "capital-1",
+    "s": 4,
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XIV — traduction Joseph Roy (1872)"
+  },
+  "ou": "Livre&nbsp;I, quatrième section, chapitre XIV, « Division du travail et manufacture » — entre la coopération, qui établit la force collective, et le machinisme, qui l'incorpore dans un système de machines.",
+  "outils": [
+    {
+      "label": "Coopération, manufacture, grande industrie — les explorations",
+      "url": "/oeuvres/capital-1#explore=x-coop"
+    }
+  ],
+  "voisins": [
+    "Coopération",
+    "Travailleur collectif",
+    "Machine-outil",
+    "Plus-value relative",
+    "Force productive",
+    "Subsomption réelle"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : LE RÂTELIER. Marx donne la figure lui-même — à Birmingham, cinq cents variétés de marteaux, dont chacune ne sert qu'à un seul procès. La différenciation de l'OUTIL est la trace matérielle de la décomposition de l'homme, et c'est la seule qu'on puisse montrer sans figure humaine. Un panneau d'atelier, un marteau au centre : celui de l'artisan, qui fait tout. Puis les rangées se remplissent de variantes presque identiques, chacune bonne pour un seul coup, chacune clouée à sa cheville. À la fin, un porte-outil mécanique se lève sur l'établi et saisit l'une d'elles : un outil réduit à un geste unique est un outil qu'une machine peut prendre.",
+    "alt": "Un panneau d'atelier couvert de rangées de marteaux presque identiques, chacun pendu à sa cheville, au-dessus d'un établi où repose une seule pièce.",
+    "source": {
+      "texte": "D'après le texte — Livre I, chapitre XIV",
+      "q": "À Birmingham, on produit environ cinq cents variétés de marteaux, dont chacune ne sert qu’à un seul procès particulier de production"
+    },
+    "etapes": {
+      "fait": "Un marteau, un métier. Celui de l'artisan sert à tout, et la pièce sur l'établi est son ouvrage entier.",
+      "ou": "Deux autres paraissent à côté. La manufacture a une double origine : tantôt elle combine des métiers, tantôt elle décompose un seul — et les deux chemins donnent la même forme.",
+      "distinction": "Les rangées se remplissent. Les instruments de même espèce perdent leur forme commune : chacun prend une forme fixe pour un seul usage, et ne rend son service que dans une main spéciale.",
+      "mecanisme": "Chacun est cloué à sa cheville, et la lumière se resserre sur un seul. Un marteau qui ne sert qu'à un coup est le portrait d'un homme qui ne fait qu'un geste.",
+      "ouvre": "Un porte-outil se lève sur l'établi et saisit l'une des variantes. Ce que la manufacture avait dû produire pour tenir est ce qui la rendra caduque.",
+      "lectures": "Le panneau est complet, et la pièce sur l'établi n'a pas changé. Ce qui a changé est qui décide du découpage — et cela ne se lit pas sur l'outil."
+    },
+    "fixe": {
+      "g": 2.7,
+      "legende": "Les instruments de même espèce perdent leur forme commune : cinq cents variétés de marteaux, dont chacune ne sert qu'à un seul coup. La différenciation de l'outil est la trace de la décomposition de l'homme."
+    }
+  }
+}
