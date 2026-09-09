@@ -88,27 +88,36 @@
     },
     "Forme argent": {
       "de": "Geldform",
-      "def": "Le stade où une seule marchandise, l'or, monopolise la fonction d'équivalent général. La valeur reçoit alors sa figure autonome : le prix."
+      "def": "Le stade où une seule marchandise, l'or, monopolise la fonction d'équivalent général. La valeur reçoit alors sa figure autonome : le prix.",
+      "voir": "Forme simple"
     },
     "Forme développée": {
       "de": "entfaltete Wertform",
-      "def": "Une marchandise exprime sa valeur dans une série illimitée d'autres. L'expression gagne en généralité ce qu'elle perd en unité : la série n'a pas de fin."
+      "def": "Une marchandise exprime sa valeur dans une série illimitée d'autres. L'expression gagne en généralité ce qu'elle perd en unité : la série n'a pas de fin.",
+      "voir": "Forme simple"
     },
     "Forme équivalent": {
       "de": "Äquivalentform",
-      "def": "Le rôle de la marchandise qui sert de miroir : sa valeur d'usage devient la forme d'apparition de la valeur d'une autre. C'est là qu'est le germe de l'énigme."
+      "def": "Le rôle de la marchandise qui sert de miroir : sa valeur d'usage devient la forme d'apparition de la valeur d'une autre. C'est là qu'est le germe de l'énigme.",
+      "voir": "Forme simple"
     },
     "Forme générale": {
       "de": "allgemeine Wertform",
-      "def": "Toutes les marchandises expriment leur valeur dans une seule, exclue du lot. Le rapport devient social : la valeur a enfin une expression commune."
+      "def": "Toutes les marchandises expriment leur valeur dans une seule, exclue du lot. Le rapport devient social : la valeur a enfin une expression commune.",
+      "voir": "Forme simple"
     },
     "Forme relative": {
       "de": "relative Wertform",
-      "def": "Le pôle actif de l'équation : la marchandise dont on exprime la valeur dans le corps d'une autre. Aucune ne peut tenir les deux rôles à la fois."
+      "def": "Le pôle actif de l'équation : la marchandise dont on exprime la valeur dans le corps d'une autre. Aucune ne peut tenir les deux rôles à la fois.",
+      "voir": "Forme simple"
     },
     "Forme simple": {
       "de": "einfache Wertform",
-      "def": "x marchandise A = y marchandise B. La cellule de toute la forme valeur : isolée, accidentelle, et contenant pourtant déjà le secret du prix."
+      "def": "x marchandise A = y marchandise B. La cellule de toute la forme valeur : isolée, accidentelle, et contenant pourtant déjà le secret du prix.",
+      "page": {
+        "dossier": "forme-valeur",
+        "slug": "forme-valeur"
+      }
     },
     "La forme-salaire": {
       "de": "Arbeitslohn",
