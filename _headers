@@ -41,3 +41,9 @@
 # fichier de données de plus, déjà rendu ailleurs sous forme de pages.
 /oeuvres/recherche.json
   X-Robots-Tag: noindex
+
+# Le texte des essais des pages-monde, dérivé pour la recherche : c'est une
+# SECONDE COPIE de ce que les vingt-cinq pages servent déjà, et un moteur y
+# verrait du contenu dupliqué. Il n'est chargé qu'à la première recherche.
+/oeuvres/recherche-essais.json
+  X-Robots-Tag: noindex

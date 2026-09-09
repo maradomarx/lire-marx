@@ -1746,15 +1746,90 @@ de citation déjà en place (même section chargée, même phrase retrouvée).
 Détecteur : compté **avant et après en remisant les modifications** —
 aucun constat de plus sur les neuf pages.
 
+### ✅ Et dans les essais (mission `recherche-essais`, sept. 2026)
+
+Suite immédiate de la précédente, et la moitié qui manquait : la recherche
+allait dans le texte de Marx mais pas dans ce que le site écrit —
+quarante-six mille mots à la main, sur vingt-cinq pages.
+
+**Un groupe À PART, et ce n'est pas une commodité de présentation** : le
+site est scrupuleux sur la frontière entre le texte des œuvres et son propre
+commentaire, la recherche doit l'être aussi. « Dans les essais du
+glossaire » précède « Dans le texte des œuvres », et **une notion n'y paraît
+qu'une fois** — six sections de la même page seraient six fois la même
+réponse. Le lien est une **ancre de section**, pas un `q=` : il n'y a rien à
+surligner, il y a un endroit où aller, et l'étiquette le dit (« La
+forme-valeur — Le renversement »).
+
+`oeuvres/recherche-essais.json` est dérivé par gen-seo **à partir des essais
+assemblés**, donc tels que le lecteur les lit, et chargé à la demande comme
+les fragments. Il est **`noindex`** (`_headers`) : c'est une seconde copie
+de vingt-cinq pages, et un moteur y verrait du contenu dupliqué.
+
+**TOUT CE QUE LE LECTEUR VOIT, et pas seulement le corps de l'essai.** « Le
+treillage » ne rendait rien alors que la page de la subsomption en montre
+un : le mot n'était que dans la **légende du monde**, qui est sous la scène.
+La légende va donc à SA section, le chapô et la notice de source à une
+entrée qui mène en haut de page — 175 sections indexées au lieu de 150.
+
+#### ⚠️ Il a fallu réécrire la normalisation d'abord
+
+Celle de `recherche-texte` parcourait le texte **caractère par caractère en
+lançant trois expressions régulières par caractère**, et tenait tant qu'on
+ne préparait que les cinq fragments des Manuscrits. Elle ne tenait plus à
+trois cent mille caractères de plus.
+
+Or **la transformation est 1:1** : la décomposition NFD d'une lettre
+accentuée redonne une lettre une fois les signes retirés, et les autres
+substitutions (apostrophes, tirets, blancs) le sont par construction. Donc
+**l'index dans le texte normalisé EST l'index dans le texte d'origine** —
+plus de carte à tenir, quatre expressions régulières natives sur la chaîne
+entière, et un **motif qui tolère les blancs** (dans un texte, deux mots
+peuvent être séparés par un retour à la ligne là où le lecteur tape une
+espace). Un filet retombe sur la carte, plus lente et toujours juste, si la
+longueur n'était pas conservée.
+
+**Mesuré** : 308 269 caractères préparés en **9 ms**, recherche en 0,3 ms,
+et les cinq fragments des Manuscrits (366 Ko) prennent aussi la voie
+rapide. La règle générale : *une transformation de texte qui préserve la
+longueur n'a pas besoin de carte, et se fait en bloc.*
+
+#### Deux bornes, dont une qui manquait à la mission précédente
+
+- **UNE SOURCE DISTANTE DOIT AVOIR UNE FIN.** Sans borne, une API lente
+  laissait « Recherche en cours… » pour toujours, et les essais — locaux et
+  déjà prêts — attendaient avec elle. `AbortController`, huit secondes,
+  puis on rend ce qu'on a.
+- **Trois résultats par groupe et non quatre** : la liste de structure en
+  compte déjà quatorze au plus, et sur un mot courant comme « plus-value »
+  on dépassait la vingtaine de lignes — alors que le chapitre et la notion
+  y sont de toute façon la meilleure réponse.
+
+#### Vérifié
+
+« métempsycose » rend l'essai ET le passage de Roy ; « plus-value » seize
+lignes en cinq groupes ; « vampire » trois essais et trois passages ;
+« zzzz » le message complet. **Réseau coupé, les essais répondent seuls** —
+la dégradation est meilleure qu'avant. Clavier : les deux groupes ajoutés
+rejoignent la liste, chacun avec son en-tête. Contraste 0 échec, minimum
+5,15, plus petit texte 11,52 px. Les dix pages qui montent la coquille :
+console propre, zéro débordement. Détecteur compté **avant et après en
+remisant les modifications** : aucun constat de plus. `shell.js` et
+`shell.css` en **`?v=7`**.
+
 ### Ce qui reste
 
 - **Le Capital dépend de Wikisource pour la recherche comme pour le
-  texte** : si l'API est indisponible, le groupe du texte est vide et rien
-  d'autre ne change. C'est le même pari que la liseuse fait déjà.
-- La recherche ne cherche pas dans les **essais des pages-monde** (soixante
-  mille mots écrits à la main). Ils sont servis en HTML et pourraient
-  s'indexer à la génération — c'est la suite naturelle, et elle serait
-  entièrement locale.
+  texte** : si l'API est indisponible ou lente, le groupe du texte est vide
+  au bout de huit secondes et rien d'autre ne change. C'est le même pari
+  que la liseuse fait déjà.
+- La recherche ne va pas dans les **notes et discussions** (carnet, Place
+  publique) : le carnet est privé et la Place publique vit dans Supabase.
+  Ce serait une autre mission, et elle demanderait une requête au serveur.
+- Une recherche qui ne rend rien ne **propose pas d'orthographe voisine**.
+  Sur un corpus où l'on tape « fétichisme » sans accent — ce que la
+  normalisation couvre déjà — ou « Bottiguelli », un repli par distance
+  d'édition sur les seuls titres de l'index serait peu coûteux.
 
 ## Le Dossier remis en ordre (mission `dossier-lisible`, sept. 2026)
 

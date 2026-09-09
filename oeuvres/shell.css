@@ -596,4 +596,5 @@ body.at-reading .notes-fab{display:inline-flex;}
    coupée au premier mot ne dit rien. */
 .tb-wait{font-style:italic;opacity:.8;}
 .tb-cat-texte{background:rgba(127,168,85,.18);color:#a9cd85;}
+.tb-cat-essai{background:rgba(216,173,76,.18);color:#e5c176;}
 .tb-res-s{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
