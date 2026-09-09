@@ -23,7 +23,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="fonts/fonts.css">
 <link rel="stylesheet" href="atelier.css?v=2">
-<link rel="stylesheet" href="shell.css?v=5">
+<link rel="stylesheet" href="shell.css?v=6">
 <link rel="stylesheet" href="reader-tools.css">
 <link rel="stylesheet" href="manuscrits-1844.css">
 <style>
@@ -1483,7 +1483,11 @@ function syncTabsA11y(pid){
     var p=parts[i]||parts[0];
     byId('readerTitle').textContent=p.title;
     byId('partSelect').value=String(i);
-    return textBase+p.file;
+    /* SANS L'EXTENSION : Cloudflare sert des URL propres et répond 308 sur
+       la forme en .html — cinq redirections par lecture, pour rien. Le
+       champ `file` garde son extension, c'est le contrat de la donnée ;
+       c'est ici qu'on la retire, comme partout ailleurs sur le site. */
+    return textBase+String(p.file).replace(/\.html$/,'');
   }
   function cleanLocalHtml(html){
     var doc=new DOMParser().parseFromString(html,'text/html');
@@ -2129,7 +2133,7 @@ function syncTabsA11y(pid){
 })();
 </script>
 <script src="../config.js"></script>
-<script src="shell.js?v=5"></script>
+<script src="shell.js?v=6"></script>
 <script src="shell-social.js"></script>
 <script src="shell-annotations.js?v=2"></script>
 <script src="shell-progress.js"></script>

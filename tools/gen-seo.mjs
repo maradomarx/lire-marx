@@ -970,8 +970,8 @@ ${credit}  </aside>`;
 <link rel="stylesheet" href="/oeuvres/fonts/fonts.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css"></noscript>
 <link rel="stylesheet" href="/glossaire/notion.css?v=${hashV('glossaire/notion.css')}">
-<link rel="preload" href="/oeuvres/shell.css?v=5" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=5"></noscript>
+<link rel="preload" href="/oeuvres/shell.css?v=6" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=6"></noscript>
 ${ld}
 </head>
 <body>
@@ -1032,7 +1032,7 @@ ${monde}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=5"></script>
+<script src="/oeuvres/shell.js?v=6"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 ${aScene ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-driver.js')}" defer></script>` : ''}
@@ -1109,8 +1109,8 @@ ${aScene ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-d
 <link rel="stylesheet" href="/oeuvres/fonts/fonts.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css"></noscript>
 <link rel="stylesheet" href="/glossaire/notion.css">
-<link rel="preload" href="/oeuvres/shell.css?v=5" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=5"></noscript>
+<link rel="preload" href="/oeuvres/shell.css?v=6" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=6"></noscript>
 ${ld}
 </head>
 <body>
@@ -1167,7 +1167,7 @@ ${voisines.map((v) => `      <a href="${v.href}">${v.nom}</a>`).join('\n')}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=5"></script>
+<script src="/oeuvres/shell.js?v=6"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 </body>
@@ -1287,8 +1287,33 @@ ${PIED}
     ['CGU & confidentialité', 'Mentions légales et règles du site', '/mentions-legales', 'cgu rgpd confidentialité règles'],
   ]) items.push({ t, s, cat: 'page', url, hay });
 
+  /* ── DE QUOI CHERCHER DANS LE TEXTE (mission `recherche-texte`) ──────
+   * L'index sait où sont les chapitres et les notions ; il ne sait pas ce
+   * que le texte DIT. Le plein texte se cherche à l'exécution — le Capital
+   * par l'API de Wikisource, les Manuscrits dans les fragments que le site
+   * sert déjà —, mais il faut deux choses pour SITUER un résultat, et
+   * elles se dérivent ici plutôt que d'être recopiées dans shell.js :
+   *   · les huit sections de Roy, pour nommer celle où la phrase se trouve ;
+   *   · les cinq fragments locaux des Manuscrits, avec leur ordre — c'est
+   *     lui qui donne le `#s=` du contrat de deep-link (parts[n-1]).
+   * Le tableau `parts` de la page est la source : le manifeste en porte une
+   * seconde copie, aux accents près, et c'est la page qui fait foi. */
+  const texte = {
+    'capital-1': { sections: ROY.map((sec, i) => ({ n: i + 1, rn: sec.rn, t: strip(sec.t) })) },
+    'manuscrits-1844': {
+      parts: litteralJS(manSrc, 'parts=', '[').map((p, i) => ({
+        n: i + 1, t: strip(p.title),
+        f: `/oeuvres/manuscrits-1844/textes/${String(p.file).replace(/\.html$/, '')}`
+      }))
+    }
+  };
+  if (texte['capital-1'].sections.length !== 8)
+    throw new Error(`ROY_STRUCT rend ${texte['capital-1'].sections.length} sections — le Livre I en a huit.`);
+  if (texte['manuscrits-1844'].parts.length < 3)
+    throw new Error(`Le tableau parts des Manuscrits rend ${texte['manuscrits-1844'].parts.length} fragments.`);
+
   writeIfNeeded('oeuvres/recherche.json',
-    JSON.stringify({ v: 1, source: 'tools/gen-seo.mjs', items }) + '\n', 'oeuvres/recherche.json (index de recherche)');
+    JSON.stringify({ v: 2, source: 'tools/gen-seo.mjs', items, texte }) + '\n', 'oeuvres/recherche.json (index de recherche)');
 }
 
 const entries = [
