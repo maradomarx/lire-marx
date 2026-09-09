@@ -1,0 +1,47 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/surtravail.",
+  "titre": "Surtravail",
+  "de": "Mehrarbeit",
+  "chapo": "La part de la journée qui dépasse le travail nécessaire. Marx la nomme sans emphase — ce qui dépasse — et il désarme lui-même l'accusation facile : le capital n'a point inventé le surtravail, toute société où une partie détient le monopole des moyens de production en produit. Ce qui distingue les formes économiques n'est donc pas qu'il y ait un surplus, mais la manière dont il est pris.",
+  "description": "Le surtravail chez Marx : ce qui dépasse le travail nécessaire, pourquoi il existe dans toute société au-dessus de la subsistance, et pourquoi seule la forme sous laquelle il est extorqué distingue la corvée, l'esclavage et le salariat.",
+  "source": {
+    "work": "capital-1",
+    "s": 3,
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitres IX et X — traduction Joseph Roy (1872)"
+  },
+  "ou": "Livre&nbsp;I, troisième section&nbsp;: le terme naît au chapitre IX, à quelques lignes du travail nécessaire dont il est le complément, et prend son relief au chapitre X, dans le paragraphe qui met le boyard valaque et le fabricant anglais côte à côte.",
+  "outils": [
+    {
+      "label": "Le circuit du capital — le jeu",
+      "url": "/jeu/"
+    }
+  ],
+  "voisins": [
+    "Travail nécessaire",
+    "Taux de plus-value",
+    "Corvée · esclave · salarié",
+    "Journée de travail",
+    "Plus-value",
+    "La forme-salaire"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : LE SECOND SAC, ET LES TROIS SCEAUX. La meule tourne du même mouvement du début à la fin : un premier sac se remplit jusqu'au trait de craie, c'est l'entretien ; puis un second se remplit, du même geste et sans qu'aucun signal ne l'annonce. Au dernier temps il reçoit trois sceaux l'un après l'autre — la cire d'un seigneur, le fer d'un maître, l'or d'un salaire — et LE SAC NE CHANGE PAS. Ce qui change est le sceau, c'est-à-dire la forme sous laquelle il est pris.",
+    "alt": "Un moulin à bras et deux sacs de jute : le premier rempli jusqu'à un trait de craie, le second rempli de la même manière et portant tour à tour trois sceaux de couleurs différentes.",
+    "source": {
+      "texte": "D'après le texte — Livre I, chapitre X",
+      "q": "Le capital n’a point inventé le surtravail"
+    },
+    "etapes": {
+      "fait": "Un moulin, et un sac. Ce qui s'y accumule d'abord vaut exactement ce que l'entretien du producteur a coûté.",
+      "ou": "Le trait de craie se pose. Il ne marque rien qu'on puisse voir dans le grain : c'est un calcul, non une frontière.",
+      "distinction": "Un second sac se remplit, du même geste et sans qu'aucun signal ne l'annonce. La meule n'a pas changé de rythme, et pourtant ce qui tombe maintenant ne revient plus au producteur.",
+      "mecanisme": "Le second sac est plein. Il n'a rien de particulier : c'est du même grain, moulu de la même manière, et c'est cela qu'il faut voir avant d'aller plus loin.",
+      "ouvre": "Toute société où une partie détient le monopole des moyens de production remplit ce second sac. Le capital ne l'a pas inventé, et il ne peut donc pas être ce qu'on lui reproche.",
+      "lectures": "Trois sceaux se posent l'un après l'autre : la cire d'un seigneur, le fer d'un maître, l'or d'un salaire. Le sac ne change pas. Ce qui distingue les formes économiques n'est pas le surplus, c'est le mode dont il est pris."
+    },
+    "fixe": {
+      "g": 5.6,
+      "legende": "Le même sac, et le troisième sceau. Sous la corvée le partage se voit dans le calendrier ; sous l'esclavage tout le travail paraît non payé ; sous le salariat tout paraît payé. Trois apparences également fausses, et une seule qui se passe de contrainte visible."
+    }
+  }
+}

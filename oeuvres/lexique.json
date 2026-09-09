@@ -236,7 +236,11 @@
     },
     "Surtravail": {
       "de": "Mehrarbeit",
-      "def": "La part de la journée qui dépasse le travail nécessaire. Elle ne coûte rien au capital et ne rapporte rien à l'ouvrier : c'est la substance de la plus-value."
+      "def": "La part de la journée qui dépasse le travail nécessaire. Elle ne coûte rien au capital et ne rapporte rien à l'ouvrier : c'est la substance de la plus-value.",
+      "page": {
+        "dossier": "surtravail",
+        "slug": "surtravail"
+      }
     },
     "Taux d'exploitation e₀": {
       "de": "Rate des Mehrwerts",
