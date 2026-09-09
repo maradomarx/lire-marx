@@ -1,0 +1,47 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/corvee-esclave-salarie.",
+  "titre": "Corvée · esclave · salarié",
+  "de": "Fronarbeit · Sklavenarbeit · Lohnarbeit",
+  "chapo": "Dans les trois formes, la journée du producteur est coupée au même endroit ; ce qui change est ce que la forme laisse voir de la coupure. Le servage la sépare dans le temps et l'espace, l'esclavage fait paraître non payé tout le travail, le salariat fait paraître payé tout le travail — et ces deux dernières sont l'exacte symétrie l'une de l'autre.",
+  "description": "Corvée, esclavage et salariat chez Marx : trois formes du même partage entre travail payé et non payé, classées non par leur dureté mais par ce qu'elles rendent visible.",
+  "source": {
+    "work": "capital-1",
+    "s": 6,
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XIX — traduction Joseph Roy (1872)"
+  },
+  "ou": "Livre&nbsp;I, sixième section, chapitre XIX, « Transformation de la valeur de la force de travail en salaire ». La comparaison n'est pas dans un chapitre d'histoire mais au chapitre du salaire, parce que c'est là qu'il faut expliquer pourquoi une journée coupée en deux a mis des siècles à se laisser lire.",
+  "outils": [
+    {
+      "label": "Le laboratoire des lois — les simulations",
+      "url": "/oeuvres/capital-1#labo"
+    }
+  ],
+  "voisins": [
+    "La forme-salaire",
+    "Travail nécessaire",
+    "Surtravail",
+    "Journée de travail",
+    "Fétichisme",
+    "Force de travail"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : LES TROIS TAILLES. Le chapitre ne compare pas trois duretés, il compare trois TRANSPARENCES : la coupure est au même endroit dans les trois formes, et ce qui change est ce que la forme en laisse voir. La figure pose donc la MÊME entaille trois fois. Trois baguettes de taille pendues au mur, l'entaille à mi-hauteur ; la première est sciée à l'entaille et ses deux morceaux pendent à deux chevilles écartées, une gerbe sous l'un et une borne scellée sous l'autre — séparés par le temps et l'espace ; la deuxième prend un fourreau de cuir sombre qui la couvre tout entière ; la troisième un fourreau de toile claire, qui la couvre tout entière aussi. Les deux fourreaux sont l'exacte symétrie l'un de l'autre et cachent la même chose. Puis ils deviennent translucides, et au dernier temps ils tombent : les trois entailles se retrouvent sur une seule ligne.",
+    "alt": "Trois baguettes de taille pendues à un mur, entaillées à mi-hauteur : la première sciée en deux morceaux écartés, la deuxième couverte d'un fourreau de cuir sombre, la troisième d'un fourreau de toile claire.",
+    "source": {
+      "texte": "D'après le texte — Livre I, chapitre XIX",
+      "q": "nettement séparés l’un de l’autre par le temps et l’espace"
+    },
+    "etapes": {
+      "fait": "Trois baguettes de taille, la même entaille à mi-hauteur sur les trois. Le partage de la journée est identique : c'est de là qu'il faut partir.",
+      "distinction": "La première est sciée à l'entaille. Ses deux morceaux pendent à deux chevilles écartées, une gerbe sous l'un, une borne scellée sous l'autre : le corvéable sait ce qu'il donne, parce qu'il le donne ailleurs.",
+      "mecanisme": "Un fourreau de cuir descend sur la deuxième et la couvre tout entière. La part où l'esclave travaille pour lui-même passe elle aussi pour du travail non payé.",
+      "portee": "Un fourreau de toile monte sur la troisième et la couvre tout entière. C'est l'exacte symétrie : ici même le travail non payé revêt l'apparence du payé.",
+      "ouvre": "Les deux fourreaux deviennent translucides et l'entaille se devine. Il faut du temps à l'histoire pour déchiffrer le secret du salaire, et rien n'est plus facile que d'en comprendre la nécessité.",
+      "lectures": "Les fourreaux tombent, les deux morceaux se rejoignent, et les trois entailles se retrouvent sur une seule ligne. Trois formes, un seul partage."
+    },
+    "fixe": {
+      "g": 3.7,
+      "legende": "La première taille sciée à l'entaille et ses morceaux écartés ; la deuxième sous son fourreau de cuir, la troisième sous son fourreau de toile. Les deux fourreaux couvrent la même entaille, et ils la couvrent en sens contraire."
+    }
+  }
+}

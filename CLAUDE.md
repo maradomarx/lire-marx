@@ -7261,29 +7261,69 @@ La reproduction simple nomme son hypothèse pour ce qu'elle est, une
 **fiction méthodique**, plutôt que de laisser croire à une description de la
 réalité.
 
+### Trois pages, et seize renvois (mission `glossaire-mondes-25`, sept. 2026)
+
+| notion | la figure |
+|---|---|
+| **Force productive** | l'étagère du potier : quatre tablettes, quatre chandelles identiques, des files de 2, 4, 8 et 16 pots de la même taille, et un jeton deux fois plus petit à chaque tablette |
+| **Corvée · esclave · salarié** | les trois tailles : la même entaille trois fois, l'une sciée et ses morceaux écartés, les deux autres sous un fourreau de cuir et un fourreau de toile |
+| **Factory Acts & inspecteurs** | l'horloge publique : un cadran de fabrique en gros plan, un repère de laiton, un second cadran plombé encastré dedans, une rangée de plaques et un trou de vis resté vide |
+
+**Ce que ces trois-là ont appris :**
+
+1. **UNE SEULE RANGÉE.** Sur l'étagère du potier, les pots rangés en
+   profondeur pour tenir se cachaient derrière ceux du devant : la caméra
+   est à hauteur de tablette et ne peut pas dominer les quatre à la fois. En
+   une rangée à pas constant, la file grandit pendant que le pot garde sa
+   taille, et les deux moitiés de l'argument se voient d'un coup.
+2. **UNE COMPARAISON SE REMPLIT DU HAUT VERS LE BAS**, parce qu'on lit du
+   haut vers le bas et que la caméra descend pendant la lecture.
+3. **LA RÈGLE DE COULEUR EST DÉSORMAIS CHIFFRÉE** : dans la bande 16-43, la
+   sortie vaut à peu près **4,7 fois le hex** (le hex est traité comme
+   linéaire, la sortie est encodée en sRGB par three r137). Une pierre
+   sombre s'écrit vers 0x0e, un cachet de cire rouge vers 0x1a0705 — écrit
+   0x45150c il rendait SAUMON, le piège du rouge pour la quatrième fois.
+4. **UNE FIGURE CIRCULAIRE se cadre aussi bien en portrait qu'en paysage**,
+   là où une figure haute ou large n'en satisfait qu'un. C'est un argument
+   pour la choisir quand le concept l'autorise.
+5. **UN OBJET QUI SERT À EN MONTRER UN AUTRE NE PEUT PAS SE POSER DESSUS** :
+   le cadran public masquait exactement le repère de laiton, donc l'écart
+   qu'il sert à rendre visible.
+6. **UN GROS PLAN vaut une salle.** Après trois scènes qui étaient des
+   salles (l'établi, le poste, le séchoir), le cadran seul remplit le cadre
+   et se lit mieux. Le registre du gros plan n'avait servi qu'une fois.
+
+**Et seize entrées prennent un renvoi `voir`.** Le mécanisme avait été
+introduit pour les paires que Marx pose ensemble ; il vaut aussi pour les
+notions qui sont des MOMENTS d'un argument qu'une page développe déjà —
+leur donner une page servirait le même texte à une seconde adresse. Deux cas
+méritent d'être justifiés parce qu'ils auraient pu recevoir une page :
+**A — M — A′**, dont la page de la valeur qui se valorise a déjà « deux
+cercles » pour section de distinction ; et le **taux de profit**, qui vit au
+Livre III et ne porterait aucune citation liée.
+
 ### Ce qui reste
 
-- **Trente-cinq pages-monde, treize renvois `voir`, et vingt-sept notions
-  qui n'ont encore ni l'un ni l'autre.** La demande du propriétaire est
-  qu'elles en aient toutes une : c'est la mission en cours, à raison de
-  trois par passe, relues par lui.
-- **Le taux de profit est différé, et pour une raison qui tient** : il vit
-  au Livre III, que le site ne sert pas, de sorte que sa page ne porterait
-  aucune citation liée et redirait pour l'essentiel la loi tendancielle.
-  Même cas que la loi tendancielle, qui a déjà sa page et qui l'annonce.
-- **Quatre entrées de l'abécédaire ne sont pas des concepts de Marx** mais
-  les intitulés d'exploration du site : « Lever le voile », « Le hiéroglyphe
-  social », « Les contre-mondes », « Le passage de relais ». Les renommer
-  toucherait `CONCEPTS` dans `capital-1.html`, donc l'atelier : **signalé au
+- **Trente-huit pages-monde, vingt-neuf renvois `voir`, et huit notions qui
+  n'ont ni l'un ni l'autre.** Soit **67 fiches sur 75** qui mènent à une
+  page. La demande du propriétaire — un concept, une page — est donc tenue
+  pour l'essentiel, et le reste se répartit en trois cas nets.
+- **Quatre entrées ne sont pas des concepts de Marx** mais les intitulés
+  d'exploration du site : « Lever le voile », « Le hiéroglyphe social »,
+  « Les contre-mondes », « Le passage de relais ». Les renommer toucherait
+  `CONCEPTS` dans `capital-1.html`, donc l'atelier : **signalé au
   propriétaire, sans réponse à ce jour.**
+- **Trois entrées sont du Livre II**, que le site ne sert pas : Département
+  I, Département II, la condition d'équilibre `I(v+pl)=II(c)`. Même cas que
+  le taux de profit — aucune citation ne serait vérifiable.
+- **La législation sanglante** (chapitre XXVIII) a de quoi tenir une page,
+  et c'est la prochaine.
 - **La page du travail aliéné cite vingt-quatre passages de Bottigelli**,
   protégé jusqu'en 2046, et contredit donc la règle que les autres pages des
   Manuscrits suivent. C'est la seule dans ce cas, et c'est son arbitrage.
 - **Le slug `valeur-d-usage-vs-valeur`** porte le titre affiché « Valeur
   d'usage et valeur ». `page.slug` permettrait de le corriger, mais l'URL
   est publique : il faudrait une redirection, donc son accord.
-- **PLUS AUCUNE page de notion n'est sur l'ancien gabarit court** (`page:
-  {chapo, corps…}`). Le générateur sert encore les deux chemins, sans usage.
 - Le `Article` en JSON-LD signe `Organization` : la page n'a pas de byline
   nominative, et un schéma n'affirme que ce que la page imprime.
 

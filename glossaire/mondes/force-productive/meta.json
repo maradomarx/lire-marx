@@ -1,0 +1,47 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/force-productive.",
+  "titre": "Force productive",
+  "de": "Produktivkraft",
+  "chapo": "La grandeur de valeur d'une marchandise varie en raison directe du temps dépensé et en raison inverse de la force productive qui s'y réalise. C'est de ce rapport inverse que sort la solution d'une vieille énigme : pourquoi celui qui n'a à cœur que la valeur d'échange passe sa vie à la faire baisser.",
+  "description": "La force productive du travail chez Marx : pourquoi produire mieux fait baisser la valeur de chaque objet sans changer la valeur totale de la journée, et comment le capital en fait le levier de la plus-value relative.",
+  "source": {
+    "work": "capital-1",
+    "s": 1,
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitres I et XII — traduction Joseph Roy (1872)"
+  },
+  "ou": "Livre&nbsp;I, chapitre premier, deuxième paragraphe, où la force productive entre comme la variable qui fait varier la valeur ; puis chapitre XII, « La notion de la plus-value relative », où le capital s'en saisit comme d'un moyen. Toute la quatrième section en est l'inventaire.",
+  "outils": [
+    {
+      "label": "Le laboratoire des lois — les simulations",
+      "url": "/oeuvres/capital-1#labo"
+    }
+  ],
+  "voisins": [
+    "Plus-value relative",
+    "Valeur d’usage vs valeur",
+    "Coopération",
+    "Division du travail",
+    "Composition organique",
+    "Loi tendancielle"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : L'ÉTAGÈRE DU POTIER. Le concept est un RAPPORT INVERSE, et une figure qui montrerait seulement un atelier plus productif dirait la moitié de l'argument — celle que tout le monde admet. Il fallait que la CONSTANCE du travail dépensé se voie en même temps que la multiplication du produit. Un séchoir à quatre tablettes : sur chacune, au bout gauche, le même bout de chandelle brûlé au même trait — c'est la journée, et elle ne bouge pas ; à côté, les pots — deux, quatre, huit, seize, et ils gardent exactement la même taille, car les faire rétrécir dirait que le produit s'appauvrit ; au bout droit, un jeton de terre, ce que vaut UN pot, deux fois plus petit d'une tablette à l'autre. Puis un cordon se tend au devant de chaque tablette : la part des pots qui paie les subsistances, et elle recule. Au dernier temps, deux pots viennent sur la planche du bas avec leurs deux jetons : le pot n'a pas changé, le jeton a fondu.",
+    "alt": "Un séchoir de potier à quatre tablettes : sur chacune un bout de chandelle identique, une rangée de pots de plus en plus nombreuse, et un jeton de terre de plus en plus petit.",
+    "source": {
+      "texte": "D'après le texte — Livre I, chapitre I",
+      "q": "en raison inverse de la force productive du travail"
+    },
+    "etapes": {
+      "fait": "Une tablette, un bout de chandelle, deux pots, et un jeton de terre : ce que vaut un pot. La journée est dépensée, et voilà ce qu'elle rend.",
+      "distinction": "Deuxième tablette. La chandelle est la même, brûlée au même trait ; les pots sont deux fois plus nombreux et de la même taille ; le jeton est deux fois plus petit.",
+      "mecanisme": "Troisième tablette. La journée n'a pas bougé d'une minute et la valeur totale qu'elle rend non plus : elle se partage seulement entre plus de pots.",
+      "portee": "Quatrième tablette, seize pots. Quatre chandelles identiques, quatre jetons dont le dernier tient sous l'ongle. La richesse a quadruplé, la valeur est la même.",
+      "ouvre": "Un cordon se tend au devant de chaque tablette : la part des pots qui paie les subsistances de celui qui les a faits. Elle recule, et ce qui est dégagé passe au surtravail.",
+      "lectures": "Deux pots sur la planche du bas, un de la première tablette et un de la dernière, avec leurs jetons. Le pot n'a pas changé : c'est le jeton qui a fondu."
+    },
+    "fixe": {
+      "g": 3.8,
+      "legende": "Quatre tablettes, quatre chandelles identiques : la même journée à chaque fois. Les pots vont de deux à seize sans changer de taille, et le jeton — ce que vaut un pot — est deux fois plus petit d'une tablette à l'autre."
+    }
+  }
+}
