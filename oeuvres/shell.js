@@ -324,14 +324,15 @@
       oeuvre:   { lab: 'Œuvre',      grp: 'Œuvres' },
       page:     { lab: 'Page',       grp: 'Pages du site' },
       'a-venir':{ lab: 'À venir',    grp: 'À venir' },
-      texte:    { lab: 'Texte',      grp: 'Dans le texte' }
+      essai:    { lab: 'Essai',      grp: 'Dans les essais du glossaire' },
+      texte:    { lab: 'Texte',      grp: 'Dans le texte des œuvres' }
     };
     /* « Dans le texte » vient EN DERNIER, et c'est un choix : sur un mot
        comme « plus-value » le texte rendrait des centaines d'occurrences
        là où le chapitre et la notion répondent mieux. Le plein texte est
        un complément, pas la porte d'entrée — mais sur « vampire », qui
        n'est ni un chapitre ni une notion, c'est le seul groupe rempli. */
-    var ORDER = ['reprise','recente','exemple','chapitre','partie','notion','date','outil','oeuvre','page','a-venir','texte'];
+    var ORDER = ['reprise','recente','exemple','chapitre','partie','notion','date','outil','oeuvre','page','a-venir','essai','texte'];
     var PER_GROUP = 4, MAX = 14;
 
     var INDEX = null, TEXTE = null;
@@ -423,8 +424,13 @@
 
        Tout est facultatif : sans réseau, sans l'API, sans les fragments, la
        recherche reste exactement celle d'avant. */
-    var TXT_MIN = 3, TXT_MAX = 4, TXT_ATTENTE = 380;
+    /* TROIS PAR GROUPE. La liste de structure en compte déjà quatorze au
+       plus ; à quatre de chaque côté on dépassait la vingtaine de lignes
+       sur un mot courant comme « plus-value », où le chapitre et la notion
+       sont de toute façon la meilleure réponse. */
+    var TXT_MIN = 3, TXT_MAX = 3, TXT_ATTENTE = 380;
     var wsCache = {}, manDocs = null, manPending = null, txtTimer = null, renderSeq = 0;
+    var essDocs = null, essPending = null;
 
     /* La normalisation du plein texte est plus large que celle de l'index :
        elle rabat aussi les apostrophes et les traits d'union — le texte de
@@ -435,23 +441,50 @@
         .replace(/[‐‑‒–—]/g, '-')
         .replace(/[   ]/g, ' '));
     }
-    /* Un texte préparé une fois : sa version normalisée, et la carte qui
-       ramène chaque caractère normalisé à sa place dans l'original. C'est
-       elle qui permet d'en extraire la tranche EXACTE. */
-    function prepare(txt){
-      var carte = [], buf = [], esp = false, i, c;
-      for(i = 0; i < txt.length; i++){
-        c = nx(txt.charAt(i));
-        if(!c) continue;
-        if(c === ' '){ if(esp) continue; buf.push(' '); carte.push(i); esp = true; }
-        else { buf.push(c.charAt(0)); carte.push(i); esp = false; }
-      }
-      return { brut: txt, n: buf.join(''), carte: carte };
+    /* UN TEXTE PRÉPARÉ UNE FOIS, ET EN BLOC. La normalisation est 1:1 —
+       chaque caractère en donne exactement un, la décomposition NFD d'une
+       lettre accentuée redonnant une lettre une fois les signes retirés —
+       de sorte que l'index dans le texte normalisé EST l'index dans le
+       texte d'origine. Pas de carte à tenir, et quatre expressions
+       régulières natives au lieu d'une boucle de trois cent mille tours qui
+       en lançait trois par caractère. Premier jet écrit ainsi, il tenait
+       tant qu'on ne préparait que les cinq fragments des Manuscrits ; il ne
+       tenait plus dès qu'on y a ajouté les essais.
+       Filet : si la longueur n'est pas conservée — une ligature exotique,
+       un jour —, on retombe sur la carte, plus lente et toujours juste. */
+    function nplat(txt){
+      return txt.replace(/[’ʼ´]/g, "'").replace(/[‐‑‒–—]/g, '-').replace(/\s/g, ' ')
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
     }
-    function tranche(doc, nq){
-      var p = doc.n.indexOf(nq);
-      if(p < 0) return null;
-      var a = doc.carte[p], b = doc.carte[p + nq.length - 1];
+    function carteDe(txt){
+      var carte = [], buf = [], i, c;
+      for(i = 0; i < txt.length; i++){
+        c = nx(txt.charAt(i)); if(!c) continue;
+        buf.push(c.charAt(0) === ' ' || /\s/.test(c.charAt(0)) ? ' ' : c.charAt(0));
+        carte.push(i);
+      }
+      return { n: buf.join(''), carte: carte };
+    }
+    function prepare(txt){
+      var n = nplat(txt);
+      if(n.length === txt.length) return { brut: txt, n: n, carte: null };
+      var c = carteDe(txt);
+      return { brut: txt, n: c.n, carte: c.carte };
+    }
+    /* Le motif tolère les blancs : dans un texte, deux mots peuvent être
+       séparés par un retour à la ligne là où le lecteur tape une espace. */
+    function motif(nq){
+      try {
+        return new RegExp(nq.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\\s+'));
+      } catch(e){ return null; }
+    }
+    function tranche(doc, re){
+      if(!re) return null;
+      re.lastIndex = 0;
+      var m = re.exec(doc.n);
+      if(!m) return null;
+      var a = doc.carte ? doc.carte[m.index] : m.index;
+      var b = doc.carte ? doc.carte[m.index + m[0].length - 1] : m.index + m[0].length - 1;
       return { i: a, exact: doc.brut.slice(a, b + 1) };
     }
     function extrait(txt, i, n){
@@ -466,7 +499,7 @@
        est mise entre guillemets : sans cela l'API rend les pages qui
        contiennent les mots n'importe où, et le lien tomberait sur une
        section où la phrase n'est pas. */
-    function chercheCapital(q, nq){
+    function chercheCapital(q, nq, re){
       var meta = TEXTE && TEXTE['capital-1'];
       if(!meta || !meta.sections) return Promise.resolve([]);
       if(wsCache[nq]) return Promise.resolve(wsCache[nq]);
@@ -474,7 +507,16 @@
       var u = 'https://fr.wikisource.org/w/api.php?action=query&list=search&srnamespace=0'
         + '&srsearch=' + encodeURIComponent(terme + ' prefix:Le Capital/Livre I/')
         + '&srlimit=12&srprop=snippet&format=json&origin=*';
-      return fetch(u).then(function(r){ return r.ok ? r.json() : null; }).then(function(j){
+      /* UNE SOURCE DISTANTE DOIT AVOIR UNE FIN. Sans borne, une API lente
+         laissait « Recherche en cours… » pour toujours : le groupe ne se
+         posait jamais, et les essais — qui sont locaux et déjà prêts —
+         attendaient avec lui. Huit secondes, puis on rend ce qu'on a. */
+      var stop = null, sig = null;
+      try { var ac = new AbortController(); sig = ac.signal; stop = setTimeout(function(){ ac.abort(); }, 8000); } catch(e){}
+      return fetch(u, sig ? { signal: sig } : undefined).then(function(r){
+        if(stop) clearTimeout(stop);
+        return r.ok ? r.json() : null;
+      }).then(function(j){
         var out = [], vus = {};
         ((j && j.query && j.query.search) || []).forEach(function(h){
           var m = /^Le Capital\/Livre I\/Section (\d)$/.exec(h.title || '');
@@ -489,7 +531,7 @@
              sur « aliénation », la section I s'affichait avec un extrait où
              le mot ne paraissait pas, et le résultat avait l'air faux. Quand
              on retrouve la tranche, on recadre dessus. */
-          var t = tranche(prepare(plat), nq);
+          var t = tranche(prepare(plat), re);
           out.push({
             t: 'Le Capital — section ' + (sec ? sec.rn : n) + (sec ? ', ' + sec.t : ''),
             s: t ? extrait(plat, t.i, t.exact.length) : plat.replace(/\s+/g, ' ').trim(),
@@ -499,7 +541,7 @@
         });
         wsCache[nq] = out;
         return out;
-      }).catch(function(){ return []; });
+      }).catch(function(){ if(stop) clearTimeout(stop); return []; });
     }
 
     /* Les Manuscrits : les fragments que le site sert déjà. Chargés une
@@ -523,11 +565,11 @@
       }).catch(function(){ manPending = null; return []; });
       return manPending;
     }
-    function chercheManuscrits(q, nq){
+    function chercheManuscrits(q, nq, re){
       return chargeManuscrits().then(function(docs){
         var out = [];
         docs.forEach(function(d){
-          var t = tranche(d.doc, nq);
+          var t = tranche(d.doc, re);
           if(!t) return;
           out.push({
             t: 'Manuscrits de 1844 — ' + d.t,
@@ -540,12 +582,55 @@
       }).catch(function(){ return []; });
     }
 
+    /* Les essais du glossaire : quarante-six mille mots écrits à la main
+       que le champ ne voyait pas. Ils sont NOTRE texte, pas celui de Marx —
+       d'où un groupe à part : le site est scrupuleux sur cette frontière, la
+       recherche doit l'être aussi. L'index est dérivé (gen-seo) et chargé à
+       la demande, comme les fragments. Le lien est une ancre de section, pas
+       un `q=` : il n'y a rien à surligner, il y a un endroit où aller. */
+    function chargeEssais(){
+      if(essDocs) return Promise.resolve(essDocs);
+      if(essPending) return essPending;
+      essPending = fetch('/oeuvres/recherche-essais.json')
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(j){
+          var out = [];
+          ((j && j.n) || []).forEach(function(N){
+            (N.s || []).forEach(function(S){
+              out.push({ id: N.id, nt: N.t, a: S.a, h: S.h, doc: prepare(S.x || '') });
+            });
+          });
+          essDocs = out; essPending = null; return out;
+        }).catch(function(){ essPending = null; return []; });
+      return essPending;
+    }
+    function chercheEssais(q, nq, re){
+      return chargeEssais().then(function(docs){
+        var out = [], vus = {};
+        docs.forEach(function(d){
+          if(vus[d.id]) return;              /* une seule section par notion */
+          var t = tranche(d.doc, re);
+          if(!t) return;
+          vus[d.id] = 1;
+          out.push({
+            t: d.nt + ' — ' + d.h,
+            s: extrait(d.doc.brut, t.i, t.exact.length),
+            cat: 'essai',
+            url: '/glossaire/' + d.id + '#' + d.a
+          });
+        });
+        return out;
+      }).catch(function(){ return []; });
+    }
+
     /* Le groupe s'AJOUTE quand il arrive : le repeindre entier volerait la
        sélection au clavier, et il vient en dernier — rien avant lui n'est
        renuméroté. */
-    function poseTexte(items, q){
+    function poseTexte(cats, q){
       var att = box.querySelector('.tb-wait');
       if(!att) return;
+      var items = [];
+      ['essai','texte'].forEach(function(c){ (cats[c] || []).forEach(function(x){ items.push(x); }); });
       att.remove();
       if(!items.length){
         /* Si RIEN n'a été trouvé nulle part, c'est le message complet qu'il
@@ -562,14 +647,21 @@
         box.appendChild(v);
         return;
       }
-      var n = +(box.dataset.n || 0);
+      var n = +(box.dataset.n || 0), grp = '';
       items.forEach(function(e){
+        if(e.cat !== grp){
+          grp = e.cat;
+          var h = document.createElement('div');
+          h.className = 'tb-grp'; h.setAttribute('role','presentation');
+          h.textContent = CAT[e.cat].grp;
+          box.appendChild(h);
+        }
         var b = document.createElement('button');
         b.type = 'button'; b.className = 'tb-res'; b.setAttribute('role','option');
         b.id = 'tbo-' + (n++); b.tabIndex = -1;
         b.innerHTML = '<span class="tb-res-main"><span class="tb-res-t">' + esc(e.t) + '</span>'
           + '<span class="tb-res-s">' + esc(e.s) + '</span></span>'
-          + '<span class="tb-res-cat tb-cat-texte">' + esc(CAT.texte.lab) + '</span>';
+          + '<span class="tb-res-cat tb-cat-' + e.cat + '">' + esc(CAT[e.cat].lab) + '</span>';
         b.addEventListener('mousedown', function(ev){ ev.preventDefault(); });
         b.addEventListener('click', function(){
           if(q) remember(q);
@@ -585,21 +677,23 @@
       clearTimeout(txtTimer);
       txtTimer = setTimeout(function(){
         if(renderSeq !== seq) return;
-        Promise.all([chercheCapital(q, nq), chercheManuscrits(q, nq)]).then(function(r){
-          if(renderSeq !== seq) return;
-          /* ON ENTRELACE LES DEUX ŒUVRES. Mises bout à bout, les sections du
-             Capital — huit, contre cinq fragments — prenaient les quatre
-             places et les Manuscrits n'apparaissaient jamais : « aliénation »
-             rendait quatre passages du Capital et pas un des cahiers de 1844,
-             où le mot est le sujet. */
-          var a = r[0], m = r[1], out = [], i = 0;
-          while(out.length < TXT_MAX && (i < a.length || i < m.length)){
-            if(i < a.length && out.length < TXT_MAX) out.push(a[i]);
-            if(i < m.length && out.length < TXT_MAX) out.push(m[i]);
-            i++;
-          }
-          poseTexte(out, q);
-        });
+        var re = motif(nq);
+        Promise.all([chercheCapital(q, nq, re), chercheManuscrits(q, nq, re), chercheEssais(q, nq, re)])
+          .then(function(r){
+            if(renderSeq !== seq) return;
+            /* ON ENTRELACE LES DEUX ŒUVRES. Mises bout à bout, les sections
+               du Capital — huit, contre cinq fragments — prenaient les
+               quatre places et les Manuscrits n'apparaissaient jamais :
+               « aliénation » rendait quatre passages du Capital et pas un
+               des cahiers de 1844, où le mot est le sujet. */
+            var a = r[0], m = r[1], texte = [], i = 0;
+            while(texte.length < TXT_MAX && (i < a.length || i < m.length)){
+              if(i < a.length && texte.length < TXT_MAX) texte.push(a[i]);
+              if(i < m.length && texte.length < TXT_MAX) texte.push(m[i]);
+              i++;
+            }
+            poseTexte({ essai: r[2].slice(0, TXT_MAX), texte: texte }, q);
+          });
       }, TXT_ATTENTE);
     }
 
@@ -667,13 +761,11 @@
         });
       });
       if(attente){
-        var h2 = document.createElement('div');
-        h2.className = 'tb-grp'; h2.setAttribute('role','presentation');
-        h2.textContent = CAT.texte.grp;
-        box.appendChild(h2);
+        /* L'en-tête n'est pas posé ici : les deux groupes du plein texte
+           arrivent ensemble et chacun s'annonce quand il a de quoi. */
         var w = document.createElement('div');
         w.className = 'tb-empty tb-wait'; w.setAttribute('role','presentation');
-        w.textContent = 'Recherche dans le texte des œuvres…';
+        w.textContent = 'Recherche dans les essais et dans le texte des œuvres…';
         box.appendChild(w);
       }
       box.hidden = false;

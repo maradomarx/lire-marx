@@ -843,6 +843,9 @@ function identite(nom) {
    * ici une fois pour toutes. */
   const hashV = (f) => createHash('sha1').update(readFileSync(f)).digest('hex').slice(0, 8);
   const ROMAINS = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
+  /* Le texte des essais, pour la recherche (mission `recherche-essais`) :
+   * quarante-six mille mots écrits à la main que le champ ne voyait pas. */
+  const ESSAIS = [];
   function pageMonde(t) {
     const dossier = `glossaire/mondes/${t.page.dossier}`;
     const meta = JSON.parse(readFileSync(`${dossier}/meta.json`, 'utf8'));
@@ -970,8 +973,8 @@ ${credit}  </aside>`;
 <link rel="stylesheet" href="/oeuvres/fonts/fonts.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css"></noscript>
 <link rel="stylesheet" href="/glossaire/notion.css?v=${hashV('glossaire/notion.css')}">
-<link rel="preload" href="/oeuvres/shell.css?v=6" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=6"></noscript>
+<link rel="preload" href="/oeuvres/shell.css?v=7" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=7"></noscript>
 ${ld}
 </head>
 <body>
@@ -1032,13 +1035,35 @@ ${monde}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=6"></script>
+<script src="/oeuvres/shell.js?v=7"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 ${aScene ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-driver.js')}" defer></script>` : ''}
 </body>
 </html>
 `;
+    /* L'ESSAI ENTRE DANS LA RECHERCHE, section par section : c'est l'ancre
+     * qui fait le lien (`/glossaire/<id>#<étape>`), et le titre de section
+     * qui situe le passage. On prend le texte APRÈS assemblage, donc tel
+     * que le lecteur le lit — citations comprises. */
+    const corps = {};
+    for (const m of essai.matchAll(/<section class="nt-sec"[^>]*id="([^"]+)"[^>]*>([^]*?)<\/section>/g))
+      corps[m[1]] = nu(m[2].replace(/<h2[^>]*>[^]*?<\/h2>/, '')).replace(/\s+/g, ' ').trim();
+    /* TOUT CE QUE LE LECTEUR VOIT, et pas seulement le corps de l'essai :
+     * la légende du monde est sous la scène, le chapô est en tête, la
+     * notice de source est dans l'appareil. « Espalier » ne rendait rien
+     * alors que la page de la subsomption en montre un — le mot n'est que
+     * dans la légende. La légende va donc à SA section, le chapô et la
+     * notice à une entrée qui mène en haut de page. */
+    const legendes = (meta.monde && meta.monde.etapes) || {};
+    ESSAIS.push({ id: t.id, t: titre,
+      s: [{ a: '', h: 'Présentation', x: [nu(meta.chapo), nu(meta.ou)].join(' ').replace(/\s+/g, ' ').trim() }]
+        .concat(sections.map((sec) => ({
+          a: sec.id, h: nu(sec.h2),
+          x: [corps[sec.id] || '', nu(legendes[sec.etape] || '')].join(' ').replace(/\s+/g, ' ').trim()
+        })))
+        .filter((sec) => sec.x.length > 40) });
+
     writeIfNeeded(`glossaire/${t.id}.html`, html, `glossaire/${t.id}.html`);
     PAGES_NOTIONS.push({ file: `glossaire/${t.id}.html`, url: `/glossaire/${t.id}` });
     if (!check) console.log(`  monde : « ${titre} » — ${sections.length} sections, ${mots} mots, ${nbCit} citations liées au texte${aScene ? ', scène' : ''}${still ? ', image fixe' : ', SANS image fixe'}`);
@@ -1109,8 +1134,8 @@ ${aScene ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-d
 <link rel="stylesheet" href="/oeuvres/fonts/fonts.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css"></noscript>
 <link rel="stylesheet" href="/glossaire/notion.css">
-<link rel="preload" href="/oeuvres/shell.css?v=6" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=6"></noscript>
+<link rel="preload" href="/oeuvres/shell.css?v=7" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=7"></noscript>
 ${ld}
 </head>
 <body>
@@ -1167,7 +1192,7 @@ ${voisines.map((v) => `      <a href="${v.href}">${v.nom}</a>`).join('\n')}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=6"></script>
+<script src="/oeuvres/shell.js?v=7"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 </body>
@@ -1175,6 +1200,19 @@ ${PIED}
 `;
     writeIfNeeded(`glossaire/${t.id}.html`, html, `glossaire/${t.id}.html`);
     PAGES_NOTIONS.push({ file: `glossaire/${t.id}.html`, url: `/glossaire/${t.id}` });
+  }
+
+  /* L'index des essais : un fichier à part, chargé à la demande par la
+   * recherche — il pèse deux cent quatre-vingts kilo-octets avant
+   * compression, et l'index principal est lu dès la première frappe. Il est
+   * `noindex` (voir `_headers`) : c'est une seconde copie des essais, et un
+   * moteur y verrait du contenu dupliqué. */
+  if (ESSAIS.length) {
+    const mots = ESSAIS.reduce((n, e) => n + e.s.reduce((m, x) => m + x.x.split(/\s+/).length, 0), 0);
+    writeIfNeeded('oeuvres/recherche-essais.json',
+      JSON.stringify({ v: 1, source: 'tools/gen-seo.mjs', n: ESSAIS }) + '\n',
+      'oeuvres/recherche-essais.json (le texte des essais)');
+    if (!check) console.log(`  essais : ${ESSAIS.length} pages, ${ESSAIS.reduce((n, e) => n + e.s.length, 0)} sections, ${mots} mots indexés`);
   }
 
   /* Une page de notion orpheline — dont le `page` a été retiré du lexique —
