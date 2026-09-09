@@ -201,7 +201,10 @@
     },
     "Subsomption réelle": {
       "de": "reelle Subsumtion",
-      "def": "Le capital ne se contente plus de commander un procès de travail hérité : il le refond de fond en comble, jusque dans sa technique, pour l'ajuster à sa valorisation."
+      "def": "Le capital ne se contente plus de commander un procès de travail hérité : il le refond de fond en comble, jusque dans sa technique, pour l'ajuster à sa valorisation.",
+      "page": {
+        "dossier": "subsomption-reelle"
+      }
     },
     "Surtravail": {
       "de": "Mehrarbeit",
@@ -253,7 +256,10 @@
     },
     "Valeur d’usage vs valeur": {
       "de": "Gebrauchswert / Wert",
-      "def": "L'utilité d'une chose n'a rien de mystérieux et ne varie pas d'une société à l'autre. Le mystère commence avec la forme valeur, qui n'appartient qu'à la production marchande."
+      "def": "L'utilité d'une chose n'a rien de mystérieux et ne varie pas d'une société à l'autre. Le mystère commence avec la forme valeur, qui n'appartient qu'à la production marchande.",
+      "page": {
+        "dossier": "valeur-d-usage-vs-valeur"
+      }
     },
     "Valeur nouvelle": {
       "de": "Neuwert",

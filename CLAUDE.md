@@ -6798,6 +6798,78 @@ seule). La page de l'accumulation ne charge NI WebGL NI Three.js (vérifié&nbsp
 `typeof THREE` vaut `undefined`). Zéro débordement horizontal, console sans
 erreur, `gen-seo --check` à jour et idempotent.
 
+### Ce qui entoure et ce qui façonne (mission `glossaire-mondes-19`, sept. 2026)
+
+Deux notions aux deux bouts du livre&nbsp;: la première page (valeur d'usage et
+valeur) et le bilan de la cinquième section (subsomption réelle).
+
+**Valeur d'usage et valeur — trois mesures, puis une.** «&nbsp;Comme valeurs
+d'usage, les marchandises sont avant tout de qualité différente&nbsp;; comme
+valeurs d'échange, elles ne peuvent être que de différente quantité.&nbsp;» La
+figure est cette phrase&nbsp;: trois choses sur un comptoir, chacune avec SA
+mesure — l'aune, les poids, le boisseau —, puis les corps passent au fantôme,
+les trois mesures se retirent, un sablier paraît, et trois tas de sable se
+forment de trois grandeurs différentes. Deux points de doctrine sont tenus
+par la scène et non par le texte seul&nbsp;: la terre et la laine brute NE
+REÇOIVENT PAS DE TAS (ce qui est utile sans provenir du travail est une
+valeur d'usage sans être une valeur), et **au dernier temps les corps
+reviennent SANS que les tas s'effacent** — la marchandise est deux choses à
+la fois, et le chapitre ne dit pas que l'une remplace l'autre.
+
+**Subsomption réelle — l'espalier.** La distinction est celle d'une forme qui
+ENTOURE et d'une forme qui FAÇONNE, et le jardinier la pratique depuis
+toujours. Un arbre pousse comme il veut&nbsp;; un treillage se pose derrière lui
+et rien de l'arbre n'en est changé&nbsp;; puis on taille et on palisse, et la
+forme de l'arbre EST devenue celle du treillage. Au dernier temps le
+treillage s'efface et l'arbre garde la forme&nbsp;: c'est ce qui distingue une
+subsomption réelle d'un simple commandement — elle s'est inscrite dans la
+chose. Chaque branche existe en deux états, libre et palissée, et ses nœuds
+sont interpolés&nbsp;: réversible par construction.
+
+**La page dit ce que le vocabulaire cache.** «&nbsp;Subsomption formelle&nbsp;» et
+«&nbsp;subsomption réelle&nbsp;» ne figurent pas dans le Livre&nbsp;I publié&nbsp;: elles
+viennent d'un manuscrit que Marx n'a pas fait paraître. Ce que le chapitre
+XVI dit à leur place est que la plus-value relative se développe «&nbsp;avec le
+mode de production capitaliste proprement dit&nbsp;» — plus lourd, et plus exact,
+parce qu'il fait entendre qu'il existe une production capitaliste qui n'est
+pas encore la sienne en propre. **Quand une page porte un terme que le texte
+servi n'emploie pas, elle le dit.**
+
+#### ⚠️ LA COLONNE COLLANTE EST PLUS ÉTROITE QUE L'IMAGE FIXE — troisième fois
+
+Écrit à la mission précédente, repayé deux fois dans celle-ci. En « marge »,
+la largeur vue vaut **0,82&nbsp;× la distance en portrait contre 1,10&nbsp;× en
+paysage**&nbsp;: un objet parfaitement cadré dans la capture sort de la colonne.
+Mesuré ici&nbsp;: la motte de terre à −4&nbsp;% de la largeur et le sablier à 99&nbsp;%.
+**Tout objet des extrémités se vérifie à la position PORTRAIT, par
+projection, jamais à l'œil sur l'image fixe.** Deux passes ont été
+nécessaires parce que j'ai d'abord estimé la largeur au calcul au lieu de la
+projeter&nbsp;: c'est la projection qui tranche.
+
+#### Deux autres leçons
+
+1. **UN FANTÔME EST PÂLE, FROID, TRANSLUCIDE, ET IL LUIT.** Premier jet&nbsp;:
+   les corps étaient teints vers un gris moyen. Les matières déjà beiges ne
+   bougeaient presque pas, et la barre de fer, seule sombre, blanchissait
+   toute seule — l'inverse de ce qu'il fallait. Il faut aller vers un gris
+   CLAIR et FROID, baisser l'opacité franchement, et ajouter un émissif
+   faible&nbsp;: sans lui, un objet translucide sur fond sombre disparaît au lieu
+   de devenir spectral.
+2. **En perspective, ce qui est DERRIÈRE remonte.** Les poids posés en amont
+   de la barre de fer se projetaient DESSUS et l'on croyait à un plateau de
+   balance. Un objet d'arrière-plan destiné à rester distinct se décale
+   latéralement, pas seulement en profondeur.
+
+#### Vérifié
+
+Les **trente-cinq citations** des deux pages relevées une par une dans le
+texte que la liseuse sert (sections I, IV et V chargées en vrai&nbsp;: zéro
+manquante). Détecteur statique&nbsp;: **0 constat** sur chacune. Chorégraphies
+relevées position par position et **réversibles**. Cadrage vérifié PAR
+PROJECTION en portrait (les six objets extrêmes entre 6&nbsp;% et 93&nbsp;% de la
+largeur). Zéro débordement horizontal, console sans erreur, `gen-seo --check`
+à jour et idempotent.
+
 ### Ce qui reste
 
 - Le pilote a été validé et fusionné ; les trois suivantes vivent sur

@@ -1,0 +1,47 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/subsomption-reelle.",
+  "titre": "Subsomption réelle",
+  "de": "reelle Subsumtion",
+  "chapo": "Le capital commence par se placer au-dessus d'un travail qu'il n'a pas fait : les mêmes gestes, les mêmes outils, un autre maître et une journée plus longue. Puis vient le moment où cela ne suffit plus, et où il refond le procès lui-même, jusque dans sa technique, pour l'ajuster à sa fin. La forme du travail est alors son ouvrage — et elle n'a plus de raison d'être hors de lui.",
+  "description": "La subsomption réelle chez Marx : ce qui sépare un travail simplement commandé d'un travail refondu par le capital, pourquoi les deux régimes coexistent, et ce que le chapitre XVI dit à la place de ces mots.",
+  "source": {
+    "work": "capital-1",
+    "s": 5,
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XVI — traduction Joseph Roy (1872)"
+  },
+  "ou": "Livre&nbsp;I, cinquième section, chapitre XVI. Il fait le bilan des deux sections précédentes — la journée qu'on allonge, les procédés qu'on transforme — et dit comment les deux se rapportent. Les mots eux-mêmes viennent d'un manuscrit que Marx n'a pas publié.",
+  "outils": [
+    {
+      "label": "Coopération, manufacture, grande industrie — les explorations",
+      "url": "/oeuvres/capital-1#explore=x-coop"
+    }
+  ],
+  "voisins": [
+    "Plus-value absolue",
+    "Plus-value relative",
+    "Coopération",
+    "Division du travail",
+    "Machine-outil",
+    "Travailleur collectif"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : L'ESPALIER. La distinction est celle d'une forme qui ENTOURE et d'une forme qui FAÇONNE, et le jardinier la pratique depuis toujours. Un arbre pousse comme il veut ; un treillage se pose derrière lui, et rien de l'arbre n'en est changé — c'est la subsomption formelle, le cadre est là et le contenu lui est étranger. Puis on taille et on palisse : des branches tombent, les autres sont couchées sur les fils, et la forme de l'arbre EST devenue celle du treillage. Il porte alors davantage, et seulement aux places que le cadre autorise. Au dernier temps le treillage s'efface et l'arbre garde la forme : c'est ce qui distingue une subsomption réelle d'un simple commandement — elle s'est inscrite dans la chose.",
+    "alt": "Un arbre fruitier contre un mur : d'abord libre, puis taillé et couché sur les trois fils d'un treillage dont il a pris la forme.",
+    "source": {
+      "texte": "D'après le texte — Livre I, chapitre XVI",
+      "q": "La production de la plus-value absolue n’affecte que la durée du travail, la production de la plus-value relative en transforme entièrement les procédés techniques et les combinaisons sociales"
+    },
+    "etapes": {
+      "fait": "L'arbre pousse comme il veut. Le capital ne crée pas le travail : il le trouve, avec ses gestes et ses outils.",
+      "ou": "Le treillage se pose derrière lui, et rien de l'arbre n'en est changé. Le cadre est là, le contenu lui reste étranger : il n'y a qu'une variable, le temps.",
+      "distinction": "Un cadre qui entoure n'est pas un cadre qui façonne. Sous le premier, on saurait décrire le travail sans mentionner le capital ; sous le second, on ne le pourrait pas.",
+      "mecanisme": "On taille et on palisse. Des branches tombent, les autres sont couchées sur les fils : la forme de l'arbre est devenue celle du treillage.",
+      "ouvre": "Il porte davantage, et seulement aux places que le cadre autorise. Est productif, dans ce système, le travail qui produit de la plus-value.",
+      "lectures": "Le treillage s'efface et l'arbre garde la forme. Retirer le rapport ne rendrait pas le travail d'avant : il faudrait refaire la forme."
+    },
+    "fixe": {
+      "g": 4.4,
+      "legende": "Des branches sont tombées, les autres sont couchées sur les fils : la forme de l'arbre est devenue celle du treillage, et elle n'a plus de raison d'être hors de lui."
+    }
+  }
+}
