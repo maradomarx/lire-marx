@@ -1,0 +1,47 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/appendice-de-la-machine.",
+  "titre": "Appendice de la machine",
+  "de": "Zubehör der Maschine",
+  "chapo": "Dans le métier, l'ouvrier se sert de son outil ; dans la fabrique, il sert la machine. Le critère du chapitre XV n'est pas la pénibilité mais l'origine du mouvement : là il en est la source, ici il ne fait que le suivre. C'est ce renversement, devenu une réalité technique et non plus seulement juridique, que la notion d'appendice nomme.",
+  "description": "L'appendice de la machine chez Marx : pourquoi la virtuosité passe de l'ouvrier au mécanisme, comment un travail allégé devient plus dur, et ce qui distingue la machine de son emploi capitaliste.",
+  "source": {
+    "work": "capital-1",
+    "s": 4,
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XV — traduction Joseph Roy (1872)"
+  },
+  "ou": "Livre&nbsp;I, quatrième section, chapitre XV, « Machinisme et grande industrie », principalement la section IV, « La fabrique ». Le chapitre suppose acquis le travailleur collectif du chapitre XIV, dont il renverse la position.",
+  "outils": [
+    {
+      "label": "Coopération, manufacture, grande industrie — les explorations",
+      "url": "/oeuvres/capital-1#explore=x-coop"
+    }
+  ],
+  "voisins": [
+    "Machine-outil",
+    "Travailleur collectif",
+    "Travail mort",
+    "Plus-value relative",
+    "Journée de travail",
+    "Travail aliéné"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : LE POSTE. Le chapitre donne un critère vérifiable — le mouvement part de lui, ou bien il le suit — et la figure devait montrer l'ORIGINE DU MOUVEMENT changer de côté, non pas une cadence qui s'accélère. Un outil libre en l'air : un manche et une lame. La machine s'en saisit, la lame monte s'encastrer dans le coulisseau, et il ne reste que le manche, qu'un montant vient planter au sol à une hauteur qu'on n'a pas choisie. Le bouton de bois du volant tombe : ce n'est plus une manivelle, c'est une poulie, et elle tourne d'elle-même ; dès lors le levier suit le coulisseau, avec le retard de ce qui est entraîné. L'usure du plancher, large comme les pas d'un homme, se resserre en un rectangle de la taille d'un marchepied. Puis le poste se répète en profondeur, identique, et l'un d'eux porte un billot : le corps n'a pas été mesuré à la machine, c'est le corps qu'on hausse.",
+    "alt": "Un bâti de fonte avec son volant et son coulisseau, et devant lui un marchepied surmonté d'un levier planté sur un montant ; au fond, deux postes identiques, dont l'un est monté sur un billot.",
+    "source": {
+      "texte": "D'après le texte — Livre I, chapitre XV",
+      "q": "dans la fabrique il sert la machine"
+    },
+    "etapes": {
+      "fait": "Un outil d'artisan, libre en l'air : un manche et une lame. Rien ne bouge encore, et le volant porte son bouton de bois — c'est une manivelle, le mouvement partirait d'une main.",
+      "distinction": "La machine saisit la lame, qui monte s'encastrer dans le coulisseau. Il ne reste dans la main que le manche, qu'un montant vient planter au sol. Le tabouret s'en va.",
+      "mecanisme": "Le bouton tombe : ce n'est plus une manivelle mais une poulie, et elle tourne d'elle-même. Le levier suit désormais le coulisseau, avec le retard de ce qui est entraîné.",
+      "portee": "La cadence monte ; l'amplitude du levier, elle, ne change pas d'un degré. L'usure du plancher, large comme les pas d'un homme, se resserre en un rectangle de la taille d'un marchepied.",
+      "ouvre": "Le poste se répète en profondeur, identique. L'un d'eux porte un billot : le corps n'a pas été mesuré à la machine, c'est la machine qui donne la hauteur et le corps qu'on hausse.",
+      "lectures": "La salle s'éclaire jusqu'au fond. Le tabouret est couché hors de la lumière, et la machine, elle, n'a rien fait d'autre que fonctionner."
+    },
+    "fixe": {
+      "g": 4.7,
+      "legende": "Le poste : un marchepied, un levier à une hauteur qu'on n'a pas choisie, et la même place répétée jusqu'au fond de la salle — l'une d'elles montée sur un billot pour qu'un corps plus petit atteigne le même levier."
+    }
+  }
+}

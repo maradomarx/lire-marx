@@ -29,7 +29,10 @@
     },
     "Appendice de la machine": {
       "de": "Zubehör der Maschine",
-      "def": "Renversement du rapport à l'outil : l'ouvrier ne manie plus l'instrument, il sert un mécanisme qui règle sa cadence et jusqu'à ses gestes."
+      "def": "Renversement du rapport à l'outil : l'ouvrier ne manie plus l'instrument, il sert un mécanisme qui règle sa cadence et jusqu'à ses gestes.",
+      "page": {
+        "dossier": "appendice-de-la-machine"
+      }
     },
     "Composition organique": {
       "de": "organische Zusammensetzung des Kapitals",
