@@ -162,7 +162,10 @@
     },
     "Législation sanglante": {
       "de": "Blutgesetzgebung",
-      "def": "Les lois contre le vagabondage qui, du XVe au XVIIIe siècle, dressent les expropriés à la discipline de l'atelier — par le fouet, la marque et la potence."
+      "def": "Les lois contre le vagabondage qui, du XVe au XVIIIe siècle, dressent les expropriés à la discipline de l'atelier — par le fouet, la marque et la potence.",
+      "page": {
+        "dossier": "legislation-sanglante"
+      }
     },
     "Lever le voile": {
       "de": "mystischer Nebelschleier",

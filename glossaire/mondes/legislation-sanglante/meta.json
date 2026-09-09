@@ -1,0 +1,47 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/legislation-sanglante.",
+  "titre": "Législation sanglante",
+  "de": "Blutgesetzgebung",
+  "chapo": "L'expropriation jeta sur les routes plus d'hommes que les manufactures n'en pouvaient absorber, et la loi les traita en criminels volontaires. Deux siècles de fouet, de marque au fer et d'esclavage de paroisse ont rompu cette population à la discipline du salariat — jusqu'au jour où la sourde pression des rapports économiques a suffi, et où l'arsenal a pu être remisé sans être détruit.",
+  "description": "La législation sanguinaire contre les expropriés chez Marx : pourquoi la loi punit le vagabondage qu'elle a produit, comment elle fixe un maximum de salaire sans jamais de minimum, et par quoi elle finit par être remplacée.",
+  "source": {
+    "work": "capital-1",
+    "s": 8,
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XXVIII — traduction Joseph Roy (1872)"
+  },
+  "ou": "Livre&nbsp;I, huitième section, chapitre XXVIII, « Législation sanguinaire contre les expropriés à partir de la fin du quinzième siècle — Lois sur les salaires ». C'est le second volet de l'accumulation primitive : le chapitre XXVII prend la terre, celui-ci dresse ceux à qui on l'a prise.",
+  "outils": [
+    {
+      "label": "La chronologie du Capital",
+      "url": "/oeuvres/capital-1#chrono"
+    }
+  ],
+  "voisins": [
+    "Accumulation primitive",
+    "Factory Acts & inspecteurs",
+    "Armée de réserve",
+    "La forme-salaire",
+    "Corvée · esclave · salarié",
+    "Force de travail"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : LA FORGE QUI S'ÉTEINT. Le chapitre ne s'achève pas sur les statuts mais sur leur RELÈVE — « la sourde pression des rapports économiques achève le despotisme du capitaliste sur le travailleur » — et le fer rouge devient une pièce d'arsenal qu'on garde sans s'en servir. La figure montre donc un appareil de contrainte qu'on MONTE, puis qu'on démonte, et le fait que rien ne le remplace visiblement. Un coin de forge : le brasier allumé, un fer qui chauffe, la planche d'essai vierge ; puis les fers se multiplient et la planche prend, une à une, les trois lettres que Marx nomme, S, V, R, tandis que l'anneau de fer paraît à son crochet ; puis un tableau se cloue au mur — le tarif des salaires, avec son trait de plafond en haut et rien en dessous. Alors le brasier tombe, les fers rouillent, le tableau est décroché et il ne reste qu'un rectangle pâle sur la suie et un clou vide. Un seul fer reste pendu au râtelier. LA LUMIÈRE CHANGE DE SOURCE : au premier temps la scène est éclairée d'en bas par les braises, au dernier par la seule lampe de l'atelier.",
+    "alt": "Un coin de forge : un brasier sur trois pieds, une enclume sur son billot, un râtelier de fers à marquer, une planche d'essai portant trois lettres brûlées, et au mur un tableau de tarif dont seul le trait supérieur est tracé.",
+    "source": {
+      "texte": "D'après le texte — Livre I, chapitre XXVIII",
+      "q": "la sourde pression des rapports économiques"
+    },
+    "etapes": {
+      "fait": "Le brasier est allumé et un fer chauffe dedans. La planche d'essai est encore vierge : rien n'a été marqué, et la loi n'a pas encore décidé que le vagabondage était un choix.",
+      "distinction": "Les fers se rangent au râtelier et la planche prend ses lettres, une par statut — S, V, R. L'anneau de fer paraît à son crochet. La peine ne tombe que si personne ne veut prendre l'homme à son service.",
+      "mecanisme": "Un tableau se cloue au mur : le tarif des salaires. Son trait de plafond est tracé en haut, et il n'y a rien en dessous — la loi fixe un maximum et se garde de prescrire un minimum. Un cadenas dit les coalitions interdites.",
+      "portee": "Le brasier tombe. Les fers se refroidissent et prennent la rouille, l'enclume avec eux. L'État n'est indispensable que tant que le rapport de forces économique joue contre l'acheteur de travail.",
+      "ouvre": "Le tableau est décroché : il ne reste qu'un rectangle pâle sur la suie et un clou vide. Rien ne vient à la place, et rien n'en a besoin — la sourde pression des rapports économiques fait le même travail.",
+      "lectures": "La forge est froide, la lampe seule éclaire, et un fer reste pendu au râtelier. On fut bien aise d'avoir sous la main, pour des cas imprévus, le vieil arsenal d'oukases."
+    },
+    "fixe": {
+      "g": 4.8,
+      "legende": "La forge est froide, les fers ont pris la rouille, et le tableau du tarif est décroché : il n'en reste qu'un rectangle pâle sur la suie et un clou vide. Rien n'est venu à la place, et rien n'en avait besoin."
+    }
+  }
+}
