@@ -1,0 +1,47 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/reproduction-simple.",
+  "titre": "Reproduction simple",
+  "de": "einfache Reproduktion",
+  "chapo": "On suppose que le capitaliste n'accumule rien et consomme chaque année toute sa plus-value : c'est l'hypothèse la plus favorable qu'on puisse lui faire. Elle suffit pourtant à établir qu'après un certain nombre de rotations il ne subsiste plus un atome de valeur de l'avance qu'il avait faite, et que ce qu'il détient est devenu du travail d'autrui non payé.",
+  "description": "La reproduction simple chez Marx : comment la seule répétition du procès de production consomme l'avance initiale, transforme le capital en plus-value capitalisée et reproduit le rapport entre capitaliste et salarié.",
+  "source": {
+    "work": "capital-1",
+    "s": 7,
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XXIII — traduction Joseph Roy (1872)"
+  },
+  "ou": "Livre&nbsp;I, septième section, chapitre XXIII, « Reproduction simple ». C'est le chapitre d'ouverture de la section sur l'accumulation, et son hypothèse restrictive est levée dès le chapitre XXIV.",
+  "outils": [
+    {
+      "label": "Le laboratoire des lois — les simulations",
+      "url": "/oeuvres/capital-1#labo"
+    }
+  ],
+  "voisins": [
+    "Accumulation",
+    "Reproduction élargie",
+    "La forme-salaire",
+    "Capital constant",
+    "Accumulation primitive",
+    "Capital variable"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : L'AVANCE MANGÉE. Le chapitre ne dit pas qu'une fortune grossit, il dit qu'une somme CHANGE DE NATURE du seul fait qu'elle tourne. La figure devait donc montrer une masse qui ne varie pas d'un pouce et dont, à la fin, plus rien n'est ce qu'il était. Un comptoir vu de haut, un râtelier, cinq pièces sur chant : l'avance. Chaque année une pièce claire monte du fond de l'atelier, prend une place, et la pièce sombre qu'elle remplace s'en va se coucher dans le sébile, mangée ; une entaille de plus à la taille. Au bout de cinq tours le râtelier tient toujours cinq pièces, et il n'y reste pas un atome de l'ancien capital ; le sébile en contient cinq, sombres, et vient se ranger contre le râtelier pour que l'égalité se compte. Au dernier temps une sixième encoche s'ouvre et une pièce claire y reste au lieu de s'en aller.",
+    "alt": "Un comptoir de bois vu de haut : un râtelier tenant cinq pièces sur chant, un sébile où d'autres pièces sont couchées, et une baguette de taille entaillée.",
+    "source": {
+      "texte": "D'après le texte — Livre I, chapitre XXIII",
+      "q": "il n’existe donc plus un seul atome de valeur"
+    },
+    "etapes": {
+      "fait": "Cinq pièces sur chant dans leur râtelier : l'avance, telle qu'elle est entrée dans l'affaire. La taille est vierge, rien n'a encore tourné.",
+      "distinction": "Une pièce claire monte du fond de l'atelier et prend une place. La pièce sombre qu'elle remplace s'en va se coucher dans le sébile : elle a été consommée. Une entaille.",
+      "mecanisme": "Le tour recommence, et la masse ne bouge pas d'un pouce. Ce qui change n'est pas la grandeur du capital mais la matière dont il est fait.",
+      "portee": "Cinquième entaille. Le râtelier tient toujours cinq pièces, et pas une n'est celle du début — il ne reste pas un atome de valeur de l'ancien capital.",
+      "ouvre": "Le sébile vient se ranger contre le râtelier : cinq pièces sombres consommées, cinq pièces claires en caisse. Ce qu'il a mangé égale ce qu'il avait avancé.",
+      "lectures": "Une sixième encoche s'ouvre, et une pièce claire y reste au lieu de s'en aller. Le cercle de la reproduction simple s'étend et se change en spirale."
+    },
+    "fixe": {
+      "g": 4.8,
+      "legende": "Cinq pièces sombres dans le sébile, cinq pièces claires au râtelier : la masse n'a pas varié d'un pouce, et il n'en reste pas un atome de l'avance. Ce qui a été consommé égale exactement ce qui avait été avancé."
+    }
+  }
+}

@@ -228,7 +228,10 @@
     },
     "Reproduction simple": {
       "de": "einfache Reproduktion",
-      "def": "Toute la plus-value est consommée et la production recommence à l'identique. Fiction utile : elle montre qu'au bout de quelques années, le capital avancé n'est plus que du travail non payé accumulé."
+      "def": "Toute la plus-value est consommée et la production recommence à l'identique. Fiction utile : elle montre qu'au bout de quelques années, le capital avancé n'est plus que du travail non payé accumulé.",
+      "page": {
+        "dossier": "reproduction-simple"
+      }
     },
     "Subsomption réelle": {
       "de": "reelle Subsumtion",
