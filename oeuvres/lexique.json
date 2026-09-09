@@ -60,7 +60,11 @@
       }
     },
     "Corvée · esclave · salarié": {
-      "def": "Trois formes du même partage entre travail payé et non payé. La corvée le montre en journées distinctes, l'esclavage fait tout paraître non payé, le salariat tout paraître payé."
+      "def": "Trois formes du même partage entre travail payé et non payé. La corvée le montre en journées distinctes, l'esclavage fait tout paraître non payé, le salariat tout paraître payé.",
+      "page": {
+        "dossier": "corvee-esclave-salarie",
+        "slug": "corvee-esclave-salarie"
+      }
     },
     "Demande de travail": {
       "de": "Nachfrage nach Arbeitskraft",

@@ -31,7 +31,7 @@
   </url>
   <url>
     <loc>https://liremarx.com/glossaire/</loc>
-    <lastmod>2026-09-09</lastmod>
+    <lastmod>2026-09-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -103,13 +103,19 @@
   </url>
   <url>
     <loc>https://liremarx.com/glossaire/cooperation</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://liremarx.com/glossaire/corvee-esclave-salarie</loc>
     <lastmod>2026-09-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://liremarx.com/glossaire/division-du-travail</loc>
-    <lastmod>2026-09-09</lastmod>
+    <lastmod>2026-09-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -133,7 +139,7 @@
   </url>
   <url>
     <loc>https://liremarx.com/glossaire/force-productive</loc>
-    <lastmod>2026-09-09</lastmod>
+    <lastmod>2026-09-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -193,7 +199,7 @@
   </url>
   <url>
     <loc>https://liremarx.com/glossaire/plus-value-relative</loc>
-    <lastmod>2026-09-09</lastmod>
+    <lastmod>2026-09-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -247,7 +253,7 @@
   </url>
   <url>
     <loc>https://liremarx.com/glossaire/travailleur-collectif</loc>
-    <lastmod>2026-09-09</lastmod>
+    <lastmod>2026-09-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
