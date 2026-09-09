@@ -241,7 +241,11 @@
     },
     "Travail mort": {
       "de": "tote Arbeit",
-      "def": "Le travail passé, cristallisé dans les machines et les matières. Il ne crée rien : il reparaît dans le produit à la mesure de ce qui s'use."
+      "def": "Le travail passé, cristallisé dans les machines et les matières. Il ne crée rien : il reparaît dans le produit à la mesure de ce qui s'use.",
+      "page": {
+        "dossier": "travail-mort-et-vivant",
+        "slug": "travail-mort-et-vivant"
+      }
     },
     "Travail nécessaire": {
       "de": "notwendige Arbeit",
@@ -253,7 +257,8 @@
     },
     "Travail vivant": {
       "de": "lebendige Arbeit",
-      "def": "Le seul facteur actif du procès. Il conserve la valeur des moyens de production en s'en servant, et ajoute du même geste une valeur qui n'existait pas."
+      "def": "Le seul facteur actif du procès. Il conserve la valeur des moyens de production en s'en servant, et ajoute du même geste une valeur qui n'existait pas.",
+      "voir": "Travail mort"
     },
     "Travailleur collectif": {
       "de": "Gesamtarbeiter",

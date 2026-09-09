@@ -1,0 +1,48 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/travail-mort-et-vivant.",
+  "titre": "Travail mort et travail vivant",
+  "de": "tote und lebendige Arbeit",
+  "chapo": "Une fabrique arrêtée est une masse énorme de travail humain qui ne fait rien, et qui se défait&nbsp;: le fer se rouille, le bois pourrit. Il faut que le travail vivant vienne la ressaisir pour qu'elle serve encore. Puis le rapport se retourne : devenue automate, la masse se dresse devant l'ouvrier et commande le mouvement. C'est là que Marx écrit que le capital est du travail mort qui ne s'anime qu'en suçant le travail vivant.",
+  "description": "Travail mort et travail vivant chez Marx : pourquoi le travail passé n'agit pas de lui-même, ce que la formule du vampire démontre exactement, et comment le machinisme retourne le rapport en faveur de la chose.",
+  "source": {
+    "work": "capital-1",
+    "s": 3,
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitres VII à X et XV — traduction Joseph Roy (1872)"
+  },
+  "ou": "Livre&nbsp;I — la paire n'a pas de chapitre à elle : elle paraît au chapitre VII (le procès de travail), au VIII (qui conserve et qui crée), au IX (le taux), au X (la journée de travail, où elle donne la formule du vampire) et au XV, où le machinisme la retourne. C'est un fil, non un concept local.",
+  "outils": [
+    {
+      "label": "Le circuit du capital — le jeu",
+      "url": "/jeu/"
+    }
+  ],
+  "voisins": [
+    "Capital constant",
+    "Appendice de la machine",
+    "Machine-outil",
+    "Subsomption réelle",
+    "Journée de travail",
+    "Force de travail"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : LE FER ET LA FLAMME. Les deux images sont de Marx à la lettre — « le fer se rouille, le bois pourrit », et le travail vivant « lèche de sa flamme » ce qu'il ressuscite. Ce que la flamme atteint tourne ; ce qu'elle quitte s'arrête et se rouille. Au troisième temps elle se retire tout à fait : la masse n'a aucun mouvement propre, et la démonstration ne coûte qu'un aller-retour. Puis la masse grossit de ce que la flamme lui donne, se met à tourner seule, et la flamme n'a plus de chemin à elle — elle est portée sur une orbite que la grande roue lui impose.",
+    "alt": "Dans le noir, une masse de roues et d'arbres de fer rouillés ; une flamme passe et ce qu'elle atteint devient du fer clair et tourne ; puis la masse, agrandie, tourne seule et entraîne la flamme autour d'elle.",
+    "source": {
+      "texte": "D'après le texte — Livre I, chapitre VII",
+      "q": "Le travail vivant doit ressaisir ces objets, les ressusciter des morts"
+    },
+    "etapes": {
+      "fait": "Une masse de fer dans le noir, immobile et rouillée. Ce n'est pas seulement qu'elle n'agit pas : livrée à elle-même, elle se défait.",
+      "ou": "Une flamme passe. Ce qu'elle atteint perd sa rouille et se met à tourner. Le contact suffit&nbsp;: il n'y a pas d'autre opération à accomplir.",
+      "distinction": "La flamme se retire. Tout s'arrête et se rouille de nouveau. La masse n'a aucun mouvement propre, et une fabrique sans ouvriers n'est pas un capital au repos mais une valeur qui s'en va.",
+      "mecanisme": "La flamme travaille, et la masse grossit de ce qu'elle lui donne. La flamme, elle, ne grandit pas d'un pouce.",
+      "ouvre": "La masse tourne seule. La flamme n'a plus de chemin à elle : elle est portée sur une orbite que la grande roue lui impose&nbsp;: le renversement est technique avant d'être juridique.",
+      "lectures": "À chaque tour un filet de lumière quitte la flamme et entre dans le fer. La flamme baisse d'un cran et se reprend&nbsp;: elle s'anime d'une vie qu'elle n'a pas."
+    },
+    "layout": "plein",
+    "fixe": {
+      "g": 5.5,
+      "legende": "La masse a grossi et tourne seule ; la flamme, réduite, est portée sur une orbite qu'elle ne choisit pas, et un filet de lumière la quitte à chaque tour pour entrer dans le fer. Rien n'a changé de nature&nbsp;: c'est le même fer, et c'est la même flamme."
+    }
+  }
+}
