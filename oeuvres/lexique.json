@@ -33,7 +33,11 @@
     },
     "Composition organique": {
       "de": "organische Zusammensetzung des Kapitals",
-      "def": "Le rapport du capital constant au capital variable, en tant qu'il reflète le rapport technique entre la masse des moyens de production et le travail vivant. Elle s'élève avec l'accumulation."
+      "def": "Le rapport du capital constant au capital variable, en tant qu'il reflète le rapport technique entre la masse des moyens de production et le travail vivant. Elle s'élève avec l'accumulation.",
+      "page": {
+        "dossier": "composition-organique",
+        "slug": "composition-organique"
+      }
     },
     "Condition I(v+pl)=II(c)": {
       "def": "La condition d'équilibre de la reproduction simple : ce que le secteur des moyens de production verse en salaires et en plus-value doit égaler ce que l'autre consomme en moyens de production."
