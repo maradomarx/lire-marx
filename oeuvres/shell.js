@@ -53,7 +53,7 @@
         '<a class="brandmark" id="shellBrand" href="/" aria-label="Lire Marx — retour à l\'accueil">Lire<span class="d">.</span>Marx</a>' +
         '<div class="tb-search">' +
           '<span class="tb-search-ic" aria-hidden="true">⌕</span>' +
-          '<input id="tbSearch" type="text" autocomplete="off" spellcheck="false" placeholder="Rechercher un chapitre, une notion, une date…" aria-label="Rechercher dans le site : un chapitre, une notion, une date" aria-keyshortcuts="/" role="combobox" aria-expanded="false" aria-controls="tbResults" aria-autocomplete="list" aria-haspopup="listbox">' +
+          '<input id="tbSearch" type="text" autocomplete="off" spellcheck="false" placeholder="Rechercher une notion, un chapitre, un mot du texte…" aria-label="Rechercher dans le site et dans le texte des œuvres : une notion, un chapitre, une date, un mot du texte" aria-keyshortcuts="/" role="combobox" aria-expanded="false" aria-controls="tbResults" aria-autocomplete="list" aria-haspopup="listbox">' +
           '<div id="tbResults" class="tb-results" role="listbox" hidden></div>' +
         '</div>' +
         '<div class="topbar-right">' +
@@ -323,12 +323,18 @@
       outil:    { lab: 'Outil',      grp: 'Instruments et explorations' },
       oeuvre:   { lab: 'Œuvre',      grp: 'Œuvres' },
       page:     { lab: 'Page',       grp: 'Pages du site' },
-      'a-venir':{ lab: 'À venir',    grp: 'À venir' }
+      'a-venir':{ lab: 'À venir',    grp: 'À venir' },
+      texte:    { lab: 'Texte',      grp: 'Dans le texte' }
     };
-    var ORDER = ['reprise','recente','exemple','chapitre','partie','notion','date','outil','oeuvre','page','a-venir'];
+    /* « Dans le texte » vient EN DERNIER, et c'est un choix : sur un mot
+       comme « plus-value » le texte rendrait des centaines d'occurrences
+       là où le chapitre et la notion répondent mieux. Le plein texte est
+       un complément, pas la porte d'entrée — mais sur « vampire », qui
+       n'est ni un chapitre ni une notion, c'est le seul groupe rempli. */
+    var ORDER = ['reprise','recente','exemple','chapitre','partie','notion','date','outil','oeuvre','page','a-venir','texte'];
     var PER_GROUP = 4, MAX = 14;
 
-    var INDEX = null;
+    var INDEX = null, TEXTE = null;
     var indexPending = null;
 
     function prep(it){
@@ -362,7 +368,7 @@
       if(indexPending) return indexPending;
       indexPending = fetch('/oeuvres/recherche.json', { cache: 'no-cache' })
         .then(function(r){ if(!r.ok) throw new Error('index HTTP ' + r.status); return r.json(); })
-        .then(function(json){ return (json.items || []).map(prep); })
+        .then(function(json){ TEXTE = json.texte || null; return (json.items || []).map(prep); })
         .catch(function(){ return fallbackIndex().catch(function(){ return []; }); })
         .then(function(ix){ INDEX = ix; indexPending = null; return ix; });
       return indexPending;
@@ -393,7 +399,210 @@
       } catch(e){}
       return out;
     }
-    var EXEMPLES = ['plus-value', 'fétichisme', '1848', 'chapitre X', 'aliénation'];
+    var EXEMPLES = ['plus-value', 'fétichisme', 'vampire', 'chapitre X', 'aliénation'];
+
+    /* ── LE PLEIN TEXTE (mission `recherche-texte`) ─────────────────────
+       L'index dérivé sait OÙ sont les chapitres, les notions et les dates ;
+       il ne sait pas ce que le texte DIT. « vampire » ne rendait donc rien,
+       alors que la phrase la plus citée du livre le contient.
+
+       Deux sources, et aucune n'ajoute une copie du texte sur le site :
+        · Le Capital n'est pas servi localement — la liseuse va le chercher
+          sur Wikisource —, on interroge donc l'API de recherche de
+          Wikisource, restreinte au préfixe du Livre I ;
+        · les Manuscrits sont servis en cinq fragments : on les charge UNE
+          FOIS, à la demande, et l'on cherche dedans. Cent trente kilo-octets
+          compressés, une seule fois par session, et seulement si l'on
+          cherche vraiment.
+
+       LE LIEN NE PORTE PAS CE QUE LE LECTEUR A TAPÉ, mais la tranche exacte
+       du texte : il écrit « l'argent » avec une apostrophe droite quand Roy
+       imprime une apostrophe typographique, et la liseuse répondrait
+       « passage introuvable ». On retrouve donc la tranche par une
+       comparaison normalisée, et l'on lie ce que la page contient vraiment.
+
+       Tout est facultatif : sans réseau, sans l'API, sans les fragments, la
+       recherche reste exactement celle d'avant. */
+    var TXT_MIN = 3, TXT_MAX = 4, TXT_ATTENTE = 380;
+    var wsCache = {}, manDocs = null, manPending = null, txtTimer = null, renderSeq = 0;
+
+    /* La normalisation du plein texte est plus large que celle de l'index :
+       elle rabat aussi les apostrophes et les traits d'union — le texte de
+       Roy est plein de « c'est‑à‑dire » à trait insécable. */
+    function nx(s){
+      return norm(String(s == null ? '' : s)
+        .replace(/[’ʼ´]/g, "'")
+        .replace(/[‐‑‒–—]/g, '-')
+        .replace(/[   ]/g, ' '));
+    }
+    /* Un texte préparé une fois : sa version normalisée, et la carte qui
+       ramène chaque caractère normalisé à sa place dans l'original. C'est
+       elle qui permet d'en extraire la tranche EXACTE. */
+    function prepare(txt){
+      var carte = [], buf = [], esp = false, i, c;
+      for(i = 0; i < txt.length; i++){
+        c = nx(txt.charAt(i));
+        if(!c) continue;
+        if(c === ' '){ if(esp) continue; buf.push(' '); carte.push(i); esp = true; }
+        else { buf.push(c.charAt(0)); carte.push(i); esp = false; }
+      }
+      return { brut: txt, n: buf.join(''), carte: carte };
+    }
+    function tranche(doc, nq){
+      var p = doc.n.indexOf(nq);
+      if(p < 0) return null;
+      var a = doc.carte[p], b = doc.carte[p + nq.length - 1];
+      return { i: a, exact: doc.brut.slice(a, b + 1) };
+    }
+    function extrait(txt, i, n){
+      var a = Math.max(0, i - 34), b = Math.min(txt.length, i + n + 96);
+      var s = txt.slice(a, b).replace(/\s+/g, ' ').trim();
+      return (a > 0 ? '… ' : '') + s + (b < txt.length ? ' …' : '');
+    }
+
+    /* Le Capital : l'API de Wikisource. On ne garde que les pages de
+       SECTION — Wikisource sert aussi le même texte découpé par chapitre,
+       et les deux se répondraient en double. Une requête de plusieurs mots
+       est mise entre guillemets : sans cela l'API rend les pages qui
+       contiennent les mots n'importe où, et le lien tomberait sur une
+       section où la phrase n'est pas. */
+    function chercheCapital(q, nq){
+      var meta = TEXTE && TEXTE['capital-1'];
+      if(!meta || !meta.sections) return Promise.resolve([]);
+      if(wsCache[nq]) return Promise.resolve(wsCache[nq]);
+      var terme = /\s/.test(q.trim()) ? '"' + q.trim().replace(/"/g, '') + '"' : q.trim();
+      var u = 'https://fr.wikisource.org/w/api.php?action=query&list=search&srnamespace=0'
+        + '&srsearch=' + encodeURIComponent(terme + ' prefix:Le Capital/Livre I/')
+        + '&srlimit=12&srprop=snippet&format=json&origin=*';
+      return fetch(u).then(function(r){ return r.ok ? r.json() : null; }).then(function(j){
+        var out = [], vus = {};
+        ((j && j.query && j.query.search) || []).forEach(function(h){
+          var m = /^Le Capital\/Livre I\/Section (\d)$/.exec(h.title || '');
+          if(!m || vus[m[1]]) return;
+          vus[m[1]] = 1;
+          var n = +m[1], sec = null, k;
+          for(k = 0; k < meta.sections.length; k++) if(meta.sections[k].n === n) sec = meta.sections[k];
+          var plat = String(h.snippet || '').replace(/<[^>]*>/g, '');
+          plat = plat.replace(/&quot;/g, '"').replace(/&#0?39;/g, "'").replace(/&nbsp;/g, ' ')
+                     .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+          /* L'extrait de Wikisource ne centre pas toujours la trouvaille :
+             sur « aliénation », la section I s'affichait avec un extrait où
+             le mot ne paraissait pas, et le résultat avait l'air faux. Quand
+             on retrouve la tranche, on recadre dessus. */
+          var t = tranche(prepare(plat), nq);
+          out.push({
+            t: 'Le Capital — section ' + (sec ? sec.rn : n) + (sec ? ', ' + sec.t : ''),
+            s: t ? extrait(plat, t.i, t.exact.length) : plat.replace(/\s+/g, ' ').trim(),
+            cat: 'texte',
+            url: '/oeuvres/capital-1#s=' + n + '&q=' + encodeURIComponent(t ? t.exact : q.trim())
+          });
+        });
+        wsCache[nq] = out;
+        return out;
+      }).catch(function(){ return []; });
+    }
+
+    /* Les Manuscrits : les fragments que le site sert déjà. Chargés une
+       fois, préparés une fois — la carte de normalisation coûte cher, il ne
+       faut pas la refaire à chaque frappe. */
+    function chargeManuscrits(){
+      if(manDocs) return Promise.resolve(manDocs);
+      if(manPending) return manPending;
+      var meta = TEXTE && TEXTE['manuscrits-1844'];
+      if(!meta || !meta.parts) return Promise.resolve([]);
+      manPending = Promise.all(meta.parts.map(function(p){
+        return fetch(p.f).then(function(r){ return r.ok ? r.text() : ''; }).then(function(html){
+          if(!html) return null;
+          var d = new DOMParser().parseFromString(html, 'text/html');
+          d.querySelectorAll('script,style,noscript').forEach(function(n){ n.remove(); });
+          var txt = (d.body ? d.body.textContent : '') || '';
+          return { n: p.n, t: p.t, doc: prepare(txt) };
+        }).catch(function(){ return null; });
+      })).then(function(a){
+        manDocs = a.filter(Boolean); manPending = null; return manDocs;
+      }).catch(function(){ manPending = null; return []; });
+      return manPending;
+    }
+    function chercheManuscrits(q, nq){
+      return chargeManuscrits().then(function(docs){
+        var out = [];
+        docs.forEach(function(d){
+          var t = tranche(d.doc, nq);
+          if(!t) return;
+          out.push({
+            t: 'Manuscrits de 1844 — ' + d.t,
+            s: extrait(d.doc.brut, t.i, t.exact.length),
+            cat: 'texte',
+            url: '/oeuvres/manuscrits-1844#s=' + d.n + '&q=' + encodeURIComponent(t.exact)
+          });
+        });
+        return out;
+      }).catch(function(){ return []; });
+    }
+
+    /* Le groupe s'AJOUTE quand il arrive : le repeindre entier volerait la
+       sélection au clavier, et il vient en dernier — rien avant lui n'est
+       renuméroté. */
+    function poseTexte(items, q){
+      var att = box.querySelector('.tb-wait');
+      if(!att) return;
+      att.remove();
+      if(!items.length){
+        /* Si RIEN n'a été trouvé nulle part, c'est le message complet qu'il
+           faut — celui qui dit quoi essayer. Le lecteur qui ne trouve rien
+           ne reformule pas de lui-même. */
+        if(!box.querySelector('.tb-res')){
+          box.innerHTML = '<div class="tb-empty">Aucun résultat pour « ' + esc(q) + ' », ni dans le site ni dans le texte des œuvres. Essayez un autre mot, un chapitre (« chapitre X ») ou une année.</div>';
+          announce('Aucun résultat pour ' + q);
+          return;
+        }
+        var v = document.createElement('div');
+        v.className = 'tb-empty'; v.setAttribute('role','presentation');
+        v.textContent = 'Rien dans le texte des œuvres.';
+        box.appendChild(v);
+        return;
+      }
+      var n = +(box.dataset.n || 0);
+      items.forEach(function(e){
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'tb-res'; b.setAttribute('role','option');
+        b.id = 'tbo-' + (n++); b.tabIndex = -1;
+        b.innerHTML = '<span class="tb-res-main"><span class="tb-res-t">' + esc(e.t) + '</span>'
+          + '<span class="tb-res-s">' + esc(e.s) + '</span></span>'
+          + '<span class="tb-res-cat tb-cat-texte">' + esc(CAT.texte.lab) + '</span>';
+        b.addEventListener('mousedown', function(ev){ ev.preventDefault(); });
+        b.addEventListener('click', function(){
+          if(q) remember(q);
+          inp.value = ''; close();
+          go(e.url);
+        });
+        box.appendChild(b);
+      });
+      box.dataset.n = n;
+      announce(items.length + (items.length > 1 ? ' passages trouvés dans le texte' : ' passage trouvé dans le texte'));
+    }
+    function lancePlein(q, nq, seq){
+      clearTimeout(txtTimer);
+      txtTimer = setTimeout(function(){
+        if(renderSeq !== seq) return;
+        Promise.all([chercheCapital(q, nq), chercheManuscrits(q, nq)]).then(function(r){
+          if(renderSeq !== seq) return;
+          /* ON ENTRELACE LES DEUX ŒUVRES. Mises bout à bout, les sections du
+             Capital — huit, contre cinq fragments — prenaient les quatre
+             places et les Manuscrits n'apparaissaient jamais : « aliénation »
+             rendait quatre passages du Capital et pas un des cahiers de 1844,
+             où le mot est le sujet. */
+          var a = r[0], m = r[1], out = [], i = 0;
+          while(out.length < TXT_MAX && (i < a.length || i < m.length)){
+            if(i < a.length && out.length < TXT_MAX) out.push(a[i]);
+            if(i < m.length && out.length < TXT_MAX) out.push(m[i]);
+            i++;
+          }
+          poseTexte(out, q);
+        });
+      }, TXT_ATTENTE);
+    }
+
 
     function close(){
       box.hidden = true;
@@ -428,7 +637,7 @@
       location.href = url;
     }
 
-    function paint(groups, q){
+    function paint(groups, q, attente){
       box.innerHTML = '';
       var n = 0;
       ORDER.forEach(function(cat){
@@ -457,9 +666,20 @@
           box.appendChild(b);
         });
       });
+      if(attente){
+        var h2 = document.createElement('div');
+        h2.className = 'tb-grp'; h2.setAttribute('role','presentation');
+        h2.textContent = CAT.texte.grp;
+        box.appendChild(h2);
+        var w = document.createElement('div');
+        w.className = 'tb-empty tb-wait'; w.setAttribute('role','presentation');
+        w.textContent = 'Recherche dans le texte des œuvres…';
+        box.appendChild(w);
+      }
       box.hidden = false;
       inp.setAttribute('aria-expanded','true');
       cur = -1;
+      box.dataset.n = n;
       return n;
     }
 
@@ -489,16 +709,22 @@
 
     function render(q){
       var nq = norm(q).trim();
-      if(!nq){ zeroState(); return; }
+      clearTimeout(txtTimer);
+      if(!nq){ renderSeq++; zeroState(); return; }
+      var seq = ++renderSeq;
       buildIndex().then(function(ix){
-        if(norm(inp.value).trim() !== nq) return;   /* frappe plus récente */
+        if(renderSeq !== seq) return;               /* frappe plus récente */
         var mc = nq.match(/^(?:chapitre|chap\.?|ch\.?)\s+([ivxlc]+)$/);
         var chapRn = mc ? mc[1] : null;
         var year = /^\d{4}$/.test(nq) ? nq : null;
+        /* On ne va au texte ni pour « chapitre X » ni pour une année : ces
+           deux requêtes désignent une place, pas une phrase. */
+        var txq = nx(q).trim();
+        var veutTexte = !chapRn && !year && txq.length >= TXT_MIN;
         var hits = [];
         ix.forEach(function(it, k){ var sc = score(it, nq, chapRn, year); if(sc) hits.push({ it: it, sc: sc, k: k }); });
         hits.sort(function(a,b){ return b.sc - a.sc || a.k - b.k; });
-        if(!hits.length){
+        if(!hits.length && !veutTexte){
           box.innerHTML = '<div class="tb-empty">Aucun résultat pour « ' + esc(q) + ' ». Essayez un mot du texte, un chapitre (« chapitre X ») ou une année.</div>';
           box.hidden = false;
           inp.setAttribute('aria-expanded','true');
@@ -511,8 +737,9 @@
           groups[cat] = groups[cat] || [];
           if(groups[cat].length < PER_GROUP && total < MAX){ groups[cat].push(hh.it); total++; }
         });
-        var n = paint(groups, q);
+        var n = paint(groups, q, veutTexte);
         announce(n + (n > 1 ? ' résultats' : ' résultat'));
+        if(veutTexte) lancePlein(q, txq, seq);
       });
     }
 
