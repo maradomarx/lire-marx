@@ -1,0 +1,47 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/valeur-d-usage-vs-valeur.",
+  "titre": "Valeur d'usage et valeur",
+  "de": "Gebrauchswert / Wert",
+  "chapo": "L'utilité d'une chose n'a rien de mystérieux : elle tient à son corps, et elle vaut pour toutes les époques. Le mystère commence avec la valeur, qui n'a pas de corps propre, qui n'appartient qu'à la production marchande, et qui réduit à une seule mesure — du temps de travail — des choses qu'aucune mesure commune ne pouvait comparer.",
+  "description": "Valeur d'usage et valeur chez Marx : pourquoi une marchandise est deux choses à la fois, comment l'abstraction ramène des utilités incomparables à une différence de quantité, et ce que le chapitre premier exclut expressément de la valeur.",
+  "source": {
+    "work": "capital-1",
+    "s": 1,
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre premier — traduction Joseph Roy (1872)"
+  },
+  "ou": "Livre&nbsp;I, première section, chapitre premier, « La marchandise », première partie. C'est la toute première page du livre&nbsp;: rien de ce qui suit n'est intelligible si cette distinction est manquée, et rien n'y est présupposé qui n'ait été obtenu là.",
+  "outils": [
+    {
+      "label": "La forme-valeur — le laboratoire",
+      "url": "/oeuvres/capital-1#labo=s-forme"
+    }
+  ],
+  "voisins": [
+    "Travaux privés",
+    "Le hiéroglyphe social",
+    "Lever le voile",
+    "Forme relative",
+    "Forme équivalent",
+    "Mesure des valeurs"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : TROIS CHOSES, TROIS MESURES, PUIS UNE SEULE. Comme valeurs d'usage, les marchandises sont de qualité différente, et chacune se mesure d'une manière qui n'appartient qu'à elle — l'aune pour la toile, les poids pour le fer, le boisseau pour le grain. Puis la valeur d'usage est mise de côté : les trois corps passent au fantôme (« ils ont tous une même réalité fantômatique »), les trois mesures se retirent, et un sablier paraît. Trois tas de sable se forment devant les fantômes, de trois grandeurs différentes : la même substance, et plus qu'une différence de quantité. Au dernier temps les corps reviennent sans que les tas s'effacent — car la marchandise est DEUX CHOSES À LA FOIS. À gauche, la motte de terre et la laine brute n'ont pas de tas : ce qui ne provient pas du travail n'a pas de valeur.",
+    "alt": "Un comptoir : une pièce de toile, une barre de fer et un sac de grain, chacun avec sa mesure propre, un sablier, et devant chaque objet un tas de sable d'une grandeur différente.",
+    "source": {
+      "texte": "D'après le texte — Livre I, chapitre premier",
+      "q": "Comme valeurs d’usage, les marchandises sont avant tout de qualité différente"
+    },
+    "etapes": {
+      "fait": "Trois choses sur le comptoir. Leur utilité tient à leur corps, et elle n'a rien de mystérieux : le fer coupe parce qu'il est dur.",
+      "ou": "Trois mesures, et aucune ne mesure la même chose. L'aune, les poids, le boisseau : il y a autant de mesures que d'espèces de choses utiles.",
+      "distinction": "On met la valeur d'usage de côté, et les corps passent au fantôme. Il ne leur reste qu'une qualité : celle d'être des produits du travail.",
+      "mecanisme": "Une seule mesure paraît, et c'est du temps. Non celui de tel homme, mais le temps socialement nécessaire — sinon le paresseux ferait la marchandise la plus chère.",
+      "ouvre": "À gauche, la terre et la laine brute n'ont pas de tas. Ce qui est utile sans provenir du travail est une valeur d'usage sans être une valeur.",
+      "lectures": "Les corps reviennent, et les tas restent. La valeur n'était pas dans le corps, et le corps n'a pas disparu : c'est le mot « à la fois » qui porte tout."
+    },
+    "fixe": {
+      "g": 3.9,
+      "legende": "Les trois corps sont passés au fantôme et une seule mesure a paru : trois tas de la même substance, qui ne diffèrent plus que d'un plus ou d'un moins."
+    }
+  }
+}
