@@ -1,0 +1,47 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/plus-value-relative.",
+  "titre": "Plus-value relative",
+  "de": "relativer Mehrwert",
+  "chapo": "La journée étant fixée, il reste une voie : contracter la part où l'ouvrier reproduit la valeur de sa force. Mais personne ne vise cela. Ce que chaque fabricant cherche, c'est un avantage sur ses concurrents — un survalu extra qui disparaît dès que la méthode se répand. Ce qui reste alors n'est à personne : le prix a baissé pour tous, et avec lui celui de l'entretien de l'ouvrier.",
+  "description": "La plus-value relative chez Marx : comment on obtient davantage sans allonger la journée, pourquoi la productivité doit toucher les subsistances, ce qu'est le survalu extra de l'innovateur, et pourquoi la concurrence contraint tout le monde à le faire disparaître.",
+  "source": {
+    "work": "capital-1",
+    "s": 4,
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XII — traduction Joseph Roy (1872)"
+  },
+  "ou": "Livre&nbsp;I, quatrième section, chapitre XII, « La plus-value relative » — un chapitre court, qui commande les trois suivants : coopération, manufacture et machinisme sont les formes historiques sous lesquelles cette plus-value a été produite.",
+  "outils": [
+    {
+      "label": "Le circuit du capital — le jeu",
+      "url": "/jeu/"
+    }
+  ],
+  "voisins": [
+    "Plus-value absolue",
+    "Force productive",
+    "Coopération",
+    "Machine-outil",
+    "Division du travail",
+    "Travail nécessaire"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : LA BARRE DU PRIX COMMUN. Quatre établis, quatre jauges — la valeur individuelle de chacun — et une barre de laiton posée en travers, qui est la valeur sociale : elle ne peut pas descendre plus bas que le plus haut de ceux qui la portent. Une jauge descend, l'écart qui s'ouvre sous la barre est le survalu extra, et il brille. Les autres descendent à leur tour, la barre suit, l'écart se referme. Alors seulement la seconde barre — la valeur de la force de travail — descend elle aussi.",
+    "alt": "Quatre établis portant chacun une jauge verticale, et une barre de laiton posée en travers de leurs sommets ; l'une des jauges est plus basse que les autres et l'écart sous la barre est éclairé.",
+    "source": {
+      "texte": "D'après le texte — Livre I, chapitre XII",
+      "q": "cette plus-value extra disparaît dès que le nouveau mode de production se généralise"
+    },
+    "etapes": {
+      "fait": "Quatre ateliers, quatre jauges à la même hauteur. La barre posée en travers est la valeur sociale : ce que coûte la chose en moyenne, non ce qu'elle coûte à tel ou tel.",
+      "ou": "Rien ne bouge encore. C'est l'état d'où l'on part : des conditions moyennes que tous partagent, et un prix commun qui s'y règle.",
+      "distinction": "Un atelier double sa productivité. Sa jauge descend, la barre ne bouge pas — et l'écart qui s'ouvre est à lui. Ce n'est pas encore de la plus-value relative : c'est un survalu extra, et il n'existe que chez lui.",
+      "mecanisme": "Les autres suivent, contraints. Leurs jauges descendent, la barre descend avec elles, et l'écart se referme : ce qui poussait l'innovateur a disparu au moment même où sa méthode a gagné.",
+      "ouvre": "La barre est plus basse et l'avantage n'est à personne. Le prix a baissé pour tous — et c'est seulement à ce moment-là que quelque chose a changé pour le taux général.",
+      "lectures": "La seconde barre descend à son tour : la valeur de la force de travail. Encore fallait-il que ce qu'on produit ici entre dans l'entretien de l'ouvrier — une invention qui abaisse le prix des dentelles n'y changerait rien."
+    },
+    "fixe": {
+      "g": 3.1,
+      "legende": "Le premier a doublé sa productivité : sa jauge est descendue, la barre du prix commun n'a pas bougé, et l'écart qui s'ouvre sous elle lui appartient. Il ne durera que le temps que les autres mettront à le rattraper."
+    }
+  }
+}

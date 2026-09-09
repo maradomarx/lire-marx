@@ -206,7 +206,11 @@
     },
     "Plus-value relative": {
       "de": "relativer Mehrwert",
-      "def": "Celle qu'on obtient en raccourcissant le travail nécessaire par la hausse de la productivité. La journée ne bouge pas ; c'est son partage interne qui change."
+      "def": "Celle qu'on obtient en raccourcissant le travail nécessaire par la hausse de la productivité. La journée ne bouge pas ; c'est son partage interne qui change.",
+      "page": {
+        "dossier": "plus-value-relative",
+        "slug": "plus-value-relative"
+      }
     },
     "Le « prix du travail »": {
       "de": "Preis der Arbeit",
