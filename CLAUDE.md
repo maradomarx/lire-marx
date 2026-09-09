@@ -7026,16 +7026,15 @@ dit. Courses relevées position par position, 0 → 6 et retour à l'identique.
 
 ### Ce qui reste
 
-- **Vingt-six pages-monde**, et **toutes les notions du glossaire qui
-  méritaient un développement en ont une**. Les quarante-neuf autres restent
+- **Vingt-cinq pages-monde**, et **toutes les notions du glossaire qui
+  méritaient un développement en ont une**. Les cinquante autres restent
   dans l'abécédaire, et c'est le bon état : ce sont des moments d'un même
   argument, qui se lisent mieux à leur place qu'étirés sur mille cinq cents
   mots. Ne pas générer une page par terme.
-- **Huit pages de notion sont encore sur l'ancien gabarit court** (`page:
-  {chapo, corps…}`) : accumulation-primitive, argent, besoins, communisme,
-  être générique, fétichisme, force de travail, objectivation, plus-value,
-  propriété privée, travail aliéné. Chacune passera en dossier à son tour,
-  avec sa scène. Le générateur sert les deux chemins.
+- **PLUS AUCUNE page de notion n'est sur l'ancien gabarit court** (`page:
+  {chapo, corps…}`) — vérifié dans le lexique : les vingt-cinq ont leur
+  dossier. Le générateur sert encore les deux chemins, et c'est sans usage ;
+  si une notion devait un jour n'avoir qu'un texte court, il est là.
 - **La page du travail aliéné cite vingt-quatre passages de Bottigelli**,
   protégé jusqu'en 2046, et elle contredit donc la règle que les autres
   pages des Manuscrits suivent (paraphraser et situer, ne pas citer). C'est
