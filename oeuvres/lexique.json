@@ -244,11 +244,16 @@
     },
     "Taux d'exploitation e₀": {
       "de": "Rate des Mehrwerts",
-      "def": "Le rapport du surtravail au travail nécessaire. Il mesure ce que le capital tire de l'ouvrier, indépendamment de la taille du capital engagé."
+      "def": "Le rapport du surtravail au travail nécessaire. Il mesure ce que le capital tire de l'ouvrier, indépendamment de la taille du capital engagé.",
+      "voir": "Taux de plus-value"
     },
     "Taux de plus-value": {
       "de": "Rate des Mehrwerts",
-      "def": "pl divisé par v : le rapport du travail non payé au travail payé. C'est l'expression exacte du degré d'exploitation — que le taux de profit, lui, dissimule."
+      "def": "pl divisé par v : le rapport du travail non payé au travail payé. C'est l'expression exacte du degré d'exploitation — que le taux de profit, lui, dissimule.",
+      "page": {
+        "dossier": "taux-de-plus-value",
+        "slug": "taux-de-plus-value"
+      }
     },
     "Taux de profit": {
       "de": "Profitrate",
