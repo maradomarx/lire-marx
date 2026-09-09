@@ -1656,12 +1656,105 @@ au texte. Sur les Manuscrits : `#partie=4` → « Profit du capital » à
 `/` focalise le champ. `gen-seo --check` à jour et idempotent. shell.css et
 shell.js en `?v=5`.
 
+### ✅ La recherche va dans le texte (mission `recherche-texte`, sept. 2026)
+
+Troisième et dernière des missions mises en file par `recherche-index`.
+L'index dérivé sait OÙ sont les chapitres, les notions et les dates ; il ne
+sait pas ce que le texte DIT. « vampire » ne rendait donc rien, alors que
+la phrase la plus citée du livre le contient.
+
+**Deux sources, et aucune n'ajoute une copie du texte sur le site** — ce
+qui comptait, la traduction des Manuscrits étant protégée jusqu'en 2046 :
+
+- **Le Capital** n'est pas servi localement : on interroge l'**API de
+  recherche de Wikisource**, restreinte au préfixe du Livre I. ⚠️ **On ne
+  garde que les pages de SECTION** (`^Le Capital/Livre I/Section \d$`) :
+  Wikisource sert aussi le même texte découpé par chapitre, et les deux se
+  répondraient en double. Une requête de plusieurs mots est mise **entre
+  guillemets** — sans cela l'API rend les pages qui contiennent les mots
+  n'importe où, et le lien tomberait sur une section où la phrase n'est pas.
+- **Les Manuscrits** sont servis en cinq fragments : on les charge **une
+  fois**, à la demande, et l'on cherche dedans. 130 Ko compressés, une seule
+  fois par session, pour une requête d'au moins trois caractères et après
+  400 ms de silence.
+
+**LE LIEN NE PORTE PAS CE QUE LE LECTEUR A TAPÉ, mais la tranche exacte du
+texte.** Il écrit « l'argent » avec une apostrophe droite quand Roy imprime
+une apostrophe typographique, et la liseuse répondrait « passage
+introuvable ». Chaque texte est donc **préparé une fois** — version
+normalisée (accents, apostrophes, traits d'union insécables, espaces) plus
+la **carte qui ramène chaque caractère normalisé à sa place dans
+l'original** —, et l'on en extrait la tranche verbatim. C'est la méthode
+des citations des pages-monde, transposée à l'exécution. La préparation est
+coûteuse : elle se fait au chargement du fragment, jamais à la frappe.
+
+**« Dans le texte » vient EN DERNIER, et c'est un choix.** Sur
+« plus-value », le texte rendrait des centaines d'occurrences là où le
+chapitre et la notion répondent mieux : le plein texte est un complément,
+pas la porte d'entrée. Sur « vampire », qui n'est ni un chapitre ni une
+notion, c'est le seul groupe rempli. **Le groupe s'AJOUTE quand il arrive**
+plutôt que de faire repeindre la liste — un repaint volerait la sélection
+au clavier —, et comme il est dernier, rien avant lui n'est renuméroté.
+
+**Deux défauts corrigés en éprouvant, et le premier est le plus
+instructif :**
+
+1. **ON ENTRELACE LES DEUX ŒUVRES.** Mises bout à bout, les huit sections
+   du Capital prenaient les quatre places et les Manuscrits n'apparaissaient
+   jamais : « aliénation » rendait quatre passages du Capital et pas un des
+   cahiers de 1844, où le mot est le sujet. Toute liste qui concatène deux
+   sources de tailles inégales et tronque évince la plus petite.
+2. **Quand RIEN n'est trouvé nulle part, c'est le message complet qu'il
+   faut** — celui qui dit quoi essayer. Le groupe du texte l'avait remplacé
+   par un « rien trouvé » muet.
+
+**De quoi SITUER un passage est DÉRIVÉ, pas recopié.** `recherche.json`
+passe en `v: 2` et gagne un bloc `texte` : les huit sections de Roy (pour
+les nommer — « section III, La production de la plus-value absolue ») et
+les cinq fragments des Manuscrits avec leur ordre, **c'est lui qui donne le
+`#s=` du contrat de deep-link** (`parts[n-1]`). La source est le tableau
+`parts` de la page, et non le manifeste, qui en porte une seconde copie aux
+accents près — c'est la page qui fait foi.
+
+**Ce qui dégrade proprement** : sans réseau, sans l'API, sans les
+fragments, la recherche est exactement celle d'avant (mesuré : dix
+résultats de structure, et le groupe du texte dit qu'il n'a rien). Les
+`net::ERR_FAILED` que le navigateur journalise alors sont les siens, pas
+une exception — `pageerror` reste vide.
+
+**Deux défauts antérieurs corrigés au passage :**
+
+- **La liseuse des Manuscrits demandait ses fragments en `.html`** : cinq
+  redirections 308 par lecture, pour rien. C'est la règle des URL propres,
+  déjà payée trois fois. Le champ `file` garde son extension (c'est le
+  contrat de la donnée), on la retire au point d'usage.
+- **Les pastilles et les en-têtes de groupe de la recherche étaient à
+  10,24 px** (`.64rem`), sous le plancher de 11 px du projet. À `.72rem`,
+  mesurés à 11,52 px.
+
+`shell.js` et `shell.css` passent en **`?v=6`** (36 et 64 références) : la
+règle vaut dès qu'un actif mis en cache doit changer avec le reste.
+
+**Vérifié** : les **dix pages** qui montent la coquille (coquille montée,
+champ câblé, marquage exact, zéro débordement, console propre) ; le plein
+texte sur six requêtes, dont « chapitre X » et « 1867 » qui n'y vont pas —
+elles désignent une place, pas une phrase ; le clavier (les résultats
+ajoutés rejoignent la liste, `aria-activedescendant` exact) ; contraste
+**0 échec**, minimum 5,15, plus petit texte 11,52 px, aucune cible sous
+24 × 24 ; le lien du plein texte se comporte **exactement** comme les liens
+de citation déjà en place (même section chargée, même phrase retrouvée).
+Détecteur : compté **avant et après en remisant les modifications** —
+aucun constat de plus sur les neuf pages.
+
 ### Ce qui reste
 
-**`recherche-texte`** : le plein texte. Pour Capital, l'API de recherche de
-Wikisource restreinte au préfixe du Livre I rend des extraits par page,
-qu'on ouvrirait avec le contrat `#s=&q=` ; pour les Manuscrits, les
-fragments locaux s'indexeraient à la génération. Non fait.
+- **Le Capital dépend de Wikisource pour la recherche comme pour le
+  texte** : si l'API est indisponible, le groupe du texte est vide et rien
+  d'autre ne change. C'est le même pari que la liseuse fait déjà.
+- La recherche ne cherche pas dans les **essais des pages-monde** (soixante
+  mille mots écrits à la main). Ils sont servis en HTML et pourraient
+  s'indexer à la génération — c'est la suite naturelle, et elle serait
+  entièrement locale.
 
 ## Le Dossier remis en ordre (mission `dossier-lisible`, sept. 2026)
 
