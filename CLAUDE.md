@@ -7192,24 +7192,98 @@ bloc tombait à 99 % de la largeur, hors cadre, et seule la projection l'a
 dit. Courses relevées position par position, 0 → 6 et retour à l'identique.
 `gen-seo --check` à jour et idempotent.
 
+### Une page par concept (missions `glossaire-mondes-21` à `-24`, sept. 2026)
+
+**Arbitrage du propriétaire, et il change la règle** : « je veux que chaque
+concept présent dans l'abécédaire ait une page dédiée ». Le seuil d'origine
+(« on n'écrit une page que lorsqu'on a quatre cents mots à dire ») avait
+justifié de laisser les autres notions dans la liste ; il est levé. Ce qui
+ne l'est pas, c'est la règle de fabrication : **pas de moule**, chaque page
+tire sa figure de ce que dit le concept, et une notion qui n'a pas de figure
+propre attend qu'on la lui trouve plutôt que de recevoir un décor.
+
+Dix pages sur les mécanismes de la plus-value et de la monnaie (les
+fonctions de la monnaie, la composition organique, la plus-value absolue et
+relative, le travail nécessaire, le surtravail, le taux de la plus-value),
+puis trois sur la manufacture et la fabrique :
+
+| notion | la figure |
+|---|---|
+| **Travailleur collectif** | l'établi : un outil complet éclate, ses quatre têtes se plantent en rang, un arbre leur donne une seule cadence, et l'on ôte la dernière station |
+| **Appendice de la machine** | le poste : la machine prend la lame, il ne reste que le manche, qu'un montant vient planter à une hauteur qu'on n'a pas choisie |
+| **Reproduction simple** | l'avance mangée : cinq pièces sur chant, remplacées une à une par des pièces claires pendant que les sombres s'en vont au sébile |
+
+**Ce que ces trois-là ont appris, et qui vaut pour les suivantes :**
+
+1. **UN HEX DE MATÉRIAU EST TRAITÉ COMME LINÉAIRE** puis encodé en sRGB à la
+   sortie (three r137 n'a pas `ColorManagement`). Une fonte écrite
+   `0x2b2a28` ne rend pas 43 de gris mais près de 200. J'ai d'abord
+   surcorrigé jusqu'à 68, puis mesuré, puis posé 95. **On échantillonne les
+   pixels** — le noir voisin fait paraître blanc un gris moyen, et la règle
+   déjà écrite deux fois s'est repayée deux fois de plus.
+2. **LA LISIBILITÉ DE L'ORGANE COMMANDE L'ÉCHELLE, pas la vraisemblance.**
+   Sur un établi long, quatre outils tombent sous vingt pixels et ne se
+   lisent plus : l'établi a été raccourci et les têtes grossies.
+3. **UNE SCÈNE D'ATELIER A BESOIN D'UN MUR**, et une nature morte à plat
+   d'une CAMÉRA QUI DOMINE. Sans l'un ni l'autre, les deux tiers hauts du
+   cadre sont noirs et l'objet flotte dans le vide. Le comptoir de la
+   reproduction simple est vu de haut — on baisse les yeux sur son argent —
+   et le bois de l'établi n'est plus un vide.
+4. **UN BRAS DE LEVIER QUI POINTE VERS LA CAMÉRA n'a plus de longueur**, et
+   sa poignée semble plantée dans son montant. Il balance dans le plan de
+   l'image, et la poignée est coaxiale au bras — perpendiculaire, on n'en
+   voit que le disque du bout.
+5. **UN OBJET QUI FLOTTE se lit comme un bug**, pas comme un objet qu'on
+   tient : l'outil d'artisan repose sur son billot.
+6. **AU PREMIER PLAN, la colonne collante est bien plus étroite qu'au fond**
+   — la perspective y veille. Un tabouret mesuré par projection à −24 %
+   était hors du cadre en portrait alors qu'il tenait dans l'image fixe. La
+   règle « la colonne est plus étroite que l'image » a donc un second
+   volet : **elle l'est d'autant plus que l'objet est près**.
+7. **UNE DIFFÉRENCE QUI DOIT ÊTRE INDISCUTABLE SE CONSTRUIT.** Les deux
+   espèces de pièce de la reproduction simple rendaient, mesurées, la même
+   valeur (168 contre 166 de rouge) : bronze terni presque noir contre or
+   vif, et un disque de couleur qu'on FRAPPE, faute de quoi il se lit comme
+   un jeton. Et les pièces sont **sur chant** et non empilées : une pile ne
+   se compte pas, et tout le chapitre XXIII est un compte.
+8. **Wikisource laisse une espace avant la virgule après un italique** (« le
+   capital variable , avant ») et la liseuse la normalise : une citation qui
+   franchit cette frontière est exacte à la source et introuvable dans le
+   texte servi. Piège déjà documenté, repayé — on coupe avant.
+
+**Deux pages prennent position dans une discussion, et le disent.**
+L'appendice de la machine tranche les deux contresens symétriques (Marx
+contempteur de la machine ; Marx faisant de la technique la cause de la
+subordination) en s'appuyant sur la phrase qui les départage : « il faut
+distinguer entre le surcroît de productivité dû au développement du procès
+de travail social et celui qui provient de son exploitation capitaliste ».
+La reproduction simple nomme son hypothèse pour ce qu'elle est, une
+**fiction méthodique**, plutôt que de laisser croire à une description de la
+réalité.
+
 ### Ce qui reste
 
-- **Vingt-cinq pages-monde**, et **toutes les notions du glossaire qui
-  méritaient un développement en ont une**. Les cinquante autres restent
-  dans l'abécédaire, et c'est le bon état : ce sont des moments d'un même
-  argument, qui se lisent mieux à leur place qu'étirés sur mille cinq cents
-  mots. Ne pas générer une page par terme.
-- **PLUS AUCUNE page de notion n'est sur l'ancien gabarit court** (`page:
-  {chapo, corps…}`) — vérifié dans le lexique : les vingt-cinq ont leur
-  dossier. Le générateur sert encore les deux chemins, et c'est sans usage ;
-  si une notion devait un jour n'avoir qu'un texte court, il est là.
+- **Trente-cinq pages-monde, treize renvois `voir`, et vingt-sept notions
+  qui n'ont encore ni l'un ni l'autre.** La demande du propriétaire est
+  qu'elles en aient toutes une : c'est la mission en cours, à raison de
+  trois par passe, relues par lui.
+- **Le taux de profit est différé, et pour une raison qui tient** : il vit
+  au Livre III, que le site ne sert pas, de sorte que sa page ne porterait
+  aucune citation liée et redirait pour l'essentiel la loi tendancielle.
+  Même cas que la loi tendancielle, qui a déjà sa page et qui l'annonce.
+- **Quatre entrées de l'abécédaire ne sont pas des concepts de Marx** mais
+  les intitulés d'exploration du site : « Lever le voile », « Le hiéroglyphe
+  social », « Les contre-mondes », « Le passage de relais ». Les renommer
+  toucherait `CONCEPTS` dans `capital-1.html`, donc l'atelier : **signalé au
+  propriétaire, sans réponse à ce jour.**
 - **La page du travail aliéné cite vingt-quatre passages de Bottigelli**,
-  protégé jusqu'en 2046, et elle contredit donc la règle que les autres
-  pages des Manuscrits suivent (paraphraser et situer, ne pas citer). C'est
-  la seule dans ce cas. À reprendre, et c'est un arbitrage du propriétaire.
-- **Le slug `valeur-d-usage-vs-valeur`** est en ligne avec le titre affiché
-  « Valeur d'usage et valeur ». `page.slug` permet désormais de le corriger,
-  mais l'URL est publique : il faudrait une redirection, donc son accord.
+  protégé jusqu'en 2046, et contredit donc la règle que les autres pages des
+  Manuscrits suivent. C'est la seule dans ce cas, et c'est son arbitrage.
+- **Le slug `valeur-d-usage-vs-valeur`** porte le titre affiché « Valeur
+  d'usage et valeur ». `page.slug` permettrait de le corriger, mais l'URL
+  est publique : il faudrait une redirection, donc son accord.
+- **PLUS AUCUNE page de notion n'est sur l'ancien gabarit court** (`page:
+  {chapo, corps…}`). Le générateur sert encore les deux chemins, sans usage.
 - Le `Article` en JSON-LD signe `Organization` : la page n'a pas de byline
   nominative, et un schéma n'affirme que ce que la page imprime.
 
