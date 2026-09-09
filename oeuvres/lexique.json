@@ -7,11 +7,13 @@
   "termes": {
     "A — M — A′": {
       "de": "G — W — G′",
-      "def": "La formule du capital : acheter pour vendre. À la différence de M—A—M elle n'a pas de terme, puisque l'argent en revient augmenté et repart aussitôt."
+      "def": "La formule du capital : acheter pour vendre. À la différence de M—A—M elle n'a pas de terme, puisque l'argent en revient augmenté et repart aussitôt.",
+      "voir": "La valeur qui se valorise"
     },
     "ΔA — plus-value": {
       "de": "Mehrwert",
-      "def": "L'accroissement qui sépare A′ de A. Sans lui, avancer de l'argent pour récupérer la même somme n'aurait aucun sens : c'est lui qui fait du mouvement un capital."
+      "def": "L'accroissement qui sépare A′ de A. Sans lui, avancer de l'argent pour récupérer la même somme n'aurait aucun sens : c'est lui qui fait du mouvement un capital.",
+      "voir": "Plus-value"
     },
     "Accumulation": {
       "de": "Akkumulation",
@@ -50,7 +52,8 @@
     },
     "Contre-tendances": {
       "de": "entgegenwirkende Ursachen",
-      "def": "Les forces qui freinent la baisse du taux de profit : hausse du taux d'exploitation, baisse du prix des éléments du capital constant, commerce extérieur, surpopulation."
+      "def": "Les forces qui freinent la baisse du taux de profit : hausse du taux d'exploitation, baisse du prix des éléments du capital constant, commerce extérieur, surpopulation.",
+      "voir": "Loi tendancielle"
     },
     "Coopération": {
       "de": "Kooperation",
@@ -68,7 +71,8 @@
     },
     "Demande de travail": {
       "de": "Nachfrage nach Arbeitskraft",
-      "def": "Elle ne suit pas le capital total mais sa seule part variable. Le capital peut donc grossir vite pendant que la demande de bras croît lentement, ou recule."
+      "def": "Elle ne suit pas le capital total mais sa seule part variable. Le capital peut donc grossir vite pendant que la demande de bras croît lentement, ou recule.",
+      "voir": "Armée de réserve"
     },
     "Département I": {
       "de": "Abteilung I",
@@ -87,7 +91,8 @@
     },
     "Expropriation / enclosures": {
       "de": "Expropriation",
-      "def": "La clôture des terres communes et l'expulsion des paysans anglais. C'est là que se forme le prolétaire : libre de toute attache, et libre de tout moyen de subsistance."
+      "def": "La clôture des terres communes et l'expulsion des paysans anglais. C'est là que se forme le prolétaire : libre de toute attache, et libre de tout moyen de subsistance.",
+      "voir": "Accumulation primitive"
     },
     "Factory Acts & inspecteurs": {
       "de": "Fabrikgesetze",
@@ -169,7 +174,8 @@
     },
     "Loi générale": {
       "de": "allgemeines Gesetz der kapitalistischen Akkumulation",
-      "def": "Plus le capital s'accumule, plus il produit de population superflue. Richesse à un pôle, misère à l'autre : les deux croissent d'un même mouvement."
+      "def": "Plus le capital s'accumule, plus il produit de population superflue. Richesse à un pôle, misère à l'autre : les deux croissent d'un même mouvement.",
+      "voir": "Armée de réserve"
     },
     "Loi tendancielle": {
       "de": "Gesetz des tendenziellen Falls der Profitrate",
@@ -180,7 +186,8 @@
     },
     "M — A — M": {
       "de": "W — G — W",
-      "def": "Vendre pour acheter. Le mouvement part d'une marchandise et s'achève dans une autre, consommée : le besoin y met un terme."
+      "def": "Vendre pour acheter. Le mouvement part d'une marchandise et s'achève dans une autre, consommée : le besoin y met un terme.",
+      "voir": "La valeur qui se valorise"
     },
     "Machine-outil": {
       "de": "Werkzeugmaschine",
@@ -228,14 +235,17 @@
     },
     "Le « prix du travail »": {
       "de": "Preis der Arbeit",
-      "def": "Expression courante et pourtant impossible : le travail n'a pas de valeur, il en est la mesure. Ce qui se paie, c'est la force de travail."
+      "def": "Expression courante et pourtant impossible : le travail n'a pas de valeur, il en est la mesure. Ce qui se paie, c'est la force de travail.",
+      "voir": "La forme-salaire"
     },
     "Régulation des salaires": {
-      "def": "La réserve de bras disponibles pèse sur le prix du travail. Ce n'est pas la population qui règle les salaires, mais l'accumulation qui règle la population disponible."
+      "def": "La réserve de bras disponibles pèse sur le prix du travail. Ce n'est pas la population qui règle les salaires, mais l'accumulation qui règle la population disponible.",
+      "voir": "Armée de réserve"
     },
     "Reproduction élargie": {
       "de": "erweiterte Reproduktion",
-      "def": "Une part de la plus-value retourne au capital au lieu d'être consommée. Le procès reprend sur une échelle plus grande : c'est l'accumulation vue comme cycle."
+      "def": "Une part de la plus-value retourne au capital au lieu d'être consommée. Le procès reprend sur une échelle plus grande : c'est l'accumulation vue comme cycle.",
+      "voir": "Accumulation"
     },
     "Reproduction simple": {
       "de": "einfache Reproduktion",
@@ -274,7 +284,8 @@
     },
     "Taux de profit": {
       "de": "Profitrate",
-      "def": "pl rapporté au capital total avancé, constant compris. Toujours inférieur au taux de plus-value, et d'autant plus bas que la part des machines est grande."
+      "def": "pl rapporté au capital total avancé, constant compris. Toujours inférieur au taux de plus-value, et d'autant plus bas que la part des machines est grande.",
+      "voir": "Loi tendancielle"
     },
     "Thésaurisation": {
       "de": "Schatzbildung",
@@ -283,7 +294,8 @@
     },
     "Travail gratuit": {
       "de": "unbezahlte Arbeit",
-      "def": "Les heures que la forme-salaire rend invisibles. Ce ne sont pas des heures volées à un contrat : le contrat est respecté, et c'est précisément le point."
+      "def": "Les heures que la forme-salaire rend invisibles. Ce ne sont pas des heures volées à un contrat : le contrat est respecté, et c'est précisément le point.",
+      "voir": "La forme-salaire"
     },
     "Travail mort": {
       "de": "tote Arbeit",
@@ -303,7 +315,8 @@
     },
     "Travail payé": {
       "de": "bezahlte Arbeit",
-      "def": "Les heures qui reproduisent la valeur de la force de travail. Elles ne sont pas les premières de la journée : la division est de valeur, non d'horloge."
+      "def": "Les heures qui reproduisent la valeur de la force de travail. Elles ne sont pas les premières de la journée : la division est de valeur, non d'horloge.",
+      "voir": "La forme-salaire"
     },
     "Travail vivant": {
       "de": "lebendige Arbeit",
@@ -319,7 +332,8 @@
     },
     "Travaux privés": {
       "de": "Privatarbeiten",
-      "def": "Chacun produit pour son compte, sans concertation. Leur caractère social ne se manifeste qu'après coup, dans l'échange — d'où la forme étrange que prend ce lien."
+      "def": "Chacun produit pour son compte, sans concertation. Leur caractère social ne se manifeste qu'après coup, dans l'échange — d'où la forme étrange que prend ce lien.",
+      "voir": "Fétichisme"
     },
     "Valeur d’usage vs valeur": {
       "de": "Gebrauchswert / Wert",
@@ -330,7 +344,8 @@
     },
     "Valeur nouvelle": {
       "de": "Neuwert",
-      "def": "Tout ce que le travail vivant ajoute pendant la journée, et rien d'autre. Elle se partage entre la valeur de la force de travail et la plus-value."
+      "def": "Tout ce que le travail vivant ajoute pendant la journée, et rien d'autre. Elle se partage entre la valeur de la force de travail et la plus-value.",
+      "voir": "Capital constant"
     },
     "La valeur qui se valorise": {
       "de": "sich verwertender Wert",
@@ -341,7 +356,8 @@
     },
     "Valeur transférée": {
       "de": "Wertübertragung",
-      "def": "La valeur des moyens de production consommés reparaît intacte dans le produit. Rien ne s'y ajoute et rien ne s'y perd : c'est un simple déplacement."
+      "def": "La valeur des moyens de production consommés reparaît intacte dans le produit. Rien ne s'y ajoute et rien ne s'y perd : c'est un simple déplacement.",
+      "voir": "Capital constant"
     },
     "Vitesse de circulation": {
       "de": "Umlaufsgeschwindigkeit",
