@@ -1,0 +1,47 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/legislation-de-fabrique.",
+  "titre": "Factory Acts & inspecteurs",
+  "de": "Fabrikgesetzgebung",
+  "chapo": "De 1802 à 1833, le Parlement vota trois lois sur le travail sans un centime pour les faire exécuter, et elles restèrent lettre morte. Ce qui change en 1833 n'est pas le principe mais l'appareil : des inspecteurs payés, une horloge publique que le fabricant ne règle pas, un avis affiché, des rapports publiés tous les six mois. Une limite sociale tient par son appareil de mesure, non par sa formulation.",
+  "description": "La législation de fabrique chez Marx : pourquoi trois lois sans inspecteurs n'ont rien produit, comment les rapports d'inspection sont devenus sa principale source, et où la loi s'arrête.",
+  "source": {
+    "work": "capital-1",
+    "s": 3,
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitres X et XV — traduction Joseph Roy (1872)"
+  },
+  "ou": "Livre&nbsp;I, troisième section, chapitre X, « La journée de travail », dont les paragraphes VI et VII racontent la lutte pour la journée normale ; puis quatrième section, chapitre XV, paragraphe IX, « Législation de fabrique », qui en tire la portée générale.",
+  "outils": [
+    {
+      "label": "La chronologie du Capital",
+      "url": "/oeuvres/capital-1#chrono"
+    }
+  ],
+  "voisins": [
+    "Journée de travail",
+    "Surtravail",
+    "Plus-value absolue",
+    "Armée de réserve",
+    "Appendice de la machine",
+    "Corvée · esclave · salarié"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : L'HORLOGE PUBLIQUE. Le chapitre est une leçon sur ce qui fait qu'une limite EXISTE, et la loi de 1844 le prescrit à la lettre : une horloge PUBLIQUE, que le fabricant ne règle pas, et sur laquelle la cloche de la fabrique doit se régler. La figure est donc UN SEUL INSTRUMENT en gros plan — le cadran de la fabrique. Un repère de laiton marque l'heure fixée par l'avis ; l'aiguille le dépasse, et personne ne peut le prouver parce qu'il n'y a rien à quoi la comparer. Puis un second cadran, petit, est encastré dans le premier et plombé d'un sceau au bout de son fil : dès lors l'écart entre les deux aiguilles est un ANGLE, c'est-à-dire une chose qui se voit et se consigne. Une plaque de laiton se visse sous le cadran, la cloche est reliée au cadran public, et d'autres plaques suivent, une par industrie soumise. Au dernier temps il reste un trou de vis VIDE : la plaque qui n'a jamais été faite — les cinq cents pieds cubes d'air.",
+    "alt": "Le cadran de fonte d'une horloge de fabrique en gros plan, un repère de laiton sur sa graduation, un second cadran plus petit encastré et scellé d'un plomb, et une couronne de plaques de laiton vissées sur la boîte.",
+    "source": {
+      "texte": "D'après le texte — Livre I, chapitre X",
+      "q": "doit être indiqué par une horloge publique"
+    },
+    "etapes": {
+      "fait": "Un cadran de fabrique, un repère de laiton sur l'heure que l'avis affiche. Rien d'autre. Trois lois en trente et un ans, et pas un centime pour les faire exécuter.",
+      "distinction": "L'aiguille dépasse le repère, doucement, et rien ne la contredit : il n'y a pas de second cadran. Quinze minutes avant six heures, quelques minutes prises sur le repas.",
+      "mecanisme": "Un second cadran s'encastre dans le premier, plombé au bout d'un fil : l'horloge publique, que le fabricant ne règle pas. L'écart devient un angle, donc une chose qui se consigne.",
+      "portee": "Une plaque de laiton se visse sous le cadran — le corps d'inspection —, et la cloche de la fabrique est reliée par un cordon au cadran public. L'aiguille recule.",
+      "ouvre": "Les plaques se multiplient autour de la boîte, une par industrie soumise. Le capital lui-même finit par réclamer la loi générale : soumis seul, il ne soutient pas la concurrence.",
+      "lectures": "Il reste un trou de vis vide, et il restera vide. Ce sont les cinq cents pieds cubes d'air par travailleur, que la loi n'a jamais imposés."
+    },
+    "fixe": {
+      "g": 4.7,
+      "legende": "Le cadran de la fabrique et, encastré dedans, le cadran public scellé d'un plomb : l'écart des deux aiguilles est un angle, donc une chose qui se consigne. Autour de la boîte, une plaque par industrie soumise."
+    }
+  }
+}

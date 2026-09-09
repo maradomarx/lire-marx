@@ -91,7 +91,11 @@
     },
     "Factory Acts & inspecteurs": {
       "de": "Fabrikgesetze",
-      "def": "Les lois anglaises qui limitent la journée de travail, et le corps d'inspecteurs chargé de les faire respecter. Leurs rapports fournissent à Marx l'essentiel de ses faits."
+      "def": "Les lois anglaises qui limitent la journée de travail, et le corps d'inspecteurs chargé de les faire respecter. Leurs rapports fournissent à Marx l'essentiel de ses faits.",
+      "page": {
+        "dossier": "legislation-de-fabrique",
+        "slug": "legislation-de-fabrique"
+      }
     },
     "Force productive": {
       "de": "Produktivkraft",
