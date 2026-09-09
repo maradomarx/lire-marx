@@ -291,11 +291,16 @@
     },
     "Capital constant": {
       "de": "konstantes Kapital",
-      "def": "La part du capital avancée en machines, bâtiments et matières. Le travail la conserve et la reporte sur le produit sans y ajouter un atome : sa grandeur ne change pas, d'où son nom."
+      "def": "La part du capital avancée en machines, bâtiments et matières. Le travail la conserve et la reporte sur le produit sans y ajouter un atome : sa grandeur ne change pas, d'où son nom.",
+      "page": {
+        "dossier": "capital-constant-et-variable",
+        "slug": "capital-constant-et-variable"
+      }
     },
     "Capital variable": {
       "de": "variables Kapital",
-      "def": "La part avancée en salaires. Elle change de grandeur au cours du procès, parce que la force de travail qu'elle achète produit plus de valeur qu'elle n'en coûte."
+      "def": "La part avancée en salaires. Elle change de grandeur au cours du procès, parce que la force de travail qu'elle achète produit plus de valeur qu'elle n'en coûte.",
+      "voir": "Capital constant"
     },
     "Plus-value": {
       "de": "Mehrwert",
