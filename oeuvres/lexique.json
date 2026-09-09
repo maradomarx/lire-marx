@@ -201,7 +201,10 @@
     },
     "Subsomption réelle": {
       "de": "reelle Subsumtion",
-      "def": "Le capital ne se contente plus de commander un procès de travail hérité : il le refond de fond en comble, jusque dans sa technique, pour l'ajuster à sa valorisation."
+      "def": "Le capital ne se contente plus de commander un procès de travail hérité : il le refond de fond en comble, jusque dans sa technique, pour l'ajuster à sa valorisation.",
+      "page": {
+        "dossier": "subsomption-reelle"
+      }
     },
     "Surtravail": {
       "de": "Mehrarbeit",
