@@ -269,7 +269,11 @@
     },
     "Travail nécessaire": {
       "de": "notwendige Arbeit",
-      "def": "La portion de la journée pendant laquelle l'ouvrier reproduit la valeur de sa propre force de travail. Au-delà commence le surtravail."
+      "def": "La portion de la journée pendant laquelle l'ouvrier reproduit la valeur de sa propre force de travail. Au-delà commence le surtravail.",
+      "page": {
+        "dossier": "travail-necessaire",
+        "slug": "travail-necessaire"
+      }
     },
     "Travail payé": {
       "de": "bezahlte Arbeit",
