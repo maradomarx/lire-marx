@@ -146,7 +146,8 @@
       "def": "Le brouillard mystique ne se dissipe que le jour où la production devient l'affaire d'hommes librement associés, agissant sous leur contrôle conscient et selon un plan."
     },
     "Loi de la circulation": {
-      "def": "La masse de monnaie nécessaire égale la somme des prix divisée par le nombre de rotations d'une même pièce. Ce sont les prix qui commandent la quantité, non l'inverse."
+      "def": "La masse de monnaie nécessaire égale la somme des prix divisée par le nombre de rotations d'une même pièce. Ce sont les prix qui commandent la quantité, non l'inverse.",
+      "voir": "Mesure des valeurs"
     },
     "Loi générale": {
       "de": "allgemeines Gesetz der kapitalistischen Akkumulation",
@@ -172,15 +173,21 @@
     },
     "Mesure des valeurs": {
       "de": "Maß der Werte",
-      "def": "Première fonction de l'argent : donner aux marchandises l'expression idéale de leur valeur. Le prix se pose avant tout échange réel, et sans un gramme d'or."
+      "def": "Première fonction de l'argent : donner aux marchandises l'expression idéale de leur valeur. Le prix se pose avant tout échange réel, et sans un gramme d'or.",
+      "page": {
+        "dossier": "fonctions-de-la-monnaie",
+        "slug": "fonctions-de-la-monnaie"
+      }
     },
     "Moyen de circulation": {
       "de": "Zirkulationsmittel",
-      "def": "Dans M—A—M, la monnaie ne fait que passer. Les marchandises quittent la circulation pour être consommées ; l'argent y demeure et recommence."
+      "def": "Dans M—A—M, la monnaie ne fait que passer. Les marchandises quittent la circulation pour être consommées ; l'argent y demeure et recommence.",
+      "voir": "Mesure des valeurs"
     },
     "Moyen de paiement": {
       "de": "Zahlungsmittel",
-      "def": "L'argent qui règle une dette contractée plus tôt. Les créances se compensent, et une masse d'échanges se dénoue sans qu'une pièce circule."
+      "def": "L'argent qui règle une dette contractée plus tôt. Les créances se compensent, et une masse d'échanges se dénoue sans qu'une pièce circule.",
+      "voir": "Mesure des valeurs"
     },
     "Le passage de relais": {
       "def": "Le moment où la contrainte ouverte cède la place à la contrainte muette des rapports économiques : le salarié reconduit lui-même, chaque jour, sa propre dépendance."
@@ -233,7 +240,8 @@
     },
     "Thésaurisation": {
       "de": "Schatzbildung",
-      "def": "L'argent retiré de la circulation et gardé. Il cesse d'être moyen d'échange pour devenir représentant abstrait de la richesse — désir sans mesure, l'argent n'ayant pas de limite qualitative."
+      "def": "L'argent retiré de la circulation et gardé. Il cesse d'être moyen d'échange pour devenir représentant abstrait de la richesse — désir sans mesure, l'argent n'ayant pas de limite qualitative.",
+      "voir": "Mesure des valeurs"
     },
     "Travail gratuit": {
       "de": "unbezahlte Arbeit",
@@ -292,7 +300,8 @@
     },
     "Vitesse de circulation": {
       "de": "Umlaufsgeschwindigkeit",
-      "def": "Le nombre de fois qu'une même pièce sert dans une période donnée. Plus elle circule vite, moins il en faut : la masse nécessaire varie en raison inverse."
+      "def": "Le nombre de fois qu'une même pièce sert dans une période donnée. Plus elle circule vite, moins il en faut : la masse nécessaire varie en raison inverse.",
+      "voir": "Mesure des valeurs"
     },
     "Capital constant": {
       "de": "konstantes Kapital",
