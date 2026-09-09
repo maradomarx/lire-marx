@@ -31,7 +31,7 @@
   </url>
   <url>
     <loc>https://liremarx.com/glossaire/</loc>
-    <lastmod>2026-09-08</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -79,7 +79,7 @@
   </url>
   <url>
     <loc>https://liremarx.com/glossaire/cooperation</loc>
-    <lastmod>2026-09-08</lastmod>
+    <lastmod>2026-09-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -122,6 +122,12 @@
   <url>
     <loc>https://liremarx.com/glossaire/loi-tendancielle</loc>
     <lastmod>2026-09-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://liremarx.com/glossaire/machine-outil</loc>
+    <lastmod>2026-09-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

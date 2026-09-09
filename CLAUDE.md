@@ -6626,6 +6626,101 @@ position par position à la sonde (le rAF est gelé dans l'onglet piloté) et
 Zéro débordement horizontal à 1380 et 375&nbsp;px&nbsp;; à 375&nbsp;px, pas de Three.js,
 image fixe et légende. `gen-seo --check` à jour et idempotent.
 
+### La manufacture et la machine : deux scènes qui riment (mission `glossaire-mondes-17`, sept. 2026)
+
+Les chapitres XIV et XV se suivent et s'appellent&nbsp;: la manufacture a dû,
+pour tenir, réduire l'outil à un geste unique — et c'est cette réduction qui
+rend un mécanisme capable de le saisir. Les deux pages sont donc **le même
+atelier à deux étapes**, et la rime est voulue&nbsp;: là les outils pendent
+immobiles à leurs chevilles, ici ils sont serrés dans un bâti et entraînés
+d'en haut. Ce n'est pas un moule&nbsp;: c'est un avant et un après.
+
+**La division du travail — le râtelier.** Marx donne la figure et elle est
+vérifiable&nbsp;: à Birmingham, cinq cents variétés de marteaux, dont chacune ne
+sert qu'à un seul procès. La différenciation de l'OUTIL est la trace
+matérielle de la décomposition de l'homme, et c'est la seule qu'on puisse
+montrer sans figure humaine — la règle de la maison interdisant de découper
+une figure dans un groupe sculpté. Un marteau au centre, celui de l'artisan&nbsp;;
+puis les rangées se remplissent du centre vers les bords de variantes presque
+identiques&nbsp;; puis le grand marteau vient prendre sa place parmi elles, à la
+taille commune — la forme commune est perdue. Sur l'établi, la roue de
+carrosse ne change pas&nbsp;: ce n'est pas le produit qui change, c'est la manière
+de le faire.
+
+**La machine-outil — la transmission.** Le rouet et sa broche unique, puis le
+bâti et ses douze broches, puis la courroie qui descend de très haut — et **le
+moteur n'est pas dans le cadre**. Cette absence EST l'argument&nbsp;: le moteur a
+été l'homme, l'âne, l'eau, la vapeur, et la coupure n'est pas là. Enfin
+d'autres courroies montent aux deux bords, et le cadran s'élève&nbsp;: ce qu'on ne
+peut plus prendre en longueur se prend en vitesse.
+
+#### ⚠️ UNE TEXTURE QUI PORTE SA COULEUR NE SE MULTIPLIE PAS PAR UN SECOND BRUN
+
+Le défaut le plus coûteux de la mission, et il se répétera si on ne l'écrit
+pas. `map: boisTex, color: 0x5b4831` multiplie la couleur de la texture
+(`#4a3623`) par celle du matériau&nbsp;: le panneau tombait à **(27, 12, 5)**,
+c'est-à-dire au noir, et l'on croyait alors que **le métal était trop clair**
+— alors qu'il était juste et que c'était le bois qui avait disparu. J'ai perdu
+trois passes à corriger la couleur du fer avant de mesurer les pixels. La
+règle&nbsp;: quand une texture porte déjà sa couleur, le `color` du matériau est
+une **teinte claire** (0x9e8668, 0xc4ac88…), jamais un second brun sombre.
+
+Et le corollaire de méthode&nbsp;: **on échantillonne les pixels de la capture
+avant de conclure quoi que ce soit sur une couleur.** Une tête de marteau
+mesurée à (125, 107, 93) n'est pas blanche&nbsp;; elle le paraissait parce que son
+fond était à (27, 12, 5).
+
+#### Trois autres leçons d'éclairage et de composition
+
+1. **Une source proche demande une intensité bien plus faible qu'une source
+   lointaine.** À 2,9 et 1,7 unité, tout ce qui était sur le panneau saturait,
+   manches de bois compris. C'est l'éclairement qu'il fallait corriger, pas
+   les matières.
+2. **Une source hors champ vaut mieux qu'un luminaire mal placé.** Rapprochée
+   pour rendre son abat-jour visible dans le cadre, la lampe changeait les
+   ombres des dix-neuf marteaux en pans noirs qui se recouvraient. Le
+   luminaire, jamais visible dans aucun des deux cadres, n'a pas été dessiné&nbsp;:
+   c'est la flaque de lumière qui compte, pas son ustensile.
+3. **La colonne collante est plus ÉTROITE que l'image fixe** — c'est l'inverse
+   de la hauteur, et on l'oublie. En « marge », la largeur vue vaut 0,82&nbsp;× la
+   distance en portrait contre 1,10&nbsp;× en paysage&nbsp;: un objet posé à ±0,74 tient
+   dans la capture et sort de la colonne. Tout objet qui BOUGE latéralement
+   (ici le rouet poussé de côté) doit être vérifié à la position portrait.
+
+#### Et deux objets retirés, ce qui vaut mieux qu'un objet illisible
+
+- **Le tabouret vide** de la machine-outil&nbsp;: posé sur l'établi il devenait une
+  table, posé au sol devant il sortait par le bas du cadre. Ce qui porte
+  l'absence de la main, c'est le rouet POUSSÉ DE CÔTÉ, qui était l'outil de
+  cette main.
+- **Les machines des autres courroies**&nbsp;: un bâti gris et une grosse poulie
+  pâle par courroie, posés au sol donc à demi cachés par l'établi, l'un juste
+  derrière le rouet — de l'encombrement, pas un système. Il ne reste que les
+  courroies, qui sortent de derrière l'établi et montent hors champ. Ce
+  qu'elles entraînent n'a pas besoin d'être montré.
+
+Au passage&nbsp;: **le cap d'un cylindre retourne son UV en miroir** (« TOURS » se
+lisait « SRUOT »), et un mot de cinq lettres redressé à la main sur une
+pastille de cent vingt pixels ne se lit de toute façon pas — la graduation dit
+assez.
+
+#### Vérifié
+
+Les **trente-six citations** des deux pages relevées une par une dans le texte
+que la liseuse sert réellement (section IV chargée en vrai, 388&nbsp;270
+caractères&nbsp;: zéro manquante). Détecteur statique&nbsp;: **0 constat** sur chacune
+des deux pages. Chorégraphies relevées position par position à la sonde et
+**entièrement réversibles**. Zéro débordement horizontal à 1380 et 375&nbsp;px&nbsp;; à
+375&nbsp;px, pas de Three.js, image fixe et légende. Console sans erreur.
+`gen-seo --check` à jour et idempotent.
+
+#### Un piège d'outillage, repayé
+
+**Le serveur de test doit servir le FICHIER avant le DOSSIER.**
+`oeuvres/capital-1` est à la fois `capital-1.html` et le dossier des textes.
+C'est écrit depuis `seo-maillage-interne`, et le serveur jetable de la séance
+le refaisait&nbsp;: 404, et l'on croit la page cassée.
+
 ### Ce qui reste
 
 - Le pilote a été validé et fusionné ; les trois suivantes vivent sur

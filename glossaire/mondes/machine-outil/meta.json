@@ -1,0 +1,47 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/machine-outil.",
+  "titre": "Machine-outil",
+  "de": "Werkzeugmaschine",
+  "chapo": "La révolution industrielle n'a pas commencé au moteur. Elle a commencé à la partie du mécanisme qui s'est emparée de l'outil : celle qui met en jeu, d'une seule impulsion, un grand nombre d'outils identiques — ce qu'aucun corps ne peut faire. De là le renversement qui donne son concept à la fabrique : dans le métier, l'ouvrier se sert de son outil ; dans la fabrique, il sert la machine.",
+  "description": "La machine-outil chez Marx : pourquoi le moteur n'est pas le lieu de la révolution industrielle, comment le système de machines devient un automate, et pourquoi une loi qui raccourcit la journée fait passer l'exploitation de la durée à l'intensité.",
+  "source": {
+    "work": "capital-1",
+    "s": 4,
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XV — traduction Joseph Roy (1872)"
+  },
+  "ou": "Livre&nbsp;I, quatrième section, chapitre XV, « Machinisme et grande industrie » — après la division du travail, qui avait dû réduire l'outil à un geste unique pour tenir, et qui rend par là possible qu'un mécanisme le saisisse.",
+  "outils": [
+    {
+      "label": "Coopération, manufacture, grande industrie — les explorations",
+      "url": "/oeuvres/capital-1#explore=x-coop"
+    }
+  ],
+  "voisins": [
+    "Division du travail",
+    "Appendice de la machine",
+    "Travailleur collectif",
+    "Subsomption réelle",
+    "Plus-value relative",
+    "Travail mort"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : LA TRANSMISSION. Elle RIME avec le râtelier de la division du travail, et c'est voulu : le même atelier, à l'étape suivante. Là les outils pendaient immobiles à leurs chevilles, ici ils sont serrés dans un bâti et entraînés d'en haut. Le rouet à une broche est sur l'établi — un homme n'a que deux mains ; puis le bâti se lève avec ses douze broches, puis le moteur et l'arbre s'installent au-dessus et la courroie descend. La lumière parcourt les trois parties et revient à la troisième : c'est là qu'est la révolution. Enfin d'autres courroies descendent aux deux bords du cadre — le système continue au-delà — et le rouet est poussé de côté, parce que le mouvement d'ensemble ne part plus de personne.",
+    "alt": "Un atelier : une courroie qui descend d'en haut vers un bâti de douze broches posé sur l'établi, un rouet à une seule broche poussé de côté, et un cadran de vitesse au mur.",
+    "source": {
+      "texte": "D'après le texte — Livre I, chapitre XV",
+      "q": "C’est la machine-outil qui inaugure au dix-huitième siècle la révolution industrielle"
+    },
+    "etapes": {
+      "fait": "Le rouet, sa roue et sa broche unique. Le nombre d'outils qu'un homme met en jeu est borné par le nombre de ses organes.",
+      "ou": "Le bâti se lève derrière lui : douze broches, une seule impulsion. Ce n'est pas la taille qui a changé, c'est le nombre d'outils.",
+      "distinction": "Le moteur et l'arbre s'installent, la courroie descend. La lumière parcourt les trois parties et s'arrête sur la troisième : le moteur a changé plusieurs fois, la coupure n'est pas là.",
+      "mecanisme": "Tout tourne. Le mouvement part de la machine et l'ouvrier ne fait que le suivre : le rouet, qui était l'outil de sa main, est poussé de côté.",
+      "ouvre": "D'autres courroies descendent aux deux bords : l'arbre sort du cadre. Un système de machines forme par lui-même un grand automate.",
+      "lectures": "Le cadran monte : ce qu'on ne peut plus prendre en longueur se prend en vitesse. La machine n'est pas en cause — l'emploi qu'on en fait l'est, et c'est un fait social."
+    },
+    "fixe": {
+      "g": 4.5,
+      "legende": "Le rouet et sa broche unique est poussé de côté ; les douze broches du bâti tournent, entraînées par une courroie qui descend d'en haut. D'autres montent aux deux bords : le moteur n'est pas dans le cadre, et la coupure n'est pas là."
+    }
+  }
+}
