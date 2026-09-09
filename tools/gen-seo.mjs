@@ -665,20 +665,59 @@ function identite(nom) {
       de:  lex && lex.de ? lex.de : t.de,
       def: lex && lex.def ? lex.def : t.legende,
       page: lex && lex.page ? lex.page : null,
+      voir: lex && lex.voir ? lex.voir : null,
       enrichi: !!(lex && lex.def) };
   });
 
   termes.sort((a, b) => cle(a.nom).localeCompare(cle(b.nom), 'fr'));
 
+  /* L'adresse d'une notion est le slug de son nom — sauf quand la page
+   * porte un titre que le lexique ne peut pas porter : « La forme-valeur »
+   * n'est aucune des six entrées de la série, et c'est pourtant le mot que
+   * l'on cherche. `page.slug` la nomme alors, et l'entrée qui tient la page
+   * prend cette adresse. */
   const vus = new Set();
+  for (const t of termes) if (t.page && t.page.slug) {
+    if (vus.has(t.page.slug)) throw new Error(`Deux notions demandent l'adresse « ${t.page.slug} ».`);
+    vus.add(t.page.slug); t.id = t.page.slug;
+  }
   for (const t of termes) {
+    if (t.id) continue;
     let id = slug(t.nom), n = 2;
     while (vus.has(id)) id = slug(t.nom) + '-' + n++;
     vus.add(id); t.id = id;
   }
+
+  /* ── LE RENVOI ────────────────────────────────────────────────────────
+   * Trois notions du glossaire sont des PAIRES ou des SÉRIES : capital
+   * constant et variable, travail mort et travail vivant, les six formes
+   * de la valeur. Marx les pose ensemble et elles ne se comprennent pas
+   * séparément — une page par membre dirait deux fois la même chose, et
+   * deux entrées pointant le même dossier serviraient le même texte à deux
+   * adresses, ce qu'un moteur compte comme du doublon.
+   *
+   * Le remède est celui du dictionnaire : une entrée porte la page, les
+   * autres RENVOIENT vers elle (`voir` dans le lexique). Elles gardent leur
+   * définition et leur place dans l'abécédaire — on cherche « forme
+   * argent », il faut la trouver à F — mais leur lien mène à la page
+   * commune. Une seule URL, aucun doublon, et rien à changer dans les
+   * fiches de l'atelier. */
+  for (const t of termes) {
+    if (!t.voir) continue;
+    const cible = termes.find((x) => identite(x.nom) === identite(t.voir));
+    if (!cible) throw new Error(`« ${t.nom} » renvoie à « ${t.voir} », qui n'est pas une notion.`);
+    if (!cible.page) throw new Error(`« ${t.nom} » renvoie à « ${cible.nom} », qui n'a pas de page.`);
+    t.renvoi = cible;
+  }
+  for (const t of termes) {
+    t.mene = !!(t.page || t.renvoi);
+    t.href = t.page ? `/glossaire/${t.id}`
+      : t.renvoi ? `/glossaire/${t.renvoi.id}` : `/glossaire/#${t.id}`;
+  }
+
   INDEX_NOTIONS = termes.map((t) => ({
-    nom: decode(t.nom), de: t.de || '', def: t.def || '', id: t.id, page: !!t.page,
-    oeuvre: (t.sources[0] && t.sources[0].oeuvre) || '' }));
+    nom: decode(t.nom), de: t.de || '', def: t.def || '', id: t.id, page: t.mene,
+    href: t.href, oeuvre: (t.sources[0] && t.sources[0].oeuvre) || '' }));
 
   const lettres = new Map();
   for (const t of termes) {
@@ -717,7 +756,7 @@ function identite(nom) {
           + `    <h2 class="gl-lettre" id="lettre-${L}">${L}</h2>\n`
           + `    <dl class="gl-liste">\n`;
     for (const t of liste) {
-      const lien = (x) => t.page ? `<a href="/glossaire/${t.id}">${x}</a>` : x;
+      const lien = (x) => t.mene ? `<a href="${t.href}">${x}</a>` : x;
       html += `      <div class="gl-terme" id="${t.id}">\n`
             + `        <dt class="gl-t">${lien(t.nom)}`
             + (t.de ? `<span class="gl-de" lang="de">${t.de}</span>` : '')
@@ -741,7 +780,7 @@ function identite(nom) {
       '@type': 'DefinedTerm',
       name: decode(t.nom),
       description: decode(t.def),
-      url: t.page ? `${ORIGIN}/glossaire/${t.id}` : `${ORIGIN}/glossaire/#${t.id}`,
+      url: `${ORIGIN}${t.href}`,
       ...(t.de ? { alternateName: decode(t.de) } : {}),
       inLanguage: 'fr',
     })),
@@ -978,7 +1017,7 @@ ${outils.map((o) => `        <li><a href="${o.url}">${o.label}</a></li>`).join('
 ${voisines.length ? `  <div class="nt-voisines">
     <p class="nt-bloc-t">Notions voisines</p>
     <div class="nt-puces">
-${voisines.map((v) => `      <a href="${v.page ? `/glossaire/${v.id}` : `/glossaire/#${v.id}`}">${v.nom}</a>`).join('\n')}
+${voisines.map((v) => `      <a href="${v.href}">${v.nom}</a>`).join('\n')}
     </div>
   </div>
 ` : ''}
@@ -1116,7 +1155,7 @@ ${outils.map((o) => `        <li><a href="${o.url}">${o.label}</a></li>`).join('
 ${voisines.length ? `  <div class="nt-voisines">
     <p class="nt-bloc-t">Notions voisines</p>
     <div class="nt-puces">
-${voisines.map((v) => `      <a href="${v.page ? `/glossaire/${v.id}` : `/glossaire/#${v.id}`}">${v.nom}</a>`).join('\n')}
+${voisines.map((v) => `      <a href="${v.href}">${v.nom}</a>`).join('\n')}
     </div>
   </div>
 ` : ''}
@@ -1234,7 +1273,7 @@ ${PIED}
 
   for (const n of INDEX_NOTIONS) {
     items.push({ t: n.nom, s: (n.de ? n.de + ' · ' : '') + n.oeuvre, cat: 'notion',
-      url: n.page ? `/glossaire/${n.id}` : `/glossaire/#${n.id}`, hay: court(n.def, 300) });
+      url: n.href, hay: court(n.def, 300) });
   }
 
   for (const [t, s, url, hay] of [

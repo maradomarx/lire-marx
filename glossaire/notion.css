@@ -248,6 +248,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--f-ui);
 .nt-monde-credit{display:none;}
 html.js-monde .nt--plein .nt-monde-credit{display:block;}
 @media(max-width:480px){
-  .nt-monde-src{top:8px;left:10px;}
-  .nt-monde-src a{font-size:.62rem;letter-spacing:.06em;padding:5px 9px;}
+  /* LE PLANCHER DU PROJET EST 11 px pour un texte fonctionnel, et celui-ci
+     en est un : c'est le renvoi qui mène au passage. Il valait .62rem, soit
+     9,9 px — sur les vingt-quatre pages-monde. Il tient à .72rem parce que
+     l'interlettrage et le rembourrage se resserrent en échange. */
+  .nt-monde-src{top:8px;left:10px;right:10px;}
+  .nt-monde-src a{font-size:.72rem;letter-spacing:.04em;padding:5px 8px;}
 }
