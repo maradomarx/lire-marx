@@ -174,6 +174,18 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://liremarx.com/glossaire/plus-value-absolue</loc>
+    <lastmod>2026-09-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://liremarx.com/glossaire/plus-value-relative</loc>
+    <lastmod>2026-09-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://liremarx.com/glossaire/propriete-privee</loc>
     <lastmod>2026-09-09</lastmod>
     <changefreq>monthly</changefreq>

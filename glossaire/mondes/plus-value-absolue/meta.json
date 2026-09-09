@@ -1,0 +1,47 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/plus-value-absolue.",
+  "titre": "Plus-value absolue",
+  "de": "absoluter Mehrwert",
+  "chapo": "La forme qui ne demande rien de neuf : ni invention, ni capital supplémentaire, ni transformation de l'atelier — seulement de faire travailler plus longtemps. Marx la nomme au chapitre XII, mais c'est le chapitre X qui la traite, et il la montre au ras du sol : la journée s'allonge moins par des heures franches que par grignotage, sur les bords, là où personne ne compte.",
+  "description": "La plus-value absolue chez Marx : la forme obtenue en allongeant la journée sans toucher au procédé, ses deux limites, le grignotage des minutes que rapportent les inspecteurs de fabrique, et pourquoi la loi a poussé le capital vers l'autre forme.",
+  "source": {
+    "work": "capital-1",
+    "s": 3,
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitres X et XII — traduction Joseph Roy (1872)"
+  },
+  "ou": "Livre&nbsp;I — la troisième section tout entière (chapitres VII à XI) la traite sans la nommer&nbsp;; le nom n'arrive qu'au chapitre XII, à la première page de la section suivante, et rétrospectivement. Marx nomme quand il a besoin d'opposer, et il n'a besoin d'opposer qu'au moment d'introduire l'autre forme.",
+  "outils": [
+    {
+      "label": "Le circuit du capital — le jeu",
+      "url": "/jeu/"
+    }
+  ],
+  "voisins": [
+    "Journée de travail",
+    "Plus-value relative",
+    "Surtravail",
+    "Factory Acts & inspecteurs",
+    "Taux de plus-value",
+    "Plus-value"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : LA PENDULE ET LE BOCAL. La journée s'allonge par grignotage — « petty pilferings of minutes », disent les inspecteurs. Le cadran de l'atelier porte la journée légale et ses deux repas ; ce qui est PRIS s'y inscrit en rouge aux quatre bords où personne ne compte, et chaque éclat tombe dans le bocal, qui se remplit d'heures jamais comptées. Au dernier temps une garde de laiton se referme sur le cadran : la loi doit descendre à ce degré de détail parce qu'elle s'oppose à une pratique qui procède par miettes.",
+    "alt": "Une pendule d'atelier sur un mur, dont le cadran porte la journée légale et deux repas ; des éclats rouges se détachent de ses bords et tombent dans un bocal de verre posé sur une étagère.",
+    "source": {
+      "texte": "D'après le texte — Livre I, chapitre X",
+      "q": "Les atomes du temps sont les éléments du gain"
+    },
+    "etapes": {
+      "fait": "Le cadran de l'atelier. La journée légale y est un arc, et les deux repas deux entailles claires : voilà ce dont on part, et rien d'autre ne va changer.",
+      "ou": "Rien dans l'atelier ne se transforme. C'est la marque de cette forme : elle laisse intacts les procédés et se contente d'en prolonger la durée.",
+      "distinction": "La journée n'est pas donnée. Entre la limite du corps et celle des besoins sociaux, aucune loi économique ne tranche — et l'espace ainsi laissé libre est celui d'un rapport de forces.",
+      "mecanisme": "Le vol commence, et il commence par les bords. Un peu au début, un peu à la fin, un peu de chaque côté des repas : le bocal se remplit d'heures qui n'ont jamais été comptées.",
+      "ouvre": "Le bocal est plein, et le cadran ne peut plus rien céder. Vingt-quatre heures sont vingt-quatre heures : cette voie a une fin, et c'est ce qui obligera le capital à l'autre.",
+      "lectures": "La garde se referme. La loi descend au détail — l'heure du début, celle de la fin, la durée exacte des repas — parce que c'est la seule forme sous laquelle on peut s'opposer à une pratique qui procède par miettes."
+    },
+    "fixe": {
+      "g": 4.6,
+      "legende": "Ce qui est pris n'est pris qu'aux bords : au début, à la fin, et de chaque côté des deux repas. Les inspecteurs appelaient cela des filoutages de minutes, et avouaient éprouver des difficultés presque insurmontables à en établir la preuve — pendant qu'un fabricant calculait ce que dix minutes par jour lui mettraient dans la poche."
+    }
+  }
+}
