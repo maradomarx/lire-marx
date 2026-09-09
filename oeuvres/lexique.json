@@ -295,7 +295,10 @@
     },
     "Travailleur collectif": {
       "de": "Gesamtarbeiter",
-      "def": "L'atelier tout entier devient le sujet productif. Aucun ouvrier ne fait plus le produit : la capacité de produire est passée à l'organisme qui les combine."
+      "def": "L'atelier tout entier devient le sujet productif. Aucun ouvrier ne fait plus le produit : la capacité de produire est passée à l'organisme qui les combine.",
+      "page": {
+        "dossier": "travailleur-collectif"
+      }
     },
     "Travaux privés": {
       "de": "Privatarbeiten",
