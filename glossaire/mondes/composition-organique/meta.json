@@ -1,0 +1,47 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/composition-organique.",
+  "titre": "Composition organique du capital",
+  "de": "organische Zusammensetzung des Kapitals",
+  "chapo": "Un capital se compose de deux parties, et l'on peut compter leur rapport de deux façons : en masse de moyens de production par ouvrier, ou en valeur. Marx appelle organique la seconde en tant seulement qu'elle suit la première — « les changements survenus dans celle-ci se réfléchissent dans celle-là ». Ce n'est donc pas une troisième grandeur mais une correspondance, et c'est d'elle que sortent la surpopulation relative et la loi tendancielle.",
+  "description": "La composition organique du capital chez Marx : la différence entre composition technique, composition-valeur et composition organique, pourquoi elle s'élève moins vite que la technique, et ce qu'elle rend calculable.",
+  "source": {
+    "work": "capital-1",
+    "s": 7,
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XXV — traduction Joseph Roy (1872)"
+  },
+  "ou": "Livre&nbsp;I, septième section, chapitre XXV, « Loi générale de l'accumulation capitaliste » — à la deuxième page. Marx la pose comme l'instrument dont il aura besoin pour tout le chapitre, dont la question est l'influence de l'accumulation sur le sort de la classe ouvrière.",
+  "outils": [
+    {
+      "label": "Le circuit du capital — le jeu",
+      "url": "/jeu/"
+    }
+  ],
+  "voisins": [
+    "Capital constant",
+    "Armée de réserve",
+    "Loi tendancielle",
+    "Accumulation",
+    "Demande de travail",
+    "Machine-outil"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : LE MIROIR, ET CE QU'IL REND. Le mot est de Marx — les changements de la composition technique SE RÉFLÉCHISSENT dans la composition-valeur. À gauche la chose (un outil, et la masse qui grossit), à droite son reflet dans un cadre. Le reflet suit, moins vite ; puis le prix du fer tombe et le reflet se rétracte SANS que la chose bouge — et ce mouvement-là n'est pas de la composition organique. Au dernier temps la glace se ternit : ce qu'on mesure est le reflet entier, jamais la part du reflet qui suit l'objet.",
+    "alt": "Sur un comptoir, un outil et un tas de pièces de fer qui grossit ; en face, un miroir sur pied où le même tas paraît, plus petit et retourné.",
+    "source": {
+      "texte": "D'après le texte — Livre I, chapitre XXV",
+      "q": "les changements survenus dans celle-ci se réfléchissent dans celle-là"
+    },
+    "etapes": {
+      "fait": "Un outil et quelques pièces sur un comptoir. Le rapport de l'un aux autres se compte de deux façons, et elles ne donnent pas le même résultat.",
+      "ou": "Le miroir se pose en face. Ce qu'il montre est le même atelier, compté en valeur et non en masse.",
+      "distinction": "La masse grossit, et le reflet grossit avec elle — moins vite, car la productivité qui multiplie les machines les rend aussi meilleur marché.",
+      "mecanisme": "Le prix du fer tombe. Le reflet se rétracte sans qu'une seule pièce ait bougé : ce mouvement-là est de la composition-valeur, il n'est pas de la composition organique.",
+      "ouvre": "L'outil est resté seul. Le capital emploie toujours plus d'ouvriers en nombre, et toujours moins par unité de capital — c'est d'ici que sort l'armée de réserve.",
+      "lectures": "La glace se ternit. Ce qu'on mesure dans les comptes est le reflet entier ; la part du reflet qui suit vraiment l'objet, personne ne l'observe directement."
+    },
+    "fixe": {
+      "g": 4.4,
+      "legende": "Le prix du fer vient de tomber : le reflet s'est rétracté alors qu'aucune pièce n'a bougé sur le comptoir. C'est la distinction que le mot « organique » sert à faire — la composition-valeur bouge aussi pour des raisons qui ne doivent rien à la technique."
+    }
+  }
+}

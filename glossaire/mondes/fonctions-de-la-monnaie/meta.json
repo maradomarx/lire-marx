@@ -1,0 +1,47 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/fonctions-de-la-monnaie.",
+  "titre": "Les fonctions de la monnaie",
+  "de": "Funktionen des Geldes",
+  "chapo": "Le chapitre III ne demande pas ce qu'est la monnaie mais ce qu'elle fait — et il trouve quatre emplois qui n'exigent pas le même degré de réalité. Pour mesurer une valeur, il suffit d'un or imaginé ; pour circuler, d'un jeton usé ; pour thésauriser et pour éteindre une dette, il faut de l'or vrai. C'est de cet écart, et non d'une méchanceté quelconque, que sortent les crises monétaires.",
+  "description": "Les fonctions de la monnaie chez Marx : mesure des valeurs, moyen de circulation, trésor, moyen de paiement — pourquoi les deux premières peuvent se passer d'or réel, pourquoi les deux dernières ne le peuvent pas, et ce que Marx oppose à la théorie quantitative.",
+  "source": {
+    "work": "capital-1",
+    "s": 1,
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre III — traduction Joseph Roy (1872)"
+  },
+  "ou": "Livre&nbsp;I, première section, chapitre III, « La monnaie ou la circulation des marchandises » — après la forme-valeur, qui a montré comment une marchandise finit par occuper la place de l'équivalent général, et avant la formule du capital, qui demandera ce que devient l'argent qu'on avance pour en retirer davantage.",
+  "outils": [
+    {
+      "label": "Le circuit du capital — le jeu",
+      "url": "/jeu/"
+    }
+  ],
+  "voisins": [
+    "Forme simple",
+    "M — A — M",
+    "A — M — A′",
+    "La valeur qui se valorise",
+    "Fétichisme",
+    "Argent"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : UNE PIÈCE, QUATRE MÉTIERS. Le chapitre trouve quatre emplois qui n'exigent pas le même degré de réalité : la matière de la pièce dit donc son métier. Fantôme au-dessus de l'étiquette (mesurer ne demande aucun or), jeton de cuivre usé sur le rail (circuler n'en demande qu'un semblant), or plein au coffre et au registre. Le dernier temps est la crise : les quatre places la réclament en même temps, et il n'y en a qu'une.",
+    "alt": "Sur un comptoir, une pièce d'or et quatre places : une étiquette de prix sur son pied, un rail, un coffre-fort, un registre ouvert. La pièce passe de l'une à l'autre et change de matière selon la place.",
+    "source": {
+      "texte": "D'après le texte — Livre I, chapitre III",
+      "q": "Dans sa fonction de mesure des valeurs, la monnaie n’est employée que comme monnaie idéale"
+    },
+    "etapes": {
+      "fait": "Une pièce sur un comptoir. Elle paraît faire une seule chose — acheter — et le chapitre va lui en trouver quatre, qui ne demandent pas la même chose d'elle.",
+      "ou": "Les quatre places se posent : l'étiquette qui affiche un prix, le rail où la monnaie passe, le coffre où elle s'arrête, le registre où elle est due.",
+      "distinction": "Au-dessus de l'étiquette, la pièce n'est qu'un fantôme : pour mesurer, un or imaginé suffit. Sur le rail elle se ternit en jeton de cuivre : pour passer, un semblant suffit aussi.",
+      "mecanisme": "Elle va et vient de plus en plus vite, et un billet prend sa place. Une même pièce servant plusieurs fois, il en faut d'autant moins qu'elle court vite.",
+      "ouvre": "Au coffre et au registre, la pièce redevient de l'or plein. On ne garde pas un signe, et l'on n'éteint pas une dette avec une promesse : à l'échéance, il faut la chose même.",
+      "lectures": "La crise. Les quatre places la réclament en même temps, et il n'y en a qu'une. Ce qui passait pour une commodité de compte est réclamé comme argent comptant."
+    },
+    "fixe": {
+      "g": 2.4,
+      "legende": "Au-dessus de l'étiquette, la pièce n'est qu'un fantôme. C'est le point le plus contre-intuitif du chapitre et le plus fécond : pour donner un prix à des millions de marchandises, il n'est pas besoin d'un grain d'or réel."
+    }
+  }
+}
