@@ -29,7 +29,10 @@
     },
     "Appendice de la machine": {
       "de": "Zubehör der Maschine",
-      "def": "Renversement du rapport à l'outil : l'ouvrier ne manie plus l'instrument, il sert un mécanisme qui règle sa cadence et jusqu'à ses gestes."
+      "def": "Renversement du rapport à l'outil : l'ouvrier ne manie plus l'instrument, il sert un mécanisme qui règle sa cadence et jusqu'à ses gestes.",
+      "page": {
+        "dossier": "appendice-de-la-machine"
+      }
     },
     "Composition organique": {
       "de": "organische Zusammensetzung des Kapitals",
@@ -225,7 +228,10 @@
     },
     "Reproduction simple": {
       "de": "einfache Reproduktion",
-      "def": "Toute la plus-value est consommée et la production recommence à l'identique. Fiction utile : elle montre qu'au bout de quelques années, le capital avancé n'est plus que du travail non payé accumulé."
+      "def": "Toute la plus-value est consommée et la production recommence à l'identique. Fiction utile : elle montre qu'au bout de quelques années, le capital avancé n'est plus que du travail non payé accumulé.",
+      "page": {
+        "dossier": "reproduction-simple"
+      }
     },
     "Subsomption réelle": {
       "de": "reelle Subsumtion",
@@ -295,7 +301,10 @@
     },
     "Travailleur collectif": {
       "de": "Gesamtarbeiter",
-      "def": "L'atelier tout entier devient le sujet productif. Aucun ouvrier ne fait plus le produit : la capacité de produire est passée à l'organisme qui les combine."
+      "def": "L'atelier tout entier devient le sujet productif. Aucun ouvrier ne fait plus le produit : la capacité de produire est passée à l'organisme qui les combine.",
+      "page": {
+        "dossier": "travailleur-collectif"
+      }
     },
     "Travaux privés": {
       "de": "Privatarbeiten",

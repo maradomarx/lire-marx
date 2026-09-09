@@ -1,0 +1,48 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/travailleur-collectif.",
+  "titre": "Travailleur collectif",
+  "de": "Gesamtarbeiter",
+  "chapo": "Dans la manufacture, le produit n'est plus l'ouvrage de personne : le producteur est une combinaison, dont les organes sont des hommes réduits chacun à une fonction. Marx en tire la proposition la plus dure du chapitre XIV, à savoir que ce corps est d'autant plus parfait que ses membres sont plus bornés, et que son enrichissement a pour condition leur appauvrissement.",
+  "description": "Le travailleur collectif chez Marx : pourquoi la manufacture fait naître un producteur qui n'est aucun des ouvriers, comment ses proportions sont fixées par un rapport mathématique, et pourquoi sa force apparaît comme une force du capital.",
+  "source": {
+    "work": "capital-1",
+    "s": 4,
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XIV — traduction Joseph Roy (1872)"
+  },
+  "ou": "Livre&nbsp;I, quatrième section, chapitre XIV, « De la division du travail et de la manufacture ». Le concept est repris au chapitre XV, où l'automate lui dispute la place de sujet, et à la cinquième section, où il élargit la détermination du travail productif.",
+  "outils": [
+    {
+      "label": "Coopération, manufacture, grande industrie — les explorations",
+      "url": "/oeuvres/capital-1#explore=x-coop"
+    }
+  ],
+  "voisins": [
+    "Coopération",
+    "Division du travail",
+    "Appendice de la machine",
+    "Plus-value relative",
+    "Force productive",
+    "Travail aliéné"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : L'ÉTABLI, ET LE CORPS QU'ON Y COMPOSE. Le chapitre ne dit pas que le travail se répartit, il dit qu'un PRODUCTEUR NOUVEAU apparaît — et qu'il est d'autant plus parfait que chacun de ses organes est plus borné. La figure devait donc montrer les deux mouvements en même temps. Un outil complet, qui fait toute la pièce et la fait lentement, éclate : ses quatre têtes vont se planter en rang, un rail les relie, un arbre leur donne une seule cadence, et là où le débit l'exige la station se dédouble — deux lames, trois poinçons, rien d'autre. On ôte la dernière station : la pièce cale juste avant le sébile, et tout s'arrête. Puis les manches tombent et s'entassent derrière l'établi pendant que les lames, nues, vont plus vite. Au dernier temps un montant se lève en retrait, sans lame, battant la même cadence sans jamais toucher la pièce.",
+    "layout": "plein",
+    "alt": "Sur un établi, quatre têtes d'outil plantées en rang le long d'un rail de laiton, reliées par un arbre qui passe sous le plateau ; un sébile de pièces finies à droite, et au fond du plateau un tas de manches de bois abandonnés.",
+    "source": {
+      "texte": "D'après le texte — Livre I, chapitre XIV",
+      "q": "le mécanisme vivant de la manufacture, le travailleur collectif"
+    },
+    "etapes": {
+      "fait": "Un seul outil, qui fait toute la pièce et la fait lentement. Le sébile se garnit à peine. Tant que le producteur est un homme, le produit est son ouvrage.",
+      "distinction": "L'outil éclate. Ses quatre têtes vont se planter en rang, chacune ne gardant qu'une opération, et la pièce ne les traverse plus qu'une fois chacune. Le manche vidé s'en va se coucher au bout de l'établi.",
+      "mecanisme": "Un arbre passe sous le plateau et leur donne une seule cadence ; là où le débit l'exige, la station se dédouble. On ôte la dernière : la pièce cale juste avant d'arriver, et le débit ne ralentit pas, il cesse.",
+      "portee": "Les manches tombent et s'entassent au fond de l'établi. Chaque tête, réduite à sa lame, va plus vite : le corps s'enrichit de ce que ses organes ont perdu.",
+      "ouvre": "Un montant se lève en retrait, sans lame, et bat la même cadence sans jamais toucher la pièce. Pour être productif, il suffit d'être un organe du travailleur collectif.",
+      "lectures": "Le rang tourne, le sébile se remplit, et derrière lui le tas de manches reste au fond du plateau. La combinaison est une conquête réelle ; sa forme est une mutilation."
+    },
+    "fixe": {
+      "g": 3.9,
+      "legende": "Les quatre organes en rang, l'arbre qui leur donne une seule cadence, et au fond du plateau les manches abandonnés. L'enrichissement du travailleur collectif a pour condition l'appauvrissement du travailleur."
+    }
+  }
+}
