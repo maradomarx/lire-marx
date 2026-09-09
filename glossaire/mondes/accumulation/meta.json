@@ -1,0 +1,48 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/accumulation.",
+  "titre": "Accumulation",
+  "de": "Akkumulation",
+  "chapo": "Accumuler n'est pas épargner : c'est reconvertir la plus-value en capital, la remettre dans le mouvement. Or le capital additionnel ne contient pas un atome de valeur qui ne vienne du travail d'autrui non payé — de sorte que le capital primitif, quelle qu'ait été son origine, se perd comme une goutte dans le fleuve toujours grossissant de l'accumulation.",
+  "description": "L'accumulation chez Marx : pourquoi le capital additionnel est de la plus-value capitalisée, comment le droit de propriété marchande devient droit d'appropriation, et ce que valent la théorie de l'abstinence et le prétendu fonds de travail.",
+  "source": {
+    "work": "capital-1",
+    "s": 7,
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XXIV — traduction Joseph Roy (1872)"
+  },
+  "ou": "Livre&nbsp;I, septième section, chapitre XXIV, « Transformation de la plus-value en capital ». Aussitôt après la reproduction simple, qui avait déjà montré que le capital primitif se trouve remplacé, au bout de quelques années, par de la valeur produite entre-temps.",
+  "outils": [
+    {
+      "label": "Accumulation et armée de réserve — le laboratoire",
+      "url": "/oeuvres/capital-1#labo=s-accum"
+    }
+  ],
+  "voisins": [
+    "Reproduction simple",
+    "Reproduction élargie",
+    "Accumulation primitive",
+    "La valeur qui se valorise",
+    "Armée de réserve",
+    "Composition organique"
+  ],
+  "monde": {
+    "_": "LA PLANCHE : LA GOUTTE ET LE FLEUVE. L'image est de Marx, et elle vaut une démonstration : « tout capital avancé se perd comme une goutte dans le fleuve toujours grossissant de l'accumulation. » Une goutte en haut, puis un filet qui descend ; des affluents entrent l'un après l'autre — chacun une plus-value capitalisée — et le fleuve s'élargit à chaque fois. Le fil d'origine, lui, GARDE LA MÊME ÉPAISSEUR : c'est de son rapport au fleuve, et non de sa disparition, que se lit l'argument. Moteur 2d : le fleuve est un tracé, pas un objet, et la page ne charge ni WebGL ni la bibliothèque. La course est DIAGONALE parce que la scène doit tenir dans une colonne haute comme dans une image large.",
+    "moteur": "2d",
+    "alt": "Une planche sombre : une goutte en haut à gauche, un fleuve qui descend en s'élargissant à chaque affluent, et à l'intérieur un fil d'or resté de la même épaisseur.",
+    "source": {
+      "texte": "D'après le texte — Livre I, chapitre XXIV",
+      "q": "tout capital avancé se perd comme une goutte dans le fleuve toujours grossissant de l’accumulation"
+    },
+    "etapes": {
+      "fait": "Une goutte, et rien d'autre. Le capital avancé, dont on veut croire qu'il vient du travail de son possesseur.",
+      "ou": "Le filet part. Ce n'est pas l'épargne qui fait le capital : c'est la reconversion, la remise dans le mouvement.",
+      "distinction": "Le premier affluent entre, et il est d'une autre teinte. Le capital additionnel ne contient pas un atome de valeur qui ne vienne du travail d'autrui non payé.",
+      "mecanisme": "Le fleuve s'élargit à chaque tour, et le fil d'origine garde la même épaisseur. Sa part décroît par construction, non par accident.",
+      "ouvre": "Le fil est un cheveu. L'abstinence n'est pas la cause de l'accumulation : elle en est la forme, et se priver est ici une fonction.",
+      "lectures": "La goutte est réelle, et c'est sa part qui tend vers rien. Se réclamer d'une origine dont vingt ans d'accumulation ont annulé le poids n'est pas un argument."
+    },
+    "fixe": {
+      "g": 5.1,
+      "legende": "Le fleuve s'élargit à chaque affluent, et le fil d'origine garde la même épaisseur. Ce n'est pas la goutte qui disparaît : c'est sa part."
+    }
+  }
+}

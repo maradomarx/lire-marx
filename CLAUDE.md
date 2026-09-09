@@ -6721,6 +6721,83 @@ des deux pages. Chorégraphies relevées position par position à la sonde et
 C'est écrit depuis `seo-maillage-interne`, et le serveur jetable de la séance
 le refaisait&nbsp;: 404, et l'on croit la page cassée.
 
+### Le capital comme mouvement, et le fleuve (mission `glossaire-mondes-18`, sept. 2026)
+
+Deux notions qui se répondent&nbsp;: le chapitre&nbsp;IV définit le capital comme un
+mouvement de la valeur qui revient grossie, le chapitre&nbsp;XXIV montre ce que
+ce mouvement fait au TITRE de celui qui l'entretient.
+
+**La valeur qui se valorise — le même plateau, six fois.** Le concept n'est
+pas un objet mais un mouvement, et il ne fallait pourtant pas d'un circuit&nbsp;:
+le jeu du site en est un, et la page du communisme a déjà ses deux tracés.
+Le mouvement se joue donc SUR PLACE — un plateau de comptoir où la forme
+alterne (une colonne d'écus, un ballot de coton, les écus de nouveau)
+pendant que la grandeur monte d'un dixième à chaque tour, et une ardoise qui
+inscrit la série jusqu'à ce que la dernière ligne se perde sous le bord.
+
+⚠️ **LA GRANDEUR NE CHANGE QUE QUAND LA FORME EST INVISIBLE.** La taille de
+la colonne d'écus se met à jour au demi-tour, celle du ballot au tour
+entier&nbsp;: autrement on voit GROSSIR UN OBJET, là où il faut voir REVENIR UNE
+SOMME PLUS GRANDE. C'est la même règle que pour le fondu enchaîné d'un plan
+au cinéma, et elle décide de ce que la figure démontre.
+
+**L'accumulation — la goutte et le fleuve.** L'image est de Marx («&nbsp;tout
+capital avancé se perd comme une goutte dans le fleuve toujours grossissant
+de l'accumulation&nbsp;») et elle vaut une démonstration. Une planche 2d&nbsp;: une
+goutte, un filet, sept confluents qui entrent l'un après l'autre, et le fil
+d'origine qui GARDE LA MÊME ÉPAISSEUR. Ce n'est pas la goutte qui disparaît,
+c'est sa part — et c'est de ce rapport que se lit l'argument.
+
+**On NOMME, on ne chiffre pas.** Le chapitre ne donne aucun taux
+d'accumulation&nbsp;: des pourcentages le long du fleuve auraient été inventés.
+Deux mentions suffisent, «&nbsp;LE CAPITAL AVANCÉ&nbsp;» et «&nbsp;L'ACCUMULATION&nbsp;», et
+le rapport du fil au fleuve se lit directement.
+
+#### Trois erreurs de tracé, dont deux valent pour toute bande à largeur variable
+
+1. **Un élargissement exponentiel LISSE donne un cône, pas un fleuve** — une
+   figure géométrique, et qui efface le fait que chaque tour ajoute. La
+   largeur gagne PAR PALIERS, à chaque confluent&nbsp;; et sept confluents à
+   rapport modeste valent mieux que cinq à rapport fort, qui laissaient le
+   fleuve en cheveu sur toute sa moitié haute avant de l'ouvrir d'un coup.
+2. **Une bande à largeur variable se construit en trois temps&nbsp;: la LIGNE,
+   puis sa DÉRIVÉE, puis la largeur sur la NORMALE de cette dérivée.** Avoir
+   confondu la direction de la bande avec sa normale étalait les affluents le
+   long de leur propre course au lieu d'en travers.
+3. **Un affluent dessiné SOUS le fleuve n'y entre pas** : sa moitié utile
+   passe dessous, et il ne reste à l'image qu'un croissant détaché. Ils se
+   dessinent par-dessus, et leur pointe se pose DANS le lit, un peu en deçà
+   de l'axe. Au passage, un affluent en pointe fine lit comme une lame&nbsp;:
+   l'amont s'arrondit.
+
+Et une contrainte de composition à retenir&nbsp;: **une course DIAGONALE est ce
+qui s'accommode des deux cadres.** En « marge », la scène est vue dans une
+colonne de rapport 0,57 et dans une image fixe de rapport 1,60&nbsp;: une
+descente verticale s'écrase dans la seconde, une course horizontale dans la
+première.
+
+#### Un faux positif du détecteur, à ne pas « corriger »
+
+`em-dash overuse` sur la page de la valeur qui se valorise&nbsp;: sur
+vingt-sept tirets cadratins, **dix-huit sont la notation A—M—A et M—A—M**,
+qui est celle de Roy et celle de l'abécédaire. Il en reste neuf en prose,
+soit un pour mille cinq cents caractères — très en deçà de la saturation que
+la règle vise. Ne pas défaire la notation pour satisfaire un compteur. (La
+première rédaction en avait bien vingt-six en prose, et ceux-là ont été
+retirés&nbsp;: le détecteur avait raison sur le fond.)
+
+#### Vérifié
+
+Les **trente-neuf citations** des deux pages relevées une par une dans le
+texte que la liseuse sert (sections II et VII chargées en vrai&nbsp;: zéro
+manquante). Détecteur statique&nbsp;: **0 constat** sur l'accumulation, un seul
+sur l'autre, documenté ci-dessus. Sonde de contraste sur le rendu&nbsp;: **0
+échec sur 125 mesures**, minimum 4,56. Chorégraphies relevées position par
+position et **réversibles** (la série revient à cent, la première ligne
+seule). La page de l'accumulation ne charge NI WebGL NI Three.js (vérifié&nbsp;:
+`typeof THREE` vaut `undefined`). Zéro débordement horizontal, console sans
+erreur, `gen-seo --check` à jour et idempotent.
+
 ### Ce qui reste
 
 - Le pilote a été validé et fusionné ; les trois suivantes vivent sur

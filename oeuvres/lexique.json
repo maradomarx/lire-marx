@@ -15,7 +15,10 @@
     },
     "Accumulation": {
       "de": "Akkumulation",
-      "def": "La plus-value reconvertie en capital au lieu d'être consommée. Le capital ne se contente pas de se reproduire : il grandit, et sa croissance change à chaque tour sa composition."
+      "def": "La plus-value reconvertie en capital au lieu d'être consommée. Le capital ne se contente pas de se reproduire : il grandit, et sa croissance change à chaque tour sa composition.",
+      "page": {
+        "dossier": "accumulation"
+      }
     },
     "Accumulation primitive": {
       "de": "ursprüngliche Akkumulation",
@@ -258,7 +261,10 @@
     },
     "La valeur qui se valorise": {
       "de": "sich verwertender Wert",
-      "def": "Définition du capital : non une chose ni une somme, mais de la valeur en mouvement, qui traverse des formes pour revenir augmentée. Un sujet automate."
+      "def": "Définition du capital : non une chose ni une somme, mais de la valeur en mouvement, qui traverse des formes pour revenir augmentée. Un sujet automate.",
+      "page": {
+        "dossier": "valeur-qui-se-valorise"
+      }
     },
     "Valeur transférée": {
       "de": "Wertübertragung",

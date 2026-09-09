@@ -1,0 +1,51 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/valeur-qui-se-valorise.",
+  "titre": "La valeur qui se valorise",
+  "de": "sich verwertender Wert",
+  "chapo": "Le capital n'est ni une chose ni une somme : c'est un mouvement. De la valeur qui traverse des formes (argent, marchandise, argent) sans cesser d'être la même, et qui en revient grossie. De sorte qu'elle paraît s'accroître par sa propre vertu, et que celui qui la possède n'en est que le support conscient.",
+  "description": "La valeur qui se valorise chez Marx : pourquoi le capital se définit par un mouvement et non par une substance, ce qui sépare A—M—A′ de M—A—M, et pourquoi ce mouvement ne contient en lui-même aucune limite.",
+  "source": {
+    "work": "capital-1",
+    "s": 2,
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre IV — traduction Joseph Roy (1872)"
+  },
+  "ou": "Livre&nbsp;I, deuxième section, chapitre IV, « La transformation de l'argent en capital ». Aussitôt après la marchandise et l'argent, et avant qu'il ait été question de salaire&nbsp;: le concept se construit sur la seule circulation.",
+  "outils": [
+    {
+      "label": "Le circuit du capital — le jeu",
+      "url": "/jeu/"
+    },
+    {
+      "label": "Marchandise, argent, capital — le laboratoire",
+      "url": "/oeuvres/capital-1#labo=s-circuit"
+    }
+  ],
+  "voisins": [
+    "A — M — A′",
+    "M — A — M",
+    "ΔA — plus-value",
+    "Force de travail",
+    "Thésaurisation",
+    "Accumulation"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : LE MÊME PLATEAU, SIX FOIS. Le concept n'est pas un objet mais un mouvement, et il ne fallait pourtant pas d'un circuit (le jeu du site en est un, et la page du communisme a déjà ses deux tracés). Le mouvement se joue donc SUR PLACE : un seul plateau de comptoir, où la forme alterne (une colonne d'écus, puis un ballot de coton, puis les écus de nouveau) pendant que la grandeur monte d'un dixième à chaque tour. Derrière, l'ardoise du comptoir inscrit la série, cent, cent dix, cent vingt et un, et la dernière ligne se perd sous le bord : le mouvement ne contient aucun terme. À droite la bourse, qui est le point de départ et le point de retour.",
+    "alt": "Un comptoir sous une lampe : un plateau de laiton où s'élève une colonne d'écus, une ardoise au mur où une série de nombres est écrite à la craie, et une bourse de cuir.",
+    "source": {
+      "texte": "D'après le texte — Livre I, chapitre IV",
+      "q": "la valeur se présente ici comme une substance automatique, douée d’une vie propre, qui, tout en échangeant ses formes sans cesse, change aussi de grandeur"
+    },
+    "etapes": {
+      "fait": "Des écus sur un plateau. On dirait que le capital est là, dans le métal. Mais une somme qui dort ne grossit pas d'un liard.",
+      "ou": "Le métal a fait place au ballot : la même valeur, une autre forme. C'est le mouvement qui fait le capital, et il se lit d'abord sur la seule circulation.",
+      "distinction": "Les écus reviennent, et ils sont plus nombreux. L'ardoise inscrit la série : ce qui sort n'est pas cent d'un côté et dix de l'autre, mais cent dix, prêts à recommencer.",
+      "mecanisme": "La forme change, la grandeur monte, et la valeur paraît s'accroître par sa propre vertu. Le mot est « semble »&nbsp;: d'où vient l'excédent, deux chapitres plus loin le diront.",
+      "ouvre": "La bourse est le point de départ et le point de retour. Celui qui la tient n'est capitaliste qu'autant qu'il est le support de ce mouvement.",
+      "lectures": "La dernière ligne de l'ardoise se perd sous le bord. Le mouvement ne contient aucun terme, ce qui n'est pas dire qu'il n'en rencontre aucun."
+    },
+    "fixe": {
+      "g": 3.4,
+      "legende": "La même valeur, une forme après l'autre, et la série qui monte d'un dixième à chaque tour. Elle paraît s'accroître par sa propre vertu, et le mot de Marx est « semble »."
+    }
+  }
+}

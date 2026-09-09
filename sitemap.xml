@@ -48,6 +48,12 @@
     <priority>0.3</priority>
   </url>
   <url>
+    <loc>https://liremarx.com/glossaire/accumulation</loc>
+    <lastmod>2026-09-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://liremarx.com/glossaire/accumulation-primitive</loc>
     <lastmod>2026-09-08</lastmod>
     <changefreq>monthly</changefreq>
@@ -152,6 +158,12 @@
   <url>
     <loc>https://liremarx.com/glossaire/travail-aliene</loc>
     <lastmod>2026-09-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://liremarx.com/glossaire/valeur-qui-se-valorise</loc>
+    <lastmod>2026-09-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
