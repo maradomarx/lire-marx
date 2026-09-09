@@ -15,7 +15,10 @@
     },
     "Accumulation": {
       "de": "Akkumulation",
-      "def": "La plus-value reconvertie en capital au lieu d'être consommée. Le capital ne se contente pas de se reproduire : il grandit, et sa croissance change à chaque tour sa composition."
+      "def": "La plus-value reconvertie en capital au lieu d'être consommée. Le capital ne se contente pas de se reproduire : il grandit, et sa croissance change à chaque tour sa composition.",
+      "page": {
+        "dossier": "accumulation"
+      }
     },
     "Accumulation primitive": {
       "de": "ursprüngliche Akkumulation",
