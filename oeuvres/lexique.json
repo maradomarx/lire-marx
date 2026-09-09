@@ -258,7 +258,10 @@
     },
     "La valeur qui se valorise": {
       "de": "sich verwertender Wert",
-      "def": "Définition du capital : non une chose ni une somme, mais de la valeur en mouvement, qui traverse des formes pour revenir augmentée. Un sujet automate."
+      "def": "Définition du capital : non une chose ni une somme, mais de la valeur en mouvement, qui traverse des formes pour revenir augmentée. Un sujet automate.",
+      "page": {
+        "dossier": "valeur-qui-se-valorise"
+      }
     },
     "Valeur transférée": {
       "de": "Wertübertragung",
