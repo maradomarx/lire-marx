@@ -184,8 +184,14 @@ svg.exchange{width:100%;height:auto;display:block;margin:22px 0 6px;font-family:
    porte l'or plein (9,0:1) plutôt qu'une encre estompée — une affordance
    n'est pas du décor, et l'opacité ne dit jamais un état ici. */
 .cc-go{color:inherit;text-decoration:none;transition:border-color .18s,background .18s;}
-.cc-go .cc-term{display:inline-flex;align-items:center;gap:7px;}
-.cc-go .cc-term::after{content:'';flex:0 0 auto;width:13px;height:9px;background:var(--gold);
+/* La flèche SUIT le texte au lieu d'être un élément de flex : en
+   `inline-flex`, un terme qui passe sur deux lignes laissait la flèche
+   décrocher à l'extrémité droite de la carte, loin du mot. En
+   `inline-block` elle se replie avec la dernière ligne, comme une
+   ponctuation. Vu sur « Composition organique (c/v) », et vrai de la
+   plupart des termes dès que la colonne se resserre. */
+.cc-go .cc-term::after{content:'';display:inline-block;width:13px;height:9px;
+  margin-left:7px;vertical-align:middle;background:var(--gold);
   -webkit-mask:var(--atl-fleche) no-repeat center/13px 9px;
   mask:var(--atl-fleche) no-repeat center/13px 9px;
   transition:transform .18s cubic-bezier(.16,1,.3,1);}
