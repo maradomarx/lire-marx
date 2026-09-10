@@ -5541,13 +5541,33 @@ de page commun, servi dans le HTML des vingt-deux pages. Les comptes ci-dessus
 sont donc ceux d'un état intermédiaire — ils valent comme mesure du défaut,
 plus comme état du site.
 
-### Place publique ne sera pas indexée, et ce n'est pas technique
+### ✅ PLACE PUBLIQUE — ARBITRAGE RENDU (sept. 2026) : ON NE FAIT RIEN
 
-Elle sert **112 mots** — tout le forum est en JS — et recevait 2 liens
-entrants. Google la classera « Explorée, actuellement non indexée ». Deux
-issues, toutes deux éditoriales : pré-rendre les derniers fils comme
-`seo-registre-servi` a pré-rendu le registre, ou lui poser un `noindex` franc
-et assumer qu'un forum vide n'est pas un actif de recherche.
+Elle sert **853 mots** (le chiffre de **112** écrit ici pendant des mois
+datait d'avant le pied de page commun — remesuré) et tout le forum est en JS.
+Google la classera « Explorée, actuellement non indexée ». Deux issues
+avaient été posées : pré-rendre les derniers fils, ou poser un `noindex`
+franc. **Le propriétaire a tranché : on ne fait rien.** « Explorée, non
+indexée » n'est pas une sanction, c'est le traitement normal d'une page
+mince ; ça ne coûte rien au reste du site, la page reste crawlable, et le
+jour où le forum aura de la matière il n'y aura **rien à défaire**. Ne pas
+rouvrir sans lui.
+
+**⚠️ ET LE PRÉ-RENDU EST ÉCARTÉ POUR DE BON, quel que soit le volume
+futur** — c'est la découverte de cette passe, et elle vaut au-delà de cette
+page. Le registre de la bibliothèque a pu être pré-rendu parce qu'il est **la
+donnée du SITE** ; le forum est **celle des LECTEURS**. Le pré-rendre voudrait
+dire committer du contenu d'utilisateurs dans git : un lecteur qui supprime sa
+note la laisserait dans l'historique, ce qui contredit le RGPD que le schéma
+respecte par ailleurs, et la modération ne pourrait plus retirer un fil déjà
+figé dans un instantané. **La règle : on ne pré-rend que ce dont le site est
+l'auteur.**
+
+Mesuré en production au moment de l'arbitrage (lecture seule, clé publique) :
+**12 notes, 8 fils racine**, dont **six sont des tests** — « oui », « yes »,
+« huu », « fou ». Un seul fil est une vraie question. Pré-rendre cela aurait
+donné ces mots-là à Google comme contenu de page. Le ménage de ces fils de
+test est du ressort du propriétaire, pas d'une mission.
 
 ### Le site est enfin déclaré à Search Console
 
