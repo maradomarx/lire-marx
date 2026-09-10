@@ -4861,29 +4861,50 @@ soit mort avant 1956. Relevé au catalogue de la BnF&nbsp;:
 Donc **rien à substituer avant 2046**. Ne pas relancer cette recherche&nbsp;:
 elle est faite, et la conclusion ne changera pas d'ici là.
 
-### ⚠️ CE QUI RESTE, et qui n'est pas technique
+### ✅ BOTTIGELLI — ARBITRAGE RENDU (sept. 2026) : ON NE CHANGE RIEN
 
-Le site **sert 59 000 mots de la traduction Bottigelli**, protégée jusqu'au
-1er janvier **2046**. Le `noindex` posé sur les fragments (mission
-`_headers`) limite l'exposition, il ne règle rien sur le fond.
+Le site sert **60 005 mots** de la traduction d'Émile Bottigelli, protégée
+jusqu'au 1er janvier **2046** — mesuré fragment par fragment, c'est l'œuvre
+entière. Le `noindex` posé sur les fragments (mission `_headers`) réduit la
+découvrabilité, il ne change rien sur le fond, et aucune exception ne couvre
+la reproduction d'une œuvre complète.
 
-La recherche ci-dessus ferme la deuxième issue&nbsp;: il n'y a pas de
-traduction libre à substituer. Il en reste **deux**, toutes deux éditoriales
-et du ressort du propriétaire&nbsp;:
+Deux issues avaient été identifiées — demander l'autorisation aux Éditions
+sociales, ou cesser de servir le texte et renvoyer au MIA. Une troisième,
+« ne servir que des extraits », a été nommée pour être écartée : c'est encore
+de la reproduction, elle ne change pas le régime et coûte quand même la
+lecture continue. **Le propriétaire a tranché : on garde l'état actuel, en
+connaissance de cause.** Ne pas rouvrir la question sans lui.
 
-1. **Demander l'autorisation** aux Éditions sociales.
-2. **Cesser de servir le texte et le lier** — garder tout l'appareil (les
-   résumés, les instruments, le cheminement, la chronologie, la marge, le
-   glossaire), qui est la valeur propre du site, et renvoyer au MIA pour le
-   texte. Un lien n'est pas une reproduction.
+Ce qui fonde l'arbitrage, et qu'il faut préserver si l'on touche à ces
+pages : le site est **gratuit, sans publicité**, la traduction et le
+traducteur sont **nommés partout**, le `sourceNote` affiché au cartel de la
+bibliothèque dit en toutes lettres que le texte **n'est pas dans le domaine
+public**, les fragments sont en `noindex`, et le retrait tient en un commit
+si les Éditions sociales le demandaient. **Ne pas dégrader ces cinq points.**
 
-⚠️ La seconde a un **coût réel qu'il ne faut pas minimiser**&nbsp;: les
-Manuscrits perdraient leur liseuse, donc le surlignage, les annotations, le
-suivi de lecture et la marge qui suit le chapitre — c'est-à-dire ce qui fait
-l'atelier. Le Capital n'a pas ce problème&nbsp;: Roy est mort en 1900, et le
-texte vient de Wikisource.
+Le coût de l'option « cesser de servir », mesuré, pour mémoire : les
+Manuscrits perdraient leur liseuse (9 parties), le surlignage, les
+annotations, le suivi de lecture, la marge qui suit la partie, la recherche
+plein texte, **et les quinze liens de citation de
+`/glossaire/travail-aliene`**, qui pointent dans la liseuse. Resteraient les
+résumés, les instruments, le cheminement, la chronologie, le glossaire et les
+sept pages de notion — la valeur propre du site, qui ne dépend pas du texte.
 
-**Ne pas trancher ça à la place du propriétaire.**
+Le Capital n'est pas concerné&nbsp;: Roy est mort en 1900, et le texte vient
+de Wikisource.
+
+**⚠️ ET LA PAGE `travail-aliene` N'EST PAS UN POINT DE RISQUE** — elle a
+longtemps été listée comme tel ici, à tort, sur une impression et non sur une
+mesure. Ses vingt-quatre citations font **229 mots au total**, médiane
+**9 mots**, la plus longue **19** : **0,38 % de l'œuvre**, 10 % de la page,
+tissées dans un essai critique avec leur source nommée. C'est le cas d'école
+de la **courte citation** (art. L122-5 3° a du CPI). Sa différence avec les
+autres pages des Manuscrits, qui paraphrasent, est une question de
+**cohérence éditoriale**, pas de droit. Ne pas « corriger » cette page.
+(Rappel de méthode : une inquiétude qui n'a pas été chiffrée n'est pas un
+constat — celle-ci a survécu à plusieurs missions sans que personne compte
+les mots.)
 
 ### Le lien de source tenait une promesse vide
 
@@ -7368,9 +7389,10 @@ la distance a suivi. Reculer aurait rendu la planche d'essai illisible.
 - **Quatre entrées ne sont pas des concepts de Marx** et pourraient être
   renommées dans `CONCEPTS` (`capital-1.html`) — ce qui touche l'atelier.
   Elles ont un renvoi en attendant. **Signalé trois fois, sans réponse.**
-- **La page du travail aliéné cite vingt-quatre passages de Bottigelli**,
-  protégé jusqu'en 2046, et contredit donc la règle que les autres pages des
-  Manuscrits suivent. C'est la seule dans ce cas, et c'est son arbitrage.
+- **La page du travail aliéné cite vingt-quatre passages de Bottigelli** là
+  où les autres pages des Manuscrits paraphrasent. **Mesuré depuis : 229 mots
+  au total, 0,38 % de l'œuvre — c'est de la courte citation, pas un risque.**
+  Voir « BOTTIGELLI — ARBITRAGE RENDU » plus haut. Ne pas la corriger.
 - **Le slug `valeur-d-usage-vs-valeur`** porte le titre affiché « Valeur
   d'usage et valeur ». `page.slug` permettrait de le corriger, mais l'URL est
   publique : il faudrait une redirection, donc son accord.
@@ -7537,6 +7559,88 @@ productive, reproduction simple, corvée-esclave-salarié…). C'est là que la
 première page est atteignable, et c'est **Search Console** — déclarée depuis
 `maillage-explorable`, jamais consultée — qui dira où pousser. Le reste tient
 aux **liens entrants externes**, la seule variable qui ne se code pas.
+
+## L'abécédaire est celui de Marx (mission `abecedaire-au-net`, sept. 2026)
+
+Deux points éditoriaux signalés depuis plusieurs sessions, tranchés par le
+propriétaire et faits dans la foulée.
+
+### Quatre titres du site sortent de l'abécédaire, leurs cartes restent
+
+« Lever le voile », « Le hiéroglyphe social », « Les contre-mondes », « Le
+passage de relais » sont des titres que le SITE a écrits pour ses cartes,
+pas des notions de Marx — et un abécédaire *de Marx* ne les range pas à L,
+H, C et P comme s'il les lui devait. Trois options avaient été posées :
+renommer dans `CONCEPTS`, tout garder, ou les sortir de la seule liste.
+**Le propriétaire a tranché : on les vire de l'abécédaire, on garde les
+cartes.** C'est le bon partage — « Lever le voile » vaut mieux que
+« Producteurs librement associés » au pied d'une station.
+
+**Le mécanisme : `"carte": true` dans le lexique.** L'entrée reste dans
+`termes` (donc dans `LIENS_FICHES` — sa fiche garde son lien — et dans
+`INDEX_NOTIONS`, donc la recherche la trouve toujours) et sort d'`abece`,
+qui est ce que la page liste, compte et déclare en `DefinedTermSet`. Le
+générateur **échoue** si une entrée `carte` ne mène nulle part : hors de
+l'abécédaire, elle n'aurait plus d'existence, il lui faut donc `voir` ou
+`page`.
+
+**L'abécédaire passe de 75 à 71 entrées, et de 16 à 15 lettres** — H
+disparaît, « Le hiéroglyphe social » y était seul. Les quatre fiches de
+l'atelier sont intactes et mènent toujours à `/glossaire/fetichisme` et
+`/glossaire/legislation-sanglante`.
+
+⚠️ **Les 75 fiches restent 75.** Ne pas confondre : `CONCEPTS` porte 82
+fiches, le dédoublonnage en fait 75 notions, et l'abécédaire en LISTE 71.
+Les trois nombres sont justes, chacun à sa place.
+
+### Le slug perd son anglicisme, et le nom suit
+
+`/glossaire/valeur-d-usage-vs-valeur` → **`/glossaire/valeur-d-usage-et-valeur`**,
+avec sa 301 dans `_redirects`. Fait maintenant parce que c'est le moment le
+moins cher : les pages de notion sont neuves et l'indexation vient à peine
+d'être demandée.
+
+**Et le NOM affiché a dû suivre**, sans quoi la notion en aurait porté trois
+— la carte « vs », la page « et », l'URL « et ». D'où **`"nom"` dans le
+lexique**, exactement parallèle à `page.slug` : le lexique corrige ce que la
+fiche dicte, sans toucher à la carte de l'atelier.
+
+⚠️ **`nom` ne change QUE l'affichage.** `t.nom` reste le titre de la fiche,
+parce que c'est lui qui porte l'IDENTITÉ — `LIENS_FICHES` apparie la carte à
+sa page par `identite(b.nom)`. Le champ `affiche` est ce qui est montré :
+l'entrée de l'abécédaire, le `name` du JSON-LD, le `n` de la table du
+maillage, le tri et la lettre. **Écraser `t.nom` casserait l'appariement en
+silence.** La carte de l'atelier garde « vs », et c'est voulu : la décision
+d'à côté était de ne pas toucher aux cartes.
+
+### Trois choses trouvées en vérifiant, et c'est là qu'était le travail
+
+1. **Un lien écrit à la MAIN pointait l'ancienne URL** — dans
+   `glossaire/mondes/force-productive/essai.html`, au fil d'une phrase. Il
+   aurait fonctionné par la 301, ce que la règle du projet interdit
+   précisément (« les liens internes ne passent plus par une redirection »).
+   Corrigé **dans la source**, pas dans le fichier assemblé.
+2. **`/a-propos` annonçait « 75 notions » à deux endroits** — la marge
+   chiffrée et la prose (« abécédaire de soixante-quinze notions »). C'est la
+   page qui écrit que ses chiffres sont relevés et non estimés : un décompte
+   faux y coûte plus qu'ailleurs. Passés à 71 et « soixante et onze ».
+   **Toute modification du contenu du glossaire doit vérifier `/a-propos`.**
+3. Deux commentaires de code devenus faux, corrigés de même.
+
+### Vérifié
+
+Abécédaire : **71 entrées, 15 lettres**, les quatre absentes du texte rendu,
+« Valeur d'usage et valeur » affiché. Les 75 cartes de l'atelier lient
+toujours, les quatre comprises. Les quatre restent dans `recherche.json` et
+leurs cibles existent. **Aucune ancre orpheline** (`#lever-le-voile` &
+consorts : zéro référence dans tout le dépôt). Toutes les cibles internes du
+glossaire existent. `gen-seo --check` à jour et **idempotent**. Détecteur
+compté **avant et après en remisant les modifications** : **24 constats,
+0 erreur, identique** ; la page de notion neuve en produit **0**. Zéro
+débordement horizontal à 1280 px.
+
+⚠️ La **301 n'est pas testable en local** : `_redirects` est servi par
+Cloudflare. À vérifier en production après déploiement.
 
 ## Conventions de travail
 

@@ -681,10 +681,17 @@ function identite(nom) {
       def: lex && lex.def ? lex.def : t.legende,
       page: lex && lex.page ? lex.page : null,
       voir: lex && lex.voir ? lex.voir : null,
+      carte: !!(lex && lex.carte),
+      /* `affiche` est le nom MONTRÉ ; `nom` reste celui de la fiche, parce
+         que c'est lui qui porte l'identité — la carte retrouve sa page par
+         là. Même motif que `page.slug` pour l'adresse : le lexique corrige
+         ce que la fiche dicte, sans toucher à la carte de l'atelier. */
+      affiche: (lex && lex.nom) ? lex.nom : null,
       enrichi: !!(lex && lex.def) };
   });
 
-  termes.sort((a, b) => cle(a.nom).localeCompare(cle(b.nom), 'fr'));
+  /* On range sur le nom MONTRÉ : c'est celui que le lecteur cherche. */
+  termes.sort((a, b) => cle(a.affiche || a.nom).localeCompare(cle(b.affiche || b.nom), 'fr'));
 
   /* L'adresse d'une notion est le slug de son nom — sauf quand la page
    * porte un titre que le lexique ne peut pas porter : « La forme-valeur »
@@ -741,16 +748,34 @@ function identite(nom) {
   const parIdentite = new Map(termes.map((t) => [identite(t.nom), t]));
   for (const b of brut) {
     const t = parIdentite.get(identite(b.nom));
-    if (t && t.mene) LIENS_FICHES[b.oeuvre][b.nom] = { h: t.href, n: decode(t.nom) };
+    if (t && t.mene) LIENS_FICHES[b.oeuvre][b.nom] = { h: t.href, n: decode(t.affiche || t.nom) };
   }
 
   INDEX_NOTIONS = termes.map((t) => ({
-    nom: decode(t.nom), de: t.de || '', def: t.def || '', id: t.id, page: t.mene,
+    nom: decode(t.affiche || t.nom), de: t.de || '', def: t.def || '', id: t.id, page: t.mene,
     href: t.href, oeuvre: (t.sources[0] && t.sources[0].oeuvre) || '' }));
 
-  const lettres = new Map();
+  /* ── L'ABÉCÉDAIRE N'EST PAS LA LISTE DES FICHES ──────────────────────
+   * Quatre fiches de l'atelier sont des TITRES que le site a écrits, pas des
+   * notions de Marx : « Lever le voile », « Le hiéroglyphe social », « Les
+   * contre-mondes », « Le passage de relais ». Elles font de bonnes cartes —
+   * « Lever le voile » vaut mieux que « Producteurs librement associés » au
+   * pied d'une station — et elles gardent donc leur fiche, son lien et sa
+   * place dans la recherche. Mais un abécédaire DE MARX ne les range pas à L,
+   * H, C et P comme s'il les lui devait.
+   * Marquées `carte: true` dans le lexique ; elles restent dans `termes`
+   * (donc dans LIENS_FICHES et INDEX_NOTIONS) et sortent d'`abece`, qui est
+   * ce que la page liste, compte et déclare en JSON-LD. */
+  const abece = termes.filter((t) => !t.carte);
   for (const t of termes) {
-    const L = (cle(t.nom)[0] || '#').toUpperCase();
+    if (t.carte && !t.mene) throw new Error(
+      `« ${t.nom} » est marquée carte:true mais ne mène nulle part : hors de `
+      + "l'abécédaire, elle n'aurait plus d'existence. Ajoutez-lui un voir.");
+  }
+
+  const lettres = new Map();
+  for (const t of abece) {
+    const L = (cle(t.affiche || t.nom)[0] || '#').toUpperCase();
     const k = /[A-Z]/.test(L) ? L : '#';
     if (!lettres.has(k)) lettres.set(k, []);
     lettres.get(k).push(t);
@@ -787,7 +812,7 @@ function identite(nom) {
     for (const t of liste) {
       const lien = (x) => t.mene ? `<a href="${t.href}">${x}</a>` : x;
       html += `      <div class="gl-terme" id="${t.id}">\n`
-            + `        <dt class="gl-t">${lien(t.nom)}`
+            + `        <dt class="gl-t">${lien(t.affiche || t.nom)}`
             + (t.de ? `<span class="gl-de" lang="de">${t.de}</span>` : '')
             + `</dt>\n`
             + `        <dd class="gl-d">${t.def}\n`
@@ -805,9 +830,9 @@ function identite(nom) {
     name: 'Glossaire de Marx — l’abécédaire des concepts',
     url: `${ORIGIN}/glossaire/`,
     inLanguage: 'fr',
-    hasDefinedTerm: termes.map((t) => ({
+    hasDefinedTerm: abece.map((t) => ({
       '@type': 'DefinedTerm',
-      name: decode(t.nom),
+      name: decode(t.affiche || t.nom),
       description: decode(t.def),
       url: `${ORIGIN}${t.href}`,
       ...(t.de ? { alternateName: decode(t.de) } : {}),
@@ -815,8 +840,8 @@ function identite(nom) {
     })),
   }, null, 2);
 
-  const oeuvres = new Set(termes.flatMap((t) => t.sources.map((s) => s.oeuvre))).size;
-  const compte = `<p class="gl-compte">${termes.length} notions · ${lettres.size} lettres · ${oeuvres} œuvres</p>`;
+  const oeuvres = new Set(abece.flatMap((t) => t.sources.map((s) => s.oeuvre))).size;
+  const compte = `<p class="gl-compte">${abece.length} notions · ${lettres.size} lettres · ${oeuvres} œuvres</p>`;
 
   const fichier = 'glossaire/index.html';
   let page = readFileSync(fichier, 'utf8');

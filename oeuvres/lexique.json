@@ -50,7 +50,8 @@
     },
     "Les contre-mondes": {
       "def": "Les situations que Marx oppose à la production marchande — Robinson, le servage, l'économie familiale, les producteurs associés — où le rapport social se voit sans avoir à être déchiffré.",
-      "voir": "Fétichisme"
+      "voir": "Fétichisme",
+      "carte": true
     },
     "Contre-tendances": {
       "de": "entgegenwirkende Ursachen",
@@ -156,7 +157,8 @@
     "Le hiéroglyphe social": {
       "de": "gesellschaftliche Hieroglyphe",
       "def": "La valeur ne s'annonce pas : les hommes l'ont déchiffrée sans savoir qu'ils lisaient. En découvrir le secret ne dissipe pas l'apparence, mais en explique la nécessité.",
-      "voir": "Fétichisme"
+      "voir": "Fétichisme",
+      "carte": true
     },
     "Journée de travail": {
       "de": "Arbeitstag",
@@ -175,7 +177,8 @@
     "Lever le voile": {
       "de": "mystischer Nebelschleier",
       "def": "Le brouillard mystique ne se dissipe que le jour où la production devient l'affaire d'hommes librement associés, agissant sous leur contrôle conscient et selon un plan.",
-      "voir": "Fétichisme"
+      "voir": "Fétichisme",
+      "carte": true
     },
     "Loi de la circulation": {
       "def": "La masse de monnaie nécessaire égale la somme des prix divisée par le nombre de rotations d'une même pièce. Ce sont les prix qui commandent la quantité, non l'inverse.",
@@ -225,7 +228,8 @@
     },
     "Le passage de relais": {
       "def": "Le moment où la contrainte ouverte cède la place à la contrainte muette des rapports économiques : le salarié reconduit lui-même, chaque jour, sa propre dépendance.",
-      "voir": "Législation sanglante"
+      "voir": "Législation sanglante",
+      "carte": true
     },
     "Plus-value absolue": {
       "de": "absoluter Mehrwert",
@@ -349,8 +353,10 @@
       "de": "Gebrauchswert / Wert",
       "def": "L'utilité d'une chose n'a rien de mystérieux et ne varie pas d'une société à l'autre. Le mystère commence avec la forme valeur, qui n'appartient qu'à la production marchande.",
       "page": {
-        "dossier": "valeur-d-usage-vs-valeur"
-      }
+        "dossier": "valeur-d-usage-vs-valeur",
+        "slug": "valeur-d-usage-et-valeur"
+      },
+      "nom": "Valeur d’usage et valeur"
     },
     "Valeur nouvelle": {
       "de": "Neuwert",
@@ -451,5 +457,7 @@
       }
     }
   },
-  "_page": "Le champ « page » ouvre une PAGE à la notion (/glossaire/<slug>). On ne l'écrit que lorsqu'on a quatre cents mots à dire, pas vingt-sept : en dessous, une page par terme serait du contenu mince — c'est la raison même pour laquelle l'abécédaire est resté une seule page. Les notions sans « page » restent des entrées de l'abécédaire, et c'est très bien. Depuis sept. 2026 (mission glossaire-mondes), « page » peut aussi valoir { \"dossier\": \"<slug>\" } : la notion est alors un ESSAI LONG avec son MONDE, dans glossaire/mondes/<slug>/ (essai.html + meta.json + monde.js), et c'est ce dossier que le générateur assemble — le lexique ne garde que la définition courte de l'abécédaire."
+  "_page": "Le champ « page » ouvre une PAGE à la notion (/glossaire/<slug>). On ne l'écrit que lorsqu'on a quatre cents mots à dire, pas vingt-sept : en dessous, une page par terme serait du contenu mince — c'est la raison même pour laquelle l'abécédaire est resté une seule page. Les notions sans « page » restent des entrées de l'abécédaire, et c'est très bien. Depuis sept. 2026 (mission glossaire-mondes), « page » peut aussi valoir { \"dossier\": \"<slug>\" } : la notion est alors un ESSAI LONG avec son MONDE, dans glossaire/mondes/<slug>/ (essai.html + meta.json + monde.js), et c'est ce dossier que le générateur assemble — le lexique ne garde que la définition courte de l'abécédaire.",
+  "_carte": "Une entrée `carte: true` est un TITRE DE CARTE de l'atelier, pas une notion de Marx — « Lever le voile », « Les contre-mondes ». Elle garde son renvoi, donc sa fiche reste cliquable et mène à la bonne page, mais elle ne figure PAS dans l'abécédaire, qui est celui de Marx et non celui du site. Elle exige donc `voir` ou `page` : sans destination, elle n'aurait plus d'existence nulle part.",
+  "_nom": "`nom` corrige le nom AFFICHÉ d'une notion sans toucher au titre de la fiche de l'atelier — même motif que `page.slug` pour l'adresse. Sert quand la fiche porte un tour qu'un abécédaire ne doit pas reprendre : « Valeur d'usage vs valeur » est un anglicisme, et la page s'intitule « et ». L'IDENTITÉ, elle, reste celle de la fiche : c'est par elle que la carte retrouve sa page."
 }
