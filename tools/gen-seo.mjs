@@ -154,6 +154,12 @@ const PAGES_NOTIONS = [];
 /* Les notions, telles que le glossaire les a dédoublonnées et nommées —
  * l'index de recherche en dérive (voir « L'index de la recherche »). */
 let INDEX_NOTIONS = [];
+/* LE CONTRAT DU MAILLAGE — le titre EXACT d'une fiche de concept d'atelier
+ * vers l'adresse de sa page de notion. Rempli par le bloc « glossaire »,
+ * consommé par la section « maillage » : la résolution (identité, suffixe
+ * de station, renvoi `voir`, `page.slug`) se fait une seule fois, ici, et
+ * les ateliers n'ont plus qu'une table à lire. */
+let LIENS_FICHES = { 'Le Capital': {}, 'Manuscrits de 1844': {} };
 
 function lastmod(file) {
   try {
@@ -218,9 +224,18 @@ function bookFor(w) {
    passage, donc idempotent : on teste le POINT D'INSERTION, jamais le
    changement — un garde qui lève parce que « rien n'a bougé » crie au défaut
    quand tout va bien (piège de `seo-registre-servi`). */
+/* Le marqueur de FIN se cherche APRÈS celui de début, jamais depuis le haut
+   du document. Avec une seule paire par fichier — le pied de page — les deux
+   reviennent au même ; avec treize paires — les conteneurs de fiches du
+   laboratoire — un `indexOf` non ancré rend la fin d'une AUTRE paire, et si
+   elle précède le début, `slice(0,i) + contenu + slice(j)` RECOPIE tout ce
+   qui les sépare. Mesuré une fois : capital-1.html passé de 313 Ko à 34 Mo
+   en treize tours. */
 function entreMarqueurs(src, deb, fin, contenu, fichier) {
-  const i = src.indexOf(deb), j = src.indexOf(fin);
-  if (i < 0 || j < 0) throw new Error(`Marqueurs du pied de page introuvables dans ${fichier}.`);
+  const i = src.indexOf(deb);
+  if (i < 0) throw new Error(`Marqueur « ${deb} » introuvable dans ${fichier}.`);
+  const j = src.indexOf(fin, i + deb.length);
+  if (j < 0) throw new Error(`Marqueur « ${fin} » introuvable après « ${deb} » dans ${fichier}.`);
   return src.slice(0, i + deb.length) + contenu + src.slice(j);
 }
 
@@ -713,6 +728,20 @@ function identite(nom) {
     t.mene = !!(t.page || t.renvoi);
     t.href = t.page ? `/glossaire/${t.id}`
       : t.renvoi ? `/glossaire/${t.renvoi.id}` : `/glossaire/#${t.id}`;
+  }
+
+  /* La table du maillage. Elle est indexée par le titre de la fiche TEL QUE
+   * l'atelier l'écrit — suffixe de station compris — parce que c'est ce que
+   * la page a sous la main au moment de rendre la carte. Une notion qui ne
+   * mène nulle part n'y figure pas : la fiche reste alors du texte.
+   * Chaque entrée porte `h` (l'adresse) et `n` (le nom CANONIQUE de la
+   * notion). Les deux diffèrent : la carte garde son propre terme — « Capital
+   * constant (c) », notation de station comprise —, mais une LISTE de notions
+   * doit nommer la page, qui couvre ici les deux capitaux. */
+  const parIdentite = new Map(termes.map((t) => [identite(t.nom), t]));
+  for (const b of brut) {
+    const t = parIdentite.get(identite(b.nom));
+    if (t && t.mene) LIENS_FICHES[b.oeuvre][b.nom] = { h: t.href, n: decode(t.nom) };
   }
 
   INDEX_NOTIONS = termes.map((t) => ({
@@ -1241,6 +1270,87 @@ ${PIED}
             + courtes.map((t) => `« ${decode(t.nom)} »`).join(', ')
           : '.'));
   }
+}
+
+/* ------------- Le maillage : les fiches mènent à leur page ------------- *
+ * MESURÉ AVANT : les deux ateliers — les pages les plus lourdes du site —
+ * ne portaient PAS UN SEUL lien vers une page de notion. Les trente-neuf
+ * pages du glossaire ne recevaient de liens que de l'abécédaire et les unes
+ * des autres : une île. Or les soixante-quinze fiches du laboratoire SONT
+ * les soixante-quinze notions qui ont désormais une page — la chaîne
+ * existait, elle n'était pas câblée.
+ *
+ * Deux choses sont écrites ici, et la seconde est celle qui compte pour les
+ * crawlers des moteurs de réponse, qui lisent le HTML brut :
+ *   · la TABLE `window.NOTIONS_HREF`, que les deux pages lisent au rendu ;
+ *   · les CARTES PRÉ-RENDUES du laboratoire de Capital, exactement comme le
+ *     registre de la bibliothèque (`seo-registre-servi`) — le JS les
+ *     réécrit à l'identique par-dessus.
+ *
+ * LE PRIX D'UN RENDU À DEUX ENDROITS : `ccHtml()` ci-dessous et celui de
+ * capital-1.html doivent produire le MÊME octet. Ils bougent ensemble, et
+ * le contrôle est de comparer le `innerHTML` d'un conteneur après rendu au
+ * HTML servi. C'est la règle déjà posée pour `flatRegister`/`renderFlat`. */
+const MAILLE_DEB = '<!-- NOTIONS:DÉBUT';
+const MAILLE_FIN = '<!-- NOTIONS:FIN -->';
+
+/* Le même balisage que `ccHtml()` dans capital-1.html. Une fiche dont la
+   notion ne mène nulle part reste un <div> : on ne fabrique pas un lien
+   mort pour l'uniformité. */
+function ccHtml(x, ICONS, h) {
+  const inner = '<div class="cc-icon">' + ICONS[x.ic] + '</div><div><div class="cc-term">' + x.t
+    + '</div><div class="cc-def">' + x.d + '</div><span class="cc-formula">' + x.f + '</span></div>';
+  return h ? '<a class="ccard cc-go" style="--accent:' + x.ac + '" href="' + h + '">' + inner + '</a>'
+           : '<div class="ccard" style="--accent:' + x.ac + '">' + inner + '</div>';
+}
+
+for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
+                              ['oeuvres/manuscrits-1844.html', 'Manuscrits de 1844']]) {
+  let src = readFileSync(file, 'utf8');
+  const liens = LIENS_FICHES[oeuvre];
+
+  /* La table. Les clés sont les titres de fiche, dans l'ordre du fichier —
+     stable d'une génération à l'autre, donc `--check` ne bat pas la mesure. */
+  const table = ' — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main.\n'
+    + '     La table du titre de fiche vers sa page de notion : la résolution\n'
+    + '     (identité, suffixe de station, renvoi « voir ») se fait dans le\n'
+    + '     générateur, la page ne fait que lire. -->\n'
+    + '<script>window.NOTIONS_HREF=' + JSON.stringify(liens) + ';</script>\n';
+  src = entreMarqueurs(src, MAILLE_DEB, MAILLE_FIN, table, file);
+
+  /* Les cartes pré-rendues — Capital seul : les Manuscrits n'ont pas de
+     `.ccard`, leurs concepts vivent dans la carte du laboratoire. */
+  if (oeuvre === 'Le Capital') {
+    const CONCEPTS = litteralJS(src, 'CONCEPTS=', '{');
+    const ICONS    = litteralJS(src, 'ICONS=', '{');
+    for (const id of Object.keys(CONCEPTS)) {
+      const deb = `<!--CC:${id}-->`, fin = '<!--/CC-->';
+      if (src.indexOf(deb) < 0) throw new Error(`maillage : conteneur ${id} sans marqueur dans ${file}`);
+      const html = CONCEPTS[id].map((x) => ccHtml(x, ICONS, (liens[x.t] || {}).h || '')).join('');
+      src = entreMarqueurs(src, deb, fin, html, file);
+    }
+  } else {
+    /* Les Manuscrits n'ont pas de fiches : leurs sept concepts vivent dans
+       la carte du laboratoire, qui est un SVG interactif. Le panneau de
+       détail porte le renvoi, mais il est peuplé par le script — donc
+       invisible à un crawler qui n'exécute pas de JavaScript. Cette ligne,
+       elle, est servie. Elle n'est pas un doublon de la carte : la carte
+       montre des rapports, la ligne dit que chaque nœud a sa page. */
+    const noms = Object.keys(liens);
+    const lien = (n) => `<a href="${liens[n].h}">${n}</a>`;
+    const liste = noms.length > 1
+      ? noms.slice(0, -1).map(lien).join(', ') + ' et ' + lien(noms[noms.length - 1])
+      : noms.map(lien).join('');
+    src = entreMarqueurs(src, '<!--CARTE:DÉBUT', '<!--CARTE:FIN -->',
+      ` — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main.
+           La carte est un INSTRUMENT : on y suit des liens, on n'y lit pas.
+           Cette ligne est le chemin qui en sort — et, contrairement au
+           panneau de détail, elle est dans le HTML SERVI, donc lisible par
+           un crawler qui n'exécute pas de script. -->
+      <p class="carte-sortie">Chaque concept de cette carte a sa page : ${liste}.</p>
+      `, file);
+  }
+  writeIfNeeded(file, src, file + ' (maillage du glossaire)');
 }
 
 /* --------------------------- sitemap --------------------------- */
