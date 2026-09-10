@@ -22,10 +22,10 @@
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="fonts/fonts.css">
-<link rel="stylesheet" href="atelier.css?v=2">
+<link rel="stylesheet" href="atelier.css?v=3">
 <link rel="stylesheet" href="shell.css?v=7">
 <link rel="stylesheet" href="reader-tools.css">
-<link rel="stylesheet" href="manuscrits-1844.css">
+<link rel="stylesheet" href="manuscrits-1844.css?v=2">
 <style>
 /* Aucun :root ici. La palette sombre-chaude est le système de record
    d'atelier.css — la redéclarer en tête de page est ce qui a fait diverger
@@ -265,6 +265,12 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);
 </script>
 </head>
 <body class="at-atelier">
+<!-- NOTIONS:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main.
+     La table du titre de fiche vers sa page de notion : la résolution
+     (identité, suffixe de station, renvoi « voir ») se fait dans le
+     générateur, la page ne fait que lire. -->
+<script>window.NOTIONS_HREF={"Objectivation":{"h":"/glossaire/objectivation","n":"Objectivation"},"Travail aliéné":{"h":"/glossaire/travail-aliene","n":"Travail aliéné"},"Être générique":{"h":"/glossaire/etre-generique","n":"Être générique"},"Propriété privée":{"h":"/glossaire/propriete-privee","n":"Propriété privée"},"Argent":{"h":"/glossaire/argent","n":"Argent"},"Besoins":{"h":"/glossaire/besoins","n":"Besoins"},"Communisme":{"h":"/glossaire/communisme","n":"Communisme"}};</script>
+<!-- NOTIONS:FIN -->
 <main class="wrap" id="contenu" tabindex="-1">
 
   <!-- L'en-tête d'œuvre : SON IDENTITÉ, et rien d'autre. « Écrits en
@@ -403,6 +409,13 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);
         <div class="carte-schema" id="carteSchema"></div>
         <aside class="carte-detail" id="carteDetail"></aside>
       </div>
+      <!--CARTE:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main.
+           La carte est un INSTRUMENT : on y suit des liens, on n'y lit pas.
+           Cette ligne est le chemin qui en sort — et, contrairement au
+           panneau de détail, elle est dans le HTML SERVI, donc lisible par
+           un crawler qui n'exécute pas de script. -->
+      <p class="carte-sortie">Chaque concept de cette carte a sa page : <a href="/glossaire/objectivation">Objectivation</a>, <a href="/glossaire/travail-aliene">Travail aliéné</a>, <a href="/glossaire/etre-generique">Être générique</a>, <a href="/glossaire/propriete-privee">Propriété privée</a>, <a href="/glossaire/argent">Argent</a>, <a href="/glossaire/besoins">Besoins</a> et <a href="/glossaire/communisme">Communisme</a>.</p>
+      <!--CARTE:FIN -->
     </div>
     <div class="instr" id="instr-sources" hidden>
       <p class="inst-cue">Passez d'une source à l'autre.</p>
@@ -1747,10 +1760,15 @@ function syncTabsA11y(pid){
         if(o.L.dir==='ab') arrow = o.L.a===id ? '→' : '←';
         return '<li><span class="ar">'+arrow+'</span> <span class="to">'+esc(other.t)+'</span> — '+esc(o.L.sens)+'.</li>';
       }).join('');
+      /* La notion a sa page : la carte donne les LIENS, la page donne
+         l'argument. `NOTIONS_HREF` est dérivé par tools/gen-seo.mjs (bloc
+         NOTIONS en tête de body) — la page ne résout rien elle-même. */
+      var href=((window.NOTIONS_HREF||{})[c.t]||{}).h||'';
       detail.innerHTML = '<div class="carte-de" lang="de">'+esc(c.de)+'</div>'
         + '<h3 class="carte-titre">'+esc(c.t)+'</h3>'
         + '<p class="carte-def">'+esc(c.def)+'</p>'
-        + (rels ? '<ul class="carte-rel">'+rels+'</ul>' : '');
+        + (rels ? '<ul class="carte-rel">'+rels+'</ul>' : '')
+        + (href ? '<a class="carte-lire" href="'+href+'">Lire la notion</a>' : '');
     }
     schema.querySelectorAll('.carte-node').forEach(function(g){
       g.addEventListener('click', function(e){ e.stopPropagation(); activate(g.getAttribute('data-id')); });

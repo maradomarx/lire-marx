@@ -7377,6 +7377,167 @@ la distance a suivi. Reculer aurait rendu la planche d'essai illisible.
 - Le `Article` en JSON-LD signe `Organization` : la page n'a pas de byline
   nominative, et un schéma n'affirme que ce que la page imprime.
 
+## Le glossaire n'est plus une île (mission `maillage-glossaire`, sept. 2026)
+
+Question du propriétaire : « comment apparaître en première page de Google
+sur les notions ? ». La reconnaissance a donné deux réponses distinctes, et
+il faut les tenir séparées.
+
+**Ce qui n'est PAS le levier** : la technique était faite. Les trente-neuf
+pages ont leurs titres à la bonne forme, **2 359 mots de moyenne**, leur
+`DefinedTerm` + `Article` + `BreadcrumbList`, leur canonique propre, et elles
+répondent 200 en production. Ne pas « optimiser les balises » de ces pages :
+il n'y a plus rien à y gagner.
+
+**Ce qui l'était** — mesuré, et net :
+
+```
+liens internes vers une page de notion, dans le HTML servi :
+  75  glossaire/index.html
+  ~11 chaque page de notion (les voisines)
+   0  oeuvres/capital-1.html        ← la page la plus lourde du site
+   0  oeuvres/manuscrits-1844.html
+```
+
+Les deux ateliers ne pointaient vers `/glossaire/` qu'**une fois**, le pied de
+page. Or les **soixante-quinze fiches du laboratoire SONT** les
+soixante-quinze notions qui ont désormais une page : `META[rn].labo` et
+`EXPLO_FOR[rn]` désignent une station, chaque station porte ses fiches, et
+chaque fiche a sa destination depuis `glossaire-mondes-26`. **La chaîne
+existait depuis toujours, elle n'était pas câblée.**
+
+Après : **75 liens dans capital-1.html, 7 dans manuscrits-1844.html**, et les
+**trente-neuf** pages de notion sont atteintes (ensembles vérifiés égaux).
+
+### Le contrat est DÉRIVÉ, et la page ne résout rien
+
+`tools/gen-seo.mjs` écrit dans les deux ateliers, entre marqueurs
+`NOTIONS:DÉBUT`/`NOTIONS:FIN`, un `window.NOTIONS_HREF` indexé par le titre
+**exact** de la fiche. Toute la résolution — identité, suffixe de station,
+renvoi `voir`, `page.slug` — se fait une seule fois, dans le générateur.
+C'est la règle de la source unique : une page qui referait ce calcul
+divergerait le jour où une notion serait renommée.
+
+Chaque entrée porte `h` (l'adresse) **et `n` (le nom canonique)**, parce que
+les deux diffèrent et que les deux servent : la CARTE garde son propre terme
+— « Capital constant (c) », notation de station comprise, l'atelier ne change
+pas d'un pixel —, mais la LISTE de la marge doit nommer la page, qui couvre
+ici les deux capitaux. Sans `n`, la marge affichait « Capital constant (c) »
+et laissait tomber « Capital variable (v) » au dédoublonnage.
+
+### Les cartes sont PRÉ-RENDUES — c'est la moitié qui compte pour les moteurs de réponse
+
+Les `.ccard` sont peuplées par le script : des liens JS-only auraient servi
+Google (qui rend la page) et **rien** aux crawlers qui lisent le HTML brut.
+Le générateur pré-rend donc les treize conteneurs, exactement comme le
+registre de la bibliothèque (`seo-registre-servi`), et le JS les réécrit à
+l'identique par-dessus.
+
+**LE PRIX D'UN RENDU À DEUX ENDROITS** : `ccHtml()` du générateur et
+`ccHtml()` de `capital-1.html` doivent produire le MÊME octet, et ils bougent
+ENSEMBLE. Le contrôle est écrit plus bas.
+
+Côté Manuscrits il n'y a pas de fiche — les sept concepts vivent dans la
+carte, un SVG interactif. Le panneau de détail porte le renvoi (`.carte-lire`),
+et une **ligne dérivée sous la carte** (`.carte-sortie`) porte les sept liens
+dans le HTML servi. Elle n'est pas un doublon : la carte montre des
+**rapports**, la ligne dit que chaque nœud a **sa page**.
+
+### ⚠️ LE PIÈGE QUI A COÛTÉ LE PLUS : `entreMarqueurs` ne cherchait pas la fin après le début
+
+```js
+const i = src.indexOf(deb), j = src.indexOf(fin);   // ← fin cherchée depuis le HAUT
+```
+
+Avec **une** paire de marqueurs par fichier — le pied de page, seul usage
+jusqu'ici — les deux reviennent au même. Avec **treize** paires, `indexOf`
+rend la fin d'une AUTRE paire ; quand elle précède le début,
+`slice(0, i) + contenu + slice(j)` **RECOPIE tout ce qui les sépare**.
+Mesuré : `capital-1.html` passé de **313 Ko à 34 Mo** en treize tours.
+Corrigé à la source (`indexOf(fin, i + deb.length)`, plus une erreur claire
+si la fin manque). **Le motif se déclenche dès qu'une fonction de
+remplacement entre marqueurs sert plus d'une fois par fichier.**
+
+### Le test d'identité, et son faux positif
+
+Comparer le HTML servi au `innerHTML` rendu donne **treize divergences qui
+n'existent pas** : Chrome sérialise `<path d="…"/>` en `<path d="…"></path>`.
+Ce n'est pas une divergence des deux rendus, c'est la sérialisation du MÊME
+DOM. Le bon test parse le HTML servi avec `DOMParser` et compare
+`[...el.children].map(c => c.outerHTML).join('')` des deux côtés — les deux
+sérialisés par le même moteur. Résultat : **13 conteneurs sur 13, identiques**.
+Ce contrôle est à rejouer après toute retouche de l'un des deux `ccHtml`.
+
+### Les autres pièges, tous vécus
+
+1. **Changer le TYPE d'un élément change ce que l'agent utilisateur lui
+   applique.** `.ccard` devient `<a>` : sans `color` NI `text-decoration`
+   explicites, il part bleu et souligné. Défaut déjà payé sur `.lk`, sur
+   `.rd-chip`, et sur les douze liens de l'abécédaire restés à 1,3:1. La
+   règle vaut aussi pour `.carte-lire` et `.carte-sortie a`.
+2. **`atelier.css` et `manuscrits-1844.css` ont dû être VERSIONNÉS**
+   (`?v=3` sur six pages, `?v=2` sur une). Les deux sont servis en
+   `max-age=14400` : un visiteur revenu dans les quatre heures aurait reçu le
+   nouveau balisage avec l'ancienne feuille, et la liste de la marge serait
+   sortie en liens bleus soulignés. C'est **mot pour mot** le piège qui a
+   cassé le pied de page en production. La règle est générale, pas propre à
+   `shell.css` — et `gen-seo.mjs` ne la tient PAS : c'est un geste à la main.
+3. **`zsh` ne découpe pas `$F` en mots.** Une liste de fichiers passée par
+   variable au détecteur arrive comme un seul argument : il rend
+   **0 constat**, et l'on croit à une amélioration spectaculaire. Passer les
+   fichiers en clair, ou `${=F}`.
+4. **La frame de coordonnées de `computer` est celle de la CAPTURE, pas du
+   viewport émulé.** Un clic à des coordonnées lues dans la page ne tombe pas
+   au bon endroit quand la pane est plus petite que le viewport émulé — le
+   clic ne fait rien et l'on croit le lien mort. Passer par une **référence**
+   d'élément (`find` → `ref_N`).
+5. Rappels confirmés : capture noire sur `capital-1.html` (masquer les
+   voisins pour ramener la zone en haut), `document.hidden` vrai dans la pane
+   (transitions ET animations gelées — neutraliser les deux AVANT de mesurer),
+   et le serveur de test doit servir le **FICHIER avant le DOSSIER**
+   (`oeuvres/capital-1` est les deux).
+
+### Ce qui a été délibérément laissé de côté
+
+- **Vingt chapitres sur trente-trois** portent « Les notions » dans la marge —
+  ceux qui ont une station de laboratoire ou une exploration. Les treize
+  autres n'affichent rien plutôt qu'un renvoi inventé.
+- **La bibliothèque ne renvoie pas aux notions** : elle présente le CORPUS,
+  œuvre par œuvre. C'est le même arbitrage que pour le jeu.
+
+### Vérifié
+
+Identité pré-rendu / rendu **13/13**. Contraste sur le rendu, transitions et
+animations neutralisées : **0 échec** (54 mesures sur Capital, minimum 5,74 ;
+21 sur les Manuscrits, minimum 5,12), aucun texte sous 11 px. Cibles : cartes
+267×28 et 331×164, `.carte-lire` 123×32 — les sept liens de `.carte-sortie`
+font 16 px et **c'est régulier**, ils sont en ligne dans une phrase, cas que
+WCAG 2.5.8 exempte (l'inverse des entrées de LISTE de la marge, qui prennent
+bien leurs 24 px). Détecteur statique compté **avant et après en remisant les
+modifications** : **103 constats, 0 erreur, identique**. `gen-seo --check` à
+jour et **idempotent**. Zéro débordement horizontal à 1380, 800 et 375 px.
+(Contraindre `<html>` à une largeur au lieu de redimensionner le viewport
+donne un faux débordement — la sidebar est en `position:fixed` et ne reflue
+pas ; mesuré **identique à HEAD**, de 700 à 820 px, avec 75 cartes contre 0.)
+Console
+sans erreur sur les six pages qui chargent `atelier.css`. Clic réel depuis une
+fiche → `/glossaire/accumulation-primitive`. Les trente-neuf destinations
+existent (ensembles comparés).
+
+### Ce qui reste, et qui n'est plus dans le dépôt
+
+Le maillage interne est complet. Sur les requêtes disputées — « plus-value »,
+« fétichisme » — la première page est tenue par Wikipédia, Cairn et
+Palim Psao : des domaines de quinze à vingt ans, que rien d'on-page ne
+déloge. **Le créneau réel est ailleurs** : sur « travailleur collectif », la
+première page entière est composée de pages de texte brut de marxists.org,
+sans une seule page qui explique. Une vingtaine de notions sont dans ce cas
+(subsomption réelle, appendice de la machine, législation sanglante, force
+productive, reproduction simple, corvée-esclave-salarié…). C'est là que la
+première page est atteignable, et c'est **Search Console** — déclarée depuis
+`maillage-explorable`, jamais consultée — qui dira où pousser. Le reste tient
+aux **liens entrants externes**, la seule variable qui ne se code pas.
+
 ## Conventions de travail
 
 - **Une mission par session.** Une demande utilisateur = un objectif clair,
