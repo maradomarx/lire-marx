@@ -125,8 +125,65 @@
            document — et non plus à une modale. C'est donc une ANCRE. */
         '<a class="sb-item" href="/mentions-legales" data-act="cgu"><span class="sb-dot" style="background:var(--ink-soft)"></span>CGU &amp; règles</a>' +
         sbWork +
+        /* « Installer l'application » — masqué tant que rien ne dit qu'on
+           peut l'installer (voir wireInstall) : sur Chrome/Android le
+           navigateur le dit par `beforeinstallprompt` ; sur Safari iOS il
+           n'y a pas d'invite, le bouton révèle la marche à suivre. C'est une
+           ACTION, donc un <button>. Jamais affiché quand la page tourne déjà
+           en application (display-mode: standalone). */
+        '<div class="sb-app" id="sbApp" hidden>' +
+          '<button class="sb-item sb-install" type="button" data-act="installer" aria-expanded="false" aria-controls="sbAppAide"><span class="sb-dot" style="background:var(--gold)"></span>Installer l\'application</button>' +
+          '<p class="sb-app-aide" id="sbAppAide" hidden>Dans Safari&nbsp;: bouton Partager, puis «&nbsp;Sur l\'écran d\'accueil&nbsp;».</p>' +
+        '</div>' +
       '</nav>'
     );
+  }
+
+  // ----- L'application installable (mission `application-mobile`) -----
+  // Le service worker vit à la RACINE (/sw.js) : sa portée est celle de son
+  // URL, et il doit couvrir l'accueil, le glossaire et /a-propos autant que
+  // /oeuvres/. `updateViaCache:'none'` : le script lui-même n'est jamais
+  // pris dans le cache HTTP de 4 h de Cloudflare — la mise à jour d'un
+  // service worker doit voir le fichier réel.
+  function registerSW(){
+    if(!('serviceWorker' in navigator)) return;
+    if(location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') return;
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).catch(function(){ /* sans conséquence : le site marche sans */ });
+    });
+  }
+
+  function wireInstall(sb){
+    var box = sb.querySelector('#sbApp');
+    var btn = sb.querySelector('.sb-install');
+    var aide = sb.querySelector('#sbAppAide');
+    if(!box || !btn) return;
+    var standalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+    if(standalone) return;  /* on y est déjà */
+    var ua = navigator.userAgent || '';
+    /* iPadOS se présente comme un Mac : c'est le tactile qui le trahit. */
+    var iOS = /iP(hone|ad|od)/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+    var safariiOS = iOS && /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS/.test(ua);
+    var invite = null;
+    window.addEventListener('beforeinstallprompt', function(e){
+      e.preventDefault();  /* on choisit le moment : au clic du lecteur */
+      invite = e;
+      box.hidden = false;
+    });
+    window.addEventListener('appinstalled', function(){ box.hidden = true; invite = null; });
+    if(safariiOS) box.hidden = false;
+    btn.addEventListener('click', function(){
+      if(invite){
+        invite.prompt();
+        invite.userChoice.then(function(r){ if(r && r.outcome === 'accepted') box.hidden = true; invite = null; });
+        return;
+      }
+      /* iOS : pas d'invite programmable, on dit comment faire. */
+      var ouvert = aide.hidden;
+      aide.hidden = !ouvert;
+      btn.setAttribute('aria-expanded', ouvert ? 'true' : 'false');
+      if(ouvert && typeof announce === 'function') announce(aide.textContent);
+    });
   }
 
   function buildBackdrop(){
@@ -252,6 +309,8 @@
     // wireSupportPopover() et wireSharedSearch() ci-dessous.
     wireSupportPopover();
     wireSharedSearch();
+    wireInstall(sb);
+    registerSW();
   }
 
   // ----- Popover « Soutenir le projet » -----

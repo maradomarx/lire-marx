@@ -1,0 +1,27 @@
+{
+  "id": "/",
+  "name": "Lire Marx",
+  "short_name": "Lire Marx",
+  "description": "Le Capital et les Manuscrits de 1844 en texte intégral, l'appareil critique en marge du chapitre, l'abécédaire des notions et votre carnet de passages.",
+  "lang": "fr",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#15100b",
+  "theme_color": "#15100b",
+  "categories": ["books", "education"],
+  "icons": [
+    { "src": "/assets/img/logo/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/img/logo/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/img/logo/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/assets/img/logo/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Le Capital, Livre I", "short_name": "Le Capital", "url": "/oeuvres/capital-1" },
+    { "name": "Manuscrits de 1844", "short_name": "Manuscrits", "url": "/oeuvres/manuscrits-1844" },
+    { "name": "Mon carnet", "url": "/oeuvres/carnet" },
+    { "name": "Glossaire", "url": "/glossaire/" }
+  ]
+}
