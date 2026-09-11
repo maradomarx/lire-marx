@@ -1,0 +1,51 @@
+{
+  "_": "LA TÊTE de /oeuvres/capital-1/chapitre-10. Le titre, la section, les chapitres voisins, les dates, l'instrument et la marche sont DÉRIVÉS de l'atelier (ROY_STRUCT, META, CHRONO, STEPS) par tools/gen-seo.mjs : ce fichier ne porte que ce que l'atelier n'a pas. Les parties sont relevées dans le texte de Roy tel que la liseuse le sert, leur poids mesuré en caractères.",
+  "rn": "X",
+  "chapo": "On le lit souvent comme une parenthèse historique au milieu d'une démonstration. Il en est la suite nécessaire&nbsp;: puisque aucune loi de l'échange ne fixe la longueur de la journée, il ne reste qu'à établir ce qui l'a fixée — et les rapports d'inspecteurs, qui en occupent la plus grande part, sont la preuve et non l'illustration.",
+  "description": "Le Capital, chapitre X (8 dans l'édition allemande) : la journée de travail — ce qu'il établit, pourquoi il vient là, ses sept parties et comment les lire.",
+  "notions": [
+    "Journée de travail",
+    "Surtravail",
+    "Travail nécessaire",
+    "Plus-value absolue",
+    "Factory Acts & inspecteurs",
+    "Force de travail"
+  ],
+  "parties": [
+    [
+      "I",
+      "Limite de journée de travail",
+      7
+    ],
+    [
+      "II",
+      "Le Capital affamé de surtravail. — Boyard et fabricant",
+      11
+    ],
+    [
+      "III",
+      "La journée de travail dans les branches de l’industrie où l’exploitation n’est pas limitée par la loi",
+      19
+    ],
+    [
+      "IV",
+      "Travail de jour et nuit. — Le système des relais",
+      11
+    ],
+    [
+      "V",
+      "Lois coercitives pour la prolongation de la journée de travail depuis le milieu du quatorzième jusqu’à la fin du dix-septième siècle",
+      17
+    ],
+    [
+      "VI",
+      "Lutte pour la journée de travail normale — La limitation légale du temps de travail. — La législation manufacturière anglaise de 1833 à 1864",
+      29
+    ],
+    [
+      "VII",
+      "La lutte pour la journée de travail normale. Contrecoup de la législation anglaise sur les autres pays",
+      6
+    ]
+  ]
+}

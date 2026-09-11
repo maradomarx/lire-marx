@@ -7905,6 +7905,117 @@ Détecteur compté **en remisant** : identique sur les six fichiers touchés.
   été vus remplis.
 - Le jeu tutoie toujours.
 
+## Les chapitres du Capital ont une adresse (mission `chapitres-capital`, sept. 2026)
+
+Demande du propriétaire : « indexons d'autres URL ». **Rien d'indexable ne
+manquait au sitemap** — les six fichiers absents sont exprès en `noindex` ou
+en redirection. Indexer d'autres URL voulait donc dire en CRÉER, pour de la
+matière qui existait sans adresse. Trois gisements mesurés :
+
+| gisement | matière | verdict |
+|---|---|---|
+| **33 chapitres du Capital** (`#ch=X`, fragment ignoré par Google) | résumé de 64 mots en moyenne | **oui, écrits** |
+| 9 parties des Manuscrits | ~50 mots | non — doublonneraient les pages de notion (travail aliéné, argent, besoins, communisme), sans citation possible (Bottigelli) |
+| 10 œuvres « en préparation » | ~50 mots | non — Wikipédia tient la place, et le site ne les sert pas |
+
+**La demande est réelle et la concurrence faible** : sur « chapitre 10, la
+journée de travail », des blogs, wikirouge et du texte brut ; sur
+« chapitre 23, reproduction simple », AUCUNE page explicative en français.
+Le concurrent le plus proche (d-meeus.be) met 800 à 1 000 mots de commentaire
+par chapitre : c'est la barre.
+
+**Arbitrages du propriétaire** : une **fiche écrite, sans scène** (la figure
+d'un chapitre existe souvent déjà sur la page de la notion qu'il établit) ; un
+**pilote sur le chapitre X**, sa relecture, puis des lots de trois à cinq.
+Assembler les résumés de 64 mots avec les définitions de l'abécédaire a été
+écarté : du contenu mince qui ferait concurrence aux pages de notion.
+
+### La forme
+
+`oeuvres/capital-1/chapitres/<romain>/` porte `essai.html` et `meta.json`
+(chapô, description, notions établies, parties relevées dans Roy avec leur
+poids) ; `tools/gen-seo.mjs` assemble `oeuvres/capital-1/chapitre-<arabe>.html`
+— **le romain pour le dossier et le deep-link de l'atelier, l'arabe pour
+l'adresse**, parce que c'est « chapitre 10 » que l'on tape. Tout le reste est
+DÉRIVÉ de l'atelier : titre, section et voisins (`ROY_STRUCT`), dates
+(`CHRONO`), instrument (`META.labo`), marche (`META.d`). Grammaire des pages
+de notion (`notion.css`, bloc `.ch-*`) : colonne en Spectral, sections
+numérotées, marge collante à droite au-dessus de 1100 px, sous le texte en
+dessous — l'essai se lit seul et « Lire le chapitre » est déjà en tête.
+
+**LA DOUBLE NUMÉROTATION est l'apport propre de ces pages.** Roy, revu par
+Marx, découpe le Livre I en 33 chapitres, et les éditions anglaises le
+suivent ; l'original allemand et la traduction dirigée par Jean-Pierre
+Lefebvre en comptent 25 (le 4 allemand = IV à VI, le 24 = XXVI à XXXII).
+Un étudiant cherche avec la numérotation de SON édition. Table `ALLEMAND`
+dans le générateur, relevée sur trois sources concordantes (zeno.org,
+d-meeus.be, marxists.org en anglais).
+
+**Les citations de la page de chapitre sont DISTINCTES de celles de la page
+de notion** : la notion porte le concept (l'antinomie, le vampire), le
+chapitre porte un texte — sa place, sa construction, sa preuve. Le
+maillage est dérivé dans les deux sens : la notion renvoie au « chapitre
+expliqué » (`CHAP_META`, relevé en tête du générateur parce que le glossaire
+le lit avant l'assemblage), la marge de l'atelier aussi (`CHAPITRES_HREF`,
+injecté dans le bloc `NOTIONS`), et les voisins mènent à la page quand elle
+existe, sinon au chapitre dans l'atelier.
+
+### Trois erreurs trouvées sur une page déjà en ligne
+
+La page de notion de la journée de travail affirmait que le chapitre X est
+« le plus long du livre », qu'il « va porter deux cents pages » et qu'il est
+« le seul endroit du Livre I où la preuve est d'espèce historique ». Mesuré :
+**troisième** des 33 (24 454 mots, 9,9 % d'un Livre I de 245 938 mots hors
+notes), le XV en fait 1,82 fois plus, et les chapitres de l'accumulation
+primitive sont tout aussi historiques. Corrigé dans la source de la notion.
+
+### Pièges payés
+
+1. **La longueur d'un chapitre se mesure SANS les notes.** Wikisource place
+   les notes en fin de SECTION : un comptage naïf les attribue au dernier
+   chapitre de chaque section et gonfle III, XI, XV, XXV, XXXIII. Premier
+   comptage : X quatrième et XV « plus du double » — deux affirmations
+   fausses écrites puis corrigées avant publication.
+2. **La position d'une partie se prend sur son TITRE**, jamais sur le
+   chiffre romain qui la précède : « I » est partout, et les poids sortaient
+   à 1 % et 0 %.
+3. **La liseuse retrouve un passage par `indexOf` EXACT** (`locate()`), sans
+   normaliser les blancs : le contrôle qui vaut se fait dans la vraie liseuse
+   (`#ch=X`, texte de `#readerOut`), pas sur un texte nettoyé à part.
+   Apostrophes typographiques et traits d'union insécables (`demi‑siècle`,
+   U+2011) compris.
+4. **Les sources des pages générées étaient servies SANS `noindex`** :
+   `/glossaire/mondes/fetichisme/essai` répondait 200 en production. Rien ne
+   les lie, mais une URL qui répond 200 est indexable par défaut. `_headers`
+   couvre désormais `/glossaire/mondes/*` et `/oeuvres/capital-1/chapitres/*`
+   (joker final, pris en charge par Cloudflare selon sa documentation).
+5. Rappels : les accents graves sont interdits même en commentaire dans un
+   gabarit de `gen-seo.mjs` ; un script shell qui contient une apostrophe
+   droite s'écrit dans un FICHIER (heredoc à délimiteur entre guillemets),
+   pas dans un `node -e '…'` — zsh refuse alors la commande entière, `mkdir`
+   et `curl` compris.
+
+### Vérifié (pilote, chapitre X)
+
+1 446 mots, six sections, **douze citations toutes retrouvées par la
+liseuse** dans la section servie, six notions, sept dates. Contraste sur le
+rendu : **0 échec sur 126 mesures**, minimum 4,56 (le blanc sur rouge du
+bouton), aucun texte sous 11 px, aucune cible sous 24 × 24. Zéro débordement
+à 1280 et 375 px ; marge collante à 1280, sous le texte à 375. Liens sans
+bleu ni soulignement. `Article` + `BreadcrumbList`. `gen-seo --check` à jour
+et idempotent ; les 39 pages de notion n'ont bougé que du `?v=` de
+`notion.css`. Détecteur compté **avant et après en remisant** : page neuve
+**0 constat** ; `notion.css` passe de 4 à 5 — un « Overused font » sur
+Fraunces pour les numéros de parties et les années, la rime typographique
+documentée, à ne pas corriger ; `capital-1.html` inchangé (19).
+
+### Ce qui reste
+
+- **La relecture du pilote par le propriétaire**, puis les 32 autres
+  chapitres par lots de trois à cinq. La table `ALLEMAND` est déjà complète.
+- Les essais de chapitre n'entrent pas encore dans `recherche-essais.json` ;
+  la recherche « chapitre X » continue d'ouvrir le chapitre dans l'atelier.
+
 ## Conventions de travail
 
 - **Une mission par session.** Une demande utilisateur = un objectif clair,

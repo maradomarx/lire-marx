@@ -273,3 +273,53 @@ html.js-monde .nt--plein .nt-monde-credit{display:block;}
   .nt-monde-src{top:8px;left:10px;right:10px;}
   .nt-monde-src a{font-size:.72rem;letter-spacing:.04em;padding:5px 8px;}
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   LA PAGE DE CHAPITRE (mission chapitres-capital, sept. 2026)
+   -------------------------------------------------------------------
+   /oeuvres/capital-1/chapitre-<n> — une explication écrite, SANS scène :
+   la figure d'un chapitre existe déjà, le plus souvent, sur la page de la
+   notion qu'il établit. La grammaire est celle des pages de notion (même
+   colonne en Spectral, mêmes sections numérotées), et la marge porte
+   l'appareil de l'atelier : les parties du chapitre avec leur poids, les
+   notions, les dates, l'instrument, la marche. Au-dessus de 1100 px elle
+   est collante à droite ; en dessous elle suit le texte — l'essai se lit
+   seul, et le bouton « Lire le chapitre » est déjà en tête.
+   ═══════════════════════════════════════════════════════════════════ */
+.nt--ch{max-width:1180px;}
+.ch-num{display:block;font-style:italic;font-weight:500;font-size:.46em;
+  letter-spacing:0;color:var(--gold);margin-bottom:8px;}
+.ch-nums{font-family:var(--f-ui);font-size:.84rem;line-height:1.65;color:var(--muted);margin-top:14px;}
+.ch-nums b{font-weight:600;color:var(--ink-soft);}
+.ch-acts{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;margin-top:26px;}
+.ch-marge{margin-top:clamp(40px,6vh,60px);display:flex;flex-direction:column;gap:1px;
+  background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+.ch-marge .nt-bloc{padding:18px 20px 20px;}
+.ch-plan,.ch-dates{list-style:none;display:flex;flex-direction:column;gap:7px;}
+.ch-plan li{display:grid;grid-template-columns:2.3em minmax(0,1fr) auto;gap:8px;align-items:baseline;
+  font-family:var(--f-serif);font-size:.88rem;line-height:1.45;color:var(--ink-soft);}
+.ch-dates li{display:grid;grid-template-columns:3.1em minmax(0,1fr);gap:8px;align-items:baseline;
+  font-family:var(--f-serif);font-size:.88rem;line-height:1.45;color:var(--ink-soft);}
+.ch-plan .n,.ch-dates .y{font-family:'Fraunces',serif;font-style:italic;font-weight:500;color:var(--gold);}
+.ch-plan .p{font-family:var(--f-ui);font-size:.72rem;color:var(--muted);font-variant-numeric:tabular-nums;}
+.ch-suite{margin-top:clamp(40px,6vh,56px);padding-top:22px;border-top:1px solid var(--border);
+  display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+/* Ancres bâties sur <a> : couleur ET soulignement déclarés, sinon l'agent
+   utilisateur les rend bleues et soulignées (le défaut payé sur .lk). */
+.ch-suite a{display:flex;flex-direction:column;gap:4px;padding:12px 15px;border:1px solid var(--border);
+  border-radius:12px;background:var(--surface);color:var(--text);text-decoration:none;
+  transition:border-color .18s;}
+.ch-suite a:hover,.ch-suite a:focus-visible{border-color:var(--gold);}
+.ch-suite .k{font-family:var(--f-ui);font-size:.72rem;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);}
+.ch-suite .t{font-family:var(--f-serif);font-size:.95rem;line-height:1.4;}
+.ch-suite .suiv{grid-column:2;text-align:right;}
+@media(min-width:1100px){
+  .nt--ch .nt-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;
+    gap:clamp(28px,4vw,64px);align-items:start;}
+  .nt--ch .ch-marge{position:sticky;top:60px;margin-top:0;max-height:calc(100vh - 80px);overflow:auto;}
+}
+@media(max-width:560px){
+  .ch-suite{grid-template-columns:1fr;}
+  .ch-suite .suiv{grid-column:1;text-align:left;}
+}

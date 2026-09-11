@@ -23,6 +23,20 @@
 /oeuvres/manuscrits-1844/textes/*
   X-Robots-Tag: noindex
 
+# LES SOURCES DES PAGES GÉNÉRÉES. tools/gen-seo.mjs assemble chaque page de
+# notion depuis glossaire/mondes/<slug>/ (essai.html, meta.json, monde.js…) et
+# chaque page de chapitre depuis oeuvres/capital-1/chapitres/<n>/. Ces dossiers
+# sont servis comme tout le dépôt : mesuré en production,
+# /glossaire/mondes/fetichisme/essai répondait 200 SANS en-tête — un fragment
+# nu qui doublonne la page assemblée. Rien ne les lie, mais une URL qui répond
+# 200 est indexable par défaut. Le joker est FINAL : les images fixes et les
+# scènes y passent aussi, ce qui ne retire rien (une og:image n'a pas besoin
+# d'être indexée pour s'afficher).
+/glossaire/mondes/*
+  X-Robots-Tag: noindex
+/oeuvres/capital-1/chapitres/*
+  X-Robots-Tag: noindex
+
 # Les fichiers de données. Leur contenu est déjà rendu dans les pages —
 # bibliotheque.json EST le registre de la bibliothèque, pré-rendu depuis la
 # mission seo-registre-servi. L'indexer, c'est se doublonner soi-même.
