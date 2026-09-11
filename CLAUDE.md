@@ -7773,6 +7773,138 @@ trois conditions).
 - **Les stores** : voir plus haut, mission à part, si le propriétaire le
   demande.
 
+## Le téléphone a droit au mouvement (mission `vivant-sur-mobile`, sept. 2026)
+
+Demande du propriétaire, le jour où le site est devenu une application
+installable : « qu'elle soit animée et vivante comme le site sur PC, et que
+le jeu y soit jouable ». Deux chantiers, deux dépôts.
+
+### 1. Les garde-fous de largeur sont LEVÉS, seul reduced-motion coupe
+
+Toutes les animations et tous les décors WebGL du site étaient coupés sous
+768 px (et les pages-monde sous 1100 px). Ces gardes sont parties, une par
+une : le script de tête et `home.js` sur l'accueil (les dix fonctions,
+`withThree` compris, plus le CSS qui masquait `#hero-bg` et `#circuit-bg`
+sous 720 px), `jeu/index.html`, `glossaire/index.html` (`js-glm`),
+`atelier-motion.js` (`tooNarrow` reste défini, plus appelé), `a-propos.html`
+(`js-ap`), `carnet-intro.js` **et le `@media(min-width:768px)` de
+`carnet.html` qui gardait ses règles** (sans lui la scène jouait invisible),
+`bibliotheque.html` (`want3D`), `monde-driver.js`. **Ne pas les remettre** :
+un téléphone de 2026 rend ces scènes sans peine (le chariot plafonne déjà
+son pixelRatio à 1,5).
+
+Trois choses ont dû être REPENSÉES et non seulement déverrouillées :
+
+- **La liasse de l'accueil vit dans un RIG** (`fitRig()` dans `heroBg`). Ses
+  positions de repos (`CX`, `CY`, `FAN`) sont calées pour la moitié droite
+  d'un cadre large. En portrait le héros s'empile sur une colonne (règle
+  `html:not(.no-motion) body .hs-hero` sous 720 px — **`body` ajouté pour
+  passer devant la règle à deux colonnes de même spécificité écrite plus
+  bas**, sinon le texte tombait à 161 px de large) et réserve 300 px de
+  `padding-bottom` où le rig, déplacé et réduit à l'échelle du cadre,
+  rassemble l'éventail ; le masque de `#hero-bg` devient vertical, les
+  feuillets se dissolvent en montant sur le titre. Le cadre encadré
+  (`.hs-right`) reste réservé à `no-motion`.
+- **La scène des pages-monde est une BANDE COLLANTE sous 1100 px**
+  (notion.css) : `position:sticky` sous la topbar, `min(44vh, 380px)` de
+  haut, le texte vient lire dessous. La hauteur de la topbar n'est pas
+  44 px partout (121 px à 375) : `monde-driver.js` écrit `--nt-top` depuis
+  sa hauteur réelle, avec le rappel de mesure habituel. La ligne « D'après
+  le texte » se tronque sur une ligne.
+- **La feuille volante de la bibliothèque se RECULE et se CENTRE en
+  portrait** (`kFit`) : posée à 1,62 devant l'objectif, elle mesurait
+  515 px pour un écran de 390 et débordait des deux côtés. Le champ
+  horizontal étant plus étroit que la feuille, on la recule d'autant qu'il
+  faut, et le décalage à gauche du grand écran (qui laisse voir la pièce)
+  s'annule.
+
+Versions : `home.js?v=3`, `atelier-motion.js?v=3`, `carnet-intro.js?v=2`
+(la règle des actifs qui changent avec un balisage) ; `notion.css` porte
+déjà un hash.
+
+### 2. Le jeu se joue au doigt (v67, dépôt `circuit-du-capital`)
+
+Le modèle d'entrée du jeu tient en quatre booléens (`Input.fwd/back/left/
+right`) et une poignée de touches : c'est ce qui a rendu le tactile bon
+marché. Sous `html.tactile` (posée quand `(pointer:coarse)` est vrai) :
+
+- **un levier** en bas à gauche (`#tc-stick`, pointer capture, zone morte à
+  22 %, avant/arrière quand le geste est franchement vertical, braquage dès
+  qu'on s'écarte de l'axe — `data-dir` reflète l'état, c'est ce que le
+  harnais lit), **trois boutons** à droite — Agir (E, allumé quand
+  `currentZone`), Voile (V, apparaît avec `voileUnlocked`), Caméra (C) —,
+  et l'invite de zone qui se touche ;
+- **un observateur réécrit à l'écran les mots qui nomment les touches**
+  (« Appuie sur E » → « Touche Agir », « Z Q S D » → le levier, « Touche V »
+  → Bouton Voile) : seize textes du jeu les portent, on corrige ce qui
+  ARRIVE dans le DOM plutôt que chaque chaîne, sans jamais réécrire un
+  `innerHTML` (les écouteurs des boutons seraient perdus) — seuls les
+  `<b>` et les nœuds texte changent, et c'est idempotent ;
+- la cinématique se passe au doigt (`touchstart`), qualité basse et décor
+  moyen par défaut au tactile, `viewport-fit=cover` et zoom bloqué.
+
+**La mise en page des petits écrans** (`≤ 760 px`, dans `index.html` du
+jeu) : la barre du circuit **défile horizontalement** au lieu de déborder
+(588 px pour 390 — mesuré avant), la case courante ramenée au champ ;
+coffre et Paramètres passent sous elle ; les panneaux prennent la largeur ;
+tout ce qui vivait en bas (journal, invite, quête, leviers) se relève
+au-dessus des commandes ; un réglage propre au **paysage** (`max-height:
+500px`) glisse le tutoriel entre le coffre et les commandes. Le lien
+`.lm-retour` du site (greffé par `import-jeu.mjs`) rapetisse au ras du
+coin.
+
+Le fait « Au clavier » de `/jeu/` dit désormais « Au clavier ou au doigt ».
+La fiche « Prendre les rênes » de l'accueil reste au clavier et masquée
+sous 768 px : c'est le seul geste du site qui n'a pas d'équivalent tactile.
+
+### Pièges d'outillage de cette mission
+
+1. **`page.setOfflineMode` ne coupe pas le service worker** (déjà noté) et,
+   plus neuf : **SwiftShader rend la bibliothèque à 1 image par seconde**.
+   La feuille volante « ne se posait pas » après 8 s — elle se pose après
+   16 s à DPR 1. Un geste temporel qui semble mort dans le Chrome headless
+   est d'abord suspect de lenteur de rendu, pas de bug.
+2. **`git show HEAD:jeu/index.html > head/index.html` écrase
+   `head/index.html`** — deux fichiers de même nom de base, et un
+   « avant/après » du détecteur qui compare l'accueil à la page du jeu. Le
+   seul contrôle qui vaille est `git stash` / détecteur sur les VRAIS
+   chemins / `git stash pop`, et en zsh les fichiers se passent en
+   `${=F}`.
+3. **Le harnais du jeu se lance depuis la racine du SITE** : `cd` dans le
+   dépôt du jeu puis `node tools/import-jeu.mjs` cherche l'outil au mauvais
+   endroit et `build.json` n'existe plus. Deux fois payé dans la séance.
+4. Sur l'accueil à 390 px, la topbar est un bandeau flottant translucide
+   à 82 % : ce n'est pas une régression, c'est identique à HEAD.
+
+### Vérifié
+
+Dans le vrai Chrome en émulation iPhone (390 × 844, tactile) : les neuf
+pages du site arment leurs classes de mouvement (`js-viv js-circuit js-faq
+js-candle js-devscrub js-frise js-place` sur l'accueil, `js-bib3d`,
+`js-monde`, `cn-anim`, `js-glm`, `js-ap`, `js-jeu`, `js-at3…`), les deux
+canevas de l'accueil et celui de la notion rendent, la bande collante se
+cale à `--nt-top` + 8 px, la feuille de la bibliothèque tient dans 366 px,
+l'entrée du carnet joue puis s'ouvre au toucher ; **zéro débordement
+horizontal, zéro erreur**. Le jeu en portrait et en paysage : `tactile`
+posé, levier → `fwd right` / `left` / vide au relâcher, le tutoriel passe à
+l'étape suivante (le chariot a roulé), prologue réécrit (« le levier, en bas
+à gauche, pour le conduire, Agir pour agir »), barre du circuit à 374 px
+défilante, zéro erreur. Les treize pages de bureau restent saines.
+Détecteur compté **en remisant** : identique sur les six fichiers touchés.
+`gen-seo --check` à jour.
+
+### Ce qui reste
+
+- **Le poids** : un téléphone charge désormais Three.js sur l'accueil, la
+  bibliothèque, le carnet et les pages-monde (jusqu'à 1 Mo de statue). C'est
+  le prix demandé ; si le terrain dit le contraire, `withThree()` et
+  `monde-driver` sont les deux endroits où remettre un seuil.
+- **Le jeu n'a été joué au doigt qu'au harnais** : levier, boutons et textes
+  vérifiés, pas une partie entière. Les panneaux des phases avancées
+  (formation sociale, leviers, cartes) ont leurs règles ≤ 760 px sans avoir
+  été vus remplis.
+- Le jeu tutoie toujours.
+
 ## Conventions de travail
 
 - **Une mission par session.** Une demande utilisateur = un objectif clair,

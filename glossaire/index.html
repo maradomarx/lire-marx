@@ -1685,8 +1685,8 @@ installShell({ workTitle: 'Glossaire', tabs: [] });
      fenêtre peut encore annoncer 0 (onglet ouvert en arrière-plan, onglet
      piloté), et la page partirait alors sans un geste pour un visiteur en
      1440 px. La media query, elle, décrit le viewport CSS. */
-  var motion = matchMedia('(min-width:768px)').matches
-            && !matchMedia('(prefers-reduced-motion:reduce)').matches;
+  /* mission vivant-sur-mobile : plus de seuil de largeur */
+  var motion = !matchMedia('(prefers-reduced-motion:reduce)').matches;
   if (motion){
     document.documentElement.classList.add('js-glm');
     /* La lettre est enveloppée pour pouvoir être frappée sans que la boîte

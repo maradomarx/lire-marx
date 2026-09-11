@@ -428,7 +428,7 @@ h2{font-family:'Fraunces',serif;font-weight:900;letter-spacing:-.015em;
      où le script s'exécute, la fenêtre peut annoncer 0 (onglet ouvert en
      arrière-plan, onglet piloté) et la page partirait sans rien. Piège
      déjà payé sur l'accueil et sur l'entrée du carnet. */
-  if (mq('(max-width:900px)').matches) return;
+  /* mission vivant-sur-mobile : les notes s'inscrivent aussi sur téléphone */
   if (mq('(prefers-reduced-motion:reduce)').matches) return;
 
   var notes = [].slice.call(document.querySelectorAll('.ap-marge > *'));

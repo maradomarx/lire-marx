@@ -268,11 +268,9 @@ a.cnb-act{font-weight:600;}
    ne doit pas jouer, aucune de ces règles n'existe et le carnet
    s'affiche normalement. Le JS vit dans carnet-intro.js.
    ═══════════════════════════════════════════════════════════════════ */
-/* Le seuil des 768 px est ICI et dans le module, jamais dans le <head> :
-   au parse, la fenêtre peut mentir sur sa taille. Sous ce seuil, aucun
-   élément de la scène n'est affiché — pas même une image de flash — et
-   carnet-intro.js les retire du document. */
-@media(min-width:768px){
+/* Mission vivant-sur-mobile (sept. 2026) : le seuil des 768 px qui gardait
+   ces règles — et son pendant dans carnet-intro.js — est LEVÉ. La scène
+   joue aussi sur téléphone. Le bloc n'est plus dans une media query. */
   html.cn-anim body{background:radial-gradient(ellipse at 50% 46%,#1a1410 0%,#0d0b0a 60%,#070605 100%);}
   /* la coquille n'arrive qu'avec le carnet : on n'ouvre pas un carnet
      au milieu d'une barre d'outils. */
@@ -284,7 +282,6 @@ a.cnb-act{font-weight:600;}
   html.cn-anim #cnScene{display:block;}
   html.cn-anim .cn-cine{display:flex;}
   html.cn-anim .cn-loading{display:flex;}
-}
 
 #cnScene,.cn-cine,.cn-loading{display:none;}
 #cnScene{position:fixed;top:0;left:0;width:100%;height:100%;z-index:200;}
@@ -328,6 +325,9 @@ a.cnb-act{font-weight:600;}
   text-transform:uppercase;color:#6b6051;transition:opacity .6s;}
 .cn-loading.gone{opacity:0;pointer-events:none;}
 @media(max-width:900px){.cn-mid{max-width:100%;}}
+/* au doigt, on ne « clique » pas */
+.cn-hint-tap{display:none;}
+@media(pointer:coarse){.cn-hint-pc{display:none;}.cn-hint-tap{display:inline;}}
 </style>
 </head>
 <body>
@@ -347,7 +347,7 @@ a.cnb-act{font-weight:600;}
     <p class="cn-lede">Ce que vous avez souligné, et ce que vous en avez écrit.</p>
   </div>
   <div class="cn-foot">
-    <div class="cn-hint"><i></i>Cliquez (ou faites défiler) pour ouvrir le carnet</div>
+    <div class="cn-hint"><i></i><span class="cn-hint-pc">Cliquez (ou faites défiler)</span><span class="cn-hint-tap">Touchez (ou faites défiler)</span> pour ouvrir le carnet</div>
   </div>
 </div>
 
@@ -439,7 +439,7 @@ a.cnb-act{font-weight:600;}
 
 <!-- L'entrée du carnet : three.js puis la scène (defer garde l'ordre). -->
 <script src="../vendor/three.min.js" defer></script>
-<script src="carnet-intro.js" defer></script>
+<script src="carnet-intro.js?v=2" defer></script>
 
 <script src="../config.js"></script>
 <script src="shell.js?v=8"></script>

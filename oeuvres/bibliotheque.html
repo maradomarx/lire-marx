@@ -587,7 +587,8 @@ installShell({ workTitle: 'Bibliothèque', tabs: [] });
   /* évalué au moment de DÉCIDER, pas au parse : la fenêtre peut ne pas
      avoir sa taille définitive pendant que le script s'exécute */
   function want3D(){
-    return !REDUCE && window.innerWidth >= 768 && location.hash !== '#liste';
+    /* mission vivant-sur-mobile : la pièce aux rayonnages joue aussi sur téléphone */
+    return !REDUCE && location.hash !== '#liste';
   }
 
   var WORKS = [], GROUPS = [], BY_ID = {};
@@ -1886,14 +1887,24 @@ installShell({ workTitle: 'Bibliothèque', tabs: [] });
       sheet.visible = (inZone && (sheetPlaying || sheetDone)) || endZone;
       landK = 0; endK = 0;
       if(sheet.visible){
-        var fx = SHEET_FRZ.x, fy = SHEET_FRZ.y, fz = SHEET_FRZ.z;
+        /* Mission vivant-sur-mobile : en PORTRAIT, le champ horizontal est
+           plus étroit que la feuille posée à 1,62 devant l'objectif — elle
+           débordait des deux côtés (mesuré : 515 px pour un écran de 390).
+           On la recule d'autant qu'il faut pour qu'elle tienne, et les deux
+           autres coordonnées suivent pour garder le même cadrage. */
+        var kFit = Math.max(1, (SHEET_W * 0.56) /
+          (Math.abs(SHEET_FRZ.z) * Math.tan(camera.fov * Math.PI / 360) * Math.max(0.2, camera.aspect)));
+        /* reculée, elle est aussi CENTRÉE : le décalage à gauche du grand écran
+           laisse voir la pièce à droite de la feuille ; en portrait il n'y a
+           plus de place à droite, et elle sortait du cadre de ce côté-là. */
+        var fx = (kFit > 1 ? 0 : SHEET_FRZ.x), fy = SHEET_FRZ.y * kFit, fz = SHEET_FRZ.z * kFit;
         var srx = 0.05, sry = 0, srz = -0.035;
         if(endZone){
           /* elle revient de face et se RETOURNE : le verso vers nous */
           var ep = sstep(T_TRAVEL + 0.02, 0.985, p);
-          fx = -0.06 + (1 - ep) * 2.1;
-          fy = 0.02 + (1 - ep) * 1.9;
-          fz = -1.62 - (1 - ep) * 3.8;
+          fx = -0.06 * kFit + (1 - ep) * 2.1;
+          fy = 0.02 * kFit + (1 - ep) * 1.9;
+          fz = -1.62 * kFit - (1 - ep) * 3.8;
           sry = Math.PI + (1 - ep) * 5.2;
           srz = -0.03 + (1 - ep) * 2.3;
           srx = 0.04 + (1 - ep) * 1.4;
