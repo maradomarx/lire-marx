@@ -1013,6 +1013,10 @@ ${credit}  </aside>`;
 <link rel="icon" type="image/png" sizes="48x48" href="/assets/img/logo/icon-48.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/logo/icon-192.png">
 <link rel="apple-touch-icon" href="/assets/img/logo/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#15100b">
+<meta name="apple-mobile-web-app-title" content="Lire Marx">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="${echap(desc)}">
 <meta property="og:title" content="${echap(titre)} — Marx, définition et explication">
@@ -1027,8 +1031,8 @@ ${credit}  </aside>`;
 <link rel="stylesheet" href="/oeuvres/fonts/fonts.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css"></noscript>
 <link rel="stylesheet" href="/glossaire/notion.css?v=${hashV('glossaire/notion.css')}">
-<link rel="preload" href="/oeuvres/shell.css?v=7" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=7"></noscript>
+<link rel="preload" href="/oeuvres/shell.css?v=8" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=8"></noscript>
 ${ld}
 </head>
 <body>
@@ -1089,7 +1093,7 @@ ${monde}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=7"></script>
+<script src="/oeuvres/shell.js?v=8"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 ${aScene ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-driver.js')}" defer></script>` : ''}
@@ -1174,6 +1178,10 @@ ${aScene ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-d
 <link rel="icon" type="image/png" sizes="48x48" href="/assets/img/logo/icon-48.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/logo/icon-192.png">
 <link rel="apple-touch-icon" href="/assets/img/logo/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#15100b">
+<meta name="apple-mobile-web-app-title" content="Lire Marx">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="${echap(desc)}">
 <meta property="og:title" content="${echap(titre)} — Marx, définition et sources">
@@ -1188,8 +1196,8 @@ ${aScene ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-d
 <link rel="stylesheet" href="/oeuvres/fonts/fonts.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css"></noscript>
 <link rel="stylesheet" href="/glossaire/notion.css">
-<link rel="preload" href="/oeuvres/shell.css?v=7" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=7"></noscript>
+<link rel="preload" href="/oeuvres/shell.css?v=8" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=8"></noscript>
 ${ld}
 </head>
 <body>
@@ -1246,7 +1254,7 @@ ${voisines.map((v) => `      <a href="${v.href}">${v.nom}</a>`).join('\n')}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=7"></script>
+<script src="/oeuvres/shell.js?v=8"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 </body>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hors connexion — Lire Marx</title>
+<!-- Servie par le service worker (sw.js) quand une page demandée n'est ni
+     joignable ni en cache. Comme 404.html, elle est AUTONOME — ni shell.js
+     ni atelier.css : une page de secours ne dépend pas de ce qu'on n'a pas
+     réussi à charger — et tous ses chemins sont ABSOLUS. Elle et les
+     polices qu'elle emploie sont dans le précache du service worker. -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="/assets/img/logo/icon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/logo/icon-192.png">
+<link rel="apple-touch-icon" href="/assets/img/logo/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#15100b">
+<meta name="apple-mobile-web-app-title" content="Lire Marx">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="/oeuvres/fonts/fonts.css">
+<style>
+:root{
+  --bg:#15100b;--surface:#1e1710;--text:#f3e9d4;
+  --muted:#b7a888;--accent:#d5402f;--gold:#d8ad4c;
+  --border:rgba(243,233,212,.13);
+}
+html{background:var(--bg);color-scheme:dark;}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;
+  padding:24px;box-sizing:border-box;}
+main{max-width:460px;width:100%;}
+.hl-label{font-size:.72rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--gold);margin:0 0 14px;}
+h1{font-family:'Fraunces',Georgia,serif;font-weight:900;font-size:clamp(1.9rem,6vw,2.6rem);line-height:1.05;letter-spacing:-.02em;margin:0 0 18px;}
+h1 em{font-style:italic;font-weight:500;color:var(--accent);}
+p{font-size:1rem;line-height:1.6;color:var(--muted);margin:0 0 14px;}
+.hl-acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;}
+.hl-btn{display:inline-flex;align-items:center;min-height:44px;padding:10px 20px;border-radius:100px;
+  font-weight:600;font-size:.92rem;text-decoration:none;cursor:pointer;font-family:inherit;}
+.hl-btn.plein{background:var(--text);color:var(--bg);border:1px solid var(--text);}
+.hl-btn.creux{background:transparent;color:var(--text);border:1px solid var(--border);}
+.hl-btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
+.hl-note{margin-top:26px;padding-top:16px;border-top:1px solid var(--border);font-size:.86rem;}
+</style>
+</head>
+<body>
+<main>
+  <p class="hl-label">Hors connexion</p>
+  <h1>Cette page n'est pas <em>encore ici</em>.</h1>
+  <p>Vous n'êtes pas connecté à Internet, et cette page n'a pas été ouverte sur cet appareil auparavant. Les pages déjà lues, votre carnet et les Manuscrits de 1844 restent accessibles.</p>
+  <div class="hl-acts">
+    <button class="hl-btn plein" type="button" onclick="location.reload()">Réessayer</button>
+    <a class="hl-btn creux" href="/oeuvres/carnet">Mon carnet</a>
+    <a class="hl-btn creux" href="/">Accueil</a>
+  </div>
+  <p class="hl-note">Le texte du <i>Capital</i> vient de Wikisource à chaque lecture : il demande une connexion.</p>
+</main>
+</body>
+</html>

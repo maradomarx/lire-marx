@@ -7662,6 +7662,110 @@ débordement horizontal à 1280 px.
 ⚠️ La **301 n'est pas testable en local** : `_redirects` est servi par
 Cloudflare. À vérifier en production après déploiement.
 
+## Le site est une APPLICATION installable (mission `application-mobile`, sept. 2026)
+
+Demande du propriétaire : « créer le site en application pour les utilisateurs
+mobiles ». Le chemin d'un site statique sans build est la **PWA** : manifeste,
+service worker, icônes — installable depuis le navigateur sur Android (Chrome
+propose l'installation) et sur iOS (Partager → « Sur l'écran d'accueil »), en
+plein écran, avec une page hors-ligne. **Aucune passerelle vers les stores**
+n'a été construite : ce serait une mission à part (TWA pour le Play Store,
+Capacitor pour l'App Store), avec des comptes développeur payants, et la PWA en
+est de toute façon le socle.
+
+Ce qui existe :
+
+- **`/manifest.webmanifest`** — nom, `display: standalone`, couleurs
+  brun-nuit, quatre icônes (les deux « any » existantes + deux **maskable**
+  neuves), quatre raccourcis (Capital, Manuscrits, carnet, glossaire).
+- **`/sw.js`** — à la RACINE, sa portée est celle de son URL. Trois règles,
+  écrites en tête du fichier : le HTML est **toujours demandé au réseau
+  d'abord** (le site n'a pas de build, un HTML servi du cache ferait revivre
+  le piège du nouveau balisage avec l'ancienne feuille) ; les actifs sont
+  servis du cache puis rafraîchis, ce qui est sûr **parce que tout actif qui
+  change avec un balisage porte déjà un `?v=`** — le service worker ne tient
+  AUCUNE liste d'actifs à bumper ; et rien d'externe n'est touché (Supabase,
+  Wikisource, CDN), ni le jeu (`/jeu/`, six mégaoctets pour une partie au
+  clavier). Le précache ne contient que ce qu'il faut à la page de secours.
+- **`/hors-ligne.html`** — autonome comme `404.html` (ni shell, ni
+  atelier.css, chemins absolus), `noindex`.
+- **Les balises** dans les têtes des treize pages tenues à la main **et des
+  deux gabarits de `gen-seo.mjs`** : `rel=manifest`, `theme-color`,
+  `apple-mobile-web-app-title`, et `apple-mobile-web-app-status-bar-style` à
+  **`black`** — délibérément, pas `black-translucent` : le translucide fait
+  passer le contenu sous la barre d'état et obligerait à décaler chaque
+  `top:44px` collant du site (sidebar, onglets d'atelier, barre de lecture,
+  carnet…) de `env(safe-area-inset-top)`. Le noir est déterministe et sans
+  risque de mise en page. Apple n'honore pas `theme_color` ; Android si.
+- **`shell.js`** enregistre le service worker (`registerSW`, avec
+  `updateViaCache:'none'`) et porte le bouton **« Installer l'application »**
+  en bas de la sidebar (`wireInstall`) : masqué par défaut, révélé par
+  `beforeinstallprompt` sur Chrome/Android — dont l'invite est différée au
+  clic —, révélé d'office sur Safari iOS où il n'existe pas d'invite et où le
+  bouton déplie la marche à suivre. Jamais affiché en `display-mode:
+  standalone`. iPadOS se présente comme un Mac : c'est `maxTouchPoints` qui
+  le trahit. C'est une ACTION, donc un `<button>`.
+- **`_headers`** : `/sw.js` en `Cache-Control: no-cache` — Cloudflare met les
+  `.js` en cache 4 h, et c'est en relisant ce fichier que le navigateur
+  découvre une nouvelle version. `noindex` sur le manifeste et la page de
+  secours.
+- `shell.css` et `shell.js` passent en **`?v=8`** (bouton neuf + son style).
+
+**L'icône maskable est redessinée, pas dérivée.** L'icône ordinaire remplit
+sa boîte à 56 % avec des angles arrondis transparents : posée telle quelle
+sous un masque rond, le M et le point sont rognés (vu à l'image) ; posée
+réduite sur un fond, sa propre boîte fait un carré dans le carré. Elle est
+donc rendue au canvas comme le master du favicon — le M de Fraunces 900
+local et le point rouge, sur le dégradé de la maison — à une taille qui
+tient dans le cercle sûr de 80 %. Vérifiée sous masque rond et arrondi.
+
+### Trois pièges, tous payés
+
+1. **LA PAGE DE SECOURS SE PRÉCACHE SOUS SON URL PROPRE** (`/hors-ligne`),
+   jamais `/hors-ligne.html`. Cloudflare répond 308 de l'une vers l'autre ;
+   la réponse mise en cache est alors `redirected`, et **Chrome refuse une
+   réponse redirigée pour une navigation** (mode de redirection « manual ») :
+   `net::ERR_FAILED` au lieu de la page. C'est le piège des URL propres,
+   payé une quatrième fois, cette fois à l'intérieur du service worker.
+2. **La pane intégrée ne peut PAS enregistrer de service worker** (« An
+   unknown error occurred when fetching the script », alors que le `fetch`
+   du même fichier répond 200). Tout se vérifie dans le vrai Chrome, par
+   puppeteer.
+3. **`page.setOfflineMode(true)` de puppeteer ne coupe PAS les fetch du
+   service worker** — la page « jamais visitée » arrivait quand même, et l'on
+   croyait la page de secours inutile. La seule vraie coupure est d'ARRÊTER
+   LE SERVEUR, avec un profil Chrome persistant (`userDataDir`) pour que le
+   service worker et ses caches survivent entre les deux phases.
+
+### Vérifié
+
+Dans le vrai Chrome, contre un serveur qui imite Cloudflare (URL propres,
+fichier avant dossier, 308) : service worker actif à la portée `/`, précache
+complet (page de secours, manifeste, deux icônes, fonts.css et neuf
+polices) ; serveur arrêté, `/glossaire/` et `/oeuvres/manuscrits-1844` déjà
+visitées se rouvrent (71 fiches, et le fragment du premier manuscrit est en
+cache), `/oeuvres/messages` et `/a-propos` jamais visitées donnent la page de
+secours, polices maîtresses chargées. Sur UA Safari iOS à 375 px : bouton
+visible, aide dépliée au clic, `aria-expanded` exact, zéro débordement.
+Console et `pageerror` vides. `gen-seo --check` à jour et idempotent.
+`detect.mjs` sur `shell.css` : **25 avant, 25 après**. La 404 porte le
+manifeste. ⏳ Sur liremarx.com, vérifier après déploiement que `/sw.js`
+répond bien `Cache-Control: no-cache` et que Chrome/Android propose
+l'installation (le manifeste, les icônes et le service worker en sont les
+trois conditions).
+
+### Ce qui reste
+
+- **Le texte du Capital ne se lit pas hors ligne** : il vient de Wikisource
+  à chaque lecture (origine externe, jamais mise en cache). Le mettre en
+  cache à la lecture serait possible (réponses CORS) mais c'est un choix à
+  faire — 300 000 mots par lecteur.
+- **La topbar fait trois rangées sous 520 px** (121 px mesurés) : dans une
+  application plein écran, c'est le quart de l'écran avant le contenu. Une
+  passe mobile du shell aurait du sens maintenant que le site s'installe.
+- **Les stores** : voir plus haut, mission à part, si le propriétaire le
+  demande.
+
 ## Conventions de travail
 
 - **Une mission par session.** Une demande utilisateur = un objectif clair,

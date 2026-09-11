@@ -47,3 +47,19 @@
 # verrait du contenu dupliqué. Il n'est chargé qu'à la première recherche.
 /oeuvres/recherche-essais.json
   X-Robots-Tag: noindex
+
+# L'application installable (mission application-mobile). Le service worker
+# ne doit JAMAIS être servi depuis le cache HTTP : c'est en relisant /sw.js
+# que le navigateur découvre une nouvelle version. Cloudflare met les .js en
+# cache 4 h ; sans cette ligne, un déploiement mettrait jusqu'à 4 h à
+# atteindre les applications déjà installées.
+/sw.js
+  Cache-Control: no-cache
+  X-Robots-Tag: noindex
+/manifest.webmanifest
+  X-Robots-Tag: noindex
+# La page hors-ligne n'est qu'un repli du service worker.
+/hors-ligne.html
+  X-Robots-Tag: noindex
+/hors-ligne
+  X-Robots-Tag: noindex
