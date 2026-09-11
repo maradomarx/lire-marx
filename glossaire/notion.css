@@ -163,12 +163,22 @@ body{background:var(--bg);color:var(--text);font-family:var(--f-ui);
   pointer-events:none;z-index:1;box-shadow:inset 0 0 90px 20px rgba(8,5,3,.55);}
 /* Sous 1100 px la légende passe SOUS l'image fixe et non par-dessus :
    trois lignes en surimpression mangeaient une image de deux cents pixels. */
+/* MISSION vivant-sur-mobile (sept. 2026) : sous 1100 px la scène n'est plus
+   une image fixe qu'on dépasse en lisant, mais une BANDE COLLANTE en haut de
+   l'écran, sous la topbar (--nt-top, mesurée par monde-driver.js), que le
+   texte vient lire par-dessous. La colonne de texte ne bouge toujours pas ;
+   le monde joue pendant qu'on descend, exactement comme la colonne collante
+   des écrans larges. Sa hauteur est bornée pour laisser au moins la moitié
+   de l'écran au texte. Sans script, c'est l'image fixe qui colle : la page
+   est finie sans une ligne de JS. */
 @media(max-width:1099px){
-  .nt-monde{aspect-ratio:auto;}
-  .nt-monde canvas,.nt-monde-still{position:static;height:auto;aspect-ratio:16/10;}
-  .nt-monde-cap{position:static;padding:12px 16px 13px;background:var(--surface);
-    border-top:1px solid var(--border);}
-  .nt-monde::before{display:none;}
+  .nt-monde{position:sticky;top:calc(var(--nt-top,44px) + 8px);z-index:5;
+    aspect-ratio:auto;height:min(44vh,380px);margin:0 0 22px;}
+  .nt-monde-cap{padding:26px 14px 10px;font-size:.84rem;line-height:1.4;}
+  /* la ligne « D'après le texte » tenait deux lignes sur une bande de 370 px :
+     elle se tronque au lieu de manger l'image (le plancher des 11 px est tenu) */
+  .nt-monde-src{top:8px;left:8px;max-width:calc(100% - 16px);}
+  .nt-monde-src a{max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:5px 10px;}
 }
 @media(min-width:1100px){
   .nt-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,44%);

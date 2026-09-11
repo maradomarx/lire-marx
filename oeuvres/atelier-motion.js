@@ -37,7 +37,9 @@
     var w = window.innerWidth || 0;
     return w > 0 && w < 768;
   }
-  if (REDUCE || tooNarrow()) return;
+  /* mission vivant-sur-mobile : le seuil de largeur est levé, seul
+     reduced-motion coupe. tooNarrow() reste pour qui en aurait besoin. */
+  if (REDUCE) return;
 
   /* --- le pilote de défilement (position, jamais delta) ----------------- */
   var subs = [], queued = false, wired = false;

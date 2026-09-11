@@ -28,6 +28,19 @@
   /* une scène en 2D ne déclare pas data-three : elle ne demande alors ni
      WebGL ni la bibliothèque — cent quarante-huit kilo-octets de moins */
   var NEED3D = !!aside.dataset.three;
+
+  /* La bande collante des petits écrans se cale sous la topbar, dont la
+     hauteur n'est PAS 44 px partout (trois rangées sous 520 px) et n'est
+     connue qu'une fois la coquille montée et les polices arrivées — le piège
+     de la mesure unique, déjà payé par l'abécédaire. */
+  function topH(){
+    var tb = document.querySelector('.topbar');
+    var h = tb ? tb.getBoundingClientRect().height : 44;
+    document.documentElement.style.setProperty('--nt-top', Math.round(h) + 'px');
+  }
+  topH(); requestAnimationFrame(topH); setTimeout(topH, 400);
+  window.addEventListener('load', topH); window.addEventListener('resize', topH);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(topH);
   if (REDUCE || (NEED3D && !hasGL())) return;
 
   function load(src){
@@ -49,7 +62,9 @@
      l'accueil et l'entrée du carnet le font déjà. */
   var lance = false;
   function armer(){
-    if (lance || !matchMedia('(min-width: 1100px)').matches) return;
+    /* mission vivant-sur-mobile : plus de seuil de largeur — sous 1100 px la
+       scène est une BANDE COLLANTE en haut de l'écran (notion.css) */
+    if (lance) return;
     lance = true;
     window.removeEventListener('resize', armer);
     window.removeEventListener('load', armer);

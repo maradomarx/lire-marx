@@ -18,7 +18,7 @@
      `?skip-anim` n'a plus d'objet ICI et n'est plus consulté ; il vaut
      désormais pour le carnet, dont il saute l'entrée. Les liens internes qui
      le portaient vers l'accueil ont été nettoyés. -->
-<script>(function(){var d=document.documentElement,m=window.matchMedia;/* la largeur se lit à la MEDIA QUERY : au parse, innerWidth peut encore valoir 0 (onglet ouvert en arrière-plan), et la page partait alors sans aucune animation */if(m('(max-width:767px)').matches||m('(prefers-reduced-motion:reduce)').matches){d.classList.add('no-anim');d.classList.add('no-motion');}})();</script>
+<script>(function(){var d=document.documentElement,m=window.matchMedia;/* la largeur se lit à la MEDIA QUERY : au parse, innerWidth peut encore valoir 0 (onglet ouvert en arrière-plan), et la page partait alors sans aucune animation *//* mission vivant-sur-mobile : plus de garde de largeur, le téléphone a droit au mouvement */if(m('(prefers-reduced-motion:reduce)').matches){d.classList.add('no-anim');d.classList.add('no-motion');}})();</script>
 <title>Lire Marx — Le Capital et les Manuscrits, lus et expliqués</title>
 <!-- Le logo du site : le M de Fraunces et le point rouge du brandmark
      « Lire.Marx », sur le brun-nuit de la maison. Chemins ABSOLUS — ces
@@ -198,6 +198,16 @@ body.sb-collapsed .hw{padding-left:0;}
   .hs-right{order:-1;}
   .hs-portrait{max-width:280px;}
   .hs-stats{gap:28px;}
+  /* mission vivant-sur-mobile : la liasse joue aussi sur téléphone. Le héros
+     s'empile sur UNE colonne (la règle html:not(.no-motion) à deux colonnes
+     ne vaut que pour un cadre large), et réserve en bas une bande de 300 px
+     où la liasse se rassemble (fitRig() dans home.js) ; le masque du canvas
+     devient vertical — les feuillets se dissolvent en montant sur le titre. */
+  /* `body` ajouté pour passer devant la règle à deux colonnes, écrite plus
+     bas avec la même spécificité (0,2,1) — sinon elle gagne par l'ordre. */
+  html:not(.no-motion) body .hs-hero{grid-template-columns:1fr;padding-bottom:300px;}
+  html:not(.no-motion) #hero-bg{-webkit-mask-image:linear-gradient(180deg,transparent 0%,transparent 6%,#000 34%,#000 100%);
+    mask-image:linear-gradient(180deg,transparent 0%,transparent 6%,#000 34%,#000 100%);}
 }
 
 /* ══════════════════════════════════════════════════════════════════════
@@ -1060,7 +1070,7 @@ header.topbar.tb-solid .topbar-in{max-width:1180px;margin:0 auto;height:46px;
 @media(max-width:720px){
   .circuit-band{grid-template-columns:1fr;gap:26px;}
   .circuit-node i{display:none;}
-  #hero-bg,#circuit-bg,.circuit-veil{display:none;}
+  /* les décors WebGL (#hero-bg, #circuit-bg) restent : mission vivant-sur-mobile */
 }
 
 /* — pas de mouvement : mobile étroit ou prefers-reduced-motion — */
@@ -1602,7 +1612,7 @@ html.no-motion header.topbar,html.no-motion header.topbar .topbar-in{transition:
      la balise three.min.js a quitté cette page alors que withThree() vivait
      dans home.js : décor mort jusqu'à expiration du cache.
      BUMPER CE NUMÉRO à chaque fois que les deux fichiers sont solidaires. -->
-<script src="assets/home.js?v=2" defer></script>
+<script src="assets/home.js?v=3" defer></script>
 
 <!-- Shell de navigation (topbar + sidebar + auth + social) -->
 <script src="config.js"></script>

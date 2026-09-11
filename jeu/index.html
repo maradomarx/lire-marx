@@ -8,7 +8,8 @@
      piloté) et la page partirait sans la moindre animation. Piège déjà payé
      sur l'accueil et sur l'entrée du carnet. -->
 <script>(function(){var d=document.documentElement,m=window.matchMedia;
-if(m('(max-width:767px)').matches||m('(prefers-reduced-motion:reduce)').matches){
+/* mission vivant-sur-mobile : plus de garde de largeur */
+if(m('(prefers-reduced-motion:reduce)').matches){
 d.classList.add('no-anim');d.classList.add('no-motion');}})();</script>
 <!-- Le logo du site : le M de Fraunces et le point rouge du brandmark
      « Lire.Marx ». Chemins ABSOLUS — la page vit sous /jeu/, un chemin
@@ -606,9 +607,10 @@ html.no-motion .j-hero .j-hint{
     <div class="j-faits">
       <div class="j-fait">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="1.6" y="4.2" width="16.8" height="10.4" rx="1.6" stroke="currentColor" stroke-width="1.3"/><path d="M5 17.4h10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-        <h3>Au clavier</h3>
-        <p>Z Q S D, ou W A S D. Faute de commandes tactiles, le jeu ne se joue
-          pas au téléphone.</p>
+        <h3>Au clavier ou au doigt</h3>
+        <p>Z Q S D ou W A S D sur un clavier. Sur téléphone et tablette, un
+          levier tactile conduit le chariot et un bouton « Agir » remplace la
+          touche E.</p>
       </div>
       <div class="j-fait">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="7.3" stroke="currentColor" stroke-width="1.3"/><path d="M2.9 10h14.2M10 2.7c1.9 2 2.9 4.5 2.9 7.3s-1 5.3-2.9 7.3c-1.9-2-2.9-4.5-2.9-7.3s1-5.3 2.9-7.3Z" stroke="currentColor" stroke-width="1.3"/></svg>
@@ -704,7 +706,7 @@ installShell({ workTitle: 'Le jeu', tabs: [] });
   var REDUCE = m('(prefers-reduced-motion:reduce)').matches;
   /* La largeur se lit à la MEDIA QUERY, jamais à innerWidth — même piège
      que dans le <head>. */
-  var ETROIT = m('(max-width:767px)').matches;
+  var ETROIT = false;  /* mission vivant-sur-mobile : le téléphone joue aussi */
 
   /* FILET SUR LE SCRIPT DE TÊTE, et il ne relève pas de la théorie : mesuré
      dans un onglet piloté, la tête de CETTE page est analysée avant que la

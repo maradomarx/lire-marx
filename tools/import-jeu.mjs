@@ -114,6 +114,10 @@ const RETOUR = `
   .lm-retour:hover{background:#241f17;color:#e9ddc6;}
   .lm-retour:focus-visible{outline:2px solid #8a2c1d;outline-offset:2px;}
   body.mcinema-on .lm-retour{opacity:0;pointer-events:none;transition:opacity .5s;}
+  /* petit écran : le coin bas-droit est partagé avec les boutons tactiles
+     du jeu (.tc-acts, qui s'arrêtent à 52 px du bas) — le lien reste au
+     ras du bord, plus petit. */
+  @media (max-width:760px){.lm-retour{right:8px;bottom:8px;padding:5px 9px;font-size:11px;}}
 </style>
 <a class="lm-retour" href="/jeu/">&#8592;&nbsp;Lire Marx</a>
 `;

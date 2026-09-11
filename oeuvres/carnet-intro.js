@@ -64,7 +64,7 @@
      viewport CSS — celui qui a servi à mettre la page en page. C'est le même
      seuil que dans la feuille de style de carnet.html : les deux doivent
      bouger ensemble. */
-  if(!window.matchMedia('(min-width:768px)').matches) return forfeit();
+  /* mission vivant-sur-mobile : la scène joue aussi sur téléphone */
 
   try{
   var canvas = document.getElementById('cnScene');

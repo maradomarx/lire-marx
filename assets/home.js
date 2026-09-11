@@ -44,6 +44,12 @@
 (function () {
   'use strict';
 
+  /* MISSION vivant-sur-mobile (sept. 2026) : les gardes « < 768 px » qui
+     coupaient tout mouvement et tout décor WebGL sur téléphone ont été
+     LEVÉES, sur demande du propriétaire — le site installé en application
+     doit être aussi vivant que sur un écran large. Seul reduced-motion
+     coupe encore. Le seul geste qui reste hors téléphone est « Prendre les
+     rênes » (clavier), masqué par le CSS sous 768 px. */
   var REDUCE = window.matchMedia &&
     window.matchMedia('(prefers-reduced-motion:reduce)').matches;
 
@@ -62,7 +68,7 @@
   var threeState = 0, threeWaiting = [];   // 0 = pas commencé, 1 = en cours, 2 = fini
   function withThree(fn) {
     if (typeof THREE !== 'undefined' || threeState === 2) { fn(); return; }
-    if (REDUCE || window.innerWidth < 768) { fn(); return; }
+    if (REDUCE) { fn(); return; }
     threeWaiting.push(fn);
     if (threeState === 1) return;
     threeState = 1;
@@ -179,7 +185,7 @@
      amortie sur la vitesse de molette — qui secoue la liasse au repos comme
      en vol. Coupé sous reduced-motion ou < 768 px ; en pause hors-écran. */
   function heroBg() {
-    if (REDUCE || window.innerWidth < 768) return;
+    if (REDUCE) return;
     var canvas = document.getElementById('hero-bg');
     if (!canvas || typeof THREE === 'undefined') return;
     if (!canvas.getContext ||
@@ -214,6 +220,30 @@
     if (THREE.Fog) scene.fog = new THREE.Fog(BG, 8, 26);
     camera = new THREE.PerspectiveCamera(56, 1, 0.1, 60);
     camera.position.set(0, 0, 12);
+    /* LA LIASSE VIT DANS UN RIG (mission vivant-sur-mobile). Les positions de
+       repos des feuillets (CX, CY, FAN) sont calées pour la moitié droite
+       d'un cadre LARGE ; en portrait — le téléphone, où le héros s'empile —
+       ce cadre n'existe plus. Plutôt que de recalculer chaque feuillet, le
+       rig entier est déplacé et réduit par fitRig() : la liasse se rassemble
+       au centre de la bande réservée au BAS du héros (le padding-bottom posé
+       sous 720 px), à l'échelle du cadre, et s'envole de là vers le haut,
+       par-dessus le titre, comme elle s'envole du couloir sur un écran large. */
+    var rig = new THREE.Group();
+    scene.add(rig);
+    var FAN_W = 7.6;   /* emprise horizontale de l'éventail au repos, en unités monde */
+    function fitRig() {
+      var A = camera.aspect || 1;
+      var halfH = (camera.position.z - CZ) * Math.tan(camera.fov * Math.PI / 360);
+      var halfW = halfH * A;
+      if (A >= 0.9) { rig.position.set(0, 0, 0); rig.scale.setScalar(1); return; }
+      var s = Math.min(1, (2 * halfW * 0.88) / FAN_W);
+      var hPx = canvas.clientHeight || 1, band = Math.min(300, hPx * 0.4);
+      /* le centre de la liasse un peu SOUS le centre de la bande : au repos
+         elle ne doit pas mordre sur le bouton du dessus (mesuré à 390 px) */
+      var yT = -halfH * (1 - band * 0.8 / hPx);
+      rig.scale.setScalar(s);
+      rig.position.set(-CX * s, yT - CY * s, 0);
+    }
 
     /* texture « feuillet » — papier crème éclairé à la bougie + encre discrète */
     function sheetTexture(seed) {
@@ -352,7 +382,7 @@
       m.scale.setScalar(1.32 - a * 0.34 + Math.random() * 0.12);
       m.position.set(u.hx, u.hy, u.hz);
       m.rotation.set(u.rx, u.ry, u.rz);
-      sheets.push(m); scene.add(m);
+      sheets.push(m); rig.add(m);
     }
 
     if (realMats.length) {
@@ -369,6 +399,7 @@
       var w = canvas.clientWidth || 1, h = canvas.clientHeight || 1;
       renderer.setSize(w, h, false);
       camera.aspect = w / h;
+      fitRig();
       camera.updateProjectionMatrix();
     }
     resize();
@@ -630,7 +661,7 @@
 
   /* — A. Titres révélés mot à mot au défilement — « l'encre qui prend » — */
   function scrubReveal() {
-    if (REDUCE || window.innerWidth < 768) return;
+    if (REDUCE) return;
     var heads = [].slice.call(document.querySelectorAll('.hs-sec-h'));
     if (!heads.length) return;
     document.documentElement.classList.add('js-viv');
@@ -705,7 +736,7 @@
       band.style.setProperty('--cp', '1');
       nodes.forEach(function (n) { n.classList.add('lit'); });
     }
-    if (REDUCE || window.innerWidth < 768 || !pin) { stat(); return; }
+    if (REDUCE || !pin) { stat(); return; }
 
     document.documentElement.classList.add('js-circuit');
     /* si le viewport est trop court, le CSS dépingle : on rend statique. */
@@ -1389,7 +1420,7 @@
        à son passage. Appelé par catalogue() une fois les cartes rendues —
        jamais avant, le catalogue est peuplé par fetch. — */
   function libraryScrub() {
-    if (REDUCE || window.innerWidth < 768) return;
+    if (REDUCE) return;
     var grid = document.getElementById('lib-available');
     var cards = grid ? [].slice.call(grid.querySelectorAll('.hs-w-card')) : [];
     var band = document.querySelector('.hs-timeline');
@@ -1499,7 +1530,7 @@
        liste et `--lit` / `--pass` sur chaque dépliant ; tout le rendu vit
        dans le CSS, dont le défaut est l'état fini. — */
   function faqScrub() {
-    if (REDUCE || window.innerWidth < 768) return;
+    if (REDUCE) return;
     var list = document.querySelector('.hs-faq-list');
     var items = list ? [].slice.call(list.querySelectorAll('.hs-faq-item')) : [];
     if (items.length < 2) return;
@@ -1561,7 +1592,7 @@
        SHELL.commune.mount() de façon asynchrone : on attend qu'elles
        existent (MutationObserver) avant de s'abonner au défilement. — */
   function communeScrub() {
-    if (REDUCE || window.innerWidth < 768) return;
+    if (REDUCE) return;
     var host = document.getElementById('homeCommune');
     if (!host) return;
     var armed = false, mo = null;
@@ -1608,7 +1639,7 @@
        au défilement (la lueur vient de sous le bouton), puis .alight laisse
        vaciller la flamme tant que la bande est à l'écran. — */
   function closerCandle() {
-    if (REDUCE || window.innerWidth < 768) return;
+    if (REDUCE) return;
     var band = document.querySelector('.hs-closer');
     if (!band) return;
     document.documentElement.classList.add('js-candle');
@@ -1780,7 +1811,7 @@
 
   /* — E. Hero : parallaxe fine du portrait au défilement — */
   function heroParallax() {
-    if (REDUCE || window.innerWidth < 768) return;
+    if (REDUCE) return;
     var hero = document.querySelector('.hs-hero');
     var right = hero && hero.querySelector('.hs-right');
     if (!right || !right.offsetParent) return;   /* cadre masqué : rien à décaler */
@@ -1806,7 +1837,7 @@
        position de scroll → réversible. Sous no-motion / < 768 px la fonction
        sort et `.reveal-stagger` reprend la main (fondu simple). */
   function doCards() {
-    if (REDUCE || window.innerWidth < 768) return;
+    if (REDUCE) return;
     var grid = document.querySelector('.hs-do-cols');
     if (!grid) return;
     var cards = [].slice.call(grid.querySelectorAll('.hs-do-item'));
