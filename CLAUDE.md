@@ -7708,7 +7708,14 @@ Ce qui existe :
 - **`_headers`** : `/sw.js` en `Cache-Control: no-cache` — Cloudflare met les
   `.js` en cache 4 h, et c'est en relisant ce fichier que le navigateur
   découvre une nouvelle version. `noindex` sur le manifeste et la page de
-  secours.
+  secours. ⚠️ **Mesuré en production : le `X-Robots-Tag` est appliqué, le
+  `Cache-Control` NON** — `/sw.js` répond `max-age=14400` (sans `public` ni
+  `must-revalidate`, donc réécrit, pas ignoré). C'est un réglage de zone du
+  tableau de bord Cloudflare (Caching → Browser Cache TTL), pas du dépôt.
+  Sans conséquence grave : le service worker ne tient aucune liste d'actifs,
+  il change rarement, et le navigateur plafonne de toute façon à 24 h la
+  mise en cache d'un script de service worker. Si l'on veut des mises à jour
+  immédiates, passer ce réglage sur « Respect Existing Headers ».
 - `shell.css` et `shell.js` passent en **`?v=8`** (bouton neuf + son style).
 
 **L'icône maskable est redessinée, pas dérivée.** L'icône ordinaire remplit
