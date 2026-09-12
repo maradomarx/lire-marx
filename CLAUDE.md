@@ -8009,12 +8009,65 @@ et idempotent ; les 39 pages de notion n'ont bougé que du `?v=` de
 Fraunces pour les numéros de parties et les années, la rime typographique
 documentée, à ne pas corriger ; `capital-1.html` inchangé (19).
 
+### Le premier lot : VII, VIII, IX, XI (mission `chapitres-lot-1`, sept. 2026)
+
+Le pilote validé (« ça me va »), les quatre chapitres qui entourent le X et
+achèvent la troisième section. **Cinq pages sur trente-trois.**
+
+| | VII | VIII | IX | XI |
+|---|---|---|---|---|
+| mots | 1 051 | 1 085 | 989 | 1 030 |
+| citations | 7 | 6 | 8 | 7 |
+| parties | 42 / 58 | aucune | 48 / 24 / 26 / 2 | aucune |
+
+**Les parties se relèvent, elles ne se supposent pas.** VIII et XI n'ont
+aucune partie numérotée chez Roy, et leur `meta.json` n'en déclare donc pas —
+le « V 99 % » que la première mesure donnait pour XI était un artefact des
+notes de section, retirées avant de compter.
+
+⚠️ **LE NOM D'UNE NOTION DANS `meta.json` EST LE TITRE DE LA FICHE, PAS LE
+NOM AFFICHÉ.** On écrit « Valeur d'usage vs valeur » et non « et valeur » :
+le champ `nom` du lexique (mission `abecedaire-au-net`) ne change que
+l'AFFICHAGE, l'identité reste celle de la fiche de l'atelier. Le générateur
+échoue bruyamment — c'est ce qui l'a attrapé.
+
+**Le contrôle des doublons de citation est automatique, et il doit l'être.**
+Les pages de notion ont déjà pris **525 passages** ; une page de chapitre qui
+en reprendrait un ferait deux pages du site citant la même phrase pour dire
+deux choses. Un script compare les `data-q` des deux familles : **zéro
+doublon** sur les quatre. Une exception subsiste, antérieure et assumée — le
+chapitre X partage « Le capital n'a point inventé le surtravail » avec
+`/glossaire/surtravail`, la phrase la plus citée du chapitre, que les deux
+pages ont raison de citer.
+
+**Le repli du chapitre précédent est correct et il faut le savoir** : VII
+n'ayant pas de voisin VI en page, son lien « précédent » mène à `#ch=VI` dans
+la liseuse. Le gabarit dégrade tout seul, il n'y a rien à faire pour un lot
+qui ne se suit pas.
+
+**Vérifié** : les 28 citations relevées une par une dans la section III
+servie (zéro manquante), et le deep-link éprouvé **dans la vraie liseuse** —
+section chargée, `.pub-flash` posée sur le passage. Pour l'observer il faut
+un `MutationObserver` installé AVANT la fin du fetch : la classe est
+transitoire, et un sondage toutes les 400 ms la manque. Contraste **0 échec**,
+minimum 4,56, plus petit texte 11,52 px, aucune cible sous 24 × 24 ; zéro
+débordement à 1380 et 375 px ; détecteur compté **en remisant** — base
+inchangée (24), les quatre pages neuves **0 constat** ; `--check` idempotent,
+sitemap à **53 URL** ; maillage à double sens vérifié dans les deux sens
+(« Ce que fait le chapitre VIII » dans la marge de l'atelier, « Le chapitre
+IX expliqué » sur dix pages de notion).
+
 ### Ce qui reste
 
-- **La relecture du pilote par le propriétaire**, puis les 32 autres
-  chapitres par lots de trois à cinq. La table `ALLEMAND` est déjà complète.
+- **Les 28 autres chapitres**, par lots de trois à cinq. La table `ALLEMAND`
+  est complète, le gabarit et les contrôles sont écrits : un lot tient dans
+  une séance. Les sections IV (XIII-XVIII) et VIII (XXVI-XXXIII) sont les
+  plus demandées après la III.
 - Les essais de chapitre n'entrent pas encore dans `recherche-essais.json` ;
   la recherche « chapitre X » continue d'ouvrir le chapitre dans l'atelier.
+- **Search Console n'a toujours pas été consultée** — déclarée depuis
+  `maillage-explorable`. C'est elle qui dira si le créneau « chapitre du
+  Capital expliqué » se prend, et sur quels chapitres pousser.
 
 ## Conventions de travail
 
