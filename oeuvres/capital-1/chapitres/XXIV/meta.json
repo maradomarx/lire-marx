@@ -1,0 +1,38 @@
+{
+  "_": "LA TÊTE de /oeuvres/capital-1/chapitre-24. Titre, section, voisins, dates, instrument et marche sont DÉRIVÉS de l'atelier par tools/gen-seo.mjs. Les cinq parties sont relevées dans le texte de Roy tel que la liseuse le sert, leur poids mesuré en caractères.",
+  "rn": "XXIV",
+  "chapo": "Le chapitre où le droit de propriété se retourne sans qu'aucune de ses règles soit violée&nbsp;: la loi qui faisait du produit la propriété de son producteur fait maintenant du travail d'autrui la propriété de celui qui l'emploie. Et c'est le même droit.",
+  "description": "Le Capital, chapitre XXIV (22 dans l'édition allemande) : la transformation de la plus-value en capital — le renversement du droit de propriété, la théorie de l'abstinence et le prétendu fonds de travail.",
+  "notions": [
+    "Accumulation",
+    "Reproduction élargie",
+    "Composition organique"
+  ],
+  "parties": [
+    [
+      "I",
+      "Reproduction sur une échelle progressive — le renversement du droit de propriété",
+      26
+    ],
+    [
+      "II",
+      "Fausse interprétation de la production sur une échelle progressive",
+      11
+    ],
+    [
+      "III",
+      "Division de la plus-value en capital et en revenu — théorie de l’abstinence",
+      23
+    ],
+    [
+      "IV",
+      "Les circonstances qui déterminent l’étendue de l’accumulation",
+      30
+    ],
+    [
+      "V",
+      "Le prétendu fonds de travail",
+      11
+    ]
+  ]
+}

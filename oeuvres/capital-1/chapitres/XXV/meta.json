@@ -1,0 +1,40 @@
+{
+  "_": "LA TÊTE de /oeuvres/capital-1/chapitre-25. Titre, section, voisins, dates, instrument et marche sont DÉRIVÉS de l'atelier par tools/gen-seo.mjs. Les cinq parties sont relevées dans le texte de Roy tel que la liseuse le sert, leur poids mesuré en caractères : la cinquième, l'illustration, fait à elle seule près des trois cinquièmes du chapitre.",
+  "rn": "XXV",
+  "chapo": "Le deuxième chapitre le plus long du livre, et celui qui répond à Malthus sans le nommer d'abord&nbsp;: la population disponible n'est pas une donnée que l'accumulation rencontre, c'est un produit qu'elle fabrique — et qui devient ensuite son levier.",
+  "description": "Le Capital, chapitre XXV (23 dans l'édition allemande) : la loi générale de l'accumulation capitaliste — composition du capital, armée industrielle de réserve, et la réfutation de la loi de population.",
+  "notions": [
+    "Armée de réserve",
+    "Composition organique",
+    "Loi générale",
+    "Demande de travail",
+    "Régulation des salaires"
+  ],
+  "parties": [
+    [
+      "I",
+      "La composition restant la même, l’accumulation fait monter les salaires",
+      7
+    ],
+    [
+      "II",
+      "Changements de la composition du capital, et décroissance relative de sa partie variable",
+      9
+    ],
+    [
+      "III",
+      "Production croissante d’une surpopulation relative, ou armée industrielle de réserve",
+      17
+    ],
+    [
+      "IV",
+      "Les formes de la surpopulation relative — la loi générale",
+      8
+    ],
+    [
+      "V",
+      "Illustration de la loi générale de l’accumulation capitaliste",
+      59
+    ]
+  ]
+}

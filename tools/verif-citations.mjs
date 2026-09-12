@@ -44,7 +44,41 @@ const die = (m) => { console.error('\n✗ ' + m + '\n'); process.exit(1); };
 
 const args = process.argv.slice(2);
 const refresh = args.includes('--refresh');
+const corriger = args.includes('--corriger');
 const seuls = args.filter((a) => !a.startsWith('--')).map((s) => s.toUpperCase());
+
+/* ── La réparation (--corriger) ─────────────────────────────────────────
+   Les citations introuvables le sont presque toujours pour la même raison,
+   et c'est une raison qu'aucune relecture ne rattrape : Roy compose à la
+   française, donc avec une ESPACE INSÉCABLE avant « ; », « ! », « ? » et
+   « : », et Wikisource porte en outre des traits d'union insécables
+   (« c'est‑à‑dire », « au‑dessous ») et des apostrophes typographiques.
+   Un data-q tapé au clavier ordinaire est alors juste à l'œil et faux au
+   caractère près.
+   On cherche donc la phrase avec un motif TOLÉRANT — n'importe quelle
+   espèce d'espace, d'apostrophe ou de tiret — et l'on réécrit l'attribut
+   avec la tranche EXACTE du texte. On ne corrige que si le motif rend UNE
+   seule occurrence : deux, et c'est au rédacteur de trancher. */
+const souple = (q) => new RegExp(q
+  .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  .replace(/[’‘']/g, '[’‘\']')
+  .replace(/[-‑‐–—]/g, '[-‑‐–—]')
+  .replace(/[\s  ]+/g, '[\\s\\u00a0\\u202f]+'), 'g');
+
+function reparer(fichier, cits) {
+  let html = readFileSync(fichier, 'utf8');
+  const faits = [];
+  for (const c of cits) {
+    const m = [...section(c.s).matchAll(souple(c.q))];
+    if (m.length !== 1) continue;
+    const exact = m[0][0];
+    if (exact === c.q) continue;
+    html = html.split(`data-q="${c.q}"`).join(`data-q="${exact}"`);
+    faits.push(c.q);
+  }
+  if (faits.length) writeFileSync(fichier, html);
+  return faits;
+}
 
 /* ── Le texte des huit sections, par le chemin de la liseuse ────────────
    cleanWS est RECOPIÉ de capital-1.html. Une duplication, donc, et c'est
@@ -173,7 +207,17 @@ for (const d of dossiers.sort()) {
   const meta = JSON.parse(readFileSync(path.join(CHAP_DIR, d, 'meta.json'), 'utf8'));
   if (seuls.length && !seuls.includes(meta.rn)) continue;
   nChap++;
-  const essai = readFileSync(path.join(CHAP_DIR, d, 'essai.html'), 'utf8');
+  const fEssai = path.join(CHAP_DIR, d, 'essai.html');
+  let essai = readFileSync(fEssai, 'utf8');
+  /* --corriger : on répare d'abord les citations que la typographie de Roy
+     a rendues introuvables, puis on relève ce qui reste. */
+  if (corriger) {
+    const faits = reparer(fEssai, citations(essai).filter((c) => section(c.s).indexOf(c.q) < 0));
+    if (faits.length) {
+      essai = readFileSync(fEssai, 'utf8');
+      for (const q of faits) console.log(`  ⟳ ${meta.rn} : citation réécrite à la lettre — « ${q.slice(0, 52)} »`);
+    }
+  }
   const cits = citations(essai);
   const mal = [];
   for (const c of cits) {
