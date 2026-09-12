@@ -8170,6 +8170,33 @@ sitemap n'a **pas** été re-soumis : Google le relit de lui-même, et les cinq
 URL sont désormais dans une file d'exploration prioritaire. Le quota est
 d'environ dix demandes par jour.
 
+### L'inventaire du glossaire : 31 notions indexées sur 39
+
+⚠️ **NI LE RAPPORT PAGES NI `site:` NE RÉPONDENT À CETTE QUESTION**, et les
+deux m'ont donné un chiffre faux avant que je vérifie. Le rapport Pages date
+du 04/09 alors que **27 des 39 notions ont été publiées les 8, 9 et 10** — il
+ne pouvait pas les connaître. Et `site:liremarx.com/glossaire/` n'a rendu que
+**23** notions là où **31** sont indexées : huit manquaient à son listing,
+dont `travail-aliene`, qui reçoit douze impressions — la preuve même de son
+indexation. **Un `site:` est un sondage, pas un inventaire ; seule
+l'inspection d'URL fait foi**, et c'est elle qu'il faut passer sur les cas
+douteux, un par un.
+
+**Les huit non indexées au 12 sept.** sont toutes du dernier lot (8-9 sept.) :
+armée de réserve, accumulation, capital constant et variable, composition
+organique, fonctions de la monnaie, forme-valeur, plus-value absolue,
+plus-value relative. **Rien n'est cassé** — elles répondent 200, elles sont au
+sitemap, et onze autres pages du même lot du 9 septembre sont indexées : c'est
+du budget d'exploration, pas un défaut.
+
+Indexation demandée pour cinq d'entre elles le 12 sept. (le quota d'environ
+dix par jour étant déjà entamé par les chapitres) ; **restent à demander :
+armée de réserve, accumulation, fonctions de la monnaie**.
+
+Bon signe relevé au passage : pour composition organique, Google donne
+`sitemap.xml` comme référent ET `/glossaire/accumulation` comme page
+d'origine — **le maillage interne de `maillage-glossaire` est vu**.
+
 **Ce que ça change au plan : rien, et c'est l'information.** Cent neuf
 impressions ne suffisent pas à choisir quels chapitres écrire — l'idée de se
 laisser guider par Search Console était prématurée. Le goulot reste
