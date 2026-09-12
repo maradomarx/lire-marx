@@ -1,0 +1,64 @@
+{
+  "_": "LA TÊTE de /oeuvres/capital-1/chapitre-15. Titre, section, voisins, dates, instrument et marche sont DÉRIVÉS de l'atelier par tools/gen-seo.mjs. Les dix parties sont relevées dans le texte de Roy tel que la liseuse le sert, leur poids mesuré en caractères : le chapitre fait à lui seul 277 000 caractères, soit le double du chapitre X et près du neuvième du Livre I.",
+  "rn": "XV",
+  "chapo": "Le plus long chapitre du livre, et celui qu'on cite le plus mal. Il ne condamne pas la machine&nbsp;: il distingue ce qu'elle peut de l'usage qu'on en fait, et montre qu'employée pour produire de la plus-value elle porte une contradiction — elle n'élève le taux qu'en réduisant le nombre.",
+  "description": "Le Capital, chapitre XV (13 dans l'édition allemande) : machinisme et grande industrie — la machine-outil, la contradiction de son emploi capitaliste, la fabrique, les ouvriers rendus superflus et la législation.",
+  "notions": [
+    "Machine-outil",
+    "Appendice de la machine",
+    "Subsomption réelle",
+    "Armée de réserve"
+  ],
+  "parties": [
+    [
+      "I",
+      "Développement des machines et de la production mécanique",
+      11
+    ],
+    [
+      "II",
+      "Valeur transmise par la machine au produit",
+      5
+    ],
+    [
+      "III",
+      "Réaction immédiate de l’industrie mécanique sur le travailleur",
+      18
+    ],
+    [
+      "IV",
+      "La fabrique",
+      4
+    ],
+    [
+      "V",
+      "Lutte entre travailleur et machine",
+      8
+    ],
+    [
+      "VI",
+      "Théorie de la compensation",
+      8
+    ],
+    [
+      "VII",
+      "Répulsion et attraction des ouvriers. Crises de l’industrie cotonnière",
+      9
+    ],
+    [
+      "VIII",
+      "Révolution opérée dans la manufacture, le métier et le travail à domicile",
+      18
+    ],
+    [
+      "IX",
+      "Législation de fabrique, et sa généralisation",
+      18
+    ],
+    [
+      "X",
+      "Grande industrie et agriculture",
+      2
+    ]
+  ]
+}
