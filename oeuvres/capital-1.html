@@ -26,7 +26,7 @@
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="fonts/fonts.css">
-<link rel="stylesheet" href="atelier.css?v=3">
+<link rel="stylesheet" href="atelier.css?v=4">
 <link rel="stylesheet" href="shell.css?v=8">
 <link rel="stylesheet" href="reader-tools.css">
 <style>
@@ -2427,10 +2427,34 @@ function renderMarge(){
   const passHtml=nn?'<section class="atl3-m-sec atl3-pass">'+ph+'</section>'
                    :'<section class="atl3-m-sec atl3-pass-plain">'+ph+'</section>';
   if(nn) h+=passHtml;
+  /* LE CHAPITRE EXPLIQUÉ (mission chapitres-capital, replacé par
+     chapitre-accessible). Quand le chapitre a sa page, la marge y renvoie —
+     et le renvoi vit AU PIED DE « EN CLAIR », pas dans un bloc à lui.
+     Mesuré avant de le déplacer : en bloc séparé il arrivait 5e sur 7, à
+     904 px dans une colonne qui s'arrête à 896, donc HORS DU CHAMP — il
+     fallait faire défiler la marge pour le trouver. Et son balisage était
+     celui des notions, si bien qu'il se lisait comme une notion de plus.
+     Sa place est ici parce que les deux disent la même chose à deux
+     longueurs : « En clair » est le résumé de deux lignes, la page en est le
+     développement. C'est aussi la doctrine déjà écrite (COGA 4.4.8, le
+     résumé AVANT le texte long). C'est une DESTINATION, donc une ancre et
+     non un bouton (règle de maillage-explorable) — d'où `color` et
+     `text-decoration` explicites dans atelier.css.
+     CHAPITRES_HREF est dérivé par tools/gen-seo.mjs, dans le même bloc
+     que NOTIONS_HREF. */
+  const chH=(window.CHAPITRES_HREF||{})[rn];
+  const chLien=chH?'<a class="atl3-m-go atl3-m-goto" href="'+chH+'">'
+    +'<span class="atl3-m-go-t">Ce que fait le chapitre '+rn+'</span>'
+    +'<span class="atl3-m-go-k">Lire l\'explication →</span></a>':'';
+
   /* En clair — le résumé argumenté. Il vivait dans un popover de la barre
      de lecture, derrière un bouton qu'il fallait connaître. */
   if(m.s) h+=margeSection('En clair','','<div class="atl3-m-sum" id="atl3Sum">'+m.s+'</div>'
-    +'<button type="button" class="atl3-m-more" data-more="atl3Sum">Lire la suite</button>');
+    +'<button type="button" class="atl3-m-more" data-more="atl3Sum">Lire la suite</button>'
+    +chLien);
+  /* Filet : un chapitre sans résumé n'aurait pas de bloc « En clair », et le
+     renvoi disparaîtrait avec lui. Il prend alors le bloc à son compte. */
+  else if(chLien) h+=margeSection('En clair','',chLien);
   if(!nn) h+=passHtml;
 
 
@@ -2464,15 +2488,6 @@ function renderMarge(){
   if(fiches.length) h+=margeSection('Les notions','',
     '<ul class="atl3-m-notions">'+fiches.map(f=>
       '<li><a href="'+f.href+'">'+dEsc(f.t)+'</a></li>').join('')+'</ul>');
-
-  /* LE CHAPITRE EXPLIQUÉ (mission chapitres-capital). Quand le chapitre a sa
-     page d'explication, la marge y renvoie : c'est le lien le mieux placé du
-     site vers elle — on est DANS le chapitre. CHAPITRES_HREF est dérivé par
-     tools/gen-seo.mjs, dans le même bloc que NOTIONS_HREF ; la liste reprend
-     la grammaire des notions, qui porte déjà couleur et soulignement. */
-  const chH=(window.CHAPITRES_HREF||{})[rn];
-  if(chH) h+=margeSection('Le chapitre expliqué','',
-    '<ul class="atl3-m-notions"><li><a href="'+chH+'">Ce que fait le chapitre '+rn+'</a></li></ul>');
 
   /* La marche du cheminement où ce chapitre se situe. */
   if(m.d && typeof STEPS!=='undefined' && STEPS[m.d-1])

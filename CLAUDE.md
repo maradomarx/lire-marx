@@ -8057,12 +8057,72 @@ sitemap à **53 URL** ; maillage à double sens vérifié dans les deux sens
 (« Ce que fait le chapitre VIII » dans la marge de l'atelier, « Le chapitre
 IX expliqué » sur dix pages de notion).
 
+### ⚠️ LE RENVOI ÉTAIT INATTEIGNABLE (mission `chapitre-accessible`, sept. 2026)
+
+Signalé par le propriétaire : « l'accès à l'explication du chapitre n'est pas
+facilement accessible ». C'était exact, et mesuré :
+
+| | en bloc séparé | au pied d'« En clair » |
+|---|---|---|
+| rang dans la marge | **5ᵉ sur 7** | **1ᵉʳ bloc** |
+| position à l'écran | y = **904** pour une colonne qui finit à 896 | y = **341** |
+| visible sans faire défiler la marge | **non** | **oui** |
+| balisage | `.atl3-m-notions > li > a` — **le même que les notions** | carte `.atl3-m-go` |
+
+Deux défauts distincts, donc : il tombait **hors du champ** d'une colonne qui
+défile pour son compte, et quand on l'y trouvait il se lisait comme **une
+notion de plus**. Je l'avais posé là où il était facile à poser, pas là où on
+le cherche.
+
+**Arbitrage du propriétaire** : au pied d'« En clair », et **là seulement** —
+deux autres emplacements ont été proposés et écartés, le bandeau de chapitre
+(qui aurait ajouté du mobilier dans la colonne de lecture, gardée nue) et le
+sommaire (dont la marque serait entrée en concurrence avec le clic de la
+ligne, qui ouvre le texte).
+
+**C'est la bonne place parce que les deux disent la même chose à deux
+longueurs** : « En clair » est le résumé de deux lignes, la page en est le
+développement. La doctrine était déjà écrite pour ce bloc — COGA 4.4.8, le
+résumé AVANT le texte long.
+
+Trois points de fabrication :
+
+- **C'est une DESTINATION, donc une ancre** (règle de `maillage-explorable`)
+  — et `.atl3-m-go` ayant été dessiné pour un `<button>`, la variante
+  `.atl3-m-goto` **redéclare `color` ET `text-decoration`** : défaut déjà payé
+  sur `.lk`, `.rd-chip`, les douze liens de l'abécédaire et les cartes du
+  laboratoire.
+- **Un filet** : un chapitre sans résumé n'aurait pas de bloc « En clair », et
+  le renvoi disparaîtrait avec lui — il prend alors le bloc à son compte.
+- **`atelier.css` passe en `?v=4`** sur ses six pages : il change en même
+  temps qu'un balisage, et sans le bump un visiteur des quatre dernières
+  heures aurait eu le nouveau lien avec l'ancienne feuille, donc en bleu
+  souligné. La règle, encore.
+
+**Sous 1240 px la marge entière est repliée** derrière son dépliant « Dans ce
+chapitre » — le résumé, les notions et l'instrument le sont autant que ce
+lien. Vérifié : dépliée, le lien est visible et mesure 331 × 67. Ce n'est donc
+pas un défaut propre à ce renvoi, mais **c'est un sujet pour une passe mobile
+de la marge**, maintenant que le site s'installe en application.
+
+**Vérifié** : contraste **0 échec** sur la marge, minimum 6,44 ; cible
+267 × 67 à 1380 px, 331 × 67 à 375 px ; zéro débordement aux deux largeurs ;
+détecteur compté **en remisant** — `capital-1.html` 19 et `atelier.css` 40,
+**identiques**, 0 erreur ; `--check` à jour ; Manuscrits intacts (marge à
+quatre blocs, boutons d'instrument stylés, zéro `.atl3-m-goto`). Le clic réel
+a mené au chapitre **VIII** alors que j'avais ouvert le IX — parce que le
+suivi de lecture avait avancé entre-temps : le lien suit le chapitre qu'on
+lit, ce qui est le comportement voulu.
+
 ### Ce qui reste
 
 - **Les 28 autres chapitres**, par lots de trois à cinq. La table `ALLEMAND`
   est complète, le gabarit et les contrôles sont écrits : un lot tient dans
   une séance. Les sections IV (XIII-XVIII) et VIII (XXVI-XXXIII) sont les
   plus demandées après la III.
+- **La marge entière est repliée sous 1240 px** (voir ci-dessus) : une passe
+  mobile de la marge est à faire, et elle vaut pour ses six blocs, pas pour ce
+  seul renvoi.
 - Les essais de chapitre n'entrent pas encore dans `recherche-essais.json` ;
   la recherche « chapitre X » continue d'ouvrir le chapitre dans l'atelier.
 - **Search Console n'a toujours pas été consultée** — déclarée depuis
