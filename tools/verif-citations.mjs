@@ -126,17 +126,21 @@ function section(n) {
   return (sections[n] = readFileSync(f, 'utf8'));
 }
 
-/* Les citations d'un essai : <q data-s data-q> et <blockquote data-s data-q>. */
+/* Les citations d'un essai : <q data-s data-q> et <blockquote data-s data-q>.
+   On compare la valeur BRUTE de l'attribut, sans décoder aucune entité : c'est
+   elle que gen-seo.mjs passe telle quelle à encodeURIComponent, de sorte qu'un
+   « &nbsp; » écrit dans un data-q partirait dans l'URL sous cette forme et que
+   la liseuse chercherait ces six caractères. D'où la règle — dans un data-q,
+   des CARACTÈRES et jamais d'entités, l'insécable de Wikisource compris
+   (« au XVIe siècle » en porte un, et c'est ce qui a fait échouer la première
+   écriture de la page du chapitre IV). */
 function citations(html) {
   const out = [];
   const re = /<(?:q|blockquote) data-s="(\d+)" data-q="([^"]+)"/g;
   let m;
-  while ((m = re.exec(html))) out.push({ s: Number(m[1]), q: decodeHtml(m[2]) });
+  while ((m = re.exec(html))) out.push({ s: Number(m[1]), q: m[2] });
   return out;
 }
-const decodeHtml = (s) => s.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
-  .replace(/&quot;/g, '"').replace(/&#(\d+);/g, (_, d) => String.fromCharCode(+d))
-  .replace(/&nbsp;/g, ' ').replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCharCode(parseInt(h, 16)));
 
 /* ── Ce qui est cité ailleurs, pour ne pas le citer deux fois ───────── */
 const ailleurs = new Map();
