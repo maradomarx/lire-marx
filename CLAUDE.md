@@ -8125,9 +8125,57 @@ lit, ce qui est le comportement voulu.
   seul renvoi.
 - Les essais de chapitre n'entrent pas encore dans `recherche-essais.json` ;
   la recherche « chapitre X » continue d'ouvrir le chapitre dans l'atelier.
-- **Search Console n'a toujours pas été consultée** — déclarée depuis
-  `maillage-explorable`. C'est elle qui dira si le créneau « chapitre du
-  Capital expliqué » se prend, et sur quels chapitres pousser.
+- ✅ **Search Console a été consultée** (12 sept. 2026) — voir ci-dessous.
+  Elle ne dit encore rien des pages de chapitre, publiées la veille.
+
+## Ce que Search Console dit vraiment (12 sept. 2026)
+
+Première consultation, la propriété étant déclarée depuis `maillage-explorable`
+et jamais ouverte. **Je ne peux pas m'y connecter** — la saisie d'identifiants
+n'est pas quelque chose que je fais ; on pilote le Chrome du propriétaire, où
+sa session Google est déjà ouverte.
+
+**Toutes les données tiennent dans le dernier mois** : 28 jours et 3 mois
+rendent exactement les mêmes chiffres. La propriété est trop jeune pour un
+historique.
+
+| | |
+|---|---|
+| clics · impressions · position moyenne | **12 · 109 · 32,5** |
+| dont la requête **« lire marx »** | **11 clics**, 52 impressions, position **11,5** |
+| pages indexées / non indexées | **19 / 8** |
+
+**LE SITE NE SE CLASSE QUE SUR SON NOM** — onze clics sur douze. Et les
+requêtes de notion, qui étaient tout le pari du glossaire, sont **entre les
+positions 34 et 82**, soit pages 4 à 9 : « accumulation primitive » 34,
+« manuscrit de 1844 » 46,5, « travail aliéné » 57, « baisse tendancielle »
+60-72, « marx communisme » 78, « aliénation marx » 81. Ce n'est pas « proche
+de la première page ». Les meilleures pages sont `/` (12,1),
+`/glossaire/objectivation` (**21,2**) et `/oeuvres/capital-1` (22,5).
+
+**Les 8 pages non indexées ne sont pas un défaut** : cinq sont nos propres
+redirections 308 sur les `.html`, une est une canonique correcte.
+
+⚠️ **LE RAPPORT « PAGES » EST EN RETARD DE PLUSIEURS JOURS, ET IL M'A PRESQUE
+FAIT AGIR DANS LE VIDE.** Ses deux « détectées, actuellement non indexées » —
+`/glossaire/plus-value` et `/jeu/` — étaient en réalité **indexées** :
+l'inspection d'URL répond « Cette URL est sur Google » pour les deux. Le
+rapport datait du 04/09. **Toujours confirmer une URL à l'inspection avant
+d'agir sur un constat du rapport Pages.**
+
+**Fait ce jour-là** : indexation demandée pour les **cinq pages de chapitre**,
+que Google ne connaissait pas — l'inspection disait « aucun sitemap référent
+détecté », le sitemap ayant été lu le 11 septembre avec 48 URL sur 53. Le
+sitemap n'a **pas** été re-soumis : Google le relit de lui-même, et les cinq
+URL sont désormais dans une file d'exploration prioritaire. Le quota est
+d'environ dix demandes par jour.
+
+**Ce que ça change au plan : rien, et c'est l'information.** Cent neuf
+impressions ne suffisent pas à choisir quels chapitres écrire — l'idée de se
+laisser guider par Search Console était prématurée. Le goulot reste
+l'**autorité**, c'est-à-dire les liens entrants, exactement ce que ce fichier
+dit depuis `a-propos`. Reconsulter dans trois à quatre semaines, quand les
+pages de chapitre auront produit des impressions.
 
 ## Conventions de travail
 
