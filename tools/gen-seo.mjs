@@ -151,6 +151,30 @@ const clean = p => '/' + p.replace(/\.html$/, '').replace(/^\/+/, '');
  * qui vient après : les pages de notion n'existent pas à l'avance, elles
  * dépendent de ce que le lexique a écrit. */
 const PAGES_NOTIONS = [];
+/* LES PAGES DE CHAPITRE (mission chapitres-capital) : leur liste dépend des
+ * dossiers présents sous oeuvres/capital-1/chapitres/, et elle est lue par le
+ * glossaire — qui renvoie de la notion au chapitre qui l'établit — AVANT que
+ * les pages ne soient assemblées. D'où ce relevé en tête. Le romain donne le
+ * dossier et le deep-link de l'atelier (#ch=X) ; l'arabe donne l'adresse,
+ * parce que c'est « chapitre 10 » que l'on tape. */
+const CHAP_DIR = 'oeuvres/capital-1/chapitres';
+function romainVersArabe(rn) {
+  const v = { I: 1, V: 5, X: 10, L: 50, C: 100 };
+  let n = 0;
+  for (let i = 0; i < rn.length; i++) { const a = v[rn[i]], b = v[rn[i + 1]] || 0; n += a < b ? -a : a; }
+  return n;
+}
+const CHAP_META = existsSync(CHAP_DIR)
+  ? readdirSync(CHAP_DIR).filter((d) => existsSync(`${CHAP_DIR}/${d}/meta.json`)).map((d) => {
+      const m = JSON.parse(readFileSync(`${CHAP_DIR}/${d}/meta.json`, 'utf8'));
+      return { ...m, dossier: `${CHAP_DIR}/${d}`, arabe: romainVersArabe(m.rn),
+               href: `/oeuvres/capital-1/chapitre-${romainVersArabe(m.rn)}` };
+    })
+  : [];
+/* Rempli par l'assemblage des chapitres, lu par le sitemap et par la table
+ * du maillage injectée dans l'atelier. */
+const PAGES_CHAPITRES = [];
+const CHAP_HREF = {};
 /* Les notions, telles que le glossaire les a dédoublonnées et nommées —
  * l'index de recherche en dérive (voir « L'index de la recherche »). */
 let INDEX_NOTIONS = [];
@@ -1066,7 +1090,10 @@ ${essai}
     <div class="nt-bloc nt-bloc--source">
       <p class="nt-bloc-t">Où Marx l'établit</p>
       <p>${meta.ou || 'Voir les pièces de l’atelier ci-contre.'}</p>
-    </div>
+${(() => {
+  const chs = CHAP_META.filter((c) => (c.notions || []).some((n) => identite(n) === identite(t.nom)));
+  return chs.length ? `      <ul class="nt-liens">\n${chs.map((c) => `        <li><a href="${c.href}">Le chapitre ${c.rn} expliqué →</a></li>`).join('\n')}\n      </ul>\n` : '';
+})()}    </div>
     <div class="nt-bloc">
       <p class="nt-bloc-t">Le voir fonctionner</p>
       <ul class="nt-liens">
@@ -1303,6 +1330,209 @@ ${PIED}
             + courtes.map((t) => `« ${decode(t.nom)} »`).join(', ')
           : '.'));
   }
+
+  /* ─────────────── LES PAGES DE CHAPITRE DU CAPITAL ───────────────
+   * Mission chapitres-capital. Les trente-trois chapitres n'avaient pour
+   * adresse qu'un fragment (#ch=X), que Google ignore. Or la demande est
+   * réelle (« le capital chapitre 10 résumé ») et la concurrence faible :
+   * des blogs, un site de lectures, et pour la plupart des chapitres AUCUNE
+   * page explicative en français. Chaque page est ÉCRITE — un résumé de
+   * soixante-quatre mots assemblé avec les définitions de l'abécédaire
+   * aurait été du contenu mince qui fait concurrence aux pages de notion.
+   *
+   * Le dossier (oeuvres/capital-1/chapitres/<romain>/) porte l'essai et une
+   * tête ; tout le reste est DÉRIVÉ de l'atelier : titre, section et voisins
+   * (ROY_STRUCT), dates (CHRONO), instrument (META.labo), marche (META.d).
+   *
+   * LA DOUBLE NUMÉROTATION est l'apport propre de ces pages. Roy — revu par
+   * Marx — découpe le Livre I en trente-trois chapitres, et les éditions
+   * anglaises le suivent ; l'original allemand et la traduction dirigée par
+   * Jean-Pierre Lefebvre en comptent vingt-cinq. Un étudiant cherche avec la
+   * numérotation de SON édition. Table relevée sur trois sources concordantes :
+   * l'arborescence de zeno.org (chapitres 10 à 13 dans la IVe section), les
+   * lectures de d-meeus.be (la journée de travail au chapitre 8) et
+   * marxists.org en anglais (Chapter Ten: The Working-Day, sept parties comme
+   * chez Roy). Le chapitre 4 allemand devient IV à VI chez Roy, le 24 devient
+   * XXVI à XXXII. */
+  const ALLEMAND = { I: 1, II: 2, III: 3, IV: 4, V: 4, VI: 4, VII: 5, VIII: 6, IX: 7, X: 8, XI: 9,
+    XII: 10, XIII: 11, XIV: 12, XV: 13, XVI: 14, XVII: 15, XVIII: 16, XIX: 17, XX: 18, XXI: 19,
+    XXII: 20, XXIII: 21, XXIV: 22, XXV: 23, XXVI: 24, XXVII: 24, XXVIII: 24, XXIX: 24, XXX: 24,
+    XXXI: 24, XXXII: 24, XXXIII: 25 };
+  if (CHAP_META.length) {
+    const capSrc = readFileSync('oeuvres/capital-1.html', 'utf8');
+    const ROYS = litteralJS(capSrc, 'ROY_STRUCT=', '[');
+    const METAC = litteralJS(capSrc, 'META=', '{');
+    const CHRONOC = litteralJS(capSrc, 'CHRONO=', '[');
+    const STEPSC = litteralJS(capSrc, 'STEPS=', '[');
+    const LABOC = litteralJS(capSrc, 'LABO_LABELS=', '{');
+    const ORDRE = ROYS.flatMap((sec, si) => sec.chaps.map((c) => ({ rn: c[0], t: c[1], sec: sec.rn, secT: sec.t, s: si + 1 })));
+    if (ORDRE.length !== 33) throw new Error(`ROY_STRUCT rend ${ORDRE.length} chapitres — le Livre I en a trente-trois.`);
+    for (const k of Object.keys(ALLEMAND)) if (!ORDRE.some((o) => o.rn === k)) throw new Error(`Numérotation allemande : ${k} n'est pas un chapitre de Roy.`);
+    for (const c of CHAP_META) CHAP_HREF[c.rn] = c.href;
+
+    for (const c of CHAP_META) {
+      const i = ORDRE.findIndex((o) => o.rn === c.rn);
+      if (i < 0) throw new Error(`Chapitre ${c.rn} : absent de ROY_STRUCT.`);
+      const o = ORDRE[i], m = METAC[c.rn] || {};
+      const url = `${ORIGIN}${c.href}`;
+      const titre = nu(o.t);
+      const desc = nu(c.description || c.chapo);
+      const cite = `Karl Marx, <i>Le Capital</i>, Livre I, chapitre ${c.rn} — traduction Joseph Roy (1872)`;
+      const lien = (sEl, q) => `/oeuvres/capital-1#s=${sEl || o.s}&q=${encodeURIComponent(q)}`;
+      let essai = readFileSync(`${c.dossier}/essai.html`, 'utf8').replace(/<!--[^]*?-->/g, '').trim();
+
+      const sections = [];
+      essai = essai.replace(/<section class="nt-sec" data-etape="([^"]+)" id="([^"]+)">\s*<h2>([^]*?)<\/h2>/g, (mm, etape, id, h2) => {
+        const n = sections.length; sections.push({ etape, id, h2 });
+        return `<section class="nt-sec" data-etape="${etape}" id="${id}">\n<h2><span class="nt-sec-n" aria-hidden="true">${ROMAINS[n]}</span>${h2}</h2>`;
+      });
+      if (sections.length < 3) throw new Error(`Chapitre ${c.rn} : l'essai n'a que ${sections.length} section(s).`);
+      let nbCit = 0;
+      essai = essai.replace(/<blockquote data-s="(\d+)" data-q="([^"]+)">([^]*?)<\/blockquote>/g, (mm, sEl, q, inner) => {
+        nbCit++; return `<blockquote>${inner.trim()}<cite>${cite}<a href="${lien(sEl, q)}">Lire dans le texte →</a></cite></blockquote>`;
+      });
+      essai = essai.replace(/<q data-s="(\d+)" data-q="([^"]+)">([^]*?)<\/q>/g, (mm, sEl, q, inner) => {
+        nbCit++; return `<a class="nt-q" href="${lien(sEl, q)}" title="Lire ce passage dans le texte"><q>${inner}</q></a>`;
+      });
+      if (/data-q=/.test(essai)) throw new Error(`Chapitre ${c.rn} : une citation n'a pas été reconnue.`);
+      const mots = nu(essai).split(/\s+/).filter(Boolean).length;
+      if (mots < 900) throw new Error(`Chapitre ${c.rn} : ${mots} mots — une page de chapitre en veut au moins 900.`);
+
+      const notions = (c.notions || []).map((n) => termes.find((x) => identite(x.nom) === identite(n)));
+      if (notions.some((x) => !x)) throw new Error(`Chapitre ${c.rn} : notions introuvables — ${(c.notions || []).filter((n, k) => !notions[k]).join(', ')}`);
+      const dates = CHRONOC.filter((e) => String(e.chap || '').split(/[^IVXLC]+/).includes(c.rn));
+      const labo = m.labo && LABOC[m.labo] ? { label: nu(LABOC[m.labo]).replace(/^Modèle /, ''), url: `/oeuvres/capital-1#labo=${m.labo}` } : null;
+      const marche = m.d && STEPSC[m.d - 1] ? { label: nu(STEPSC[m.d - 1].t), n: m.d, url: `/oeuvres/capital-1#deriv=${m.d}` } : null;
+
+      const nA = ALLEMAND[c.rn];
+      const freres = Object.keys(ALLEMAND).filter((k) => ALLEMAND[k] === nA);
+      const nums = freres.length > 1
+        ? `Il appartient au chapitre <b>${nA}</b> de l'original allemand et de la traduction dirigée par Jean-Pierre Lefebvre, que Roy découpe en ${freres.length} chapitres (${freres[0]} à ${freres[freres.length - 1]}) ; chapitre <b>${c.arabe}</b> dans les éditions anglaises, qui suivent le découpage de Roy.`
+        : `Chapitre <b>${nA}</b> dans l'original allemand et dans la traduction dirigée par Jean-Pierre Lefebvre ; chapitre <b>${c.arabe}</b> dans les éditions anglaises, qui suivent le découpage de Roy.`;
+
+      const voisin = (k) => {
+        const v = ORDRE[k]; if (!v) return null;
+        const page = CHAP_META.find((x) => x.rn === v.rn);
+        return { rn: v.rn, t: nu(v.t), href: page ? page.href : `/oeuvres/capital-1#ch=${v.rn}`, page: !!page };
+      };
+      const prec = voisin(i - 1), suiv = voisin(i + 1);
+
+      const ld = [
+        { '@context': 'https://schema.org', '@type': 'Article',
+          headline: `Le Capital, chapitre ${c.arabe} : ${titre}`, description: desc, url, inLanguage: 'fr', wordCount: mots,
+          about: { '@type': 'Book', name: 'Le Capital — Livre I', url: `${ORIGIN}/oeuvres/capital-1`,
+                   author: { '@type': 'Person', name: 'Karl Marx', sameAs: 'https://www.wikidata.org/wiki/Q9061' } },
+          author: { '@id': `${ORIGIN}/#organisation` }, publisher: { '@id': `${ORIGIN}/#organisation` },
+          image: `${ORIGIN}/assets/img/archive/das-kapital-titre-1867.jpg` },
+        { '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Lire Marx', item: `${ORIGIN}/` },
+            { '@type': 'ListItem', position: 2, name: 'Le Capital', item: `${ORIGIN}/oeuvres/capital-1` },
+            { '@type': 'ListItem', position: 3, name: `Chapitre ${c.rn}` },
+          ] },
+      ].map((x) => `${OPEN}\n${JSON.stringify(x, null, 2)}\n${CLOSE}`).join('\n');
+
+      const bloc = (t, corps, cls = '') => `    <div class="nt-bloc${cls}">\n      <p class="nt-bloc-t">${t}</p>\n${corps}\n    </div>`;
+      const marge = [
+        bloc('Où il se place', `      <p>Section ${o.sec} — ${nu(o.secT)}.</p>\n      <ul class="nt-liens">\n        <li><a href="/oeuvres/capital-1#ch=${c.rn}">Lire le chapitre dans l'atelier →</a></li>\n      </ul>`, ' nt-bloc--source'),
+        (c.parties || []).length ? bloc(`Ses ${['', 'une', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit', 'neuf', 'dix'][c.parties.length] || c.parties.length} parties`, `      <ol class="ch-plan">\n${c.parties.map(([n, t, p]) => `        <li><span class="n">${n}</span><span>${t}</span><span class="p">${p}&nbsp;%</span></li>`).join('\n')}\n      </ol>`) : '',
+        notions.length ? bloc('Les notions qu’il établit', `      <ul class="nt-liens">\n${notions.map((x) => `        <li><a href="${x.href}">${decode(x.affiche || x.nom)}</a></li>`).join('\n')}\n      </ul>`) : '',
+        dates.length ? bloc('Ce qu’il raconte', `      <ol class="ch-dates">\n${dates.map((e) => `        <li><span class="y">${e.year}</span><span>${nu(e.title)}</span></li>`).join('\n')}\n      </ol>`) : '',
+        (labo || marche) ? bloc('Le voir fonctionner', `      <ul class="nt-liens">\n${labo ? `        <li><a href="${labo.url}">${labo.label} — le laboratoire</a></li>\n` : ''}${marche ? `        <li><a href="${marche.url}">Marche ${marche.n} du cheminement : ${marche.label}</a></li>\n` : ''}      </ul>`) : '',
+      ].filter(Boolean).join('\n');
+
+      const html = `<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Le Capital, chapitre ${c.arabe} : ${echap(titre)} — résumé et explication | Lire Marx</title>
+<!-- PAGE GÉNÉRÉE par tools/gen-seo.mjs depuis ${c.dossier}/ (essai.html,
+     meta.json) et depuis les données de l'atelier. Ne pas éditer à la main :
+     le texte se modifie dans l'essai, la forme dans le générateur, le style
+     dans glossaire/notion.css. -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="/assets/img/logo/icon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/logo/icon-192.png">
+<link rel="apple-touch-icon" href="/assets/img/logo/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#15100b">
+<meta name="apple-mobile-web-app-title" content="Lire Marx">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="${echap(desc)}">
+<meta property="og:title" content="Le Capital, chapitre ${c.arabe} : ${echap(titre)}">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Lire Marx">
+<meta property="og:description" content="${echap(desc)}">
+<meta property="og:url" content="${url}">
+<meta property="og:image" content="${ORIGIN}/assets/img/archive/das-kapital-titre-1867.jpg">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="${url}">
+<link rel="stylesheet" href="/oeuvres/fonts/fonts.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css"></noscript>
+<link rel="stylesheet" href="/glossaire/notion.css?v=${hashV('glossaire/notion.css')}">
+<link rel="preload" href="/oeuvres/shell.css?v=8" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=8"></noscript>
+${ld}
+</head>
+<body>
+<main class="wrap" id="contenu" tabindex="-1">
+<article class="nt nt--ch">
+<div class="nt-grid">
+<div class="nt-col">
+
+  <nav class="nt-fil" aria-label="Fil d'Ariane">
+    <a href="/">Lire Marx</a><span aria-hidden="true">›</span><a href="/oeuvres/capital-1">Le Capital</a><span aria-hidden="true">›</span>Chapitre ${c.rn}
+  </nav>
+
+  <p class="nt-label">Le Capital, Livre I · Section ${o.sec}</p>
+  <h1 class="nt-h1"><span class="ch-num">Chapitre ${c.rn}</span>${o.t}</h1>
+  <p class="ch-nums">${nums}</p>
+  <p class="nt-chapo">${c.chapo}</p>
+  <div class="ch-acts">
+    <a class="nt-btn" href="/oeuvres/capital-1#ch=${c.rn}">Lire le chapitre</a>
+  </div>
+
+  <nav class="nt-som" aria-label="Sommaire">
+    <p class="nt-som-t">Dans cette explication</p>
+    <ol>
+${sections.map((x) => `      <li><a href="#${x.id}">${x.h2}</a></li>`).join('\n')}
+    </ol>
+  </nav>
+
+  <div class="nt-corps nt-essai">
+${essai}
+  </div>
+
+  <p class="nt-colophon">Les citations sont relevées dans le texte que ce site sert — ${cite} — et chacune mène au passage dans la liseuse.</p>
+
+  <nav class="ch-suite" aria-label="Chapitres voisins">
+${prec ? `    <a class="prec" href="${prec.href}"><span class="k">← Chapitre ${prec.rn}</span><span class="t">${prec.t}</span></a>` : '    <span></span>'}
+${suiv ? `    <a class="suiv" href="${suiv.href}"><span class="k">Chapitre ${suiv.rn} →</span><span class="t">${suiv.t}</span></a>` : ''}
+  </nav>
+
+</div>
+  <aside class="ch-marge" aria-label="Dans ce chapitre">
+${marge}
+  </aside>
+</div>
+</article>
+</main>
+${PIED}
+<script src="/config.js"></script>
+<script src="/oeuvres/shell.js?v=8"></script>
+<script src="/oeuvres/shell-social.js"></script>
+<script>installShell({ workTitle: 'Le Capital', tabs: [] });</script>
+</body>
+</html>
+`;
+      const fichier = `oeuvres/capital-1/chapitre-${c.arabe}.html`;
+      writeIfNeeded(fichier, html, fichier);
+      PAGES_CHAPITRES.push({ file: fichier, url: c.href });
+      if (!check) console.log(`  chapitre ${c.rn} → ${c.href} — ${sections.length} sections, ${mots} mots, ${nbCit} citations, ${notions.length} notions, ${dates.length} dates`);
+    }
+  }
 }
 
 /* ------------- Le maillage : les fiches mènent à leur page ------------- *
@@ -1348,7 +1578,9 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
     + '     La table du titre de fiche vers sa page de notion : la résolution\n'
     + '     (identité, suffixe de station, renvoi « voir ») se fait dans le\n'
     + '     générateur, la page ne fait que lire. -->\n'
-    + '<script>window.NOTIONS_HREF=' + JSON.stringify(liens) + ';</script>\n';
+    + '<script>window.NOTIONS_HREF=' + JSON.stringify(liens) + ';'
+    + (oeuvre === 'Le Capital' ? 'window.CHAPITRES_HREF=' + JSON.stringify(CHAP_HREF) + ';' : '')
+    + '</script>\n';
   src = entreMarqueurs(src, MAILLE_DEB, MAILLE_FIN, table, file);
 
   /* Les cartes pré-rendues — Capital seul : les Manuscrits n'ont pas de
@@ -1502,6 +1734,9 @@ const entries = [
   /* Les pages de notion. Priorité modeste : elles comptent, mais moins que
      les œuvres et que l'abécédaire qui les rassemble. */
   ...PAGES_NOTIONS.map(p => ({ ...p, loc: ORIGIN + p.url,
+    priority: '0.6', changefreq: 'monthly' })),
+  /* Les pages de chapitre du Capital : même rang que les notions. */
+  ...PAGES_CHAPITRES.map(p => ({ ...p, loc: ORIGIN + p.url,
     priority: '0.6', changefreq: 'monthly' })),
   ...available.map(w => ({
     file: w.path, loc: ORIGIN + clean(w.path),
