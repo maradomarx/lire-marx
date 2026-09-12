@@ -1,0 +1,27 @@
+{
+  "_": "LA TÊTE de /oeuvres/capital-1/chapitre-3. Titre, section, voisins, dates, instrument et marche sont DÉRIVÉS de l'atelier par tools/gen-seo.mjs. Les parties sont relevées dans le texte de Roy tel que la liseuse le sert, leur poids mesuré en caractères.",
+  "rn": "III",
+  "chapo": "On le croit technique, et l'on y cherche une théorie de la monnaie&nbsp;; c'est en réalité le chapitre où le livre montre pour la première fois qu'une contradiction peut se déplacer sans se résoudre — et où il établit, contre l'économie de son temps, que la crise est possible.",
+  "description": "Le Capital, chapitre III (3 dans l'édition allemande) : la monnaie ou la circulation des marchandises — le prix, le saut périlleux de la vente, la possibilité de la crise, et les trois parties du chapitre.",
+  "notions": [
+    "Mesure des valeurs",
+    "M — A — M"
+  ],
+  "parties": [
+    [
+      "I",
+      "Mesure des valeurs",
+      19
+    ],
+    [
+      "II",
+      "Moyen de circulation",
+      53
+    ],
+    [
+      "III",
+      "La monnaie ou l’argent",
+      28
+    ]
+  ]
+}

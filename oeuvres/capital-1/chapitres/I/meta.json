@@ -1,0 +1,34 @@
+{
+  "_": "LA TÊTE de /oeuvres/capital-1/chapitre-1. Le titre, la section, les chapitres voisins, les dates, l'instrument et la marche sont DÉRIVÉS de l'atelier (ROY_STRUCT, META, CHRONO, STEPS) par tools/gen-seo.mjs : ce fichier ne porte que ce que l'atelier n'a pas. Les parties sont relevées dans le texte de Roy tel que la liseuse le sert, leur poids mesuré en caractères.",
+  "rn": "I",
+  "chapo": "C'est le chapitre où l'on abandonne, et le malentendu qui y conduit est mesurable&nbsp;: plus de la moitié de sa longueur est consacrée à la seule forme de la valeur, c'est-à-dire à une question que le lecteur ne s'est pas encore posée. Savoir cela avant d'entrer change la lecture.",
+  "description": "Le Capital, chapitre I (1 dans l'édition allemande) : la marchandise — ce qu'il établit, pourquoi le livre commence là, ses quatre parties et comment les lire.",
+  "notions": [
+    "Valeur d’usage vs valeur",
+    "Force productive",
+    "Forme simple (A)",
+    "Fétichisme"
+  ],
+  "parties": [
+    [
+      "I",
+      "Les deux facteurs de la marchandise : valeur d’usage et valeur",
+      12
+    ],
+    [
+      "II",
+      "Double caractère du travail présenté par la marchandise",
+      12
+    ],
+    [
+      "III",
+      "Forme de la valeur",
+      52
+    ],
+    [
+      "IV",
+      "Le caractère fétiche de la marchandise et son secret",
+      24
+    ]
+  ]
+}

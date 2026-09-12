@@ -1,0 +1,12 @@
+{
+  "_": "LA TÊTE de /oeuvres/capital-1/chapitre-2. Le titre, la section, les chapitres voisins, les dates, l'instrument et la marche sont DÉRIVÉS de l'atelier (ROY_STRUCT, META, CHRONO, STEPS) par tools/gen-seo.mjs : ce fichier ne porte que ce que l'atelier n'a pas. Le chapitre n'a pas de parties numérotées chez Roy — on n'en invente donc pas.",
+  "rn": "II",
+  "chapo": "C'est le plus court chapitre du livre, et celui qu'on saute le plus volontiers. Il fait pourtant un travail qu'aucun autre ne fait&nbsp;: passer de la forme argent, déduite au chapitre premier, à l'acte réel par lequel des hommes donnent à une marchandise le rôle d'équivalent général.",
+  "description": "Le Capital, chapitre II (2 dans l'édition allemande) : des échanges — comment une marchandise devient monnaie, pourquoi le contrat suppose le rapport économique, et ce que le chapitre ajoute au précédent.",
+  "notions": [
+    "Forme argent (D)",
+    "Travaux privés",
+    "Mesure des valeurs"
+  ],
+  "parties": []
+}
