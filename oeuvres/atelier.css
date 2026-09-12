@@ -850,6 +850,16 @@ a.btn,a.lk,a.cap-btn-dark,a.cap-btn-light,a.cap-btn-outline,a.prog-no-auth-btn{
   line-height:1.25;color:var(--ink);}
 .atl3-m-go-k{font-family:var(--f-ui);font-size:.75rem;color:var(--gold);}
 
+/* La variante ANCRE du même objet : « Ce que fait le chapitre X », au pied
+   d'« En clair ». `.atl3-m-go` a été dessiné pour un <button>, qui n'hérite
+   ni de la couleur ni du soulignement de l'agent utilisateur ; un <a> si —
+   défaut déjà payé sur .lk, .rd-chip, les douze liens de l'abécédaire et les
+   cartes du laboratoire. On redéclare donc les deux, explicitement.
+   Elle prend son propre blanc : posée contre « Lire la suite », elle se
+   lisait comme la seconde moitié du même contrôle. */
+.atl3-m-goto{margin-top:10px;text-decoration:none;color:inherit;}
+.atl3-m-goto:hover .atl3-m-go-t{color:var(--gold);}
+
 /* Les dates : l'année en folio, le titre à côté, la notice au dépli. */
 .atl3-m-dates{list-style:none;margin:0;padding:0;display:flex;
   flex-direction:column;gap:2px;}
