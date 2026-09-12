@@ -1,0 +1,12 @@
+{
+  "_": "LA TÊTE de /oeuvres/capital-1/chapitre-18. Titre, section, voisins, dates, instrument et marche sont DÉRIVÉS de l'atelier par tools/gen-seo.mjs. Roy intitule le chapitre « Formules diverses pour le taux de la plus-value » là où notre plan écrit « Diverses formules du taux de la plus-value » : c'est le titre du plan que le générateur affiche, et c'est aussi l'une des trois divergences qui obligent buildChapMarks à se rabattre sur le NUMÉRO du chapitre. Les parties de ce chapitre sont des formules numérotées, non des sections de texte : on n'en fait donc pas un plan.",
+  "rn": "XVIII",
+  "chapo": "Quatre pages sur une question d'écriture, et un enjeu qui n'a rien de formel&nbsp;: selon qu'on rapporte le surtravail au travail nécessaire ou à la journée entière, l'exploitation se lit à 100&nbsp;% ou à 50&nbsp;%, et le rapport de classe se change en association.",
+  "description": "Le Capital, chapitre XVIII (16 dans l'édition allemande) : les diverses formules du taux de la plus-value — pourquoi celles de l'économie classique masquent le degré réel d'exploitation.",
+  "notions": [
+    "Taux de plus-value (pl/v)",
+    "Surtravail",
+    "Travail payé (nécessaire)"
+  ],
+  "parties": []
+}

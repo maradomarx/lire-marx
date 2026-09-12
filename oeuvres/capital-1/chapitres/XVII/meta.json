@@ -1,0 +1,33 @@
+{
+  "_": "LA TÊTE de /oeuvres/capital-1/chapitre-17. Titre, section, voisins, dates, instrument et marche sont DÉRIVÉS de l'atelier par tools/gen-seo.mjs. Les quatre parties sont relevées dans le texte de Roy tel que la liseuse le sert. ATTENTION : Roy intitule ce chapitre « Variations dans le rapport de grandeur entre la plus-value et la valeur de la force de travail » là où notre plan écrit « Variations dans les grandeurs proportionnelles… » — c'est le titre du plan que le générateur affiche.",
+  "rn": "XVII",
+  "chapo": "Trois facteurs, trois lois, et une leçon de méthode&nbsp;: Ricardo avait bien établi ces lois, mais il avait pris pour la règle générale les conditions particulières où elles valent. Le chapitre montre ce que coûte cette confusion, et il se clôt sur l'une des plus belles phrases du livre.",
+  "description": "Le Capital, chapitre XVII (15 dans l'édition allemande) : les variations de la plus-value et du prix de la force de travail selon la durée, l'intensité et la productivité du travail.",
+  "notions": [
+    "Taux de plus-value (pl/v)",
+    "Force productive",
+    "Journée de travail"
+  ],
+  "parties": [
+    [
+      "I",
+      "Durée et intensité constantes, productivité variable",
+      45
+    ],
+    [
+      "II",
+      "Durée et productivité constantes, intensité variable",
+      10
+    ],
+    [
+      "III",
+      "Productivité et intensité constantes, durée variable",
+      15
+    ],
+    [
+      "IV",
+      "Variations simultanées des trois facteurs",
+      25
+    ]
+  ]
+}
