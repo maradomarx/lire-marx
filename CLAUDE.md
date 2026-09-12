@@ -8114,17 +8114,122 @@ a mené au chapitre **VIII** alors que j'avais ouvert le IX — parce que le
 suivi de lecture avait avancé entre-temps : le lien suit le chapitre qu'on
 lit, ce qui est le comportement voulu.
 
+### ✅ LES TRENTE-TROIS CHAPITRES SONT ÉCRITS (mission `chapitres-tous`, sept. 2026)
+
+Demande du propriétaire : « réalise une à une toutes les explications de
+chapitre sans que j'aie à valider à chaque fois ». Les 28 chapitres restants
+ont donc été écrits d'affilée, par lots correspondant aux **sections de
+Roy** — c'est le bon découpage, parce que les citations d'une section
+partagent le même texte servi et que l'enchaînement des chapitres se raconte
+section par section.
+
+**Le corpus est complet** : 33 pages, 231 citations toutes retrouvées dans le
+texte que la liseuse sert, une seule partagée avec une page-monde (celle du
+chapitre X, documentée). Sitemap à 81 URL.
+
+#### `tools/verif-citations.mjs` — un data-q est une PROMESSE
+
+L'outil né de cette mission est ce qu'elle laisse de plus durable. Un `data-q`
+promet que le lien `#s=N&q=…` retrouvera la phrase ; or `locate()` fait un
+**indexOf EXACT**, sans rien normaliser. L'outil fabrique le texte **par le
+chemin de la liseuse** — l'API de Wikisource, `cleanWS` recopié de
+`capital-1.html`, `textContent`, dans un vrai Chrome parce que `cleanWS` a
+besoin d'un DOMParser — le met en cache dans le dossier temporaire du système,
+et vérifie chaque citation. Il relève aussi celles qu'une page de chapitre
+partagerait avec une page-monde.
+
+```
+node tools/verif-citations.mjs             # tout
+node tools/verif-citations.mjs XII XIII    # ces chapitres
+node tools/verif-citations.mjs --refresh   # redemande les sections
+node tools/verif-citations.mjs --corriger  # réécrit les citations à la lettre
+```
+
+**⚠️ LA TYPOGRAPHIE DE ROY EST UN PIÈGE SYSTÉMATIQUE, et il est invisible.**
+Roy compose à la française : **espace INSÉCABLE avant `;` `!` `?` `:`**, et
+Wikisource ajoute ses traits d'union insécables (`c'est‑à‑dire`,
+`au‑dessous`, U+2011) et une insécable dans `au XVIe siècle`. Une citation
+tapée au clavier ordinaire est alors **juste à l'œil et fausse au caractère
+près** — et rien, ni relecture ni diff, ne le montre. D'où `--corriger`, qui
+cherche la phrase avec un motif tolérant (n'importe quelle espèce d'espace,
+d'apostrophe, de tiret) et réécrit l'attribut avec la tranche exacte ; il ne
+corrige que si le motif ne rend **qu'une** occurrence.
+
+**Dans un data-q, des CARACTÈRES et jamais d'entités.** `gen-seo.mjs` passe la
+valeur brute de l'attribut à `encodeURIComponent` : un `&nbsp;` y partirait
+tel quel et la liseuse chercherait ces six caractères. Le vérificateur compare
+donc lui aussi la valeur brute.
+
+#### Deux fautes que seul l'outil pouvait attraper
+
+1. **UNE CITATION INVENTÉE.** Pour le travailleur productif du chapitre XVI,
+   j'avais écrit de mémoire « n'est donc pas une chance, mais une guigne ».
+   La formule n'est pas dans Roy. C'est exactement ce que l'outil existe pour
+   empêcher : une page qui promet un passage que la liseuse ne trouvera
+   jamais.
+2. **« au XVIe siècle »** (chapitre IV) portait une insécable. Introuvable, et
+   personne ne l'aurait vu.
+
+#### Ce que le lot a appris sur les citations partagées
+
+Une page de notion écrite AVANT la page de son chapitre a déjà pris les plus
+belles phrases : `/glossaire/forme-salaire` en avait cinq du chapitre XIX,
+`/glossaire/accumulation-primitive` trois du XXXI. Le partage tient toujours —
+**la notion porte le CONCEPT, le chapitre porte le TEXTE** —, mais il faut
+alors citer AUTRE CHOSE du même passage, et c'est souvent meilleur : sur le
+XXXI, renoncer à « suant le sang et la boue » a donné « toutes sans exception
+exploitent le pouvoir de l'État », qui dit l'argument au lieu de le clamer.
+
+#### Le détecteur avait raison cinq fois sur six
+
+Six pages relevées pour saturation de tirets cadratins. Sur cinq c'était une
+vraie tique d'écriture (le V en avait 14 pour 990 mots), corrigée en
+deux-points, virgules et parenthèses. Sur le **chapitre IV**, c'est le faux
+positif déjà documenté pour la page de la valeur qui se valorise : sur douze
+tirets, **dix sont la notation M—A—M et A—M—A′**, celle de Roy et celle de
+l'abécédaire. **On ne défait pas une notation pour satisfaire un compteur.**
+
+#### ⚠️ NEUTRALISER LES ANIMATIONS PEUT EFFACER L'ÉTAT VISIBLE
+
+Piège d'outillage neuf, à ajouter à la liste. La règle déjà écrite dit de
+neutraliser `transition` ET `animation` avant de mesurer, parce qu'elles sont
+gelées dans un onglet piloté. Mais `animation:none` renvoie un élément à son
+opacité de DÉPART quand son état visible vient du `fill-mode` : la sonde ne
+voit alors que la coquille. On fait donc **achever** les animations
+(`animation-duration:.001s`) au lieu de les couper.
+
+Et le piège qui a vraiment coûté du temps, plus bête et plus instructif : la
+sonde calculait sa racine de site par un `path.resolve` acrobatique, servait
+donc du vide, et **mesurait la page d'erreur de Chrome** — six éléments, zéro
+échec, minimum 6,1, tout au vert. **Un résultat trop propre est un résultat à
+vérifier** : c'est en demandant à la sonde de dire ce qu'elle voyait
+(`body.innerHTML.length`, la liste des balises) que `interstitial-wrapper` est
+apparu.
+
+#### Vérifié
+
+231 citations, 0 introuvable. Contraste sur le RENDU, quatre pages (I, XV,
+XXV, XXXIII) aux deux largeurs : **954 mesures, 0 échec**, minimum **4,56**
+(le blanc sur rouge du bouton, valeur maison), plus petit texte **11,52 px**,
+**zéro débordement horizontal** à 1380 comme à 375 px, console propre, aucune
+cible sous 24 × 24. Détecteur statique sur les 33 pages : **0 erreur**, un
+seul constat (le faux positif du chapitre IV). `gen-seo --check` à jour et
+idempotent.
+
 ### Ce qui reste
 
-- **Les 28 autres chapitres**, par lots de trois à cinq. La table `ALLEMAND`
-  est complète, le gabarit et les contrôles sont écrits : un lot tient dans
-  une séance. Les sections IV (XIII-XVIII) et VIII (XXVI-XXXIII) sont les
-  plus demandées après la III.
 - **La marge entière est repliée sous 1240 px** (voir ci-dessus) : une passe
   mobile de la marge est à faire, et elle vaut pour ses six blocs, pas pour ce
   seul renvoi.
 - Les essais de chapitre n'entrent pas encore dans `recherche-essais.json` ;
   la recherche « chapitre X » continue d'ouvrir le chapitre dans l'atelier.
+  **C'est désormais le manque le plus net** : trente-trois essais, quarante
+  mille mots, invisibles pour la recherche du site.
+- **Les parties de chaque chapitre sont relevées à la main** (l'outil de
+  séance qui les mesurait n'est pas versionné). Si un lot de pages devait être
+  refait, il faudrait le réécrire — ou verser au dépôt l'équivalent de
+  `chap.mjs` (découpe d'un chapitre dans sa section, poids des parties,
+  extraction d'une citation à la lettre).
 - ✅ **Search Console a été consultée** (12 sept. 2026) — voir ci-dessous.
   Elle ne dit encore rien des pages de chapitre, publiées la veille.
 
