@@ -8389,7 +8389,7 @@ parce qu'il vaut au-delà d'une session.
   attribué) · prolonger. Registre de Fabio (voir la mémoire).
 - Le choix des textes commentés est **celui du site**, et la page le dit.
 
-### ✅ PILOTE CONSTRUIT, EN ATTENTE DE LA VALIDATION DE FABIO
+### ✅ PILOTE VALIDÉ ET EN LIGNE (13 septembre 2026)
 
 Carrefour + `/commentaires/hieroglyphe-social` (8 sections, 12 citations
 vérifiées dont l'extrait entier, 0 partagée). Contraste 0 échec (minimum
@@ -8397,8 +8397,11 @@ vérifiées dont l'extrait entier, 0 partagée). Contraste 0 échec (minimum
 débordement à 1380 et 375 px, détecteur 0 constat sur les deux pages,
 `--check` idempotent, sitemap à 83 URL, liens externes en 200, lien de
 l'extrait : la liseuse charge la section 1 qui contient la phrase.
-**Pas encore poussé.** Après validation : lots de fiches, puis indexation
-demandée dans Search Console (carrefour d'abord).
+**Validé par Fabio (« ça me va »), mergé et poussé le 13 septembre 2026.**
+Suite : indexation demandée dans Search Console (carrefour d'abord), puis
+lots de fiches. Question ouverte pour le premier lot : citer les textes libres
+non servis en liseuse (préface de 1859, Manifeste) avec un lien Wikisource —
+ce qui demande d'étendre le générateur — ou s'en tenir d'abord au Capital I.
 
 ## Conventions de travail
 
