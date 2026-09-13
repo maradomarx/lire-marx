@@ -22,8 +22,10 @@
    - countUp()        : comptage animé des chiffres clés à l'entrée en vue
    - cardFx()         : inclinaison + lueur des cartes sous le curseur
    - heroParallax()   : parallaxe fine du portrait du héros
-   - doCards()        : « Ce que vous pouvez faire » — les trois blocs se
+   - doCards()        : « Ce que vous pouvez faire » — les quatre blocs se
                         posent comme des feuillets au défilement
+   - glossPrint()     : l'abécédaire — la tranche d'alphabet s'allume de A à
+                        Z, les entrées se posent et leur lettrine frappe
    - libraryScrub()   : la bibliothèque se constitue — les photos d'archive
                         se développent au scroll, la frise « en préparation »
                         s'écrit année après année
@@ -1845,7 +1847,7 @@
     grid.classList.remove('reveal-stagger');   /* le scrub prend la main */
     grid.classList.add('poses');
 
-    var TILT = [-2.6, 1.9, -1.5];              /* chaque feuillet tombe de biais */
+    var TILT = [-2.6, 1.9, -1.5, 2.2];         /* chaque feuillet tombe de biais */
     var LEAD = 0.13;                           /* décalage d'un feuillet au suivant */
     var SPAN = 0.58;                           /* durée de la pose d'un feuillet */
 
@@ -1863,11 +1865,72 @@
         if (ink < 0) ink = 0; if (ink > 1) ink = 1;
         c.style.opacity = (0.05 + 0.95 * e).toFixed(3);
         c.style.setProperty('--drop', ((1 - e) * 30).toFixed(1) + 'px');
-        c.style.setProperty('--tilt', ((1 - e) * TILT[i % 3]).toFixed(2) + 'deg');
+        c.style.setProperty('--tilt', ((1 - e) * TILT[i % TILT.length]).toFixed(2) + 'deg');
         c.style.setProperty('--ink', ink.toFixed(3));
       }
       return true;
     });
+  }
+
+  /* — F bis. L'abécédaire : la tranche se feuillette, la lettrine s'imprime —
+       Deux gestes, et ils disent ce qu'est la section : une page de
+       dictionnaire. Une lumière court le long de la tranche d'alphabet, de A
+       à Z, et allume chaque lettre qu'elle passe (--lit, et --pass en cloche :
+       la lueur ne vit que PENDANT le passage). Puis chaque entrée se pose et
+       sa lettrine frappe (--pose, puis --strike une fois posée) — le geste
+       de la page du glossaire, annoncé ici. Tout est fonction de la POSITION
+       de défilement : réversible. Sous reduced-motion la fonction sort, et
+       les variables valent 1 par défaut dans le CSS — la section est finie.
+       Chaque entrée se mesure SUR ELLE-MÊME, jamais par un index : la grille
+       passe de trois colonnes à une, un échelonnement régulier poserait des
+       entrées encore sous le pli. */
+  function glossPrint() {
+    if (REDUCE) return;
+    var sec = document.querySelector('.hs-gloss');
+    if (!sec) return;
+    var alpha = sec.querySelector('.hs-gl-alpha');
+    var grid = sec.querySelector('.hs-gl-list');
+    var letters = alpha ? [].slice.call(alpha.querySelectorAll('a, span')) : [];
+    var cards = grid ? [].slice.call(grid.querySelectorAll('.hs-gl-entry')) : [];
+    if (!cards.length || !letters.length) return;
+    document.documentElement.classList.add('js-gloss');
+
+    function cl01(v) { return v < 0 ? 0 : (v > 1 ? 1 : v); }
+    function ease(v) { return v * v * (3 - 2 * v); }
+
+    addScrollSub(function (y, vh) {
+      /* la lumière parcourt les vingt-six casiers pendant que la tranche
+         monte de 92 % à 50 % de l'écran ; seuls les liens s'allument, les
+         lettres absentes restent imprimées en maigre */
+      var ar = alpha.getBoundingClientRect();
+      var s = cl01((vh * 0.92 - ar.top) / (vh * 0.42)) * (letters.length + 1);
+      for (var i = 0; i < letters.length; i++) {
+        var el = letters[i];
+        if (el.tagName !== 'A') continue;
+        var lit = ease(cl01(s - i));
+        el.style.setProperty('--lit', lit.toFixed(3));
+        el.style.setProperty('--pass', (4 * lit * (1 - lit)).toFixed(3));
+      }
+      var gr = grid.getBoundingClientRect();
+      for (var j = 0; j < cards.length; j++) {
+        var cr = cards[j].getBoundingClientRect();
+        /* léger retard vers la droite : une rangée se pose de gauche à droite */
+        var lag = gr.width ? (cr.left - gr.left) / gr.width * 0.22 : 0;
+        var e = ease(cl01((vh * 0.96 - cr.top) / (vh * 0.34) - lag));
+        cards[j].style.setProperty('--pose', e.toFixed(3));
+        /* la lettrine frappe une fois l'entrée posée */
+        cards[j].style.setProperty('--strike', ease(cl01((e - 0.4) / 0.6)).toFixed(3));
+      }
+      return true;
+    });
+
+    /* la mise en page bouge encore sous nos pieds : le catalogue, juste
+       au-dessus, est peuplé par fetch — le piège de la mesure unique */
+    requestAnimationFrame(onScrollDriver);
+    setTimeout(onScrollDriver, 400);
+    if (document.readyState !== 'complete') {
+      window.addEventListener('load', onScrollDriver, { once: true });
+    }
   }
 
   /* --------------------------------------------------------------------- */
@@ -1916,6 +1979,7 @@
     try { heroParallax(); } catch (e) { /* non bloquant */ }
     try { doCards(); } catch (e) { /* non bloquant */ }
     try { magneticButtons(); } catch (e) { /* non bloquant */ }
+    try { glossPrint(); } catch (e) { /* non bloquant */ }
     try { communeScrub(); } catch (e) { /* non bloquant */ }
     try { faqScrub(); } catch (e) { /* non bloquant */ }
     try { closerCandle(); } catch (e) { /* non bloquant */ }

@@ -884,6 +884,49 @@ function identite(nom) {
   const oeuvres = new Set(abece.flatMap((t) => t.sources.map((s) => s.oeuvre))).size;
   const compte = `<p class="gl-compte">${abece.length} notions · ${lettres.size} lettres · ${oeuvres} œuvres</p>`;
 
+  /* ── L'ACCUEIL PORTE L'ABÉCÉDAIRE (mission `accueil-glossaire`) ──────
+   * La section « L'abécédaire de Marx » de /index.html et le chiffre des
+   * pages de concept dans les chiffres clés sont DÉRIVÉS d'ici : la tranche
+   * (les lettres qui existent), le compte, les six entrées mises en avant et
+   * le nombre de pages. Écrits à la main, ils auraient menti dès la
+   * quarantième page. Les entrées sont un CHOIX éditorial (quatre du Capital,
+   * deux des Manuscrits) ; nom, terme allemand, définition et adresse sont
+   * lus, jamais recopiés. Le générateur échoue si l'une n'a plus de page.
+   * Et c'est du HTML servi : six liens de plus vers les pages de notion,
+   * lisibles par les crawlers qui n'exécutent pas le script. */
+  const pagesNotion = termes.filter((t) => t.page).length;
+  const A_LA_UNE = ['plus-value', 'force-de-travail', 'fetichisme',
+    'journee-de-travail', 'accumulation-primitive', 'travail-aliene'];
+  const lettreDe = (t) => {
+    const L = (cle(t.affiche || t.nom)[0] || '#').toUpperCase();
+    return /[A-Z]/.test(L) ? L : '#';
+  };
+  const accEntrees = A_LA_UNE.map((id) => {
+    const t = termes.find((x) => x.id === id);
+    if (!t || !t.page) throw new Error(`L'accueil met en avant « ${id} », qui n'a pas de page de notion.`);
+    return `\n        <li><a class="hs-gl-entry" href="${t.href}">`
+      + `<span class="hs-gl-L" aria-hidden="true">${lettreDe(t)}</span>`
+      + `<span class="hs-gl-t">${t.affiche || t.nom}</span>`
+      + (t.de ? `<span class="hs-gl-de" lang="de">${t.de}</span>` : '<span class="hs-gl-de"></span>')
+      + `<span class="hs-gl-d">${t.def}</span>`
+      + `<span class="hs-gl-go">Lire la page <span aria-hidden="true">→</span></span>`
+      + `</a></li>`;
+  }).join('') + '\n      ';
+  const accAlpha = `<nav class="hs-gl-alpha" aria-label="L’abécédaire, lettre par lettre">`
+    + ALPHA.map((L) => lettres.has(L)
+      ? `<a href="/glossaire/#lettre-${L}">${L}</a>`
+      : `<span aria-hidden="true">${L}</span>`).join('') + `</nav>`;
+  const accCompte = `<p class="hs-gl-count reveal">${abece.length} notions · ${pagesNotion} pages expliquées · ${oeuvres} œuvres</p>`;
+  {
+    let acc = readFileSync('index.html', 'utf8');
+    const M = (k) => [`<!-- ACCUEIL-GLOSSAIRE:${k}:DÉBUT -->`, `<!-- ACCUEIL-GLOSSAIRE:${k}:FIN -->`];
+    acc = entreMarqueurs(acc, ...M('COMPTE'), accCompte, 'index.html');
+    acc = entreMarqueurs(acc, ...M('ALPHA'), accAlpha, 'index.html');
+    acc = entreMarqueurs(acc, ...M('LISTE'), accEntrees, 'index.html');
+    acc = entreMarqueurs(acc, ...M('PAGES'), String(pagesNotion), 'index.html');
+    writeIfNeeded('index.html', acc, 'index.html (glossaire de l’accueil)');
+  }
+
   const fichier = 'glossaire/index.html';
   let page = readFileSync(fichier, 'utf8');
   const entre = (src, deb, fin, contenu) => {

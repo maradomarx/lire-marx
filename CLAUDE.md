@@ -8451,6 +8451,42 @@ Suite : indexation demandée dans Search Console (carrefour d'abord), puis
 lots de fiches. Question ouverte pour le premier lot : citer les textes libres
 non servis en liseuse (préface de 1859, Manifeste) avec un lien Wikisource —
 ce qui demande d'étendre le générateur — ou s'en tenir d'abord au Capital I.
+## L'abécédaire sur l'accueil (mission `accueil-glossaire`, sept. 2026)
+
+Demande du propriétaire : une section glossaire sur l'accueil, un bloc IV
+dans « Ce que vous pouvez faire ici », et le nombre de pages de concept dans
+les chiffres clés.
+
+- **Placée juste après le corpus** (`#catalogue`), avant la Place publique :
+  les livres, puis les mots pour les lire. `#glossaire`, `.hs-gloss`.
+- **Forme : une page de dictionnaire.** Une tranche d'alphabet de 26 casiers
+  (les lettres qui existent sont des liens vers `/glossaire/#lettre-X`, les
+  autres restent imprimées en maigre), puis six entrées à lettrine Fraunces
+  or, terme allemand en italique, définition, « Lire la page → ». Entrées en
+  `<a>` : `color` et `text-decoration` redéclarés.
+- **Tout ce qui est chiffré ou listé est DÉRIVÉ** par `tools/gen-seo.mjs`
+  (marqueurs `ACCUEIL-GLOSSAIRE:COMPTE/ALPHA/LISTE/PAGES`) : le compte
+  (« 71 notions · 39 pages expliquées · 2 œuvres »), la tranche, les six
+  entrées (choix éditorial `A_LA_UNE` — le générateur échoue si l'une perd sa
+  page) et le chiffre des chiffres clés. Ne pas les éditer à la main. Titre
+  et accroche s'écrivent dans `index.html`.
+- **Mouvement `glossPrint()`** (home.js) : une lumière court la tranche de A à
+  Z (`--lit`, `--pass` en cloche), puis chaque entrée se pose et sa lettrine
+  frappe (`--pose`, `--strike`) — le geste de la page du glossaire, annoncé.
+  Position → réversible ; variables à 1 par défaut, donc section finie sous
+  reduced-motion. Chaque entrée se mesure sur elle-même (la grille passe de
+  3 à 2 à 1 colonne). `home.js?v=4`.
+- « Ce que vous pouvez faire » a **quatre** blocs : 4 colonnes, 2 sous
+  1180 px, 1 sous 820. `TILT` a quatre valeurs.
+- Les chiffres clés passent **deux par deux sous 720 px**, et leurs libellés
+  de 10,5 à **11 px** (le plancher du projet — trois constats du détecteur
+  en moins : 29 → 26, 0 erreur).
+- Vérifié dans le vrai Chrome à 1380 et 375 px : contraste 0 échec (min
+  7,57), plus petit texte 11 px, aucune cible sous 24 px, zéro débordement,
+  console sans erreur, course relevée et retour à 0 en remontant.
+- Relevé sans corriger (hors périmètre, touche le FAQPage) : la réponse FAQ
+  « Faut-il des connaissances… » dit encore que le glossaire range les termes
+  « par le mécanisme auquel ils appartiennent » — il est alphabétique.
 
 ## Conventions de travail
 
