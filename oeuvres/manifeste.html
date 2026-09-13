@@ -23,7 +23,7 @@
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="fonts/fonts.css">
-<link rel="stylesheet" href="atelier.css?v=4">
+<link rel="stylesheet" href="atelier.css?v=5">
 <link rel="stylesheet" href="shell.css?v=8">
 <link rel="stylesheet" href="reader-tools.css">
 <style>
@@ -101,52 +101,71 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
 .reader.theme-sepia .reader-content h2.mf-part .mf-rn{color:var(--red-deep);}
 
 /* ── LE DOSSIER ── */
-/* La chronologie : années en Fraunces italique or, la rime de la maison. */
-.timeline{display:flex;flex-direction:column;gap:12px;margin-top:18px;}
-.tl-section{font-family:var(--f-ui);font-size:.72rem;letter-spacing:.11em;font-weight:600;
-  text-transform:uppercase;color:var(--gold);margin-top:22px;padding-bottom:7px;
-  border-bottom:1px solid var(--line);}
-.tl-section:first-child{margin-top:0;}
-.event{display:grid;grid-template-columns:96px minmax(0,1fr);gap:16px;align-items:start;
-  background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;}
-.event .year{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:500;
-  font-size:1.12rem;color:var(--gold);line-height:1.25;}
-.event h3{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:1.02rem;
-  color:var(--ink);margin:0 0 5px;line-height:1.25;}
-.event p{color:var(--ink-soft);margin:0;font-family:var(--f-serif);line-height:1.6;}
-.tl-real{margin:6px 0 4px;max-width:260px;}
-.tl-real img{display:block;width:100%;height:auto;border-radius:10px;
-  filter:grayscale(.35) contrast(1.04) sepia(.2) brightness(.8);}
-.tl-real figcaption{font-family:var(--f-ui);font-size:.8rem;color:var(--muted);margin-top:7px;}
-@media(max-width:620px){.event{grid-template-columns:1fr;gap:6px;}}
+/* La chronologie : pas de cartes. La couverture de 1848 tient la colonne de
+   gauche, collante pendant la lecture ; les faits sont des LIGNES réglées,
+   l'année en Fraunces italique or — la rime des frises de la maison. Les
+   anciennes classes .timeline/.tl-real n'ont pas été reprises : atelier.css
+   fixe .tl-real à 230 px de haut, et la couverture chevauchait les faits. */
+.chr{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);
+  gap:clamp(28px,4.5vw,64px);align-items:start;margin-top:6px;}
+.chr-fig{position:sticky;top:168px;margin:0;}
+.chr-fig img{display:block;width:100%;height:auto;border-radius:4px;
+  box-shadow:0 26px 48px -26px rgba(0,0,0,.85);
+  filter:sepia(.16) brightness(.84) contrast(1.03);}
+.chr-fig figcaption{font-family:var(--f-ui);font-size:.8rem;line-height:1.45;
+  color:var(--muted);margin-top:12px;}
+.chr-main{display:flex;flex-direction:column;gap:48px;min-width:0;}
+.chr-h{font-family:var(--f-ui);font-size:.72rem;font-weight:600;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--gold);margin:0 0 10px;}
+.chr-list{list-style:none;margin:0;padding:0;border-bottom:1px solid var(--line);}
+.chr-ev{display:grid;grid-template-columns:118px minmax(0,1fr);gap:22px;
+  padding:18px 0 20px;border-top:1px solid var(--line);}
+.chr-y{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:500;
+  font-size:1.18rem;line-height:1.3;color:var(--gold);}
+.chr-ev h4{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:1.06rem;
+  line-height:1.25;color:var(--ink);margin:0 0 6px;}
+.chr-ev p{margin:0;max-width:64ch;font-family:var(--f-serif);font-size:1rem;
+  line-height:1.62;color:var(--ink-soft);}
+@media(max-width:900px){
+  .chr{grid-template-columns:1fr;gap:30px;}
+  .chr-fig{position:static;display:grid;grid-template-columns:92px minmax(0,1fr);
+    gap:16px;align-items:end;}
+  .chr-fig figcaption{margin:0;}
+}
+@media(max-width:560px){.chr-ev{grid-template-columns:1fr;gap:4px;padding:16px 0;}}
 
-/* La carte des socialismes : à gauche l'arbre, à droite la fiche. */
-.soc{display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);gap:26px;align-items:start;}
+/* La carte des socialismes : à gauche l'arbre, à droite la fiche, collante
+   pour rester sous les yeux quand on choisit plus bas dans l'arbre. */
+.soc{display:grid;grid-template-columns:minmax(0,290px) minmax(0,1fr);
+  gap:clamp(24px,3.5vw,44px);align-items:start;}
 .soc-tree{display:flex;flex-direction:column;gap:6px;}
 .soc-branch{font-family:var(--f-ui);font-size:.72rem;letter-spacing:.11em;font-weight:600;
-  text-transform:uppercase;color:var(--muted);margin:14px 0 2px;}
+  text-transform:uppercase;color:var(--muted);margin:22px 0 4px;}
 .soc-branch:first-child{margin-top:0;}
 .soc-pick{display:block;width:100%;text-align:left;font-family:'Fraunces',Georgia,serif;
-  font-weight:600;font-size:.98rem;color:var(--ink-soft);background:transparent;
-  border:1px solid var(--line);border-radius:12px;padding:10px 14px;cursor:pointer;
+  font-weight:600;font-size:.98rem;line-height:1.3;color:var(--ink-soft);background:transparent;
+  border:1px solid var(--line);border-radius:12px;padding:11px 15px;cursor:pointer;
   transition:color .15s,border-color .15s,background .15s;}
-.soc-pick.is-sub{margin-left:16px;width:calc(100% - 16px);font-size:.92rem;}
 .soc-pick:hover{color:var(--ink);border-color:rgba(216,173,76,.45);background:var(--hover);}
 .soc-pick[aria-pressed="true"]{color:var(--ink);
-  background:linear-gradient(150deg,#2c2117,#211a12,#1b150e);border-color:rgba(216,173,76,.35);}
+  background:linear-gradient(150deg,#2c2117,#211a12,#1b150e);border-color:rgba(216,173,76,.4);}
 .soc-pick.is-ref{border-style:dashed;}
 .soc-pick:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
-.soc-node{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;}
+.soc-detail{position:sticky;top:168px;}
+.soc-node{background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:26px clamp(20px,3vw,32px) 24px;}
 .soc-node[hidden]{display:none;}
-.soc-k{font-family:var(--f-ui);font-size:.72rem;letter-spacing:.11em;font-weight:600;
-  text-transform:uppercase;color:var(--gold);margin:0 0 6px;}
-.soc-node h3{font-family:'Fraunces',Georgia,serif;font-weight:900;font-size:1.35rem;
-  letter-spacing:-.01em;color:var(--ink);margin:0 0 14px;line-height:1.15;}
-.soc-node dl{margin:0;display:grid;gap:12px;}
-.soc-node dt{font-family:var(--f-ui);font-size:.8rem;font-weight:600;color:var(--muted);}
-.soc-node dd{margin:2px 0 0;font-family:var(--f-serif);color:var(--ink-soft);line-height:1.62;}
-.soc-go{margin-top:16px;}
-@media(max-width:820px){.soc{grid-template-columns:1fr;}}
+.soc-node h3{font-family:'Fraunces',Georgia,serif;font-weight:900;font-size:1.45rem;
+  letter-spacing:-.015em;color:var(--ink);margin:0;line-height:1.15;}
+.soc-k{font-family:var(--f-ui);font-size:.8rem;color:var(--gold);margin:6px 0 18px;}
+.soc-node dl{margin:0;}
+.soc-node dt{font-family:var(--f-ui);font-size:.8rem;font-weight:600;color:var(--muted);
+  padding-top:14px;border-top:1px solid var(--line);}
+.soc-node dd{margin:5px 0 16px;max-width:64ch;font-family:var(--f-serif);
+  color:var(--ink-soft);line-height:1.62;}
+.soc-node dd:last-of-type{margin-bottom:0;}
+.soc-go{margin:20px 0 0;}
+@media(max-width:820px){.soc{grid-template-columns:1fr;}.soc-detail{position:static;}}
 </style>
 <!-- Book : DÉRIVÉ de oeuvres/bibliotheque.json par tools/gen-seo.mjs.
      Ne pas éditer à la main — corriger la source, puis regénérer :
@@ -272,31 +291,31 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
     <div class="walk walk-rungs" id="walk">
       <div class="walk-step" data-step="1" style="--rung:rgb(57,89,107)">
         <button type="button" class="wk-line" id="wk-h1" aria-controls="wk-b1" aria-expanded="true"><span class="wk-num">1</span><span class="wk-said"><span class="wk-t">L'histoire comme lutte de classes</span><span class="wk-cahier">Partie I</span></span><span class="wk-chev"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></span></button>
-        <div class="wk-body" id="wk-b1"><div><p class="wk-f wk-pass"><span><span class="sr-only">Le ressort : </span>Le texte ne commence pas par le communisme mais par une thèse sur toute l'histoire écrite. C'est elle qui permet de lire la société moderne comme un moment de cette lutte, et non comme son terme.</span></p></div></div>
+        <div class="wk-body" id="wk-b1"><div><p class="wk-f wk-pass"><svg class="wk-mk" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path d="M14.5 13l4 4-4 4"/></svg><span><span class="sr-only">Le ressort : </span>Le texte ne commence pas par le communisme mais par une thèse sur toute l'histoire écrite. C'est elle qui permet de lire la société moderne comme un moment de cette lutte, et non comme son terme.</span></p></div></div>
       </div>
       <div class="walk-step" data-step="2" style="--rung:rgb(83,85,99)">
         <button type="button" class="wk-line" id="wk-h2" aria-controls="wk-b2" aria-expanded="true"><span class="wk-num">2</span><span class="wk-said"><span class="wk-t">La bourgeoisie révolutionnaire</span><span class="wk-cahier">Partie I</span></span><span class="wk-chev"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></span></button>
-        <div class="wk-body" id="wk-b2"><div><p class="wk-f wk-pass"><span><span class="sr-only">Le ressort : </span>Si l'histoire est lutte, la bourgeoisie doit être jugée à ce qu'elle a fait : elle a détruit l'ordre féodal, créé le marché mondial, bouleversé la production. L'éloge est nécessaire à la suite, parce que ce qu'elle a créé, elle ne le maîtrise plus.</span></p></div></div>
+        <div class="wk-body" id="wk-b2"><div><p class="wk-f wk-pass"><svg class="wk-mk" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path d="M14.5 13l4 4-4 4"/></svg><span><span class="sr-only">Le ressort : </span>Si l'histoire est lutte, la bourgeoisie doit être jugée à ce qu'elle a fait : elle a détruit l'ordre féodal, créé le marché mondial, bouleversé la production. L'éloge est nécessaire à la suite, parce que ce qu'elle a créé, elle ne le maîtrise plus.</span></p></div></div>
       </div>
       <div class="walk-step" data-step="3" style="--rung:rgb(109,81,91)">
         <button type="button" class="wk-line" id="wk-h3" aria-controls="wk-b3" aria-expanded="true"><span class="wk-num">3</span><span class="wk-said"><span class="wk-t">Les crises, et ceux qui manieront les armes</span><span class="wk-cahier">Partie I</span></span><span class="wk-chev"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></span></button>
-        <div class="wk-body" id="wk-b3"><div><p class="wk-f wk-pass"><span><span class="sr-only">Le ressort : </span>Les forces productives débordent les rapports de propriété bourgeois, et les crises de surproduction le montrent. La même bourgeoisie a produit la classe qui retournera ces forces contre elle : le prolétariat, qui passe de la révolte isolée à l'organisation en classe.</span></p></div></div>
+        <div class="wk-body" id="wk-b3"><div><p class="wk-f wk-pass"><svg class="wk-mk" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path d="M14.5 13l4 4-4 4"/></svg><span><span class="sr-only">Le ressort : </span>Les forces productives débordent les rapports de propriété bourgeois, et les crises de surproduction le montrent. La même bourgeoisie a produit la classe qui retournera ces forces contre elle : le prolétariat, qui passe de la révolte isolée à l'organisation en classe.</span></p></div></div>
       </div>
       <div class="walk-step" data-step="4" style="--rung:rgb(135,77,83)">
         <button type="button" class="wk-line" id="wk-h4" aria-controls="wk-b4" aria-expanded="true"><span class="wk-num">4</span><span class="wk-said"><span class="wk-t">Les communistes dans le mouvement</span><span class="wk-cahier">Partie II</span></span><span class="wk-chev"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></span></button>
-        <div class="wk-body" id="wk-b4"><div><p class="wk-f wk-pass"><span><span class="sr-only">Le ressort : </span>Le mouvement décrit, il faut situer ceux qui écrivent. Les communistes ne forment pas un parti à part : ils défendent l'intérêt commun du prolétariat par-delà les nations, et l'intérêt du mouvement dans son ensemble.</span></p></div></div>
+        <div class="wk-body" id="wk-b4"><div><p class="wk-f wk-pass"><svg class="wk-mk" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path d="M14.5 13l4 4-4 4"/></svg><span><span class="sr-only">Le ressort : </span>Le mouvement décrit, il faut situer ceux qui écrivent. Les communistes ne forment pas un parti à part : ils défendent l'intérêt commun du prolétariat par-delà les nations, et l'intérêt du mouvement dans son ensemble.</span></p></div></div>
       </div>
       <div class="walk-step" data-step="5" style="--rung:rgb(161,73,75)">
         <button type="button" class="wk-line" id="wk-h5" aria-controls="wk-b5" aria-expanded="true"><span class="wk-num">5</span><span class="wk-said"><span class="wk-t">Abolir la propriété bourgeoise</span><span class="wk-cahier">Partie II</span></span><span class="wk-chev"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></span></button>
-        <div class="wk-body" id="wk-b5"><div><p class="wk-f wk-pass"><span><span class="sr-only">Le ressort : </span>Le programme se définit contre ses objections : ce n'est pas la propriété en général qu'il s'agit d'abolir, mais celle qui repose sur le travail salarié. La conquête du pouvoir politique par le prolétariat en est le moyen.</span></p></div></div>
+        <div class="wk-body" id="wk-b5"><div><p class="wk-f wk-pass"><svg class="wk-mk" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path d="M14.5 13l4 4-4 4"/></svg><span><span class="sr-only">Le ressort : </span>Le programme se définit contre ses objections : ce n'est pas la propriété en général qu'il s'agit d'abolir, mais celle qui repose sur le travail salarié. La conquête du pouvoir politique par le prolétariat en est le moyen.</span></p></div></div>
       </div>
       <div class="walk-step" data-step="6" style="--rung:rgb(187,69,67)">
         <button type="button" class="wk-line" id="wk-h6" aria-controls="wk-b6" aria-expanded="true"><span class="wk-num">6</span><span class="wk-said"><span class="wk-t">Contre les autres socialismes</span><span class="wk-cahier">Partie III</span></span><span class="wk-chev"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></span></button>
-        <div class="wk-body" id="wk-b6"><div><p class="wk-f wk-pass"><span><span class="sr-only">Le ressort : </span>Un programme doit se distinguer de ses voisins. Chaque socialisme est ramené à la classe dont il exprime la position, et à ce qu'il ne voit pas du mouvement réel.</span></p></div></div>
+        <div class="wk-body" id="wk-b6"><div><p class="wk-f wk-pass"><svg class="wk-mk" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path d="M14.5 13l4 4-4 4"/></svg><span><span class="sr-only">Le ressort : </span>Un programme doit se distinguer de ses voisins. Chaque socialisme est ramené à la classe dont il exprime la position, et à ce qu'il ne voit pas du mouvement réel.</span></p></div></div>
       </div>
       <div class="walk-step" data-step="7" style="--rung:rgb(213,64,47)">
         <button type="button" class="wk-line" id="wk-h7" aria-controls="wk-b7" aria-expanded="true"><span class="wk-num">7</span><span class="wk-said"><span class="wk-t">Une ligne pour 1848</span><span class="wk-cahier">Partie IV</span></span><span class="wk-chev"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></span></button>
-        <div class="wk-body" id="wk-b7"><div><p class="wk-f wk-pass"><span><span class="sr-only">Le ressort : </span>La théorie se ferme sur la conjoncture : des alliances pays par pays, l'Allemagne au bord d'une révolution bourgeoise, la question de la propriété posée partout comme fondamentale, et l'appel à l'union des prolétaires de tous les pays.</span></p></div></div>
+        <div class="wk-body" id="wk-b7"><div><p class="wk-f wk-pass"><svg class="wk-mk" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path d="M14.5 13l4 4-4 4"/></svg><span><span class="sr-only">Le ressort : </span>La théorie se ferme sur la conjoncture : des alliances pays par pays, l'Allemagne au bord d'une révolution bourgeoise, la question de la propriété posée partout comme fondamentale, et l'appel à l'union des prolétaires de tous les pays.</span></p></div></div>
       </div>
     </div>
   </section>
@@ -308,24 +327,39 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
         <p class="lead">Un programme de 1848, que ses auteurs ont relu pendant quarante-cinq ans.</p>
       </div>
     </div>
-    <div class="timeline" id="timeline">
-      <div class="tl-section">La parution</div>
-      <figure class="tl-real"><img src="../assets/img/archive/manifeste-1848.webp" alt="Couverture verte de la première édition : Manifest der Kommunistischen Partei, veröffentlicht im Februar 1848, London" loading="lazy" decoding="async" width="640" height="1003"><figcaption>Première édition, Londres, février 1848 · domaine public</figcaption></figure>
-      <article class="event"><div class="year">1847</div><div><h3>Le congrès de Londres</h3><p>Du 29 novembre au 8 décembre, le deuxième congrès de la Ligue des communistes charge Marx et Engels de rédiger un programme destiné à être rendu public.</p></div></article>
-      <article class="event"><div class="year">janv. 1848</div><div><h3>La rédaction à Bruxelles</h3><p>Marx achève seul le texte à Bruxelles, en reprenant les travaux préparatoires d'Engels.</p></div></article>
-      <article class="event"><div class="year">févr. 1848</div><div><h3>La brochure</h3><p>Le Manifeste paraît à Londres, en allemand et sans nom d'auteur, le mois même où la révolution éclate à Paris.</p></div></article>
-
-      <div class="tl-section">Les auteurs le relisent</div>
-      <article class="event"><div class="year">1852</div><div><h3>La Ligue dissoute</h3><p>Après le procès des communistes de Cologne, la Ligue des communistes est dissoute en novembre.</p></div></article>
-      <article class="event"><div class="year">1872</div><div><h3>Un document historique</h3><p>Dans la préface allemande du 24 juin, Marx et Engels maintiennent les principes, jugent certaines mesures vieillies après la Commune de Paris, et tiennent désormais le Manifeste pour un document historique qu'ils ne se reconnaissent plus le droit de modifier.</p></div></article>
-      <article class="event"><div class="year">1882</div><div><h3>La préface russe</h3><p>Datée du 21 janvier, c'est la dernière que Marx et Engels signent ensemble.</p></div></article>
-      <article class="event"><div class="year">1883-1893</div><div><h3>Engels seul</h3><p>Après la mort de Marx, Engels suit le texte dans ses éditions allemandes (1883, 1890), anglaise (1888), polonaise (1892) et italienne (1893), chaque fois avec une préface.</p></div></article>
-
-      <div class="tl-section">En français</div>
-      <article class="event"><div class="year">1885</div><div><h3>Le Socialiste</h3><p>Laura Lafargue, fille de Marx, traduit le Manifeste en plusieurs livraisons dans l'hebdomadaire parisien <i>Le Socialiste</i>.</p></div></article>
-      <article class="event"><div class="year">1886, 1895</div><div><h3>Revue par Engels</h3><p>Sa traduction est reprise, revue par Engels, dans <i>La France socialiste</i> de Gabriel Terrail puis dans l'édition de <i>L'Ère nouvelle</i>.</p></div></article>
-      <article class="event"><div class="year">1897</div><div><h3>L'édition servie ici</h3><p>La traduction de Laura Lafargue paraît à la suite des <i>Essais sur la conception matérialiste de l'histoire</i> d'Antonio Labriola, chez V. Giard et E. Brière. C'est le texte de la liseuse.</p></div></article>
-      <article class="event"><div class="year">1901</div><div><h3>Une autre traduction</h3><p>Charles Andler en donne une traduction nouvelle, accompagnée d'un long commentaire.</p></div></article>
+    <div class="chr">
+      <figure class="chr-fig">
+        <img src="../assets/img/archive/manifeste-1848.webp" alt="Couverture verte de la première édition : Manifest der Kommunistischen Partei, veröffentlicht im Februar 1848, London" loading="lazy" decoding="async" width="640" height="1003">
+        <figcaption>Première édition, Londres, février 1848 · domaine public</figcaption>
+      </figure>
+      <div class="chr-main">
+        <section class="chr-temps" aria-labelledby="chr-t1">
+          <h3 class="chr-h" id="chr-t1">La parution</h3>
+          <ol class="chr-list">
+            <li class="chr-ev"><span class="chr-y">1847</span><div><h4>Le congrès de Londres</h4><p>Du 29 novembre au 8 décembre, le deuxième congrès de la Ligue des communistes charge Marx et Engels de rédiger un programme destiné à être rendu public.</p></div></li>
+            <li class="chr-ev"><span class="chr-y">janv. 1848</span><div><h4>La rédaction à Bruxelles</h4><p>Marx achève seul le texte à Bruxelles, en reprenant les travaux préparatoires d'Engels.</p></div></li>
+            <li class="chr-ev"><span class="chr-y">févr. 1848</span><div><h4>La brochure</h4><p>Le Manifeste paraît à Londres, en allemand et sans nom d'auteur, le mois même où la révolution éclate à Paris.</p></div></li>
+          </ol>
+        </section>
+        <section class="chr-temps" aria-labelledby="chr-t2">
+          <h3 class="chr-h" id="chr-t2">Les auteurs le relisent</h3>
+          <ol class="chr-list">
+            <li class="chr-ev"><span class="chr-y">1852</span><div><h4>La Ligue dissoute</h4><p>Après le procès des communistes de Cologne, la Ligue des communistes est dissoute en novembre.</p></div></li>
+            <li class="chr-ev"><span class="chr-y">1872</span><div><h4>Un document historique</h4><p>Dans la préface allemande du 24 juin, Marx et Engels maintiennent les principes, jugent certaines mesures vieillies après la Commune de Paris, et tiennent désormais le Manifeste pour un document historique qu'ils ne se reconnaissent plus le droit de modifier.</p></div></li>
+            <li class="chr-ev"><span class="chr-y">1882</span><div><h4>La préface russe</h4><p>Datée du 21 janvier, c'est la dernière que Marx et Engels signent ensemble.</p></div></li>
+            <li class="chr-ev"><span class="chr-y">1883-1893</span><div><h4>Engels seul</h4><p>Après la mort de Marx, Engels suit le texte dans ses éditions allemandes (1883, 1890), anglaise (1888), polonaise (1892) et italienne (1893), chaque fois avec une préface.</p></div></li>
+          </ol>
+        </section>
+        <section class="chr-temps" aria-labelledby="chr-t3">
+          <h3 class="chr-h" id="chr-t3">En français</h3>
+          <ol class="chr-list">
+            <li class="chr-ev"><span class="chr-y">1885</span><div><h4>Le Socialiste</h4><p>Laura Lafargue, fille de Marx, traduit le Manifeste en plusieurs livraisons dans l'hebdomadaire parisien <i>Le Socialiste</i>.</p></div></li>
+            <li class="chr-ev"><span class="chr-y">1886, 1895</span><div><h4>Revue par Engels</h4><p>Sa traduction est reprise, revue par Engels, dans <i>La France socialiste</i> de Gabriel Terrail puis dans l'édition de <i>L'Ère nouvelle</i>.</p></div></li>
+            <li class="chr-ev"><span class="chr-y">1897</span><div><h4>L'édition servie ici</h4><p>La traduction de Laura Lafargue paraît à la suite des <i>Essais sur la conception matérialiste de l'histoire</i> d'Antonio Labriola, chez V. Giard et E. Brière. C'est le texte de la liseuse.</p></div></li>
+            <li class="chr-ev"><span class="chr-y">1901</span><div><h4>Une autre traduction</h4><p>Charles Andler en donne une traduction nouvelle, accompagnée d'un long commentaire.</p></div></li>
+          </ol>
+        </section>
+      </div>
     </div>
   </section>
 
@@ -340,21 +374,21 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
       <p class="inst-cue">Choisissez un socialisme.</p>
       <div class="soc">
         <div class="soc-tree" role="group" aria-label="Les socialismes de la partie III">
-          <p class="soc-branch">I. Le socialisme réactionnaire</p>
-          <button type="button" class="soc-pick is-sub" data-soc="feodal" aria-pressed="true" aria-controls="soc-feodal">Le socialisme féodal</button>
-          <button type="button" class="soc-pick is-sub" data-soc="petit" aria-pressed="false" aria-controls="soc-petit">Le socialisme petit-bourgeois</button>
-          <button type="button" class="soc-pick is-sub" data-soc="vrai" aria-pressed="false" aria-controls="soc-vrai">Le « vrai » socialisme allemand</button>
-          <p class="soc-branch">II.</p>
+          <p class="soc-branch">Réactionnaires · III, 1</p>
+          <button type="button" class="soc-pick" data-soc="feodal" aria-pressed="true" aria-controls="soc-feodal">Le socialisme féodal</button>
+          <button type="button" class="soc-pick" data-soc="petit" aria-pressed="false" aria-controls="soc-petit">Le socialisme petit-bourgeois</button>
+          <button type="button" class="soc-pick" data-soc="vrai" aria-pressed="false" aria-controls="soc-vrai">Le « vrai » socialisme allemand</button>
+          <p class="soc-branch">Bourgeois · III, 2</p>
           <button type="button" class="soc-pick" data-soc="bourgeois" aria-pressed="false" aria-controls="soc-bourgeois">Le socialisme conservateur et bourgeois</button>
-          <p class="soc-branch">III.</p>
+          <p class="soc-branch">Utopique · III, 3</p>
           <button type="button" class="soc-pick" data-soc="utopique" aria-pressed="false" aria-controls="soc-utopique">Le socialisme critico-utopique</button>
           <p class="soc-branch">En regard</p>
           <button type="button" class="soc-pick is-ref" data-soc="communisme" aria-pressed="false" aria-controls="soc-communisme">Le communisme du Manifeste</button>
         </div>
         <div class="soc-detail">
           <article class="soc-node" id="soc-feodal">
-            <p class="soc-k">Réactionnaire · III, 1, A</p>
             <h3>Le socialisme féodal</h3>
+            <p class="soc-k">Réactionnaire · III, 1, A</p>
             <dl>
               <dt>Qui le porte</dt><dd>Les aristocraties française et anglaise, défaites par la bourgeoisie, qui écrivent contre elle des pamphlets.</dd>
               <dt>Ce qu'il voit</dt><dd>La dissolution des anciens liens et la misère de l'ouvrier moderne, qu'il décrit avec une ironie parfois juste.</dd>
@@ -363,8 +397,8 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
             <p class="soc-go"><button type="button" class="btn" data-lire="4">Lire le passage dans le texte</button></p>
           </article>
           <article class="soc-node" id="soc-petit" hidden>
-            <p class="soc-k">Réactionnaire · III, 1, B</p>
             <h3>Le socialisme petit-bourgeois</h3>
+            <p class="soc-k">Réactionnaire · III, 1, B</p>
             <dl>
               <dt>Qui le porte</dt><dd>La petite bourgeoisie et la paysannerie que la grande industrie ruine ; Sismondi en est la figure.</dd>
               <dt>Ce qu'il voit</dt><dd>Avec acuité, les contradictions de la production moderne : effets du machinisme et de la division du travail, concentration, crises, misère.</dd>
@@ -373,8 +407,8 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
             <p class="soc-go"><button type="button" class="btn" data-lire="4">Lire le passage dans le texte</button></p>
           </article>
           <article class="soc-node" id="soc-vrai" hidden>
-            <p class="soc-k">Réactionnaire · III, 1, C</p>
             <h3>Le « vrai » socialisme allemand</h3>
+            <p class="soc-k">Réactionnaire · III, 1, C</p>
             <dl>
               <dt>Qui le porte</dt><dd>Des lettrés allemands qui s'emparent de la littérature socialiste française, et derrière eux la petite bourgeoisie allemande.</dd>
               <dt>Ce qu'il voit</dt><dd>Des idées nées d'une lutte de classes réelle, qu'il transporte dans un pays où ces conditions n'existent pas encore.</dd>
@@ -383,8 +417,8 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
             <p class="soc-go"><button type="button" class="btn" data-lire="4">Lire le passage dans le texte</button></p>
           </article>
           <article class="soc-node" id="soc-bourgeois" hidden>
-            <p class="soc-k">III, 2</p>
             <h3>Le socialisme conservateur et bourgeois</h3>
+            <p class="soc-k">III, 2</p>
             <dl>
               <dt>Qui le porte</dt><dd>Une fraction de la bourgeoisie elle-même : économistes, philanthropes, réformateurs. Le texte donne pour exemple la <i>Philosophie de la misère</i> de Proudhon.</dd>
               <dt>Ce qu'il voit</dt><dd>Les maux sociaux qui menacent la durée de la société bourgeoise.</dd>
@@ -393,8 +427,8 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
             <p class="soc-go"><button type="button" class="btn" data-lire="5">Lire le passage dans le texte</button></p>
           </article>
           <article class="soc-node" id="soc-utopique" hidden>
-            <p class="soc-k">III, 3</p>
             <h3>Le socialisme et le communisme critico-utopiques</h3>
+            <p class="soc-k">III, 3</p>
             <dl>
               <dt>Qui le porte</dt><dd>Saint-Simon, Fourier, Owen, apparus quand la lutte entre prolétariat et bourgeoisie était encore peu développée.</dd>
               <dt>Ce qu'il voit</dt><dd>Beaucoup : leur critique de la société existante fournit, dit le texte, des matériaux précieux pour éclairer les ouvriers.</dd>
@@ -403,8 +437,8 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
             <p class="soc-go"><button type="button" class="btn" data-lire="6">Lire le passage dans le texte</button></p>
           </article>
           <article class="soc-node" id="soc-communisme" hidden>
-            <p class="soc-k">En regard · parties I et II</p>
             <h3>Le communisme du Manifeste</h3>
+            <p class="soc-k">En regard · parties I et II</p>
             <dl>
               <dt>Ce qui le distingue</dt><dd>Il ne propose pas un plan à la société : il se présente comme l'expression du mouvement historique qui se déroule sous les yeux, celui du prolétariat.</dd>
               <dt>Ce qu'il vise</dt><dd>L'abolition de la propriété bourgeoise, par la conquête du pouvoir politique, et une association où le libre développement de chacun conditionne celui de tous.</dd>
@@ -876,7 +910,15 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
     document.querySelectorAll('.soc-node').forEach(function(n){ n.hidden=(n!==node); });
   }
   function wireSoc(){
-    document.querySelectorAll('.soc-pick').forEach(function(b){ b.addEventListener('click',function(){ pickSoc(b.dataset.soc); }); });
+    /* Sous 820 px la fiche passe SOUS l'arbre : un choix en bas de liste ne
+       montrait rien. On va à la fiche, sans animation (réglage du lecteur). */
+    document.querySelectorAll('.soc-pick').forEach(function(b){ b.addEventListener('click',function(){
+      pickSoc(b.dataset.soc);
+      if(window.matchMedia&&window.matchMedia('(max-width:820px)').matches&&!b.closest('#atlDrawer')){
+        var n=byId('soc-'+b.dataset.soc);
+        if(n)window.scrollTo({top:Math.max(0,window.scrollY+n.getBoundingClientRect().top-150),behavior:rm()?'instant':'smooth'});
+      }
+    }); });
     document.querySelectorAll('[data-lire]').forEach(function(b){ b.addEventListener('click',function(){ closeDrawer(true); openPart(+b.dataset.lire); }); });
   }
 
@@ -1080,7 +1122,7 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
 })();
 </script>
 <script src="../config.js"></script>
-<script src="shell.js?v=10"></script>
+<script src="shell.js?v=11"></script>
 <script src="shell-social.js"></script>
 <script src="shell-annotations.js?v=2"></script>
 <script src="shell-progress.js"></script>

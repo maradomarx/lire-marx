@@ -651,6 +651,59 @@
       }).catch(function(){ return []; });
     }
 
+    /* Le Manifeste : une seule page de Wikisource, que la liseuse lit par
+       l'API `parse`. On la charge UNE fois, à la demande, et on la découpe
+       en ses quatre parties pour dire où tombe le passage. Seuls les
+       paragraphes comptent — les titres sont recomposés par la page, un lien
+       qui viserait leur graphie d'origine ne s'y retrouverait pas. */
+    var mfDocs = null, mfPending = null;
+    function chargeManifeste(){
+      if(mfDocs) return Promise.resolve(mfDocs);
+      if(mfPending) return mfPending;
+      var meta = TEXTE && TEXTE['manifeste-parti-communiste'];
+      if(!meta || !meta.api) return Promise.resolve([]);
+      var stop = null, sig = null;
+      try { var ac = new AbortController(); sig = ac.signal; stop = setTimeout(function(){ ac.abort(); }, 8000); } catch(e){}
+      mfPending = fetch(meta.api, sig ? { signal: sig } : undefined)
+        .then(function(r){ if(stop) clearTimeout(stop); return r.ok ? r.json() : null; })
+        .then(function(j){
+          var raw = j && j.parse && j.parse.text; if(raw && typeof raw === 'object') raw = raw['*'];
+          if(!raw){ mfPending = null; return []; }
+          var d = new DOMParser().parseFromString(raw, 'text/html');
+          d.querySelectorAll('style,script,sup.reference,.references,.mw-references-wrap,[class*="header"],.ws-noexport,table')
+            .forEach(function(n){ n.remove(); });
+          var parts = [{ rn: '', t: 'Ouverture', buf: [] }], cur = parts[0];
+          (d.querySelector('.mw-parser-output') || d.body).querySelectorAll('h3, p').forEach(function(el){
+            if(el.tagName === 'H3'){
+              var rn = el.textContent.trim();
+              var p = (meta.parts || []).filter(function(x){ return x.rn === rn; })[0];
+              if(p){ cur = { rn: rn, t: p.t, buf: [] }; parts.push(cur); }
+              return;
+            }
+            var t = el.textContent; if(t.trim()) cur.buf.push(t);
+          });
+          mfDocs = parts.map(function(p){ return { rn: p.rn, t: p.t, doc: prepare(p.buf.join('\n')) }; });
+          mfPending = null; return mfDocs;
+        }).catch(function(){ if(stop) clearTimeout(stop); mfPending = null; return []; });
+      return mfPending;
+    }
+    function chercheManifeste(q, nq, re){
+      return chargeManifeste().then(function(docs){
+        var out = [];
+        docs.forEach(function(d){
+          var t = tranche(d.doc, re);
+          if(!t) return;
+          out.push({
+            t: 'Manifeste — ' + (d.rn ? d.rn + '. ' : '') + d.t,
+            s: extrait(d.doc.brut, t.i, t.exact.length),
+            cat: 'texte',
+            url: '/oeuvres/manifeste#s=1&q=' + encodeURIComponent(t.exact)
+          });
+        });
+        return out;
+      }).catch(function(){ return []; });
+    }
+
     /* Les essais du glossaire : quarante-six mille mots écrits à la main
        que le champ ne voyait pas. Ils sont NOTRE texte, pas celui de Marx —
        d'où un groupe à part : le site est scrupuleux sur cette frontière, la
@@ -747,18 +800,17 @@
       txtTimer = setTimeout(function(){
         if(renderSeq !== seq) return;
         var re = motif(nq);
-        Promise.all([chercheCapital(q, nq, re), chercheManuscrits(q, nq, re), chercheEssais(q, nq, re)])
+        Promise.all([chercheCapital(q, nq, re), chercheManuscrits(q, nq, re), chercheEssais(q, nq, re), chercheManifeste(q, nq, re)])
           .then(function(r){
             if(renderSeq !== seq) return;
-            /* ON ENTRELACE LES DEUX ŒUVRES. Mises bout à bout, les sections
-               du Capital — huit, contre cinq fragments — prenaient les
-               quatre places et les Manuscrits n'apparaissaient jamais :
-               « aliénation » rendait quatre passages du Capital et pas un
-               des cahiers de 1844, où le mot est le sujet. */
-            var a = r[0], m = r[1], texte = [], i = 0;
-            while(texte.length < TXT_MAX && (i < a.length || i < m.length)){
-              if(i < a.length && texte.length < TXT_MAX) texte.push(a[i]);
-              if(i < m.length && texte.length < TXT_MAX) texte.push(m[i]);
+            /* ON ENTRELACE LES ŒUVRES. Mises bout à bout, les sections du
+               Capital — huit, contre cinq fragments — prenaient les places et
+               les Manuscrits n'apparaissaient jamais : « aliénation » rendait
+               quatre passages du Capital et pas un des cahiers de 1844, où le
+               mot est le sujet. Le tour passe d'une œuvre à l'autre. */
+            var src = [r[0], r[1], r[3]], texte = [], i = 0;
+            while(texte.length < TXT_MAX && src.some(function(s){ return i < s.length; })){
+              src.forEach(function(s){ if(i < s.length && texte.length < TXT_MAX) texte.push(s[i]); });
               i++;
             }
             poseTexte({ essai: r[2].slice(0, TXT_MAX), texte: texte }, q);

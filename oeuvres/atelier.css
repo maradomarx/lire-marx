@@ -426,6 +426,12 @@ footer b{font-family:'Fraunces',serif;font-style:normal;color:var(--ink);}
    manuscrits retombait sur celui du navigateur, 1 px collé au contrôle.
    Ici il vaut pour toutes les pages d'atelier. WCAG 2.4.7, et 2.4.13 (AAA). */
 :focus-visible{outline:3px solid var(--red);outline-offset:2px;border-radius:3px;}
+/* Un PANNEAU d'onglets n'est pas un contrôle. SHELL.tabs le rend focalisable
+   (tabindex=-1) pour qu'on puisse y poser le focus au clavier, et l'arrivée
+   par une ancre (#dossier) le lui donne : la règle ci-dessus cernait alors
+   tout le dossier d'un cadre rouge de 3 px, sur Capital comme ailleurs. Le
+   focus reste posé — la région live dit où l'on est —, seul l'anneau part. */
+[role="tabpanel"][tabindex="-1"]:focus-visible,.atl-dossier:focus-visible{outline:none;}
 
 /* La topbar est sticky sur 44 px : sans marge de défilement, un élément
    rejoint par le focus s'aligne sur le bord haut du viewport, donc ENTIÈREMENT
@@ -828,8 +834,12 @@ a.btn,a.lk,a.cap-btn-dark,a.cap-btn-light,a.cap-btn-outline,a.prog-no-auth-btn{
   overflow:hidden;}
 .atl3-m-sum.is-open{display:block;}
 .atl3-m-sum b{color:var(--ink);font-weight:600;}
-.atl3-m-more{font-family:var(--f-ui);font-size:.75rem;color:var(--gold);
-  background:none;border:none;padding:4px 0 0;cursor:pointer;
+/* Cible de 24 px au moins (WCAG 2.5.8) : ce n'est pas un lien dans une
+   phrase, l'exception ne le couvre pas. Le rembourrage porte la hauteur, la
+   typographie ne bouge pas. */
+.atl3-m-more{display:inline-flex;align-items:center;min-height:26px;
+  font-family:var(--f-ui);font-size:.75rem;color:var(--gold);
+  background:none;border:none;padding:4px 0;margin-top:2px;cursor:pointer;
   text-decoration:underline;text-underline-offset:3px;}
 .atl3-m-more:hover{color:var(--ink);}
 
@@ -891,8 +901,9 @@ a.btn,a.lk,a.cap-btn-dark,a.cap-btn-light,a.cap-btn-outline,a.prog-no-auth-btn{
   transition:transform .18s cubic-bezier(.16,1,.3,1);}
 .atl3-m-notions a:hover,.atl3-m-notions a:focus-visible{background:var(--hover);color:var(--gold);}
 .atl3-m-notions a:hover::after{transform:translateX(3px);}
-.atl3-m-carnet{display:inline-block;font-family:var(--f-ui);font-size:.78rem;
-  color:var(--gold);margin-top:8px;text-decoration:underline;
+.atl3-m-carnet{display:inline-flex;align-items:center;min-height:26px;
+  padding:3px 0;font-family:var(--f-ui);font-size:.78rem;
+  color:var(--gold);margin-top:5px;text-decoration:underline;
   text-underline-offset:3px;}
 
 

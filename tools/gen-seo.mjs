@@ -1216,7 +1216,7 @@ ${monde}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=10"></script>
+<script src="/oeuvres/shell.js?v=11"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 ${aScene ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-driver.js')}" defer></script>` : ''}
@@ -1377,7 +1377,7 @@ ${voisines.map((v) => `      <a href="${v.href}">${v.nom}</a>`).join('\n')}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=10"></script>
+<script src="/oeuvres/shell.js?v=11"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 </body>
@@ -1618,7 +1618,7 @@ ${marge}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=10"></script>
+<script src="/oeuvres/shell.js?v=11"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Le Capital', tabs: [] });</script>
 </body>
@@ -1683,7 +1683,7 @@ ${o.ld}
 </head>`;
   const piedCm = (workTitle) => `${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=10"></script>
+<script src="/oeuvres/shell.js?v=11"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: '${workTitle}', tabs: [] });</script>
 <script src="/commentaires/agregation.js?v=${hashV('commentaires/agregation.js')}" defer></script>
@@ -2110,6 +2110,16 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
    * seconde copie, aux accents près, et c'est la page qui fait foi. */
   const texte = {
     'capital-1': { sections: ROY.map((sec, i) => ({ n: i + 1, rn: sec.rn, t: strip(sec.t) })) },
+    /* Le Manifeste : une seule page de Wikisource, lue par l'API `parse`
+       comme le fait la liseuse, et une seule section (#s=1). Les parties
+       servent à SITUER un passage ; leurs titres sont ceux du plan de la
+       page (MF_STRUCT), pas recopiés ici. */
+    'manifeste-parti-communiste': {
+      api: 'https://fr.wikisource.org/w/api.php?action=parse&page=Manifeste_du_parti_communiste%2FLafargue&prop=text&format=json&formatversion=2&origin=*',
+      parts: litteralJS(readFileSync('oeuvres/manifeste.html', 'utf8'), 'MF_STRUCT=', '[')
+        .filter(p => p.rn && p.rn !== 'III' || p.m === 'mf-III-1')
+        .map(p => ({ rn: p.rn, t: strip(p.rn === 'III' ? p.grp : p.t) }))
+    },
     'manuscrits-1844': {
       parts: litteralJS(manSrc, 'parts=', '[').map((p, i) => ({
         n: i + 1, t: strip(p.title),

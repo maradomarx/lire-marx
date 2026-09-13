@@ -8589,13 +8589,61 @@ la grammaire de micro-libellé de la maison.
 `setTimeout` sont retardés (le défilement vers `#labo=` semblait ne pas
 partir) ; attendre en sondant avant de conclure.
 
-**Ce qui reste** : la recherche plein texte ne va pas dans le
-Manifeste (`recherche.json` n’a pas de bloc `texte` pour lui) ; le titre et
-la description de l’accueil, et `manifest.webmanifest`, ne nomment que le
-Capital et les Manuscrits (le titre a été arbitré — à rouvrir avec le
-propriétaire) ; « Lire la suite » et « Ouvrir mon carnet » de la marge
-mesurent 19-20 px de haut, sous 24 — composants partagés d’atelier.css, même
-défaut sur les deux autres ateliers.
+### Les trois suites, et le dossier remis en page (mission `manifeste-suites`, sept. 2026)
+
+Faites dans l'ordre demandé par le propriétaire.
+
+1. **La recherche va dans le texte du Manifeste.** `chargeManifeste()` dans
+   shell.js lit la page Wikisource par l'API `parse` (URL dans
+   `recherche.json` → `texte['manifeste-parti-communiste'].api`, dérivée par
+   gen-seo), UNE fois, et la découpe en ses quatre parties par les `h3` nus
+   (« I »…), en ne gardant que les **paragraphes** : la page recompose les
+   titres, un `q=` qui viserait leur graphie d'origine ne s'y retrouverait
+   pas. Lien `#s=1&q=<tranche exacte>`. Borne de huit secondes comme pour le
+   Capital. L'entrelacement passe désormais d'une œuvre à l'autre sur les
+   TROIS (vérifié : « fossoyeurs » rend le Capital, section VIII, puis le
+   Manifeste, partie I). `shell.js?v=11`.
+2. **Le titre de l'accueil nomme le Manifeste.** Arbitrage du propriétaire
+   (« fais les ») : « Lire Marx — Le Capital, le Manifeste et les Manuscrits
+   expliqués », **569 px** au canvas (Arial 20 px, coupure Google ~600 ; la
+   forme « lus et expliqués » en faisait 628, écartée). Description à 151
+   caractères, le jeu tient avant la troncature. `og:` et
+   `manifest.webmanifest` suivent. La marque reste « Lire Marx » en deux mots.
+3. **« Lire la suite » et « Ouvrir mon carnet »** (marge des trois ateliers)
+   passent à 26 px de haut par le rembourrage (WCAG 2.5.8 : ce ne sont pas
+   des liens dans une phrase). `atelier.css?v=5`.
+
+**Le dossier était cassé en production**, signalé par le propriétaire, et à
+raison — vu dans un vrai Chrome sans interface (la pane ment sur les
+captures) :
+- **un cadre rouge de 3 px autour de tout le dossier, SUR CAPITAL AUSSI** :
+  `SHELL.tabs` rend le panneau focalisable (`tabindex=-1`), l'arrivée par
+  `#dossier` lui donne le focus, et `:focus-visible` d'atelier.css le cernait.
+  Corrigé dans atelier.css pour `[role="tabpanel"][tabindex="-1"]` et
+  `.atl-dossier` : le focus reste posé, seul l'anneau part ;
+- **les marches affichaient leur texte un mot par ligne** : `.wk-f` est une
+  grille `20px 1fr` qui attend la marque dessinée `.wk-mk` ; sans elle, le
+  texte tombait dans la colonne de 20 px. **Toute marche `.wk-f` doit porter
+  son `svg.wk-mk`** ;
+- **la couverture chevauchait la chronologie** : atelier.css fixe `.tl-real`
+  à 230 px de haut. La chronologie a été **refaite sans cartes** (`.chr`) :
+  couverture collante à gauche, trois temps en lignes réglées, année en
+  Fraunces italique or, texte à mesure de lecture ; vignette au-dessus sous
+  900 px. Ne pas réemployer `.timeline`/`.tl-real` ici ;
+- **la carte** : rubriques qui nomment les groupes (« Réactionnaires · III,
+  1 ») au lieu de « II. » orphelin, fiche collante à côté de l'arbre, la
+  référence SOUS le titre, rubriques séparées par des filets ; sous 820 px,
+  un choix fait défiler jusqu'à la fiche.
+
+**Vérifié** (puppeteer, 1380 et 375 px) : plus d'anneau sur `#dossier`,
+zéro débordement, ascension à 596 px au lieu de 1 489, fiche collante,
+liens de marge à 26 px ; détecteur : manifeste.html 12 et atelier.css 40
+constats, identiques à avant, 0 erreur.
+
+**Ce qui reste** : les lectures et les ressources du Manifeste ne sont pas
+dans `recherche-essais.json` (le dossier n'est pas un essai du glossaire) ;
+et les deux autres dossiers ont reçu le correctif du cadre rouge sans avoir
+été revus pour autant.
 
 ## Conventions de travail
 
