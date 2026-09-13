@@ -8498,8 +8498,8 @@ Troisième œuvre disponible. Deux arbitrages du propriétaire : **le
 Manifeste** (le texte de Marx le plus cherché, porte d’entrée du rayon
 « seuils ») plutôt que *Misère de la philosophie*, la *Contribution* ou le
 *18 Brumaire* ; et **« lecture d’abord »** : liseuse, sommaire, marge,
-annotations, reprise, recherche — **sans Dossier**, qui viendra dans des
-missions suivantes.
+annotations, reprise, recherche — sans Dossier dans la première livraison.
+**Le dossier a suivi le même jour** (mission `manifeste-dossier`, voir plus bas).
 
 - **Le texte** : traduction de **Laura Lafargue**, telle que Wikisource la
   sert (`Manifeste_du_parti_communiste/Lafargue`, édition V. Giard et
@@ -8537,7 +8537,59 @@ posée 8 px sous la barre de lecture, marge et reprise qui suivent ; contraste
 375 px ; console propre ; détecteur 11 avertissements, 0 erreur, les
 familles des Manuscrits ; `gen-seo --check` à jour.
 
-**Ce qui reste** : le Dossier ; la recherche plein texte ne va pas dans le
+### Le dossier (mission `manifeste-dossier`, sept. 2026)
+
+Arbitrage du propriétaire : **trois sections + la carte des socialismes**
+(écartés : trois sections seules ; une section unique sur les préfaces).
+La page a donc repris la coquille à **deux destinations** (Lire le texte /
+Le dossier · pour approfondir) : la barre d'onglets est revenue, et avec
+elle `--atl-top` à 88.
+
+- **Tout le contenu du dossier est dans le HTML servi** (ascension,
+  chronologie, carte, ressources) : le script ne fait que plier, choisir la
+  fiche et naviguer. C'est la différence avec les Manuscrits, où le
+  cheminement et la frise sont construits par le script.
+- **I. Le cheminement** : sept marches `.walk-rungs` (`.wk-line`), pli
+  `walkOpen`/`walkSeized` repris des Manuscrits ; atelier-motion.js
+  reconnaît l'ascension tout seul.
+- **II. La chronologie** : trois temps (la parution, les auteurs le
+  relisent, en français). Faits relevés : congrès de Londres du 29 novembre
+  au 8 décembre 1847 ; Marx achève seul à Bruxelles en janvier 1848 ;
+  brochure allemande, sans nom d'auteur, à Londres en février 1848 ; Ligue
+  dissoute en novembre 1852 ; préfaces du 24 juin 1872 et du 21 janvier 1882
+  (Marx et Engels), 1883, 1888, 1890, 1892, 1893 (Engels), dates du
+  Marxists Internet Archive ; Laura Lafargue dans *Le Socialiste* en 1885,
+  reprise revue par Engels en 1886 (*La France socialiste*) et 1895 (*L'Ère
+  nouvelle*), l'édition de 1897 est celle de la liseuse, Andler en 1901,
+  d'après d-meeus.be. **On n'écrit pas que le texte de 1897 est la version
+  revue par Engels** : aucune source consultée ne l'établit.
+- **III. La carte des socialismes** (`#instr-socialismes`, hash
+  `#labo=<id>`) : les cinq socialismes de la partie III, plus le communisme
+  du Manifeste « en regard », chacun en trois rubriques (qui le porte, ce
+  qu'il voit, ce que le Manifeste lui reproche) et un renvoi au passage
+  (`openPart`). Tout est paraphrasé, **aucune citation entre guillemets**.
+- **IV. Les ressources** : six liens vérifiés en 200 (préfaces du MIA,
+  traduction Andler sur Wikisource, dossier Gallica, d-meeus). Pas d'émission
+  de radio : radiofrance.fr n'a pas pu être vérifié.
+- **La marge** porte « L'instrument » (parties II et III, la fiche de la
+  carte) et « Où l'on en est » (la marche), ouverts dans le **tiroir**, qui
+  déplace le nœud et le remet en place. `MF_STRUCT` porte `w` (marche) et
+  `soc` (fiche).
+- La recherche indexe trois outils du dossier (cheminement, chronologie,
+  carte).
+
+**Vérifié** : onglets en `tablist`, 4 ouvertures I-IV, 7 marches dont une
+ouverte, 11 dates, fiche qui change au clic, tiroir des deux espèces avec
+retour à la place et Échap, `#labo=bourgeois` ; contraste du dossier 138
+mesures, 0 échec (min 4,56), plus petit texte 11,52 px, aucune cible sous
+24 px ; zéro débordement à 1380 et 375 px ; console propre. Les capitales
+des libellés (`.tl-section`, `.soc-branch`) relevées par le détecteur sont
+la grammaire de micro-libellé de la maison.
+**Piège d'outillage revécu** : dans une pane masquée depuis longtemps, les
+`setTimeout` sont retardés (le défilement vers `#labo=` semblait ne pas
+partir) ; attendre en sondant avant de conclure.
+
+**Ce qui reste** : la recherche plein texte ne va pas dans le
 Manifeste (`recherche.json` n’a pas de bloc `texte` pour lui) ; le titre et
 la description de l’accueil, et `manifest.webmanifest`, ne nomment que le
 Capital et les Manuscrits (le titre a été arbitré — à rouvrir avec le

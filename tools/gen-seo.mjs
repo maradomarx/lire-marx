@@ -2071,6 +2071,11 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
   for (const p of litteralJS(readFileSync('oeuvres/manifeste.html', 'utf8'), 'MF_STRUCT=', '['))
     items.push({ t: strip(p.t), s: `Manifeste du parti communiste · ${p.rn ? p.rn + ' · ' : ''}${strip(p.grp)}`,
       cat: 'partie', url: `/oeuvres/manifeste#partie=${p.g}`, hay: court(p.s, 400) });
+  for (const [t, url, hay] of [
+    ['Le cheminement du Manifeste', '/oeuvres/manifeste#deriv', 'marches argument luttes de classes bourgeoisie prolétariat'],
+    ['La chronologie du Manifeste', '/oeuvres/manifeste#chrono', 'Ligue des communistes 1847 1848 préfaces 1872 1888 traductions Laura Lafargue Andler'],
+    ['La carte des socialismes', '/oeuvres/manifeste#labo=socialismes', 'socialisme féodal petit-bourgeois vrai socialisme bourgeois Proudhon utopique Saint-Simon Fourier Owen Sismondi']
+  ]) items.push({ t, s: 'Le dossier · Manifeste du parti communiste', cat: 'outil', url, hay });
 
   for (const n of INDEX_NOTIONS) {
     items.push({ t: n.nom, s: (n.de ? n.de + ' · ' : '') + n.oeuvre, cat: 'notion',
