@@ -1,11 +1,18 @@
 {
-  "_": "LA TÊTE de /agregation-2027, page-carrefour assemblée par tools/gen-seo.mjs depuis ce dossier. Tout ce qui est affirmé ici a été VÉRIFIÉ le jour indiqué dans `etat` : le programme dans son PDF, l'absence de date sur la page du calendrier, les traducteurs sur les fiches Livre: de Wikisource. Mettre `etat` à jour à chaque vérification, et remplir `ecrits.date` le jour où le ministère publie le calendrier — pas avant.",
+  "_": "LA TÊTE de /agregation-2027, page-carrefour assemblée par tools/gen-seo.mjs depuis ce dossier. Tout ce qui est affirmé ici a été VÉRIFIÉ le jour indiqué dans `etat` : le programme dans son PDF, l'absence de date sur la page du calendrier, les traducteurs sur les fiches Livre: de Wikisource. Mettre `etat` à jour à chaque vérification, et remplir `ecrits.date` le jour où le ministère publie le calendrier — pas avant. `acces` alimente les lignes « où le lire » de la frise (attribut data-acces de l'essai) : un identifiant inutilisé fait échouer la génération.",
   "titre": "Marx à l’agrégation de philosophie 2027",
   "title": "Marx à l’agrégation de philosophie 2027 : le programme, le commentaire, l’œuvre",
-  "label": "Agrégation externe · session 2027",
+  "label": "Agrégation externe de philosophie · session 2027",
   "chapo": "Marx est l’un des deux auteurs de l’épreuve d’histoire de la philosophie de l’agrégation externe 2027, avec Plotin. Cette page rassemble ce que l’on peut établir avec certitude — le programme, les attentes du jury, l’œuvre à parcourir — et ce que ce site offre pour la lire, sans se donner pour ce qu’il n’est pas&nbsp;: une préparation au concours.",
   "description": "Marx au programme de l’agrégation externe de philosophie 2027 : l’épreuve, le précédent de 2015, ce que le jury attend d’un commentaire, l’œuvre période par période et où la lire gratuitement.",
   "etat": "13 septembre 2026",
+  "fiche": [
+    { "k": "Épreuve", "v": "Histoire de la philosophie", "n": "3ᵉ épreuve d’admissibilité" },
+    { "k": "Exercice", "v": "Commentaire de texte", "n": "un extrait de l’œuvre entière" },
+    { "k": "Auteurs", "v": "Plotin · Marx", "n": "deux périodes différentes" },
+    { "k": "Durée", "v": "6 heures" },
+    { "k": "Coefficient", "v": "2" }
+  ],
   "programme": {
     "name": "Le programme de la session 2027 (PDF)",
     "url": "https://www.devenirenseignant.gouv.fr/media/20210/download"
@@ -19,14 +26,15 @@
     { "name": "Rapport du jury, session 2025", "url": "https://www.devenirenseignant.gouv.fr/media/17979/download" },
     { "name": "Rapport du jury, session 2015 (Platon – Marx)", "url": "https://ent2d.ac-bordeaux.fr/disciplines/philosophie/wp-content/uploads/sites/24/2017/06/agreg_externe_2015.pdf" }
   ],
-  "libres": [
-    { "t": "Le Capital, Livre I", "note": "trad. Joseph Roy, servi sur ce site", "href": "/oeuvres/capital-1" },
-    { "t": "Misère de la philosophie", "note": "écrite en français par Marx, 1847", "ws": "Misère de la philosophie" },
-    { "t": "Manifeste du parti communiste", "note": "trad. Laura Lafargue", "ws": "Manifeste du parti communiste/Lafargue" },
-    { "t": "Les Luttes de classes en France", "note": "trad. Léon Remy, 1900", "ws": "La Lutte des classes en France (1848-1850)" },
-    { "t": "Le 18 Brumaire de Louis Bonaparte", "note": "trad. Léon Remy, 1900", "ws": "Le XVIII brumaire de Louis Bonaparte" },
-    { "t": "Introduction de 1857", "note": "trad. Laura Lafargue, 1909", "ws": "Introduction à la critique de l’économie politique" },
-    { "t": "Contribution à la critique de l’économie politique", "note": "trad. Laura Lafargue, 1909", "ws": "Contribution à la critique de l’économie politique" },
-    { "t": "Salaire, prix et profit", "note": "trad. Charles Longuet, 1912", "ws": "Salaires, prix, profits" }
+  "acces": [
+    { "id": "manuscrits", "href": "/oeuvres/manuscrits-1844", "note": "dans la traduction d’Émile Bottigelli" },
+    { "id": "capital", "href": "/oeuvres/capital-1", "note": "dans la traduction de Joseph Roy" },
+    { "id": "misere", "t": "Misère de la philosophie", "ws": "Misère de la philosophie", "note": "texte français de Marx" },
+    { "id": "manifeste", "t": "Manifeste du parti communiste", "ws": "Manifeste du parti communiste/Lafargue", "note": "traduction de Laura Lafargue" },
+    { "id": "luttes", "t": "Les Luttes de classes en France", "ws": "La Lutte des classes en France (1848-1850)", "note": "traduction de Léon Remy (1900)" },
+    { "id": "brumaire", "t": "Le 18 Brumaire", "ws": "Le XVIII brumaire de Louis Bonaparte", "note": "même traduction" },
+    { "id": "introduction", "t": "l’Introduction de 1857", "ws": "Introduction à la critique de l’économie politique", "note": "traduction de Laura Lafargue (1909)" },
+    { "id": "contribution", "t": "la Contribution", "ws": "Contribution à la critique de l’économie politique", "note": "traduction de Laura Lafargue (1909)" },
+    { "id": "salaire", "t": "Salaires, prix, profits", "ws": "Salaires, prix, profits", "note": "traduction de Charles Longuet (1912)" }
   ]
 }

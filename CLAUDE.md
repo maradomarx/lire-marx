@@ -8389,6 +8389,55 @@ parce qu'il vaut au-delà d'une session.
   attribué) · prolonger. Registre de Fabio (voir la mémoire).
 - Le choix des textes commentés est **celui du site**, et la page le dit.
 
+### La section entre dans le site, et cesse d'être un bloc de texte (2e passe, 13 sept. 2026)
+
+Demande de Fabio : « place agregation sur le site, sinon il reste inaccessible »
+— **entrée « Agrégation 2027 » dans la sidebar** (après Glossaire, point rouge,
+marquée sur `/agregation-2027` ET sous `/commentaires/`) —, puis aérer, animer
+au scroll, ordonner pour l'accessibilité, en s'appuyant sur les skills.
+`shell.js` passe en **`?v=9`** (89 références, gabarits de gen-seo compris).
+
+**La forme de chaque contenu est celle de ce qu'il est** (skill impeccable,
+layout + animate + craft-floor) : fiche d'épreuve en `<dl>` réglée (et non
+des cartes), deux colonnes « ce qu'il offre / ce qu'il ne fait pas », la
+phrase de 2015 en citation mise en avant, quatre exigences en grille réglée,
+**frise** de l'œuvre, portes d'entrée en lignes, commentaires en cartes
+d'emphase. Côté commentaire : l'extrait en tête, les deux questions et la
+thèse, le plan en trois temps lié aux moments, **un vrai `<table>`** des
+traductions (replié en fiches sous 720 px, en-tête gardé pour les lecteurs
+d'écran), les reproches du jury en grille. **Plus de sur-titre** (`nt-label`)
+sur ces pages : le contexte passe sous le titre (`.ag-meta`). Rythme :
+`--ag-sec` (80–132 px) entre sections, `--ag-in` dans une section.
+
+**Feuille et script propres** : `commentaires/agregation.css` et
+`commentaires/agregation.js`, versionnés par leur contenu (`hashV`).
+**`notion.css` est revenu à l'octet près à son état d'avant la mission** —
+les 72 pages de notion et de chapitre n'ont plus rien de la section.
+
+**Le mouvement, deux gestes seulement** :
+- **la frise se trace** au défilement (`--draw`) et allume chaque texte que la
+  ligne de lecture (58 %) atteint ; l'extinction se dit par la couleur,
+  jamais par l'opacité ; sans script, tracée et tout allumé ;
+- **la marge suit la lecture** : sommaire collant (`data-spy`,
+  `aria-current="location"`), qui remplace le sommaire en ligne au-dessus de
+  1100 px.
+
+**Un geste essayé puis remplacé** : éclairer dans l'extrait le moment qu'on lit
+pendant qu'on le lit. L'extrait est alors hors de l'écran — **le geste ne se
+voyait jamais**. Chaque moment ouvre maintenant sur « Revoir ce moment dans
+l'extrait » (inséré par le générateur d'après les `data-moment` des segments),
+et c'est ce clic qui éclaire le passage. Et le sommaire restait une section en
+retard après un saut par ancre : remesure sur `hashchange`.
+
+`meta.acces` (carrefour) alimente les lignes « où le lire » de la frise
+(`data-acces` dans l'essai) ; un identifiant inconnu ou inutilisé fait échouer
+la génération. Le `extrait` du commentaire est découpé en `span.cm-seg`
+**par script**, jamais à la main, et `verif-citations` le revérifie
+(12/12). Vérifié : contraste 0 échec (minimum 4,56), plus petit texte
+11,52 px, zéro débordement à 375 px, détecteur 0 constat sur les pages (les
+10 de la feuille = « Overused font », la DA documentée), rendu relu dans le
+vrai Chrome section par section.
+
 ### ✅ PILOTE VALIDÉ ET EN LIGNE (13 septembre 2026)
 
 Carrefour + `/commentaires/hieroglyphe-social` (8 sections, 12 citations

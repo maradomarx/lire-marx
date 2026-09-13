@@ -99,6 +99,11 @@
            /oeuvres/ — arbitrage du propriétaire : il ne dépend d'aucune
            œuvre en particulier. */
         '<a class="sb-item" href="/glossaire/" data-act="glossaire"><span class="sb-dot" style="background:var(--ink-soft)"></span>Glossaire</a>' +
+        /* « Agrégation 2027 » — la page-carrefour et ses commentaires guidés
+           (mission agregation-2027). Sans cette entrée la section n'était
+           atteignable que par le pied de page. Elle suit les deux outils du
+           corpus parce qu'elle en est un usage : lire l'œuvre pour l'épreuve. */
+        '<a class="sb-item" href="/agregation-2027" data-act="agregation"><span class="sb-dot" style="background:var(--red)"></span>Agrégation 2027</a>' +
 '<a class="sb-item" href="/oeuvres/place-publique" data-act="commune"><span class="sb-dot" style="background:var(--red)"></span>Place publique</a>' +
         /* le carnet est le pendant PRIVÉ de la Place publique : là-bas
            les notes partagées, ici les vôtres — d'où sa place juste en
@@ -261,6 +266,9 @@
        (/glossaire/plus-value). Un test ancré sur la fin ne couvrait que
        l'index, et la sidebar se dé-marquait dès qu'on ouvrait une notion. */
     if(/^\/glossaire(\/|$)/.test(here)) mark(gloBtn);
+    /* La page-carrefour ET les commentaires guidés, qui en dépendent. */
+    var agBtn = sb.querySelector('[data-act="agregation"]');
+    if(/^\/agregation-2027$/.test(here) || /^\/commentaires\//.test(here)) mark(agBtn);
     var aproposBtn = sb.querySelector('[data-act="apropos"]');
     if(/^\/a-propos$/.test(here)) mark(aproposBtn);
     var cguBtn = sb.querySelector('[data-act="cgu"]');

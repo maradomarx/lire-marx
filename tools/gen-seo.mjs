@@ -1140,7 +1140,7 @@ ${monde}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=8"></script>
+<script src="/oeuvres/shell.js?v=9"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 ${aScene ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-driver.js')}" defer></script>` : ''}
@@ -1301,7 +1301,7 @@ ${voisines.map((v) => `      <a href="${v.href}">${v.nom}</a>`).join('\n')}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=8"></script>
+<script src="/oeuvres/shell.js?v=9"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 </body>
@@ -1542,7 +1542,7 @@ ${marge}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=8"></script>
+<script src="/oeuvres/shell.js?v=9"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Le Capital', tabs: [] });</script>
 </body>
@@ -1565,6 +1565,10 @@ ${PIED}
    * La page-carrefour n'affirme que ce qui a été vérifié à la date de son
    * champ etat ; la date des écrits ne s'affiche que si ecrits.date est
    * rempli, c'est-à-dire publiée par le ministère.
+   * 2e PASSE (aérer, ordonner, animer) : feuille commentaires/agregation.css
+   * et script commentaires/agregation.js, tous deux versionnés par leur
+   * contenu ; pas de sur-titre, la marge porte un sommaire qui suit la
+   * lecture ; la frise reçoit ses lignes « où le lire » depuis meta.acces.
    * ------------------------------------------------------------------- */
   const teteCm = (o) => `<!doctype html>
 <html lang="fr">
@@ -1573,7 +1577,7 @@ ${PIED}
 <title>${echap(o.title)} | Lire Marx</title>
 <!-- PAGE GÉNÉRÉE par tools/gen-seo.mjs depuis ${o.src}/ (essai.html,
      meta.json). Ne pas éditer à la main : le texte se modifie dans l'essai,
-     la forme dans le générateur, le style dans glossaire/notion.css. -->
+     la forme dans le générateur, le style dans commentaires/agregation.css. -->
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="48x48" href="/assets/img/logo/icon-48.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/logo/icon-192.png">
@@ -1596,35 +1600,43 @@ ${PIED}
 <link rel="stylesheet" href="/oeuvres/fonts/fonts.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css"></noscript>
 <link rel="stylesheet" href="/glossaire/notion.css?v=${hashV('glossaire/notion.css')}">
+<link rel="stylesheet" href="/commentaires/agregation.css?v=${hashV('commentaires/agregation.css')}">
 <link rel="preload" href="/oeuvres/shell.css?v=8" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=8"></noscript>
 ${o.ld}
 </head>`;
   const piedCm = (workTitle) => `${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=8"></script>
+<script src="/oeuvres/shell.js?v=9"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: '${workTitle}', tabs: [] });</script>
+<script src="/commentaires/agregation.js?v=${hashV('commentaires/agregation.js')}" defer></script>
 </body>
 </html>
 `;
   const ldCm = (arr) => arr.map((x) => `${OPEN}\n${JSON.stringify(x, null, 2)}\n${CLOSE}`).join('\n');
   const blocCm = (t, corps, cls = '') => `    <div class="nt-bloc${cls}">\n      <p class="nt-bloc-t">${t}</p>\n${corps}\n    </div>`;
-  const numeroterCm = (essai, qui) => {
+  const numeroterCm = (essai, qui, numeros) => {
     const sections = [];
     const out = essai.replace(/<section class="nt-sec" data-etape="([^"]+)" id="([^"]+)">\s*<h2>([^]*?)<\/h2>/g, (mm, etape, id, h2) => {
-      const n = sections.length; sections.push({ etape, id, h2 });
-      return `<section class="nt-sec" data-etape="${etape}" id="${id}">\n<h2><span class="nt-sec-n" aria-hidden="true">${ROMAINS[n]}</span>${h2}</h2>`;
+      const n = sections.length; sections.push({ etape, id, h2, n: ROMAINS[n] });
+      return `<section class="nt-sec" data-etape="${etape}" id="${id}">\n<h2>${numeros ? `<span class="nt-sec-n" aria-hidden="true">${ROMAINS[n]}</span>` : ''}${h2}</h2>`;
     });
     if (sections.length < 3) throw new Error(`${qui} : l'essai n'a que ${sections.length} section(s).`);
     return { essai: out, sections };
   };
-  const sommaireCm = (titre, sections) => `  <nav class="nt-som" aria-label="Sommaire">
+  const sommaireCm = (titre, sections, numeros) => `  <nav class="nt-som${numeros ? '' : ' nt-som--plain'}" aria-label="Sommaire">
     <p class="nt-som-t">${titre}</p>
     <ol>
 ${sections.map((x) => `      <li><a href="#${x.id}">${x.h2}</a></li>`).join('\n')}
     </ol>
   </nav>`;
+  /* Le sommaire de la MARGE : le même, mais qui suit la lecture (data-spy,
+     aria-current posé par agregation.js). Chaque entrée porte data-moment :
+     sur un commentaire, le moment de l'extrait correspondant s'éclaire. */
+  const tocCm = (titre, sections, numeros) => blocCm(titre,
+    `      <nav aria-label="${titre}" data-spy>\n        <ol class="ag-toc">\n${sections.map((x) => `          <li><a href="#${x.id}">${numeros ? `<span class="n" aria-hidden="true">${x.n}</span>` : ''}<span>${nu(x.h2)}</span></a></li>`).join('\n')}\n        </ol>\n      </nav>`,
+    ' ag-marge-nav');
   const AG = 'Marx à l’agrégation 2027';
 
   for (const k of COMM_META) {
@@ -1649,7 +1661,18 @@ ${sections.map((x) => `      <li><a href="#${x.id}">${x.h2}</a></li>`).join('\n'
     });
     if (/data-q=/.test(essai)) throw new Error(`${qui} : une citation n'a pas été reconnue.`);
     if (/EXTRAIT/.test(essai)) throw new Error(`${qui} : l'extrait n'a pas été recopié.`);
-    const num = numeroterCm(essai, qui); essai = num.essai;
+    const num = numeroterCm(essai, qui, true); essai = num.essai;
+    /* Chaque segment de l'extrait désigne la section qui le commente. */
+    const commentes = new Set();
+    for (const m of essai.matchAll(/data-moment="([^"]+)"/g)) {
+      if (!num.sections.some((x) => x.id === m[1])) throw new Error(`${qui} : data-moment « ${m[1]} » ne désigne aucune section.`);
+      commentes.add(m[1]);
+    }
+    /* Chaque section qui commente un segment de l'extrait ouvre sur un renvoi
+       vers lui ; agregation.js y éclaire le passage au clic. */
+    for (const id of commentes)
+      essai = essai.replace(new RegExp(`(<section class="nt-sec" data-etape="[^"]+" id="${id}">\\n<h2>[^]*?</h2>)`),
+        `$1\n<p class="cm-rappel"><a href="#texte" data-voir="${id}">Revoir ce moment dans l’extrait</a></p>`);
     const mots = nu(essai).split(/\s+/).filter(Boolean).length;
     if (mots < 1200) throw new Error(`${qui} : ${mots} mots — un commentaire guidé en veut au moins 1 200.`);
     const notions = (k.notions || []).map((n) => termes.find((x) => identite(x.nom) === identite(n)));
@@ -1675,11 +1698,11 @@ ${sections.map((x) => `      <li><a href="#${x.id}">${x.h2}</a></li>`).join('\n'
     ]);
 
     const marge = [
+      tocCm('Dans ce commentaire', num.sections, true),
       blocCm('Où il se trouve', `      <p>Le Capital, Livre I, chapitre ${k.rn}, partie ${k.partie}.</p>\n      <ul class="nt-liens">\n${extrait ? `        <li><a href="${extrait}">Lire le passage dans la liseuse →</a></li>\n` : ''}${chap ? `        <li><a href="${chap.href}">Le chapitre ${chap.arabe} expliqué →</a></li>\n` : ''}      </ul>`, ' nt-bloc--source'),
-      a ? blocCm(`Donné en ${a.session}`, `      <p>Agrégation externe de philosophie, ${a.epreuve} (${a.programme}), dans la ${a.traduction}.</p>\n      <ul class="nt-liens">\n        <li><a href="${a.rapport.url}" rel="noopener">${a.rapport.name} ›</a></li>\n      </ul>`) : '',
-      blocCm('Ce que cette page est', '      <p>Une lecture proposée par le site, qui n’est ni un corrigé ni une préparation. Sur ce qu’un jury attend, seuls ses rapports font autorité.</p>'),
+      a ? blocCm(`Donné en ${a.session}`, `      <p>Agrégation externe de philosophie, ${a.epreuve} (${a.programme}), dans la ${a.traduction}.</p>\n      <ul class="nt-liens">\n        <li><a href="${a.rapport.url}" rel="noopener">${a.rapport.name}&nbsp;›</a></li>\n      </ul>`) : '',
       notions.length ? blocCm('Les notions en jeu', `      <ul class="nt-liens">\n${notions.map((x) => `        <li><a href="${x.href}">${decode(x.affiche || x.nom)}</a></li>`).join('\n')}\n      </ul>`) : '',
-      blocCm(AG, `      <ul class="nt-liens">\n        <li><a href="${CARREFOUR.url}">Le programme, les attentes, l’œuvre →</a></li>\n      </ul>`),
+      blocCm('Ce que cette page est', `      <p>Une lecture proposée par le site, qui n’est ni un corrigé ni une préparation. Sur ce qu’un jury attend, seuls ses rapports font autorité.</p>\n      <ul class="nt-liens">\n        <li><a href="${CARREFOUR.url}">${AG} →</a></li>\n      </ul>`),
     ].filter(Boolean).join('\n');
 
     const html = `${teteCm({ title: k.title, src: k.dossier, desc, og: nu(k.title), type: 'article', url,
@@ -1694,11 +1717,11 @@ ${sections.map((x) => `      <li><a href="#${x.id}">${x.h2}</a></li>`).join('\n'
     <a href="/">Lire Marx</a><span aria-hidden="true">›</span><a href="${CARREFOUR.url}">${AG}</a><span aria-hidden="true">›</span>Commentaire guidé
   </nav>
 
-  <p class="nt-label">${k.label}</p>
-  <h1 class="nt-h1"><span class="ch-num">Commentaire guidé</span>${k.titre}</h1>
+  <h1 class="nt-h1">${k.titre}</h1>
+  <p class="ag-meta">Commentaire guidé · ${k.label}${a ? ` · sujet de l’agrégation ${a.session}` : ''}</p>
   <p class="nt-chapo">${k.chapo}</p>
 
-${sommaireCm('Dans ce commentaire', num.sections)}
+${sommaireCm('Dans ce commentaire', num.sections, true)}
 
   <div class="nt-corps nt-essai">
 ${essai}
@@ -1731,13 +1754,35 @@ ${piedCm('Agrégation 2027')}`;
     let src = readFileSync(`${CARREFOUR.dir}/essai.html`, 'utf8');
     if (src.split('<!--COMMENTAIRES-->').length !== 2) throw new Error(`${qui} : le marqueur COMMENTAIRES doit figurer une fois, et une seule.`);
     const liste = COMM_META.length
-      ? `<ul class="ag-com">\n${COMM_META.map((k) => `<li><a href="${k.href}"><span class="k">${k.label}${k.annale ? ` · sujet de ${k.annale.session}` : ''}</span><span class="t">${k.titre}</span></a></li>`).join('\n')}\n</ul>`
+      ? `<ul class="ag-com">\n${COMM_META.map((k) => `<li><a href="${k.href}"><span class="k">${k.label}${k.annale ? ` · sujet de ${k.annale.session}` : ''}</span><span class="t">${k.titre}</span><span class="go" aria-hidden="true">Lire →</span></a></li>`).join('\n')}\n</ul>`
       : '<p>Les premiers commentaires sont en cours d’écriture.</p>';
     src = src.replace('<!--COMMENTAIRES-->', liste).replace(/<!--[^]*?-->/g, '').trim();
     if (/data-q=/.test(src)) throw new Error(`${qui} : pas de citation liée sur la page-carrefour.`);
-    const num = numeroterCm(src, qui);
-    const desc = nu(m.description);
+
+    /* « Où le lire » : chaque texte de la frise qui porte data-acces reçoit sa
+       ligne, tirée de meta.acces — la source unique des adresses et des
+       traducteurs vérifiés. Un identifiant inconnu, ou une entrée que rien
+       n'utilise, fait échouer la génération. */
     const ws = (p) => `https://fr.wikisource.org/wiki/${encodeURI(p.replace(/ /g, '_'))}`;
+    const acces = Object.fromEntries((m.acces || []).map((x) => [x.id, x]));
+    const servis = new Set();
+    src = src.replace(/<li data-acces="([^"]+)">([^]*?)<\/div><\/li>/g, (mm, ids, corps) => {
+      const lignes = ids.split(/\s+/).map((id) => {
+        const x = acces[id];
+        if (!x) throw new Error(`${qui} : data-acces « ${id} » absent de meta.acces.`);
+        servis.add(id);
+        return x.href ? `<a href="${x.href}">sur ce site</a>, ${x.note}` : `<a href="${ws(x.ws)}" rel="noopener">${x.t}</a>, ${x.note}, sur Wikisource`;
+      });
+      return `<li>${corps}<p class="ag-acces">Où le lire&nbsp;: ${lignes.join('&nbsp;; ')}.</p></div></li>`;
+    });
+    for (const id of Object.keys(acces)) if (!servis.has(id)) throw new Error(`${qui} : meta.acces « ${id} » n'est utilisé par aucun texte de la frise.`);
+
+    const num = numeroterCm(src, qui, false);
+    const desc = nu(m.description);
+    const ecrits = m.ecrits.date
+      ? `<div><dt>Écrits</dt><dd>${m.ecrits.date}</dd></div>`
+      : `<div class="ag-attente"><dt>Écrits</dt><dd>Date non publiée<small>au ${m.etat} · <a href="${m.ecrits.url}" rel="noopener">calendrier officiel</a></small></dd></div>`;
+    const fiche = `  <dl class="ag-fiche">\n${m.fiche.map((f) => `    <div><dt>${f.k}</dt><dd>${f.v}${f.n ? `<small>${f.n}</small>` : ''}</dd></div>`).join('\n')}\n    ${ecrits}\n  </dl>`;
 
     const ld = ldCm([
       { '@context': 'https://schema.org', '@type': 'WebPage',
@@ -1752,12 +1797,9 @@ ${piedCm('Agrégation 2027')}`;
     ]);
 
     const marge = [
-      blocCm('L’épreuve', `      <p>Troisième épreuve d’admissibilité · commentaire de texte · 6&nbsp;heures · coefficient&nbsp;2. Auteurs&nbsp;: Plotin&nbsp;; Marx.</p>\n      <ul class="nt-liens">\n        <li><a href="${m.programme.url}" rel="noopener">${m.programme.name} ›</a></li>\n      </ul>`, ' nt-bloc--source'),
-      blocCm('Les écrits', `      <p>${m.ecrits.date ? m.ecrits.date : `Date non encore publiée par le ministère (vérifié le ${m.etat}).`}</p>\n      <ul class="nt-liens">\n        <li><a href="${m.ecrits.url}" rel="noopener">${m.ecrits.name} ›</a></li>\n      </ul>`),
-      COMM_META.length ? blocCm('Commentaires guidés', `      <ul class="nt-liens">\n${COMM_META.map((k) => `        <li><a href="${k.href}">${k.titre}</a></li>`).join('\n')}\n      </ul>`) : '',
-      blocCm('Lire gratuitement', `      <ul class="ag-libres">\n${m.libres.map((x) => `        <li><a href="${x.href || ws(x.ws)}"${x.href ? '' : ' rel="noopener"'}>${x.t}<span class="n">${x.note}${x.href ? '' : ' · Wikisource'}</span></a></li>`).join('\n')}\n      </ul>`),
-      blocCm('Les rapports du jury', `      <ul class="nt-liens">\n${m.rapports.map((r) => `        <li><a href="${r.url}" rel="noopener">${r.name} ›</a></li>`).join('\n')}\n      </ul>`),
-    ].filter(Boolean).join('\n');
+      tocCm('Sur cette page', num.sections, false),
+      blocCm('Documents officiels', `      <ul class="nt-liens">\n        <li><a href="${m.programme.url}" rel="noopener">${m.programme.name}&nbsp;›</a></li>\n        <li><a href="${m.ecrits.url}" rel="noopener">${m.ecrits.name}&nbsp;›</a></li>\n${m.rapports.map((r) => `        <li><a href="${r.url}" rel="noopener">${r.name}&nbsp;›</a></li>`).join('\n')}\n      </ul>`, ' nt-bloc--source'),
+    ].join('\n');
 
     const html = `${teteCm({ title: m.title, src: CARREFOUR.dir, desc, og: nu(m.titre), type: 'website', url,
       image: '/assets/img/archive/manuscrit-ideologie-1846.jpg', ld })}
@@ -1771,11 +1813,12 @@ ${piedCm('Agrégation 2027')}`;
     <a href="/">Lire Marx</a><span aria-hidden="true">›</span>Agrégation 2027
   </nav>
 
-  <p class="nt-label">${m.label}</p>
   <h1 class="nt-h1">${m.titre}</h1>
+  <p class="ag-meta">${m.label}</p>
   <p class="nt-chapo">${m.chapo}</p>
+${fiche}
 
-${sommaireCm('Sur cette page', num.sections)}
+${sommaireCm('Sur cette page', num.sections, false)}
 
   <div class="nt-corps nt-essai">
 ${num.essai}
