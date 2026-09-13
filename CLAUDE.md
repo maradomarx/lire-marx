@@ -8451,6 +8451,7 @@ Suite : indexation demandée dans Search Console (carrefour d'abord), puis
 lots de fiches. Question ouverte pour le premier lot : citer les textes libres
 non servis en liseuse (préface de 1859, Manifeste) avec un lien Wikisource —
 ce qui demande d'étendre le générateur — ou s'en tenir d'abord au Capital I.
+
 ## L'abécédaire sur l'accueil (mission `accueil-glossaire`, sept. 2026)
 
 Demande du propriétaire : une section glossaire sur l'accueil, un bloc IV
@@ -8484,9 +8485,10 @@ les chiffres clés.
 - Vérifié dans le vrai Chrome à 1380 et 375 px : contraste 0 échec (min
   7,57), plus petit texte 11 px, aucune cible sous 24 px, zéro débordement,
   console sans erreur, course relevée et retour à 0 en remontant.
-- Relevé sans corriger (hors périmètre, touche le FAQPage) : la réponse FAQ
-  « Faut-il des connaissances… » dit encore que le glossaire range les termes
-  « par le mécanisme auquel ils appartiennent » — il est alphabétique.
+- La réponse FAQ « Faut-il des connaissances… » disait encore que le
+  glossaire range les termes « par le mécanisme auquel ils appartiennent » :
+  corrigée (« par ordre alphabétique, chacun défini et relié à la page qui
+  l'explique ») dans la section, puis FAQPage regénéré.
 
 ## Conventions de travail
 
