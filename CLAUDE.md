@@ -8309,6 +8309,97 @@ l'**autorité**, c'est-à-dire les liens entrants, exactement ce que ce fichier
 dit depuis `a-propos`. Reconsulter dans trois à quatre semaines, quand les
 pages de chapitre auront produit des impressions.
 
+## Marx à l'agrégation 2027 (mission `agregation-2027`, sept. 2026)
+
+**But : gagner de l'audience QUALIFIÉE, pas vendre.** Marx est l'un des deux
+auteurs (avec Plotin) de la 3e épreuve d'admissibilité de l'agrégation externe
+de philosophie 2027 — commentaire de texte, 6 h, coefficient 2 —, et c'est le
+seul levier d'audience à date fixe trouvé pour le site. Programme relu dans le
+PDF officiel (devenirenseignant.gouv.fr, 23 avril 2026, modifié le 29 mai) :
+**l'auteur est nommé sans aucun ouvrage**, et Marx n'est pas à l'oral.
+
+**Arbitrages de Fabio au lancement** : (A) une page-carrefour + des fiches
+« grands textes » (écartés : un parcours par problèmes, qui doublonnerait le
+glossaire ; un calendrier de lecture, qui dépend d'une date non publiée et
+meurt en 2027) ; et, pour les textes sans traduction française libre (critique
+de Hegel 1843-44, Thèses sur Feuerbach, Idéologie allemande), **la paraphrase
+attribuée**, jamais de traduction du site.
+
+### La forme
+
+```
+commentaires/carrefour/{essai.html, meta.json}          → /agregation-2027
+commentaires/textes/<slug>/{essai.html, meta.json}      → /commentaires/<slug>
+```
+
+Les deux sont ASSEMBLÉS par `tools/gen-seo.mjs` (bloc « Les commentaires
+guidés et /agregation-2027 », à la suite des chapitres), grammaire des pages
+de chapitre (`.nt--ch`, marge collante), styles `.cm-*` / `.ag-*` en fin de
+`glossaire/notion.css`. Sources en `noindex` (`_headers`). **Seule la
+page-carrefour est datée** ; un commentaire a une adresse sans millésime,
+parce qu'il vaut au-delà d'une session.
+
+- Le relevé `COMM_META` est en TÊTE du générateur (comme `CHAP_META`) : la
+  page de chapitre (bloc « Un commentaire guidé ») et la page de notion
+  (« Où Marx l'établit ») renvoient au commentaire, et elles sont assemblées
+  AVANT lui. Le pied de page porte « Marx à l'agrégation 2027 » (colonne
+  Comprendre) ; la recherche indexe le carrefour et chaque commentaire.
+- **Le générateur REFUSE toute citation liée hors du Capital I** (`oeuvre`
+  ≠ `capital-1`) : c'est la règle Bottigelli, tenue par la machine.
+- L'extrait commenté est un `<blockquote class="cm-texte" data-s data-q>`
+  recopié **par script** depuis le texte que la liseuse sert (insécables de
+  Roy comprises — jamais à la main), avec les marqueurs de moment
+  `<span class="cm-m">[1]</span>`. `tools/verif-citations.mjs <slug>` vérifie
+  les `data-q` ET chaque paragraphe de l'extrait, marqueurs retirés.
+- `meta.json` du carrefour : `etat` (date de la dernière vérification des
+  faits) et `ecrits.date` — **reste `null` tant que le ministère n'a pas
+  publié le calendrier** ; la marge dit alors « non encore publiée ».
+- Le marqueur de la liste des commentaires dans l'essai du carrefour ne doit
+  figurer qu'une fois — et **jamais dans un commentaire HTML** : un
+  commentaire imbriqué referme le premier (piège vécu à l'écriture).
+
+### Ce qui est vérifié, et où (au 13 septembre 2026)
+
+- **Date des écrits 2027 : NON publiée** (page du calendrier mise à jour en
+  juillet 2026, « communiquées ultérieurement »). Ne rien afficher avant.
+- **Seul vrai sujet Marx : session 2015 (Platon – Marx)**, le passage du
+  « hiéroglyphe social » (Capital I, ch. 1, partie IV), dans la traduction
+  dirigée par Lefebvre, commenté par le rapport du jury (J.-P. Füssler, PDF
+  hébergé par l'académie de Bordeaux). C'est le pilote. Les formules de
+  Lefebvre ne sont citées que brièvement, d'après le rapport ; le texte
+  reproduit est Roy.
+- Rapport 2025 : 1 112 inscrits, 680 présents, 85 admis, moyenne de
+  l'épreuve d'histoire de la philosophie 8,80. (Le « 635 à l'épreuve 3 » de
+  la note de départ n'a pas été retrouvé : il n'est pas affiché.)
+- **Traductions françaises libres vérifiées sur les fiches Livre: de
+  Wikisource** : Manifeste (Laura Lafargue), Luttes de classes et 18 Brumaire
+  (Léon Remy, 1900, † 1910), Introduction de 1857 et Contribution (Laura
+  Lafargue, 1909), Salaires, prix, profits (Charles Longuet, 1912), Misère de
+  la philosophie (écrite en français). **Non retenues** : Molitor/Costes
+  (décès introuvable), Ponnier (1970), Travail salarié et capital et Guerre
+  civile (traducteur non établi).
+
+### Doctrine
+
+- **Le site ne se présente jamais comme une préparation**, ne prédit aucun
+  sujet, n'appelle pas « corrigé » un commentaire, et renvoie aux rapports du
+  jury comme seule autorité. Écrit en toutes lettres sur les deux pages.
+- Un commentaire suit : situer · problème (thèse qui vaut pour tout
+  l'extrait) · moments · traductions · ce que le jury a reproché (paraphrasé,
+  attribué) · prolonger. Registre de Fabio (voir la mémoire).
+- Le choix des textes commentés est **celui du site**, et la page le dit.
+
+### ✅ PILOTE CONSTRUIT, EN ATTENTE DE LA VALIDATION DE FABIO
+
+Carrefour + `/commentaires/hieroglyphe-social` (8 sections, 12 citations
+vérifiées dont l'extrait entier, 0 partagée). Contraste 0 échec (minimum
+4,56 / 5,12), plus petit texte 11,52 px, aucune cible sous 24 px, zéro
+débordement à 1380 et 375 px, détecteur 0 constat sur les deux pages,
+`--check` idempotent, sitemap à 83 URL, liens externes en 200, lien de
+l'extrait : la liseuse charge la section 1 qui contient la phrase.
+**Pas encore poussé.** Après validation : lots de fiches, puis indexation
+demandée dans Search Console (carrefour d'abord).
+
 ## Conventions de travail
 
 - **Une mission par session.** Une demande utilisateur = un objectif clair,

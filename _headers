@@ -77,3 +77,12 @@
   X-Robots-Tag: noindex
 /hors-ligne
   X-Robots-Tag: noindex
+
+# LES SOURCES DES COMMENTAIRES GUIDÉS et de la page-carrefour /agregation-2027
+# (mission agregation-2027) : même raison que pour les chapitres et les
+# pages-monde — tools/gen-seo.mjs assemble les pages, les dossiers sources ne
+# sont pas des pages.
+/commentaires/textes/*
+  X-Robots-Tag: noindex
+/commentaires/carrefour/*
+  X-Robots-Tag: noindex

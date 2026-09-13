@@ -233,5 +233,51 @@ for (const d of dossiers.sort()) {
   for (const c of mal) console.log(`      section ${c.s} : « ${c.q} »`);
 }
 
-console.log(`\n${nChap} chapitre(s), ${nCit} citations, ${nMal} introuvable(s), ${nDouble} partagée(s).\n`);
+/* ── Les commentaires guidés (mission agregation-2027) ──────────────────
+   Deux choses à vérifier. Les <q>/<blockquote> data-q, comme partout. Et
+   l'EXTRAIT commenté (blockquote.cm-texte), recopié en entier : chacun de
+   ses paragraphes, marqueurs de moment [1] [2] [3] retirés, doit se trouver
+   tel quel dans le texte servi — sinon la page montrerait au lecteur un
+   texte que la liseuse n'a pas. Une citation qu'un commentaire partage avec
+   une page-monde ou un chapitre est normale ici (il commente ce que la notion
+   explique) ; elle est signalée, pas refusée. */
+const COMM_DIR = path.join(SITE, 'commentaires/textes');
+const comms = existsSync(COMM_DIR) ? readdirSync(COMM_DIR).filter((d) => existsSync(path.join(COMM_DIR, d, 'essai.html'))) : [];
+let nComm = 0;
+if (comms.length) console.log('\nLes citations des commentaires guidés :\n');
+for (const d of comms.sort()) {
+  if (seuls.length && !seuls.includes(d.toUpperCase())) continue;
+  nComm++;
+  const fEssai = path.join(COMM_DIR, d, 'essai.html');
+  let essai = readFileSync(fEssai, 'utf8');
+  const extraits = [...essai.matchAll(/<blockquote class="cm-texte" data-s="(\d+)" data-q="([^"]+)">([^]*?)<\/blockquote>/g)];
+  const cits = [...citations(essai), ...extraits.map((m) => ({ s: Number(m[1]), q: m[2] }))];
+  if (corriger) {
+    const faits = reparer(fEssai, cits.filter((c) => section(c.s).indexOf(c.q) < 0));
+    for (const q of faits) console.log(`  ⟳ ${d} : citation réécrite à la lettre — « ${q.slice(0, 52)} »`);
+    if (faits.length) essai = readFileSync(fEssai, 'utf8');
+  }
+  const mal = [];
+  for (const c of cits) {
+    nCit++;
+    if (section(c.s).indexOf(c.q) < 0) { mal.push(c); nMal++; }
+    const dej = ailleurs.get(c.q) || vus.get(c.q);
+    if (dej) { nDouble++; console.log(`  ~ ${d} partage une citation avec ${dej} : « ${c.q.slice(0, 58)} »`); }
+  }
+  let nPar = 0;
+  for (const m of extraits) {
+    for (const p of m[3].matchAll(/<p>([^]*?)<\/p>/g)) {
+      nPar++;
+      const brut = p[1].replace(/<span class="cm-m">[^<]*<\/span>/g, '').replace(/<[^>]+>/g, '')
+        .replace(/&lt;/g, '<').replace(/&amp;/g, '&');
+      if (section(Number(m[1])).indexOf(brut) < 0) { nMal++; mal.push({ s: Number(m[1]), q: `[paragraphe ${nPar} de l'extrait] ${brut.slice(0, 60)}…` }); }
+    }
+  }
+  const mots = essai.replace(/<[^>]*>/g, ' ').replace(/&nbsp;/g, ' ').split(/\s+/).filter(Boolean).length;
+  console.log(`  ${mal.length ? '✗' : '✓'} ${d.padEnd(22)} ${String(cits.length).padStart(2)} citations · extrait en ${nPar} paragraphe(s) · ${mots} mots`
+    + (mal.length ? `  — ${mal.length} INTROUVABLE(S)` : ''));
+  for (const c of mal) console.log(`      section ${c.s} : « ${c.q} »`);
+}
+
+console.log(`\n${nChap} chapitre(s), ${nComm} commentaire(s), ${nCit} citations, ${nMal} introuvable(s), ${nDouble} partagée(s).\n`);
 process.exit(nMal ? 1 : 0);

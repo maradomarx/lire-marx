@@ -55,7 +55,7 @@
   </url>
   <url>
     <loc>https://liremarx.com/glossaire/accumulation-primitive</loc>
-    <lastmod>2026-09-11</lastmod>
+    <lastmod>2026-09-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -169,7 +169,7 @@
   </url>
   <url>
     <loc>https://liremarx.com/glossaire/legislation-sanglante</loc>
-    <lastmod>2026-09-11</lastmod>
+    <lastmod>2026-09-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -476,6 +476,18 @@
   <url>
     <loc>https://liremarx.com/oeuvres/capital-1/chapitre-11</loc>
     <lastmod>2026-09-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://liremarx.com/agregation-2027</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://liremarx.com/commentaires/hieroglyphe-social</loc>
+    <lastmod>2026-09-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

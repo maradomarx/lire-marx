@@ -175,6 +175,22 @@ const CHAP_META = existsSync(CHAP_DIR)
  * du maillage injectée dans l'atelier. */
 const PAGES_CHAPITRES = [];
 const CHAP_HREF = {};
+/* LES COMMENTAIRES GUIDÉS et la page-carrefour /agregation-2027 (mission
+ * agregation-2027). Relevés en tête pour la même raison que les chapitres :
+ * la page de chapitre et la page de notion renvoient au commentaire qui porte
+ * sur elles, et elles sont assemblées AVANT lui. Le nom du dossier EST
+ * l'adresse : /commentaires/<slug> — une adresse sans millésime, parce qu'un
+ * commentaire vaut au-delà d'une session ; seule la page-carrefour est datée. */
+const COMM_DIR = 'commentaires/textes';
+const COMM_META = existsSync(COMM_DIR)
+  ? readdirSync(COMM_DIR).filter((d) => existsSync(`${COMM_DIR}/${d}/meta.json`) && existsSync(`${COMM_DIR}/${d}/essai.html`)).sort().map((d) => {
+      const m = JSON.parse(readFileSync(`${COMM_DIR}/${d}/meta.json`, 'utf8'));
+      if (m.slug !== d) throw new Error(`Commentaire ${d} : le slug de meta.json (${m.slug}) doit être le nom du dossier.`);
+      return { ...m, dossier: `${COMM_DIR}/${d}`, href: `/commentaires/${d}` };
+    })
+  : [];
+const PAGES_COMMENTAIRES = [];
+const CARREFOUR = { dir: 'commentaires/carrefour', file: 'agregation-2027.html', url: '/agregation-2027' };
 /* Les notions, telles que le glossaire les a dédoublonnées et nommées —
  * l'index de recherche en dérive (voir « L'index de la recherche »). */
 let INDEX_NOTIONS = [];
@@ -312,6 +328,7 @@ ${lien('/oeuvres/bibliotheque', 'Toute la bibliothèque')}
         <ul>
 ${lien('/glossaire/', 'L’abécédaire de Marx')}
 ${lien('/jeu/', 'Le circuit du capital')}
+${lien('/agregation-2027', 'Marx à l’agrégation 2027')}
         </ul>
       </div>
       <div class="lm-foot-col">
@@ -1092,7 +1109,10 @@ ${essai}
       <p>${meta.ou || 'Voir les pièces de l’atelier ci-contre.'}</p>
 ${(() => {
   const chs = CHAP_META.filter((c) => (c.notions || []).some((n) => identite(n) === identite(t.nom)));
-  return chs.length ? `      <ul class="nt-liens">\n${chs.map((c) => `        <li><a href="${c.href}">Le chapitre ${c.rn} expliqué →</a></li>`).join('\n')}\n      </ul>\n` : '';
+  const coms = COMM_META.filter((k) => (k.notions || []).some((n) => identite(n) === identite(t.nom)));
+  const lis = [...chs.map((c) => `        <li><a href="${c.href}">Le chapitre ${c.rn} expliqué →</a></li>`),
+               ...coms.map((k) => `        <li><a href="${k.href}">Commentaire guidé : ${k.titre} →</a></li>`)];
+  return lis.length ? `      <ul class="nt-liens">\n${lis.join('\n')}\n      </ul>\n` : '';
 })()}    </div>
     <div class="nt-bloc">
       <p class="nt-bloc-t">Le voir fonctionner</p>
@@ -1435,6 +1455,7 @@ ${PIED}
       const bloc = (t, corps, cls = '') => `    <div class="nt-bloc${cls}">\n      <p class="nt-bloc-t">${t}</p>\n${corps}\n    </div>`;
       const marge = [
         bloc('Où il se place', `      <p>Section ${o.sec} — ${nu(o.secT)}.</p>\n      <ul class="nt-liens">\n        <li><a href="/oeuvres/capital-1#ch=${c.rn}">Lire le chapitre dans l'atelier →</a></li>\n      </ul>`, ' nt-bloc--source'),
+        ...COMM_META.filter((k) => k.rn === c.rn).map((k) => bloc('Un commentaire guidé', `      <ul class="nt-liens">\n        <li><a href="${k.href}">${k.titre} →</a></li>\n      </ul>`)),
         (c.parties || []).length ? bloc(`Ses ${['', 'une', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit', 'neuf', 'dix'][c.parties.length] || c.parties.length} parties`, `      <ol class="ch-plan">\n${c.parties.map(([n, t, p]) => `        <li><span class="n">${n}</span><span>${t}</span><span class="p">${p}&nbsp;%</span></li>`).join('\n')}\n      </ol>`) : '',
         notions.length ? bloc('Les notions qu’il établit', `      <ul class="nt-liens">\n${notions.map((x) => `        <li><a href="${x.href}">${decode(x.affiche || x.nom)}</a></li>`).join('\n')}\n      </ul>`) : '',
         dates.length ? bloc('Ce qu’il raconte', `      <ol class="ch-dates">\n${dates.map((e) => `        <li><span class="y">${e.year}</span><span>${nu(e.title)}</span></li>`).join('\n')}\n      </ol>`) : '',
@@ -1532,6 +1553,247 @@ ${PIED}
       PAGES_CHAPITRES.push({ file: fichier, url: c.href });
       if (!check) console.log(`  chapitre ${c.rn} → ${c.href} — ${sections.length} sections, ${mots} mots, ${nbCit} citations, ${notions.length} notions, ${dates.length} dates`);
     }
+  }
+
+  /* ----------- Les commentaires guidés et /agregation-2027 ----------- *
+   * Mission agregation-2027. Un commentaire porte sur un extrait du texte que
+   * le site SERT : ses citations mènent au passage dans la liseuse, comme
+   * celles des chapitres, et tools/verif-citations.mjs vérifie l'extrait
+   * paragraphe par paragraphe. Sur toute autre œuvre — traduction protégée
+   * (Bottigelli), livre non servi — le générateur REFUSE les citations
+   * liées : c'est la règle déjà tenue par les pages de notion.
+   * La page-carrefour n'affirme que ce qui a été vérifié à la date de son
+   * champ etat ; la date des écrits ne s'affiche que si ecrits.date est
+   * rempli, c'est-à-dire publiée par le ministère.
+   * ------------------------------------------------------------------- */
+  const teteCm = (o) => `<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>${echap(o.title)} | Lire Marx</title>
+<!-- PAGE GÉNÉRÉE par tools/gen-seo.mjs depuis ${o.src}/ (essai.html,
+     meta.json). Ne pas éditer à la main : le texte se modifie dans l'essai,
+     la forme dans le générateur, le style dans glossaire/notion.css. -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="/assets/img/logo/icon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/logo/icon-192.png">
+<link rel="apple-touch-icon" href="/assets/img/logo/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#15100b">
+<meta name="apple-mobile-web-app-title" content="Lire Marx">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="${echap(o.desc)}">
+<meta property="og:title" content="${echap(o.og)}">
+<meta property="og:type" content="${o.type}">
+<meta property="og:site_name" content="Lire Marx">
+<meta property="og:description" content="${echap(o.desc)}">
+<meta property="og:url" content="${o.url}">
+<meta property="og:image" content="${ORIGIN}${o.image}">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="${o.url}">
+<link rel="stylesheet" href="/oeuvres/fonts/fonts.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css"></noscript>
+<link rel="stylesheet" href="/glossaire/notion.css?v=${hashV('glossaire/notion.css')}">
+<link rel="preload" href="/oeuvres/shell.css?v=8" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=8"></noscript>
+${o.ld}
+</head>`;
+  const piedCm = (workTitle) => `${PIED}
+<script src="/config.js"></script>
+<script src="/oeuvres/shell.js?v=8"></script>
+<script src="/oeuvres/shell-social.js"></script>
+<script>installShell({ workTitle: '${workTitle}', tabs: [] });</script>
+</body>
+</html>
+`;
+  const ldCm = (arr) => arr.map((x) => `${OPEN}\n${JSON.stringify(x, null, 2)}\n${CLOSE}`).join('\n');
+  const blocCm = (t, corps, cls = '') => `    <div class="nt-bloc${cls}">\n      <p class="nt-bloc-t">${t}</p>\n${corps}\n    </div>`;
+  const numeroterCm = (essai, qui) => {
+    const sections = [];
+    const out = essai.replace(/<section class="nt-sec" data-etape="([^"]+)" id="([^"]+)">\s*<h2>([^]*?)<\/h2>/g, (mm, etape, id, h2) => {
+      const n = sections.length; sections.push({ etape, id, h2 });
+      return `<section class="nt-sec" data-etape="${etape}" id="${id}">\n<h2><span class="nt-sec-n" aria-hidden="true">${ROMAINS[n]}</span>${h2}</h2>`;
+    });
+    if (sections.length < 3) throw new Error(`${qui} : l'essai n'a que ${sections.length} section(s).`);
+    return { essai: out, sections };
+  };
+  const sommaireCm = (titre, sections) => `  <nav class="nt-som" aria-label="Sommaire">
+    <p class="nt-som-t">${titre}</p>
+    <ol>
+${sections.map((x) => `      <li><a href="#${x.id}">${x.h2}</a></li>`).join('\n')}
+    </ol>
+  </nav>`;
+  const AG = 'Marx à l’agrégation 2027';
+
+  for (const k of COMM_META) {
+    const qui = `Commentaire ${k.slug}`;
+    const url = `${ORIGIN}${k.href}`;
+    const serviRoy = k.oeuvre === 'capital-1';
+    const cite = serviRoy ? `Karl Marx, <i>Le Capital</i>, Livre I, chapitre ${k.rn} — traduction Joseph Roy (1872)` : '';
+    const lien = (sEl, q) => `/oeuvres/capital-1#s=${sEl}&q=${encodeURIComponent(q)}`;
+    let essai = readFileSync(`${k.dossier}/essai.html`, 'utf8').replace(/<!--[^]*?-->/g, '').trim();
+    if (!serviRoy && /data-q=/.test(essai))
+      throw new Error(`${qui} : citation liée sur une œuvre dont le site ne sert pas de traduction libre — paraphraser et situer.`);
+    let extrait = null, nbCit = 0;
+    essai = essai.replace(/<blockquote class="cm-texte" data-s="(\d+)" data-q="([^"]+)">([^]*?)<\/blockquote>/g, (mm, sEl, q, inner) => {
+      nbCit++; extrait = lien(sEl, q);
+      return `<blockquote class="cm-texte">${inner.trim()}<cite>${cite}<a href="${extrait}">Lire le passage dans le texte →</a></cite></blockquote>`;
+    });
+    essai = essai.replace(/<blockquote data-s="(\d+)" data-q="([^"]+)">([^]*?)<\/blockquote>/g, (mm, sEl, q, inner) => {
+      nbCit++; return `<blockquote>${inner.trim()}<cite>${cite}<a href="${lien(sEl, q)}">Lire dans le texte →</a></cite></blockquote>`;
+    });
+    essai = essai.replace(/<q data-s="(\d+)" data-q="([^"]+)">([^]*?)<\/q>/g, (mm, sEl, q, inner) => {
+      nbCit++; return `<a class="nt-q" href="${lien(sEl, q)}" title="Lire ce passage dans le texte"><q>${inner}</q></a>`;
+    });
+    if (/data-q=/.test(essai)) throw new Error(`${qui} : une citation n'a pas été reconnue.`);
+    if (/EXTRAIT/.test(essai)) throw new Error(`${qui} : l'extrait n'a pas été recopié.`);
+    const num = numeroterCm(essai, qui); essai = num.essai;
+    const mots = nu(essai).split(/\s+/).filter(Boolean).length;
+    if (mots < 1200) throw new Error(`${qui} : ${mots} mots — un commentaire guidé en veut au moins 1 200.`);
+    const notions = (k.notions || []).map((n) => termes.find((x) => identite(x.nom) === identite(n)));
+    if (notions.some((x) => !x)) throw new Error(`${qui} : notions introuvables — ${(k.notions || []).filter((n, i) => !notions[i]).join(', ')}`);
+    const chap = CHAP_META.find((x) => x.rn === k.rn);
+    const a = k.annale;
+    const desc = nu(k.description);
+
+    const ld = ldCm([
+      { '@context': 'https://schema.org', '@type': 'Article',
+        headline: nu(k.title), description: desc, url, inLanguage: 'fr', wordCount: mots,
+        about: serviRoy ? { '@type': 'Book', name: 'Le Capital — Livre I', url: `${ORIGIN}/oeuvres/capital-1`,
+          author: { '@type': 'Person', name: 'Karl Marx', sameAs: 'https://www.wikidata.org/wiki/Q9061' } }
+          : { '@type': 'Person', name: 'Karl Marx', sameAs: 'https://www.wikidata.org/wiki/Q9061' },
+        author: { '@id': `${ORIGIN}/#organisation` }, publisher: { '@id': `${ORIGIN}/#organisation` },
+        image: `${ORIGIN}/assets/img/archive/das-kapital-titre-1867.jpg` },
+      { '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Lire Marx', item: `${ORIGIN}/` },
+          { '@type': 'ListItem', position: 2, name: AG, item: `${ORIGIN}${CARREFOUR.url}` },
+          { '@type': 'ListItem', position: 3, name: 'Commentaire guidé' },
+        ] },
+    ]);
+
+    const marge = [
+      blocCm('Où il se trouve', `      <p>Le Capital, Livre I, chapitre ${k.rn}, partie ${k.partie}.</p>\n      <ul class="nt-liens">\n${extrait ? `        <li><a href="${extrait}">Lire le passage dans la liseuse →</a></li>\n` : ''}${chap ? `        <li><a href="${chap.href}">Le chapitre ${chap.arabe} expliqué →</a></li>\n` : ''}      </ul>`, ' nt-bloc--source'),
+      a ? blocCm(`Donné en ${a.session}`, `      <p>Agrégation externe de philosophie, ${a.epreuve} (${a.programme}), dans la ${a.traduction}.</p>\n      <ul class="nt-liens">\n        <li><a href="${a.rapport.url}" rel="noopener">${a.rapport.name} ›</a></li>\n      </ul>`) : '',
+      blocCm('Ce que cette page est', '      <p>Une lecture proposée par le site, qui n’est ni un corrigé ni une préparation. Sur ce qu’un jury attend, seuls ses rapports font autorité.</p>'),
+      notions.length ? blocCm('Les notions en jeu', `      <ul class="nt-liens">\n${notions.map((x) => `        <li><a href="${x.href}">${decode(x.affiche || x.nom)}</a></li>`).join('\n')}\n      </ul>`) : '',
+      blocCm(AG, `      <ul class="nt-liens">\n        <li><a href="${CARREFOUR.url}">Le programme, les attentes, l’œuvre →</a></li>\n      </ul>`),
+    ].filter(Boolean).join('\n');
+
+    const html = `${teteCm({ title: k.title, src: k.dossier, desc, og: nu(k.title), type: 'article', url,
+      image: '/assets/img/archive/das-kapital-titre-1867.jpg', ld })}
+<body>
+<main class="wrap" id="contenu" tabindex="-1">
+<article class="nt nt--ch nt--cm">
+<div class="nt-grid">
+<div class="nt-col">
+
+  <nav class="nt-fil" aria-label="Fil d'Ariane">
+    <a href="/">Lire Marx</a><span aria-hidden="true">›</span><a href="${CARREFOUR.url}">${AG}</a><span aria-hidden="true">›</span>Commentaire guidé
+  </nav>
+
+  <p class="nt-label">${k.label}</p>
+  <h1 class="nt-h1"><span class="ch-num">Commentaire guidé</span>${k.titre}</h1>
+  <p class="nt-chapo">${k.chapo}</p>
+
+${sommaireCm('Dans ce commentaire', num.sections)}
+
+  <div class="nt-corps nt-essai">
+${essai}
+  </div>
+
+  <p class="nt-colophon">L’extrait et les citations sont relevés dans le texte que ce site sert — ${cite} — et chacun mène au passage dans la liseuse.${a ? ` Les formules de la ${a.traduction} sont celles du sujet de ${a.session}, telles que le rapport du jury les reproduit.` : ''}</p>
+
+  <div class="nt-fin">
+    <a class="nt-btn" href="${CARREFOUR.url}">Revenir à la page de l’agrégation 2027</a>
+  </div>
+
+</div>
+  <aside class="ch-marge" aria-label="Autour de l’extrait">
+${marge}
+  </aside>
+</div>
+</article>
+</main>
+${piedCm('Agrégation 2027')}`;
+    const fichier = `commentaires/${k.slug}.html`;
+    writeIfNeeded(fichier, html, fichier);
+    PAGES_COMMENTAIRES.push({ file: fichier, url: k.href, priority: '0.6', changefreq: 'monthly' });
+    if (!check) console.log(`  commentaire ${k.slug} → ${k.href} — ${num.sections.length} sections, ${mots} mots, ${nbCit} citations, ${notions.length} notions`);
+  }
+
+  if (existsSync(`${CARREFOUR.dir}/meta.json`)) {
+    const m = JSON.parse(readFileSync(`${CARREFOUR.dir}/meta.json`, 'utf8'));
+    const qui = 'Page-carrefour /agregation-2027';
+    const url = `${ORIGIN}${CARREFOUR.url}`;
+    let src = readFileSync(`${CARREFOUR.dir}/essai.html`, 'utf8');
+    if (src.split('<!--COMMENTAIRES-->').length !== 2) throw new Error(`${qui} : le marqueur COMMENTAIRES doit figurer une fois, et une seule.`);
+    const liste = COMM_META.length
+      ? `<ul class="ag-com">\n${COMM_META.map((k) => `<li><a href="${k.href}"><span class="k">${k.label}${k.annale ? ` · sujet de ${k.annale.session}` : ''}</span><span class="t">${k.titre}</span></a></li>`).join('\n')}\n</ul>`
+      : '<p>Les premiers commentaires sont en cours d’écriture.</p>';
+    src = src.replace('<!--COMMENTAIRES-->', liste).replace(/<!--[^]*?-->/g, '').trim();
+    if (/data-q=/.test(src)) throw new Error(`${qui} : pas de citation liée sur la page-carrefour.`);
+    const num = numeroterCm(src, qui);
+    const desc = nu(m.description);
+    const ws = (p) => `https://fr.wikisource.org/wiki/${encodeURI(p.replace(/ /g, '_'))}`;
+
+    const ld = ldCm([
+      { '@context': 'https://schema.org', '@type': 'WebPage',
+        name: nu(m.titre), description: desc, url, inLanguage: 'fr',
+        about: { '@type': 'Person', name: 'Karl Marx', sameAs: 'https://www.wikidata.org/wiki/Q9061' },
+        publisher: { '@id': `${ORIGIN}/#organisation` } },
+      { '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Lire Marx', item: `${ORIGIN}/` },
+          { '@type': 'ListItem', position: 2, name: AG },
+        ] },
+    ]);
+
+    const marge = [
+      blocCm('L’épreuve', `      <p>Troisième épreuve d’admissibilité · commentaire de texte · 6&nbsp;heures · coefficient&nbsp;2. Auteurs&nbsp;: Plotin&nbsp;; Marx.</p>\n      <ul class="nt-liens">\n        <li><a href="${m.programme.url}" rel="noopener">${m.programme.name} ›</a></li>\n      </ul>`, ' nt-bloc--source'),
+      blocCm('Les écrits', `      <p>${m.ecrits.date ? m.ecrits.date : `Date non encore publiée par le ministère (vérifié le ${m.etat}).`}</p>\n      <ul class="nt-liens">\n        <li><a href="${m.ecrits.url}" rel="noopener">${m.ecrits.name} ›</a></li>\n      </ul>`),
+      COMM_META.length ? blocCm('Commentaires guidés', `      <ul class="nt-liens">\n${COMM_META.map((k) => `        <li><a href="${k.href}">${k.titre}</a></li>`).join('\n')}\n      </ul>`) : '',
+      blocCm('Lire gratuitement', `      <ul class="ag-libres">\n${m.libres.map((x) => `        <li><a href="${x.href || ws(x.ws)}"${x.href ? '' : ' rel="noopener"'}>${x.t}<span class="n">${x.note}${x.href ? '' : ' · Wikisource'}</span></a></li>`).join('\n')}\n      </ul>`),
+      blocCm('Les rapports du jury', `      <ul class="nt-liens">\n${m.rapports.map((r) => `        <li><a href="${r.url}" rel="noopener">${r.name} ›</a></li>`).join('\n')}\n      </ul>`),
+    ].filter(Boolean).join('\n');
+
+    const html = `${teteCm({ title: m.title, src: CARREFOUR.dir, desc, og: nu(m.titre), type: 'website', url,
+      image: '/assets/img/archive/manuscrit-ideologie-1846.jpg', ld })}
+<body>
+<main class="wrap" id="contenu" tabindex="-1">
+<article class="nt nt--ch nt--ag">
+<div class="nt-grid">
+<div class="nt-col">
+
+  <nav class="nt-fil" aria-label="Fil d'Ariane">
+    <a href="/">Lire Marx</a><span aria-hidden="true">›</span>Agrégation 2027
+  </nav>
+
+  <p class="nt-label">${m.label}</p>
+  <h1 class="nt-h1">${m.titre}</h1>
+  <p class="nt-chapo">${m.chapo}</p>
+
+${sommaireCm('Sur cette page', num.sections)}
+
+  <div class="nt-corps nt-essai">
+${num.essai}
+  </div>
+
+  <p class="nt-colophon">Les faits de cette page — programme, calendrier, chiffres, rapports — ont été vérifiés le ${m.etat} sur les documents officiels donnés en marge. Lire Marx n’est lié à aucun jury ni à aucune préparation.</p>
+
+</div>
+  <aside class="ch-marge" aria-label="L’épreuve en bref">
+${marge}
+  </aside>
+</div>
+</article>
+</main>
+${piedCm('Agrégation 2027')}`;
+    writeIfNeeded(CARREFOUR.file, html, CARREFOUR.file);
+    PAGES_COMMENTAIRES.unshift({ file: CARREFOUR.file, url: CARREFOUR.url, priority: '0.8', changefreq: 'weekly' });
+    if (!check) console.log(`  carrefour → ${CARREFOUR.url} — ${num.sections.length} sections, ${COMM_META.length} commentaire(s)`);
   }
 }
 
@@ -1698,7 +1960,11 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
     ['Messages', 'Vos conversations privées', '/oeuvres/messages', 'messagerie contacts'],
     ['À propos', 'Qui tient Lire Marx, et comment', '/a-propos', 'auteur sources méthode contact'],
     ['CGU & confidentialité', 'Mentions légales et règles du site', '/mentions-legales', 'cgu rgpd confidentialité règles'],
+    ['Marx à l’agrégation 2027', 'Le programme, le commentaire, l’œuvre', '/agregation-2027', 'agrégation concours programme 2027 épreuve histoire de la philosophie commentaire de texte plotin'],
   ]) items.push({ t, s, cat: 'page', url, hay });
+  for (const k of COMM_META)
+    items.push({ t: strip(k.titre), s: `Commentaire guidé · ${strip(k.label)}`, cat: 'page', url: k.href,
+      hay: court(`commentaire de texte agrégation ${strip(k.description)}`, 300) });
 
   /* ── DE QUOI CHERCHER DANS LE TEXTE (mission `recherche-texte`) ──────
    * L'index sait où sont les chapitres et les notions ; il ne sait pas ce
@@ -1738,6 +2004,9 @@ const entries = [
   /* Les pages de chapitre du Capital : même rang que les notions. */
   ...PAGES_CHAPITRES.map(p => ({ ...p, loc: ORIGIN + p.url,
     priority: '0.6', changefreq: 'monthly' })),
+  /* La page-carrefour /agregation-2027 et les commentaires guidés : chacun
+     porte sa priorité (le carrefour est la porte d'entrée de la saison). */
+  ...PAGES_COMMENTAIRES.map(p => ({ ...p, loc: ORIGIN + p.url })),
   ...available.map(w => ({
     file: w.path, loc: ORIGIN + clean(w.path),
     priority: '0.9', changefreq: 'monthly', title: w.title

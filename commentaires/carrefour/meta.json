@@ -1,0 +1,32 @@
+{
+  "_": "LA TÊTE de /agregation-2027, page-carrefour assemblée par tools/gen-seo.mjs depuis ce dossier. Tout ce qui est affirmé ici a été VÉRIFIÉ le jour indiqué dans `etat` : le programme dans son PDF, l'absence de date sur la page du calendrier, les traducteurs sur les fiches Livre: de Wikisource. Mettre `etat` à jour à chaque vérification, et remplir `ecrits.date` le jour où le ministère publie le calendrier — pas avant.",
+  "titre": "Marx à l’agrégation de philosophie 2027",
+  "title": "Marx à l’agrégation de philosophie 2027 : le programme, le commentaire, l’œuvre",
+  "label": "Agrégation externe · session 2027",
+  "chapo": "Marx est l’un des deux auteurs de l’épreuve d’histoire de la philosophie de l’agrégation externe 2027, avec Plotin. Cette page rassemble ce que l’on peut établir avec certitude — le programme, les attentes du jury, l’œuvre à parcourir — et ce que ce site offre pour la lire, sans se donner pour ce qu’il n’est pas&nbsp;: une préparation au concours.",
+  "description": "Marx au programme de l’agrégation externe de philosophie 2027 : l’épreuve, le précédent de 2015, ce que le jury attend d’un commentaire, l’œuvre période par période et où la lire gratuitement.",
+  "etat": "13 septembre 2026",
+  "programme": {
+    "name": "Le programme de la session 2027 (PDF)",
+    "url": "https://www.devenirenseignant.gouv.fr/media/20210/download"
+  },
+  "ecrits": {
+    "date": null,
+    "name": "Le calendrier de la session 2027",
+    "url": "https://www.devenirenseignant.gouv.fr/le-calendrier-des-concours-de-recrutement-d-enseignants-du-second-degre-de-la-session-2027-1562"
+  },
+  "rapports": [
+    { "name": "Rapport du jury, session 2025", "url": "https://www.devenirenseignant.gouv.fr/media/17979/download" },
+    { "name": "Rapport du jury, session 2015 (Platon – Marx)", "url": "https://ent2d.ac-bordeaux.fr/disciplines/philosophie/wp-content/uploads/sites/24/2017/06/agreg_externe_2015.pdf" }
+  ],
+  "libres": [
+    { "t": "Le Capital, Livre I", "note": "trad. Joseph Roy, servi sur ce site", "href": "/oeuvres/capital-1" },
+    { "t": "Misère de la philosophie", "note": "écrite en français par Marx, 1847", "ws": "Misère de la philosophie" },
+    { "t": "Manifeste du parti communiste", "note": "trad. Laura Lafargue", "ws": "Manifeste du parti communiste/Lafargue" },
+    { "t": "Les Luttes de classes en France", "note": "trad. Léon Remy, 1900", "ws": "La Lutte des classes en France (1848-1850)" },
+    { "t": "Le 18 Brumaire de Louis Bonaparte", "note": "trad. Léon Remy, 1900", "ws": "Le XVIII brumaire de Louis Bonaparte" },
+    { "t": "Introduction de 1857", "note": "trad. Laura Lafargue, 1909", "ws": "Introduction à la critique de l’économie politique" },
+    { "t": "Contribution à la critique de l’économie politique", "note": "trad. Laura Lafargue, 1909", "ws": "Contribution à la critique de l’économie politique" },
+    { "t": "Salaire, prix et profit", "note": "trad. Charles Longuet, 1912", "ws": "Salaires, prix, profits" }
+  ]
+}

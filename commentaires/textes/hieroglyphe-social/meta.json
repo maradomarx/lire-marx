@@ -1,0 +1,24 @@
+{
+  "_": "LA TÊTE de /commentaires/hieroglyphe-social, commentaire guidé assemblé par tools/gen-seo.mjs depuis ce dossier (essai.html, meta.json). Le chapitre, sa page et son lien vers la liseuse sont DÉRIVÉS de rn et s ; ce fichier ne porte que ce que l'atelier n'a pas. L'annale est un FAIT vérifié dans le rapport du jury de 2015 : ne rien y ajouter qu'on n'y ait lu.",
+  "slug": "hieroglyphe-social",
+  "titre": "« La valeur ne porte pas écrit sur le front ce qu’elle est »",
+  "title": "Marx, le hiéroglyphe social : commentaire guidé (Le Capital, chapitre 1)",
+  "label": "Le Capital, Livre I · chapitre 1, partie IV",
+  "chapo": "Ce passage du premier chapitre du <i>Capital</i> a été donné à commenter à l’agrégation externe de philosophie en 2015, lorsque Marx était au programme avec Platon. Nous en proposons une lecture suivie — situation, problème, moments, traductions — qui n’est pas un corrigé&nbsp;: le rapport du jury, en lien, fait seul autorité sur ce que l’on attendait des copies.",
+  "description": "Commentaire guidé d’un extrait du Capital (chapitre 1, partie IV) donné à l’agrégation de philosophie en 2015 : situation, problème, trois moments, traductions Roy et Lefebvre, contresens relevés par le jury.",
+  "oeuvre": "capital-1",
+  "rn": "I",
+  "s": 1,
+  "partie": "IV — Le caractère fétiche de la marchandise et son secret",
+  "notions": ["Fétichisme", "Valeur d’usage vs valeur"],
+  "annale": {
+    "session": "2015",
+    "epreuve": "épreuve d’histoire de la philosophie",
+    "programme": "Platon – Marx",
+    "traduction": "traduction dirigée par Jean-Pierre Lefebvre",
+    "rapport": {
+      "name": "Rapport du jury, session 2015",
+      "url": "https://ent2d.ac-bordeaux.fr/disciplines/philosophie/wp-content/uploads/sites/24/2017/06/agreg_externe_2015.pdf"
+    }
+  }
+}
