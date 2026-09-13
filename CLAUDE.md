@@ -30,7 +30,9 @@ oeuvres/<id>/textes/           # textes locaux servis à la liseuse
 ```
 
 Les œuvres sont **de même niveau** dans l'arborescence. Aucune n'est « la »
-page principale. Actuellement disponibles : `capital-1` et `manuscrits-1844`.
+page principale. Actuellement disponibles : `capital-1`, `manuscrits-1844` et
+`manifeste-parti-communiste` (page `oeuvres/manifeste.html` — le `path` de
+bibliotheque.json fait foi, pas l’id).
 
 L'accueil du site est `oeuvres/index.html` (la bibliothèque), pilotée par
 `oeuvres/bibliotheque.json` — **source centrale unique** de la liste des
@@ -8489,6 +8491,59 @@ les chiffres clés.
   glossaire range les termes « par le mécanisme auquel ils appartiennent » :
   corrigée (« par ordre alphabétique, chacun défini et relié à la page qui
   l'explique ») dans la section, puis FAQPage regénéré.
+
+## Le Manifeste entre dans la bibliothèque (mission `manifeste`, sept. 2026)
+
+Troisième œuvre disponible. Deux arbitrages du propriétaire : **le
+Manifeste** (le texte de Marx le plus cherché, porte d’entrée du rayon
+« seuils ») plutôt que *Misère de la philosophie*, la *Contribution* ou le
+*18 Brumaire* ; et **« lecture d’abord »** : liseuse, sommaire, marge,
+annotations, reprise, recherche — **sans Dossier**, qui viendra dans des
+missions suivantes.
+
+- **Le texte** : traduction de **Laura Lafargue**, telle que Wikisource la
+  sert (`Manifeste_du_parti_communiste/Lafargue`, édition V. Giard et
+  E. Brière, 1897, à la suite des *Essais* de Labriola). Domaine public :
+  Laura Lafargue est morte en 1911. Autre traduction libre sur Wikisource :
+  Andler (1901), non retenue. **Rien n’est affirmé sur une révision par
+  Engels** : la page source ne le dit pas.
+- **Une seule page Wikisource, une seule section** : les annotations sont
+  ancrées en `section: 1` (`#s=1&q=…`). `prepareText()` parse dans un
+  document inerte puis **recompose les titres** : Wikisource donne un h3 nu
+  (« I ») suivi d’une ligne centrée en petites capitales ; la page en fait un
+  `h2.mf-part#mf-I`, et les socialismes de la partie III des h3/h4
+  (`#mf-III-1..3`). Ces identifiants sont les repères du suivi de lecture.
+- **`MF_STRUCT` est la source unique** du sommaire, de la marge (« En
+  clair », écrit à la main) et de l’index de recherche : `gen-seo.mjs` le
+  lit par `litteralJS` et produit les entrées `#partie=<g>`. Sept entrées :
+  l’ouverture, I, II, les trois socialismes de III, IV. La progression
+  (`SHELL.progress`) compte les **quatre parties** ; une partie est lue quand
+  la suivante passe la ligne de lecture.
+- **Pas de barre d’onglets** (une seule destination) : la page pose
+  `:root{--atl-top:44px}` pour que la coquille collante commence sous la
+  topbar. `window.activateTab` existe mais ne fait rien.
+- **Deux auteurs** : `EDITION[…].authors` et `bookFor()` rend un tableau de
+  `Person`. Engels est **Q34787** (vérifié ; Q34954 est une langue du
+  Nigeria). Le `author` de bibliotheque.json reste une chaîne.
+- Reprise : `SHELL.resume` porte `{g,title}`, et l’état vide de la
+  recherche la propose (`shell.js?v=10`, 90 références). `home.js?v=5`
+  (carte du catalogue, image `manifeste-1848` : couverture de l’édition de
+  Londres, février 1848, Wikimedia Commons, domaine public).
+- `/a-propos` : « trois œuvres », les chiffres et les dates suivent.
+
+**Vérifié** : 11 204 mots chargés, titres recomposés, sommaire → partie
+posée 8 px sous la barre de lecture, marge et reprise qui suivent ; contraste
+0 échec (min 5,12, plus petit texte 11,52 px) ; zéro débordement à 1380 et
+375 px ; console propre ; détecteur 11 avertissements, 0 erreur, les
+familles des Manuscrits ; `gen-seo --check` à jour.
+
+**Ce qui reste** : le Dossier ; la recherche plein texte ne va pas dans le
+Manifeste (`recherche.json` n’a pas de bloc `texte` pour lui) ; le titre et
+la description de l’accueil, et `manifest.webmanifest`, ne nomment que le
+Capital et les Manuscrits (le titre a été arbitré — à rouvrir avec le
+propriétaire) ; « Lire la suite » et « Ouvrir mon carnet » de la marge
+mesurent 19-20 px de haut, sous 24 — composants partagés d’atelier.css, même
+défaut sur les deux autres ateliers.
 
 ## Conventions de travail
 

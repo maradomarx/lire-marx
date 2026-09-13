@@ -464,6 +464,8 @@
         if(c && c.num) out.push({ t: 'Le Capital — chapitre ' + c.num, s: c.title || '', cat: 'reprise', url: '/oeuvres/capital-1#ch=' + c.num });
         var m = R.get('manuscrits-1844');
         if(m && m.i != null) out.push({ t: 'Manuscrits de 1844 — ' + (m.title || 'reprendre'), s: '', cat: 'reprise', url: '/oeuvres/manuscrits-1844#cahier=' + m.i });
+        var f = R.get('manifeste-parti-communiste');
+        if(f && f.g) out.push({ t: 'Manifeste — ' + (f.title || 'reprendre'), s: '', cat: 'reprise', url: '/oeuvres/manifeste#partie=' + f.g });
       } catch(e){}
       return out;
     }

@@ -199,7 +199,7 @@
       "shortTitle": "Manifeste",
       "author": "Karl Marx et Friedrich Engels",
       "year": 1848,
-      "status": "planned",
+      "status": "available",
       "category": "politique",
       "path": "oeuvres/manifeste.html",
       "manifest": "oeuvres/manifeste/manifest.json",
@@ -213,7 +213,7 @@
         "communisme"
       ],
       "readingGuide": "Lecture courte mais dense : suivre les quatre parties et distinguer l'analyse historique du programme politique.",
-      "sourceNote": "Texte publié en 1848 avec Friedrich Engels, domaine public.",
+      "sourceNote": "Texte publié à Londres en février 1848. Le texte servi ici est la traduction française de Laura Lafargue, publiée en 1897 chez V. Giard et E. Brière, et chargée depuis Wikisource. Elle est dans le domaine public : sa traductrice est morte en 1911.",
       "reading": {
         "group": "seuils",
         "entry": "Comprendre les classes et la politique"

@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manifeste du parti communiste — Texte intégral et lecture guidée</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="/assets/img/logo/icon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/logo/icon-192.png">
+<link rel="apple-touch-icon" href="/assets/img/logo/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#15100b">
+<meta name="apple-mobile-web-app-title" content="Lire Marx">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="description" content="Le Manifeste de Marx et Engels (1848) en texte intégral, traduction Laura Lafargue : chaque partie résumée en marge, surlignage et notes, en accès libre.">
+<meta property="og:title" content="Manifeste du parti communiste — Texte intégral et lecture guidée">
+<meta property="og:description" content="Le Manifeste de Marx et Engels (1848) en texte intégral, traduction Laura Lafargue : chaque partie résumée en marge, surlignage et notes, en accès libre.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lire Marx">
+<meta property="og:url" content="https://liremarx.com/oeuvres/manifeste">
+<link rel="canonical" href="https://liremarx.com/oeuvres/manifeste">
+<meta property="og:image" content="https://liremarx.com/assets/img/archive/manifeste-1848.jpg">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="atelier.css?v=4">
+<link rel="stylesheet" href="shell.css?v=8">
+<link rel="stylesheet" href="reader-tools.css">
+<style>
+/* Troisième atelier, et le premier en « lecture d'abord » : la liseuse, le
+   sommaire et la marge, sans Dossier. Il n'y a donc qu'UNE destination, et
+   pas de barre d'onglets pour la redire — la coquille collante commence
+   directement sous la topbar. */
+:root{ --atl-top:44px; }
+html:has(body.at-atelier.at-reading){scroll-padding-top:150px;}
+.wrap{max-width:1120px;padding:0 22px 90px;}
+
+/* ── L'en-tête d'œuvre : son identité, sobre (motif des deux ateliers) ── */
+.work-head{padding:clamp(26px,4vh,38px) 0 clamp(18px,2.4vh,24px);text-align:left;
+  border-bottom:1px solid var(--line);margin-bottom:18px;}
+.work-title{font-family:'Fraunces',serif;font-weight:900;
+  font-size:clamp(2rem,4.4vw,3rem);letter-spacing:-.03em;line-height:1.02;
+  color:var(--text);margin:0;display:flex;align-items:baseline;
+  gap:.45em;flex-wrap:wrap;}
+.work-vol{font-style:italic;font-weight:500;font-size:.55em;
+  letter-spacing:-.01em;color:var(--red-text);}
+.work-meta{font-family:var(--f-ui);font-size:.82rem;color:var(--muted);margin:12px 0 0;}
+
+/* ── La liseuse ── */
+.reader-head{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:13px 15px;border-bottom:1px solid var(--line);}
+.reader-title{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:1.1rem;color:var(--ink);}
+.reader-content{min-height:72vh;background:transparent;padding:28px clamp(18px,4vw,46px);
+  color:inherit;font-family:var(--f-serif);font-size:1rem;line-height:1.72;overflow:auto;}
+.reader-content[hidden],.placeholder[hidden]{display:none;}
+.reader-content p{margin:.72em 0;}
+.reader-content .reader-error{max-width:720px;margin:40px auto;padding:22px;
+  border:1px dashed var(--line);border-radius:12px;font-family:var(--f-serif);color:var(--ink-soft);}
+.reader-content .reader-error b{display:block;color:var(--ink);font-family:'Fraunces',Georgia,serif;
+  font-size:1.18rem;margin-bottom:8px;}
+.placeholder .pi{color:var(--muted);line-height:0;font-size:0;margin-bottom:14px;
+  display:flex;justify-content:center;}
+.placeholder .pi svg{width:40px;height:40px;fill:none;stroke:currentColor;
+  stroke-width:1;stroke-linecap:round;stroke-linejoin:round;}
+
+/* Les titres du texte : Wikisource les compose en petites capitales centrées
+   sous un chiffre romain nu. La page les recompose en vrais titres (h2 pour
+   les quatre parties, h3 et h4 pour les socialismes de la partie III) : c'est
+   ce qui donne ses repères au suivi de lecture et au lecteur d'écran. */
+.reader-content h2.mf-part{font-family:'Fraunces',Georgia,serif;font-weight:900;
+  font-size:clamp(1.45rem,2.6vw,1.9rem);letter-spacing:-.02em;line-height:1.12;
+  color:var(--bright);margin:2.4em 0 .9em;padding-top:1.1em;border-top:1px solid var(--line);}
+.reader-content h2.mf-part:first-child{margin-top:.4em;}
+.reader-content h2.mf-part .mf-rn{display:block;font-style:italic;font-weight:500;
+  font-size:.62em;color:var(--gold);letter-spacing:0;margin-bottom:.25em;}
+.reader-content h3.mf-sub{font-family:'Fraunces',Georgia,serif;font-weight:700;
+  font-size:1.2rem;line-height:1.2;color:var(--bright);margin:2em 0 .6em;}
+.reader-content h4.mf-subsub{font-family:'Fraunces',Georgia,serif;font-style:italic;
+  font-weight:500;font-size:1.05rem;color:var(--ink);margin:1.6em 0 .5em;}
+.reader-content .mf-cri{text-align:center;font-family:'Fraunces',Georgia,serif;
+  font-weight:700;font-size:1.25rem;color:var(--bright);margin:1.8em 0 .6em;}
+.reader-content .mf-src{margin:3em 0 0;padding-top:1.2em;border-top:1px solid var(--line);
+  font-family:var(--f-ui);font-size:.8rem;line-height:1.6;color:var(--muted);}
+.reader-content .mf-src a{color:var(--ink);text-decoration:underline;
+  text-decoration-color:rgba(216,173,76,.5);text-underline-offset:2px;}
+.reader-content .mf-src a:hover{color:var(--gold);}
+.reader.theme-sepia .reader-content h2.mf-part .mf-rn{color:var(--red-deep);}
+</style>
+<!-- Book : DÉRIVÉ de oeuvres/bibliotheque.json par tools/gen-seo.mjs.
+     Ne pas éditer à la main — corriger la source, puis regénérer :
+       node tools/gen-seo.mjs
+     Chaque champ doit rester vérifiable dans la page elle-même. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Book",
+  "name": "Manifeste du parti communiste",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Karl Marx",
+      "sameAs": "https://www.wikidata.org/wiki/Q9061"
+    },
+    {
+      "@type": "Person",
+      "name": "Friedrich Engels",
+      "sameAs": "https://www.wikidata.org/wiki/Q34787"
+    }
+  ],
+  "translator": {
+    "@type": "Person",
+    "name": "Laura Lafargue"
+  },
+  "bookEdition": "Traduction française de Laura Lafargue, publiée en 1897 (V. Giard et E. Brière)",
+  "inLanguage": "fr",
+  "datePublished": "1848",
+  "translationOfWork": {
+    "@type": "Book",
+    "name": "Manifest der Kommunistischen Partei",
+    "inLanguage": "de",
+    "datePublished": "1848"
+  },
+  "url": "https://liremarx.com/oeuvres/manifeste",
+  "description": "Texte politique majeur sur la bourgeoisie, le prolétariat, la lutte des classes et le mouvement communiste.",
+  "about": [
+    "lutte des classes",
+    "bourgeoisie",
+    "prolétariat",
+    "révolution",
+    "internationalisme",
+    "communisme"
+  ],
+  "isAccessibleForFree": true,
+  "license": "https://creativecommons.org/publicdomain/mark/1.0/",
+  "isBasedOn": {
+    "@type": "WebPage",
+    "name": "Manifeste du parti communiste sur Wikisource",
+    "url": "https://fr.wikisource.org/wiki/Manifeste_du_parti_communiste/Lafargue"
+  }
+}
+</script>
+</head>
+<body class="at-atelier">
+<main class="wrap" id="contenu" tabindex="-1">
+
+  <header class="work-head">
+    <h1 class="work-title">Manifeste<span class="work-vol">du parti communiste</span></h1>
+    <p class="work-meta">Karl Marx et Friedrich Engels · 1848 · traduction Laura Lafargue (1897) · domaine public</p>
+  </header>
+
+  <div class="atl3" id="atl3">
+
+    <aside class="atl3-col atl3-toc" id="atl3Toc" aria-label="Sommaire du Manifeste">
+      <button type="button" class="atl3-toc-toggle" id="atl3TocToggle"
+              aria-expanded="false" aria-controls="atl3TocList">
+        <span class="atl3-toc-toggle-k">Le sommaire</span>
+        <span class="atl3-toc-toggle-t" id="atl3TocToggleT">Choisir une partie</span>
+      </button>
+      <div class="atl3-toc-head">
+        <h2 class="atl3-lab">Le sommaire</h2>
+        <div class="atl3-prog" id="atl3Prog"></div>
+      </div>
+      <div class="atl3-toc-list" id="atl3TocList"></div>
+    </aside>
+
+    <div class="atl3-mid">
+      <section class="panel active" id="lire">
+        <div class="atl3-midbar" id="atlMidbar"></div>
+        <div class="reader">
+          <div class="reader-head"><div class="reader-title" id="readerTitle">Manifeste du parti communiste</div></div>
+          <div class="placeholder" id="readerPlaceholder"><div><div class="pi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.4C10 4.6 7.2 3.9 3.6 4.1v13.2c3.6-.2 6.4.5 8.4 2.3 2-1.8 4.8-2.5 8.4-2.3V4.1c-3.6-.2-6.4.5-8.4 2.3Z"/><path d="M12 6.4v13.2"/></svg></div><b>Le texte s'affiche ici.</b></div></div>
+          <div class="reader-content" id="readerContent" hidden></div>
+        </div>
+      </section>
+    </div>
+
+    <aside class="atl3-col atl3-marge" id="atl3Marge" aria-label="Dans cette partie"></aside>
+  </div>
+
+  <button type="button" class="atl3-full-exit" id="atlFullExit" hidden>
+    Quitter le plein écran <kbd>Échap</kbd>
+  </button>
+
+</main>
+<!-- PIED:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main -->
+<footer class="lm-foot wrap">
+  <div class="lm-foot-in">
+    <div class="lm-foot-id">
+      <p class="lm-foot-mark">Lire<span class="d">.</span>Marx</p>
+      <p class="lm-foot-lede">Marx en texte intégral, l&rsquo;appareil critique en marge du chapitre.</p>
+    </div>
+    <nav class="lm-foot-nav" aria-label="Pied de page">
+      <div class="lm-foot-col">
+        <p class="lm-foot-h">Le corpus</p>
+        <ul>
+        <li><a href="/oeuvres/capital-1">Le Capital — Livre I</a></li>
+        <li><a href="/oeuvres/manuscrits-1844">Manuscrits de 1844</a></li>
+        <li><a href="/oeuvres/manifeste">Manifeste du parti communiste</a></li>
+        <li><a href="/oeuvres/bibliotheque">Toute la bibliothèque</a></li>
+        </ul>
+      </div>
+      <div class="lm-foot-col">
+        <p class="lm-foot-h">Comprendre</p>
+        <ul>
+        <li><a href="/glossaire/">L’abécédaire de Marx</a></li>
+        <li><a href="/jeu/">Le circuit du capital</a></li>
+        <li><a href="/agregation-2027">Marx à l’agrégation 2027</a></li>
+        </ul>
+      </div>
+      <div class="lm-foot-col">
+        <p class="lm-foot-h">Le site</p>
+        <ul>
+        <li><a href="/">Accueil</a></li>
+        <li><a href="/oeuvres/place-publique">Place publique</a></li>
+        <li><a href="/a-propos">À propos</a></li>
+        <li><a href="/mentions-legales">CGU &amp; confidentialité</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</footer>
+<!-- PIED:FIN -->
+
+<script>
+(function(){
+  var WORK='manifeste-parti-communiste';
+  var WS_URL='https://fr.wikisource.org/w/api.php?action=parse&page=Manifeste_du_parti_communiste%2FLafargue&prop=text&format=json&formatversion=2&origin=*';
+  var WS_PAGE='https://fr.wikisource.org/wiki/Manifeste_du_parti_communiste/Lafargue';
+
+  /* LE PLAN DU TEXTE — source unique des titres et des résumés, lue aussi par
+     tools/gen-seo.mjs pour l'index de la recherche (#partie=<g>).
+     `m` est l'identifiant du titre que prepareText() pose dans le texte ;
+     `pt` la partie comptée par SHELL.progress (0 : le préambule ne compte pas). */
+  var MF_STRUCT=[
+    {g:1, rn:'', grp:'Ouverture', t:'Un spectre hante l’Europe', m:'mf-ouverture', pt:0,
+     s:"Le texte s'ouvre sur un constat de situation plutôt que sur une doctrine : toutes les puissances de la vieille Europe se sont liguées contre le communisme, et l'accusation de communisme sert à disqualifier n'importe quelle opposition. Deux conséquences en sont tirées. Le communisme est déjà reconnu comme une puissance, et il est temps qu'il expose lui-même ses vues au lieu de laisser ses adversaires le décrire."},
+    {g:2, rn:'I', grp:'Bourgeois et prolétaires', t:'Bourgeois et prolétaires', m:'mf-I', pt:1,
+     s:"La partie la plus célèbre, et la plus inattendue : un éloge de la bourgeoisie. L'histoire des sociétés est celle de luttes de classes, et la bourgeoisie y a joué un rôle révolutionnaire — elle a dissous les liens féodaux, créé le marché mondial, bouleversé sans relâche les moyens de production. Mais ces forces se retournent contre elle dans les crises de surproduction, et elle a produit la classe qui la renversera : le prolétariat, qui passe des révoltes isolées à l'organisation en classe et en parti."},
+    {g:3, rn:'II', grp:'Prolétaires et communistes', t:'Prolétaires et communistes', m:'mf-II', pt:2,
+     s:"Les communistes ne forment pas un parti à part : ils défendent, dans chaque lutte nationale, les intérêts communs du prolétariat entier, et l'intérêt du mouvement dans son ensemble. Ce qu'ils veulent abolir n'est pas la propriété en général mais la propriété bourgeoise. Le texte répond ensuite aux objections — propriété, famille, patrie — en montrant qu'elles défendent des formes historiques présentées comme éternelles, esquisse les mesures d'une conquête du pouvoir politique, et s'achève sur une association où le libre développement de chacun conditionne celui de tous."},
+    {g:4, rn:'III', grp:'Littérature socialiste et communiste', t:'Le socialisme réactionnaire', m:'mf-III-1', pt:3,
+     s:"Trois socialismes qui critiquent la société bourgeoise au nom d'un monde antérieur. Le socialisme féodal est la plainte d'une aristocratie dépossédée. Le socialisme petit-bourgeois, dont Sismondi est la figure, analyse avec acuité les contradictions de la production moderne, mais veut revenir aux corporations et à l'agriculture patriarcale. Le « vrai » socialisme allemand transpose une littérature française sans les conditions qui l'avaient produite, et finit par servir les gouvernements absolutistes contre la bourgeoisie."},
+    {g:5, rn:'III', grp:'Littérature socialiste et communiste', t:'Le socialisme conservateur et bourgeois', m:'mf-III-2', pt:3,
+     s:"Une fraction de la bourgeoisie veut remédier aux maux sociaux pour assurer la durée de la société bourgeoise : les conditions de vie modernes sans les luttes qui en découlent, la bourgeoisie sans le prolétariat. Le texte cite la Philosophie de la misère de Proudhon comme exemple. Les réformes qu'il propose touchent l'administration, et laissent intact le rapport entre le capital et le travail salarié."},
+    {g:6, rn:'III', grp:'Littérature socialiste et communiste', t:'Le socialisme et le communisme critico-utopiques', m:'mf-III-3', pt:3,
+     s:"Saint-Simon, Fourier et Owen apparaissent à une époque où la lutte du prolétariat est encore peu développée. Leur critique de la société existante est précieuse, mais ils voient dans le prolétariat une classe qui souffre, non une classe qui agit : la transformation doit venir de leur plan. Leurs disciples, devant un mouvement ouvrier devenu réel, se referment en sectes — phalanstères, colonies, petite Icarie — et finissent par s'opposer à lui."},
+    {g:7, rn:'IV', grp:'Les communistes et les partis d’opposition', t:'Position des communistes vis-à-vis des partis d’opposition', m:'mf-IV', pt:4,
+     s:"Une courte partie de tactique. En France, en Suisse, en Pologne, les communistes soutiennent les partis qui combattent l'ordre existant, sans renoncer à critiquer leurs illusions. En Allemagne, où une révolution bourgeoise s'annonce, ils luttent avec la bourgeoisie contre la monarchie absolue, tout en rendant les ouvriers conscients de leur antagonisme avec elle. Partout ils posent la question de la propriété comme la question fondamentale. Le texte se clôt sur l'appel à l'union des prolétaires de tous les pays."}
+  ];
+  var INTRO="Rédigé par Marx et Engels pour la Ligue des communistes et publié à Londres en février 1848, le Manifeste tient en quatre parties : une histoire de la société bourgeoise qui s'achève sur la formation du prolétariat, la place des communistes dans ce mouvement, la critique des socialismes concurrents, et une ligne politique pour les pays d'Europe.";
+  var PARTS=4;
+
+  /* Le glossaire de la liseuse (« Mots du glossaire » dans Aa Réglages). */
+  var GLOSS_MF=[
+   {s:["bourgeoisie"],de:"Bourgeoisie",def:"La classe des capitalistes modernes, propriétaires des moyens de production sociale, qui emploient du travail salarié."},
+   {s:["prolétariat"],de:"Proletariat",def:"La classe des travailleurs salariés modernes qui, ne possédant aucun moyen de production, doivent vendre leur force de travail pour vivre."},
+   {s:["luttes de classes","lutte de classes"],de:"Klassenkämpfe",def:"L'opposition entre classes aux intérêts inconciliables ; le Manifeste en fait le fil de toute l'histoire écrite."},
+   {s:["moyens de production"],de:"Produktionsmittel",def:"Ce avec quoi l'on produit : terre, outils, machines, matières. Leur propriété décide de la place de chaque classe."},
+   {s:["surproduction"],de:"Überproduktion",def:"La crise où l'abondance même ruine : faute de débouchés, on détruit des produits et des forces productives."},
+   {s:["propriété bourgeoise"],de:"bürgerliches Eigentum",def:"La forme moderne de la propriété privée, fondée sur l'exploitation du travail salarié ; c'est elle, et non toute propriété, que les communistes veulent abolir."}
+  ];
+
+  function byId(id){return document.getElementById(id);}
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  /* Une seule destination : la page n'a pas de barre d'onglets, mais le shell
+     et reader-tools savent appeler activateTab. */
+  window.activateTab=function(){ window.curTabId='lire'; };
+  window.curTabId='lire';
+
+  /* ══════════════════════════════════════════════════════════════════
+     LE TEXTE. Wikisource sert la traduction de Laura Lafargue en UNE page.
+     On la parse dans un document INERTE (DOMParser) — un <div> du document
+     courant chargerait ses images à l'instant où on lui pose un innerHTML —
+     puis on recompose ses titres : un chiffre romain nu et une ligne de
+     petites capitales centrée deviennent un vrai titre, avec l'identifiant
+     que MF_STRUCT désigne.
+     ══════════════════════════════════════════════════════════════════ */
+  var PART_T={I:'Bourgeois et prolétaires',II:'Prolétaires et communistes',
+    III:'Littérature socialiste et communiste',
+    IV:'Position des communistes vis-à-vis des différents partis de l’opposition'};
+  var SUB=[
+    [/^I\.\s*—\s*le socialisme r/i,'h3','mf-III-1','I. Le socialisme réactionnaire'],
+    [/^A\.\s*—/,'h4','','A. Le socialisme féodal'],
+    [/^B\.\s*—/,'h4','','B. Le socialisme des petits bourgeois'],
+    [/^C\.\s*—/,'h4','','C. Le socialisme allemand, ou le « vrai » socialisme'],
+    [/^II\.\s*—/,'h3','mf-III-2','II. Le socialisme conservateur et bourgeois'],
+    [/^III\.\s*—/,'h3','mf-III-3','III. Socialisme et communisme critico-utopique']
+  ];
+  function prepareText(raw){
+    var doc=new DOMParser().parseFromString(raw,'text/html'), b=doc.body;
+    b.querySelectorAll('style,link,meta,script,img,table,.ws-noexport,.noprint,.mw-editsection,'
+      +'sup.reference,.mw-references-wrap,ol.references,.references,[class*="header"],.pagenum,#ws-data')
+      .forEach(function(e){e.remove();});
+    b.querySelectorAll('a').forEach(function(a){a.replaceWith(doc.createTextNode(a.textContent));});
+    /* Le titre général (h2) est déjà dit par l'en-tête de la liseuse. */
+    b.querySelectorAll('h2').forEach(function(h){h.remove();});
+    /* Les quatre parties : h3 « I » + la ligne centrée qui le suit. */
+    b.querySelectorAll('h3').forEach(function(h){
+      var rn=h.textContent.trim();
+      if(!PART_T[rn])return;
+      var nx=h.nextElementSibling;
+      if(nx&&nx.tagName==='DIV'&&/text-align:\s*center/.test(nx.getAttribute('style')||''))nx.remove();
+      var h2=doc.createElement('h2');
+      h2.className='mf-part'; h2.id='mf-'+rn;
+      h2.innerHTML='<span class="mf-rn">'+rn+'</span> '+PART_T[rn];
+      h.replaceWith(h2);
+    });
+    /* Les socialismes de la partie III, et le cri final. */
+    b.querySelectorAll('div').forEach(function(d){
+      if(!/text-align:\s*center/.test(d.getAttribute('style')||''))return;
+      var t=d.textContent.replace(/\s+/g,' ').trim();
+      if(/^Prolétaires de tous les pays/.test(t)){
+        var p=doc.createElement('p'); p.className='mf-cri'; p.textContent=t; d.replaceWith(p); return;
+      }
+      for(var i=0;i<SUB.length;i++){
+        if(SUB[i][0].test(t)){
+          var h=doc.createElement(SUB[i][1]);
+          h.className=SUB[i][1]==='h3'?'mf-sub':'mf-subsub';
+          if(SUB[i][2])h.id=SUB[i][2];
+          h.textContent=SUB[i][3];
+          d.replaceWith(h); return;
+        }
+      }
+    });
+    /* Les paragraphes vides que Wikisource pose comme espacement. */
+    b.querySelectorAll('p').forEach(function(p){ if(!p.textContent.trim()&&!p.querySelector('span[id]'))p.remove(); });
+    b.querySelectorAll('[style]').forEach(function(e){e.removeAttribute('style');});
+    /* Le premier paragraphe porte le repère de l'ouverture. */
+    var first=b.querySelector('p');
+    if(first)first.id='mf-ouverture';
+    var src=doc.createElement('p');
+    src.className='mf-src';
+    src.innerHTML='Texte : <i>Manifeste du parti communiste</i>, traduction de Laura Lafargue, publiée en 1897 '
+      +'à la suite des <i>Essais sur la conception matérialiste de l’histoire</i> d’Antonio Labriola '
+      +'(Paris, V. Giard et E. Brière). Domaine public. '
+      +'<a href="'+WS_PAGE+'" rel="noopener">Lire la page sur Wikisource ›</a>';
+    b.appendChild(src);
+    return b.innerHTML;
+  }
+
+  /* ══════════════════════════════════════════════════════════════════
+     LE SOMMAIRE — une vue du plan, qui ne quitte jamais l'écran.
+     ══════════════════════════════════════════════════════════════════ */
+  var viewG=0, loaded=false, pendingG=0;
+  var CHECK_SVG='<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><polyline points="2,9 6,13 14,3" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  function cur(){ return MF_STRUCT[(viewG||1)-1]; }
+
+  function renderTocRail(){
+    var list=byId('atl3TocList'); if(!list)return;
+    var pg=window.SHELL&&SHELL.progress;
+    var done=pg?pg.getSet():new Set();
+    var g0=viewG||1, grp='', h='';
+    MF_STRUCT.forEach(function(e){
+      if(e.grp!==grp){
+        grp=e.grp;
+        h+='<div class="atl3-sec">'+(e.rn?'<span class="atl3-sec-rn">'+e.rn+'</span>':'')+esc(e.grp)+'</div>';
+      }
+      var isDone=e.pt&&done.has(e.pt), isCur=e.g===g0;
+      h+='<button type="button" class="atl3-ch'+(isDone?' is-done':'')+(isCur?' is-cur':'')+'" data-g="'+e.g+'"'
+        +(isCur?' aria-current="true"':'')+'>'
+        +'<span class="atl3-ch-n">'+(e.rn||'·')+'</span>'
+        +'<span class="atl3-ch-t">'+esc(e.t)+'</span>'
+        +'<span class="atl3-ch-st">'+(isDone?CHECK_SVG:'')+'</span></button>';
+    });
+    list.innerHTML=h;
+    list.querySelectorAll('.atl3-ch').forEach(function(b){
+      b.addEventListener('click',function(){ closeTocDrop(); openPart(+b.dataset.g); });});
+
+    /* La progression, chiffrée seulement si on peut la compter. */
+    var pr=byId('atl3Prog');
+    if(pr){
+      if(pg&&pg.isLoggedIn()){
+        var n=[1,2,3,4].filter(function(x){return done.has(x);}).length;
+        pr.innerHTML='<span class="atl3-prog-bar"><i style="width:'+Math.round(n/PARTS*100)+'%"></i></span>'
+          +'<span class="atl3-prog-n">'+n+' / '+PARTS+'</span>';
+      }else{
+        pr.innerHTML='<button type="button" class="btn atl3-prog-log">Suivre ma progression</button>';
+        pr.querySelector('button').onclick=function(){ if(window.SHELL&&SHELL.auth)SHELL.auth.openModal(); };
+      }
+    }
+    var tt=byId('atl3TocToggleT'); if(tt)tt.textContent=cur().t;
+  }
+  function closeTocDrop(){
+    var t=byId('atl3Toc'),b=byId('atl3TocToggle'); if(!t||!b)return;
+    t.classList.remove('is-open'); b.setAttribute('aria-expanded','false');
+  }
+
+  /* ══════════════════════════════════════════════════════════════════
+     LE SUIVI DE LECTURE — la marge et le sommaire suivent la partie qu'on
+     lit, pas seulement celle qu'on a cliquée. Déclenché par un
+     IntersectionObserver ET par le défilement, étranglé au temps (le rAF est
+     gelé dans un onglet en arrière-plan).
+     ══════════════════════════════════════════════════════════════════ */
+  var READ_LINE=220, marks=[], obs=null;
+  function stickyOffset(){
+    var tb=document.querySelector('#lire .rd-toolbar');
+    return 44+(tb?tb.getBoundingClientRect().height:0)+16;
+  }
+  function buildMarks(){
+    marks=[];
+    MF_STRUCT.forEach(function(e){ var el=byId(e.m); if(el)marks.push({g:e.g,el:el}); });
+    if(obs){obs.disconnect();obs=null;}
+    if(marks.length&&window.IntersectionObserver){
+      obs=new IntersectionObserver(function(){follow();},{rootMargin:(-READ_LINE)+'px 0px 0px 0px',threshold:0});
+      marks.forEach(function(m){obs.observe(m.el);});
+    }
+  }
+  function setView(g){
+    if(!g||g===viewG)return;
+    viewG=g;
+    var list=byId('atl3TocList');
+    if(list){
+      list.querySelectorAll('.atl3-ch').forEach(function(b){
+        var on=+b.dataset.g===g;
+        b.classList.toggle('is-cur',on);
+        if(on)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current');
+      });
+      var cel=list.querySelector('.atl3-ch.is-cur');
+      if(cel&&list.getClientRects().length&&list.scrollHeight>list.clientHeight+4)
+        list.scrollTop=Math.max(0,cel.offsetTop-list.clientHeight/2+cel.offsetHeight/2);
+    }
+    var tt=byId('atl3TocToggleT'); if(tt)tt.textContent=MF_STRUCT[g-1].t;
+    if(window.SHELL&&SHELL.resume)SHELL.resume.set(WORK,{g:g,title:MF_STRUCT[g-1].t});
+    renderMarge();
+  }
+  function follow(){
+    if(!marks.length)return;
+    var g=marks[0].g;
+    for(var i=0;i<marks.length;i++){
+      if(marks[i].el.getBoundingClientRect().top<READ_LINE)g=marks[i].g; else break;
+    }
+    setView(g);
+    trackProgress();
+  }
+  var followAt=0;
+  window.addEventListener('scroll',function(){
+    var now=Date.now(); if(now-followAt<120)return; followAt=now; follow();
+  },{passive:true});
+
+  /* Une partie est LUE quand la suivante a passé la ligne de lecture ; la
+     dernière, quand on a atteint la fin du texte. Seulement avec un compte. */
+  var marked={};
+  function trackProgress(){
+    var pg=window.SHELL&&SHELL.progress;
+    if(!pg||!pg.isLoggedIn()||!loaded)return;
+    var done=pg.getSet();
+    [2,3,4].forEach(function(pt){
+      var nx=byId('mf-'+['','I','II','III','IV'][pt]);
+      if(nx&&nx.getBoundingClientRect().top<READ_LINE&&!done.has(pt-1)&&!marked[pt-1]){
+        marked[pt-1]=true; pg.markDone(pt-1);
+      }
+    });
+    var box=byId('readerContent');
+    if(box&&!done.has(4)&&!marked[4]&&box.getBoundingClientRect().bottom<window.innerHeight*1.1){
+      marked[4]=true; pg.markDone(4);
+    }
+  }
+
+  function openPart(g){
+    if(!MF_STRUCT[g-1])return;
+    if(!loaded){ pendingG=g; return; }
+    var el=byId(MF_STRUCT[g-1].m);
+    if(el){
+      /* Saut instantané : un défilement doux ne progresse pas dans un onglet
+         piloté, et le lecteur a demandé un endroit précis. */
+      var y=window.scrollY+el.getBoundingClientRect().top-stickyOffset();
+      window.scrollTo({top:Math.max(0,y),behavior:'instant'});
+    }
+    viewG=0; setView(g);
+  }
+  window.openPart=openPart;
+
+  function jumpToQuote(quote){
+    var box=byId('readerContent'); if(!box||!quote)return;
+    var probe=String(quote).replace(/\s+/g,' ').trim().slice(0,40); if(!probe)return;
+    var els=box.querySelectorAll('p,h2,h3,h4'),target=null;
+    for(var i=0;i<els.length;i++){ if(els[i].textContent.replace(/\s+/g,' ').indexOf(probe)>=0){target=els[i];break;} }
+    if(!target)return;
+    window.scrollTo({top:Math.max(0,window.scrollY+target.getBoundingClientRect().top-stickyOffset()-30),behavior:'instant'});
+  }
+
+  /* ══════════════════════════════════════════════════════════════════
+     LA MARGE — « Dans cette partie » : vos passages, et le résumé.
+     Les passages sont lus au module qui les possède ; il prévient quand ils
+     changent (SHELL.annotations.onChange).
+     ══════════════════════════════════════════════════════════════════ */
+  var margeOpen=false, margeNotes=[], annoUnsub=null;
+  function watchAnnos(){
+    var AN=window.SHELL&&SHELL.annotations;
+    if(!AN||!AN.onChange||annoUnsub)return;
+    annoUnsub=AN.onChange(function(){ renderMarge(); });
+  }
+  function margeFade(){
+    var el=byId('atl3Marge'); if(!el)return;
+    var peut=el.scrollHeight>el.clientHeight+4;
+    el.classList.toggle('is-scrollable',peut);
+    el.classList.toggle('is-end',peut&&el.scrollTop+el.clientHeight>=el.scrollHeight-6);
+  }
+  function renderMarge(){
+    var el=byId('atl3Marge'); if(!el)return;
+    var c=cur();
+    var h='<button type="button" class="atl3-m-toggle" id="atl3MToggle" aria-expanded="'+(margeOpen?'true':'false')+'">'
+      +'<span class="atl3-m-toggle-k">Dans cette partie</span>'
+      +'<span class="atl3-m-toggle-t">'+esc(c.t)+'</span></button>'
+      +'<div class="atl3-m-head"><h2 class="atl3-lab">Dans cette partie</h2>'
+      +'<p class="atl3-m-ch">'+(c.rn?'<em>'+c.rn+'</em> ':'')+esc(c.t)+'</p></div>';
+
+    margeNotes=[];
+    var AN=(window.SHELL&&SHELL.annotations)||null;
+    try{
+      if(AN&&AN.notesFor) margeNotes=AN.notesFor(WORK,1).sort(function(a,b){return (b.created||0)-(a.created||0);});
+    }catch(e){}
+    var nn=margeNotes.length, nNote=margeNotes.filter(function(a){return a.note;}).length;
+    var pub='';
+    try{
+      if(AN&&AN.context&&AN.publicCount){
+        var cx=AN.context();
+        if(cx.work===WORK&&+cx.section===1){ var np=AN.publicCount(); if(np)pub=' · '+np; }
+      }
+    }catch(e){}
+    var ph='<div class="atl3-pass-top"><h3 class="atl3-m-h">Vos passages</h3>'
+      +(nn?'<span class="atl3-pass-n">'+nn+'</span>':'')+'</div>';
+    if(nn){
+      ph+='<p class="atl3-pass-sub">dans le Manifeste'+(nNote?' · '+nNote+' avec note':'')+'</p>'
+        +'<ul class="atl3-pass-list">'
+        +margeNotes.slice(0,4).map(function(a,i){
+          return '<li><button type="button" class="atl3-pass-item" data-anno="'+i+'">'
+          +'<span class="atl3-pass-bar c-'+esc(a.color)+'"></span>'
+          +'<span class="atl3-pass-q">'+esc(a.quote.slice(0,86))+(a.quote.length>86?'…':'')+'</span>'
+          +(a.note?'<span class="atl3-pass-note">'+esc(a.note.slice(0,54))+'</span>':'')
+          +'</button></li>';}).join('')
+        +'</ul>'+(nn>4?'<p class="atl3-pass-more">et '+(nn-4)+' de plus</p>':'');
+    }else{
+      ph+='<p class="atl3-pass-empty">Sélectionnez un passage du texte pour le surligner.</p>';
+    }
+    ph+='<div class="atl3-pass-acts">'
+      +'<button type="button" class="atl3-m-nb" data-fab="notesFab">Mes notes</button>'
+      +'<button type="button" class="atl3-m-nb" data-fab="pubFab">Notes partagées'+pub+'</button>'
+      +'</div><a class="atl3-m-carnet" href="carnet">Ouvrir mon carnet →</a>';
+    var passHtml='<section class="atl3-m-sec '+(nn?'atl3-pass':'atl3-pass-plain')+'">'+ph+'</section>';
+    if(nn) h+=passHtml;
+    h+='<section class="atl3-m-sec"><h3 class="atl3-m-h">En clair</h3>'
+      +'<div class="atl3-m-sum" id="atl3Sum">'+esc(c.s)+'</div>'
+      +'<button type="button" class="atl3-m-more" data-more="atl3Sum">Lire la suite</button></section>';
+    if(!nn) h+=passHtml;
+    h+='<div class="atl3-marge-fade" aria-hidden="true"><span>Défiler</span></div>';
+    el.innerHTML=h;
+    el.classList.toggle('is-open',margeOpen);
+    margeFade();
+    var mt=byId('atl3MToggle');
+    if(mt)mt.addEventListener('click',function(){
+      margeOpen=!margeOpen; el.classList.toggle('is-open',margeOpen);
+      mt.setAttribute('aria-expanded',margeOpen?'true':'false');
+    });
+    el.querySelectorAll('[data-more]').forEach(function(b){b.addEventListener('click',function(){
+      var open=byId(b.dataset.more).classList.toggle('is-open');
+      b.textContent=open?'Replier':'Lire la suite';
+    });});
+    el.querySelectorAll('[data-anno]').forEach(function(b){b.addEventListener('click',function(){
+      var a=margeNotes[+b.dataset.anno]; if(!a)return;
+      jumpToQuote(a.quote);
+      if(window.SHELL&&SHELL.annotations&&SHELL.annotations.flashAnchor)SHELL.annotations.flashAnchor(a);
+    });});
+    el.querySelectorAll('[data-fab]').forEach(function(b){b.addEventListener('click',function(){
+      var f=byId(b.dataset.fab);
+      if(f)f.click(); else if(window.SHELL&&SHELL.announce)SHELL.announce('Le texte se charge encore.');
+    });});
+  }
+
+  /* ══════════════════════════════════════════════════════════════════
+     LECTURE PLEIN ÉCRAN — même mécanique que les deux autres ateliers.
+     ══════════════════════════════════════════════════════════════════ */
+  function pleinEcran(){ return document.body.classList.contains('at-plein'); }
+  function setPlein(on){
+    if(on===pleinEcran())return;
+    document.body.classList.toggle('at-plein',on);
+    var ex=byId('atlFullExit'); if(ex)ex.hidden=!on;
+    var b=byId('atlFullBtn'); if(b)b.setAttribute('aria-pressed',on?'true':'false');
+    try{
+      if(on&&!document.fullscreenElement&&document.documentElement.requestFullscreen)
+        document.documentElement.requestFullscreen().catch(function(){});
+      if(!on&&document.fullscreenElement&&document.exitFullscreen)
+        document.exitFullscreen().catch(function(){});
+    }catch(e){}
+    if(!on&&b)b.focus(); else if(on&&ex)ex.focus();
+    if(window.SHELL&&SHELL.announce)
+      SHELL.announce(on?'Lecture plein écran. Échap pour revenir à l’atelier.':'Retour à l’atelier.');
+    setTimeout(function(){try{follow();}catch(e){}},80);
+  }
+  function installFullBtn(){
+    var old=byId('atlFullBtn'); if(old)old.remove();
+    var row=document.querySelector('#lire .rd-row'), bar=byId('atlMidbar'), host=row||bar;
+    if(!host)return;
+    if(bar)bar.hidden=!!row;
+    var b=document.createElement('button');
+    b.type='button'; b.id='atlFullBtn'; b.className='btn atl3-full';
+    b.setAttribute('aria-pressed',pleinEcran()?'true':'false');
+    b.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true" class="atl3-full-i"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg> Plein écran';
+    b.addEventListener('click',function(){setPlein(!pleinEcran());});
+    if(!row){ host.appendChild(b); return; }
+    var wrap=document.createElement('div');
+    wrap.className='atl3-toolhead';
+    row.parentNode.insertBefore(wrap,row);
+    wrap.appendChild(b); wrap.appendChild(row);
+  }
+
+  /* ══════════════════════════════════════════════════════════════════
+     LE CHARGEMENT. Un échec se DIT : role=alert, annonce, et Réessayer.
+     ══════════════════════════════════════════════════════════════════ */
+  function showError(){
+    var rc=byId('readerContent');
+    rc.innerHTML='<div class="reader-error" role="alert"><b>Texte momentanément indisponible.</b>'
+      +'<p>Le Manifeste est lu sur Wikisource, qui n’a pas répondu. Vérifiez votre connexion, puis réessayez.</p>'
+      +'<p><button type="button" class="btn red" data-retry>Réessayer</button></p></div>';
+    rc.hidden=false; byId('readerPlaceholder').hidden=true;
+    rc.querySelector('[data-retry]').onclick=load;
+    if(window.SHELL&&SHELL.announce)SHELL.announce('Le texte n’a pas pu être chargé.');
+  }
+  function load(){
+    var rc=byId('readerContent');
+    byId('readerPlaceholder').hidden=true; rc.hidden=false;
+    rc.innerHTML='<div class="placeholder" role="status"><div><b>Chargement du texte…</b></div></div>';
+    if(window.SHELL&&SHELL.announce)SHELL.announce('Chargement du texte en cours…');
+    fetch(WS_URL)
+      .then(function(r){ if(!r.ok)throw new Error('HTTP '+r.status); return r.json(); })
+      .then(function(j){
+        var raw=j&&j.parse&&j.parse.text; if(raw&&typeof raw==='object')raw=raw['*'];
+        if(!raw)throw new Error('réponse vide');
+        rc.innerHTML=prepareText(raw);
+        loaded=true;
+        if(window.SHELL&&SHELL.announce)SHELL.announce('Texte chargé : Manifeste du parti communiste');
+        if(window.SHELL&&SHELL.reader&&SHELL.reader.attach){
+          SHELL.reader.attach({workId:WORK, section:1, container:rc, sectionLabel:'Manifeste du parti communiste'});
+        }
+        if(window.Reading){
+          window.Reading.mount(byId('lire'),{
+            ctx:{id:1,title:'Manifeste du parti communiste'},
+            textSel:'.reader-content',
+            summaryHtml:'<div class="rd-clear-body">'+esc(INTRO)+'</div>',
+            nav:{prev:null,next:null},
+            glossary:GLOSS_MF,
+            xref:[]
+          });
+        }
+        setTimeout(function(){
+          buildMarks(); installFullBtn(); renderTocRail(); renderMarge(); watchAnnos();
+          var g=pendingG; pendingG=0;
+          if(g>1)openPart(g); else follow();
+        },0);
+      })
+      .catch(showError);
+  }
+
+  function init(){
+    renderTocRail();
+    renderMarge();
+    installFullBtn();
+    watchAnnos();
+    var mg=byId('atl3Marge');
+    if(mg){ mg.addEventListener('scroll',margeFade,{passive:true}); window.addEventListener('resize',margeFade); }
+    var tb=byId('atl3TocToggle'),tc=byId('atl3Toc');
+    if(tb&&tc)tb.addEventListener('click',function(){
+      var open=tc.classList.toggle('is-open');
+      tb.setAttribute('aria-expanded',open?'true':'false');
+    });
+    var fx=byId('atlFullExit'); if(fx)fx.addEventListener('click',function(){setPlein(false);});
+    document.addEventListener('fullscreenchange',function(){ if(!document.fullscreenElement&&pleinEcran())setPlein(false); });
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&pleinEcran())setPlein(false); });
+
+    if(window.SHELL&&SHELL.progress){
+      SHELL.progress.init(WORK,function(){ renderTocRail(); });
+    }
+
+    /* Où ouvrir : #partie=<g> (la recherche), sinon la reprise, sinon le début.
+       Un lien profond au passage (#note=, #s=) laisse attach() faire le reste. */
+    var h=location.hash||'', m=h.match(/^#partie=(\d+)$/);
+    var r=(window.SHELL&&SHELL.resume)?SHELL.resume.get(WORK):null;
+    if(m) pendingG=+m[1];
+    else if(!/^#(note=|s=)/.test(h)&&r&&r.g) pendingG=+r.g;
+    window.__deepBooted=true;
+    load();
+    window.addEventListener('hashchange',function(){
+      var mm=(location.hash||'').match(/^#partie=(\d+)$/);
+      if(mm)openPart(+mm[1]);
+      else if(/^#(note=|s=)/.test(location.hash||'')&&loaded&&SHELL.reader&&SHELL.reader.attach)
+        SHELL.reader.attach({workId:WORK, section:1, container:byId('readerContent'), sectionLabel:'Manifeste du parti communiste'});
+    });
+  }
+  window.renderTocRail=renderTocRail;
+  window.renderResume=function(){ renderTocRail(); };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+<script src="../config.js"></script>
+<script src="shell.js?v=10"></script>
+<script src="shell-social.js"></script>
+<script src="shell-annotations.js?v=2"></script>
+<script src="shell-progress.js"></script>
+<script src="reader-tools.js?v=2" defer></script>
+<script src="atelier-motion.js?v=3" defer></script>
+<script>
+installShell({
+  workId: 'manifeste-parti-communiste',
+  workTitle: 'Manifeste du parti communiste'
+});
+(function(){ if(typeof renderResume==='function')renderResume(); })();
+</script>
+</body>
+</html>

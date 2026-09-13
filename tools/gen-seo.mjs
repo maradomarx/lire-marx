@@ -103,6 +103,37 @@ const EDITION = {
     // est protégée jusqu'au 1er janvier 2046. Un colophon qui l'affirmerait
     // serait la mention fausse que la mission `affaire-palmier` a retirée.
     colophon: "traduction Émile Bottigelli (1962), importée du Marxists Internet Archive"
+  },
+
+  'manifeste-parti-communiste': {
+    // « Karl Marx et Friedrich Engels · 1848 · traduction Laura Lafargue
+    //   (1897) · domaine public » — <p class="work-meta"> de
+    //   oeuvres/manifeste.html, et la notice de source sous le texte.
+    datePublished: '1848',
+    // Deux auteurs : le champ `author` de bibliotheque.json les écrit en une
+    // chaîne, bookFor() les veut séparés, chacun avec son ancrage d'entité.
+    // Q34787 vérifié : « Friedrich Engels, German philosopher (1820–1895) ».
+    authors: [
+      { name: 'Karl Marx', sameAs: 'https://www.wikidata.org/wiki/Q9061' },
+      { name: 'Friedrich Engels', sameAs: 'https://www.wikidata.org/wiki/Q34787' }
+    ],
+    translator: 'Laura Lafargue',
+    // La page Wikisource imprime cette édition : les Essais d'Antonio
+    // Labriola, Paris, V. Giard et E. Brière, 1897, p. 293-348.
+    bookEdition: 'Traduction française de Laura Lafargue, publiée en 1897 (V. Giard et E. Brière)',
+    // Laura Lafargue est morte en 1911, Marx en 1883, Engels en 1895 : la
+    // traduction est dans le domaine public, on peut l'affirmer.
+    license: 'https://creativecommons.org/publicdomain/mark/1.0/',
+    translationOfWork: {
+      '@type': 'Book',
+      name: 'Manifest der Kommunistischen Partei',
+      inLanguage: 'de',
+      datePublished: '1848'
+    },
+    // load() de la page appelle l'API de Wikisource sur cette page-là.
+    source: { name: 'Manifeste du parti communiste sur Wikisource',
+              url: 'https://fr.wikisource.org/wiki/Manifeste_du_parti_communiste/Lafargue' },
+    colophon: 'traduction Laura Lafargue (1897), domaine public, servie depuis Wikisource'
   }
 };
 
@@ -225,8 +256,9 @@ function bookFor(w) {
     '@type': 'Book',
     name: w.title,
     ...(e.alternateName ? { alternateName: e.alternateName } : {}),
-    author: { '@type': 'Person', name: w.author,
-              sameAs: 'https://www.wikidata.org/wiki/Q9061' },
+    author: e.authors
+      ? e.authors.map(a => ({ '@type': 'Person', name: a.name, sameAs: a.sameAs }))
+      : { '@type': 'Person', name: w.author, sameAs: 'https://www.wikidata.org/wiki/Q9061' },
     ...(e.translator ? { translator: { '@type': 'Person', name: e.translator } } : {}),
     ...(e.bookEdition ? { bookEdition: e.bookEdition } : {}),
     inLanguage: 'fr',
@@ -295,6 +327,7 @@ const PIED_PAGES = [
   'oeuvres/bibliotheque.html',
   'oeuvres/capital-1.html',
   'oeuvres/manuscrits-1844.html',
+  'oeuvres/manifeste.html',
   'oeuvres/place-publique.html',
   'oeuvres/carnet.html',
   'oeuvres/messages.html',
@@ -1183,7 +1216,7 @@ ${monde}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=9"></script>
+<script src="/oeuvres/shell.js?v=10"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 ${aScene ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-driver.js')}" defer></script>` : ''}
@@ -1344,7 +1377,7 @@ ${voisines.map((v) => `      <a href="${v.href}">${v.nom}</a>`).join('\n')}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=9"></script>
+<script src="/oeuvres/shell.js?v=10"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 </body>
@@ -1585,7 +1618,7 @@ ${marge}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=9"></script>
+<script src="/oeuvres/shell.js?v=10"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Le Capital', tabs: [] });</script>
 </body>
@@ -1650,7 +1683,7 @@ ${o.ld}
 </head>`;
   const piedCm = (workTitle) => `${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=9"></script>
+<script src="/oeuvres/shell.js?v=10"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: '${workTitle}', tabs: [] });</script>
 <script src="/commentaires/agregation.js?v=${hashV('commentaires/agregation.js')}" defer></script>
@@ -2031,6 +2064,13 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
     items.push({ t: strip(lab), s: 'Le laboratoire · Manuscrits de 1844', cat: 'outil', url: `/oeuvres/manuscrits-1844#labo=${id}`, hay: 'instrument laboratoire manipuler' });
   for (const [id, lab] of Object.entries(litteralJS(manSrc, 'EXPLO_LABELS=', '{')))
     items.push({ t: strip(lab), s: 'Les explorations · Manuscrits de 1844', cat: 'outil', url: `/oeuvres/manuscrits-1844#explore=${id}`, hay: 'exploration pièce' });
+
+  /* Le Manifeste : ses parties, lues dans le plan de la page (MF_STRUCT),
+     qui est aussi la source du sommaire et de la marge. `g` est le numéro
+     que #partie= ouvre. */
+  for (const p of litteralJS(readFileSync('oeuvres/manifeste.html', 'utf8'), 'MF_STRUCT=', '['))
+    items.push({ t: strip(p.t), s: `Manifeste du parti communiste · ${p.rn ? p.rn + ' · ' : ''}${strip(p.grp)}`,
+      cat: 'partie', url: `/oeuvres/manifeste#partie=${p.g}`, hay: court(p.s, 400) });
 
   for (const n of INDEX_NOTIONS) {
     items.push({ t: n.nom, s: (n.de ? n.de + ' · ' : '') + n.oeuvre, cat: 'notion',

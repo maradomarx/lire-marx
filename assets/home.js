@@ -548,7 +548,8 @@
     };
     var IMG = {
       'capital-1': 'manufacture',
-      'manuscrits-1844': 'marx-jeune'
+      'manuscrits-1844': 'marx-jeune',
+      'manifeste-parti-communiste': 'manifeste-1848'
     };
     var FALLBACK = { works: [
       { id: 'capital-1', title: 'Le Capital — Livre I', author: 'Karl Marx', year: 1867,
