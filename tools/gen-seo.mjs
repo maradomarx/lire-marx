@@ -1017,6 +1017,16 @@ function identite(nom) {
   /* Le texte des essais, pour la recherche (mission `recherche-essais`) :
    * quarante-six mille mots écrits à la main que le champ ne voyait pas. */
   const ESSAIS = [];
+  /* Le texte d'une section d'essai tel que le lecteur le lit : le titre de
+   * section retiré (il sert d'étiquette), le renvoi « Revoir ce moment dans
+   * l'extrait » aussi (c'est un bouton, pas du texte). */
+  const texteSections = (essai) => {
+    const corps = {};
+    for (const m of essai.matchAll(/<section class="nt-sec"[^>]*id="([^"]+)"[^>]*>([^]*?)<\/section>/g))
+      corps[m[1]] = nu(m[2].replace(/<h2[^>]*>[^]*?<\/h2>/, '').replace(/<p class="cm-rappel">[^]*?<\/p>/g, ''))
+        .replace(/\s+/g, ' ').trim();
+    return corps;
+  };
   function pageMonde(t) {
     const dossier = `glossaire/mondes/${t.page.dossier}`;
     const meta = JSON.parse(readFileSync(`${dossier}/meta.json`, 'utf8'));
@@ -1216,7 +1226,7 @@ ${monde}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=11"></script>
+<script src="/oeuvres/shell.js?v=12"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 ${aScene ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-driver.js')}" defer></script>` : ''}
@@ -1377,7 +1387,7 @@ ${voisines.map((v) => `      <a href="${v.href}">${v.nom}</a>`).join('\n')}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=11"></script>
+<script src="/oeuvres/shell.js?v=12"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 </body>
@@ -1387,18 +1397,6 @@ ${PIED}
     PAGES_NOTIONS.push({ file: `glossaire/${t.id}.html`, url: `/glossaire/${t.id}` });
   }
 
-  /* L'index des essais : un fichier à part, chargé à la demande par la
-   * recherche — il pèse deux cent quatre-vingts kilo-octets avant
-   * compression, et l'index principal est lu dès la première frappe. Il est
-   * `noindex` (voir `_headers`) : c'est une seconde copie des essais, et un
-   * moteur y verrait du contenu dupliqué. */
-  if (ESSAIS.length) {
-    const mots = ESSAIS.reduce((n, e) => n + e.s.reduce((m, x) => m + x.x.split(/\s+/).length, 0), 0);
-    writeIfNeeded('oeuvres/recherche-essais.json',
-      JSON.stringify({ v: 1, source: 'tools/gen-seo.mjs', n: ESSAIS }) + '\n',
-      'oeuvres/recherche-essais.json (le texte des essais)');
-    if (!check) console.log(`  essais : ${ESSAIS.length} pages, ${ESSAIS.reduce((n, e) => n + e.s.length, 0)} sections, ${mots} mots indexés`);
-  }
 
   /* Une page de notion orpheline — dont le `page` a été retiré du lexique —
    * resterait servie et indexée sans que rien ne la relie. On ne la supprime
@@ -1493,6 +1491,13 @@ ${PIED}
       if (/data-q=/.test(essai)) throw new Error(`Chapitre ${c.rn} : une citation n'a pas été reconnue.`);
       const mots = nu(essai).split(/\s+/).filter(Boolean).length;
       if (mots < 900) throw new Error(`Chapitre ${c.rn} : ${mots} mots — une page de chapitre en veut au moins 900.`);
+      {
+        const corps = texteSections(essai);
+        ESSAIS.push({ id: `ch-${c.rn}`, k: 'chapitre', u: c.href, t: `Chapitre ${c.rn} expliqué`,
+          s: [{ a: '', h: nu(titre), x: nu(c.chapo || '') }]
+            .concat(sections.map((sec) => ({ a: sec.id, h: nu(sec.h2), x: corps[sec.id] || '' })))
+            .filter((sec) => sec.x.length > 40) });
+      }
 
       const notions = (c.notions || []).map((n) => termes.find((x) => identite(x.nom) === identite(n)));
       if (notions.some((x) => !x)) throw new Error(`Chapitre ${c.rn} : notions introuvables — ${(c.notions || []).filter((n, k) => !notions[k]).join(', ')}`);
@@ -1618,7 +1623,7 @@ ${marge}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=11"></script>
+<script src="/oeuvres/shell.js?v=12"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Le Capital', tabs: [] });</script>
 </body>
@@ -1683,7 +1688,7 @@ ${o.ld}
 </head>`;
   const piedCm = (workTitle) => `${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=11"></script>
+<script src="/oeuvres/shell.js?v=12"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: '${workTitle}', tabs: [] });</script>
 <script src="/commentaires/agregation.js?v=${hashV('commentaires/agregation.js')}" defer></script>
@@ -1751,6 +1756,13 @@ ${sections.map((x) => `      <li><a href="#${x.id}">${x.h2}</a></li>`).join('\n'
         `$1\n<p class="cm-rappel"><a href="#texte" data-voir="${id}">Revoir ce moment dans l’extrait</a></p>`);
     const mots = nu(essai).split(/\s+/).filter(Boolean).length;
     if (mots < 1200) throw new Error(`${qui} : ${mots} mots — un commentaire guidé en veut au moins 1 200.`);
+    {
+      const corps = texteSections(essai);
+      ESSAIS.push({ id: `cm-${k.slug}`, k: 'commentaire', u: k.href, t: `Commentaire guidé · ${nu(k.titre)}`,
+        s: [{ a: '', h: 'Présentation', x: nu(k.description || '') }]
+          .concat(num.sections.map((sec) => ({ a: sec.id, h: nu(sec.h2), x: corps[sec.id] || '' })))
+          .filter((sec) => sec.x.length > 40) });
+    }
     const notions = (k.notions || []).map((n) => termes.find((x) => identite(x.nom) === identite(n)));
     if (notions.some((x) => !x)) throw new Error(`${qui} : notions introuvables — ${(k.notions || []).filter((n, i) => !notions[i]).join(', ')}`);
     const chap = CHAP_META.find((x) => x.rn === k.rn);
@@ -1854,6 +1866,13 @@ ${piedCm('Agrégation 2027')}`;
     for (const id of Object.keys(acces)) if (!servis.has(id)) throw new Error(`${qui} : meta.acces « ${id} » n'est utilisé par aucun texte de la frise.`);
 
     const num = numeroterCm(src, qui, false);
+    {
+      const corps = texteSections(num.essai);
+      ESSAIS.push({ id: 'agregation-2027', k: 'commentaire', u: CARREFOUR.url, t: 'Marx à l’agrégation 2027',
+        s: [{ a: '', h: 'Présentation', x: nu(m.description || '') }]
+          .concat(num.sections.map((sec) => ({ a: sec.id, h: nu(sec.h2), x: corps[sec.id] || '' })))
+          .filter((sec) => sec.x.length > 40) });
+    }
     const desc = nu(m.description);
     const ecrits = m.ecrits.date
       ? `<div><dt>Écrits</dt><dd>${m.ecrits.date}</dd></div>`
@@ -1913,6 +1932,21 @@ ${piedCm('Agrégation 2027')}`;
     writeIfNeeded(CARREFOUR.file, html, CARREFOUR.file);
     PAGES_COMMENTAIRES.unshift({ file: CARREFOUR.file, url: CARREFOUR.url, priority: '0.8', changefreq: 'weekly' });
     if (!check) console.log(`  carrefour → ${CARREFOUR.url} — ${num.sections.length} sections, ${COMM_META.length} commentaire(s)`);
+  }
+
+  /* L'index des essais — glossaire, chapitres expliqués, commentaires et
+   * page-carrefour (mission `recherche-chapitres`) : un fichier à part, chargé à la demande par la
+   * recherche — il pèse sept cent cinquante kilo-octets avant compression
+   * (deux cent quarante après), et l'index principal est lu dès la première
+   * frappe ; celui-ci ne l'est qu'à partir de trois caractères. Il est
+   * `noindex` (voir `_headers`) : c'est une seconde copie des essais, et un
+   * moteur y verrait du contenu dupliqué. */
+  if (ESSAIS.length) {
+    const mots = ESSAIS.reduce((n, e) => n + e.s.reduce((m, x) => m + x.x.split(/\s+/).length, 0), 0);
+    writeIfNeeded('oeuvres/recherche-essais.json',
+      JSON.stringify({ v: 2, source: 'tools/gen-seo.mjs', n: ESSAIS }) + '\n',
+      'oeuvres/recherche-essais.json (le texte des essais)');
+    if (!check) console.log(`  essais : ${ESSAIS.length} pages, ${ESSAIS.reduce((n, e) => n + e.s.length, 0)} sections, ${mots} mots indexés`);
   }
 }
 
@@ -2035,6 +2069,10 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
     items.push({ t: `Chapitre ${rn} — ${strip(titre)}`, s: `Le Capital · section ${sec.rn}, ${strip(sec.t)}`,
       cat: 'chapitre', rn, url: `/oeuvres/capital-1#ch=${rn}`,
       hay: `chapitre ${rn} ` + court(META[rn] && META[rn].s, 400) });
+    /* L'explication du chapitre, juste après lui : « chapitre X » rend le
+       texte ET la page qui l'explique (mission `recherche-chapitres`). */
+    if (CHAP_HREF[rn]) items.push({ t: `Chapitre ${rn} expliqué — ${strip(titre)}`, s: 'Ce qu’il établit, pourquoi il vient là, comment le lire',
+      cat: 'chapitre', rn, url: CHAP_HREF[rn], hay: 'explication résumé commentaire' });
   }
   for (const e of litteralJS(capSrc, 'CHRONO=', '[')) {
     items.push({ t: `${e.year} — ${strip(e.title)}`, s: 'La chronologie du Capital' + (e.chap ? ' · ' + strip(e.chap) : ''),

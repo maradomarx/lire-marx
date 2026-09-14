@@ -391,7 +391,7 @@
       oeuvre:   { lab: 'Œuvre',      grp: 'Œuvres' },
       page:     { lab: 'Page',       grp: 'Pages du site' },
       'a-venir':{ lab: 'À venir',    grp: 'À venir' },
-      essai:    { lab: 'Essai',      grp: 'Dans les essais du glossaire' },
+      essai:    { lab: 'Essai',      grp: 'Dans les explications du site' },
       texte:    { lab: 'Texte',      grp: 'Dans le texte des œuvres' }
     };
     /* « Dans le texte » vient EN DERNIER, et c'est un choix : sur un mot
@@ -434,7 +434,7 @@
     function buildIndex(){
       if(INDEX) return Promise.resolve(INDEX);
       if(indexPending) return indexPending;
-      indexPending = fetch('/oeuvres/recherche.json', { cache: 'no-cache' })
+      indexPending = fetch('/oeuvres/recherche.json?v=2', { cache: 'no-cache' })
         .then(function(r){ if(!r.ok) throw new Error('index HTTP ' + r.status); return r.json(); })
         .then(function(json){ TEXTE = json.texte || null; return (json.items || []).map(prep); })
         .catch(function(){ return fallbackIndex().catch(function(){ return []; }); })
@@ -713,34 +713,44 @@
     function chargeEssais(){
       if(essDocs) return Promise.resolve(essDocs);
       if(essPending) return essPending;
-      essPending = fetch('/oeuvres/recherche-essais.json')
+      essPending = fetch('/oeuvres/recherche-essais.json?v=2')
         .then(function(r){ return r.ok ? r.json() : null; })
         .then(function(j){
           var out = [];
           ((j && j.n) || []).forEach(function(N){
             (N.s || []).forEach(function(S){
-              out.push({ id: N.id, nt: N.t, a: S.a, h: S.h, doc: prepare(S.x || '') });
+              out.push({ id: N.id, k: N.k || 'glossaire', u: N.u || ('/glossaire/' + N.id), nt: N.t, a: S.a, h: S.h, doc: prepare(S.x || '') });
             });
           });
           essDocs = out; essPending = null; return out;
         }).catch(function(){ essPending = null; return []; });
       return essPending;
     }
+    /* Trois espèces d'essais depuis la mission `recherche-chapitres` : les
+       notions du glossaire, les chapitres expliqués, les commentaires. ON LES
+       ENTRELACE, pour la raison déjà payée sur le texte des œuvres : mises
+       bout à bout, les trente-neuf notions prenaient les trois places et les
+       chapitres n'apparaissaient jamais. */
     function chercheEssais(q, nq, re){
       return chargeEssais().then(function(docs){
-        var out = [], vus = {};
+        var par = { glossaire: [], chapitre: [], commentaire: [] }, vus = {};
         docs.forEach(function(d){
-          if(vus[d.id]) return;              /* une seule section par notion */
+          if(vus[d.id]) return;              /* une seule section par page */
           var t = tranche(d.doc, re);
           if(!t) return;
           vus[d.id] = 1;
-          out.push({
+          (par[d.k] || par.glossaire).push({
             t: d.nt + ' — ' + d.h,
             s: extrait(d.doc.brut, t.i, t.exact.length),
             cat: 'essai',
-            url: '/glossaire/' + d.id + '#' + d.a
+            url: d.u + (d.a ? '#' + d.a : '')
           });
         });
+        var src = [par.glossaire, par.chapitre, par.commentaire], out = [], i = 0;
+        while(src.some(function(l){ return i < l.length; })){
+          src.forEach(function(l){ if(i < l.length) out.push(l[i]); });
+          i++;
+        }
         return out;
       }).catch(function(){ return []; });
     }

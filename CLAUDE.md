@@ -1819,6 +1819,41 @@ console propre, zéro débordement. Détecteur compté **avant et après en
 remisant les modifications** : aucun constat de plus. `shell.js` et
 `shell.css` en **`?v=7`**.
 
+### ✅ Et dans les chapitres expliqués (mission `recherche-chapitres`, sept. 2026)
+
+Trente-trois pages de chapitre, le commentaire guidé et la page-carrefour
+de l'agrégation — environ quarante mille mots — étaient invisibles pour la
+recherche du site : « chapitre X » n'ouvrait que le texte dans l'atelier.
+
+- **`recherche-essais.json` passe en `v: 2`** et porte 74 pages (39 notions,
+  33 chapitres, 1 commentaire, le carrefour). Chaque page non-glossaire
+  porte `k` (`chapitre` | `commentaire`) et `u`, son adresse ; sans eux,
+  shell.js retombe sur `/glossaire/<id>`. L'écriture du fichier a été
+  DÉPLACÉE en fin du bloc des pages générées : elle précédait l'assemblage
+  des chapitres et des commentaires, qui n'y seraient jamais entrés.
+  `texteSections()` extrait le corps de section tel qu'on le lit (titre
+  retiré, renvoi « Revoir ce moment dans l'extrait » aussi).
+- **Le groupe s'appelle « Dans les explications du site »** et ENTRELACE
+  les trois espèces (glossaire, chapitre, commentaire) : bout à bout, les
+  trente-neuf notions prenaient les trois places — la leçon déjà payée sur
+  le texte des œuvres. Une seule section par page, toujours.
+- **« chapitre X » rend deux lignes** dans le groupe Chapitres : le texte
+  (`#ch=X`), puis « Chapitre X expliqué » (`CHAP_HREF`), dans l'index
+  principal.
+- **Les deux JSON portent `?v=2` dans l'URL que shell.js demande** : le
+  service worker les sert du cache d'abord (règle 2 de `sw.js`), et un index
+  périmé d'un tour valait mieux qu'une version qui ne se renouvelle qu'au
+  second passage. À bumper dès que leur FORME change. `shell.js?v=12`.
+- Poids : 755 Ko avant compression, 236 Ko après, chargé à la demande (trois
+  caractères et 380 ms de silence).
+
+Vérifié dans la pane contre un serveur qui imite Cloudflare : « chapitre
+XXIII » → texte + explication ; « incompréhensible » → Chapitre I expliqué
+puis le texte ; « capitalisée » → entrelacement notion / chapitre / notion ;
+clic → `/oeuvres/capital-1/chapitre-1#place`, section trouvée ; clic sur le
+commentaire guidé → sa section. Console sans erreur. `gen-seo --check` à
+jour et idempotent.
+
 ### Ce qui reste
 
 - **Le Capital dépend de Wikisource pour la recherche comme pour le
@@ -8223,10 +8258,8 @@ idempotent.
 - **La marge entière est repliée sous 1240 px** (voir ci-dessus) : une passe
   mobile de la marge est à faire, et elle vaut pour ses six blocs, pas pour ce
   seul renvoi.
-- Les essais de chapitre n'entrent pas encore dans `recherche-essais.json` ;
-  la recherche « chapitre X » continue d'ouvrir le chapitre dans l'atelier.
-  **C'est désormais le manque le plus net** : trente-trois essais, quarante
-  mille mots, invisibles pour la recherche du site.
+- ✅ Les essais de chapitre sont dans la recherche depuis la mission
+  `recherche-chapitres` (voir « Et dans les chapitres expliqués » plus haut).
 - **Les parties de chaque chapitre sont relevées à la main** (l'outil de
   séance qui les mesurait n'est pas versionné). Si un lot de pages devait être
   refait, il faudrait le réécrire — ou verser au dépôt l'équivalent de
