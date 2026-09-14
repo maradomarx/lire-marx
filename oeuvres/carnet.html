@@ -64,6 +64,10 @@
    (update / remove / addFree) — la page ne parse jamais le store.
    ═══════════════════════════════════════════════════════════════════ */
 .cnb{max-width:960px;padding:26px 18px 70px;margin:0 auto;}
+/* (mission `poids-mobile`) Le carnet est rempli par script : tant qu'il est vide,
+   le pied de page était peint à mi-écran puis repoussé — CLS 0,21 mesuré en 3G
+   lente, tout entier dû à ce saut. La place est réservée d'emblée. */
+@media screen{ .cnb{min-height:calc(100vh - 44px);box-sizing:border-box;} }
 
 /* ── la table à outils (sombre : c'est le bureau, pas le carnet) ── */
 .cnb-tools{position:sticky;top:52px;z-index:60;display:flex;flex-wrap:wrap;
