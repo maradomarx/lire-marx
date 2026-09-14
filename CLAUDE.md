@@ -9073,6 +9073,53 @@ Commune » et « Lancer la période » ; `stageMode()` masque le classement et l
 badge (mise en scène, donc rejouée à la reprise). Vérifié au harnais, libellés
 tenus après une période.
 
+## Le jeu passe aux menus (v70, mission `menus`, sept. 2026)
+
+Demande du propriétaire, après le bandeau v68 : « repenser l'accessibilité du
+jeu par une refonte des panneaux — ils sont trop nombreux et prennent bien
+trop de place, c'est injouable sur mobile ; des menus sont plus intéressants ».
+Mesuré avant : en formation sociale, **six panneaux** restaient à l'écran au
+bureau (32 % de la surface) et 43 % sur téléphone ; les fenêtres de bilan
+couvraient tout, le bouton Paramètres par-dessus.
+
+**Arbitrages : « barre d'état + menus », sur tout le jeu** (bureau compris).
+À l'écran ne restent que :
+- **la barre d'état** — capital, période, actions restantes, étape du circuit
+  (qui ouvre le circuit), alerte de crise, et « Lancer le cycle » en modes
+  sociaux ;
+- **une rangée de menus** — Formation (ou Commune), Objectif (mode guidé),
+  Tableau de bord, Journal, Réglages — chacun n'apparaît que là où il a un
+  sens ;
+- **une feuille à la fois** : colonne à droite au bureau, feuille montant du
+  bas sur téléphone (les commandes de conduite s'effacent), colonne à droite
+  en paysage.
+
+Mesuré après, feuille fermée : **8 % de l'écran au bureau, 12 % sur
+téléphone** en formation sociale.
+
+Ce qui fait tenir l'ensemble, côté dépôt du jeu (`menusBuild`, `menusTick`,
+`menusStage` dans `app.js`) :
+- les panneaux existants (`#formation`, `#hud`, `#quest`, `#levers`,
+  `#circuit`, `#log`, `#help-panel`) sont **déplacés** dans la feuille, jamais
+  clonés — le jeu les met à jour par id ;
+- la barre est lue dans **l'état du jeu**, pas dans ses panneaux, trois fois
+  par seconde, et n'écrit que ce qui change ;
+- `menusStage()` est appelée par `stageMode()` : entrée, reprise et Commune ;
+- **la flèche du tutoriel vise le bouton du menu** quand sa cible est rangée
+  dans une feuille fermée (`menusFocusTarget`), et « Lancer le cycle » de la
+  barre pour la boîte du cycle ;
+- le tutoriel devient une **bulle courte** (trois lignes, « Lire la suite ») ;
+- les **fenêtres du jeu** (bilan, lieu, concept, guide, journal…) deviennent
+  des feuilles sur téléphone ;
+- l'entrée en formation sociale ouvre la feuille Formation au bureau (geste
+  d'entrée, pas de mise en scène) ;
+- le bandeau v68 est **retiré** : il n'était qu'un premier pas vers ceci.
+
+Vérifié au harnais (reprises injectées) en fondation, formation sociale et
+Commune, au bureau 1280 × 800, sur téléphone 390 × 844 et en paysage : menus
+propres à chaque mode, les cinq feuilles, Échap, lancement du cycle depuis la
+barre (cycle 2 → 3), 0 erreur ; `npm run verify` OK.
+
 ## Conventions de travail
 
 - **Une mission par session.** Une demande utilisateur = un objectif clair,
