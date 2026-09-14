@@ -1442,3 +1442,13 @@ html:has(body.at-plein){scroll-padding-top:90px;}
      écran compris, où atelier.css les rallume plus haut. */
   html body.at-reading .notes-fab{display:none!important;}
 }
+
+@media (max-width:600px){
+  /* Manuscrits et Manifeste : leur .reader-content ajoutait 18 px de chaque
+     côté au rembourrage de la liseuse — texte à 295 px au lieu de 339. */
+  .atl3-mid .reader-content{padding-left:0;padding-right:0;}
+}
+@media (pointer:coarse){
+  .rdr-mark-btn{min-height:44px;}
+  .atl3-marge:not(.is-open) .atl3-m-quick{min-height:44px;margin-top:2px;}
+}

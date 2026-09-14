@@ -31,7 +31,7 @@
 <!-- shell.css : la coquille (topbar, sidebar, modales) ET le pied de page.
      Elle porte un `?v=` parce qu'elle est mise en cache 4 h alors que le
      HTML ne l'est pas — voir le bloc du pied de page dans la feuille. -->
-<link rel="stylesheet" href="/oeuvres/shell.css?v=10">
+<link rel="stylesheet" href="/oeuvres/shell.css?v=11">
 <style>
 /* ═══════════════════════════════════════════════════════════════════
    /a-propos — LA PAGE FAIT CE QU'ELLE DÉCRIT
@@ -182,6 +182,9 @@ h2{font-family:'Fraunces',serif;font-weight:900;letter-spacing:-.015em;
 .js-ap .ap-marge>*{opacity:var(--n,1);
   transform:translateY(calc((1 - var(--n,1)) * 7px));
   filter:blur(calc((1 - var(--n,1)) * 1.4px));}
+
+/* Au doigt (mission `cibles-tactiles`) : fil d'Ariane à 25 px. */
+@media (pointer:coarse){ .ap-fil a{display:inline-block;padding:12px 0;margin:-12px 0;} }
 </style>
 <!-- A-PROPOS:LD:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main -->
 <script type="application/ld+json">

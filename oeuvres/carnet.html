@@ -49,8 +49,8 @@
 })();
 </script>
 <link rel="stylesheet" href="fonts/fonts.css">
-<link rel="stylesheet" href="atelier.css?v=7">
-<link rel="stylesheet" href="shell.css?v=10">
+<link rel="stylesheet" href="atelier.css?v=8">
+<link rel="stylesheet" href="shell.css?v=11">
 <style>
 /* ═══════════════════════════════════════════════════════════════════
    Mon carnet — un VRAI carnet posé sur le bureau de la pièce sombre.
@@ -328,6 +328,9 @@ a.cnb-act{font-weight:600;}
 /* au doigt, on ne « clique » pas */
 .cn-hint-tap{display:none;}
 @media(pointer:coarse){.cn-hint-pc{display:none;}.cn-hint-tap{display:inline;}}
+
+/* Au doigt (mission `cibles-tactiles`) : boutons du carnet à 32 px. */
+@media (pointer:coarse){ .cnb-btn{min-height:40px;} }
 </style>
 </head>
 <body>

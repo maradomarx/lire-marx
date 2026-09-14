@@ -637,3 +637,19 @@ body.at-reading .notes-fab{display:inline-flex;}
   input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=button]):not([type=submit]):not([type=color]),
   textarea,select{font-size:16px!important;}
 }
+
+/* CIBLES AU DOIGT (mission `cibles-tactiles`, sept. 2026). Mesuré à 375 px :
+   les liens du pied de page (30 px) et les entrées de la sidebar (32 px)
+   étaient les deux composants les plus fréquents sous 40 px — sur les
+   vingt-deux pages. Au doigt seulement ; au bureau rien ne change. */
+@media (pointer:coarse){
+  .sb-item{min-height:44px;margin:0;}
+  .lm-foot-col a{padding:10px 0;}
+  .brandmark{min-height:44px;}
+  /* Les boutons ronds de la topbar restent dessinés à 32 px (la barre fait
+     44) ; leur zone de toucher, elle, prend toute la hauteur. Deux pixels de
+     débord latéral seulement : ils sont séparés de 4 à 6 px. */
+  .topbar .tb-btn,.topbar .acct-chip,.topbar .sb-toggle{position:relative;}
+  .topbar .tb-btn::after,.topbar .acct-chip::after,.topbar .sb-toggle::after{
+    content:'';position:absolute;inset:-6px -2px;}
+}

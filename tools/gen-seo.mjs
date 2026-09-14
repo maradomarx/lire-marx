@@ -1158,8 +1158,8 @@ ${credit}  </aside>`;
 <link rel="stylesheet" href="/oeuvres/fonts/fonts.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css"></noscript>
 <link rel="stylesheet" href="/glossaire/notion.css?v=${hashV('glossaire/notion.css')}">
-<link rel="preload" href="/oeuvres/shell.css?v=10" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=10"></noscript>
+<link rel="preload" href="/oeuvres/shell.css?v=11" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=11"></noscript>
 ${ld}
 </head>
 <body>
@@ -1329,8 +1329,8 @@ ${aScene ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-d
 <link rel="stylesheet" href="/oeuvres/fonts/fonts.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css"></noscript>
 <link rel="stylesheet" href="/glossaire/notion.css">
-<link rel="preload" href="/oeuvres/shell.css?v=10" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=10"></noscript>
+<link rel="preload" href="/oeuvres/shell.css?v=11" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=11"></noscript>
 ${ld}
 </head>
 <body>
@@ -1574,8 +1574,8 @@ ${PIED}
 <link rel="stylesheet" href="/oeuvres/fonts/fonts.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css"></noscript>
 <link rel="stylesheet" href="/glossaire/notion.css?v=${hashV('glossaire/notion.css')}">
-<link rel="preload" href="/oeuvres/shell.css?v=10" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=10"></noscript>
+<link rel="preload" href="/oeuvres/shell.css?v=11" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=11"></noscript>
 ${ld}
 </head>
 <body>
@@ -1682,8 +1682,8 @@ ${PIED}
 <noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css"></noscript>
 <link rel="stylesheet" href="/glossaire/notion.css?v=${hashV('glossaire/notion.css')}">
 <link rel="stylesheet" href="/commentaires/agregation.css?v=${hashV('commentaires/agregation.css')}">
-<link rel="preload" href="/oeuvres/shell.css?v=10" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=10"></noscript>
+<link rel="preload" href="/oeuvres/shell.css?v=11" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=11"></noscript>
 ${o.ld}
 </head>`;
   const piedCm = (workTitle) => `${PIED}

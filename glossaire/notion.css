@@ -341,3 +341,13 @@ html.js-monde .nt--plein .nt-monde-credit{display:block;}
   .ch-suite{grid-template-columns:1fr;}
   .ch-suite .suiv{grid-column:1;text-align:left;}
 }
+
+/* CIBLES AU DOIGT (mission `cibles-tactiles`) : fil d'Ariane (31 px), « Lire
+   dans le texte » (30 px), puces de notions (34 px). Le rembourrage monte, la
+   marge négative rend la place : la mise en page ne bouge pas. */
+@media (pointer:coarse){
+  .nt-fil a{padding:12px 0;margin:-7px 0;}
+  .nt-corps blockquote cite a{padding:11px 0;margin:-7px 0;}
+  .nt-puces a{min-height:44px;}
+  .nt-som a{padding:10px 0;}
+}

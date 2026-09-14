@@ -377,9 +377,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--f-ui);
   .gl-guide{display:none;}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
+
+/* Au doigt (mission `cibles-tactiles`) : les douze liens de notion tenaient
+   24 px ; le rembourrage monte, la marge négative rend la place. */
+@media (pointer:coarse){ .gl-t a{padding:11px 0;margin:-11px 0;} }
 </style>
-<link rel="preload" href="/oeuvres/shell.css?v=10" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=10"></noscript>
+<link rel="preload" href="/oeuvres/shell.css?v=11" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=11"></noscript>
 <!-- GLOSSAIRE:LD:DÉBUT — DÉRIVÉ, ne pas éditer à la main -->
 <script type="application/ld+json">
 {

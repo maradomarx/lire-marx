@@ -26,8 +26,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://liremarx.com/oeuvres/place-publique">
 <link rel="stylesheet" href="fonts/fonts.css">
-<link rel="stylesheet" href="atelier.css?v=7">
-<link rel="stylesheet" href="shell.css?v=10">
+<link rel="stylesheet" href="atelier.css?v=8">
+<link rel="stylesheet" href="shell.css?v=11">
 <style>
 /* ═══════════════════════════════════════════════════════════════════
    Place publique — LE FORUM (refonte août 2026, 3e passe)
@@ -252,6 +252,16 @@
   .pf-post{grid-template-columns:38px minmax(0,1fr);}
   .pf-post-body{padding:10px 12px 10px;}
   .pf-kids{margin-left:6px;padding-left:10px;}
+}
+
+/* Au doigt (mission `cibles-tactiles`) : tris 26 px, soutien 28×26,
+   « Répondre / Aller au passage » 19 px, boutons 32 px. */
+@media (pointer:coarse){
+  .pf-btn{min-height:40px;}
+  .pf-sort{padding:11px 14px;}
+  .pf-chip{padding:11px 14px;}
+  .pf-vote-btn{width:40px;height:40px;}
+  .pf-act{padding:11px 0;margin:-8px 0;}
 }
 </style>
 </head>

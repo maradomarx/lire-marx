@@ -8826,9 +8826,47 @@ version). Versions : `shell.css?v=10` (90 fichiers, gabarits compris),
 301 sur les pages-fichier (`do_HEAD` n'est pas surchargé) — tester en GET.
 Et Capital demande ~9 s de chargement (Wikisource) avant que la barre existe.
 
-**Reste** : les ~30 à 117 cibles par page entre 24 et 40 px (liens de pied
-de page, pilules) — AA tenu, pas le confort tactile ; la liseuse du
-Manifeste garde un retrait intérieur propre (texte à 295 px).
+**Reste** : ✅ soldé par `cibles-tactiles` ci-dessous.
+
+## Les cibles au doigt (mission `cibles-tactiles`, sept. 2026)
+
+Suite directe. Relevé à 375 px, par composant et sur quatorze pages, de
+tout ce qui touche sous 40 px (liens en ligne dans une phrase exclus, WCAG
+2.5.8 les exempte) : **185 liens de pied de page à 30 px, 140 entrées de
+sidebar à 32 px**, puis les liens de notion de l'abécédaire (24), le fil
+d'Ariane et « Lire dans le texte » (30-31), les tris et le soutien de la
+Place publique (26-28), « Répondre / Aller au passage » (19), « Ouvrir
+l'atelier » de la bibliothèque (13 !), « Toutes les discussions » (16).
+
+**Tout est sous `@media (pointer:coarse)`** : au bureau, pas un pixel ne
+bouge. Deux techniques, selon ce que l'élément est :
+- une LISTE de liens (pied de page, sidebar, sommaire des notions) prend
+  une vraie hauteur — ça allonge la liste, c'est le prix normal ;
+- un lien ISOLÉ dans un texte ou une rangée prend **rembourrage vertical +
+  marge négative égale** : la zone de toucher grandit, la mise en page ne
+  bouge pas.
+- Les boutons ronds de la topbar restent dessinés à 32 px ; un `::after`
+  en `inset:-6px -2px` porte la zone de toucher à 44 px de haut (4 à 6 px
+  les séparent, d'où les 2 px de débord latéral seulement). Les sondes qui
+  mesurent le rectangle les comptent encore à 32 : c'est attendu.
+
+Au passage, la marge intérieure du Manifeste et des Manuscrits
+(`.reader-content`, 18 px de chaque côté en plus de la liseuse) tombe sous
+600 px : texte à la même largeur que Capital.
+
+**Laissé volontairement** : les deux tranches d'alphabet (accueil 25 px de
+large, abécédaire 24 px de haut — seize lettres doivent tenir dans l'écran),
+les onglets de destination à 32 px dans leur barre de 44 (hauteur constante,
+règle posée), le bouton « Connectez-vous » du carnet (dans une phrase).
+
+Vérifié : zéro débordement sur huit pages, aucune erreur, pied de page,
+sidebar (44 px, sans défilement), Place publique et sommaire relus à
+l'image ; détecteur 243 → 243 constats, 0 erreur. `shell.css?v=11`,
+`atelier.css?v=8`, `notion.css` et `agregation.css` par hash.
+
+**Piège d'outillage** : `node detect.mjs --json | node -e …` tronque la
+sortie à 64 Ko (le producteur sort avant la fin du tube) — écrire le JSON
+dans un fichier, puis le lire.
 
 ## Conventions de travail
 

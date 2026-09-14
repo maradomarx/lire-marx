@@ -227,3 +227,8 @@
   .cm-table td::before{content:attr(data-l);display:block;margin-bottom:2px;font-family:var(--f-ui);font-size:.72rem;font-style:normal;
     font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);}
 }
+
+/* Au doigt (mission `cibles-tactiles`) : ces deux liens tenaient 27 px. */
+@media (pointer:coarse){
+  .nt-corps .ag-frise p.ag-acces a,.nt-corps .nt-sec p.cm-rappel a{padding:11px 0;margin:-8px 0;}
+}
