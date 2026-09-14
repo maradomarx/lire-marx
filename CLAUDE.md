@@ -9025,6 +9025,27 @@ version exacte. La statue de `/glossaire/travail-aliene` pèse 1 Mo sur
 téléphone ; la version allégée avait des trous (voir la mission
 `glossaire-mondes-4`), on ne la remet pas.
 
+## Supabase : une version figée, un seul fichier (mission `supabase-fige`, sept. 2026)
+
+`shell.js` importait `@supabase/supabase-js@2/+esm` : la version suivait la
+dernière 2.x publiée — une mise à jour de la bibliothèque pouvait changer
+l'authentification du site sans le moindre commit — et jsdelivr la découpait en
+**huit modules** (auth, postgrest, realtime, storage, functions, tslib,
+iceberg…), trois vagues de requêtes en 3G, 82 Ko, sur toutes les pages.
+
+Le client se charge maintenant par **le build UMD de la version 2.116.0**
+(celle que `@2` résolvait, donc aucun changement de comportement), en une
+balise `<script>` avec **`integrity` (SRI) et `crossorigin`** : un seul
+fichier, 55 Ko compressés, mis en cache un an par le CDN, et l'on exécute
+exactement ce qui a été vérifié. `getClient()` garde son contrat (null si la
+config manque ou si le chargement échoue). **Pour monter de version** : changer
+`SUPA_V`, recalculer `SUPA_SRI` (`curl … | openssl dgst -sha384 -binary |
+openssl base64 -A`), et vérifier Place publique + connexion.
+
+Vérifié en local : Place publique (2 fils lus), aperçu de l'accueil,
+messagerie ; une seule requête jsdelivr, client configuré, console sans
+erreur. `shell.js?v=14`.
+
 ## Conventions de travail
 
 - **Une mission par session.** Une demande utilisateur = un objectif clair,

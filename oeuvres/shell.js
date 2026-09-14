@@ -1245,6 +1245,20 @@
     return !u || !a || u.indexOf('VOTRE') >= 0 || a.indexOf('VOTRE') >= 0;
   }
 
+  var SUPA_V = '2.116.0';
+  var SUPA_SRI = 'sha384-iLddHTLokph6Omwoyid4XKxHaWa6w41BnoEj0q5oOrzmYPpHIKt1wyjReA7s//pP';
+  function loadSupabaseUmd(){
+    if(window.supabase && window.supabase.createClient) return Promise.resolve(window.supabase);
+    return new Promise(function(res, rej){
+      var sc = document.createElement('script');
+      sc.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@' + SUPA_V + '/dist/umd/supabase.js';
+      sc.integrity = SUPA_SRI; sc.crossOrigin = 'anonymous'; sc.async = true;
+      sc.onload = function(){ (window.supabase && window.supabase.createClient) ? res(window.supabase) : rej(new Error('supabase absent')); };
+      sc.onerror = function(){ rej(new Error('supabase non chargé')); };
+      document.head.appendChild(sc);
+    });
+  }
+
   // Charge le client Supabase une seule fois, en lazy import. Retourne null
   // si la config est manquante ou si l'import échoue (mode local pur).
   async function getClient(){
@@ -1254,8 +1268,18 @@
     if(isPlaceholder(cfg)){ configured = false; return null; }
     pending = (async function(){
       try {
-        var m = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
-        client = m.createClient(cfg.url, cfg.anon);
+        /* UN SEUL FICHIER, UNE VERSION FIGÉE (mission `supabase-fige`, sept. 2026).
+           `@2/+esm` suivait la dernière 2.x publiée — une mise à jour de la
+           bibliothèque pouvait changer l'authentification du site sans un
+           commit — et jsdelivr la découpait en HUIT modules (auth, postgrest,
+           realtime, storage, functions, tslib, iceberg…), soit trois vagues
+           de requêtes en 3G. Le build UMD de la même version tient en un
+           fichier (55 Ko compressés contre 82) ; `integrity` garantit qu'on
+           exécute exactement ce qui a été vérifié. Pour monter de version :
+           changer SUPA_V et recalculer le hash (openssl dgst -sha384 -binary
+           | openssl base64 -A). */
+        var lib = await loadSupabaseUmd();
+        client = lib.createClient(cfg.url, cfg.anon);
         configured = true;
         return client;
       } catch(e) {
