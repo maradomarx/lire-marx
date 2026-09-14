@@ -114,7 +114,34 @@ window.LM_MONDE = function (canvas) {
     geo.setAttribute('position', new THREE.BufferAttribute(pos, 3)); geo.setIndex(new THREE.BufferAttribute(idx, 1));
     geo.computeBoundingBox(); return geo;
   }); }
-  var ready = loadBin('statue.bin').then(function (geo) {
+  /* LMS2 (tools/compacte-scan.mjs) : la même géométrie, réordonnée et codée en
+     écarts, puis gzip — 609 Ko au lieu de 1 068. Décodée ici par
+     DecompressionStream ; sans lui (navigateurs antérieurs à 2023), on retombe
+     sur le LMS1 d'origine. Si un intermédiaire a déjà décompressé le fichier,
+     il commence par 'LMS2' et se lit tel quel. */
+  function loadLms2(name) { return fetch(dir + name).then(function (r) {
+    if (!r.ok) throw new Error('lms2 ' + r.status);
+    return r.arrayBuffer();
+  }).then(function (ab) {
+    var u = new Uint8Array(ab);
+    if (u[0] === 0x1f && u[1] === 0x8b) return new Response(new Blob([ab]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
+    return ab;
+  }).then(function (ab) {
+    var dv = new DataView(ab);
+    if (dv.getUint32(0, true) !== 0x32534d4c) throw new Error('pas LMS2');   // 'LMS2'
+    var nv = dv.getUint32(4, true), ni = dv.getUint32(8, true);
+    var mn = [dv.getFloat32(16, true), dv.getFloat32(20, true), dv.getFloat32(24, true)], ex = [dv.getFloat32(28, true), dv.getFloat32(32, true), dv.getFloat32(36, true)];
+    var o = 40, idx = new Uint16Array(ni), hw = 0;
+    for (var j = 0; j < ni; j++) { var v = hw - dv.getUint16(o, true); o += 2; idx[j] = v; if (v === hw) hw++; }
+    var pos = new Float32Array(nv * 3);
+    for (var k = 0; k < 3; k++) { var pv = 0; for (var i = 0; i < nv; i++) { pv = (pv + dv.getUint16(o, true)) & 0xffff; o += 2; pos[i * 3 + k] = mn[k] + pv / 65535 * ex[k]; } }
+    var geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3)); geo.setIndex(new THREE.BufferAttribute(idx, 1));
+    geo.computeBoundingBox(); return geo;
+  }); }
+  var ready = (typeof DecompressionStream === 'function'
+    ? loadLms2('statue-lms2.bin').catch(function () { return loadBin('statue.bin'); })
+    : loadBin('statue.bin')).then(function (geo) {
     var idx = geo.index.array;
     var bb = geo.boundingBox, size = new THREE.Vector3(); bb.getSize(size);
     var k = H / size.y;

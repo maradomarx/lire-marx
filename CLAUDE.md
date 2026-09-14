@@ -9046,6 +9046,33 @@ Vérifié en local : Place publique (2 fils lus), aperçu de l'accueil,
 messagerie ; une seule requête jsdelivr, client configuré, console sans
 erreur. `shell.js?v=14`.
 
+## La statue compactée, et la Commune qui parle en Commune (sept. 2026)
+
+**La statue du travail aliéné : 1 043 → 595 Ko, sans perte.** Le binaire LMS1
+était incompressible (gzip 1 065 Ko pour 1 068) : indices déjà sur 16 bits
+(57 546 sommets), mais triangles et sommets dans un ordre sans cohérence. Un
+encodage naïf (écarts + varint) ne gagne RIEN — mesuré. Ce qui marche, dans
+**`tools/compacte-scan.mjs`** : triangles triés par ordre de Morton, sommets
+renumérotés à la première utilisation, indices codés en écart au plus haut
+sommet vu, positions en écarts axe par axe, puis gzip → `statue-lms2.bin`.
+`monde.js` le décode par `DecompressionStream` et **retombe sur `statue.bin`**
+sans lui (navigateurs antérieurs à 2023) ou en cas d'échec — les deux fichiers
+restent donc dans le dépôt, le lecteur n'en télécharge qu'un. Nommé `.bin` et
+non `.gz` : Cloudflare sert le `.bin` en `application/octet-stream` sans
+`Content-Encoding`, alors qu'un `.gz` risquerait d'être décompressé en route
+(le décodeur accepte les deux cas). **Vérifié sans perte** : les 120 415
+triangles se retrouvent un à un, même orientation, même quantification ; rendu
+identique à l'œil au bureau, nouveau fichier chargé au bureau et sur téléphone,
+repli éprouvé en retirant `DecompressionStream`. Tout futur scan passe par
+import-scan puis compacte-scan.
+
+**Jeu v69** (dépôt du jeu `0aedc79`, importé) : dans la Commune, le panneau
+disait encore « Formation sociale », « Lancer le cycle productif »,
+« Classement industriel » et « Développement du capital ». Il dit « La
+Commune » et « Lancer la période » ; `stageMode()` masque le classement et le
+badge (mise en scène, donc rejouée à la reprise). Vérifié au harnais, libellés
+tenus après une période.
+
 ## Conventions de travail
 
 - **Une mission par session.** Une demande utilisateur = un objectif clair,
