@@ -180,6 +180,24 @@ body{background:var(--bg);color:var(--text);font-family:var(--f-ui);
   .nt-monde-src{top:8px;left:8px;max-width:calc(100% - 16px);}
   .nt-monde-src a{max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:5px 10px;}
 }
+/* SUR TÉLÉPHONE, UNE BANDE RÉDUITE (mission `mobile-lecture`). À 44 vh la
+   scène et sa légende de quatre lignes prenaient 357 px sur 812 : il restait
+   quatre cents pixels pour lire un essai de deux mille mots. La bande tombe à
+   28 % de l'écran et la légende se replie sur une ligne qu'on touche pour la
+   lire (`cap-fold`, posée par monde-driver.js — sans script la légende reste
+   entière, rien n'est caché sans moyen de le lire). */
+@media(max-width:760px){
+  .nt-monde{height:clamp(170px,28vh,240px);margin:0 0 18px;border-radius:14px;}
+  .nt-monde.cap-fold .nt-monde-cap{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    padding:20px 40px 9px 12px;cursor:pointer;z-index:3;}
+  .nt-monde.cap-fold::after{content:'';position:absolute;right:14px;bottom:13px;z-index:4;
+    width:8px;height:8px;border-right:1.6px solid var(--gold);border-bottom:1.6px solid var(--gold);
+    transform:rotate(-135deg);pointer-events:none;transition:transform .2s;}
+  .nt-monde.cap-fold.cap-open::after{transform:rotate(45deg);bottom:16px;}
+  .nt-monde.cap-fold .nt-monde-cap.is-open{white-space:normal;overflow:auto;max-height:calc(100% - 46px);
+    padding:12px 40px 12px 12px;background:rgba(13,10,7,.94);}
+  .nt-monde.cap-fold .nt-monde-cap:focus-visible{outline:2px solid var(--gold);outline-offset:-2px;}
+}
 @media(min-width:1100px){
   .nt-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,44%);
     gap:clamp(28px,4vw,64px);align-items:start;}

@@ -626,3 +626,14 @@ body.at-reading .notes-fab{display:inline-flex;}
 .tb-cat-texte{background:rgba(127,168,85,.18);color:#a9cd85;}
 .tb-cat-essai{background:rgba(216,173,76,.18);color:#e5c176;}
 .tb-res-s{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+
+/* PAS DE ZOOM AU FOCUS (mission `mobile-lecture`). Safari iOS agrandit la
+   page dès qu'on touche un champ dont le texte fait moins de 16 px, et ne la
+   rend pas : la recherche (13 px), la connexion, les filtres du carnet et de
+   l'abécédaire, la messagerie. Bloquer le zoom au viewport casserait
+   l'agrandissement volontaire (WCAG 1.4.4) ; on relève le texte, et
+   seulement au doigt. `!important` parce que chaque champ a sa règle. */
+@media (pointer:coarse){
+  input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=button]):not([type=submit]):not([type=color]),
+  textarea,select{font-size:16px!important;}
+}

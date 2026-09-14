@@ -8783,6 +8783,53 @@ coordonnées de DOCUMENT, pas d'écran — une barre fixe défilée à 900 px n'
 pas dans un clip en `y:0`, et l'on croit la barre disparue. Capturer sans
 `clip`, ou avec `y:scrollY`.
 
+## La lecture au doigt (mission `mobile-lecture`, sept. 2026)
+
+Suite de `coquille-mobile`. Audit mesuré à 375 px sur seize pages (vrai
+Chrome, émulation tactile) : aucun débordement ni erreur, mais quatre
+défauts de lecture.
+
+- **Zoom iOS au focus** : TOUS les champs faisaient moins de 16 px
+  (recherche 13, connexion 15,7, filtres du carnet, de l'abécédaire et de
+  l'atelier, messagerie) — Safari agrandit la page et ne la rend pas. Fin
+  de `shell.css` : `@media (pointer:coarse)` → 16 px `!important`. **On ne
+  bloque pas le zoom au viewport** (WCAG 1.4.4). Au bureau rien ne change.
+- **« Suivant » et « Écouter » portaient le même ▶.** Les glyphes sont
+  devenus des pictogrammes dessinés (`ICONS`/`IC()` dans `reader-tools.js`) :
+  chevrons, haut-parleur, pause, liste pour « Sommaire » (pictogramme seul
+  sous 600 px, `.rd-mob`). Aussi au bureau.
+- **Les pastilles « Mes notes » / « Notes partagées » couvraient le bas du
+  texte.** Arbitrage du propriétaire : **dans la barre**. Sous 600 px elles
+  sont masquées (y compris en plein écran) et un bouton **« Notes »**
+  (`data-rd="notes"`, n'existe que si `SHELL.annotations`) ouvre un popover
+  à deux entrées, comptes lus dans `SHELL.annotations` (`notesFor`,
+  `publicCount`), qui **cliquent la vraie pastille** puis posent le focus
+  dans le panneau ouvert. Au-dessus de 600 px, rien ne change.
+- **Barre de lecture** : cibles de 27 → **38 px** (le 44 d'Apple la ferait
+  déborder de trois boutons à 375 px ; elle défile à 320, c'est le repli
+  voulu), et le cadre de la liseuse tombe sur les côtés
+  (`margin:0 -22px`, sans risque ici : la sidebar est un tiroir) — colonne
+  de texte de **293 → 339 px**. Barre collante 58 → 69 px.
+- **Pages de notion : la bande tombe à 28 % de l'écran** (arbitrage :
+  « bande réduite »). `clamp(170px,28vh,240px)` sous 760 px (227 px à 812
+  au lieu de 357), légende repliée sur UNE ligne qu'on touche pour la lire
+  (`cap-fold`/`is-open`, `role=button`, Entrée/Espace/Échap), posée par
+  `monde-driver.js` **avant** les gardes de mouvement — donc aussi sous
+  reduced-motion — et sans script la légende reste entière.
+
+CSS de la liseuse dans `atelier.css` (et non `reader-tools.css`, servi SANS
+version). Versions : `shell.css?v=10` (90 fichiers, gabarits compris),
+`atelier.css?v=7`, `reader-tools.js?v=4` ; `notion.css` et
+`monde-driver.js` suivent par hash (`gen-seo`).
+
+**Piège d'outillage** : une requête HEAD sur le serveur de test Python rend
+301 sur les pages-fichier (`do_HEAD` n'est pas surchargé) — tester en GET.
+Et Capital demande ~9 s de chargement (Wikisource) avant que la barre existe.
+
+**Reste** : les ~30 à 117 cibles par page entre 24 et 40 px (liens de pied
+de page, pilules) — AA tenu, pas le confort tactile ; la liseuse du
+Manifeste garde un retrait intérieur propre (texte à 295 px).
+
 ## Conventions de travail
 
 - **Une mission par session.** Une demande utilisateur = un objectif clair,

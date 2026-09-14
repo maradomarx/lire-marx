@@ -122,13 +122,27 @@
     if(!A.queue.length)return;
     A.playing=true; speakNext(); setAudioBtn();
   }
+  /* PICTOGRAMMES DESSINÉS (mission `mobile-lecture`). Sous 600 px la barre ne
+     montre que des pictogrammes, et « Suivant » et « Écouter » portaient le
+     MÊME glyphe ▶ : deux boutons voisins indiscernables. Suivant/Précédent
+     sont des chevrons, Écouter un haut-parleur. Toujours aria-hidden : le
+     nom accessible est le libellé du bouton. */
+  var ICONS={
+    prev:'<path d="M10 3 5 8l5 5"/>',
+    next:'<path d="m6 3 5 5-5 5"/>',
+    ecoute:'<path d="M2.5 6h2.5l3.5-3v10L5 10H2.5z"/><path d="M11 5.5a3.5 3.5 0 0 1 0 5M12.8 3.5a6.3 6.3 0 0 1 0 9"/>',
+    pause:'<path d="M5.5 3.5v9M10.5 3.5v9"/>',
+    toc:'<path d="M5.5 4h8M5.5 8h8M5.5 12h8"/><path d="M2.5 4h.01M2.5 8h.01M2.5 12h.01" stroke-width="2.2"/>',
+    notes:'<path d="M3.5 2.5h6l3 3v8h-9z"/><path d="M6 8h4.5M6 10.5h3"/>'
+  };
+  function IC(n,cls){ return '<span class="rd-ic'+(cls?' '+cls:'')+'" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'+ICONS[n]+'</svg></span>'; }
   function pauseAudio(){ A.playing=false; A.stopping=true; try{if(synth)synth.cancel();}catch(e){} clearSent(); setAudioBtn(); }
   function stopAudio(){ A.playing=false; A.stopping=true; A.queue=null; A.qi=0; A.curpi=-1; try{if(synth)synth.cancel();}catch(e){} clearSent(); clearSpeak(); setAudioBtn(); }
   function setAudioBtn(){
     if(!cur)return; var b=cur.readerEl.querySelector('[data-rd="audio"]'); if(!b)return;
     /* Le libellé est enveloppé : sous 600 px l'atelier ne montre que le
        pictogramme, et le nom accessible doit rester « Pause » ou « Écouter ». */
-    b.innerHTML = A.playing ? '<span aria-hidden="true">⏸</span><span class="rd-lbl"> Pause</span>' : '<span aria-hidden="true">▶</span><span class="rd-lbl"> Écouter</span>';
+    b.innerHTML = A.playing ? IC('pause')+'<span class="rd-lbl"> Pause</span>' : IC('ecoute')+'<span class="rd-lbl"> Écouter</span>';
     b.classList.toggle('on', A.playing);
   }
 
@@ -284,6 +298,32 @@
     if(sels)sels.onchange=function(){ S.voice=sels.value; saveS(); };
   }
 
+  /* ---- « Notes » (téléphone) : les deux panneaux du shell ----
+     Le compte vient du module qui POSSÈDE les notes (SHELL.annotations),
+     jamais du libellé d'une pastille : une interface ne lit pas une autre
+     interface. On ouvre le panneau en cliquant la vraie pastille, qui en
+     tient l'état — la marge de l'atelier fait déjà ainsi. */
+  function renderNotesGo(r){
+    var box=r.querySelector('.rd-notes-go'); if(!box)return;
+    var An=window.SHELL&&SHELL.annotations; if(!An){ box.innerHTML=''; return; }
+    var c=An.context?An.context():{}, mine=0, pub=0;
+    try{ mine=(c.work&&An.notesFor)?An.notesFor(c.work,c.section).length:0; }catch(e){}
+    try{ pub=An.publicCount?An.publicCount():0; }catch(e){}
+    var hasPub=!!document.getElementById('pubFab');
+    box.innerHTML='<button type="button" class="rd-note-go" data-go="notesFab"><b>Mes notes</b><span>'+(mine?mine+(mine>1?' passages':' passage'):'aucune sur cette section')+'</span></button>'
+      +(hasPub?'<button type="button" class="rd-note-go" data-go="pubFab"><b>Notes partagées</b><span>'+(pub?pub+(pub>1?' fils':' fil'):'aucun fil sur cette section')+'</span></button>':'');
+    box.querySelectorAll('[data-go]').forEach(function(b){ b.onclick=function(){
+      var id=b.getAttribute('data-go'), fab=document.getElementById(id);
+      togglePop(r,'notes');
+      if(!fab)return;
+      var panelId=fab.getAttribute('aria-controls'), p=panelId&&document.getElementById(panelId);
+      if(!p||p.hidden) fab.click();
+      /* le bouton qu'on vient de toucher disparaît avec le popover : le
+         focus irait à <body>. On le pose dans le panneau ouvert. */
+      setTimeout(function(){ var p2=panelId&&document.getElementById(panelId); var f=p2&&!p2.hidden&&p2.querySelector('button,[href],textarea'); if(f) f.focus(); },30);
+    };});
+  }
+
   /* ---- montage ---- */
   function mountReader(out,cfg){
     cfg=cfg||{};
@@ -306,12 +346,16 @@
         bouton à popover n'exposait aria-expanded. WCAG 4.1.2. */
      + '<div class="rd-progress" role="progressbar" aria-label="Progression dans le chapitre" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div>'
      + '<div class="rd-row" role="toolbar" aria-label="Outils de lecture">'
-     +   '<button type="button" class="rd-btn" data-rd="prev" aria-label="Chapitre précédent"><span aria-hidden="true">◀</span><span class="rd-lbl"> Préc.</span></button>'
-     +   '<button type="button" class="rd-btn" data-rd="next" aria-label="Chapitre suivant"><span class="rd-lbl">Suiv. </span><span aria-hidden="true">▶</span></button>'
-     +   '<button type="button" class="rd-btn" data-rd="toc" aria-expanded="false" aria-controls="rdpop-toc">Sommaire</button>'
-     +   '<button type="button" class="rd-btn" data-rd="audio"'+(synth?'':' aria-expanded="false" aria-controls="rdpop-audio"')+'><span aria-hidden="true">▶</span><span class="rd-lbl"> Écouter</span></button>'
+     +   '<button type="button" class="rd-btn" data-rd="prev" aria-label="Chapitre précédent">'+IC('prev')+'<span class="rd-lbl"> Préc.</span></button>'
+     +   '<button type="button" class="rd-btn" data-rd="next" aria-label="Chapitre suivant"><span class="rd-lbl">Suiv. </span>'+IC('next')+'</button>'
+     +   '<button type="button" class="rd-btn" data-rd="toc" aria-expanded="false" aria-controls="rdpop-toc">'+IC('toc','rd-mob')+'<span class="rd-lbl">Sommaire</span></button>'
+     +   '<button type="button" class="rd-btn" data-rd="audio"'+(synth?'':' aria-expanded="false" aria-controls="rdpop-audio"')+'>'+IC('ecoute')+'<span class="rd-lbl"> Écouter</span></button>'
      +   '<button type="button" class="rd-btn" data-rd="clear" aria-expanded="false" aria-controls="rdpop-clear">En clair</button>'
      +   '<button type="button" class="rd-btn" data-rd="set" aria-expanded="false" aria-controls="rdpop-set"><span aria-hidden="true">Aa</span><span class="rd-lbl"> Réglages</span></button>'
+     /* « Notes » n'existe que sous 600 px (CSS) : les deux pastilles
+        flottantes y couvraient le bas du texte en permanence. Elles sont
+        masquées là, et ce bouton ouvre les deux mêmes panneaux. */
+     +   (window.SHELL&&SHELL.annotations ? '<button type="button" class="rd-btn" data-rd="notes" aria-expanded="false" aria-controls="rdpop-notes">'+IC('notes')+'<span class="rd-lbl"> Notes</span></button>' : '')
      + '</div>'
      + '<div class="rd-pop" id="rdpop-toc" data-pop="toc" role="group" aria-label="Sommaire" hidden></div>'
      /* Vitesse et voix vivaient dans ce popover — que le bouton « Écouter »
@@ -324,6 +368,7 @@
      +   '<div class="rd-note">La synthèse vocale n’est pas disponible dans ce navigateur.</div></div>'
      + '<div class="rd-pop" id="rdpop-clear" data-pop="clear" role="group" aria-label="En clair" hidden><h5>En clair</h5>'+clearHtml+'</div>'
      + '<div class="rd-pop" id="rdpop-set" data-pop="set" role="group" aria-label="Réglages de lecture" hidden></div>'
+     + '<div class="rd-pop rd-pop-notes" id="rdpop-notes" data-pop="notes" role="group" aria-label="Notes" hidden><h5>Notes</h5><div class="rd-notes-go"></div></div>'
      + '<div class="rd-xref"></div>';
     r.insertBefore(tb, r.firstChild);
     /* Signale à la page qu'on est entré dans le texte : la coquille de
@@ -355,6 +400,8 @@
     tb.querySelector('[data-rd="toc"]').onclick=function(){ togglePop(r,'toc'); };
     tb.querySelector('[data-rd="clear"]').onclick=function(){ togglePop(r,'clear'); };
     tb.querySelector('[data-rd="set"]').onclick=function(){ renderSet(r); togglePop(r,'set'); };
+    var nb=tb.querySelector('[data-rd="notes"]');
+    if(nb) nb.onclick=function(){ renderNotesGo(r); togglePop(r,'notes'); };
     /* Le surlignage des termes du glossaire n'est plus un bouton de la
        barre : c'est un réglage de lecture, dans « Aa Réglages » (segment
        « Mots du glossaire »). Il disait « Glossaire » comme l'entrée de

@@ -41,6 +41,31 @@
   topH(); requestAnimationFrame(topH); setTimeout(topH, 400);
   window.addEventListener('load', topH); window.addEventListener('resize', topH);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(topH);
+  /* LA LÉGENDE REPLIÉE (téléphone, mission `mobile-lecture`) : une ligne,
+     qu'on touche pour la lire en entier. Posé avant les gardes de mouvement :
+     la bande est réduite aussi sous reduced-motion. */
+  var FOLD = matchMedia('(max-width:760px)');
+  function setOpen(o){
+    cap.classList.toggle('is-open', o); aside.classList.toggle('cap-open', o);
+    cap.setAttribute('aria-expanded', o ? 'true' : 'false');
+  }
+  function fold(){
+    if (!cap) return;
+    var on = FOLD.matches;
+    aside.classList.toggle('cap-fold', on);
+    if (on) { cap.setAttribute('role', 'button'); cap.tabIndex = 0; setOpen(cap.classList.contains('is-open')); }
+    else { setOpen(false); cap.removeAttribute('role'); cap.removeAttribute('tabindex'); cap.removeAttribute('aria-expanded'); }
+  }
+  if (cap) {
+    cap.addEventListener('click', function(){ if (FOLD.matches) setOpen(!cap.classList.contains('is-open')); });
+    cap.addEventListener('keydown', function(e){
+      if (!FOLD.matches) return;
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpen(!cap.classList.contains('is-open')); }
+      else if (e.key === 'Escape') setOpen(false);
+    });
+    if (FOLD.addEventListener) FOLD.addEventListener('change', fold);
+    fold();
+  }
   if (REDUCE || (NEED3D && !hasGL())) return;
 
   function load(src){
