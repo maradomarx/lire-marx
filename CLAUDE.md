@@ -9004,6 +9004,16 @@ qu'un serveur lit les fichiers) :
   compresse pas et que ses feuilles non compressées dominent — le gain réel se
   lit en production. Au passage : un tiers de moins pour le RGPD.
 
+**Vérifié en production** (même méthode, deux passes concordantes) :
+
+| liremarx.com, 3G lente, ×4 | avant | après |
+|---|---|---|
+| accueil — plus grand élément | 3,74 s | **0,88 s** |
+| Capital — première peinture | 2,53 s | **2,03 s** |
+| bibliothèque — première peinture | 2,64 s | **1,94 s** |
+| carnet — CLS | 0,21 | **0** |
+| requêtes vers Google Fonts | 1 feuille + polices | **0** |
+
 Versions : `atelier.css?v=10`, `fonts.css?v=2` (partout, gabarits de
 `gen-seo.mjs` et précache de `sw.js` compris).
 
