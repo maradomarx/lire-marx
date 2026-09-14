@@ -44,8 +44,8 @@
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://liremarx.com/">
-<link rel="stylesheet" href="oeuvres/fonts/fonts.css" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="oeuvres/fonts/fonts.css"></noscript>
+<link rel="stylesheet" href="oeuvres/fonts/fonts.css?v=2" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="oeuvres/fonts/fonts.css?v=2"></noscript>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:radial-gradient(ellipse at 50% 46%,#1a1410 0%,#0d0b0a 60%,#070605 100%);
@@ -1397,6 +1397,13 @@ html.no-motion header.topbar,html.no-motion header.topbar .topbar-in{transition:
 
       <div class="hs-hint" aria-hidden="true"><i></i>Faire défiler</div>
     </section>
+    <!-- (mission `poids-mobile`) Le héros s'allume DÈS QUE SON BALISAGE EST LU.
+         Posé seulement par le script de fin de page, son entrée attendait le
+         téléchargement et l'exécution de config.js, shell.js et
+         shell-social.js : le titre, plus grand élément de l'écran, n'était
+         peint qu'à 3,7 s en 3G alors que la page l'était à 0,9 s. Le script de
+         fin de page le repose aussi (idempotent). -->
+    <script>(function(){var h=document.querySelector('.hs-hero');if(h)h.classList.add('lit');})();</script>
 
     <!-- Marquee de concepts -->
     <div class="hs-marquee" aria-hidden="true">

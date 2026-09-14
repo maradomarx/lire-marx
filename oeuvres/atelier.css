@@ -1,4 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Caveat:wght@500;700&display=swap');
+/* (mission `poids-mobile`) L'@import Google Fonts qui ouvrait cette feuille est retiré :
+   il bloquait la première peinture jusqu'à ~2,5 s en 3G et ajoutait 135 à 220 Ko
+   et un appel à Google. Les pages qui chargent atelier.css chargent toutes
+   fonts/fonts.css, qui porte désormais aussi Fraunces 600 et Spectral 600. */
 :root{
   /* ── DA sombre-chaude — MÊMES VALEURS que /index.html, oeuvres/bibliotheque.html
      et oeuvres/place-publique.html. Ce bloc est le système de record des pages
@@ -1495,3 +1498,9 @@ html:has(body.at-plein){scroll-padding-top:90px;}
 }
 @keyframes at3Sheet{from{transform:translateY(28px);opacity:0}to{transform:none;opacity:1}}
 @media (prefers-reduced-motion:reduce){ .atl3-sheet:not([hidden]){animation:none;} }
+
+/* (mission `poids-mobile`) La coquille de lecture est remplie par script : tant
+   qu'elle est vide, le pied de page était peint à mi-écran puis repoussé quand
+   la liseuse se montait — CLS 0,15 mesuré sur Capital en 3G, tout entier dû à
+   ce saut (le même défaut que le carnet). La place est réservée d'emblée. */
+@media screen{ .atl3:not([hidden]){min-height:calc(100vh - 44px);} }

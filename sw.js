@@ -46,7 +46,7 @@ var PRECACHE = [
   '/manifest.webmanifest',
   '/assets/img/logo/icon-192.png',
   '/assets/img/logo/icon-512.png',
-  '/oeuvres/fonts/fonts.css'
+  '/oeuvres/fonts/fonts.css?v=2'
 ];
 /* Les polices : chargées en tolérance — une qui manque ne doit pas empêcher
    l'installation du service worker (addAll échouerait en bloc). */

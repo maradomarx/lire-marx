@@ -8961,6 +8961,60 @@ réimporte APRÈS avoir commité le jeu.
 « Lancer le cycle productif » et « Classement industriel » — un défaut de
 contenu du jeu, antérieur, pas de mise en page. Le jeu tutoie toujours.
 
+## Le poids et le premier écran sur mobile (mission `poids-mobile`, sept. 2026)
+
+Mesuré sur liremarx.com en émulation téléphone (390 px, 3G lente, processeur
+×4). **Ce que la mesure a d'abord trompé** : lancé avec
+`--use-angle=swiftshader`, le banc donnait une première peinture de l'accueil
+à 5,6 s — c'était le rendu LOGICIEL du GPU (2,9 s de `GPUTask` avant la
+peinture dans la trace). Sans ce drapeau, la page peint à 0,9 s. **Pour
+mesurer des temps, jamais SwiftShader** (il reste utile pour faire tourner
+WebGL dans le harnais du jeu). Et une première hypothèse — différer Three.js
+après `load` — a été mesurée sans gain et **retirée** : on ne livre pas une
+optimisation que la mesure ne montre pas.
+
+Ce qui a été fait, chaque point mesuré avant/après (le « avant » servi depuis
+une copie de travail figée sur un second port, jamais par `git stash` pendant
+qu'un serveur lit les fichiers) :
+
+- **Accueil — le héros s'allume dès que son balisage est lu** (petit script
+  juste après `</section>` du héros). La classe `.lit` n'était posée que par le
+  script de fin de page, APRÈS `config.js`, `shell.js` et `shell-social.js` :
+  le titre, plus grand élément de l'écran, attendait trois téléchargements.
+  **LCP 5,7 → 2,4 s** en local (deux passes identiques), première peinture
+  inchangée. Le script de fin de page repose la classe (idempotent).
+- **Accueil — le préchargement de `marx-portrait.webp` est retiré** : le héros
+  ne l'affiche plus depuis qu'il a pris le fac-similé ; on le téléchargeait en
+  priorité haute pour rien.
+- **Carnet et ateliers — la place est réservée** (`.cnb` et
+  `.atl3:not([hidden])` à `min-height:calc(100vh - 44px)`, écran seulement).
+  Remplis par script, ils peignaient le pied de page à mi-écran puis le
+  repoussaient : **CLS carnet 0,205 → 0, Capital 0,152 → 0, Manifeste 0**.
+  Les Manuscrits restent à 0,067 (montage de la barre de lecture, sous 0,1).
+- **Plus d'appel à Google Fonts** : l'`@import` qui ouvrait `atelier.css`
+  bloquait la première peinture des sept pages qui le chargent jusqu'à ~2,5 s
+  en 3G, pour 135 à 220 Ko. Il ne fournissait que deux graisses absentes en
+  local — **Fraunces 600 et Spectral 600** (pas de 700 : l'import n'en
+  demandait pas). Arbitrage du propriétaire : les héberger. Quatre woff2
+  (latin + latin-ext, 13 à 18 Ko) téléchargés depuis fonts.gstatic.com dans
+  `oeuvres/fonts/`, déclarés dans `fonts.css`. Vérifié : zéro requête vers
+  Google sur Capital, la bibliothèque, le carnet et la Place publique, Fraunces
+  600 servi en local. Bibliothèque : première peinture 3,87 → 3,23 s en local ;
+  Capital sans écart mesurable en LOCAL, parce que le serveur de test ne
+  compresse pas et que ses feuilles non compressées dominent — le gain réel se
+  lit en production. Au passage : un tiers de moins pour le RGPD.
+
+Versions : `atelier.css?v=10`, `fonts.css?v=2` (partout, gabarits de
+`gen-seo.mjs` et précache de `sw.js` compris).
+
+**Laissé, mesuré** : le client Supabase part en **huit modules** depuis
+jsdelivr (`+esm` découpe chaque dépendance), sur toutes les pages — il ne
+retarde ni la peinture ni le plus grand élément, seulement la session et les
+aperçus de la Place publique. `@supabase/supabase-js@2` n'est pas épinglé à une
+version exacte. La statue de `/glossaire/travail-aliene` pèse 1 Mo sur
+téléphone ; la version allégée avait des trous (voir la mission
+`glossaire-mondes-4`), on ne la remet pas.
+
 ## Conventions de travail
 
 - **Une mission par session.** Une demande utilisateur = un objectif clair,
