@@ -8487,6 +8487,56 @@ lots de fiches. Question ouverte pour le premier lot : citer les textes libres
 non servis en liseuse (préface de 1859, Manifeste) avec un lien Wikisource —
 ce qui demande d'étendre le générateur — ou s'en tenir d'abord au Capital I.
 
+### Le premier lot de commentaires (mission `commentaires-lot-1`, sept. 2026)
+
+Arbitrage du propriétaire : **Capital I d'abord** (écartés pour ce lot : les
+textes libres non servis avec citations Wikisource, et le Manifeste). Trois
+commentaires, tous sur Roy, chacun avec son extrait recopié PAR SCRIPT depuis
+le texte que la liseuse sert :
+
+| slug | extrait | section |
+|---|---|---|
+| `architecte-et-abeille` | ch. VII, partie I : le procès de travail | 3 |
+| `eden-des-droits` | fin du ch. VI : Liberté, Égalité, Propriété et Bentham | 2 |
+| `negation-de-la-negation` | ch. XXXII : les quatre derniers paragraphes | 8 |
+
+- **Aucun n'a été donné à l'agrégation**, et chaque page le dit trois fois
+  (chapô, pied de la section des contresens, marge « Ce que cette page
+  est »). La section du pilote « Ce que le jury a reproché » devient donc
+  **« Les contresens que l'extrait appelle »**, présentée comme la lecture du
+  site et renvoyant aux exigences générales de la page-carrefour. Ne jamais
+  attribuer à un jury ce qu'aucun rapport n'a écrit.
+- **Le tableau des traductions compare Roy à l'ALLEMAND, pas à Lefebvre.**
+  Le pilote avait les formules de Lefebvre par le rapport de 2015 ; ici rien
+  ne permet de les vérifier, et la traduction est protégée. L'allemand est
+  relevé dans MEW 23 sur **zeno.org** (gemeinfrei). ⚠️ MLWerke est parqué
+  (page d'hébergeur), le chemin allemand de marxists.org est en 404, et
+  l'export texte du Deutsches Textarchiv ne sert rien à curl : zeno.org est
+  la source qui marche, avec des pages encodées en **cp1252**.
+- **Les écarts relevés sont réels et ils portent l'argument** : Roy n'a pas
+  la proposition du *Stoffwechsel* (le travail comme régulation de l'échange
+  de matière avec la nature) ni la soumission du jeu des forces à la
+  « Botmäßigkeit » ; il ajoute « et du citoyen » aux droits innés ; il écrit
+  « fatalité » là où l'allemand dit « nécessité d'un processus naturel ».
+- Le texte servi du ch. VII n'a **pas de point après « la nature »** : la
+  première phrase est posée en paragraphe à part (le vérificateur compare
+  paragraphe par paragraphe) et la note de l'extrait le dit.
+- Le générateur accepte un commentaire **sans `partie`** (VI et XXXII n'en
+  ont pas chez Roy).
+- Piège repayé : le nom d'une notion dans `meta.json` est le **titre de la
+  fiche** (« Valeur d'usage vs valeur »), jamais le nom affiché.
+- Piège d'outil : `verif-citations --corriger` réécrit l'attribut mais relève
+  la liste AVANT la correction — un « introuvable » juste après un « ⟳ » se
+  confirme en relançant sans `--corriger`.
+- Piège de shell : `echo =====` échoue en zsh (`=cmd` est une expansion).
+
+Vérifié : 32 citations sur les quatre commentaires, 0 introuvable ; `--check`
+à jour ; détecteur 0 constat sur les quatre pages et le carrefour ; carrefour
+à 4 commentaires ; renvois « Un commentaire guidé » sur les chapitres VI, VII
+et XXXII et sur les pages de notion ; sitemap à 87 URL ; recherche du site :
+77 pages d'essais. Contraste de la marge : faux positif de sonde (dégradé
+`--emphase`), mesuré à la main.
+
 ## L'abécédaire sur l'accueil (mission `accueil-glossaire`, sept. 2026)
 
 Demande du propriétaire : une section glossaire sur l'accueil, un bloc IV

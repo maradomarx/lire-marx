@@ -1787,7 +1787,7 @@ ${sections.map((x) => `      <li><a href="#${x.id}">${x.h2}</a></li>`).join('\n'
 
     const marge = [
       tocCm('Dans ce commentaire', num.sections, true),
-      blocCm('Où il se trouve', `      <p>Le Capital, Livre I, chapitre ${k.rn}, partie ${k.partie}.</p>\n      <ul class="nt-liens">\n${extrait ? `        <li><a href="${extrait}">Lire le passage dans la liseuse →</a></li>\n` : ''}${chap ? `        <li><a href="${chap.href}">Le chapitre ${chap.arabe} expliqué →</a></li>\n` : ''}      </ul>`, ' nt-bloc--source'),
+      blocCm('Où il se trouve', `      <p>Le Capital, Livre I, chapitre ${k.rn}${k.partie ? `, partie ${k.partie}` : ''}.</p>\n      <ul class="nt-liens">\n${extrait ? `        <li><a href="${extrait}">Lire le passage dans la liseuse →</a></li>\n` : ''}${chap ? `        <li><a href="${chap.href}">Le chapitre ${chap.arabe} expliqué →</a></li>\n` : ''}      </ul>`, ' nt-bloc--source'),
       a ? blocCm(`Donné en ${a.session}`, `      <p>Agrégation externe de philosophie, ${a.epreuve} (${a.programme}), dans la ${a.traduction}.</p>\n      <ul class="nt-liens">\n        <li><a href="${a.rapport.url}" rel="noopener">${a.rapport.name}&nbsp;›</a></li>\n      </ul>`) : '',
       notions.length ? blocCm('Les notions en jeu', `      <ul class="nt-liens">\n${notions.map((x) => `        <li><a href="${x.href}">${decode(x.affiche || x.nom)}</a></li>`).join('\n')}\n      </ul>`) : '',
       blocCm('Ce que cette page est', `      <p>Une lecture proposée par le site, qui n’est ni un corrigé ni une préparation. Sur ce qu’un jury attend, seuls ses rapports font autorité.</p>\n      <ul class="nt-liens">\n        <li><a href="${CARREFOUR.url}">${AG} →</a></li>\n      </ul>`),
