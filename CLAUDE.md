@@ -8916,6 +8916,51 @@ intacte, pas de bouton) : feuille ouverte, marge dedans, cinq sections,
 ouvert depuis la feuille, barre sans défilement à 375 px. Détecteur 83 → 83,
 0 erreur. `reader-tools.js?v=5`, `atelier.css?v=9`.
 
+## Le jeu : le panneau de formation se replie (mission `mobile-panneaux`, sept. 2026)
+
+Suite de `vivant-sur-mobile`, qui avait laissé les phases avancées « sans
+avoir été vues remplies ». Elles l'ont été, au harnais, et c'était cassé : en
+formation sociale sur 390 × 844, le panneau de formation (544 px) recouvrait
+le tableau de bord, qui se lisait À TRAVERS ; le bouton Agir se posait sur son
+bas ; le badge « Développement du capital » et le Journal historique
+occupaient le même coin que le levier ; en paysage, quatre panneaux
+s'empilaient ; et les libellés de la barre du circuit s'écrasaient l'un sur
+l'autre.
+
+**Arbitrage du propriétaire : un bandeau repliable** (jeu v68, commit
+`803fbcc` du dépôt du jeu, importé). Sous 760 px et en paysage court, dans les
+modes sociaux : replié, un bandeau (titre, actions restantes, « Lancer le
+cycle productif ») qui laisse voir le monde pour conduire — 174 px en
+portrait ; déplié, une feuille à deux onglets **Formation / Tableau de bord**
+qui porte aussi badge et journal, et masque les commandes de conduite le
+temps de lire. `mobileDockSync()` est appelée par `stageMode()` : entrée,
+reprise et Commune passent toutes par là (la leçon de la reprise injouable).
+Le tableau de bord et le journal sont DÉPLACÉS dans la feuille, jamais
+clonés, et rendus à leur place au bureau. Au-dessus de ces tailles, rien ne
+change (vérifié à 1280 × 800).
+
+**Le harnais qui atteint les phases avancées** (scratchpad de la session,
+motif à refaire) : nouvelle partie → sauvegarde lue dans
+`localStorage['circuit-du-capital/partie/0']` → réécrite avec
+`progression.gameMode='guided'`, `gamePhase='circuit'`,
+`pendingEnterSF=true`, `etat.cycle=1` → reprise par clic sur « Reprendre » :
+**le jeu entre lui-même en formation sociale**, régime et groupes compris.
+Une sauvegarde bricolée directement en `socialFormation` n'aurait pas eu
+`etat.regime` ni `etat.groups`. La Commune se fabrique ensuite depuis la
+vraie sauvegarde de formation sociale (bouton `#save-now`), en posant
+`gameMode='commune'` et `etat.commune` sur le modèle d'`initCommune`.
+Rendu logiciel : quatre passes en parallèle dépassent dix minutes, un profil
+Chrome par passe.
+
+**Pièges** : le contrôle de syntaxe « `new Function` après retrait des
+`import` » échoue AUSSI sur la version d'avant — il est faux, c'est `vite
+build` qui tranche ; et `import-jeu.mjs` inscrit le commit de HEAD, donc on
+réimporte APRÈS avoir commité le jeu.
+
+**Reste** : dans la Commune, le panneau dit encore « Formation sociale »,
+« Lancer le cycle productif » et « Classement industriel » — un défaut de
+contenu du jeu, antérieur, pas de mise en page. Le jeu tutoie toujours.
+
 ## Conventions de travail
 
 - **Une mission par session.** Une demande utilisateur = un objectif clair,
