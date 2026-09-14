@@ -8694,7 +8694,7 @@ Faites dans l'ordre demandé par le propriétaire.
    `manifest.webmanifest` suivent. La marque reste « Lire Marx » en deux mots.
 3. **« Lire la suite » et « Ouvrir mon carnet »** (marge des trois ateliers)
    passent à 26 px de haut par le rembourrage (WCAG 2.5.8 : ce ne sont pas
-   des liens dans une phrase). `atelier.css?v=5`.
+   des liens dans une phrase). `atelier.css?v=6`.
 
 **Le dossier était cassé en production**, signalé par le propriétaire, et à
 raison — vu dans un vrai Chrome sans interface (la pane ment sur les
@@ -8727,6 +8727,61 @@ constats, identiques à avant, 0 erreur.
 dans `recherche-essais.json` (le dossier n'est pas un essai du glossaire) ;
 et les deux autres dossiers ont reçu le correctif du cadre rouge sans avoir
 été revus pour autant.
+
+## La coquille sur téléphone (mission `coquille-mobile`, sept. 2026)
+
+Suite logique de `application-mobile` : le site s'installe, et deux défauts
+mesurés à 375 px le rendaient pénible en plein écran.
+
+### La barre du haut tient sur UNE rangée de 44 px
+
+**Mesuré avant : 121 px sur trois rangées** (☰ + logo 143 px, les quatre
+boutons de droite 224 px — dont « Se connecter » 112 —, et la recherche sur
+sa propre ligne). Or le menu latéral, son voile et presque toutes les barres
+collantes du site supposent 44 px.
+
+Sous 520 px : ☰, logo, **loupe** (`#tbSearchOpen`), messages, notifications,
+**compte en icône**. Le champ se déplie PAR-DESSUS la barre
+(`body.tb-searching`, positionné sur `.topbar-in`, ce qui lui fait épouser la
+pilule flottante de l'accueil) ; ✕ (`#tbSearchClose`), Échap ou un clic
+ailleurs le replient et rendent le focus à la loupe ; `/` le déplie. Le
+placeholder se réduit à « Rechercher… » (le nom accessible reste complet).
+**« Nous soutenir » passe dans le menu latéral** (`#sbSupport`, un `<button>`
+sans `data-act` : c'est une action) et ouvre le même popover, en arrêtant son
+clic — sinon il remonterait au document, qui referme le popover.
+
+Le libellé du bouton compte invité est désormais `<svg.chip-ic><span.chip-lbl>`
+(et `.chip-name` connecté) : sous 520 px **masqué visuellement, jamais
+retiré**. Au-dessus de 520 px rien ne change — vérifié sur treize pages.
+
+### L'atelier : 221 px de coquille collante → 102
+
+Mesuré à 375 px, chapitre VII chargé : topbar 44 + destinations 44 + barre de
+lecture 133 (trois rangées). Sous 600 px (fin d'`atelier.css`) :
+
+- **`#worktabs` ne colle plus** et `--atl-top` passe à 44 px — le sommaire du
+  Dossier, le tiroir et les sauts (`dosGo` lit la variable) suivent seuls.
+  `scroll-padding-top` de lecture à 110 px.
+- **La barre de lecture tient sur UNE rangée de 58 px** : pictogrammes seuls
+  pour Précédent, Suivant, Écouter, Réglages et Plein écran. Les libellés sont
+  enveloppés (`.rd-lbl` dans `reader-tools.js`, `.atl3-full-lbl` sur les trois
+  ateliers) et **masqués visuellement seulement** — `setAudioBtn` écrit
+  désormais du HTML, pas `textContent`, pour garder l'enveloppe. Rangée à
+  278 px pour 278 à 375 ; à 320 px elle défile, et le bouton coupé le dit.
+- **« Ce que fait le chapitre N → »** (`.atl3-m-quick`, Capital seulement) sous
+  le dépliant de la marge tant qu'il est replié : sous 1240 px la marge
+  entière était repliée, renvoi compris.
+- **La pastille « Notes partagées » a un fond plein** (`--card`) : en
+  `background:transparent` elle flottait au-dessus du texte, qui se lisait à
+  travers. Défaut antérieur, visible dès que la marge ne la remplace pas.
+
+Versions : `shell.css?v=9`, `shell.js?v=13`, `atelier.css?v=6`,
+`reader-tools.js?v=3`.
+
+**Piège d'outillage** : `page.screenshot({clip})` de puppeteer prend des
+coordonnées de DOCUMENT, pas d'écran — une barre fixe défilée à 900 px n'est
+pas dans un clip en `y:0`, et l'on croit la barre disparue. Capturer sans
+`clip`, ou avec `y:scrollY`.
 
 ## Conventions de travail
 

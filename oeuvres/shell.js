@@ -51,10 +51,19 @@
       '<header class="topbar"><div class="topbar-in">' +
         '<button id="sbToggle" class="sb-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="sidebar"><span aria-hidden="true">☰</span></button>' +
         '<a class="brandmark" id="shellBrand" href="/" aria-label="Lire Marx — retour à l\'accueil">Lire<span class="d">.</span>Marx</a>' +
-        '<div class="tb-search">' +
+        /* Sous 520 px la barre tient sur UNE rangée de 44 px (mission
+           `coquille-mobile`) : le champ se replie derrière cette loupe et se
+           déplie PAR-DESSUS la barre. Replié sur trois rangées, il faisait
+           121 px de haut — le quart d'un écran de téléphone, et toutes les
+           règles collantes du site supposent 44. */
+        '<button id="tbSearchOpen" class="tb-btn tb-icon tb-search-open" type="button" aria-label="Rechercher" aria-expanded="false" aria-controls="tbSearchWrap">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/></svg>' +
+        '</button>' +
+        '<div class="tb-search" id="tbSearchWrap">' +
           '<span class="tb-search-ic" aria-hidden="true">⌕</span>' +
           '<input id="tbSearch" type="text" autocomplete="off" spellcheck="false" placeholder="Rechercher une notion, un chapitre, un mot du texte…" aria-label="Rechercher dans le site et dans le texte des œuvres : une notion, un chapitre, une date, un mot du texte" aria-keyshortcuts="/" role="combobox" aria-expanded="false" aria-controls="tbResults" aria-autocomplete="list" aria-haspopup="listbox">' +
           '<div id="tbResults" class="tb-results" role="listbox" hidden></div>' +
+          '<button id="tbSearchClose" class="tb-search-close" type="button" aria-label="Fermer la recherche"><span aria-hidden="true">✕</span></button>' +
         '</div>' +
         '<div class="topbar-right">' +
           '<button id="supportBtn" class="tb-btn tb-support" type="button" aria-label="Nous soutenir">' +
@@ -129,6 +138,10 @@
            légales, conditions d'utilisation et confidentialité en un seul
            document — et non plus à une modale. C'est donc une ANCRE. */
         '<a class="sb-item" href="/mentions-legales" data-act="cgu"><span class="sb-dot" style="background:var(--ink-soft)"></span>CGU &amp; règles</a>' +
+        /* « Nous soutenir » : sous 520 px le bouton de la barre du haut n'a
+           plus de place ; l'entrée ouvre le même popover. C'est une ACTION,
+           donc un <button>, et sans data-act — elle n'est pas une destination. */
+        '<button class="sb-item sb-support" id="sbSupport" type="button"><span class="sb-dot" style="background:var(--red)"></span>Nous soutenir</button>' +
         sbWork +
         /* « Installer l'application » — masqué tant que rien ne dit qu'on
            peut l'installer (voir wireInstall) : sur Chrome/Android le
@@ -329,6 +342,19 @@
     var btn = document.getElementById('supportBtn');
     if(!btn || btn.dataset.w) return;
     btn.dataset.w = '1';
+    /* L'entrée du menu latéral (petits écrans) ouvre le même popover. Elle
+       ferme d'abord le tiroir, et arrête le clic : sinon il remonterait au
+       document, qui referme le popover qu'on vient d'ouvrir. */
+    var sbBtn = document.getElementById('sbSupport');
+    if(sbBtn) sbBtn.addEventListener('click', function(e){
+      e.stopPropagation();
+      document.body.classList.remove('sb-open');
+      var tg = document.getElementById('sbToggle');
+      if(tg){ tg.setAttribute('aria-expanded','false'); tg.setAttribute('aria-label','Ouvrir le menu'); }
+      btn.click();
+      var cta = document.querySelector('#supportPop .tb-pop-cta');
+      if(cta) cta.focus();
+    });
     var wrap = btn.closest('.topbar-right') || btn.parentNode;
     var pop = document.createElement('div');
     pop.className = 'tb-pop';
@@ -981,13 +1007,47 @@
       var w = document.querySelector('.tb-search');
       if(w && !w.contains(e.target)) close();
     });
+    /* Le champ replié des petits écrans (mission `coquille-mobile`). La
+       classe `tb-searching` sur <body> le déplie par-dessus la barre ; au-
+       dessus de 520 px elle ne change rien, le champ est déjà là. */
+    var openBtn = document.getElementById('tbSearchOpen');
+    var closeBtn = document.getElementById('tbSearchClose');
+    var etroit = window.matchMedia('(max-width:520px)');
+    /* Le libellé long est coupé dans le champ étroit (« …un mot du t ») :
+       sous 520 px il se réduit ; le nom accessible, lui, reste complet. */
+    var phLong = inp.getAttribute('placeholder');
+    function ph(){ inp.setAttribute('placeholder', etroit.matches ? 'Rechercher…' : phLong); }
+    ph();
+    if(etroit.addEventListener) etroit.addEventListener('change', ph);
+    function deplie(){
+      document.body.classList.add('tb-searching');
+      if(openBtn) openBtn.setAttribute('aria-expanded','true');
+      inp.focus(); inp.select();
+    }
+    function replie(rendre){
+      if(!document.body.classList.contains('tb-searching')) return;
+      document.body.classList.remove('tb-searching');
+      if(openBtn) openBtn.setAttribute('aria-expanded','false');
+      close();
+      if(rendre && openBtn && etroit.matches) openBtn.focus();
+    }
+    if(openBtn) openBtn.addEventListener('click', function(e){ e.stopPropagation(); deplie(); });
+    if(closeBtn) closeBtn.addEventListener('click', function(e){ e.stopPropagation(); replie(true); });
+    inp.addEventListener('keydown', function(e){ if(e.key === 'Escape') replie(true); });
+    document.addEventListener('click', function(e){
+      var w = document.getElementById('tbSearchWrap');
+      if(w && !w.contains(e.target)) replie(false);
+    });
+    /* Un résultat mène ailleurs sur la même page (hash) : le champ se replie. */
+    box.addEventListener('click', function(){ if(etroit.matches) replie(false); });
     /* « / » va au champ — un accélérateur pour qui le connaît, jamais la
-       porte : le champ reste visible en permanence. */
+       porte : le champ reste visible en permanence (replié derrière la loupe
+       sur un petit écran, et « / » le déplie). */
     document.addEventListener('keydown', function(e){
       if(e.key !== '/' || e.ctrlKey || e.metaKey || e.altKey) return;
       var t = e.target, tag = t && t.tagName;
       if(tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (t && t.isContentEditable)) return;
-      e.preventDefault(); inp.focus(); inp.select();
+      e.preventDefault(); deplie();
     });
   }
 
@@ -1253,7 +1313,9 @@
       chipEl.innerHTML = '<span class="chip-ava">' + avaHtml(name, p && p.avatar_url) + '</span><span class="chip-name">' + esc(name) + '</span>';
     } else {
       chipEl.className = 'acct-chip guest';
-      chipEl.textContent = 'Se connecter';
+      /* Le libellé reste dans le bouton : sous 520 px il n'est masqué que
+         visuellement, et l'icône tient la place (mission `coquille-mobile`). */
+      chipEl.innerHTML = '<svg class="chip-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.6"/><path d="M4.8 20c.9-3.6 3.7-5.6 7.2-5.6s6.3 2 7.2 5.6"/></svg><span class="chip-lbl">Se connecter</span>';
     }
   }
 

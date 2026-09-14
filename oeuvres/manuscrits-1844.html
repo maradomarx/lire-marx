@@ -26,8 +26,8 @@
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="fonts/fonts.css">
-<link rel="stylesheet" href="atelier.css?v=5">
-<link rel="stylesheet" href="shell.css?v=8">
+<link rel="stylesheet" href="atelier.css?v=6">
+<link rel="stylesheet" href="shell.css?v=9">
 <link rel="stylesheet" href="reader-tools.css">
 <link rel="stylesheet" href="manuscrits-1844.css?v=2">
 <style>
@@ -1486,7 +1486,7 @@ function syncTabsA11y(pid){
     var b=document.createElement('button');
     b.type='button'; b.id='atlFullBtn'; b.className='btn atl3-full';
     b.setAttribute('aria-pressed',pleinEcran()?'true':'false');
-    b.innerHTML=FULL_SVG+' Plein écran';
+    b.innerHTML=FULL_SVG+'<span class="atl3-full-lbl"> Plein écran</span>';
     b.addEventListener('click',function(){setPlein(!pleinEcran());});
     if(!row){ host.appendChild(b); return; }
     /* À GAUCHE et HORS de la rangée qui défile : ajouté à la fin il
@@ -2157,11 +2157,11 @@ function syncTabsA11y(pid){
 })();
 </script>
 <script src="../config.js"></script>
-<script src="shell.js?v=12"></script>
+<script src="shell.js?v=13"></script>
 <script src="shell-social.js"></script>
 <script src="shell-annotations.js?v=2"></script>
 <script src="shell-progress.js"></script>
-<script src="reader-tools.js?v=2" defer></script>
+<script src="reader-tools.js?v=3" defer></script>
 <script src="atelier-motion.js?v=3" defer></script>
 <script>
 installShell({

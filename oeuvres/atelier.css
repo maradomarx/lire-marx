@@ -1364,3 +1364,44 @@ html.js-at3 .rdr-header.at3-alight .rdr-halo{
    racine, gaté par la classe du body. */
 html:has(body.at-atelier.at-reading){scroll-padding-top:200px;}
 html:has(body.at-plein){scroll-padding-top:90px;}
+
+
+/* ══════════════════════════════════════════════════════════════════════
+   L'ATELIER SUR TÉLÉPHONE (mission `coquille-mobile`, sept. 2026)
+   Mesuré à 375 px, chapitre VII chargé : 221 px de coquille collante —
+   topbar 44, barre des destinations 44, barre de lecture 133 sur trois
+   rangées. Près d'un tiers de l'écran au-dessus d'un texte qu'on vient lire.
+   ══════════════════════════════════════════════════════════════════════ */
+/* Le renvoi à la page qui explique le chapitre, sous la marge repliée. */
+.atl3-m-quick{display:none;}
+@media (max-width:1240px){
+  .atl3-marge:not(.is-open) .atl3-m-quick{display:flex;align-items:center;
+    min-height:28px;margin:8px 0 0 2px;font-family:var(--f-ui);font-size:.8rem;
+    font-weight:600;color:var(--gold);text-decoration:none;}
+  .atl3-m-quick:hover{text-decoration:underline;}
+}
+@media (max-width:600px){
+  /* Les deux destinations ne collent plus : on les retrouve en remontant,
+     et la barre de lecture prend leur place sous la topbar. `--atl-top`
+     suit, et avec lui le sommaire du Dossier, le tiroir et les sauts. */
+  :root{--atl-top:44px;}
+  #worktabs{position:static;}
+  html:has(body.at-atelier.at-reading){scroll-padding-top:110px;}
+  /* UNE rangée : pictogrammes pour Précédent, Suivant, Écouter, Réglages et
+     Plein écran — leurs libellés restent dans le bouton, masqués
+     visuellement seulement, donc lus par les lecteurs d'écran. Le
+     rembourrage se resserre ; si la rangée déborde encore (écrans de
+     320 px), elle défile, et le bouton coupé au bord le dit. */
+  .atl3-mid .rd-toolbar{padding:8px 10px;}
+  .atl3-mid .rd-progress{margin-bottom:8px;}
+  .atl3-toolhead{gap:7px;}
+  .atl3-toolhead>.atl3-full::after{right:-4px;}
+  .atl3-mid .rd-row{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;gap:3px;}
+  .atl3-mid .rd-row::-webkit-scrollbar{display:none;}
+  .atl3-mid .rd-row .rd-btn{position:relative;padding:6px 7px;}
+  .atl3-mid .atl3-full{position:relative;padding:6px 6px;}
+  .atl3-mid .rd-btn[data-rd="prev"] .rd-lbl,.atl3-mid .rd-btn[data-rd="next"] .rd-lbl,
+  .atl3-mid .rd-btn[data-rd="audio"] .rd-lbl,.atl3-mid .rd-btn[data-rd="set"] .rd-lbl,
+  .atl3-mid .atl3-full .atl3-full-lbl{position:absolute;width:1px;height:1px;
+    overflow:hidden;clip-path:inset(50%);white-space:nowrap;}
+}

@@ -16,7 +16,7 @@
 
    2. LES ACTIFS SONT SERVIS DU CACHE, PUIS RAFRAÎCHIS (stale-while-
       revalidate). C'est sûr parce que tout actif qui change avec un
-      balisage porte déjà une version dans son URL (`shell.css?v=8`) : une
+      balisage porte déjà une version dans son URL (`shell.css?v=9`) : une
       URL neuve est une entrée neuve. Aucune liste d'actifs à tenir ici, donc
       rien à oublier de bumper — le service worker ne connaît que ce que le
       lecteur a visité.

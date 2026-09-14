@@ -126,7 +126,9 @@
   function stopAudio(){ A.playing=false; A.stopping=true; A.queue=null; A.qi=0; A.curpi=-1; try{if(synth)synth.cancel();}catch(e){} clearSent(); clearSpeak(); setAudioBtn(); }
   function setAudioBtn(){
     if(!cur)return; var b=cur.readerEl.querySelector('[data-rd="audio"]'); if(!b)return;
-    b.textContent = A.playing ? '⏸ Pause' : '▶ Écouter';
+    /* Le libellé est enveloppé : sous 600 px l'atelier ne montre que le
+       pictogramme, et le nom accessible doit rester « Pause » ou « Écouter ». */
+    b.innerHTML = A.playing ? '<span aria-hidden="true">⏸</span><span class="rd-lbl"> Pause</span>' : '<span aria-hidden="true">▶</span><span class="rd-lbl"> Écouter</span>';
     b.classList.toggle('on', A.playing);
   }
 
@@ -304,12 +306,12 @@
         bouton à popover n'exposait aria-expanded. WCAG 4.1.2. */
      + '<div class="rd-progress" role="progressbar" aria-label="Progression dans le chapitre" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div>'
      + '<div class="rd-row" role="toolbar" aria-label="Outils de lecture">'
-     +   '<button type="button" class="rd-btn" data-rd="prev" aria-label="Chapitre précédent"><span aria-hidden="true">◀</span> Préc.</button>'
-     +   '<button type="button" class="rd-btn" data-rd="next" aria-label="Chapitre suivant">Suiv. <span aria-hidden="true">▶</span></button>'
+     +   '<button type="button" class="rd-btn" data-rd="prev" aria-label="Chapitre précédent"><span aria-hidden="true">◀</span><span class="rd-lbl"> Préc.</span></button>'
+     +   '<button type="button" class="rd-btn" data-rd="next" aria-label="Chapitre suivant"><span class="rd-lbl">Suiv. </span><span aria-hidden="true">▶</span></button>'
      +   '<button type="button" class="rd-btn" data-rd="toc" aria-expanded="false" aria-controls="rdpop-toc">Sommaire</button>'
-     +   '<button type="button" class="rd-btn" data-rd="audio"'+(synth?'':' aria-expanded="false" aria-controls="rdpop-audio"')+'><span aria-hidden="true">▶</span> Écouter</button>'
+     +   '<button type="button" class="rd-btn" data-rd="audio"'+(synth?'':' aria-expanded="false" aria-controls="rdpop-audio"')+'><span aria-hidden="true">▶</span><span class="rd-lbl"> Écouter</span></button>'
      +   '<button type="button" class="rd-btn" data-rd="clear" aria-expanded="false" aria-controls="rdpop-clear">En clair</button>'
-     +   '<button type="button" class="rd-btn" data-rd="set" aria-expanded="false" aria-controls="rdpop-set"><span aria-hidden="true">Aa</span> Réglages</button>'
+     +   '<button type="button" class="rd-btn" data-rd="set" aria-expanded="false" aria-controls="rdpop-set"><span aria-hidden="true">Aa</span><span class="rd-lbl"> Réglages</span></button>'
      + '</div>'
      + '<div class="rd-pop" id="rdpop-toc" data-pop="toc" role="group" aria-label="Sommaire" hidden></div>'
      /* Vitesse et voix vivaient dans ce popover — que le bouton « Écouter »
