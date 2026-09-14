@@ -298,6 +298,83 @@
     if(sels)sels.onchange=function(){ S.voice=sels.value; saveS(); };
   }
 
+  /* ---- LA MARGE EN FEUILLE (mission `marge-mobile`, sept. 2026) ----
+     Sous 1240 px la marge « Dans ce chapitre » n'est plus une colonne. Posée
+     en dépliant au-dessus du texte, elle était hors de l'écran dès qu'on
+     ouvrait un chapitre — et à des dizaines de milliers de pixels au milieu
+     d'une section. Elle s'ouvre désormais en FEUILLE depuis la barre de
+     lecture, qui colle : l'appareil vient au texte, où qu'on lise.
+     Le nœud de la marge est DÉPLACÉ dans la feuille et remis à sa place à la
+     fermeture (le motif du tiroir) : la page continue de le réécrire par son
+     id quand le chapitre change, rien n'est cloné. */
+  var SH={box:null,scrim:null,body:null,mark:null,btn:null,open:false};
+  var SH_MQ=window.matchMedia?matchMedia('(max-width:1240px)'):{matches:false};
+  function sheetSrc(){ var el=document.getElementById('atl3Marge'); return el&&el.hasAttribute('data-sheet-lbl')?el:null; }
+  function sheetBuild(){
+    if(SH.box) return;
+    SH.scrim=document.createElement('div'); SH.scrim.className='atl3-sheet-scrim'; SH.scrim.hidden=true;
+    SH.box=document.createElement('div'); SH.box.className='atl3-sheet'; SH.box.id='atl3Sheet'; SH.box.hidden=true;
+    SH.box.setAttribute('role','dialog'); SH.box.setAttribute('aria-modal','true');
+    SH.box.innerHTML='<div class="atl3-sheet-bar"><span class="atl3-sheet-grip" aria-hidden="true"></span>'
+      +'<button type="button" class="atl3-sheet-x">Fermer</button></div><div class="atl3-sheet-body"></div>';
+    SH.body=SH.box.querySelector('.atl3-sheet-body');
+    document.body.appendChild(SH.scrim); document.body.appendChild(SH.box);
+    SH.scrim.addEventListener('click',function(){ closeSheet(true); });
+    SH.box.querySelector('.atl3-sheet-x').addEventListener('click',function(){ closeSheet(true); });
+    /* Ce qui mène AU texte ou à une autre couche referme la feuille : aller
+       au passage, ouvrir l'instrument dans le tiroir, ouvrir un panneau de
+       notes, suivre un lien. Déplier « Lire la suite » ou une date, non. */
+    SH.body.addEventListener('click',function(e){
+      var t=e.target.closest('[data-drawer],[data-anno],[data-go],.atl3-m-nb,a[href]');
+      if(t && SH.body.contains(t)) closeSheet(false);
+    });
+    SH.box.addEventListener('keydown',function(e){
+      if(e.key!=='Tab') return;
+      var f=[].filter.call(SH.box.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])'),function(n){ return !n.disabled && n.getClientRects().length; });
+      if(!f.length) return;
+      var a=f[0], z=f[f.length-1];
+      if(e.shiftKey && document.activeElement===a){ e.preventDefault(); z.focus(); }
+      else if(!e.shiftKey && document.activeElement===z){ e.preventDefault(); a.focus(); }
+    });
+    /* Échap : la feuille est la couche du dessus. Écouté en CAPTURE sur la
+       fenêtre, pour passer avant la page qui, elle, quitterait le plein écran. */
+    window.addEventListener('keydown',function(e){
+      if(SH.open && e.key==='Escape'){ e.preventDefault(); e.stopImmediatePropagation(); closeSheet(true); }
+    },true);
+    var onMq=function(){ if(!SH_MQ.matches && SH.open) closeSheet(false); };
+    if(SH_MQ.addEventListener) SH_MQ.addEventListener('change',onMq);
+  }
+  function openSheet(btn){
+    var el=sheetSrc(); if(!el) return;
+    sheetBuild();
+    if(SH.open){ closeSheet(true); return; }
+    stopAudio();
+    SH.btn=btn||null;
+    SH.mark=document.createComment('atl3Marge');
+    el.parentNode.insertBefore(SH.mark, el);
+    SH.body.appendChild(el);
+    SH.box.setAttribute('aria-label', el.getAttribute('aria-label')||'Dans ce chapitre');
+    SH.box.hidden=false; SH.scrim.hidden=false; SH.open=true;
+    document.body.classList.add('at3-sheet-on');
+    SH.body.scrollTop=0;
+    if(btn) btn.setAttribute('aria-expanded','true');
+    var x=SH.box.querySelector('.atl3-sheet-x'); if(x) x.focus({preventScroll:true});
+  }
+  function closeSheet(restore){
+    if(!SH.open) return;
+    var el=document.getElementById('atl3Marge');
+    if(el && SH.mark && SH.mark.parentNode){ SH.mark.parentNode.insertBefore(el, SH.mark); }
+    if(SH.mark && SH.mark.parentNode) SH.mark.parentNode.removeChild(SH.mark);
+    SH.mark=null; SH.box.hidden=true; SH.scrim.hidden=true; SH.open=false;
+    document.body.classList.remove('at3-sheet-on');
+    /* la barre a pu être reconstruite pendant que la feuille était ouverte */
+    var b=document.querySelector('.atl3-mid .rd-btn[data-rd="clear"]')||SH.btn;
+    /* preventScroll : le bouton vit dans une barre COLLANTE, et le
+       scroll-padding-top de la lecture fait croire au navigateur qu'il est
+       masqué — sans cela, rendre le focus déplaçait le lecteur dans le texte. */
+    if(b){ b.setAttribute('aria-expanded','false'); if(restore) b.focus({preventScroll:true}); }
+  }
+
   /* ---- « Notes » (téléphone) : les deux panneaux du shell ----
      Le compte vient du module qui POSSÈDE les notes (SHELL.annotations),
      jamais du libellé d'une pastille : une interface ne lit pas une autre
@@ -350,7 +427,9 @@
      +   '<button type="button" class="rd-btn" data-rd="next" aria-label="Chapitre suivant"><span class="rd-lbl">Suiv. </span>'+IC('next')+'</button>'
      +   '<button type="button" class="rd-btn" data-rd="toc" aria-expanded="false" aria-controls="rdpop-toc">'+IC('toc','rd-mob')+'<span class="rd-lbl">Sommaire</span></button>'
      +   '<button type="button" class="rd-btn" data-rd="audio"'+(synth?'':' aria-expanded="false" aria-controls="rdpop-audio"')+'>'+IC('ecoute')+'<span class="rd-lbl"> Écouter</span></button>'
-     +   '<button type="button" class="rd-btn" data-rd="clear" aria-expanded="false" aria-controls="rdpop-clear">En clair</button>'
+     +   (sheetSrc()
+           ? '<button type="button" class="rd-btn" data-rd="clear" aria-haspopup="dialog" aria-expanded="false" aria-controls="atl3Sheet"><span class="rd-sh-l">'+esc(sheetSrc().getAttribute('data-sheet-lbl')||'Ce chapitre')+'</span><span class="rd-sh-s" aria-hidden="true">'+esc(sheetSrc().getAttribute('data-sheet-short')||'Chapitre')+'</span></button>'
+           : '<button type="button" class="rd-btn" data-rd="clear" aria-expanded="false" aria-controls="rdpop-clear">En clair</button>')
      +   '<button type="button" class="rd-btn" data-rd="set" aria-expanded="false" aria-controls="rdpop-set"><span aria-hidden="true">Aa</span><span class="rd-lbl"> Réglages</span></button>'
      /* « Notes » n'existe que sous 600 px (CSS) : les deux pastilles
         flottantes y couvraient le bas du texte en permanence. Elles sont
@@ -398,7 +477,8 @@
     pv.onclick=function(){ if(navCfg.prev){ stopAudio(); navCfg.prev(); } };
     nx.onclick=function(){ if(navCfg.next){ stopAudio(); navCfg.next(); } };
     tb.querySelector('[data-rd="toc"]').onclick=function(){ togglePop(r,'toc'); };
-    tb.querySelector('[data-rd="clear"]').onclick=function(){ togglePop(r,'clear'); };
+    if(sheetSrc()) sheetBuild();   /* aria-controls doit désigner un nœud qui existe */
+    tb.querySelector('[data-rd="clear"]').onclick=function(){ if(sheetSrc()) openSheet(this); else togglePop(r,'clear'); };
     tb.querySelector('[data-rd="set"]').onclick=function(){ renderSet(r); togglePop(r,'set'); };
     var nb=tb.querySelector('[data-rd="notes"]');
     if(nb) nb.onclick=function(){ renderNotesGo(r); togglePop(r,'notes'); };

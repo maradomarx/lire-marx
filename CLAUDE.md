@@ -1358,7 +1358,9 @@ au lieu du brun-nuit réel. La sonde sur le rendu donne 0 échec. Ne pas
 5. **Un deep-link saute en `instant`, pas en `smooth`** : on vient chercher
    un endroit précis, et le `window.scrollTo(0,0)` de fin de page gagnerait
    la course contre un défilement animé.
-6. **La marge, passée sous le texte, atterrissait à deux cent mille pixels
+6. *(Supersédé sous 1240 px par `marge-mobile` : la marge n'y est plus
+   posée au-dessus du texte mais s'ouvre en feuille depuis la barre.)*
+   **La marge, passée sous le texte, atterrissait à deux cent mille pixels
    du lecteur** — une section entière de Wikisource plus bas, c'est-à-dire
    nulle part. Sous 1240 px elle passe **au-dessus** du texte, repliée sur
    une ligne ; sous 900 px le sommaire se replie de même (déployé, il posait
@@ -8867,6 +8869,52 @@ l'image ; détecteur 243 → 243 constats, 0 erreur. `shell.css?v=11`,
 **Piège d'outillage** : `node detect.mjs --json | node -e …` tronque la
 sortie à 64 Ko (le producteur sort avant la fin du tube) — écrire le JSON
 dans un fichier, puis le lire.
+
+## La marge en feuille (mission `marge-mobile`, sept. 2026)
+
+Sous 1240 px, la marge « Dans ce chapitre » était un dépliant posé
+AU-DESSUS du texte. Mesuré à 375 px sur `#ch=VII` : elle est à y = 294
+quand le chapitre commence à 928 — **déjà hors de l'écran à l'arrivée**, et à
+des dizaines de milliers de pixels au milieu d'une section ; dépliée, elle
+poussait le texte de 924 px. L'appareil, point de toute la refonte « le
+texte au centre », était inatteignable en lisant.
+
+**Arbitrage du propriétaire : une feuille ouverte depuis la barre.** Sous
+1240 px, `.atl3-marge` sort du flux (`display:none`) et le bouton de la barre
+de lecture qui disait « En clair » dit **« Ce chapitre »** (« Ce cahier »,
+« Cette partie » ; « Chapitre / Cahier / Partie » sous 600 px). Il ouvre
+une **feuille qui monte du bas** (`#atl3Sheet`, `role=dialog`,
+`aria-modal`), qui porte toute la marge : résumé et renvoi à la page
+expliquée, passages, instrument, notions, marche. La barre étant collante,
+l'appareil est à un geste où qu'on lise. Au-dessus de 1240 px, rien ne
+change.
+
+- **Le contrôleur vit dans `reader-tools.js`** (commun aux trois ateliers).
+  Il s'active si `#atl3Marge` porte `data-sheet-lbl` / `data-sheet-short`
+  (posés dans le HTML des trois pages) ; ailleurs, « En clair » reste le
+  popover d'avant.
+- **Le nœud est DÉPLACÉ, pas cloné** (motif du tiroir) : un commentaire
+  marque sa place, il revient à la fermeture. La page continue de le
+  réécrire par son id quand le suivi de lecture change de chapitre.
+- **Ce qui mène ailleurs referme la feuille** : aller au passage, ouvrir
+  l'instrument dans le tiroir, un panneau de notes, un lien. « Lire la
+  suite » et les dates, non.
+- Échap écouté **en capture sur la fenêtre** (la feuille passe avant le plein
+  écran de la page), piège de Tab, focus sur « Fermer » puis rendu au bouton.
+- **`focus({preventScroll:true})` des deux côtés — c'était un vrai défaut** :
+  le bouton vit dans une barre collante et le `scroll-padding-top` de lecture
+  fait croire au navigateur qu'il est masqué ; rendre le focus déplaçait le
+  lecteur dans le texte. Mesuré ensuite : position tenue au pixel.
+- **z-index 130** (voile 129) : au-dessus de la sidebar (120) — à 1000 px,
+  elle passait par-dessus la feuille —, sous la topbar (140).
+- `.atl3-m-quick` et le dépliant `.atl3-m-toggle` restent dans le rendu des
+  pages mais ne s'affichent plus nulle part sous 1240 px.
+
+Vérifié sur les trois ateliers à 375 et à 1000 px, et à 1380 px (colonne
+intacte, pas de bouton) : feuille ouverte, marge dedans, cinq sections,
+Échap qui la ferme et remet la marge dans la grille, tiroir d'instrument
+ouvert depuis la feuille, barre sans défilement à 375 px. Détecteur 83 → 83,
+0 erreur. `reader-tools.js?v=5`, `atelier.css?v=9`.
 
 ## Conventions de travail
 

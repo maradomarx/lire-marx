@@ -1452,3 +1452,46 @@ html:has(body.at-plein){scroll-padding-top:90px;}
   .rdr-mark-btn{min-height:44px;}
   .atl3-marge:not(.is-open) .atl3-m-quick{min-height:44px;margin-top:2px;}
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   LA MARGE EN FEUILLE (mission `marge-mobile`, sept. 2026)
+   Sous 1240 px la marge sort du flux : sa place est une feuille qui monte
+   du bas, ouverte par « Ce chapitre » dans la barre de lecture (le
+   contrôleur vit dans reader-tools.js). Au-dessus, rien ne change.
+   ══════════════════════════════════════════════════════════════════════ */
+.atl3-sheet,.atl3-sheet-scrim{display:none;}
+.rd-btn .rd-sh-s{display:none;}
+@media (max-width:1240px){
+  .atl3-marge{display:none;}
+  .atl3-sheet-scrim:not([hidden]){display:block;position:fixed;inset:0;z-index:129;
+    background:rgba(8,5,3,.62);}
+  .atl3-sheet:not([hidden]){display:flex;flex-direction:column;position:fixed;
+    left:0;right:0;bottom:0;margin:0 auto;width:min(680px,100%);z-index:130;
+    max-height:calc(100dvh - 64px);background:var(--bg);
+    border:1px solid var(--line-strong);border-bottom:0;border-radius:18px 18px 0 0;
+    box-shadow:0 -18px 50px rgba(0,0,0,.5);animation:at3Sheet .28s cubic-bezier(.2,.75,.3,1) both;}
+  .atl3-sheet-bar{position:relative;flex:none;display:flex;justify-content:flex-end;
+    padding:12px 14px 4px;}
+  .atl3-sheet-grip{position:absolute;left:50%;top:9px;width:42px;height:4px;margin-left:-21px;
+    border-radius:4px;background:var(--line-strong);}
+  .atl3-sheet-x{min-height:40px;padding:0 16px;font-family:var(--f-ui);font-size:.84rem;
+    font-weight:600;color:var(--ink);background:var(--card);cursor:pointer;
+    border:1px solid var(--line-strong);border-radius:999px;}
+  .atl3-sheet-x:hover{border-color:var(--gold);}
+  .atl3-sheet-body{overflow-y:auto;overscroll-behavior:contain;
+    padding:0 22px calc(28px + env(safe-area-inset-bottom));}
+  .atl3-sheet .atl3-marge{display:block!important;position:static;height:auto;max-height:none;
+    overflow:visible;border:0;padding:0;margin:0;animation:none;}
+  .atl3-sheet .atl3-m-toggle,.atl3-sheet .atl3-m-quick,.atl3-sheet .atl3-marge-fade{display:none!important;}
+  .atl3-sheet .atl3-m-head,.atl3-sheet .atl3-m-sec,.atl3-sheet .atl3-m-empty{display:block;}
+  /* au-dessus de la sidebar (120), sous la topbar (140) : une modale. */
+  .atl3-sheet .atl3-m-head{margin-top:0;padding-top:2px;}
+  body.at3-sheet-on{overscroll-behavior:none;}
+}
+@media (max-width:600px){
+  .atl3-mid .rd-btn .rd-sh-l{display:none;}
+  .atl3-mid .rd-btn .rd-sh-s{display:inline;}
+  .atl3-sheet-body{padding:0 18px calc(24px + env(safe-area-inset-bottom));}
+}
+@keyframes at3Sheet{from{transform:translateY(28px);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){ .atl3-sheet:not([hidden]){animation:none;} }
