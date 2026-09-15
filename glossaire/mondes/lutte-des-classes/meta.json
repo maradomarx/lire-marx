@@ -1,0 +1,54 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/lutte-des-classes — première notion du Manifeste à avoir sa page (mission manifeste-glossaire, sept. 2026).",
+  "titre": "Lutte des classes",
+  "de": "Klassenkampf",
+  "chapo": "« L’histoire de toute société jusqu’à nos jours n’a été que l’histoire de luttes de classes » : la première phrase du <i>Manifeste</i> est aussi la plus citée de Marx et d’Engels, et la plus mal lue. Elle ne dit ni que l’histoire serait une querelle de riches et de pauvres, ni qu’elle aurait toujours opposé deux camps, mais que toute société divisée repose sur un antagonisme — que l’époque bourgeoise simplifie, et que le prolétariat ne peut dénouer sans supprimer les classes elles-mêmes.",
+  "description": "La lutte des classes chez Marx et Engels : ce que dit vraiment la première phrase du Manifeste, pourquoi l'époque bourgeoise simplifie l'antagonisme, comment une lutte devient lutte de classe, et les contresens qu'elle appelle.",
+  "source": {
+    "_": "La source des citations : work = id de bibliotheque.json (le générateur en lit le path : /oeuvres/manifeste). Le texte du Manifeste tient en une seule page Wikisource, donc une seule section de liseuse : s = 1 partout.",
+    "work": "manifeste-parti-communiste",
+    "s": 1,
+    "cite": "Karl Marx et Friedrich Engels, <i>Manifeste du parti communiste</i> (1848) — traduction Laura Lafargue (1897)"
+  },
+  "ou": "<i>Manifeste du parti communiste</i>, partie&nbsp;I, « Bourgeois et prolétaires » — la première phrase, puis la formation du prolétariat en classe ; repris en partie&nbsp;II, où l’antagonisme des classes explique la conscience sociale de tous les âges et où le pouvoir politique est défini comme le pouvoir organisé d’une classe pour l’oppression d’une autre.",
+  "outils": [
+    {
+      "label": "Lire « Bourgeois et prolétaires » — la liseuse du Manifeste",
+      "url": "/oeuvres/manifeste#partie=2"
+    },
+    {
+      "label": "Le cheminement du Manifeste — l'histoire comme lutte de classes",
+      "url": "/oeuvres/manifeste#deriv"
+    }
+  ],
+  "voisins": [
+    "Bourgeoisie",
+    "Prolétariat",
+    "Pouvoir politique",
+    "Idées dominantes",
+    "Association",
+    "Accumulation primitive",
+    "Force productive"
+  ],
+  "monde": {
+    "_": "LES COUCHES SUPERPOSÉES. La figure est prise au § 56 de la partie I : le prolétariat, « la dernière couche de la société actuelle, ne peut se redresser sans faire sauter toutes les couches superposées ». Une stèle de strates de pierre, en coupe. Au départ l'« échelle graduée de positions sociales » : des strates nombreuses, étagées, de plus en plus larges vers le bas. Puis la SIMPLIFICATION : les strates intermédiaires glissent et tombent en fragments au pied, la masse du haut se referme en un seul bloc, une fissure rougeoie entre le haut et le bas. Puis l'ORGANISATION : les fragments épars s'alignent en une assise — elle se fend (la concurrence des ouvriers entre eux), elle se ressoude plus épaisse. Puis LE REDRESSEMENT : l'assise du bas se lève et fait sauter les couches qui pesaient sur elle. Au dernier temps, les pierres retombent CÔTE À CÔTE, au même niveau : l'association remplace la superposition — le vertical devient horizontal. Tout est fonction de la position de lecture g, donc réversible.",
+    "layout": "plein",
+    "alt": "Une stèle de strates de pierre en coupe, étagées de la plus étroite en haut à la plus large en bas ; plus loin, un bloc supérieur posé sur une assise d'où monte une fissure rougeoyante, puis les pierres retombées côte à côte au même niveau.",
+    "source": {
+      "texte": "D'après le texte — Manifeste, partie I",
+      "q": "ne peut se redresser sans faire sauter toutes les couches superposées"
+    },
+    "etapes": {
+      "phrase": "Une échelle graduée de positions sociales : patriciens, chevaliers, plébéiens, esclaves ; seigneurs, vassaux, maîtres, compagnons, serfs — et dans chacune, des gradations. Ce n'est pas encore deux camps.",
+      "ou": "Les strates se tiennent, chacune posée sur celle d'en dessous. Le Manifeste ne définit pas la notion : il la met au travail dès sa première phrase, pour lire la société moderne comme un moment de l'histoire, non comme son terme.",
+      "simplification": "Les strates intermédiaires glissent et tombent au pied ; le haut se referme en un seul bloc. L'époque bourgeoise n'a pas aboli les antagonismes, elle les a simplifiés : deux vastes camps opposés.",
+      "organisation": "Au pied, des fragments épars — des luttes locales, isolées. Ils s'alignent en une assise, qui se fend sous la concurrence et se ressoude plus épaisse : c'est ainsi que des luttes deviennent une lutte de classe.",
+      "couches": "L'assise du bas se redresse, et tout ce qui était superposé saute. La dernière couche ne peut se lever sans soulever toutes les autres : son émancipation ne peut pas être celle d'une classe de plus.",
+      "lectures": "Les pierres retombent côte à côte, au même niveau. Ce qui remplace la superposition n'est pas une nouvelle hiérarchie, mais une association — et le texte n'exclut pas l'autre issue : la destruction des deux classes en lutte."
+    },
+    "fixe": {
+      "g": 2.6,
+      "legende": "Le haut s'est refermé en un seul bloc, les strates du milieu sont tombées au pied : l'époque bourgeoise simplifie l'antagonisme des classes en deux vastes camps opposés."
+    }
+  }
+}

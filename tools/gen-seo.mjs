@@ -230,7 +230,7 @@ let INDEX_NOTIONS = [];
  * consommé par la section « maillage » : la résolution (identité, suffixe
  * de station, renvoi `voir`, `page.slug`) se fait une seule fois, ici, et
  * les ateliers n'ont plus qu'une table à lire. */
-let LIENS_FICHES = { 'Le Capital': {}, 'Manuscrits de 1844': {} };
+let LIENS_FICHES = { 'Le Capital': {}, 'Manuscrits de 1844': {}, 'Manifeste du parti communiste': {} };
 
 function lastmod(file) {
   try {
@@ -722,6 +722,18 @@ function identite(nom) {
                 url: '/oeuvres/manuscrits-1844#labo' });
   }
 
+  /* — Le Manifeste : son glossaire de liseuse (GLOSS_MF), qui porte déjà le
+       terme allemand et une définition courte. Le titre de fiche (t) y a été
+       ajouté pour l'abécédaire : c'est lui qui porte l'identité, et une
+       entrée sans titre est une erreur, pas un oubli qu'on tolère. — */
+  const mfSrc = readFileSync('oeuvres/manifeste.html', 'utf8');
+  for (const c of litteralJS(mfSrc, 'GLOSS_MF=', '[')) {
+    if (!c.t) throw new Error(`manifeste.html : une entrée de GLOSS_MF n'a pas de titre (t) — ${JSON.stringify(c.s)}`);
+    brut.push({ nom: c.t, legende: c.def || '', formule: '', de: c.de || '',
+                oeuvre: 'Manifeste du parti communiste', groupe: 'le texte', chaps: [],
+                url: '/oeuvres/manifeste' });
+  }
+
   /* Une clé du lexique qui ne correspond à AUCUNE fiche est une erreur, pas
    * une donnée en trop : c'est le symptôme d'un renommage dans CONCEPTS, qui
    * sans ce contrôle perdrait la définition en silence. */
@@ -1035,7 +1047,12 @@ function identite(nom) {
     const titre = nu(meta.titre || t.nom);
     const desc = nu(meta.description || meta.chapo);
     const src = meta.source || {};
-    const lien = (sEl, q) => `/oeuvres/${src.work}#s=${sEl || src.s}&q=${encodeURIComponent(q)}`;
+    /* L'adresse de l'œuvre se lit dans bibliotheque.json (le `path` fait foi,
+       pas l'id) : le Manifeste a pour id manifeste-parti-communiste et vit à
+       /oeuvres/manifeste. Écrire /oeuvres/${src.work} donnait un 404. */
+    const oeuvreSrc = biblio.works.find((w) => w.id === src.work);
+    if (!oeuvreSrc) throw new Error(`« ${t.nom} » : source.work « ${src.work} » n'est pas une œuvre de bibliotheque.json.`);
+    const lien = (sEl, q) => `${hrefOf(oeuvreSrc)}#s=${sEl || src.s}&q=${encodeURIComponent(q)}`;
 
     /* Les sections : numéro romain, légende du monde, sommaire. */
     const sections = [];
@@ -1983,7 +2000,8 @@ function ccHtml(x, ICONS, h) {
 }
 
 for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
-                              ['oeuvres/manuscrits-1844.html', 'Manuscrits de 1844']]) {
+                              ['oeuvres/manuscrits-1844.html', 'Manuscrits de 1844'],
+                              ['oeuvres/manifeste.html', 'Manifeste du parti communiste']]) {
   let src = readFileSync(file, 'utf8');
   const liens = LIENS_FICHES[oeuvre];
 
@@ -2009,6 +2027,21 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
       const html = CONCEPTS[id].map((x) => ccHtml(x, ICONS, (liens[x.t] || {}).h || '')).join('');
       src = entreMarqueurs(src, deb, fin, html, file);
     }
+  } else if (oeuvre === 'Manifeste du parti communiste') {
+    /* Le Manifeste n'a ni cartes ni carte de concepts : ses notions vivent
+       dans l'infobulle de la liseuse et dans la marge, toutes deux peuplées
+       par le script. La ligne servie, au pied du cheminement, est ce qu'un
+       crawler en voit. On nomme la NOTION et l'on dédoublonne par l'adresse. */
+    const vus = new Set(), items = [];
+    for (const n of Object.keys(liens)) if (!vus.has(liens[n].h)) { vus.add(liens[n].h); items.push(liens[n]); }
+    const lien = (e) => `<a href="${e.h}">${e.n}</a>`;
+    const liste = items.length > 1
+      ? items.slice(0, -1).map(lien).join(', ') + ' et ' + lien(items[items.length - 1])
+      : items.map(lien).join('');
+    src = entreMarqueurs(src, '<!--NOTIONS-MF:DÉBUT', '<!--NOTIONS-MF:FIN -->',
+      ` — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main. -->
+    <p class="carte-sortie"${items.length ? '' : ' hidden'}>Les notions du <i>Manifeste</i> qui ont leur page : ${liste}.</p>
+    `, file);
   } else {
     /* Les Manuscrits n'ont pas de fiches : leurs sept concepts vivent dans
        la carte du laboratoire, qui est un SVG interactif. Le panneau de
