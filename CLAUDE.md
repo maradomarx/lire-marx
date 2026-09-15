@@ -9066,6 +9066,105 @@ détecteur compté contre une copie de HEAD : 39 / 19 / 12 / 12, **identique**.
 Vérifié : zéro débordement à 375 px sur les trois ateliers, accolades
 équilibrées, détecteur toujours à 39.
 
+## Le sommaire en sections repliables (mission `sommaire-refonte`, sept. 2026)
+
+Suite directe de `marge-trois-gestes`, même demande pour la colonne de
+gauche. Mesuré avant (Capital, ch. XV, 1440 × 900) :
+
+- **on ne voyait pas le livre** : les 33 chapitres déployés dans une liste de
+  2 345 px, huit visibles, la colonne ouverte au milieu sur une ligne coupée ;
+- **107 px de tête** avant la première ligne : libellé, pilule « Suivre ma
+  progression » (pour tout visiteur non connecté), filtre ;
+- des **titres de section en capitales sur deux lignes** (45 px) qui pesaient
+  plus que les chapitres ;
+- sur les Manuscrits et le Manifeste, une **colonne de numéros qui répétait
+  le numéro du GROUPE** à chaque ligne (« I I I I », « · ») ;
+- **sur téléphone, deux sommaires et aucun ne marchait** : le dépliant posé
+  au-dessus du texte (y = 241 pour une lecture à 75 000 px) et le bouton
+  « Sommaire » de la barre, qui listait les titres BRUTS de la section
+  chargée (« CHAPITRE XIILA PLUS-VALUE RELATIVE ») au lieu du plan du livre.
+
+**Arbitrages : « sections repliables » et « feuille, comme la marge »**
+(écartés : une liste plate compacte à titres tronqués, qui défilait encore ;
+un rail de position qui ne montrait que les chapitres voisins).
+
+- Chaque section tient sur **une ligne** : numéro, titre (deux lignes au plus,
+  titre entier au survol), nombre d'entrées (`2/4` connecté), chevron. **Seule
+  la section qu'on lit est dépliée** ; le plan entier du Capital tient dans la
+  colonne (615 px de liste pour 649).
+- **Une section d'une seule entrée n'est pas un dépliant, c'est la ligne** —
+  avec le nom du groupe en petite ligne au-dessus quand il ne redit pas le
+  titre (« Deuxième manuscrit / Le rapport de la propriété privée »). « Redire »
+  se mesure (`redit()`) : les mots de plus de trois lettres du groupe présents
+  aux deux tiers dans le titre. Sans ce test, la partie IV du Manifeste
+  empilait « Les communistes et les partis d'opposition » sur « Position des
+  communistes vis-à-vis des partis d'opposition ».
+- Le numéro de chapitre n'existe que là où il numérote vraiment (Capital) ;
+  ailleurs le numéro est celui de la SECTION.
+- Tête = libellé + « n / total lus » et un filet (connecté seulement).
+  « Suivre ma progression » descend **au pied, en lien discret**. Le **filtre
+  n'existe plus que sur Capital** (33 entrées) ; il ignore accents et casse,
+  déplie tout pendant qu'on tape, Échap le vide.
+- **Sous 900 px la colonne disparaît** : le bouton « Sommaire » de la barre
+  de lecture ouvre ce même sommaire en feuille. Le popover des titres bruts ne
+  reste que pour une liseuse sans `#atl3Toc[data-sheet-lbl]`.
+
+### Un gabarit : `oeuvres/sommaire.js`
+
+Même motif que `marge.js` : la page rassemble `sections:[{key, rn, t,
+items:[{g, n, t, done, text}]}]` et appelle `SommaireAtelier.render(root,
+data, {open, login})`. **Chargé sans `defer` dans le `<head>`.**
+
+- **L'état vit sur le nœud** (`root._sm` : sections ouvertes à la main,
+  section courante refermée, filtre) : la page réécrit le sommaire à chaque
+  changement de session ou de progression, et rien de cela ne doit se perdre.
+- **Le suivi de lecture appelle `SommaireAtelier.setCurrent(root, g)`**, qui
+  déplace la marque, déplie la section atteinte et replie la précédente —
+  sans reconstruire (le filtre en cours de frappe et la position de la
+  colonne survivent). Une section ouverte à la main reste ouverte.
+- Disparus des trois pages : `#atl3TocToggle`, `#atl3TocList` statique,
+  `#filter`, `#nores`, `#atl3Prog`, `applyAtlFilter`, `closeTocDrop`, et les
+  classes `.atl3-ch` / `.atl3-sec` / `.atl3-prog*` / `.atl3-toc-toggle*` du CSS.
+  Le `<aside>` est vide dans le HTML et porte `data-sheet-lbl`.
+
+### La feuille a maintenant deux sources (`reader-tools.js`)
+
+`openSheet(btn, id)` avec `id` = `atl3Marge` (sous 1240 px, bouton « Ce
+chapitre ») ou `atl3Toc` (sous 900 px, bouton « Sommaire ») ; `SH.src` dit
+laquelle est dedans, chacune a sa media query de fermeture, et le focus
+revient au bon bouton.
+
+**PIÈGE VÉCU : la fermeture sur clic écoute en CAPTURE.** Cliquer une entrée
+du sommaire fait reconstruire le sommaire par la page (`openChapter` →
+`renderTocRail`) : en phase de bulle, la cible n'était déjà plus dans la
+feuille, `SH.body.contains(t)` rendait faux, et **la feuille restait ouverte
+sur le chapitre qu'on venait de choisir** (mesuré à 375 px). En capture on
+referme avant ; le chemin de l'événement est fixé au départ, le clic arrive
+quand même à sa cible. Tout futur contenu de feuille qui se réécrit au clic
+en bénéficie.
+
+**Et un piège d'outillage de CSS, dans le script de retrait des règles** :
+repérer une règle par le début de son sélecteur puis avancer jusqu'à
+l'équilibre des accolades échoue sur un sélecteur écrit **sur plusieurs
+lignes** — la première ligne n'a pas d'accolade, le compte vaut 0, on
+s'arrête et la seconde ligne reste orpheline. Relire les restes au `grep`
+après chaque passe.
+
+`atelier.css?v=12`, `reader-tools.js?v=6`, `sommaire.js?v=1`.
+
+**Vérifié** : les trois ateliers à 1440 px (Capital : section IV seule
+dépliée, plan entier visible ; Manuscrits : « Premier manuscrit » déplié ;
+Manifeste : lignes simples et « Littérature socialiste » repliée) ; ouvrir une
+autre section, cliquer un chapitre (la marque suit, la section précédente se
+replie), filtre « machin » → une entrée et une section, Échap → tout revient ;
+`setCurrent` sans reconstruction ; 1000 px (colonne présente, pas de bouton) ;
+375 px (feuille ouverte depuis la barre, section dépliable dans la feuille,
+clic sur un chapitre → feuille refermée, sommaire rendu à sa place, chapitre
+ouvert) ; contraste 0 échec (minimum 5,35, plus petit texte 11,52 px, aucune
+cible sous 24 px) ; zéro débordement ; console sans erreur ; détecteur
+comparé à `main` : atelier.css 39 → 37, pages identiques ; accolades
+équilibrées.
+
 ## Le jeu : le panneau de formation se replie (mission `mobile-panneaux`, sept. 2026)
 
 Suite de `vivant-sur-mobile`, qui avait laissé les phases avancées « sans

@@ -23,7 +23,7 @@
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="fonts/fonts.css?v=2">
-<link rel="stylesheet" href="atelier.css?v=11">
+<link rel="stylesheet" href="atelier.css?v=12">
 <link rel="stylesheet" href="shell.css?v=11">
 <link rel="stylesheet" href="reader-tools.css">
 <style>
@@ -228,6 +228,7 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
 }
 </script>
 <script src="marge.js?v=1"></script>
+<script src="sommaire.js?v=1"></script>
 </head>
 <body class="at-atelier">
 <main class="wrap" id="contenu" tabindex="-1">
@@ -241,18 +242,7 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
 
   <div class="atl3" id="atl3">
 
-    <aside class="atl3-col atl3-toc" id="atl3Toc" aria-label="Sommaire du Manifeste">
-      <button type="button" class="atl3-toc-toggle" id="atl3TocToggle"
-              aria-expanded="false" aria-controls="atl3TocList">
-        <span class="atl3-toc-toggle-k">Le sommaire</span>
-        <span class="atl3-toc-toggle-t" id="atl3TocToggleT">Choisir une partie</span>
-      </button>
-      <div class="atl3-toc-head">
-        <h2 class="atl3-lab">Le sommaire</h2>
-        <div class="atl3-prog" id="atl3Prog"></div>
-      </div>
-      <div class="atl3-toc-list" id="atl3TocList"></div>
-    </aside>
+    <aside class="atl3-col atl3-toc" id="atl3Toc" aria-label="Sommaire du Manifeste" data-sheet-lbl="Sommaire"></aside>
 
     <div class="atl3-mid">
       <section class="panel active" id="lire">
@@ -770,31 +760,27 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
   var CHECK_SVG='<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><polyline points="2,9 6,13 14,3" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   function cur(){ return MF_STRUCT[(viewG||1)-1]; }
   function renderTocRail(){
-    var list=byId('atl3TocList'); if(!list)return;
+    /* Rendu par oeuvres/sommaire.js (mission `sommaire-refonte`). Les
+       parties I, II et IV n'ont qu'une entrée : elles s'affichent comme une
+       ligne, pas comme un dépliant. */
+    var root=byId('atl3Toc'); if(!root||!window.SommaireAtelier)return;
     var pg=window.SHELL&&SHELL.progress, done=pg?pg.getSet():new Set();
-    var g0=viewG||1, grp='', h='';
+    var logged=!!(pg&&pg.isLoggedIn());
+    var sections=[], by={};
     MF_STRUCT.forEach(function(e){
-      if(e.grp!==grp){ grp=e.grp; h+='<div class="atl3-sec">'+(e.rn?'<span class="atl3-sec-rn">'+e.rn+'</span>':'')+esc(e.grp)+'</div>'; }
-      var isDone=e.pt&&done.has(e.pt), isCur=e.g===g0;
-      h+='<button type="button" class="atl3-ch'+(isDone?' is-done':'')+(isCur?' is-cur':'')+'" data-g="'+e.g+'"'
-        +(isCur?' aria-current="true"':'')+'><span class="atl3-ch-n">'+(e.rn||'·')+'</span>'
-        +'<span class="atl3-ch-t">'+esc(e.t)+'</span><span class="atl3-ch-st">'+(isDone?CHECK_SVG:'')+'</span></button>';
+      var k='p'+(e.rn||'0');
+      if(!by[k]){ by[k]={key:k,rn:e.rn,t:e.grp,items:[]}; sections.push(by[k]); }
+      by[k].items.push({g:e.g,n:'',t:e.t,done:!!(e.pt&&done.has(e.pt)),text:e.t+' '+e.grp});
     });
-    list.innerHTML=h;
-    list.querySelectorAll('.atl3-ch').forEach(function(b){ b.addEventListener('click',function(){ closeTocDrop(); openPart(+b.dataset.g); }); });
-    var pr=byId('atl3Prog');
-    if(pr){
-      if(pg&&pg.isLoggedIn()){
-        var n=[1,2,3,4].filter(function(x){return done.has(x);}).length;
-        pr.innerHTML='<span class="atl3-prog-bar"><i style="width:'+Math.round(n/PARTS*100)+'%"></i></span><span class="atl3-prog-n">'+n+' / '+PARTS+'</span>';
-      }else{
-        pr.innerHTML='<button type="button" class="btn atl3-prog-log">Suivre ma progression</button>';
-        pr.querySelector('button').onclick=function(){ if(window.SHELL&&SHELL.auth)SHELL.auth.openModal(); };
-      }
-    }
-    var tt=byId('atl3TocToggleT'); if(tt)tt.textContent=cur().t;
+    SommaireAtelier.render(root,{
+      label:'Le sommaire', cur:viewG||1, sections:sections,
+      progress:{logged:logged, n:[1,2,3,4].filter(function(x){return done.has(x);}).length, total:PARTS, word:'parties lues'},
+      filter:null
+    },{
+      open:function(g){ openPart(g); },
+      login:function(){ if(window.SHELL&&SHELL.auth)SHELL.auth.openModal(); }
+    });
   }
-  function closeTocDrop(){ var t=byId('atl3Toc'),b=byId('atl3TocToggle'); if(!t||!b)return; t.classList.remove('is-open'); b.setAttribute('aria-expanded','false'); }
 
   /* ══════════════════ LE SUIVI DE LECTURE ══════════════════ */
   var READ_LINE=220, marks=[], obs=null;
@@ -811,17 +797,7 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
   function setView(g){
     if(!g||g===viewG)return;
     viewG=g;
-    var list=byId('atl3TocList');
-    if(list){
-      list.querySelectorAll('.atl3-ch').forEach(function(b){
-        var on=+b.dataset.g===g; b.classList.toggle('is-cur',on);
-        if(on)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current');
-      });
-      var cel=list.querySelector('.atl3-ch.is-cur');
-      if(cel&&list.getClientRects().length&&list.scrollHeight>list.clientHeight+4)
-        list.scrollTop=Math.max(0,cel.offsetTop-list.clientHeight/2+cel.offsetHeight/2);
-    }
-    var tt=byId('atl3TocToggleT'); if(tt)tt.textContent=MF_STRUCT[g-1].t;
+    SommaireAtelier.setCurrent(byId('atl3Toc'),g);
     if(window.SHELL&&SHELL.resume)SHELL.resume.set(WORK,{g:g,title:MF_STRUCT[g-1].t});
     renderMarge();
   }
@@ -1090,8 +1066,6 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
     watchAnnos();
     var mg=byId('atl3Marge');
     if(mg){ mg.addEventListener('scroll',margeFade,{passive:true}); window.addEventListener('resize',margeFade); }
-    var tb=byId('atl3TocToggle'),tc=byId('atl3Toc');
-    if(tb&&tc)tb.addEventListener('click',function(){ var open=tc.classList.toggle('is-open'); tb.setAttribute('aria-expanded',open?'true':'false'); });
     byId('atlDrawerX').addEventListener('click',function(){closeDrawer();});
     byId('atlFullExit').addEventListener('click',function(){setPlein(false);});
     document.addEventListener('fullscreenchange',function(){ if(!document.fullscreenElement&&pleinEcran())setPlein(false); });
@@ -1121,7 +1095,7 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
 <script src="shell-social.js"></script>
 <script src="shell-annotations.js?v=2"></script>
 <script src="shell-progress.js"></script>
-<script src="reader-tools.js?v=5" defer></script>
+<script src="reader-tools.js?v=6" defer></script>
 <script src="atelier-motion.js?v=3" defer></script>
 <script>
 installShell({

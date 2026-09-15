@@ -26,7 +26,7 @@
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="fonts/fonts.css?v=2">
-<link rel="stylesheet" href="atelier.css?v=11">
+<link rel="stylesheet" href="atelier.css?v=12">
 <link rel="stylesheet" href="shell.css?v=11">
 <link rel="stylesheet" href="reader-tools.css">
 <link rel="stylesheet" href="manuscrits-1844.css?v=2">
@@ -268,6 +268,7 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);
 }
 </script>
 <script src="marge.js?v=1"></script>
+<script src="sommaire.js?v=1"></script>
 </head>
 <body class="at-atelier">
 <!-- NOTIONS:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main.
@@ -303,20 +304,7 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);
        lit (renderMarge). -->
   <div class="atl3" id="atl3">
 
-    <aside class="atl3-col atl3-toc" id="atl3Toc" aria-label="Sommaire des Manuscrits">
-      <button type="button" class="atl3-toc-toggle" id="atl3TocToggle"
-              aria-expanded="false" aria-controls="atl3TocList">
-        <span class="atl3-toc-toggle-k">Le sommaire</span>
-        <span class="atl3-toc-toggle-t" id="atl3TocToggleT">Choisir une partie</span>
-      </button>
-      <div class="atl3-toc-head">
-        <h2 class="atl3-lab">Le sommaire</h2>
-        <div class="atl3-prog" id="atl3Prog"></div>
-      </div>
-      <input class="atl3-filter" id="filter" type="search" placeholder="Filtrer les parties…" aria-label="Filtrer les parties">
-      <div class="atl3-toc-list" id="atl3TocList"></div>
-      <p class="atl3-nores" id="nores" hidden>Aucune partie ne correspond.</p>
-    </aside>
+    <aside class="atl3-col atl3-toc" id="atl3Toc" aria-label="Sommaire des Manuscrits" data-sheet-lbl="Sommaire"></aside>
 
     <div class="atl3-mid">
       <!-- #partSelect et #loadBtn restent dans le document, MASQUÉS : ils
@@ -1027,77 +1015,30 @@ function syncTabsA11y(pid){
   function curChap(){ return MAN_FLAT[curGnum()-1]||null; }
 
   function renderTocRail(){
-    var list=byId('atl3TocList');
-    if(!list)return;
+    /* Rendu par oeuvres/sommaire.js (mission `sommaire-refonte`). Le numéro
+       du cahier est porté par la SECTION, plus répété à chaque ligne. */
+    var root=byId('atl3Toc');
+    if(!root||!window.SommaireAtelier)return;
     var pg=window.SHELL&&window.SHELL.progress;
     var done=pg?pg.getSet():new Set();
-    var cur=curGnum(), grp=-1, h='';
+    var logged=!!(pg&&pg.isLoggedIn());
+    var sections=[], by={};
     MAN_FLAT.forEach(function(e){
-      if(e.grp!==grp){
-        grp=e.grp;
-        h+='<div class="atl3-sec" data-sec="'+e.grp+'">'
-          +(e.grpRn?'<span class="atl3-sec-rn">'+e.grpRn+'</span>':'')+esc(e.grpTitle)+'</div>';
-      }
-      var isDone=done.has(e.part), isCur=(e.gnum===cur);
-      h+='<button type="button" class="atl3-ch'+(isDone?' is-done':'')+(isCur?' is-cur':'')+'"'
-        +' data-g="'+e.gnum+'" data-sec="'+e.grp+'"'
-        +' data-text="'+esc((e.t+' '+e.grpTitle+' '+(e.s||'')).toLowerCase().replace(/<[^>]+>/g,''))+'"'
-        +(isCur?' aria-current="true"':'')+'>'
-        +'<span class="atl3-ch-n">'+(e.grpRn||'·')+'</span>'
-        +'<span class="atl3-ch-t">'+esc(e.t)+'</span>'
-        +'<span class="atl3-ch-st">'+(isDone?CHECK_SVG:'')+'</span>'
-      +'</button>';
+      var k='c'+e.grp;
+      if(!by[k]){ by[k]={key:k,rn:e.grpRn,t:e.grpTitle,items:[]}; sections.push(by[k]); }
+      by[k].items.push({g:e.gnum,n:'',t:e.t,done:done.has(e.part),
+        text:e.t+' '+e.grpTitle+' '+String(e.s||'').replace(/<[^>]+>/g,'')});
     });
-    list.innerHTML=h;
-    list.querySelectorAll('.atl3-ch').forEach(function(b){
-      b.addEventListener('click',function(){ closeTocDrop(); openChapter(+b.dataset.g); });});
-
-    /* La progression, chiffrée seulement si on peut la compter : sans
-       session il n'y a rien à afficher, et un « 0 sur 3 » serait faux.
-       Elle se compte en CAHIERS (les trois manuscrits), pas en parties :
-       c'est l'unité que SHELL.progress enregistre. */
-    var pr=byId('atl3Prog');
-    if(pr){
-      var total=3;
-      if(pg&&pg.isLoggedIn()){
-        var n=[2,3,4].filter(function(x){return done.has(x);}).length;
-        var pct=Math.round(n/total*100);
-        pr.innerHTML='<span class="atl3-prog-bar"><i style="width:'+pct+'%"></i></span>'
-          +'<span class="atl3-prog-n">'+n+' / '+total+'</span>';
-      }else{
-        pr.innerHTML='<button type="button" class="btn atl3-prog-log">Suivre ma progression</button>';
-        pr.querySelector('button').onclick=function(){
-          if(window.SHELL&&window.SHELL.auth)window.SHELL.auth.openModal();};
-      }
-    }
-    var c=curChap();
-    var tt=byId('atl3TocToggleT');
-    if(tt)tt.textContent=c?c.t:'Choisir une partie';
-    var f=byId('filter');
-    if(f&&f.value)applyAtlFilter(f.value.trim().toLowerCase());
-    var cel=list.querySelector('.atl3-ch.is-cur');
-    if(cel&&list.getClientRects().length&&list.scrollHeight>list.clientHeight+4)
-      list.scrollTop=Math.max(0,cel.offsetTop-list.clientHeight/2+cel.offsetHeight/2);
-  }
-  function applyAtlFilter(q){
-    var any=false,secVis={};
-    document.querySelectorAll('#atl3TocList .atl3-ch').forEach(function(r){
-      var match=!q||r.dataset.text.indexOf(q)>=0;
-      r.hidden=!match;
-      if(match){any=true;secVis[r.dataset.sec]=true;}
+    /* La progression se compte en CAHIERS (les trois manuscrits), pas en
+       parties : c'est l'unité que SHELL.progress enregistre. */
+    SommaireAtelier.render(root,{
+      label:'Le sommaire', cur:curGnum(), sections:sections,
+      progress:{logged:logged, n:[2,3,4].filter(function(x){return done.has(x);}).length, total:3, word:'cahiers lus'},
+      filter:null
+    },{
+      open:function(g){ openChapter(g); },
+      login:function(){ if(window.SHELL&&window.SHELL.auth)window.SHELL.auth.openModal(); }
     });
-    document.querySelectorAll('#atl3TocList .atl3-sec').forEach(function(hd){
-      hd.hidden=!secVis[hd.dataset.sec];});
-    var nr=byId('nores');
-    if(nr)nr.hidden=any;
-    if(window.SHELL&&SHELL.announce&&q)
-      SHELL.announce(any?'Parties filtrées.':'Aucune partie ne correspond.');
-  }
-  function closeTocDrop(){
-    var t=byId('atl3Toc'),b=byId('atl3TocToggle');
-    if(!t||!b)return;
-    t.classList.remove('is-open');
-    b.setAttribute('aria-expanded','false');
   }
 
   /* ══════════════════════════════════════════════════════════════════
@@ -1156,18 +1097,7 @@ function syncTabsA11y(pid){
     viewGnum=g;
     /* On ne RE-REND pas le sommaire : le filtre en cours de frappe et la
        position de la colonne seraient perdus à chaque partie traversée. */
-    var list=byId('atl3TocList');
-    if(list){
-      list.querySelectorAll('.atl3-ch').forEach(function(b){
-        var on=(+b.dataset.g===g);
-        b.classList.toggle('is-cur',on);
-        if(on)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current');
-      });
-      var cel=list.querySelector('.atl3-ch.is-cur');
-      if(cel&&list.getClientRects().length&&list.scrollHeight>list.clientHeight+4)
-        list.scrollTop=Math.max(0,cel.offsetTop-list.clientHeight/2+cel.offsetHeight/2);
-    }
-    var tt=byId('atl3TocToggleT'); if(tt)tt.textContent=c.t;
+    SommaireAtelier.setCurrent(byId('atl3Toc'),g);
     renderMarge();
   }
   function followReading(){
@@ -1961,14 +1891,6 @@ function syncTabsA11y(pid){
     var mg=byId('atl3Marge');
     if(mg){ mg.addEventListener('scroll',margeFade,{passive:true});
             window.addEventListener('resize',margeFade); }
-    var tb=byId('atl3TocToggle'),tc=byId('atl3Toc');
-    if(tb&&tc)tb.addEventListener('click',function(){
-      var open=tc.classList.toggle('is-open');
-      tb.setAttribute('aria-expanded',open?'true':'false');
-      if(open)renderTocRail();
-    });
-    var ft=byId('filter');
-    if(ft)ft.addEventListener('input',function(){applyAtlFilter(ft.value.trim().toLowerCase());});
     var dx=byId('atlDrawerX');
     if(dx)dx.addEventListener('click',function(){closeDrawer();});
     var fx=byId('atlFullExit');
@@ -2006,7 +1928,7 @@ function syncTabsA11y(pid){
     setTimeout(applyAtelierHash,0);
     window.addEventListener('hashchange', applyAtelierHash);
 
-    /* La progression vit désormais dans le SOMMAIRE (atl3Prog) : c'est
+    /* La progression vit désormais dans le SOMMAIRE (sommaire.js) : c'est
        là qu'elle sert, à côté des parties. La grille « Sections » et sa
        carte de progression ont disparu avec le panneau. */
     if(window.SHELL&&window.SHELL.progress){
@@ -2080,7 +2002,7 @@ function syncTabsA11y(pid){
 <script src="shell-social.js"></script>
 <script src="shell-annotations.js?v=2"></script>
 <script src="shell-progress.js"></script>
-<script src="reader-tools.js?v=5" defer></script>
+<script src="reader-tools.js?v=6" defer></script>
 <script src="atelier-motion.js?v=3" defer></script>
 <script>
 installShell({
