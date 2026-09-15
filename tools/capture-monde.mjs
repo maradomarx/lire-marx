@@ -88,6 +88,10 @@ try {
   await page.screenshot({ path: png, clip: { x: 0, y: 0, width: W, height: H } });
   if (OUT) {
     execFileSync('sips', ['-s', 'format', 'jpeg', '-s', 'formatOptions', '84', png, '--out', OUT], { stdio: 'ignore' });
+    /* la capture intermédiaire est écrite dans le dossier de la notion : en
+       mode planche-contact on ne l'effaçait pas, et six monde.png inutilisés
+       ont fini commités (retirés en sept. 2026) */
+    fs.unlinkSync(png);
     console.log(`✓ ${slug} — g = ${G} → ${OUT}`);
     process.exit(0);
   }
