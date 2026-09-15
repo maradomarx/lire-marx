@@ -540,6 +540,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://liremarx.com/commentaires/le-magicien</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://liremarx.com/commentaires/negation-de-la-negation</loc>
     <lastmod>2026-09-14</lastmod>
     <changefreq>monthly</changefreq>
