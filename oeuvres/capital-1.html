@@ -26,7 +26,7 @@
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="fonts/fonts.css?v=2">
-<link rel="stylesheet" href="atelier.css?v=10">
+<link rel="stylesheet" href="atelier.css?v=11">
 <link rel="stylesheet" href="shell.css?v=11">
 <link rel="stylesheet" href="reader-tools.css">
 <style>
@@ -840,6 +840,7 @@ nav.tabs.worktabs{position:sticky;top:44px;z-index:62;
   }
 }
 </script>
+<script src="marge.js?v=1"></script>
 </head>
 <body class="at-atelier">
 <!-- NOTIONS:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main.
@@ -2324,62 +2325,22 @@ const EXPLO_FOR={'I':'x-feti','XIII':'x-coop','XIV':'x-coop','XV':'x-coop',
 const EXPLO_LABELS={'x-coop':'Coopération → machinisme','x-feti':'Le fétichisme',
   'x-salaire':'La forme-salaire'};
 
-let margeOpen=false, margeNotes=[];
+let margeNotes=[];
 
-/* La marge défile pour son propre compte : on le DIT (voile + chevron +
-   barre de défilement colorée), et on retire la marque une fois le fond
-   atteint. Mesuré à chaque rendu, à chaque défilement de la colonne et à
-   chaque redimensionnement — le contenu change de hauteur d'un chapitre à
-   l'autre. */
-function margeFade(){
-  const el=document.getElementById('atl3Marge');
-  if(!el)return;
-  const peut=el.scrollHeight>el.clientHeight+4;
-  el.classList.toggle('is-scrollable',peut);
-  el.classList.toggle('is-end',peut&&el.scrollTop+el.clientHeight>=el.scrollHeight-6);
-}
-(function(){
-  const el=document.getElementById('atl3Marge');
-  if(!el)return;
-  el.addEventListener('scroll',margeFade,{passive:true});
-  window.addEventListener('resize',margeFade);
-})();
-function margeSection(k,title,body){
-  return '<section class="atl3-m-sec"><h3 class="atl3-m-h">'+k+'</h3>'
-    +(title?'<p class="atl3-m-t">'+title+'</p>':'')+body+'</section>';
-}
+/* LA MARGE est rendue par oeuvres/marge.js (mission `marge-trois-gestes`) :
+   la page ne fait plus que RASSEMBLER ce que le chapitre porte. Le gabarit,
+   l'ordre (Comprendre · Manipuler · Vos notes), l'indicateur de défilement
+   et ses écouteurs vivent là-bas, communs aux trois ateliers. */
+function margeFade(){ if(window.MargeAtelier) MargeAtelier.fade(); }
 function renderMarge(){
   const el=document.getElementById('atl3Marge');
   if(!el)return;
   const c=curChap();
   if(!c){ el.innerHTML='<p class="atl3-m-empty">Choisissez un chapitre dans le sommaire.</p>'; return; }
+  if(!window.MargeAtelier)return;
   const rn=c.chapRn, m=(typeof META!=='undefined'&&META[rn])||{};
-  /* Sous 1240 px la marge n'est plus une colonne : elle passe AU-DESSUS du
-     texte, repliée derrière ce bouton. Posée sous le texte, elle se
-     retrouvait à deux cent mille pixels du lecteur — une section entière
-     de Wikisource plus bas — c'est-à-dire nulle part. */
-  let h='<button type="button" class="atl3-m-toggle" id="atl3MToggle"'
-    +' aria-expanded="'+(margeOpen?'true':'false')+'">'
-    +'<span class="atl3-m-toggle-k">Dans ce chapitre</span>'
-    +'<span class="atl3-m-toggle-t">'+dEsc(c.chapTitle)+'</span></button>'
-    /* Sous 1240 px le dépliant replie TOUTE la marge, et avec elle le renvoi
-       à la page qui explique le chapitre — invisible sur téléphone, où l'on
-       en a le plus besoin (mission `coquille-mobile`). Ce raccourci ne
-       s'affiche que la marge repliée : dépliée, le renvoi d'« En clair »
-       est là. */
-    +(((window.CHAPITRES_HREF||{})[rn])?'<a class="atl3-m-quick" href="'+(window.CHAPITRES_HREF||{})[rn]+'">Ce que fait le chapitre '+rn+' →</a>':'')
-    +'<div class="atl3-m-head"><h2 class="atl3-lab">Dans ce chapitre</h2>'
-    +'<p class="atl3-m-ch"><em>'+rn+'</em> '+dEsc(c.chapTitle)+'</p></div>';
 
-  /* VOS PASSAGES — en TÊTE, et en carte d'emphase.
-     C'est l'outil principal de la page : surligner, annoter, retrouver.
-     Il était rangé en dernier, sous cinq autres blocs, donc hors de l'écran
-     dès que le chapitre avait de la matière — autant dire caché. Il ouvre
-     désormais la marge, et il MONTRE les passages au lieu d'en annoncer le
-     nombre : un clic ramène au passage dans le texte. */
-  /* Les passages de la SECTION affichée, lus au module qui les possède.
-     `notesFor` évite de relire tout le carnet pour en jeter la quasi-
-     totalité — allNotes() sert au carnet, pas ici. */
+  /* Les passages de la SECTION affichée, lus au module qui les possède. */
   margeNotes=[];
   const AN=(window.SHELL&&SHELL.annotations)||null;
   try{
@@ -2388,183 +2349,62 @@ function renderMarge(){
     else if(AN&&AN.allNotes) margeNotes=AN.allNotes()
       .filter(a=>a.work==='capital'&&+a.section===c.secNum);
   }catch(e){}
-  const nn=margeNotes.length, nNote=margeNotes.filter(a=>a.note).length;
   /* Le compte des notes partagées vient du module, et SEULEMENT s'il parle
-     bien de la section qu'on dessine. Il était lu dans le libellé de la
-     pastille flottante : au changement de chapitre, la marge affichait
-     pendant une seconde le compte de la section précédente — mesuré. */
-  let pub='';
+     bien de la section qu'on dessine (voir `marge-au-propre`). */
+  let pub=0;
   try{
     if(AN&&AN.context&&AN.publicCount){
       const cx=AN.context();
-      if(cx.work==='capital'&&+cx.section===c.secNum){
-        const np=AN.publicCount();
-        if(np)pub=' · '+np;
-      }
+      if(cx.work==='capital'&&+cx.section===c.secNum) pub=AN.publicCount()||0;
     }
   }catch(e){}
-  let ph='<div class="atl3-pass-top"><h3 class="atl3-m-h">Vos passages</h3>'
-    +(nn?'<span class="atl3-pass-n">'+nn+'</span>':'')+'</div>';
-  if(nn){
-    ph+='<p class="atl3-pass-sub">dans la section '+c.sectionRn
-      +(nNote?' · '+nNote+' avec note':'')+'</p>'
-      +'<ul class="atl3-pass-list">'
-      +margeNotes.slice(0,4).map((a,i)=>
-        '<li><button type="button" class="atl3-pass-item" data-anno="'+i+'">'
-        +'<span class="atl3-pass-bar c-'+dEsc(a.color)+'"></span>'
-        +'<span class="atl3-pass-q">'+dEsc(a.quote.slice(0,86))
-        +(a.quote.length>86?'…':'')+'</span>'
-        +(a.note?'<span class="atl3-pass-note">'+dEsc(a.note.slice(0,54))+'</span>':'')
-        +'</button></li>').join('')
-      +'</ul>'
-      +(nn>4?'<p class="atl3-pass-more">et '+(nn-4)+' de plus</p>':'');
-  }else{
-    ph+='<p class="atl3-pass-empty">Sélectionnez un passage du texte pour le surligner.</p>';
-  }
-  ph+='<div class="atl3-pass-acts">'
-    +'<button type="button" class="atl3-m-nb" data-fab="notesFab">Mes notes</button>'
-    +'<button type="button" class="atl3-m-nb" data-fab="pubFab">Notes partagées'+pub+'</button>'
-    +'</div>'
-    +'<a class="atl3-m-carnet" href="carnet">Ouvrir mon carnet →</a>';
-  /* ORDRE : la carte d'emphase ouvre la marge quand il y a des passages
-     (arbitrage du propriétaire, 2e passe). Sans passage, elle n'était
-     qu'une consigne sur un outil pas encore utilisé, posée en tête et en
-     pleine lumière — la première chose qu'un novice lisait. Le résumé
-     passe alors devant (COGA 4.4.8 : le résumé AVANT le texte long) et
-     « Vos passages » suit, en section ordinaire. */
-  const passHtml=nn?'<section class="atl3-m-sec atl3-pass">'+ph+'</section>'
-                   :'<section class="atl3-m-sec atl3-pass-plain">'+ph+'</section>';
-  if(nn) h+=passHtml;
-  /* LE CHAPITRE EXPLIQUÉ (mission chapitres-capital, replacé par
-     chapitre-accessible). Quand le chapitre a sa page, la marge y renvoie —
-     et le renvoi vit AU PIED DE « EN CLAIR », pas dans un bloc à lui.
-     Mesuré avant de le déplacer : en bloc séparé il arrivait 5e sur 7, à
-     904 px dans une colonne qui s'arrête à 896, donc HORS DU CHAMP — il
-     fallait faire défiler la marge pour le trouver. Et son balisage était
-     celui des notions, si bien qu'il se lisait comme une notion de plus.
-     Sa place est ici parce que les deux disent la même chose à deux
-     longueurs : « En clair » est le résumé de deux lignes, la page en est le
-     développement. C'est aussi la doctrine déjà écrite (COGA 4.4.8, le
-     résumé AVANT le texte long). C'est une DESTINATION, donc une ancre et
-     non un bouton (règle de maillage-explorable) — d'où `color` et
-     `text-decoration` explicites dans atelier.css.
-     CHAPITRES_HREF est dérivé par tools/gen-seo.mjs, dans le même bloc
-     que NOTIONS_HREF. */
-  const chH=(window.CHAPITRES_HREF||{})[rn];
-  const chLien=chH?'<a class="atl3-m-go atl3-m-goto" href="'+chH+'">'
-    +'<span class="atl3-m-go-t">Ce que fait le chapitre '+rn+'</span>'
-    +'<span class="atl3-m-go-k">Lire l\'explication →</span></a>':'';
 
-  /* En clair — le résumé argumenté. Il vivait dans un popover de la barre
-     de lecture, derrière un bouton qu'il fallait connaître. */
-  if(m.s) h+=margeSection('En clair','','<div class="atl3-m-sum" id="atl3Sum">'+m.s+'</div>'
-    +'<button type="button" class="atl3-m-more" data-more="atl3Sum">Lire la suite</button>'
-    +chLien);
-  /* Filet : un chapitre sans résumé n'aurait pas de bloc « En clair », et le
-     renvoi disparaîtrait avec lui. Il prend alors le bloc à son compte. */
-  else if(chLien) h+=margeSection('En clair','',chLien);
-  if(!nn) h+=passHtml;
-
-
-  /* Le modèle — la station du laboratoire qui met CE chapitre en
-     mouvement. Elle s'ouvre dans le tiroir, à côté du texte. */
-  if(m.labo && LABO_LABELS[m.labo])
-    h+=margeSection('L\'instrument','',
-      '<button type="button" class="atl3-m-go" data-drawer="'+m.labo+'" data-kind="labo">'
-      +'<span class="atl3-m-go-t">'+dEsc(LABO_LABELS[m.labo].replace(/^Modèle /,''))+'</span>'
-      +'<span class="atl3-m-go-k">Faire varier →</span></button>');
-
-  /* LES NOTIONS DE CE CHAPITRE. Le renvoi dormait dans les données depuis le
-     début : `META[rn].labo` et `EXPLO_FOR[rn]` désignent une station, et
-     chaque station porte ses fiches — mais rien ne le lisait, et le
-     glossaire ne recevait aucun lien des ateliers. C'est le lien le mieux
-     placé du site : on est DANS le chapitre, et la notion y est établie.
-     Vingt chapitres sur trente-trois ont une station ; les treize autres
-     n'affichent rien plutôt qu'un renvoi inventé. */
+  /* LES NOTIONS DE CE CHAPITRE : les fiches des stations du chapitre, menées
+     à leur page par NOTIONS_HREF (dérivé par tools/gen-seo.mjs). On nomme la
+     NOTION et l'on dédoublonne par l'adresse. */
   const stations=[];
   if(m.labo) stations.push('cc-'+m.labo.slice(2));
   if(typeof EXPLO_FOR!=='undefined'&&EXPLO_FOR[rn]) stations.push('cc-'+EXPLO_FOR[rn].slice(2));
-  const fiches=[],vus={};
-  for(const st of stations) (( typeof CONCEPTS!=='undefined'&&CONCEPTS[st])||[]).forEach(x=>{
+  const notions=[],vus={};
+  for(const st of stations) ((typeof CONCEPTS!=='undefined'&&CONCEPTS[st])||[]).forEach(x=>{
     const e=(window.NOTIONS_HREF||{})[x.t];
-    /* On nomme la NOTION, pas la fiche : la carte dit « Capital constant (c) »
-       — sa notation de station —, la page couvre les deux capitaux. Et l'on
-       dédoublonne par l'adresse, quatre fiches de la station du fétichisme
-       menant à la même page. */
-    if(e&&!vus[e.h]){vus[e.h]=1;fiches.push({t:e.n,href:e.h});}
-  });
-  if(fiches.length) h+=margeSection('Les notions','',
-    '<ul class="atl3-m-notions">'+fiches.map(f=>
-      '<li><a href="'+f.href+'">'+dEsc(f.t)+'</a></li>').join('')+'</ul>');
-
-  /* La marche du cheminement où ce chapitre se situe. */
-  if(m.d && typeof STEPS!=='undefined' && STEPS[m.d-1])
-    h+=margeSection('Où l\'on en est','',
-      '<button type="button" class="atl3-m-go" data-drawer="'+m.d+'" data-kind="step">'
-      +'<span class="atl3-m-go-n">Marche '+m.d+' sur '+STEPS.length+'</span>'
-      +'<span class="atl3-m-go-t">'+dEsc(STEPS[m.d-1].t)+'</span>'
-      +'<span class="atl3-m-go-k">Voir la déduction →</span></button>');
-
-  /* Les dates que ce chapitre raconte. Elles sont courtes : elles vivent
-     ici même, dépliables — pas la peine d'un tiroir pour deux phrases. */
-  const ev=chronoFor(rn);
-  if(ev.length){
-    h+=margeSection('Ce qui s\'est passé','',
-      '<ul class="atl3-m-dates">'+ev.map((e,i)=>
-        '<li><button type="button" class="atl3-m-date" data-ev="'+i+'">'
-        +'<span class="atl3-m-y">'+e.year+'</span>'
-        +'<span class="atl3-m-evt">'+dEsc(e.title)+'</span></button>'
-        +'<p class="atl3-m-desc" hidden>'+e.desc+'</p></li>').join('')
-      +'</ul>');
-  }
-
-  /* Une exploration, quand ce chapitre en a une. */
-  const x=EXPLO_FOR[rn];
-  if(x) h+=margeSection('À voir','',
-    '<button type="button" class="atl3-m-go" data-drawer="'+x+'" data-kind="explo">'
-    +'<span class="atl3-m-go-t">'+dEsc(EXPLO_LABELS[x])+'</span>'
-    +'<span class="atl3-m-go-k">Ouvrir →</span></button>');
-
-  h+='<div class="atl3-marge-fade" aria-hidden="true"><span>Défiler</span></div>';
-  el.innerHTML=h;
-  el.classList.toggle('is-open',margeOpen);
-  margeFade();
-  const mt=document.getElementById('atl3MToggle');
-  if(mt)mt.addEventListener('click',()=>{
-    margeOpen=!margeOpen;
-    el.classList.toggle('is-open',margeOpen);
-    mt.setAttribute('aria-expanded',margeOpen?'true':'false');
+    if(e&&!vus[e.h]){vus[e.h]=1;notions.push({h:e.h,n:e.n});}
   });
 
-  el.querySelectorAll('[data-more]').forEach(b=>b.addEventListener('click',()=>{
-    const t=document.getElementById(b.dataset.more);
-    const open=t.classList.toggle('is-open');
-    b.textContent=open?'Replier':'Lire la suite';
-  }));
-  el.querySelectorAll('[data-ev]').forEach(b=>b.addEventListener('click',()=>{
-    const d=b.parentNode.querySelector('.atl3-m-desc');
-    d.hidden=!d.hidden; b.classList.toggle('is-open',!d.hidden);
-  }));
-  el.querySelectorAll('[data-drawer]').forEach(b=>b.addEventListener('click',()=>
-    openDrawer(b.dataset.kind,b.dataset.drawer)));
-  el.querySelectorAll('[data-anno]').forEach(b=>b.addEventListener('click',()=>{
-    const a=margeNotes[+b.dataset.anno];
-    if(!a)return;
-    /* On se pose D'ABORD sur le passage, instantanément. flashAnchor fait
-       son propre scrollIntoView en `smooth` — parfait pour le panneau de
-       notes, inutilisable ici : dans une section de cent mille pixels, un
-       défilement doux met une éternité ou n'arrive pas. On lui laisse
-       ensuite le clignotement, qui ne déplace plus rien. */
-    jumpToQuote(a.quote);
-    if(window.SHELL&&SHELL.annotations&&SHELL.annotations.flashAnchor)
-      SHELL.annotations.flashAnchor(a);
-  }));
-  el.querySelectorAll('[data-fab]').forEach(b=>b.addEventListener('click',()=>{
-    const f=document.getElementById(b.dataset.fab);
-    if(f)f.click();
-    else if(window.SHELL&&SHELL.announce)
-      SHELL.announce('Chargez un chapitre pour ouvrir vos notes.');
-  }));
+  /* Ce qui s'ouvre DANS LE TIROIR, et rien d'autre : l'instrument, la marche,
+     l'exploration. */
+  const tools=[];
+  if(m.labo&&LABO_LABELS[m.labo])
+    tools.push({kind:'labo',target:m.labo,k:'Instrument',t:LABO_LABELS[m.labo].replace(/^Modèle /,'')});
+  if(m.d&&typeof STEPS!=='undefined'&&STEPS[m.d-1])
+    tools.push({kind:'step',target:String(m.d),k:'Marche '+m.d+' sur '+STEPS.length,t:STEPS[m.d-1].t});
+  const x=(typeof EXPLO_FOR!=='undefined')&&EXPLO_FOR[rn];
+  if(x&&EXPLO_LABELS[x]) tools.push({kind:'explo',target:x,k:'Exploration',t:EXPLO_LABELS[x]});
+
+  const chH=(window.CHAPITRES_HREF||{})[rn];
+  MargeAtelier.render(el,{
+    label:'Dans ce chapitre', rn, title:c.chapTitle,
+    sum:m.s||'',
+    explain:chH?{href:chH,title:'Le chapitre '+rn+' expliqué'}:null,
+    notions, dates:chronoFor(rn), tools,
+    notes:{list:margeNotes, where:'Section '+c.sectionRn, pub}
+  },{
+    /* On se pose D'ABORD sur le passage, instantanément : flashAnchor défile
+       en `smooth`, ce qui n'arrive jamais dans une section de cent mille
+       pixels. Il ne fait plus ensuite que clignoter. */
+    anno(a){
+      jumpToQuote(a.quote);
+      if(window.SHELL&&SHELL.annotations&&SHELL.annotations.flashAnchor)
+        SHELL.annotations.flashAnchor(a);
+    },
+    drawer(kind,target){ openDrawer(kind,target); },
+    fab(id){
+      const f=document.getElementById(id);
+      if(f)f.click();
+      else if(window.SHELL&&SHELL.announce)
+        SHELL.announce('Chargez un chapitre pour ouvrir vos notes.');
+    }
+  });
 }
 
 /* ══════════════════════════════════════════════════════════════════════

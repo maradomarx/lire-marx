@@ -8961,6 +8961,90 @@ intacte, pas de bouton) : feuille ouverte, marge dedans, cinq sections,
 ouvert depuis la feuille, barre sans défilement à 375 px. Détecteur 83 → 83,
 0 erreur. `reader-tools.js?v=5`, `atelier.css?v=9`.
 
+## La marge en trois gestes (mission `marge-trois-gestes`, sept. 2026)
+
+Demande du propriétaire : « l'UI UX de la bande “Dans ce chapitre” n'est pas
+la plus claire ». Mesuré avant (Capital, ch. VII, 1440 × 900) :
+
+- **six blocs au même rang** (même titre en capitales or, même filet) :
+  1 039 px de contenu pour 794 de colonne, « Où l'on en est » hors champ ;
+- **quatre formes pour un même geste** : lien souligné (« Lire la suite »,
+  « Ouvrir mon carnet »), pilules (notes), cartes (explication, instrument,
+  marche), liste fléchée (notions) ;
+- **rien ne disait ce que fait un clic** : quitter la page (explication,
+  notions, carnet), ouvrir le tiroir (instrument, marche, exploration) ou un
+  panneau (notes) ;
+- « Vos passages » vide : 167 px au milieu pour une consigne ;
+- le titre du chapitre écrit trois fois dans l'écran (sommaire, bandeau,
+  tête de marge, 93 px) ; « journée de travail » en minuscule.
+
+**Arbitrage : « trois gestes »** (écartés : des onglets dans la marge — un
+niveau de navigation de plus, ce que « le texte au centre » avait retiré — et
+une liste unique sans titres, qui perdait le regroupement). La marge se range
+par ce que le lecteur veut faire :
+
+- **Comprendre** — le résumé (4 lignes, « Lire la suite »), la ligne
+  éclairée « Le chapitre N expliqué », les notions en **pastilles**, les
+  dates dépliables ;
+- **Manipuler · sans quitter la page** — instrument, marche, exploration :
+  UNIQUEMENT ce qui ouvre le tiroir ;
+- **Vos notes** — un **pied collant**, toujours visible : le dernier passage
+  (un seul — deux faisaient 250 px et cachaient « Manipuler »), « Mes notes »,
+  « Partagées », « Carnet → ».
+
+Deux formes seulement (la **ligne** `.mg-row`, la **pastille** `.mg-chips`) et
+deux icônes : la flèche = une autre page, le panneau = le tiroir. Les titres de
+groupe sont en Fraunces ; le micro-libellé en capitales reste à la colonne
+seule (« Dans ce chapitre *VII* »), et le titre du chapitre ne reparaît que
+dans la feuille mobile, où ni sommaire ni bandeau ne sont à l'écran.
+
+Ce qui SUPERSÈDE des arbitrages antérieurs : « Vos passages » en tête en carte
+d'emphase (`atelier-texte-au-centre`, 2e passe) et son ordre variable selon
+qu'on a surligné (`atelier-premier-ecran`) — le pied collant tient les deux
+promesses (toujours à l'écran, jamais une consigne en pleine lumière). Le
+renvoi « Ce que fait le chapitre » au pied d'« En clair » (`chapitre-accessible`)
+reste à cette place, sous la forme de la ligne éclairée. Le dépliant
+`.atl3-m-toggle` et le raccourci `.atl3-m-quick`, morts depuis `marge-mobile`,
+sont retirés. Ne pas revenir à six blocs au même rang.
+
+### Un gabarit, trois ateliers : `oeuvres/marge.js`
+
+Les trois `renderMarge` avaient divergé (copies d'un même composant). Chaque
+page RASSEMBLE désormais ses données et appelle
+`MargeAtelier.render(el, data, {anno, drawer, fab})` ; le balisage, les
+écouteurs de dépli et l'indicateur de défilement vivent dans `marge.js`.
+**Chargé sans `defer`, dans le `<head>`** : les pages appellent `renderMarge`
+pendant leur propre exécution (sur les Manuscrits, avant même la balise de
+reader-tools). Nouvelle espèce d'appareil → un `tools.push({kind,target,k,t})`
+dans la page, rien d'autre.
+
+- **C'est `.mg-flow` qui défile, plus la colonne** : `MargeAtelier.fade()`
+  mesure le flux, et l'écouteur `scroll` est en CAPTURE sur le document (il ne
+  remonte pas, et la marge est réécrite à chaque chapitre). Les classes
+  `is-scrollable` / `is-end` restent sur la marge.
+- **Le dernier groupe perd son blanc de pied** : sept pixels suffisaient à
+  allumer le voile « Défiler » par-dessus la dernière ligne.
+- **Dans la feuille**, `.mg-flow` ne défile plus (la feuille défile) et le pied
+  colle au bas ; **une ombre pleine sans flou bouche la bande de rembourrage**
+  de la feuille, où le contenu passait sous la carte.
+- Les groupes gardent `.atl3-m-sec` : c'est ce qu'atelier-motion.js échelonne.
+  Le pied ne l'a pas — il ne doit pas clignoter à chaque chapitre traversé.
+- Les renvois hors tiroir (`[data-drawer]`, `[data-anno]`, `.atl3-m-nb`,
+  `a[href]`) sont ceux que reader-tools écoute pour refermer la feuille :
+  garder ces attributs et cette classe.
+
+`atelier.css?v=11` (7 pages), `marge.js?v=1`.
+
+**Vérifié** : les trois ateliers à 1440 px (Capital VII tient sans défiler,
+Manuscrits et Manifeste aussi), feuille à 1000 et 375 px ; pied rempli avec
+passages injectés dans `liremarx.anno.v1` ; clic sur une ligne → tiroir ouvert
+avec `#s-jour`, Échap → nœud rendu, focus revenu sur la ligne ; clic sur un
+passage → saut dans le texte ; contraste sur le rendu 0 échec (minimum 5,35,
+plus petit texte 11,52 px, aucune cible sous 24 px) ; console sans erreur ;
+détecteur compté contre une copie de HEAD : 39 / 19 / 12 / 12, **identique**.
+Le débord de 4 px à 375 px et l'accolade orpheline d'atelier.css (ligne 542)
+existent à HEAD — antérieurs, non touchés.
+
 ## Le jeu : le panneau de formation se replie (mission `mobile-panneaux`, sept. 2026)
 
 Suite de `vivant-sur-mobile`, qui avait laissé les phases avancées « sans

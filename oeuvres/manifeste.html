@@ -23,7 +23,7 @@
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="fonts/fonts.css?v=2">
-<link rel="stylesheet" href="atelier.css?v=10">
+<link rel="stylesheet" href="atelier.css?v=11">
 <link rel="stylesheet" href="shell.css?v=11">
 <link rel="stylesheet" href="reader-tools.css">
 <style>
@@ -227,6 +227,7 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
   }
 }
 </script>
+<script src="marge.js?v=1"></script>
 </head>
 <body class="at-atelier">
 <main class="wrap" id="contenu" tabindex="-1">
@@ -864,77 +865,37 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
   }
 
   /* ══════════════════ LA MARGE ══════════════════ */
-  var margeOpen=false, margeNotes=[], annoUnsub=null;
+  var margeNotes=[], annoUnsub=null;
   function watchAnnos(){ var AN=window.SHELL&&SHELL.annotations; if(!AN||!AN.onChange||annoUnsub)return; annoUnsub=AN.onChange(function(){renderMarge();}); }
-  function margeFade(){
-    var el=byId('atl3Marge'); if(!el)return;
-    var peut=el.scrollHeight>el.clientHeight+4;
-    el.classList.toggle('is-scrollable',peut);
-    el.classList.toggle('is-end',peut&&el.scrollTop+el.clientHeight>=el.scrollHeight-6);
-  }
-  function margeSection(k,body){ return '<section class="atl3-m-sec"><h3 class="atl3-m-h">'+k+'</h3>'+body+'</section>'; }
+  /* Rendue par oeuvres/marge.js (mission `marge-trois-gestes`). */
+  function margeFade(){ if(window.MargeAtelier) MargeAtelier.fade(); }
   function renderMarge(){
-    var el=byId('atl3Marge'); if(!el)return;
+    var el=byId('atl3Marge'); if(!el||!window.MargeAtelier)return;
     var c=cur();
-    var h='<button type="button" class="atl3-m-toggle" id="atl3MToggle" aria-expanded="'+(margeOpen?'true':'false')+'">'
-      +'<span class="atl3-m-toggle-k">Dans cette partie</span><span class="atl3-m-toggle-t">'+esc(c.t)+'</span></button>'
-      +'<div class="atl3-m-head"><h2 class="atl3-lab">Dans cette partie</h2>'
-      +'<p class="atl3-m-ch">'+(c.rn?'<em>'+c.rn+'</em> ':'')+esc(c.t)+'</p></div>';
     margeNotes=[];
     var AN=(window.SHELL&&SHELL.annotations)||null;
     try{ if(AN&&AN.notesFor) margeNotes=AN.notesFor(WORK,1).sort(function(a,b){return (b.created||0)-(a.created||0);}); }catch(e){}
-    var nn=margeNotes.length, nNote=margeNotes.filter(function(a){return a.note;}).length, pub='';
-    try{ if(AN&&AN.context&&AN.publicCount){ var cx=AN.context(); if(cx.work===WORK&&+cx.section===1){ var np=AN.publicCount(); if(np)pub=' · '+np; } } }catch(e){}
-    var ph='<div class="atl3-pass-top"><h3 class="atl3-m-h">Vos passages</h3>'+(nn?'<span class="atl3-pass-n">'+nn+'</span>':'')+'</div>';
-    if(nn){
-      ph+='<p class="atl3-pass-sub">dans le Manifeste'+(nNote?' · '+nNote+' avec note':'')+'</p><ul class="atl3-pass-list">'
-        +margeNotes.slice(0,4).map(function(a,i){
-          return '<li><button type="button" class="atl3-pass-item" data-anno="'+i+'"><span class="atl3-pass-bar c-'+esc(a.color)+'"></span>'
-          +'<span class="atl3-pass-q">'+esc(a.quote.slice(0,86))+(a.quote.length>86?'…':'')+'</span>'
-          +(a.note?'<span class="atl3-pass-note">'+esc(a.note.slice(0,54))+'</span>':'')+'</button></li>';}).join('')
-        +'</ul>'+(nn>4?'<p class="atl3-pass-more">et '+(nn-4)+' de plus</p>':'');
-    }else{
-      ph+='<p class="atl3-pass-empty">Sélectionnez un passage du texte pour le surligner.</p>';
-    }
-    ph+='<div class="atl3-pass-acts"><button type="button" class="atl3-m-nb" data-fab="notesFab">Mes notes</button>'
-      +'<button type="button" class="atl3-m-nb" data-fab="pubFab">Notes partagées'+pub+'</button></div>'
-      +'<a class="atl3-m-carnet" href="carnet">Ouvrir mon carnet →</a>';
-    var passHtml='<section class="atl3-m-sec '+(nn?'atl3-pass':'atl3-pass-plain')+'">'+ph+'</section>';
-    if(nn) h+=passHtml;
-    h+=margeSection('En clair','<div class="atl3-m-sum" id="atl3Sum">'+esc(c.s)+'</div>'
-      +'<button type="button" class="atl3-m-more" data-more="atl3Sum">Lire la suite</button>');
+    var pub=0;
+    try{ if(AN&&AN.context&&AN.publicCount){ var cx=AN.context(); if(cx.work===WORK&&+cx.section===1) pub=AN.publicCount()||0; } }catch(e){}
     /* LES NOTIONS DE CETTE PARTIE : `nt` de MF_STRUCT, adresses lues dans
-       NOTIONS_HREF (dérivé par tools/gen-seo.mjs). On ne montre que celles qui
-       ont une page — une notion sans page ne mène nulle part. */
+       NOTIONS_HREF. Seules celles qui ont une page. */
     var nts=[], vusH={};
-    (c.nt||[]).forEach(function(n){ var e=(window.NOTIONS_HREF||{})[n]; if(e&&!vusH[e.h]){vusH[e.h]=1;nts.push(e);} });
-    if(nts.length) h+=margeSection('Les notions','<ul class="atl3-m-notions">'+nts.map(function(e){
-      return '<li><a href="'+esc(e.h)+'">'+esc(e.n)+'</a></li>';}).join('')+'</ul>');
-    if(!nn) h+=passHtml;
-    if(c.soc)
-      h+=margeSection("L'instrument",'<button type="button" class="atl3-m-go" data-drawer="'+c.soc+'" data-kind="soc">'
-        +'<span class="atl3-m-go-n">La carte des socialismes</span>'
-        +'<span class="atl3-m-go-t">'+esc(SOC_LABELS[c.soc])+'</span><span class="atl3-m-go-k">Ouvrir →</span></button>');
-    if(c.w)
-      h+=margeSection("Où l'on en est",'<button type="button" class="atl3-m-go" data-drawer="'+c.w+'" data-kind="step">'
-        +'<span class="atl3-m-go-n">Marche '+c.w+' sur '+WALK_T.length+'</span>'
-        +'<span class="atl3-m-go-t">'+esc(WALK_T[c.w-1])+'</span><span class="atl3-m-go-k">Voir le fil →</span></button>');
-    h+='<div class="atl3-marge-fade" aria-hidden="true"><span>Défiler</span></div>';
-    el.innerHTML=h;
-    el.classList.toggle('is-open',margeOpen);
-    margeFade();
-    var mt=byId('atl3MToggle');
-    if(mt)mt.addEventListener('click',function(){ margeOpen=!margeOpen; el.classList.toggle('is-open',margeOpen); mt.setAttribute('aria-expanded',margeOpen?'true':'false'); });
-    el.querySelectorAll('[data-more]').forEach(function(b){b.addEventListener('click',function(){ var open=byId(b.dataset.more).classList.toggle('is-open'); b.textContent=open?'Replier':'Lire la suite'; });});
-    el.querySelectorAll('[data-drawer]').forEach(function(b){b.addEventListener('click',function(){ openDrawer(b.dataset.kind,b.dataset.drawer); });});
-    el.querySelectorAll('[data-anno]').forEach(function(b){b.addEventListener('click',function(){
-      var a=margeNotes[+b.dataset.anno]; if(!a)return;
-      jumpToQuote(a.quote);
-      if(window.SHELL&&SHELL.annotations&&SHELL.annotations.flashAnchor)SHELL.annotations.flashAnchor(a);
-    });});
-    el.querySelectorAll('[data-fab]').forEach(function(b){b.addEventListener('click',function(){
-      var f=byId(b.dataset.fab); if(f)f.click(); else if(window.SHELL&&SHELL.announce)SHELL.announce('Le texte se charge encore.');
-    });});
+    (c.nt||[]).forEach(function(n){ var e=(window.NOTIONS_HREF||{})[n]; if(e&&!vusH[e.h]){vusH[e.h]=1;nts.push({h:e.h,n:e.n});} });
+    var tools=[];
+    if(c.soc) tools.push({kind:'soc',target:c.soc,k:'La carte des socialismes',t:SOC_LABELS[c.soc]});
+    if(c.w) tools.push({kind:'step',target:String(c.w),k:'Marche '+c.w+' sur '+WALK_T.length,t:WALK_T[c.w-1]});
+    MargeAtelier.render(el,{
+      label:'Dans cette partie', rn:c.rn||'', title:c.t,
+      sum:c.s?esc(c.s):'', notions:nts, tools:tools,
+      notes:{list:margeNotes, where:'Dans le Manifeste', pub:pub}
+    },{
+      anno:function(a){
+        jumpToQuote(a.quote);
+        if(window.SHELL&&SHELL.annotations&&SHELL.annotations.flashAnchor)SHELL.annotations.flashAnchor(a);
+      },
+      drawer:function(kind,target){ openDrawer(kind,target); },
+      fab:function(id){ var f=byId(id); if(f)f.click(); else if(window.SHELL&&SHELL.announce)SHELL.announce('Le texte se charge encore.'); }
+    });
   }
 
   /* ══════════════════ LA CARTE DES SOCIALISMES ══════════════════ */
