@@ -1,0 +1,54 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/proletariat (mission manifeste-notions, sept. 2026). Porte aussi le renvoi de « Moyens de production ».",
+  "titre": "Prolétariat",
+  "de": "Proletariat",
+  "chapo": "Le prolétariat n’est pas la pauvreté : c’est la classe de ceux qui, ne possédant aucun moyen de production, doivent vendre leur force de travail pour vivre. Le <i>Manifeste</i> le définit par ce qu’il n’a pas — ni terre, ni outil, ni patrie, ni propriété à garantir — et c’est de ce manque même qu’il tire sa thèse : une classe qui n’a rien à conserver ne peut s’émanciper qu’en abolissant toute appropriation de classe.",
+  "description": "Le prolétariat chez Marx et Engels : pourquoi il se définit par la non-possession et non par la misère, le « prix du travail » de 1848 que le Capital corrigera, les fossoyeurs, et les contresens sur la disparition de la classe ouvrière.",
+  "source": {
+    "work": "manifeste-parti-communiste",
+    "s": 1,
+    "cite": "Karl Marx et Friedrich Engels, <i>Manifeste du parti communiste</i> (1848) — traduction Laura Lafargue (1897)"
+  },
+  "ou": "<i>Manifeste du parti communiste</i>, partie&nbsp;I, « Bourgeois et prolétaires » — de la naissance du prolétariat aux fossoyeurs ; partie&nbsp;II pour la patrie et la propriété ; la dernière ligne du texte pour les chaînes et le monde à gagner.",
+  "outils": [
+    {
+      "label": "Lire « Bourgeois et prolétaires » — la liseuse du Manifeste",
+      "url": "/oeuvres/manifeste#partie=2"
+    },
+    {
+      "label": "Le cheminement du Manifeste — les crises, et ceux qui manieront les armes",
+      "url": "/oeuvres/manifeste#deriv"
+    }
+  ],
+  "voisins": [
+    "Bourgeoisie",
+    "Lutte des classes",
+    "Force de travail",
+    "Moyens de production",
+    "Appendice de la machine",
+    "Armée de réserve",
+    "Forme-salaire"
+  ],
+  "monde": {
+    "_": "LA PLANCHE : UN INVENTAIRE. Le prolétariat se définit par ce qu'il n'a pas ; sa figure propre est donc un registre de possessions qu'on raye. En tête, « Inventaire » en capitales et un filet ; sept lignes à points conducteurs, chacune cochée : la terre qu'on cultivait, l'outil du métier, l'atelier, le produit de son travail, une patrie, une propriété à garantir, sa force de travail. Au défilement, un trait rouge barre les six premières l'une après l'autre et les coches tombent. La septième reste, et reçoit une mention en or : à vendre, au jour le jour. Au dernier temps, au pied de la feuille, les deux phrases de Lafargue qui ferment le texte : rien à perdre, hors leurs chaînes — un monde à gagner. Moteur 2d : c'est un document qu'on lit, pas un objet qu'on regarde. Tout est fonction de g, donc réversible.",
+    "moteur": "2d",
+    "layout": "plein",
+    "alt": "Une feuille d'inventaire à sept lignes — la terre, l'outil, l'atelier, le produit du travail, une patrie, une propriété, la force de travail — dont les six premières sont barrées d'un trait rouge ; la dernière porte la mention « à vendre, au jour le jour ».",
+    "source": {
+      "texte": "D'après le texte — Manifeste, partie I",
+      "q": "Le prolétaire est sans propriété"
+    },
+    "etapes": {
+      "misere": "Un inventaire, et sept lignes cochées : ce qu'un producteur pouvait posséder. Le prolétariat ne se reconnaît pas à ce qu'il gagne, mais à ce qui manque à cette liste.",
+      "naissance": "Rien n'est encore rayé. Le prolétaire moderne sort de ce monde-là : du paysan, de l'artisan, du petit boutiquier que la grande industrie fait tomber.",
+      "sans": "Les lignes se barrent une à une : la terre, l'outil, l'atelier, le produit du travail. Le prolétaire est sans propriété — et c'est ce manque, non la misère, qui le définit.",
+      "marchandise": "Il reste une ligne, et elle change de sens : sa force de travail, à vendre au jour le jour. Les ouvriers sont une marchandise comme tout autre article du commerce.",
+      "fossoyeurs": "Une patrie, une propriété à garantir : rayées aussi. Une classe qui n'a rien à assurer ne peut conserver aucun ordre, et c'est pourquoi la bourgeoisie produit ses propres fossoyeurs.",
+      "lectures": "Au pied de la feuille, les deux phrases qui ferment le texte : rien à perdre, hors leurs chaînes ; un monde à gagner."
+    },
+    "fixe": {
+      "g": 3.7,
+      "legende": "Les lignes de l'inventaire sont barrées une à une ; il ne reste que la force de travail, à vendre au jour le jour. Le prolétaire se définit par ce qu'il n'a pas."
+    }
+  }
+}

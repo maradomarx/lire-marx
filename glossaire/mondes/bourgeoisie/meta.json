@@ -1,0 +1,53 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/bourgeoisie (mission manifeste-notions, sept. 2026). Porte aussi les renvois de « Marché mondial » et de « Surproduction ».",
+  "titre": "Bourgeoisie",
+  "de": "Bourgeoisie",
+  "chapo": "Dans le <i>Manifeste</i>, la bourgeoisie n’est ni un mode de vie ni une richesse : c’est la classe des propriétaires des moyens de production sociale, qui emploient du travail salarié — et la seule classe dominante de l’histoire qui ne puisse subsister qu’à la condition de bouleverser sans cesse la production. D’où l’éloge qui ouvre le texte, et la crise qui le retourne : le magicien ne domine plus les puissances qu’il a évoquées.",
+  "description": "La bourgeoisie chez Marx et Engels : pourquoi le Manifeste en fait l'éloge, ce que veut dire une classe qui doit révolutionner sans cesse la production, le marché mondial, les crises de surproduction et les contresens sur le mot.",
+  "source": {
+    "work": "manifeste-parti-communiste",
+    "s": 1,
+    "cite": "Karl Marx et Friedrich Engels, <i>Manifeste du parti communiste</i> (1848) — traduction Laura Lafargue (1897)"
+  },
+  "ou": "<i>Manifeste du parti communiste</i>, partie&nbsp;I, « Bourgeois et prolétaires » — la genèse de la bourgeoisie, son rôle révolutionnaire, le marché mondial, puis les crises de surproduction. La définition explicite de la classe n’est pas dans le texte de 1848 : elle vient d’une note d’Engels à l’édition anglaise de 1888.",
+  "outils": [
+    {
+      "label": "Lire « Bourgeois et prolétaires » — la liseuse du Manifeste",
+      "url": "/oeuvres/manifeste#partie=2"
+    },
+    {
+      "label": "Le cheminement du Manifeste — la bourgeoisie révolutionnaire",
+      "url": "/oeuvres/manifeste#deriv"
+    }
+  ],
+  "voisins": [
+    "Prolétariat",
+    "Lutte des classes",
+    "Force productive",
+    "Marché mondial",
+    "Surproduction",
+    "Pouvoir politique",
+    "Accumulation primitive"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : CE QUI ÉTAIT SOLIDE ET STABLE. La figure est prise au § 24 de la partie I : « Tout ce qui était solide et stable est ébranlé, tout ce qui était sacré est profané », puis au magicien du § 33. Une enceinte de pierre, fermée et immobile — l'ordre qui se conservait. Des marchandises y paraissent ; puis les murs se défont en poussière qui monte, et les marchandises gagnent le sol en anneaux de plus en plus larges (le marché mondial, « il lui faut pénétrer partout »). Puis elles refluent vers le centre et s'entassent en un monceau qui monte plus haut que tout — et s'écroule : la moitié est détruite sous une lueur rouge, l'épidémie de la surproduction. Au dernier temps, ce qui reste se remet à rayonner : la crise n'est pas une fin, c'est un temps du cycle. Tout est fonction de la position de lecture g, donc réversible.",
+    "layout": "plein",
+    "alt": "Une enceinte carrée de pierres, fermée ; ailleurs, ses murs se défont en poussière tandis que de petites marchandises rayonnent sur le sol en anneaux, puis s'entassent en un monceau qui s'écroule.",
+    "source": {
+      "texte": "D'après le texte — Manifeste, partie I",
+      "q": "Tout ce qui était solide et stable est ébranlé, tout ce qui était sacré est profané"
+    },
+    "etapes": {
+      "eloge": "Une enceinte de pierre, fermée, immobile. Toutes les classes dominantes d'avant avaient pour condition de conserver le mode de production : c'est ce monde-là qu'on regarde.",
+      "genese": "Dans l'enceinte, des marchandises paraissent. La bourgeoisie n'arrive pas du dehors : elle naît dans le sein de l'ordre féodal, d'une série de révolutions dans la production et les échanges.",
+      "revolutionner": "Les murs se défont en poussière qui monte. La bourgeoisie n'existe qu'à la condition de révolutionner sans cesse la production : ce qui était solide et stable est ébranlé.",
+      "marche": "Plus d'enceinte : les marchandises rayonnent en anneaux toujours plus larges. Il lui faut pénétrer partout, s'établir partout — le bon marché est la grosse artillerie qui bat en brèche les murailles.",
+      "magicien": "Tout reflue au centre et monte en un monceau trop haut, qui s'écroule. Trop de civilisation, trop d'industrie : l'épidémie de la surproduction détruit ce qui a été produit.",
+      "lectures": "Ce qui reste recommence à rayonner. La crise n'est pas la fin de la bourgeoisie mais un temps de son cycle — et chaque reprise prépare une crise plus générale."
+    },
+    "fixe": {
+      "g": 2.55,
+      "legende": "Les murs de l'enceinte se défont en poussière, et les marchandises qu'ils gardaient commencent à gagner le dehors : tout ce qui était solide et stable est ébranlé."
+    }
+  }
+}

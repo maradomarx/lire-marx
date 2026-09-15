@@ -1,0 +1,52 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/pouvoir-politique (mission manifeste-notions, sept. 2026).",
+  "titre": "Pouvoir politique",
+  "de": "politische Gewalt",
+  "chapo": "« Le pouvoir politique, à proprement parler, est le pouvoir organisé d’une classe pour l’oppression d’une autre » : la définition du <i>Manifeste</i> refuse à l’État la place d’arbitre au-dessus des classes qu’il revendique. Elle ne le réduit pas pour autant à l’instrument d’un patron : il gère les affaires communes de toute une classe, et c’est pourquoi une classe qui abolit les classes abolit du même coup le caractère politique du pouvoir.",
+  "description": "Le pouvoir politique et l'État chez Marx et Engels : le « comité administratif » de la classe bourgeoise, la conquête du pouvoir par le prolétariat, le pouvoir public qui perd son caractère politique, et les contresens de l'instrument et de l'arbitre.",
+  "source": {
+    "work": "manifeste-parti-communiste",
+    "s": 1,
+    "cite": "Karl Marx et Friedrich Engels, <i>Manifeste du parti communiste</i> (1848) — traduction Laura Lafargue (1897)"
+  },
+  "ou": "<i>Manifeste du parti communiste</i>, partie&nbsp;I pour la conquête du pouvoir par la bourgeoisie et l’État représentatif moderne ; partie&nbsp;II pour la conquête du pouvoir par le prolétariat, les mesures transitoires et la définition du pouvoir politique. La préface de 1872, écrite après la Commune, n’est pas servie : elle est paraphrasée.",
+  "outils": [
+    {
+      "label": "Lire « Prolétaires et communistes » — la liseuse du Manifeste",
+      "url": "/oeuvres/manifeste#partie=3"
+    },
+    {
+      "label": "La carte des socialismes — le communisme du Manifeste",
+      "url": "/oeuvres/manifeste#labo=communisme"
+    }
+  ],
+  "voisins": [
+    "Lutte des classes",
+    "Bourgeoisie",
+    "Prolétariat",
+    "Idées dominantes",
+    "Association",
+    "Factory Acts & inspecteurs"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : UNE BALANCE QUI PARAÎT JUSTE. L'État se présente comme un arbitre au-dessus des classes ; la balance est la figure de cette prétention, et c'est en la regardant de plus près qu'on voit comment l'équilibre est obtenu. D'abord deux plateaux à niveau sur un fût. Puis on voit le socle : il est posé sur la dalle de gauche. Puis la construction : le plateau de gauche porte une pile de lingots, celui de droite un poids léger, et pourtant le fléau est horizontal — parce que le pivot n'est pas au milieu. Puis des poids s'ajoutent à droite (la loi de dix heures), le fléau s'incline, et le pivot glisse pour rétablir le niveau : gérer les affaires communes de la classe, c'est aussi concéder. Puis le pivot passe de l'autre côté, et le fléau est déposé : les deux plateaux reposent sur une même table, sans balance. Tout est fonction de g, donc réversible.",
+    "layout": "plein",
+    "alt": "Une balance de laiton dont le fléau est horizontal alors que le plateau de gauche porte une pile de lingots et celui de droite un seul poids ; le pivot n'est pas au milieu, et le socle repose sur la dalle de gauche.",
+    "source": {
+      "texte": "D'après le texte — Manifeste, partie II",
+      "q": "Le pouvoir politique, à proprement parler, est le pouvoir organisé d’une classe pour l’oppression d’une autre"
+    },
+    "etapes": {
+      "arbitre": "Une balance à l'équilibre, deux plateaux à niveau. C'est ainsi que l'État se présente : au-dessus des parties, également distant de chacune.",
+      "conquete": "On voit le socle : il n'est pas posé au milieu de la salle mais sur la dalle de gauche. La bourgeoisie s'est emparée du pouvoir politique, à l'exclusion des autres classes, dans l'État représentatif moderne.",
+      "comite": "La pile de lingots d'un côté, un poids léger de l'autre — et le fléau reste droit, parce que le pivot n'est pas au milieu. L'équilibre n'est pas une neutralité : c'est une construction.",
+      "communes": "Des poids s'ajoutent à droite, le fléau s'incline, et le pivot glisse pour rétablir le niveau. Gérer les affaires communes de toute une classe, c'est aussi céder sur une part pour garder le tout.",
+      "extinction": "Le pivot passe de l'autre côté ; puis le fléau est déposé, et les deux plateaux reposent sur une même table. Une classe qui détruit les conditions de l'antagonisme détruit sa propre domination comme classe.",
+      "lectures": "Il reste le fût vide. Le pouvoir public ne disparaît pas d'un coup : il perd son caractère politique — la préface de 1872 ajoutera qu'on ne peut pas se contenter de prendre la machine telle quelle."
+    },
+    "fixe": {
+      "g": 2.6,
+      "legende": "La pile de lingots d'un côté, un poids léger de l'autre, et le fléau reste droit : le pivot n'est pas au milieu. L'équilibre n'est pas une neutralité, c'est une construction."
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/idees-dominantes (mission manifeste-notions, sept. 2026).",
+  "titre": "Idées dominantes",
+  "de": "herrschende Ideen",
+  "chapo": "« Les idées dominantes d’une époque n’ont jamais été que les idées de la classe dominante » : la phrase du <i>Manifeste</i> ne dit pas que toutes les idées sont des mensonges intéressés, mais que la production intellectuelle se transforme avec la production matérielle, et que ce qu’une époque tient pour des vérités éternelles porte la marque des rapports sociaux qui la font vivre.",
+  "description": "Les idées dominantes chez Marx et Engels : la conscience qui change avec l'existence sociale, la liberté de conscience comme libre concurrence dans le domaine de la connaissance, les « vérités éternelles », et les contresens du reflet et du relativisme.",
+  "source": {
+    "work": "manifeste-parti-communiste",
+    "s": 1,
+    "cite": "Karl Marx et Friedrich Engels, <i>Manifeste du parti communiste</i> (1848) — traduction Laura Lafargue (1897)"
+  },
+  "ou": "<i>Manifeste du parti communiste</i>, partie&nbsp;II, « Prolétaires et communistes » — la réponse aux objections portées au nom de la liberté, de la culture et du droit, puis de la religion, de la philosophie et de l’idéologie en général. <i>L’Idéologie allemande</i> (1845-1846), où la thèse est développée, n’a été publiée qu’en 1932 et n’est pas servie : elle est paraphrasée.",
+  "outils": [
+    {
+      "label": "Lire « Prolétaires et communistes » — la liseuse du Manifeste",
+      "url": "/oeuvres/manifeste#partie=3"
+    },
+    {
+      "label": "La carte des socialismes — le « vrai » socialisme allemand",
+      "url": "/oeuvres/manifeste#labo=vrai"
+    }
+  ],
+  "voisins": [
+    "Lutte des classes",
+    "Pouvoir politique",
+    "Bourgeoisie",
+    "Propriété bourgeoise",
+    "Fétichisme"
+  ],
+  "monde": {
+    "_": "LA SCÈNE : UNE PRESSE À IMPRIMER. « La production intellectuelle se transforme avec la production matérielle » : les idées ont une fabrication, et qui tient la presse tient la page. Une presse à bras sur son marbre, une feuille dessous. Au départ elle imprime LIBERTÉ · JUSTICE — les vérités que l'objection dit éternelles. Puis on voit à côté la pile des feuilles d'avant. Puis l'histoire se rejoue sur le marbre, et la presse change de matière avec elle : de bois, elle imprime LES DIEUX DE LA CITÉ, puis LA FOI CHRÉTIENNE ; de fer, LES LUMIÈRES, puis LIBERTÉ DE CONSCIENCE, sur quoi s'imprime en or ce que le texte y lit : la libre concurrence dans le domaine de la connaissance. La feuille ne change jamais qu'au moment où la platine la couvre. Au dernier temps la platine se relève sur une feuille blanche. Tout est fonction de g, donc réversible.",
+    "layout": "plein",
+    "alt": "Une presse à imprimer à bras, en fer, sur son marbre ; la feuille porte en capitales LIBERTÉ DE CONSCIENCE, et en or, par-dessus, la mention « libre concurrence » ; à côté, une pile de feuilles déjà imprimées.",
+    "source": {
+      "texte": "D'après le texte — Manifeste, partie II",
+      "q": "la production intellectuelle se transforme avec la production matérielle"
+    },
+    "etapes": {
+      "eternelles": "La presse imprime LIBERTÉ · JUSTICE. L'objection dit ces vérités communes à toutes les conditions sociales : c'est la page qu'on nous tend comme si personne ne l'avait composée.",
+      "ou": "À côté, la pile des feuilles d'avant. Le texte ne répond pas par une doctrine mais par une histoire : ce qu'une époque imprime, une autre l'a imprimé autrement.",
+      "production": "L'histoire se rejoue sur le marbre, et la presse redevient de bois. LES DIEUX DE LA CITÉ, puis LA FOI CHRÉTIENNE : les vieilles religions furent vaincues quand l'ancien monde était à son déclin.",
+      "dissolution": "La presse devient de fer, et la feuille dit LES LUMIÈRES. La dissolution des vieilles idées marche de pair avec celle des anciennes relations sociales.",
+      "concurrence": "LIBERTÉ DE CONSCIENCE — et par-dessus, en or, ce que le texte y lit : le règne de la libre concurrence dans le domaine de la connaissance.",
+      "lectures": "La platine se relève sur une feuille blanche. Les formes de conscience d'une société divisée ne se dissoudront qu'avec la disparition de l'antagonisme des classes : la page n'est pas encore écrite."
+    },
+    "fixe": {
+      "g": 4.75,
+      "legende": "La presse de fer imprime LIBERTÉ DE CONSCIENCE, et le texte y lit, en surimpression, la libre concurrence dans le domaine de la connaissance : la production intellectuelle se transforme avec la production matérielle."
+    }
+  }
+}
