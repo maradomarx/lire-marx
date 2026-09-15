@@ -307,9 +307,14 @@
      Le nœud de la marge est DÉPLACÉ dans la feuille et remis à sa place à la
      fermeture (le motif du tiroir) : la page continue de le réécrire par son
      id quand le chapitre change, rien n'est cloné. */
-  var SH={box:null,scrim:null,body:null,mark:null,btn:null,open:false};
+  /* Deux sources depuis `sommaire-refonte` : la marge (sous 1240 px) et le
+     sommaire (sous 900 px, où la colonne de gauche disparaît). Une seule
+     feuille, un seul contrôleur ; `SH.src` dit laquelle est dedans. */
+  var SH={box:null,scrim:null,body:null,mark:null,btn:null,open:false,src:null};
   var SH_MQ=window.matchMedia?matchMedia('(max-width:1240px)'):{matches:false};
-  function sheetSrc(){ var el=document.getElementById('atl3Marge'); return el&&el.hasAttribute('data-sheet-lbl')?el:null; }
+  var SH_MQ_TOC=window.matchMedia?matchMedia('(max-width:900px)'):{matches:false};
+  function sheetSrc(id){ var el=document.getElementById(id||'atl3Marge'); return el&&el.hasAttribute('data-sheet-lbl')?el:null; }
+  function sheetBtnFor(id){ return document.querySelector('.atl3-mid .rd-btn[data-rd="'+(id==='atl3Toc'?'toc':'clear')+'"]'); }
   function sheetBuild(){
     if(SH.box) return;
     SH.scrim=document.createElement('div'); SH.scrim.className='atl3-sheet-scrim'; SH.scrim.hidden=true;
@@ -324,10 +329,14 @@
     /* Ce qui mène AU texte ou à une autre couche referme la feuille : aller
        au passage, ouvrir l'instrument dans le tiroir, ouvrir un panneau de
        notes, suivre un lien. Déplier « Lire la suite » ou une date, non. */
+    /* En CAPTURE : cliquer une entrée du sommaire fait reconstruire le
+       sommaire par la page, et en phase de bulle la cible n'était déjà plus
+       dans la feuille — qui restait ouverte (mesuré à 375 px). On referme
+       avant ; le chemin de l'événement est fixé, le clic arrive quand même. */
     SH.body.addEventListener('click',function(e){
-      var t=e.target.closest('[data-drawer],[data-anno],[data-go],.atl3-m-nb,a[href]');
+      var t=e.target.closest('[data-drawer],[data-anno],[data-go],.atl3-m-nb,.sm-it,a[href]');
       if(t && SH.body.contains(t)) closeSheet(false);
-    });
+    },true);
     SH.box.addEventListener('keydown',function(e){
       if(e.key!=='Tab') return;
       var f=[].filter.call(SH.box.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])'),function(n){ return !n.disabled && n.getClientRects().length; });
@@ -341,16 +350,17 @@
     window.addEventListener('keydown',function(e){
       if(SH.open && e.key==='Escape'){ e.preventDefault(); e.stopImmediatePropagation(); closeSheet(true); }
     },true);
-    var onMq=function(){ if(!SH_MQ.matches && SH.open) closeSheet(false); };
-    if(SH_MQ.addEventListener) SH_MQ.addEventListener('change',onMq);
+    var onMq=function(){ if(SH.open && !(SH.src==='atl3Toc'?SH_MQ_TOC:SH_MQ).matches) closeSheet(false); };
+    if(SH_MQ.addEventListener){ SH_MQ.addEventListener('change',onMq); SH_MQ_TOC.addEventListener('change',onMq); }
   }
-  function openSheet(btn){
-    var el=sheetSrc(); if(!el) return;
+  function openSheet(btn,id){
+    id=id||'atl3Marge';
+    var el=sheetSrc(id); if(!el) return;
     sheetBuild();
     if(SH.open){ closeSheet(true); return; }
     stopAudio();
-    SH.btn=btn||null;
-    SH.mark=document.createComment('atl3Marge');
+    SH.btn=btn||null; SH.src=id;
+    SH.mark=document.createComment(id);
     el.parentNode.insertBefore(SH.mark, el);
     SH.body.appendChild(el);
     SH.box.setAttribute('aria-label', el.getAttribute('aria-label')||'Dans ce chapitre');
@@ -362,13 +372,13 @@
   }
   function closeSheet(restore){
     if(!SH.open) return;
-    var el=document.getElementById('atl3Marge');
+    var el=document.getElementById(SH.src||'atl3Marge');
     if(el && SH.mark && SH.mark.parentNode){ SH.mark.parentNode.insertBefore(el, SH.mark); }
     if(SH.mark && SH.mark.parentNode) SH.mark.parentNode.removeChild(SH.mark);
     SH.mark=null; SH.box.hidden=true; SH.scrim.hidden=true; SH.open=false;
     document.body.classList.remove('at3-sheet-on');
     /* la barre a pu être reconstruite pendant que la feuille était ouverte */
-    var b=document.querySelector('.atl3-mid .rd-btn[data-rd="clear"]')||SH.btn;
+    var b=sheetBtnFor(SH.src)||SH.btn; SH.src=null;
     /* preventScroll : le bouton vit dans une barre COLLANTE, et le
        scroll-padding-top de la lecture fait croire au navigateur qu'il est
        masqué — sans cela, rendre le focus déplaçait le lecteur dans le texte. */
@@ -425,7 +435,7 @@
      + '<div class="rd-row" role="toolbar" aria-label="Outils de lecture">'
      +   '<button type="button" class="rd-btn" data-rd="prev" aria-label="Chapitre précédent">'+IC('prev')+'<span class="rd-lbl"> Préc.</span></button>'
      +   '<button type="button" class="rd-btn" data-rd="next" aria-label="Chapitre suivant"><span class="rd-lbl">Suiv. </span>'+IC('next')+'</button>'
-     +   '<button type="button" class="rd-btn" data-rd="toc" aria-expanded="false" aria-controls="rdpop-toc">'+IC('toc','rd-mob')+'<span class="rd-lbl">Sommaire</span></button>'
+     +   '<button type="button" class="rd-btn" data-rd="toc" aria-expanded="false"'+(sheetSrc('atl3Toc')?' aria-haspopup="dialog" aria-controls="atl3Sheet"':' aria-controls="rdpop-toc"')+'>'+IC('toc','rd-mob')+'<span class="rd-lbl">Sommaire</span></button>'
      +   '<button type="button" class="rd-btn" data-rd="audio"'+(synth?'':' aria-expanded="false" aria-controls="rdpop-audio"')+'>'+IC('ecoute')+'<span class="rd-lbl"> Écouter</span></button>'
      +   (sheetSrc()
            ? '<button type="button" class="rd-btn" data-rd="clear" aria-haspopup="dialog" aria-expanded="false" aria-controls="atl3Sheet"><span class="rd-sh-l">'+esc(sheetSrc().getAttribute('data-sheet-lbl')||'Ce chapitre')+'</span><span class="rd-sh-s" aria-hidden="true">'+esc(sheetSrc().getAttribute('data-sheet-short')||'Chapitre')+'</span></button>'
@@ -476,9 +486,13 @@
     // câblage
     pv.onclick=function(){ if(navCfg.prev){ stopAudio(); navCfg.prev(); } };
     nx.onclick=function(){ if(navCfg.next){ stopAudio(); navCfg.next(); } };
-    tb.querySelector('[data-rd="toc"]').onclick=function(){ togglePop(r,'toc'); };
-    if(sheetSrc()) sheetBuild();   /* aria-controls doit désigner un nœud qui existe */
-    tb.querySelector('[data-rd="clear"]').onclick=function(){ if(sheetSrc()) openSheet(this); else togglePop(r,'clear'); };
+    /* Dans un atelier, « Sommaire » ouvre LE sommaire du livre en feuille. La
+       liste des titres de la section chargée (le popover) ne reste que pour
+       une liseuse sans sommaire — elle collait les titres de Wikisource
+       (« CHAPITRE XIILA PLUS-VALUE RELATIVE ») et ne donnait pas le plan. */
+    tb.querySelector('[data-rd="toc"]').onclick=function(){ if(sheetSrc('atl3Toc')) openSheet(this,'atl3Toc'); else togglePop(r,'toc'); };
+    if(sheetSrc()||sheetSrc('atl3Toc')) sheetBuild();   /* aria-controls doit désigner un nœud qui existe */
+    tb.querySelector('[data-rd="clear"]').onclick=function(){ if(sheetSrc()) openSheet(this,'atl3Marge'); else togglePop(r,'clear'); };
     tb.querySelector('[data-rd="set"]').onclick=function(){ renderSet(r); togglePop(r,'set'); };
     var nb=tb.querySelector('[data-rd="notes"]');
     if(nb) nb.onclick=function(){ renderNotesGo(r); togglePop(r,'notes'); };

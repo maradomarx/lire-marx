@@ -26,7 +26,7 @@
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="fonts/fonts.css?v=2">
-<link rel="stylesheet" href="atelier.css?v=11">
+<link rel="stylesheet" href="atelier.css?v=12">
 <link rel="stylesheet" href="shell.css?v=11">
 <link rel="stylesheet" href="reader-tools.css">
 <style>
@@ -779,7 +779,7 @@ nav.tabs.worktabs{position:sticky;top:44px;z-index:62;
 <script src="shell-social.js"></script>
 <script src="shell-annotations.js?v=2"></script>
 <script src="shell-progress.js"></script>
-<script src="reader-tools.js?v=5" defer></script>
+<script src="reader-tools.js?v=6" defer></script>
 <script src="atelier-motion.js?v=3" defer></script>
 <style id="socCss">#msgDot{position:absolute;top:5px;right:6px;width:6px;height:6px;border-radius:50%;background:var(--red);display:none;}.tb-msg{position:relative;}.nt-list{max-height:58vh;overflow:auto;margin:2px -6px -4px;}.nt-item{display:block;width:100%;text-align:left;background:transparent;border:0;border-top:1px solid var(--line-soft);padding:10px 8px;cursor:pointer;font-family:inherit;}.nt-item:first-child{border-top:0;}.nt-item:hover{background:var(--paper-2);}.nt-item.unseen{background:rgba(213,64,47,0.084);}.nt-top{display:flex;gap:7px;align-items:baseline;}.nt-who{font-family:"Fraunces",serif;font-weight:600;font-size:.86rem;color:var(--ink);}.nt-kind{font-family:var(--f-ui);font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;border-radius:999px;padding:1px 7px;}.nt-k-reply{background:rgba(92,138,163,.20);color:#8fb8cc;}.nt-k-mention{background:rgba(213,64,47,.18);color:#e5644f;}.nt-when{margin-left:auto;font-family:var(--f-ui);font-size:.72rem;color:var(--const);}.nt-snip{font-family:"Spectral",Georgia,serif;font-size:.84rem;color:var(--ink-soft);margin-top:3px;line-height:1.45;}.msg-wrap{display:flex;flex-direction:column;min-height:0;height:min(74vh,620px);}.msg-head{display:flex;align-items:center;gap:9px;margin-bottom:10px;}.msg-head h3{font-family:"Fraunces",serif;font-size:1.18rem;margin:0;color:var(--ink);}.msg-back{background:transparent;border:0;font-size:1.5rem;line-height:1;cursor:pointer;color:var(--ink);padding:0 6px;}.msg-add{display:flex;gap:7px;margin-bottom:12px;}.msg-add input{flex:1;min-width:0;height:34px;font-family:var(--f-ui);font-size:.85rem;padding:0 11px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);}.msg-list{flex:1;overflow:auto;margin:0 -4px;}.msg-ct{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:transparent;border:0;border-radius:9px;padding:10px;cursor:pointer;font-family:inherit;}.msg-ct:hover{background:var(--paper-2);}.msg-ava{flex:0 0 auto;width:34px;height:34px;border-radius:50%;background:var(--red);color:var(--text);font-family:"Fraunces",serif;font-weight:700;font-size:.9rem;display:flex;align-items:center;justify-content:center;}.msg-ct-main{flex:1;min-width:0;display:flex;flex-direction:column;}.msg-ct-name{font-family:"Fraunces",serif;font-weight:600;font-size:.92rem;color:var(--ink);}.msg-ct-prev{font-family:"Spectral",Georgia,serif;font-size:.8rem;color:var(--const);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}.msg-badge{flex:0 0 auto;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:var(--red);color:#fff;font-family:var(--f-ui);font-size:.72rem;display:flex;align-items:center;justify-content:center;}.msg-thread{flex:1;overflow:auto;display:flex;flex-direction:column;gap:7px;padding:6px 2px;}.msg-b{max-width:78%;padding:7px 11px;border-radius:13px;font-family:"Spectral",Georgia,serif;font-size:.92rem;line-height:1.45;white-space:pre-wrap;word-wrap:break-word;}.msg-b.me{align-self:flex-end;background:var(--red);color:var(--text);border-bottom-right-radius:4px;}.msg-b.them{align-self:flex-start;background:var(--paper-2);color:var(--ink);border-bottom-left-radius:4px;}.msg-b-t{display:block;font-size:.72rem;opacity:.7;margin-top:3px;font-family:var(--f-ui);}.msg-compose{display:flex;gap:7px;margin-top:10px;}.msg-compose textarea{flex:1;min-height:40px;max-height:130px;font-family:"Spectral",serif;font-size:.92rem;padding:9px 11px;border:1px solid var(--line);border-radius:9px;background:var(--paper);color:var(--ink);resize:vertical;}.msg-empty,.msg-state{font-family:var(--f-ui);font-size:.85rem;color:var(--const);padding:18px 8px;text-align:center;line-height:1.5;}</style>
 <style id="socCss2">.tb-pop.msg-pop{width:330px;max-width:86vw;padding:12px 14px;}.msg-pop .msg-list{max-height:300px;}.msg-pop .msg-thread{height:264px;}.msg-pop .msg-head{margin-bottom:8px;}.msg-pop .msg-add{margin-bottom:10px;}.msg-pop .msg-compose{margin-top:8px;}.msg-pop .msg-compose textarea{min-height:36px;}.msg-poplink{display:block;width:100%;text-align:center;margin-top:8px;font-family:"Fraunces",serif;font-weight:600;font-size:.8rem;color:var(--red-deep);background:transparent;border:0;border-top:1px solid var(--line-soft);padding-top:9px;cursor:pointer;}.msg-poplink:hover{color:var(--red-text);}.msg-ct.on{background:var(--paper-2);}</style>
@@ -841,6 +841,7 @@ nav.tabs.worktabs{position:sticky;top:44px;z-index:62;
 }
 </script>
 <script src="marge.js?v=1"></script>
+<script src="sommaire.js?v=1"></script>
 </head>
 <body class="at-atelier">
 <!-- NOTIONS:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main.
@@ -889,24 +890,7 @@ nav.tabs.worktabs{position:sticky;top:44px;z-index:62;
        courant (renderMarge). -->
   <div class="atl3" id="atl3">
 
-    <aside class="atl3-col atl3-toc" id="atl3Toc" aria-label="Sommaire du livre">
-      <!-- Sous 900 px, le sommaire se replie derrière ce bouton : déployé,
-           il posait 380 px de liste AVANT le texte, c'est-à-dire l'inverse
-           exact de ce que la refonte cherche. Au-dessus, il est masqué et
-           la colonne est toujours ouverte. -->
-      <button type="button" class="atl3-toc-toggle" id="atl3TocToggle"
-              aria-expanded="false" aria-controls="atl3TocList">
-        <span class="atl3-toc-toggle-k">Le sommaire</span>
-        <span class="atl3-toc-toggle-t" id="atl3TocToggleT">Choisir un chapitre</span>
-      </button>
-      <div class="atl3-toc-head">
-        <h2 class="atl3-lab">Le sommaire</h2>
-        <div class="atl3-prog" id="atl3Prog"></div>
-      </div>
-      <input class="atl3-filter" id="filter" type="search" placeholder="Filtrer les chapitres…" aria-label="Filtrer les chapitres">
-      <div class="atl3-toc-list" id="atl3TocList"></div>
-      <p class="atl3-nores" id="nores" hidden>Aucun chapitre ne correspond.</p>
-    </aside>
+    <aside class="atl3-col atl3-toc" id="atl3Toc" aria-label="Sommaire du livre" data-sheet-lbl="Sommaire"></aside>
 
     <div class="atl3-mid">
       <!-- LIRE. Plus de tête de panneau ni de sélecteur visible : le
@@ -2036,74 +2020,27 @@ function curGnum(){
 function curChap(){ return CHAP_FLAT[curGnum()-1]||null; }
 
 function renderTocRail(){
-  const list=document.getElementById('atl3TocList');
-  if(!list)return;
+  /* Rendu par oeuvres/sommaire.js (mission `sommaire-refonte`) : la page ne
+     fait que rassembler les huit sections de Roy. */
+  const root=document.getElementById('atl3Toc');
+  if(!root||!window.SommaireAtelier)return;
   const p=window.SHELL&&window.SHELL.progress;
   const done=p?p.getSet():new Set();
-  const cur=curGnum();
-  let g=0,h='';
-  ROY_STRUCT.forEach((sec,si)=>{
-    h+='<div class="atl3-sec" data-sec="'+(si+1)+'">'
-      +'<span class="atl3-sec-rn">'+sec.rn+'</span>'+dEsc(sec.t)+'</div>';
-    sec.chaps.forEach(([num,title])=>{
-      g++;
-      const isDone=done.has(g), isCur=(g===cur);
-      h+='<button type="button" class="atl3-ch'+(isDone?' is-done':'')+(isCur?' is-cur':'')+'"'
-        +' data-g="'+g+'" data-sec="'+(si+1)+'"'
-        +' data-text="'+dEsc((num+' '+title+' '+sec.t).toLowerCase())+'"'
-        +(isCur?' aria-current="true"':'')+'>'
-        +'<span class="atl3-ch-n">'+num+'</span>'
-        +'<span class="atl3-ch-t">'+dEsc(title)+'</span>'
-        +'<span class="atl3-ch-st">'+(isDone?CHECK_SVG:'')+'</span>'
-      +'</button>';
-    });
+  const logged=!!(p&&p.isLoggedIn());
+  let g=0;
+  const sections=ROY_STRUCT.map((sec,si)=>({key:'s'+(si+1),rn:sec.rn,t:sec.t,
+    items:sec.chaps.map(([num,title])=>{g++;
+      return {g,n:num,t:title,done:done.has(g),text:num+' '+title+' '+sec.t};})}));
+  SommaireAtelier.render(root,{
+    label:'Le sommaire', cur:curGnum(), sections,
+    /* La progression, chiffrée seulement si on peut la compter : sans
+       session il n'y a rien à afficher, et un « 0 sur 33 » serait faux. */
+    progress:{logged, n:done.size, total:CHAP_FLAT.length, word:'lus'},
+    filter:{placeholder:'Filtrer les chapitres…', none:'Aucun chapitre ne correspond.', found:'Chapitres filtrés.'}
+  },{
+    open:gn=>openChapter(gn),
+    login:()=>{ if(window.SHELL&&window.SHELL.auth)window.SHELL.auth.openModal(); }
   });
-  list.innerHTML=h;
-  list.querySelectorAll('.atl3-ch').forEach(b=>
-    b.addEventListener('click',()=>{ closeTocDrop(); openChapter(+b.dataset.g); }));
-
-  /* La progression, chiffrée seulement si on peut la compter : sans
-     session il n'y a rien à afficher, et un « 0 sur 33 » serait faux. */
-  const pr=document.getElementById('atl3Prog');
-  if(pr){
-    const total=CHAP_FLAT.length;
-    if(p&&p.isLoggedIn()){
-      const pct=Math.round(done.size/total*100);
-      pr.innerHTML='<span class="atl3-prog-bar"><i style="width:'+pct+'%"></i></span>'
-        +'<span class="atl3-prog-n">'+done.size+' / '+total+'</span>';
-    }else{
-      pr.innerHTML='<button type="button" class="btn atl3-prog-log">Suivre ma progression</button>';
-      pr.querySelector('button').onclick=()=>{
-        if(window.SHELL&&window.SHELL.auth)window.SHELL.auth.openModal();};
-    }
-  }
-  const c=curChap();
-  const tt=document.getElementById('atl3TocToggleT');
-  if(tt)tt.textContent=c?(c.chapRn+'. '+c.chapTitle):'Choisir un chapitre';
-  const f=document.getElementById('filter');
-  if(f&&f.value)applyAtlFilter(f.value.trim().toLowerCase());
-  /* Le chapitre courant peut être hors champ dans une colonne qui défile
-     seule : on l'y ramène, sans emporter la page avec lui. */
-  const cel=list.querySelector('.atl3-ch.is-cur');
-  if(cel&&list.getClientRects().length&&list.scrollHeight>list.clientHeight+4){
-    const ct=cel.offsetTop-list.clientHeight/2+cel.offsetHeight/2;
-    list.scrollTop=Math.max(0,ct);
-  }
-}
-
-function applyAtlFilter(q){
-  let any=false;const secVis={};
-  document.querySelectorAll('#atl3TocList .atl3-ch').forEach(r=>{
-    const match=!q||r.dataset.text.indexOf(q)>=0;
-    r.hidden=!match;
-    if(match){any=true;secVis[r.dataset.sec]=true;}
-  });
-  document.querySelectorAll('#atl3TocList .atl3-sec').forEach(hd=>{
-    hd.hidden=!secVis[hd.dataset.sec];});
-  const nr=document.getElementById('nores');
-  if(nr)nr.hidden=any;
-  if(window.SHELL&&SHELL.announce&&q)
-    SHELL.announce(any?'Chapitres filtrés.':'Aucun chapitre ne correspond.');
 }
 
 /* ══════════════════════════════════════════════════════════════════════
@@ -2198,24 +2135,11 @@ function setViewChapter(g){
   /* On ne RE-REND pas le sommaire : le filtre en cours de frappe et la
      position de la colonne seraient perdus à chaque chapitre traversé. On
      déplace la marque, c'est tout. */
-  const list=document.getElementById('atl3TocList');
-  if(list){
-    list.querySelectorAll('.atl3-ch').forEach(b=>{
-      const on=(+b.dataset.g===g);
-      b.classList.toggle('is-cur',on);
-      if(on)b.setAttribute('aria-current','true');
-      else b.removeAttribute('aria-current');
-    });
-    const cel=list.querySelector('.atl3-ch.is-cur');
-    if(cel&&list.getClientRects().length&&list.scrollHeight>list.clientHeight+4)
-      list.scrollTop=Math.max(0,cel.offsetTop-list.clientHeight/2+cel.offsetHeight/2);
-  }
+  SommaireAtelier.setCurrent(document.getElementById('atl3Toc'),g);
   const t=document.querySelector('#readerOut .rdr-title');
   if(t)t.textContent='Chapitre '+c.chapRn+'. '+c.chapTitle;
   const cn=document.querySelector('#readerOut .rdr-counter em');
   if(cn)cn.textContent=c.chapRn;
-  const tt=document.getElementById('atl3TocToggleT');
-  if(tt)tt.textContent=c.chapRn+'. '+c.chapTitle;
   renderMarge();
   /* On revient là où l'on LISAIT, pas là où l'on avait cliqué. */
   try{ if(window.SHELL&&window.SHELL.resume)
@@ -2559,19 +2483,7 @@ function installFullBtn(){
   });
 })();
 
-function closeTocDrop(){
-  const t=document.getElementById('atl3Toc'),b=document.getElementById('atl3TocToggle');
-  if(!t||!b)return;
-  t.classList.remove('is-open');
-  b.setAttribute('aria-expanded','false');
-}
 (function(){
-  const b=document.getElementById('atl3TocToggle'),t=document.getElementById('atl3Toc');
-  if(b&&t)b.addEventListener('click',()=>{
-    const open=t.classList.toggle('is-open');
-    b.setAttribute('aria-expanded',open?'true':'false');
-    if(open)renderTocRail();
-  });
   const x=document.getElementById('atlDrawerX');
   if(x)x.addEventListener('click',()=>closeDrawer());
   document.addEventListener('keydown',e=>{
@@ -2657,8 +2569,6 @@ if(window.SHELL&&window.SHELL.progress){
     if(_capCurrentGnum) updateCapMarkDone(_capCurrentGnum);
   });
 }
-const filter=document.getElementById('filter');
-if(filter)filter.addEventListener('input',()=>applyAtlFilter(filter.value.trim().toLowerCase()));
 
 /* ---- Lire : chargement en direct depuis Wikisource (domaine public) ---- */
 const sel=document.getElementById('chapSelect');
