@@ -26,7 +26,7 @@
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="fonts/fonts.css?v=2">
-<link rel="stylesheet" href="atelier.css?v=10">
+<link rel="stylesheet" href="atelier.css?v=11">
 <link rel="stylesheet" href="shell.css?v=11">
 <link rel="stylesheet" href="reader-tools.css">
 <link rel="stylesheet" href="manuscrits-1844.css?v=2">
@@ -267,6 +267,7 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);
   }
 }
 </script>
+<script src="marge.js?v=1"></script>
 </head>
 <body class="at-atelier">
 <!-- NOTIONS:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main.
@@ -1249,31 +1250,15 @@ function syncTabsA11y(pid){
      L'appareil critique n'est plus à un onglet de distance : il est
      indexé sur la partie qu'on lit.
      ══════════════════════════════════════════════════════════════════ */
-  var margeOpen=false, margeNotes=[];
-  function margeFade(){
-    var el=byId('atl3Marge'); if(!el)return;
-    var peut=el.scrollHeight>el.clientHeight+4;
-    el.classList.toggle('is-scrollable',peut);
-    el.classList.toggle('is-end',peut&&el.scrollTop+el.clientHeight>=el.scrollHeight-6);
-  }
-  function margeSection(k,body){
-    return '<section class="atl3-m-sec"><h3 class="atl3-m-h">'+k+'</h3>'+body+'</section>';
-  }
+  var margeNotes=[];
+  /* Rendue par oeuvres/marge.js (mission `marge-trois-gestes`) : la page
+     rassemble, le gabarit commun écrit. */
+  function margeFade(){ if(window.MargeAtelier) MargeAtelier.fade(); }
   function renderMarge(){
     var el=byId('atl3Marge'); if(!el)return;
     var c=curChap();
     if(!c){ el.innerHTML='<p class="atl3-m-empty">Choisissez une partie dans le sommaire.</p>'; return; }
-    var h='<button type="button" class="atl3-m-toggle" id="atl3MToggle"'
-      +' aria-expanded="'+(margeOpen?'true':'false')+'">'
-      +'<span class="atl3-m-toggle-k">Dans ce cahier</span>'
-      +'<span class="atl3-m-toggle-t">'+esc(c.t)+'</span></button>'
-      +'<div class="atl3-m-head"><h2 class="atl3-lab">Dans ce cahier</h2>'
-      +'<p class="atl3-m-ch">'+(c.grpRn?'<em>'+c.grpRn+'</em> ':'')+esc(c.t)+'</p></div>';
-
-    /* VOS PASSAGES — en TÊTE, et en carte d'emphase : c'est l'outil
-       principal de la page. Il MONTRE les passages au lieu d'en annoncer
-       le nombre ; un clic ramène au passage dans le texte. */
-    /* Les passages du CAHIER affiché, lus au module qui les possède. */
+    if(!window.MargeAtelier)return;
     margeNotes=[];
     var AN=(window.SHELL&&SHELL.annotations)||null;
     try{
@@ -1282,103 +1267,37 @@ function syncTabsA11y(pid){
       else if(AN&&AN.allNotes) margeNotes=AN.allNotes()
         .filter(function(a){return a.work==='manuscrits-1844'&&+a.section===c.part+1;});
     }catch(e){}
-    var nn=margeNotes.length, nNote=margeNotes.filter(function(a){return a.note;}).length;
-    /* Le compte des notes partagées vient du module, et SEULEMENT s'il
-       parle bien du cahier qu'on dessine — il était lu dans le libellé de
-       la pastille flottante, qui reste une section en retard le temps du
-       chargement. */
-    var pub='';
+    var pub=0;
     try{
       if(AN&&AN.context&&AN.publicCount){
         var cx=AN.context();
-        if(cx.work==='manuscrits-1844'&&+cx.section===c.part+1){
-          var np=AN.publicCount();
-          if(np)pub=' · '+np;
-        }
+        if(cx.work==='manuscrits-1844'&&+cx.section===c.part+1) pub=AN.publicCount()||0;
       }
     }catch(e){}
-    var ph='<div class="atl3-pass-top"><h3 class="atl3-m-h">Vos passages</h3>'
-      +(nn?'<span class="atl3-pass-n">'+nn+'</span>':'')+'</div>';
-    if(nn){
-      ph+='<p class="atl3-pass-sub">dans ce cahier'+(nNote?' · '+nNote+' avec note':'')+'</p>'
-        +'<ul class="atl3-pass-list">'
-        +margeNotes.slice(0,4).map(function(a,i){
-          return '<li><button type="button" class="atl3-pass-item" data-anno="'+i+'">'
-          +'<span class="atl3-pass-bar c-'+esc(a.color)+'"></span>'
-          +'<span class="atl3-pass-q">'+esc(a.quote.slice(0,86))+(a.quote.length>86?'…':'')+'</span>'
-          +(a.note?'<span class="atl3-pass-note">'+esc(a.note.slice(0,54))+'</span>':'')
-          +'</button></li>';}).join('')
-        +'</ul>'
-        +(nn>4?'<p class="atl3-pass-more">et '+(nn-4)+' de plus</p>':'');
-    }else{
-      ph+='<p class="atl3-pass-empty">Sélectionnez un passage du texte pour le surligner.</p>';
-    }
-    ph+='<div class="atl3-pass-acts">'
-      +'<button type="button" class="atl3-m-nb" data-fab="notesFab">Mes notes</button>'
-      +'<button type="button" class="atl3-m-nb" data-fab="pubFab">Notes partagées'+pub+'</button>'
-      +'</div><a class="atl3-m-carnet" href="carnet">Ouvrir mon carnet →</a>';
-    /* ORDRE : la carte d'emphase en tête quand il y a des passages ; sans
-       passage, le résumé passe devant et « Vos passages » suit en section
-       ordinaire (voir capital-1.html, mission `atelier-premier-ecran`). */
-    var passHtml=nn?'<section class="atl3-m-sec atl3-pass">'+ph+'</section>'
-                   :'<section class="atl3-m-sec atl3-pass-plain">'+ph+'</section>';
-    if(nn) h+=passHtml;
-    /* En clair — le résumé argumenté. Il vivait dans l'onglet
-       « Parcourir », derrière deux accordéons. */
-    if(c.s) h+=margeSection('En clair','<div class="atl3-m-sum" id="atl3Sum">'+esc(c.s)+'</div>'
-      +'<button type="button" class="atl3-m-more" data-more="atl3Sum">Lire la suite</button>');
-    if(!nn) h+=passHtml;
-
-    /* L'instrument du laboratoire qui met CETTE partie en mouvement. */
+    var tools=[];
     if(c.app.i && INSTR_LABELS[c.app.i])
-      h+=margeSection("L'instrument",
-        '<button type="button" class="atl3-m-go" data-drawer="'+c.app.i+'" data-kind="instr">'
-        +'<span class="atl3-m-go-t">'+esc(INSTR_LABELS[c.app.i])+'</span>'
-        +'<span class="atl3-m-go-k">Manipuler →</span></button>');
-
-    /* La marche du cheminement où cette partie se situe. */
+      tools.push({kind:'instr',target:c.app.i,k:'Instrument',t:INSTR_LABELS[c.app.i]});
     if(c.app.w && walk[c.app.w-1])
-      h+=margeSection("Où l'on en est",
-        '<button type="button" class="atl3-m-go" data-drawer="'+c.app.w+'" data-kind="step">'
-        +'<span class="atl3-m-go-n">Marche '+c.app.w+' sur '+walk.length+'</span>'
-        +'<span class="atl3-m-go-t">'+esc(walk[c.app.w-1].titre)+'</span>'
-        +'<span class="atl3-m-go-k">Voir le fil →</span></button>');
-
-    /* Une exploration, quand cette partie en a une. */
+      tools.push({kind:'step',target:String(c.app.w),k:'Marche '+c.app.w+' sur '+walk.length,t:walk[c.app.w-1].titre});
     if(c.app.x && EXPLO_LABELS[c.app.x])
-      h+=margeSection('À voir',
-        '<button type="button" class="atl3-m-go" data-drawer="'+c.app.x+'" data-kind="explo">'
-        +'<span class="atl3-m-go-t">'+esc(EXPLO_LABELS[c.app.x])+'</span>'
-        +'<span class="atl3-m-go-k">Ouvrir →</span></button>');
-
-    h+='<div class="atl3-marge-fade" aria-hidden="true"><span>Défiler</span></div>';
-    el.innerHTML=h;
-    el.classList.toggle('is-open',margeOpen);
-    margeFade();
-    var mt=byId('atl3MToggle');
-    if(mt)mt.addEventListener('click',function(){
-      margeOpen=!margeOpen;
-      el.classList.toggle('is-open',margeOpen);
-      mt.setAttribute('aria-expanded',margeOpen?'true':'false');
+      tools.push({kind:'explo',target:c.app.x,k:'Exploration',t:EXPLO_LABELS[c.app.x]});
+    MargeAtelier.render(el,{
+      label:'Dans ce cahier', rn:c.grpRn||'', title:c.t,
+      sum:c.s?esc(c.s):'', tools:tools,
+      notes:{list:margeNotes, where:'Dans ce cahier', pub:pub}
+    },{
+      anno:function(a){
+        jumpToQuote(a.quote);
+        if(window.SHELL&&SHELL.annotations&&SHELL.annotations.flashAnchor)
+          SHELL.annotations.flashAnchor(a);
+      },
+      drawer:function(kind,target){ openDrawer(kind,target); },
+      fab:function(id){
+        var f=byId(id);
+        if(f)f.click();
+        else if(window.SHELL&&SHELL.announce)SHELL.announce('Chargez un cahier pour ouvrir vos notes.');
+      }
     });
-    el.querySelectorAll('[data-more]').forEach(function(b){b.addEventListener('click',function(){
-      var t=byId(b.dataset.more);
-      var open=t.classList.toggle('is-open');
-      b.textContent=open?'Replier':'Lire la suite';
-    });});
-    el.querySelectorAll('[data-drawer]').forEach(function(b){b.addEventListener('click',function(){
-      openDrawer(b.dataset.kind,b.dataset.drawer);});});
-    el.querySelectorAll('[data-anno]').forEach(function(b){b.addEventListener('click',function(){
-      var a=margeNotes[+b.dataset.anno]; if(!a)return;
-      jumpToQuote(a.quote);
-      if(window.SHELL&&SHELL.annotations&&SHELL.annotations.flashAnchor)
-        SHELL.annotations.flashAnchor(a);
-    });});
-    el.querySelectorAll('[data-fab]').forEach(function(b){b.addEventListener('click',function(){
-      var f=byId(b.dataset.fab);
-      if(f)f.click();
-      else if(window.SHELL&&SHELL.announce)SHELL.announce('Chargez un cahier pour ouvrir vos notes.');
-    });});
   }
 
   /* ══════════════════════════════════════════════════════════════════

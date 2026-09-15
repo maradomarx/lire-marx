@@ -702,7 +702,10 @@ h2.sec em{font-style:italic;font-weight:500;color:var(--red-text);}
    « Pour entrer », la progression dans « Parcourir », le carnet dans sa
    page — il ne lui restait que la reprise, qui vaut une ligne et non un
    panneau. Voir .resume-band dans capital-1.html.) */
-}
+/* (Une accolade orpheline fermait ici un bloc qui n'existait plus. Au
+   niveau racine, un « } » isolé n'est pas ignoré : le parseur l'absorbe
+   dans la règle suivante, qui tombait — `a.btn, a.lk…` n'a jamais perdu
+   son soulignement. Retirée, mission `marge-trois-gestes`.) */
 
 /* Un lien qui porte un habit de bouton n'est pas souligné. Ces classes
    ont été écrites pour des <button>, qui ne soulignent rien ; posées sur
@@ -806,27 +809,132 @@ a.btn,a.lk,a.cap-btn-dark,a.cap-btn-light,a.cap-btn-outline,a.prog-no-auth-btn{
 .atl3-ch.is-cur .atl3-ch-t{color:var(--ink);font-weight:600;}
 .atl3-ch.is-cur .atl3-ch-n{color:var(--gold);}
 
-/* ── Colonne droite : la marge ── */
-.atl3-m-head{padding-bottom:12px;margin-bottom:4px;border-bottom:1px solid var(--line);}
-.atl3-m-ch{font-family:'Fraunces',Georgia,serif;font-weight:900;font-size:1.06rem;
-  letter-spacing:-.02em;line-height:1.14;color:var(--ink);margin:7px 0 0;}
-.atl3-m-ch em{font-style:italic;font-weight:600;color:var(--gold);margin-right:6px;}
-.atl3-marge{overflow-y:auto;scrollbar-width:thin;
-  scrollbar-color:var(--line-strong) transparent;
-  /* La colonne descend jusqu'en bas de l'écran. Elle s'arrêtait 128 px plus
-     haut pour ne pas passer sous les deux pastilles flottantes — mais
-     depuis que la marge porte elle-même « Mes notes » et « Notes
-     partagées », ces pastilles sont masquées à cette largeur : la place
-     est libre. `height` et pas seulement `max-height` : sur un chapitre à
-     la marge courte, la colonne s'arrêtait au milieu de l'écran et son
-     filet avec elle — on croyait la page finie là. */
+/* ══════════════════════════════════════════════════════════════════════
+   COLONNE DROITE — LA MARGE EN TROIS GESTES (mission `marge-trois-gestes`)
+   Le gabarit est écrit par oeuvres/marge.js. Mesuré avant : six blocs au
+   même rang (même titre en capitales, même filet), 1 039 px de contenu
+   pour 794 de colonne, et QUATRE formes pour un même geste — lien souligné,
+   pilule, carte, liste fléchée — sans que rien ne dise si un clic quittait
+   la page, ouvrait le tiroir ou un panneau. On range désormais par ce que
+   le lecteur veut faire : Comprendre, Manipuler, et Vos notes en pied
+   collant. Deux formes seulement (la ligne, la pastille de notion) et deux
+   icônes (→ une page, ▯ le tiroir).
+   ══════════════════════════════════════════════════════════════════════ */
+/* La colonne ne défile plus en entier : `.mg-flow` défile, le pied reste. */
+.atl3-marge{overflow:hidden;padding-bottom:12px;
   height:calc(100vh - var(--atl-top) - 18px);
   max-height:calc(100vh - var(--atl-top) - 18px);}
-.atl3-m-sec{padding:14px 0;border-bottom:1px solid var(--line);}
-.atl3-m-sec:last-child{border-bottom:none;}
-.atl3-m-h{font-family:var(--f-ui);font-size:.72rem;font-weight:600;
-  letter-spacing:.11em;text-transform:uppercase;color:var(--gold-deep);
-  margin:0 0 9px;}
+.mg-head{flex:none;padding-bottom:12px;}
+.mg-head .atl3-lab em{font-family:'Fraunces',Georgia,serif;font-style:italic;
+  font-weight:600;font-size:.92rem;letter-spacing:0;text-transform:none;
+  color:var(--gold);margin-left:3px;}
+/* Le titre du chapitre est déjà au sommaire et au bandeau du texte : la
+   colonne ne le redit pas. Il ne paraît que dans la feuille mobile, où ni
+   l'un ni l'autre n'est visible. */
+.mg-title{display:none;}
+.mg-flow{flex:1 1 auto;min-height:0;overflow-y:auto;
+  margin-right:-10px;padding-right:10px;
+  scrollbar-width:thin;scrollbar-color:var(--line-strong) transparent;}
+.atl3-marge.is-scrollable .mg-flow{scrollbar-color:var(--gold-deep) transparent;}
+.mg-flow::-webkit-scrollbar{width:7px;}
+.mg-flow::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:4px;}
+.atl3-marge.is-scrollable .mg-flow::-webkit-scrollbar-thumb{background:var(--gold-deep);}
+
+/* Deux groupes, titrés en Fraunces : le micro-libellé en capitales reste
+   à la colonne seule. C'est ce qui rend le rang lisible. */
+.mg-grp{padding:2px 0 18px;}
+.mg-grp+.mg-grp{border-top:1px solid var(--line);padding-top:16px;}
+/* Le dernier groupe ne garde pas son blanc de pied : sept pixels de marge
+   suffisaient à déclarer la colonne « défilable » et à allumer le voile
+   par-dessus la dernière ligne (mesuré sur le chapitre VII). */
+.mg-flow>.mg-grp:nth-last-child(2){padding-bottom:4px;}
+.mg-grp-h{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 9px;
+  margin:0 0 10px;font-family:'Fraunces',Georgia,serif;font-weight:900;
+  font-size:1.02rem;letter-spacing:-.015em;line-height:1.2;color:var(--ink);}
+.mg-grp-hint{font-family:var(--f-ui);font-weight:400;font-size:.75rem;
+  letter-spacing:0;color:var(--ink-soft);}
+.mg-sub{font-family:var(--f-ui);font-size:.75rem;font-weight:600;
+  color:var(--ink-soft);margin:16px 0 7px;}
+
+/* LA LIGNE — une seule forme pour tout ce qui mène quelque part. Bâtie sur
+   <a> comme sur <button> : `color`, `font` et `text-decoration` redéclarés
+   (défaut déjà payé sur .lk, .rd-chip, l'abécédaire, le laboratoire). */
+.mg-row{display:flex;align-items:center;gap:10px;width:100%;min-height:46px;
+  margin:0 0 6px;padding:9px 12px;text-align:left;cursor:pointer;
+  font:inherit;color:var(--ink);text-decoration:none;
+  background:var(--card);border:1px solid var(--line);border-radius:12px;
+  transition:background .18s,border-color .18s;}
+.mg-row:last-child{margin-bottom:0;}
+.mg-row:hover,.mg-row:focus-visible{background:var(--hover);border-color:var(--gold-deep);}
+.mg-row-txt{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1;}
+.mg-row-k{font-family:var(--f-ui);font-size:.72rem;line-height:1.25;color:var(--ink-soft);}
+.mg-row-t{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:.9rem;
+  line-height:1.25;color:var(--ink);}
+.mg-ic{flex:none;width:16px;height:16px;color:var(--gold);
+  transition:transform .18s cubic-bezier(.16,1,.3,1);}
+a.mg-row:hover .mg-ic,a.mg-row:focus-visible .mg-ic{transform:translateX(3px);}
+/* La page qui explique le chapitre : la ligne qui compte le plus, sur la
+   surface éclairée du socle. */
+.mg-lead{margin-top:10px;background:linear-gradient(150deg,#2c2117,#211a12,#1b150e);
+  border-color:rgba(216,173,76,.26);}
+.mg-lead:hover,.mg-lead:focus-visible{border-color:var(--gold);}
+
+/* LA PASTILLE DE NOTION — elles se lisent d'un coup, et six lignes de liste
+   prenaient 228 px. Cibles de 28 px (entrées de liste, pas liens en ligne). */
+.mg-chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px;}
+.mg-chips a{display:inline-flex;align-items:center;min-height:28px;padding:4px 11px;
+  font-family:var(--f-ui);font-size:.78rem;line-height:1.2;color:var(--ink);
+  text-decoration:none;border:1px solid var(--line-strong);border-radius:100px;
+  transition:background .16s,border-color .16s,color .16s;}
+.mg-chips a:hover,.mg-chips a:focus-visible{background:var(--hover);
+  border-color:var(--gold);color:var(--gold);}
+
+/* VOS NOTES — le pied collant. Il était « Vos passages », en tête puis en
+   troisième selon qu'on avait surligné ou non : désormais il ne bouge plus,
+   et il est toujours à l'écran. La surface éclairée du socle, et le halo
+   qui monte du bas. */
+.mg-notes{flex:none;position:relative;overflow:hidden;margin-top:10px;
+  padding:12px 13px 13px;border:1px solid rgba(216,173,76,.22);border-radius:14px;
+  background:linear-gradient(150deg,#2c2117,#211a12,#1b150e);}
+.mg-notes::before{content:"";position:absolute;left:-10%;top:-60%;width:120%;
+  height:130%;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 100%,rgba(216,173,76,.13),rgba(216,173,76,0) 62%);}
+.mg-notes>*{position:relative;}
+.mg-notes-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px;}
+.mg-notes .mg-grp-h{margin:0 0 6px;}
+.mg-notes-n{font-family:var(--f-ui);font-weight:600;font-size:.75rem;
+  letter-spacing:0;color:var(--gold);}
+.mg-carnet{display:inline-flex;align-items:center;gap:4px;min-height:26px;
+  font-family:var(--f-ui);font-size:.78rem;color:var(--gold);text-decoration:none;}
+.mg-carnet .mg-ic{width:13px;height:13px;}
+.mg-carnet:hover,.mg-carnet:focus-visible{text-decoration:underline;text-underline-offset:3px;}
+.mg-pass{list-style:none;margin:0 0 2px;padding:0;display:flex;flex-direction:column;gap:1px;}
+.mg-pass-item{display:grid;grid-template-columns:3px minmax(0,1fr);column-gap:9px;
+  width:100%;text-align:left;font:inherit;color:inherit;background:none;border:none;
+  padding:5px 6px 5px 0;border-radius:8px;cursor:pointer;transition:background .16s;}
+.mg-pass-item:hover{background:rgba(243,233,212,.06);}
+.atl3-pass-bar{grid-row:1 / span 2;width:3px;min-height:18px;align-self:stretch;
+  border-radius:2px;background:var(--gold);}
+.atl3-pass-bar.c-red{background:var(--red);}
+.atl3-pass-bar.c-blue{background:var(--blue);}
+.atl3-pass-bar.c-green{background:#5f8d5f;}
+.mg-pass-q{font-family:var(--f-serif);font-style:italic;font-size:.8rem;line-height:1.4;
+  color:var(--ink);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+  overflow:hidden;}
+.mg-pass-note{grid-column:2;font-family:var(--f-hand);font-size:.95rem;line-height:1.2;
+  color:var(--gold);}
+.mg-pass-sub{font-family:var(--f-ui);font-size:.72rem;line-height:1.4;
+  color:var(--ink-soft);margin:0 0 9px;}
+.mg-pass-empty{font-family:var(--f-ui);font-size:.78rem;line-height:1.45;
+  color:var(--ink-soft);margin:0 0 10px;}
+.mg-notes-acts{display:flex;gap:6px;}
+.atl3-m-nb{display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  flex:1 1 0;min-height:32px;padding:5px 10px;cursor:pointer;
+  font-family:var(--f-ui);font-size:.78rem;color:var(--ink);
+  background:rgba(243,233,212,.05);border:1px solid var(--line-strong);border-radius:100px;
+  transition:border-color .16s,background .16s;}
+.atl3-m-nb:hover,.atl3-m-nb:focus-visible{border-color:var(--gold-deep);background:var(--hover);}
+.mg-nb-n{font-weight:600;color:var(--gold);}
 .atl3-m-empty,.atl3-m-note{font-family:var(--f-ui);font-size:.8rem;
   line-height:1.5;color:var(--ink-soft);margin:0;}
 
@@ -846,32 +954,7 @@ a.btn,a.lk,a.cap-btn-dark,a.cap-btn-light,a.cap-btn-outline,a.prog-no-auth-btn{
   text-decoration:underline;text-underline-offset:3px;}
 .atl3-m-more:hover{color:var(--ink);}
 
-/* Le renvoi vers un instrument : une vraie carte, pas un lien perdu. */
-/* Rayon, survol et courbe repris des cartes de l'accueil (`.hs-w-card`) :
-   16 px, filet qui passe à l'or, ombre longue et basse, et la même
-   détente — c'est ce qui fait que les deux pages se ressemblent. */
-.atl3-m-go{display:flex;flex-direction:column;gap:3px;width:100%;text-align:left;
-  background:var(--card);border:1px solid var(--line);border-radius:16px;
-  padding:12px 13px;cursor:pointer;
-  transition:background .22s,border-color .22s,box-shadow .22s,
-             transform .4s cubic-bezier(.16,1,.3,1);}
-.atl3-m-go:hover{background:var(--hover);border-color:var(--gold);
-  box-shadow:0 18px 40px -22px rgba(0,0,0,.7);}
-.atl3-m-go-n{font-family:var(--f-ui);font-size:.72rem;font-weight:600;
-  letter-spacing:.11em;text-transform:uppercase;color:var(--ink-soft);}
-.atl3-m-go-t{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:.92rem;
-  line-height:1.25;color:var(--ink);}
-.atl3-m-go-k{font-family:var(--f-ui);font-size:.75rem;color:var(--gold);}
 
-/* La variante ANCRE du même objet : « Ce que fait le chapitre X », au pied
-   d'« En clair ». `.atl3-m-go` a été dessiné pour un <button>, qui n'hérite
-   ni de la couleur ni du soulignement de l'agent utilisateur ; un <a> si —
-   défaut déjà payé sur .lk, .rd-chip, les douze liens de l'abécédaire et les
-   cartes du laboratoire. On redéclare donc les deux, explicitement.
-   Elle prend son propre blanc : posée contre « Lire la suite », elle se
-   lisait comme la seconde moitié du même contrôle. */
-.atl3-m-goto{margin-top:10px;text-decoration:none;color:inherit;}
-.atl3-m-goto:hover .atl3-m-go-t{color:var(--gold);}
 
 /* Les dates : l'année en folio, le titre à côté, la notice au dépli. */
 .atl3-m-dates{list-style:none;margin:0;padding:0;display:flex;
@@ -887,27 +970,6 @@ a.btn,a.lk,a.cap-btn-dark,a.cap-btn-light,a.cap-btn-outline,a.prog-no-auth-btn{
 .atl3-m-date.is-open .atl3-m-evt{color:var(--ink);}
 .atl3-m-desc{font-family:var(--f-serif);font-size:.82rem;
   line-height:1.5;color:var(--ink-soft);margin:2px 0 8px;padding:0 6px 0 53px;}
-/* LES NOTIONS DU CHAPITRE — le seul renvoi de la marge qui SORTE de
-   l'œuvre. Ce sont des entrées de LISTE et non des liens en ligne dans une
-   phrase : l'exception de WCAG 2.5.8 ne les couvre pas, d'où le rembourrage
-   qui les porte au-delà de 24 px. */
-.atl3-m-notions{list-style:none;margin:0;padding:0;display:flex;
-  flex-direction:column;gap:1px;}
-.atl3-m-notions a{display:flex;align-items:center;gap:7px;min-height:26px;
-  padding:5px 6px;border-radius:8px;font-family:var(--f-ui);font-size:.82rem;
-  line-height:1.35;color:var(--ink-soft);text-decoration:none;
-  transition:background .16s,color .16s;}
-.atl3-m-notions a::after{content:'';flex:0 0 auto;width:12px;height:8px;
-  background:var(--gold);
-  -webkit-mask:var(--atl-fleche) no-repeat center/12px 8px;
-  mask:var(--atl-fleche) no-repeat center/12px 8px;
-  transition:transform .18s cubic-bezier(.16,1,.3,1);}
-.atl3-m-notions a:hover,.atl3-m-notions a:focus-visible{background:var(--hover);color:var(--gold);}
-.atl3-m-notions a:hover::after{transform:translateX(3px);}
-.atl3-m-carnet{display:inline-flex;align-items:center;min-height:26px;
-  padding:3px 0;font-family:var(--f-ui);font-size:.78rem;
-  color:var(--gold);margin-top:5px;text-decoration:underline;
-  text-underline-offset:3px;}
 
 
 /* ── Le dossier ─────────────────────────────────────────────────────────
@@ -1005,8 +1067,6 @@ a.btn,a.lk,a.cap-btn-dark,a.cap-btn-light,a.cap-btn-outline,a.prog-no-auth-btn{
 .atl-drawer-body .walk-step .walk-axis{display:none;}
 
 /* ── Réponses ── */
-/* Le repli de la marge — sous 1240 px seulement, comme celui du sommaire. */
-.atl3-m-toggle{display:none;}
 @media (max-width:1240px){
   .atl3{grid-template-columns:228px minmax(0,1fr);}
   /* La marge cesse d'être une colonne, mais elle passe AU-DESSUS du texte,
@@ -1019,19 +1079,6 @@ a.btn,a.lk,a.cap-btn-dark,a.cap-btn-light,a.cap-btn-outline,a.prog-no-auth-btn{
     border-left:none;border-bottom:1px solid var(--line);
     padding:16px 0 14px 26px;overflow:visible;}
   .atl3-mid{grid-column:2;grid-row:2;padding-right:0;}
-  .atl3-m-toggle{display:flex;align-items:baseline;gap:10px;width:100%;
-    text-align:left;background:var(--card);border:1px solid var(--line-strong);
-    border-radius:12px;padding:10px 14px;cursor:pointer;}
-  .atl3-m-toggle::after{content:"▾";margin-left:auto;color:var(--gold-deep);}
-  .atl3-marge.is-open .atl3-m-toggle::after{content:"▴";}
-  .atl3-m-toggle-k{font-family:var(--f-ui);font-size:.72rem;font-weight:600;
-    letter-spacing:.11em;text-transform:uppercase;color:var(--gold-deep);}
-  .atl3-m-toggle-t{font-family:'Fraunces',Georgia,serif;font-weight:700;
-    font-size:.92rem;color:var(--ink);min-width:0;overflow:hidden;
-    text-overflow:ellipsis;white-space:nowrap;}
-  .atl3-marge .atl3-m-head,.atl3-marge .atl3-m-sec,.atl3-marge .atl3-m-empty{display:none;}
-  .atl3-marge.is-open .atl3-m-sec{display:block;}
-  .atl3-marge.is-open .atl3-m-empty{display:block;}
   .atl-drawer{width:min(620px,72vw);}
 }
 @media (max-width:900px){
@@ -1092,73 +1139,11 @@ a.btn,a.lk,a.cap-btn-dark,a.cap-btn-light,a.cap-btn-outline,a.prog-no-auth-btn{
   .atl3-toc.is-open .atl3-nores{display:block;}
 }
 
-/* Les notes se prennent depuis la marge quand la marge est une colonne :
-   les deux pastilles flottantes s'y posaient par-dessus, et les déplacer
-   les aurait mises par-dessus le texte. Elles restent dans le document —
-   c'est le shell qui les possède et la marge ne fait que les déclencher —
-   mais elles ne s'affichent plus qu'aux largeurs où la marge se replie. */
-.atl3-pass-acts{display:flex;flex-wrap:wrap;gap:7px;margin-top:2px;}
-/* (`.atl3-m-notebtns` était une classe MORTE : renderMarge émet
-   `.atl3-pass-acts`. Sous 1240 px, les deux boutons de la marge ET les
-   deux pastilles flottantes s'affichaient donc ensemble — quatre
-   affordances pour deux actions. Mesuré, corrigé.) */
-.atl3-m-nb{font-family:var(--f-ui);font-size:.78rem;color:var(--ink);
-  background:var(--card);border:1px solid var(--line-strong);border-radius:100px;
-  padding:6px 13px;cursor:pointer;transition:border-color .16s,background .16s;}
-.atl3-m-nb:hover{border-color:var(--gold-deep);background:var(--hover);}
 @media (min-width:1241px){
   body.at-atelier .notes-fab{display:none!important;}
 }
-@media (max-width:1240px){
-  .atl3-pass-acts{display:none;}
-}
 
 
-/* ══════════════════════════════════════════════════════════════════════
-   VOS PASSAGES — l'outil principal, traité comme tel.
-   Il fermait la marge, sous cinq blocs : hors écran dès que le chapitre
-   avait de la matière. Il l'ouvre, et il porte la carte d'emphase du
-   socle (le dégradé chaud + le filet or) — la seule de la colonne, sans
-   quoi « mis en avant » ne voudrait rien dire.
-   ══════════════════════════════════════════════════════════════════════ */
-.atl3-pass{background:linear-gradient(150deg,#2c2117,#211a12,#1b150e);
-  border:1px solid rgba(216,173,76,.20);border-radius:16px;
-  padding:14px 15px 15px;margin-bottom:4px;}
-.atl3-pass .atl3-m-h{margin:0;}
-.atl3-pass-top{display:flex;align-items:center;justify-content:space-between;
-  gap:10px;margin-bottom:2px;}
-.atl3-pass-n{font-family:'Fraunces',Georgia,serif;font-weight:900;
-  font-size:1.35rem;line-height:1;color:var(--gold);}
-.atl3-pass-sub{font-family:var(--f-ui);font-size:.76rem;color:var(--ink-soft);
-  margin:0 0 10px;}
-.atl3-pass-empty{font-family:var(--f-ui);font-size:.8rem;line-height:1.5;
-  color:var(--ink-soft);margin:6px 0 12px;}
-.atl3-pass-empty b{color:var(--ink);font-weight:600;}
-.atl3-pass-list{list-style:none;margin:0 0 8px;padding:0;
-  display:flex;flex-direction:column;gap:3px;}
-.atl3-pass-item{display:grid;grid-template-columns:3px minmax(0,1fr);
-  gap:9px;align-items:start;width:100%;text-align:left;background:none;
-  border:none;padding:6px 6px 6px 0;border-radius:8px;cursor:pointer;
-  transition:background .16s;}
-.atl3-pass-item:hover{background:rgba(243,233,212,.06);}
-.atl3-pass-bar{width:3px;border-radius:2px;align-self:stretch;min-height:20px;
-  background:var(--gold);}
-.atl3-pass-bar.c-red{background:var(--red);}
-.atl3-pass-bar.c-blue{background:var(--blue);}
-.atl3-pass-bar.c-green{background:#5f8d5f;}
-.atl3-pass-q{font-family:var(--f-serif);font-size:.82rem;line-height:1.42;
-  color:var(--ink);font-style:italic;}
-.atl3-pass-q::before{content:"« ";}
-.atl3-pass-q::after{content:" »";}
-.atl3-pass-note{grid-column:2;font-family:var(--f-hand);font-size:.98rem;
-  line-height:1.25;color:var(--gold);margin-top:2px;}
-.atl3-pass-more{font-family:var(--f-ui);font-size:.74rem;color:var(--ink-soft);
-  margin:0 0 8px;}
-/* Dans la carte d'emphase, les deux boutons se détachent du dégradé. */
-.atl3-pass .atl3-m-nb{background:rgba(243,233,212,.05);}
-/* « Vos passages » sans passage : section ordinaire, après le résumé. */
-.atl3-pass-plain .atl3-pass-top{margin-bottom:4px;}
-.atl3-pass-plain .atl3-pass-empty{color:var(--ink-soft);margin:0 0 8px;}
 /* La glose de l'onglet « Le dossier · pour approfondir » : même encre,
    plus légère ; disparaît sous 600 px où la barre ne la tiendrait pas. */
 .worktabs .tab-glose{font-weight:400;color:var(--ink-soft);}
@@ -1204,7 +1189,14 @@ a.btn,a.lk,a.cap-btn-dark,a.cap-btn-light,a.cap-btn-outline,a.prog-no-auth-btn{
    à .86rem). À 1280 px la colonne fait 508 px ; sans ce resserrement les
    quatre outils et le bouton de mode se repliaient encore sur deux
    rangées. Rien ne change en plein écran, où la colonne est large. */
-.atl3-mid .rd-toolbar{padding:12px 18px 10px;}
+.atl3-mid .rd-toolbar{padding:12px 18px 10px;
+  /* Les marges négatives de reader-tools (jusqu'à −54 px) traversent le
+     rembourrage d'une liseuse PLEINE LARGEUR. Dans la colonne ce rembourrage
+     est clamp(18px,3vw,34px) : la barre dépassait du cadre de 20 px de chaque
+     côté au bureau, et à 375 px elle poussait le document de 2 px. Même
+     valeur, au signe près. */
+  margin-left:calc(-1 * clamp(18px,3vw,34px));
+  margin-right:calc(-1 * clamp(18px,3vw,34px));}
 .atl3-mid .rd-row .rd-btn{padding:6px 10px;font-size:.8rem;}
 .atl3-mid .atl3-full{padding:6px 10px;font-size:.74rem;gap:5px;}
 /* La barre de lecture se bloque SOUS la barre d'onglets, pas dessous elle.
@@ -1288,12 +1280,6 @@ body.at-plein .notes-fab{display:inline-flex!important;}
   display:inline-flex;align-items:center;gap:6px;}
 .atl3-marge-fade span::after{content:"↓";font-size:.9rem;letter-spacing:0;}
 @media (prefers-reduced-motion:reduce){.atl3-marge-fade{transition:none;}}
-/* La barre de défilement de la colonne se voit, elle aussi. */
-.atl3-marge.is-scrollable{scrollbar-color:var(--gold-deep) transparent;}
-.atl3-marge::-webkit-scrollbar{width:7px;}
-.atl3-marge::-webkit-scrollbar-thumb{background:var(--line-strong);
-  border-radius:4px;}
-.atl3-marge.is-scrollable::-webkit-scrollbar-thumb{background:var(--gold-deep);}
 /* Repliée sous 1240 px, la marge n'a plus de défilement propre. */
 @media (max-width:1240px){.atl3-marge-fade{display:none;}}
 
@@ -1342,16 +1328,6 @@ html.js-at3 .rdr-header.at3-alight .rdr-halo{
 @keyframes at3Halo{from{opacity:0;transform:translateY(14px) scale(.92);}
   to{opacity:1;transform:none;}}
 
-/* ── La chaleur de la maison sur la carte des passages ──────────────────
-   Le site s'éclaire à la bougie : ses surfaces d'emphase portent un halo
-   radial discret, jamais dominant. « Vos passages » est la seule carte
-   d'emphase de la colonne — elle prend la lumière. */
-.atl3-pass{position:relative;overflow:hidden;}
-.atl3-pass::before{content:"";position:absolute;left:-10%;top:-60%;
-  width:120%;height:130%;pointer-events:none;
-  background:radial-gradient(ellipse at 50% 100%,
-    rgba(216,173,76,.13),rgba(216,173,76,0) 62%);}
-.atl3-pass>*{position:relative;}
 
 @media (prefers-reduced-motion:reduce){
   html.js-at3 .atl3-toc,html.js-at3 .atl3-marge{animation:none;}
@@ -1375,14 +1351,6 @@ html:has(body.at-plein){scroll-padding-top:90px;}
    topbar 44, barre des destinations 44, barre de lecture 133 sur trois
    rangées. Près d'un tiers de l'écran au-dessus d'un texte qu'on vient lire.
    ══════════════════════════════════════════════════════════════════════ */
-/* Le renvoi à la page qui explique le chapitre, sous la marge repliée. */
-.atl3-m-quick{display:none;}
-@media (max-width:1240px){
-  .atl3-marge:not(.is-open) .atl3-m-quick{display:flex;align-items:center;
-    min-height:28px;margin:8px 0 0 2px;font-family:var(--f-ui);font-size:.8rem;
-    font-weight:600;color:var(--gold);text-decoration:none;}
-  .atl3-m-quick:hover{text-decoration:underline;}
-}
 @media (max-width:600px){
   /* Les deux destinations ne collent plus : on les retrouve en remontant,
      et la barre de lecture prend leur place sous la topbar. `--atl-top`
@@ -1431,6 +1399,9 @@ html:has(body.at-plein){scroll-padding-top:90px;}
   /* Le texte prend la largeur : le cadre de la liseuse tombe sur les côtés
      (la sidebar est un tiroir ici, la marge négative ne touche rien). */
   .atl3-mid .reader{margin-left:-22px;margin-right:-22px;border-left:0;border-right:0;border-radius:0;}
+  /* Le bandeau de chapitre (capital-1.html) sort de −22 px, la liseuse n'a
+     plus que 18 px de rembourrage ici : 4 px de défilement horizontal. */
+  .atl3-mid .rdr-header{margin-left:-18px;margin-right:-18px;}
   /* Cibles de 38 px : c'est ce que la rangée tient à 375 px sans défiler,
      « Notes » compris (le 44 d'Apple la ferait déborder de trois boutons). */
   .atl3-mid .rd-row .rd-btn,.atl3-mid .atl3-full{min-width:38px;min-height:38px;
@@ -1453,7 +1424,6 @@ html:has(body.at-plein){scroll-padding-top:90px;}
 }
 @media (pointer:coarse){
   .rdr-mark-btn{min-height:44px;}
-  .atl3-marge:not(.is-open) .atl3-m-quick{min-height:44px;margin-top:2px;}
 }
 
 /* ══════════════════════════════════════════════════════════════════════
@@ -1485,10 +1455,19 @@ html:has(body.at-plein){scroll-padding-top:90px;}
     padding:0 22px calc(28px + env(safe-area-inset-bottom));}
   .atl3-sheet .atl3-marge{display:block!important;position:static;height:auto;max-height:none;
     overflow:visible;border:0;padding:0;margin:0;animation:none;}
-  .atl3-sheet .atl3-m-toggle,.atl3-sheet .atl3-m-quick,.atl3-sheet .atl3-marge-fade{display:none!important;}
-  .atl3-sheet .atl3-m-head,.atl3-sheet .atl3-m-sec,.atl3-sheet .atl3-m-empty{display:block;}
   /* au-dessus de la sidebar (120), sous la topbar (140) : une modale. */
-  .atl3-sheet .atl3-m-head{margin-top:0;padding-top:2px;}
+  .atl3-sheet .atl3-marge-fade{display:none!important;}
+  /* Dans la feuille, le titre revient (ni sommaire ni bandeau à l'écran),
+     `.mg-flow` ne défile plus pour son compte — c'est la feuille qui défile —
+     et le pied de notes colle au bas de la feuille. */
+  .atl3-sheet .mg-title{display:block;margin:6px 0 0;font-family:'Fraunces',Georgia,serif;
+    font-weight:900;font-size:1.06rem;letter-spacing:-.02em;line-height:1.14;color:var(--ink);}
+  .atl3-sheet .mg-flow{overflow:visible;margin:0;padding:0;}
+  /* Le pied colle au bord du SCROLLPORT, mais la feuille garde un
+     rembourrage de pied (28 px + zone sûre) : le contenu passait dans cette
+     bande, sous la carte. Une ombre pleine, sans flou, la bouche. */
+  .atl3-sheet .mg-notes{position:sticky;bottom:0;margin-top:8px;
+    box-shadow:0 48px 0 0 var(--bg),0 -18px 22px -6px var(--bg);}
   body.at3-sheet-on{overscroll-behavior:none;}
 }
 @media (max-width:600px){
