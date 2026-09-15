@@ -461,6 +461,43 @@
       "page": {
         "dossier": "lutte-des-classes"
       }
+    },
+    "Bourgeoisie": {
+      "page": {
+        "dossier": "bourgeoisie"
+      }
+    },
+    "Prolétariat": {
+      "page": {
+        "dossier": "proletariat"
+      }
+    },
+    "Pouvoir politique": {
+      "page": {
+        "dossier": "pouvoir-politique"
+      }
+    },
+    "Idées dominantes": {
+      "page": {
+        "dossier": "idees-dominantes"
+      }
+    },
+    "Propriété bourgeoise": {
+      "page": {
+        "dossier": "propriete-bourgeoise"
+      }
+    },
+    "Association": {
+      "voir": "Lutte des classes"
+    },
+    "Marché mondial": {
+      "voir": "Bourgeoisie"
+    },
+    "Surproduction": {
+      "voir": "Bourgeoisie"
+    },
+    "Moyens de production": {
+      "voir": "Prolétariat"
     }
   },
   "_page": "Le champ « page » ouvre une PAGE à la notion (/glossaire/<slug>). On ne l'écrit que lorsqu'on a quatre cents mots à dire, pas vingt-sept : en dessous, une page par terme serait du contenu mince — c'est la raison même pour laquelle l'abécédaire est resté une seule page. Les notions sans « page » restent des entrées de l'abécédaire, et c'est très bien. Depuis sept. 2026 (mission glossaire-mondes), « page » peut aussi valoir { \"dossier\": \"<slug>\" } : la notion est alors un ESSAI LONG avec son MONDE, dans glossaire/mondes/<slug>/ (essai.html + meta.json + monde.js), et c'est ce dossier que le générateur assemble — le lexique ne garde que la définition courte de l'abécédaire.",

@@ -1,0 +1,53 @@
+{
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/propriete-bourgeoise (mission manifeste-notions, sept. 2026).",
+  "titre": "Propriété bourgeoise",
+  "de": "bürgerliches Eigentum",
+  "chapo": "Le <i>Manifeste</i> résume la théorie communiste en une formule, « abolition de la propriété privée », et précise aussitôt qu’il ne s’agit ni de la propriété en général ni du fruit personnel du travail : il s’agit de la propriété bourgeoise, celle qui donne pouvoir sur le travail d’autrui — et qui n’existe pour quelques-uns que parce qu’elle est abolie pour les neuf dixièmes.",
+  "description": "La propriété bourgeoise chez Marx et Engels : la distinction entre propriété personnelle et propriété bourgeoise, le capital comme force sociale, les « neuf dixièmes », et les contresens sur l'abolition de la propriété privée.",
+  "source": {
+    "work": "manifeste-parti-communiste",
+    "s": 1,
+    "cite": "Karl Marx et Friedrich Engels, <i>Manifeste du parti communiste</i> (1848) — traduction Laura Lafargue (1897)"
+  },
+  "ou": "<i>Manifeste du parti communiste</i>, partie&nbsp;II, « Prolétaires et communistes » — de la formule « abolition de la propriété privée » à la réponse aux objections (la propriété personnelle, la liberté, la paresse). À distinguer de la <i>propriété privée</i> des <i>Manuscrits de 1844</i>, qui la pensent comme le résultat du travail aliéné.",
+  "outils": [
+    {
+      "label": "Lire « Prolétaires et communistes » — la liseuse du Manifeste",
+      "url": "/oeuvres/manifeste#partie=3"
+    },
+    {
+      "label": "La carte des socialismes — le socialisme conservateur et bourgeois",
+      "url": "/oeuvres/manifeste#labo=bourgeois"
+    }
+  ],
+  "voisins": [
+    "Propriété privée",
+    "Bourgeoisie",
+    "Prolétariat",
+    "Travail mort",
+    "Accumulation primitive",
+    "Communisme"
+  ],
+  "monde": {
+    "_": "LA PLANCHE : LES NEUF DIXIÈMES. Le texte donne lui-même la proportion, et la proportion est l'argument : « dans votre société la propriété privée est abolie pour les neuf dixièmes de ses membres ». Dix parcelles en deux rangs, chacune avec sa maison et sa clôture — la propriété personnelle, fruit du travail. L'intitulé passe de FÉODALE à BOURGEOISE (la propriété a une histoire). Puis neuf parcelles se vident : leur contenu s'écoule vers la dixième, qui grandit (le progrès de l'industrie l'a abolie). La grande parcelle prend le nom de CAPITAL, et des traits la relient aux neuf autres : le capital est un produit collectif, une force sociale. Puis la fraction s'inscrit : 9/10 sans propriété, 1/10 propriétaire. Au dernier temps la clôture de la grande parcelle tombe, et chaque parcelle retrouve sa maison sans clôture autour de l'ensemble : s'approprier sa part des produits sociaux, sans pouvoir assujettir le travail d'autrui. Moteur 2d. Tout est fonction de g, donc réversible.",
+    "moteur": "2d",
+    "layout": "plein",
+    "alt": "Un plan de dix parcelles : neuf sont vides, clôture en pointillé ; la dixième, agrandie et close, porte le nom de capital, et une fraction 9/10 est inscrite au-dessus.",
+    "source": {
+      "texte": "D'après le texte — Manifeste, partie II",
+      "q": "la propriété privée est abolie pour les neuf dixièmes de ses membres"
+    },
+    "etapes": {
+      "horreur": "Dix parcelles, chacune avec sa maison et sa clôture : la propriété personnelle, fruit du travail, qu'on accuse les communistes de vouloir abolir.",
+      "histoire": "L'intitulé change : FÉODALE, puis BOURGEOISE. La propriété a subi de constants changements ; la Révolution française a aboli la propriété féodale en faveur de la propriété bourgeoise.",
+      "personnelle": "Neuf parcelles se vident, et ce qu'elles contenaient s'écoule vers la dixième. La petite propriété, nul besoin de l'abolir : le progrès de l'industrie l'a abolie, ou est en train de l'abolir.",
+      "capital": "La grande parcelle s'appelle capital, et des traits la relient à toutes les autres : le capital est un produit collectif, mis en mouvement par les efforts combinés de beaucoup — une force sociale.",
+      "neuf": "La fraction s'inscrit : neuf dixièmes sans propriété, un dixième propriétaire. C'est précisément parce qu'elle n'existe pas pour les neuf dixièmes qu'elle existe pour quelques-uns.",
+      "lectures": "La clôture de la grande parcelle tombe, et chaque parcelle retrouve sa maison. Le communisme n'enlève à personne le pouvoir de s'approprier sa part : il ôte le pouvoir d'assujettir le travail d'autrui."
+    },
+    "fixe": {
+      "g": 4.6,
+      "legende": "Neuf parcelles vides, une seule close et agrandie, qui a pris le nom de capital : la propriété bourgeoise n'existe pour quelques-uns que parce qu'elle est abolie pour les neuf dixièmes."
+    }
+  }
+}

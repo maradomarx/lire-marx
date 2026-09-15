@@ -9224,12 +9224,63 @@ et la source de `/agregation-2027` (`commentaires/carrefour/essai.html`,
 
 ### Ce qui reste
 
-Neuf notions du Manifeste sont dans l'abécédaire **sans page** : Bourgeoisie,
-Prolétariat, Pouvoir politique, Idées dominantes, Association, Propriété
-bourgeoise, Marché mondial, Surproduction, Moyens de production. Suivre le
-rythme maison : relecture du pilote, puis trois à cinq par mission. Certaines
-se prêteront mieux à un renvoi `voir` (Surproduction → une page sur les crises
-n'existe pas encore ; Moyens de production est un moment de plusieurs pages).
+✅ Soldé par `manifeste-notions` (juste en dessous) : les neuf notions ont leur
+destination.
+
+### Les neuf autres notions du Manifeste (mission `manifeste-notions`, sept. 2026)
+
+Le pilote validé (« oui, passe aux autres »), les neuf notions restantes ont
+reçu leur destination. **Cinq pages, quatre renvois** — le Manifeste est bouclé
+comme le Capital et les Manuscrits.
+
+| notion | destination | la figure |
+|---|---|---|
+| **Bourgeoisie** | page (3D) | une enceinte de pierre se défait en poussière ; les marchandises rayonnent en anneaux (le marché mondial), refluent en un monceau qui s'écroule sous une lueur rouge (la surproduction) |
+| **Prolétariat** | page (planche 2d) | un **inventaire** barré ligne à ligne — la terre, l'outil, l'atelier, le produit du travail, une patrie, une propriété ; il reste « sa force de travail — à vendre, au jour le jour », puis « un monde à gagner » |
+| **Pouvoir politique** | page (3D) | une **balance qui paraît juste** : fût posé sur la dalle de gauche, lingots contre un poids léger et le fléau reste droit parce qu'il a coulissé sur le couteau ; les poids ajoutés le font pencher, il coulisse encore ; puis les plateaux se posent sur les dalles |
+| **Idées dominantes** | page (3D) | une **presse à imprimer** qui change de matière avec l'époque (fer → bois → fer) et imprime LIBERTÉ · JUSTICE, LES DIEUX DE LA CITÉ, LA FOI CHRÉTIENNE, LES LUMIÈRES, LIBERTÉ DE CONSCIENCE « = libre concurrence » |
+| **Propriété bourgeoise** | page (planche 2d) | **les neuf dixièmes** : dix parcelles, neuf se vident vers la dixième qui prend le nom de capital, la fraction 9/10 · 1/10 s'inscrit |
+| Association | `voir` → Lutte des classes | (la section V de la page la développe) |
+| Marché mondial, Surproduction | `voir` → Bourgeoisie | (sections IV et V) |
+| Moyens de production | `voir` → Prolétariat | (la classe se définit par leur non-possession) |
+
+**Les citations ne se répètent pas d'une page à l'autre**, avec trois
+exceptions DÉLIBÉRÉES et écrites en tête des essais : la définition du pouvoir
+politique et le « comité administratif » (Pouvoir politique ↔ Lutte des
+classes), « Les idées dominantes d'une époque… » (Idées dominantes ↔ Lutte des
+classes). Ce sont les définitions des notions ; chaque page les lit pour autre
+chose. **Les faits non servis sont paraphrasés et situés** : note d'Engels de
+1888, préface de 1872 après la Commune, *L'Idéologie allemande*, la lettre à
+Mehring de 1893, la « dictature du prolétariat » (absente du Manifeste —
+signalé comme contresens), l'étymologie de *proletarius*. Deux remarques de
+traduction portent l'argument : Lafargue perd « communes » et « toute » dans
+le comité des affaires de la classe bourgeoise (ce qui nourrit la lecture
+instrumentale de l'État) ; elle écrit « ébranlé » là où d'autres traductions
+font partir le solide « en fumée ».
+
+**Ce que les captures ont corrigé, à retenir :**
+1. **Un pivot qui glisse sur un rail se lit comme une machine de plus**, et
+   sortait le fléau du cadre. C'est le FLÉAU qui coulisse sur un couteau fixe ;
+   la caméra vise le milieu du fléau, pas le fût. L'équilibre est calculé
+   (moments), non joué.
+2. **Un dernier état ne doit pas introduire un objet nouveau** : une table de
+   bois surgie au milieu du fût pour recevoir les plateaux faisait un désordre.
+   Les plateaux se posent sur ce qui était déjà là (les dalles).
+3. **Un état de départ ne doit rien dire de l'argument** : un poids seul sur un
+   plateau vide annonçait le déséquilibre que la balance devait taire.
+4. **Un mot qui porte la démonstration doit être lisible au moment où il
+   paraît** : la surimpression « = libre concurrence » était illisible de loin,
+   la caméra s'approche de la feuille à ce temps-là (`st.zoom`).
+5. **Une planche 2d doit régler sa taille de texte sur la HAUTEUR** : dans le
+   bandeau mobile (225 px), un plancher de 12 px faisait déborder l'inventaire.
+   `t = min(…, ch · 0.9 / nombre de lignes)`.
+
+**Vérifié** : les 95 citations des cinq pages retrouvées dans la liseuse
+chargée ; marge de la partie I (cinq notions) et ligne servie (sept pages) ;
+contraste 0 échec sur les cinq pages aux deux largeurs (minimum 4,56, plus
+petit texte 11,2 px), zéro débordement, console vide ; détecteur **0 constat**
+sur chacune ; `gen-seo --check` à jour. Abécédaire inchangé à **81 notions**
+(les renvois ne créent pas d'entrée) ; **45 pages de notion** en tout.
 
 ## Conventions de travail
 
