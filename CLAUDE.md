@@ -9120,6 +9120,117 @@ Commune, au bureau 1280 × 800, sur téléphone 390 × 844 et en paysage : menus
 propres à chaque mode, les cinq feuilles, Échap, lancement du cycle depuis la
 barre (cycle 2 → 3), 0 erreur ; `npm run verify` OK.
 
+## Le Manifeste entre dans le glossaire (mission `manifeste-glossaire`, sept. 2026)
+
+Suite de la question « comment continuer à améliorer Lire Marx ? » : le
+glossaire ne couvrait que le Capital et les Manuscrits, alors que les mots
+les plus cherchés sur Marx — lutte des classes, bourgeoisie, prolétariat —
+sont ceux du *Manifeste*. Arbitrage du propriétaire : le point 2 (le trou du
+glossaire) avant l'agrégation ; pour la page pilote, la figure des **couches
+superposées** (écartées : les paires de mots, trop proches de la page Argent ;
+la forge et les fossoyeurs, qui disaient le prolétariat plus que la lutte des
+classes et appelaient des figures humaines).
+
+### La source : `GLOSS_MF`, qui existait déjà
+
+`oeuvres/manifeste.html` portait un petit glossaire de liseuse (six termes,
+allemand et définition courte) qui ne servait qu'à l'infobulle. Il devient la
+**troisième source de l'abécédaire**, comme `CONCEPTS` pour les deux autres
+ateliers : chaque entrée gagne un **titre de fiche `t`** (c'est lui qui porte
+l'identité ; `gen-seo.mjs` échoue sur une entrée sans titre), et la liste passe
+à **onze** : Lutte des classes, Bourgeoisie, Prolétariat, Moyens de production,
+Force productive, Marché mondial, Surproduction, Pouvoir politique, Propriété
+bourgeoise, Idées dominantes, Association.
+
+- **« Force productive » fusionne** avec la notion du Capital, qui a déjà sa
+  page : elle y gagne une provenance, pas une entrée. Les dix autres sont
+  neuves. L'abécédaire passe de **71 à 81 notions, 16 lettres, 3 œuvres**, et
+  de 39 à **40 pages**.
+- **Les `s` sont les formes que la liseuse surligne** (première occurrence).
+  « Association » se surligne sur « libre développement de chacun », parce que
+  le mot « association » apparaît d'abord au sens des communes médiévales.
+- Provenance dans l'abécédaire : *Manifeste du parti communiste* · le texte
+  (`/oeuvres/manifeste`).
+- `lexique.json` n'a d'entrée que pour le `page` (règle `_manifeste`, même que
+  `_manuscrits`) : ne pas y recopier les définitions.
+
+### Le maillage
+
+- `MF_STRUCT` gagne `nt` (les notions de chaque partie), et la marge de la
+  liseuse porte **« Les notions »**, lues dans `window.NOTIONS_HREF` (bloc
+  `NOTIONS:DÉBUT/FIN`, dérivé). Seules celles qui ont une page s'affichent.
+- Une **ligne servie** au pied du cheminement (`NOTIONS-MF:DÉBUT/FIN`,
+  `.carte-sortie`, CSS inline de la page) : ce qu'un crawler voit.
+
+### `pageMonde` résout l'adresse de l'œuvre dans bibliotheque.json
+
+`/oeuvres/${src.work}` donnait **404 pour le Manifeste** (id
+`manifeste-parti-communiste`, page `/oeuvres/manifeste`). Le générateur lit
+désormais le `path` de l'œuvre (`hrefOf`) et échoue si `source.work` n'est pas
+une œuvre du corpus. Le Manifeste tenant en **une seule page Wikisource**, ses
+citations sont toutes en `data-s="1"`.
+
+### La page pilote : `/glossaire/lutte-des-classes`
+
+Six temps (la phrase trop connue · en tête et sans définition · l'échelle et
+l'antagonisme · comment des luttes deviennent une lutte de classe · la
+dernière couche · les contresens), ~2 900 mots servis, **25 citations liées
++ la ligne de source**, toutes relevées dans Lafargue. La lettre à Weydemeyer
+(1852), la note d'Engels de 1888 et le chapitre inachevé « Les classes » du
+Livre III ne sont pas servis : **paraphrasés et situés**. Deux remarques de
+traduction portent l'argument : *Klassenkämpfe* au pluriel, et « libre
+développement **pour** tous » chez Lafargue.
+
+**La scène — les couches superposées** (`monde.js`, plein écran). Quinze
+pierres qui gardent leur identité d'un état à l'autre : l'échelle graduée
+(neuf strates étagées) → la simplification (le haut se referme en bloc, les
+strates du milieu tombent au pied, une fissure rougeoie) → l'organisation
+(les pierres éparses s'alignent en assise, se fendent sous la concurrence, se
+ressoudent) → le redressement (l'assise se lève, le bloc saute) →
+l'association (un **pavement 5 × 3 au même niveau**, le haut d'hier au milieu).
+
+Ce que les captures ont corrigé, à retenir pour les prochaines scènes :
+1. **Un sol presque noir sort BEIGE sous une lampe à 2.** `0x0d0a07` rendait
+   un grand aplat brun clair qui écrasait tout. Sol à `0x030202` **et**
+   brouillard de la couleur du mur (`Fog 8→17`, mur en `fog:false`) : l'horizon
+   ne coupe plus le cadre.
+2. **Des lignes longues sur une texture de pierre se lisent comme le FIL D'UN
+   BOIS.** Grain et marbrures seulement.
+3. **Un rang de quinze pierres se lit comme une file de dominos**, pas comme un
+   sol commun : l'association est un pavement.
+4. Les faces non éclairées tombaient au **noir pur** : appoint de face sans
+   ombre, hémisphère à sol chaud, ambiante chaude.
+5. **Un décalage de visée FIXE ne sert pas une figure qui change de forme.**
+   L'échelle, haute et étroite, passait sous la colonne de texte avec `0,16` ;
+   le rang et le pavement, larges, sortaient par la droite avec `0,24`. Le
+   décalage suit donc le moment (`0,31` → `0,16` au fil de la simplification)
+   et l'échelle se tient plus loin (8,6). Il ne s'applique que si le canevas
+   fait **≥ 1100 px** : en dessous, la scène est une bande au-dessus du texte.
+   Vérifié sur la page RENDUE à 1380 × 900, pas seulement à la capture en
+   1200 × 750 — qui ne montre ni la colonne ni le cartouche de légende.
+
+### Vérifié
+
+Les 26 citations retrouvées **dans la liseuse réellement chargée**
+(`#readerContent`, pas `#readerOut` : c'est le conteneur du Manifeste — un
+premier script de contrôle a expiré pour cette raison). Marge de la partie I :
+Lutte des classes et Force productive. Contraste sur le rendu 0 échec
+(minimum 4,56, plus petit texte 11,2 px), zéro débordement à 1380 et 375 px,
+scène armée aux deux largeurs, console vide. Détecteur : **0 constat** sur la
+page neuve, `manifeste.html` à **12** (sa base). `gen-seo --check` à jour.
+Décomptes écrits à la main mis à jour : `/a-propos` (81, « quatre-vingt-une »)
+et la source de `/agregation-2027` (`commentaires/carrefour/essai.html`,
+« quarante développées en pages »).
+
+### Ce qui reste
+
+Neuf notions du Manifeste sont dans l'abécédaire **sans page** : Bourgeoisie,
+Prolétariat, Pouvoir politique, Idées dominantes, Association, Propriété
+bourgeoise, Marché mondial, Surproduction, Moyens de production. Suivre le
+rythme maison : relecture du pilote, puis trois à cinq par mission. Certaines
+se prêteront mieux à un renvoi `voir` (Surproduction → une page sur les crises
+n'existe pas encore ; Moyens de production est un moment de plusieurs pages).
+
 ## Conventions de travail
 
 - **Une mission par session.** Une demande utilisateur = un objectif clair,

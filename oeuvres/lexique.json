@@ -4,6 +4,7 @@
   "_contrat": "La clé est le titre de la fiche, suffixe de station retiré (« Capital constant » et non « Capital constant (c) »). tools/gen-seo.mjs échoue si une clé ne correspond à aucune fiche — c'est ce qui rattrape un renommage, qui sinon perdrait la définition en silence.",
   "_allemand": "Le terme allemand n'est donné que lorsqu'il est CANONIQUE chez Marx. Les intitulés éditoriaux du site — « Les contre-mondes », « Le passage de relais » — et les conditions d'équilibre n'en ont pas : on n'invente pas d'allemand pour faire savant.",
   "_manuscrits": "Les sept notions des Manuscrits de 1844 n'ont ici ni « def » ni « de » : leurs fiches les portent déjà, dans manuscrits-1844.html. Ne pas les recopier. En revanche une entrée peut n'exister ici QUE pour son « page » — c'est le cas de « Travail aliéné », dont la définition vient des Manuscrits et le développement de ce fichier.",
+  "_manifeste": "Les notions du Manifeste du parti communiste viennent du glossaire de sa liseuse (GLOSS_MF, dans oeuvres/manifeste.html), qui porte déjà le terme allemand et une définition courte. Comme pour les Manuscrits : ne pas les recopier ici ; une entrée n'y existe que pour son « page ».",
   "termes": {
     "A — M — A′": {
       "de": "G — W — G′",
@@ -454,6 +455,11 @@
     "Communisme": {
       "page": {
         "dossier": "communisme"
+      }
+    },
+    "Lutte des classes": {
+      "page": {
+        "dossier": "lutte-des-classes"
       }
     }
   },

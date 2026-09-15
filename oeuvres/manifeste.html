@@ -166,6 +166,13 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
 .soc-node dd:last-of-type{margin-bottom:0;}
 .soc-go{margin:20px 0 0;}
 @media(max-width:820px){.soc{grid-template-columns:1fr;}.soc-detail{position:static;}}
+/* La ligne servie qui mène aux pages de notion (dérivée par gen-seo) :
+   mêmes valeurs que .carte-sortie des Manuscrits. Liens EN LIGNE dans une
+   phrase — WCAG 2.5.8 les exempte de la taille de cible. */
+.carte-sortie{margin:22px 0 0;font-family:var(--f-ui);font-size:.82rem;line-height:1.7;color:var(--muted);}
+.carte-sortie a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--line-strong);
+  text-underline-offset:3px;transition:color .16s,text-decoration-color .16s;}
+.carte-sortie a:hover,.carte-sortie a:focus-visible{color:var(--gold);text-decoration-color:var(--gold);}
 </style>
 <!-- Book : DÉRIVÉ de oeuvres/bibliotheque.json par tools/gen-seo.mjs.
      Ne pas éditer à la main — corriger la source, puis regénérer :
@@ -318,6 +325,9 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
         <div class="wk-body" id="wk-b7"><div><p class="wk-f wk-pass"><svg class="wk-mk" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path d="M14.5 13l4 4-4 4"/></svg><span><span class="sr-only">Le ressort : </span>La théorie se ferme sur la conjoncture : des alliances pays par pays, l'Allemagne au bord d'une révolution bourgeoise, la question de la propriété posée partout comme fondamentale, et l'appel à l'union des prolétaires de tous les pays.</span></p></div></div>
       </div>
     </div>
+      <!--NOTIONS-MF:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main. -->
+    <p class="carte-sortie">Les notions du <i>Manifeste</i> qui ont leur page : <a href="/glossaire/lutte-des-classes">Lutte des classes</a> et <a href="/glossaire/force-productive">Force productive</a>.</p>
+    <!--NOTIONS-MF:FIN -->
   </section>
 
   <section class="panel active" id="chrono">
@@ -539,6 +549,13 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
 </footer>
 <!-- PIED:FIN -->
 
+<!-- NOTIONS:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main.
+     La table du titre de fiche vers sa page de notion : la résolution
+     (identité, suffixe de station, renvoi « voir ») se fait dans le
+     générateur, la page ne fait que lire. -->
+<script>window.NOTIONS_HREF={"Lutte des classes":{"h":"/glossaire/lutte-des-classes","n":"Lutte des classes"},"Force productive":{"h":"/glossaire/force-productive","n":"Force productive"}};</script>
+<!-- NOTIONS:FIN -->
+
 <script>
 (function(){
   var WORK='manifeste-parti-communiste';
@@ -551,31 +568,41 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
      partie comptée par SHELL.progress ; `w` : la marche du cheminement ;
      `soc` : la fiche de la carte des socialismes. */
   var MF_STRUCT=[
-    {g:1, rn:'', grp:'Ouverture', t:'Un spectre hante l’Europe', m:'mf-ouverture', pt:0, w:1,
+    {g:1, rn:'', nt:[], grp:'Ouverture', t:'Un spectre hante l’Europe', m:'mf-ouverture', pt:0, w:1,
      s:"Le texte s'ouvre sur un constat de situation plutôt que sur une doctrine : toutes les puissances de la vieille Europe se sont liguées contre le communisme, et l'accusation de communisme sert à disqualifier n'importe quelle opposition. Deux conséquences en sont tirées. Le communisme est déjà reconnu comme une puissance, et il est temps qu'il expose lui-même ses vues au lieu de laisser ses adversaires le décrire."},
-    {g:2, rn:'I', grp:'Bourgeois et prolétaires', t:'Bourgeois et prolétaires', m:'mf-I', pt:1, w:2,
+    {g:2, rn:'I', nt:["Lutte des classes","Bourgeoisie","Prolétariat","Marché mondial","Force productive","Surproduction","Pouvoir politique"], grp:'Bourgeois et prolétaires', t:'Bourgeois et prolétaires', m:'mf-I', pt:1, w:2,
      s:"La partie la plus célèbre, et la plus inattendue : un éloge de la bourgeoisie. L'histoire des sociétés est celle de luttes de classes, et la bourgeoisie y a joué un rôle révolutionnaire — elle a dissous les liens féodaux, créé le marché mondial, bouleversé sans relâche les moyens de production. Mais ces forces se retournent contre elle dans les crises de surproduction, et elle a produit la classe qui la renversera : le prolétariat, qui passe des révoltes isolées à l'organisation en classe et en parti."},
-    {g:3, rn:'II', grp:'Prolétaires et communistes', t:'Prolétaires et communistes', m:'mf-II', pt:2, w:5, soc:'communisme',
+    {g:3, rn:'II', nt:["Propriété bourgeoise","Idées dominantes","Pouvoir politique","Association","Moyens de production"], grp:'Prolétaires et communistes', t:'Prolétaires et communistes', m:'mf-II', pt:2, w:5, soc:'communisme',
      s:"Les communistes ne forment pas un parti à part : ils défendent, dans chaque lutte nationale, les intérêts communs du prolétariat entier, et l'intérêt du mouvement dans son ensemble. Ce qu'ils veulent abolir n'est pas la propriété en général mais la propriété bourgeoise. Le texte répond ensuite aux objections — propriété, famille, patrie — en montrant qu'elles défendent des formes historiques présentées comme éternelles, esquisse les mesures d'une conquête du pouvoir politique, et s'achève sur une association où le libre développement de chacun conditionne celui de tous."},
-    {g:4, rn:'III', grp:'Littérature socialiste et communiste', t:'Le socialisme réactionnaire', m:'mf-III-1', pt:3, w:6, soc:'feodal',
+    {g:4, rn:'III', nt:["Lutte des classes"], grp:'Littérature socialiste et communiste', t:'Le socialisme réactionnaire', m:'mf-III-1', pt:3, w:6, soc:'feodal',
      s:"Trois socialismes qui critiquent la société bourgeoise au nom d'un monde antérieur. Le socialisme féodal est la plainte d'une aristocratie dépossédée. Le socialisme petit-bourgeois, dont Sismondi est la figure, analyse avec acuité les contradictions de la production moderne, mais veut revenir aux corporations et à l'agriculture patriarcale. Le « vrai » socialisme allemand transpose une littérature française sans les conditions qui l'avaient produite, et finit par servir les gouvernements absolutistes contre la bourgeoisie."},
-    {g:5, rn:'III', grp:'Littérature socialiste et communiste', t:'Le socialisme conservateur et bourgeois', m:'mf-III-2', pt:3, w:6, soc:'bourgeois',
+    {g:5, rn:'III', nt:["Propriété bourgeoise"], grp:'Littérature socialiste et communiste', t:'Le socialisme conservateur et bourgeois', m:'mf-III-2', pt:3, w:6, soc:'bourgeois',
      s:"Une fraction de la bourgeoisie veut remédier aux maux sociaux pour assurer la durée de la société bourgeoise : les conditions de vie modernes sans les luttes qui en découlent, la bourgeoisie sans le prolétariat. Le texte cite la Philosophie de la misère de Proudhon comme exemple. Les réformes qu'il propose touchent l'administration, et laissent intact le rapport entre le capital et le travail salarié."},
-    {g:6, rn:'III', grp:'Littérature socialiste et communiste', t:'Le socialisme et le communisme critico-utopiques', m:'mf-III-3', pt:3, w:6, soc:'utopique',
+    {g:6, rn:'III', nt:["Lutte des classes"], grp:'Littérature socialiste et communiste', t:'Le socialisme et le communisme critico-utopiques', m:'mf-III-3', pt:3, w:6, soc:'utopique',
      s:"Saint-Simon, Fourier et Owen apparaissent à une époque où la lutte du prolétariat est encore peu développée. Leur critique de la société existante est précieuse, mais ils voient dans le prolétariat une classe qui souffre, non une classe qui agit : la transformation doit venir de leur plan. Leurs disciples, devant un mouvement ouvrier devenu réel, se referment en sectes — phalanstères, colonies, petite Icarie — et finissent par s'opposer à lui."},
-    {g:7, rn:'IV', grp:'Les communistes et les partis d’opposition', t:'Position des communistes vis-à-vis des partis d’opposition', m:'mf-IV', pt:4, w:7,
+    {g:7, rn:'IV', nt:["Propriété bourgeoise"], grp:'Les communistes et les partis d’opposition', t:'Position des communistes vis-à-vis des partis d’opposition', m:'mf-IV', pt:4, w:7,
      s:"Une courte partie de tactique. En France, en Suisse, en Pologne, les communistes soutiennent les partis qui combattent l'ordre existant, sans renoncer à critiquer leurs illusions. En Allemagne, où une révolution bourgeoise s'annonce, ils luttent avec la bourgeoisie contre la monarchie absolue, tout en rendant les ouvriers conscients de leur antagonisme avec elle. Partout ils posent la question de la propriété comme la question fondamentale. Le texte se clôt sur l'appel à l'union des prolétaires de tous les pays."}
   ];
   var INTRO="Rédigé par Marx et Engels pour la Ligue des communistes et publié à Londres en février 1848, le Manifeste tient en quatre parties : une histoire de la société bourgeoise qui s'achève sur la formation du prolétariat, la place des communistes dans ce mouvement, la critique des socialismes concurrents, et une ligne politique pour les pays d'Europe.";
   var PARTS=4;
 
+  /* LE GLOSSAIRE DU MANIFESTE — source unique de deux usages : l'infobulle de
+     la liseuse (s = les formes relevées dans le texte, def courte) et
+     l'abécédaire du site, que tools/gen-seo.mjs dérive d'ici (t = le titre de
+     la fiche, qui porte l'identité de la notion : ne pas le renommer sans
+     corriger oeuvres/lexique.json). */
   var GLOSS_MF=[
-   {s:["bourgeoisie"],de:"Bourgeoisie",def:"La classe des capitalistes modernes, propriétaires des moyens de production sociale, qui emploient du travail salarié."},
-   {s:["prolétariat"],de:"Proletariat",def:"La classe des travailleurs salariés modernes qui, ne possédant aucun moyen de production, doivent vendre leur force de travail pour vivre."},
-   {s:["luttes de classes","lutte de classes"],de:"Klassenkämpfe",def:"L'opposition entre classes aux intérêts inconciliables ; le Manifeste en fait le fil de toute l'histoire écrite."},
-   {s:["moyens de production"],de:"Produktionsmittel",def:"Ce avec quoi l'on produit : terre, outils, machines, matières. Leur propriété décide de la place de chaque classe."},
-   {s:["surproduction"],de:"Überproduktion",def:"La crise où l'abondance même ruine : faute de débouchés, on détruit des produits et des forces productives."},
-   {s:["propriété bourgeoise"],de:"bürgerliches Eigentum",def:"La forme moderne de la propriété privée, fondée sur l'exploitation du travail salarié ; c'est elle, et non toute propriété, que les communistes veulent abolir."}
+   {t:"Lutte des classes",s:["luttes de classes","lutte de classes","lutte des classes","lutte de classe"],de:"Klassenkampf",def:"L'opposition entre classes aux intérêts inconciliables ; le Manifeste en fait le fil de toute l'histoire écrite."},
+   {t:"Bourgeoisie",s:["bourgeoisie"],de:"Bourgeoisie",def:"La classe des capitalistes modernes, propriétaires des moyens de production sociale, qui emploient du travail salarié."},
+   {t:"Prolétariat",s:["prolétariat"],de:"Proletariat",def:"La classe des travailleurs salariés modernes qui, ne possédant aucun moyen de production, doivent vendre leur force de travail pour vivre."},
+   {t:"Moyens de production",s:["moyens de production"],de:"Produktionsmittel",def:"Ce avec quoi l'on produit : terre, outils, machines, matières. Leur propriété décide de la place de chaque classe."},
+   {t:"Force productive",s:["forces productives"],de:"Produktivkräfte",def:"Ce que le travail social peut produire. Le Manifeste montre des forces productives qui se révoltent contre les rapports de propriété dans lesquels elles sont nées."},
+   {t:"Marché mondial",s:["marché mondial"],de:"Weltmarkt",def:"Le marché à l'échelle du globe, que la grande industrie crée et dont elle dépend : il donne un caractère cosmopolite à la production et à la consommation de tous les pays."},
+   {t:"Surproduction",s:["surproduction"],de:"Überproduktion",def:"La crise où l'abondance même ruine : faute de débouchés, on détruit des produits et des forces productives."},
+   {t:"Pouvoir politique",s:["pouvoir politique"],de:"politische Gewalt",def:"Le pouvoir organisé d'une classe pour l'oppression d'une autre ; le gouvernement moderne n'est qu'un comité qui gère les affaires de la classe bourgeoise."},
+   {t:"Propriété bourgeoise",s:["propriété bourgeoise"],de:"bürgerliches Eigentum",def:"La forme moderne de la propriété privée, fondée sur l'exploitation du travail salarié ; c'est elle, et non toute propriété, que les communistes veulent abolir."},
+   {t:"Idées dominantes",s:["idées dominantes"],de:"herrschende Ideen",def:"Les idées dominantes d'une époque sont celles de sa classe dominante : la conscience change avec les conditions de l'existence sociale."},
+   {t:"Association",s:["libre développement de chacun"],de:"Assoziation",def:"Ce qui remplace la société divisée en classes : une association où le libre développement de chacun est la condition du libre développement de tous."}
   ];
   var SOC_LABELS={feodal:'Le socialisme féodal',petit:'Le socialisme petit-bourgeois',vrai:'Le « vrai » socialisme allemand',
     bourgeois:'Le socialisme conservateur et bourgeois',utopique:'Le socialisme critico-utopique',communisme:'Le communisme du Manifeste'};
@@ -876,6 +903,13 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
     if(nn) h+=passHtml;
     h+=margeSection('En clair','<div class="atl3-m-sum" id="atl3Sum">'+esc(c.s)+'</div>'
       +'<button type="button" class="atl3-m-more" data-more="atl3Sum">Lire la suite</button>');
+    /* LES NOTIONS DE CETTE PARTIE : `nt` de MF_STRUCT, adresses lues dans
+       NOTIONS_HREF (dérivé par tools/gen-seo.mjs). On ne montre que celles qui
+       ont une page — une notion sans page ne mène nulle part. */
+    var nts=[], vusH={};
+    (c.nt||[]).forEach(function(n){ var e=(window.NOTIONS_HREF||{})[n]; if(e&&!vusH[e.h]){vusH[e.h]=1;nts.push(e);} });
+    if(nts.length) h+=margeSection('Les notions','<ul class="atl3-m-notions">'+nts.map(function(e){
+      return '<li><a href="'+esc(e.h)+'">'+esc(e.n)+'</a></li>';}).join('')+'</ul>');
     if(!nn) h+=passHtml;
     if(c.soc)
       h+=margeSection("L'instrument",'<button type="button" class="atl3-m-go" data-drawer="'+c.soc+'" data-kind="soc">'
