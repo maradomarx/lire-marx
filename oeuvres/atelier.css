@@ -702,7 +702,10 @@ h2.sec em{font-style:italic;font-weight:500;color:var(--red-text);}
    « Pour entrer », la progression dans « Parcourir », le carnet dans sa
    page — il ne lui restait que la reprise, qui vaut une ligne et non un
    panneau. Voir .resume-band dans capital-1.html.) */
-}
+/* (Une accolade orpheline fermait ici un bloc qui n'existait plus. Au
+   niveau racine, un « } » isolé n'est pas ignoré : le parseur l'absorbe
+   dans la règle suivante, qui tombait — `a.btn, a.lk…` n'a jamais perdu
+   son soulignement. Retirée, mission `marge-trois-gestes`.) */
 
 /* Un lien qui porte un habit de bouton n'est pas souligné. Ces classes
    ont été écrites pour des <button>, qui ne soulignent rien ; posées sur
@@ -1186,7 +1189,14 @@ a.mg-row:hover .mg-ic,a.mg-row:focus-visible .mg-ic{transform:translateX(3px);}
    à .86rem). À 1280 px la colonne fait 508 px ; sans ce resserrement les
    quatre outils et le bouton de mode se repliaient encore sur deux
    rangées. Rien ne change en plein écran, où la colonne est large. */
-.atl3-mid .rd-toolbar{padding:12px 18px 10px;}
+.atl3-mid .rd-toolbar{padding:12px 18px 10px;
+  /* Les marges négatives de reader-tools (jusqu'à −54 px) traversent le
+     rembourrage d'une liseuse PLEINE LARGEUR. Dans la colonne ce rembourrage
+     est clamp(18px,3vw,34px) : la barre dépassait du cadre de 20 px de chaque
+     côté au bureau, et à 375 px elle poussait le document de 2 px. Même
+     valeur, au signe près. */
+  margin-left:calc(-1 * clamp(18px,3vw,34px));
+  margin-right:calc(-1 * clamp(18px,3vw,34px));}
 .atl3-mid .rd-row .rd-btn{padding:6px 10px;font-size:.8rem;}
 .atl3-mid .atl3-full{padding:6px 10px;font-size:.74rem;gap:5px;}
 /* La barre de lecture se bloque SOUS la barre d'onglets, pas dessous elle.
@@ -1389,6 +1399,9 @@ html:has(body.at-plein){scroll-padding-top:90px;}
   /* Le texte prend la largeur : le cadre de la liseuse tombe sur les côtés
      (la sidebar est un tiroir ici, la marge négative ne touche rien). */
   .atl3-mid .reader{margin-left:-22px;margin-right:-22px;border-left:0;border-right:0;border-radius:0;}
+  /* Le bandeau de chapitre (capital-1.html) sort de −22 px, la liseuse n'a
+     plus que 18 px de rembourrage ici : 4 px de défilement horizontal. */
+  .atl3-mid .rdr-header{margin-left:-18px;margin-right:-18px;}
   /* Cibles de 38 px : c'est ce que la rangée tient à 375 px sans défiler,
      « Notes » compris (le 44 d'Apple la ferait déborder de trois boutons). */
   .atl3-mid .rd-row .rd-btn,.atl3-mid .atl3-full{min-width:38px;min-height:38px;

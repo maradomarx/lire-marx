@@ -9042,8 +9042,29 @@ avec `#s-jour`, Échap → nœud rendu, focus revenu sur la ligne ; clic sur un
 passage → saut dans le texte ; contraste sur le rendu 0 échec (minimum 5,35,
 plus petit texte 11,52 px, aucune cible sous 24 px) ; console sans erreur ;
 détecteur compté contre une copie de HEAD : 39 / 19 / 12 / 12, **identique**.
-Le débord de 4 px à 375 px et l'accolade orpheline d'atelier.css (ligne 542)
-existent à HEAD — antérieurs, non touchés.
+
+**Deux défauts antérieurs corrigés dans la foulée :**
+
+- **Le débord horizontal de 2 à 4 px à 375 px** (les trois ateliers) avait
+  deux coupables, trouvés en listant les éléments dont le bord droit dépasse
+  le viewport. D'abord **`.rd-toolbar`** : reader-tools lui donne des marges
+  négatives jusqu'à −54 px, calculées pour le rembourrage d'une liseuse PLEINE
+  LARGEUR ; dans la colonne ce rembourrage est `clamp(18px,3vw,34px)`, et
+  `.atl3-mid .rd-toolbar` prend désormais exactement cette valeur au signe
+  près. Au bureau, la barre **dépassait du cadre de 20 px de chaque côté** —
+  même cause, corrigée du même geste. Ensuite **`.rdr-header`** (Capital) sort
+  de −22 px quand la liseuse n'a plus que 18 px de rembourrage sous 600 px :
+  recalé à −18.
+- **Une accolade orpheline dans atelier.css**, juste avant
+  `a.btn,a.lk,…{text-decoration:none}`. Un `}` isolé au niveau racine n'est
+  PAS ignoré : le parseur l'absorbe dans le prélude de la règle suivante, qui
+  tombe. Ces liens-boutons n'ont donc jamais perdu leur soulignement. **Pour
+  compter les accolades d'une feuille, retirer les commentaires en gardant
+  leurs retours à la ligne**, sinon le numéro de ligne rendu est faux (542
+  annoncé, 705 réel).
+
+Vérifié : zéro débordement à 375 px sur les trois ateliers, accolades
+équilibrées, détecteur toujours à 39.
 
 ## Le jeu : le panneau de formation se replie (mission `mobile-panneaux`, sept. 2026)
 
