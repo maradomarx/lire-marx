@@ -1740,9 +1740,26 @@ ${sections.map((x) => `      <li><a href="#${x.id}">${x.h2}</a></li>`).join('\n'
   for (const k of COMM_META) {
     const qui = `Commentaire ${k.slug}`;
     const url = `${ORIGIN}${k.href}`;
-    const serviRoy = k.oeuvre === 'capital-1';
-    const cite = serviRoy ? `Karl Marx, <i>Le Capital</i>, Livre I, chapitre ${k.rn} — traduction Joseph Roy (1872)` : '';
-    const lien = (sEl, q) => `/oeuvres/capital-1#s=${sEl}&q=${encodeURIComponent(q)}`;
+    /* LES ŒUVRES SERVIES DANS UNE TRADUCTION LIBRE : Roy pour le Capital,
+       Laura Lafargue pour le Manifeste. Hors de cette table — Bottigelli,
+       livres non servis — les citations liées restent refusées. */
+    const SERVIES = {
+      'capital-1': {
+        cite: `Karl Marx, <i>Le Capital</i>, Livre I, chapitre ${k.rn} — traduction Joseph Roy (1872)`,
+        page: '/oeuvres/capital-1', lieu: `Le Capital, Livre I, chapitre ${k.rn}${k.partie ? `, partie ${k.partie}` : ''}.`,
+        livre: { name: 'Le Capital — Livre I', url: `${ORIGIN}/oeuvres/capital-1` },
+        image: '/assets/img/archive/das-kapital-titre-1867.jpg' },
+      'manifeste-parti-communiste': {
+        cite: `Karl Marx et Friedrich Engels, <i>Manifeste du parti communiste</i> (1848)${k.partie ? `, partie ${k.partie}` : ''} — traduction Laura Lafargue (1897)`,
+        page: '/oeuvres/manifeste', lieu: `<i>Manifeste du parti communiste</i>${k.partie ? `, partie ${k.partie}` : ''}${k.lieu ? `, ${k.lieu}` : ''}.`,
+        livre: { name: 'Manifeste du parti communiste', url: `${ORIGIN}/oeuvres/manifeste` },
+        image: '/assets/img/archive/manifeste-1848.jpg' },
+    };
+    const servie = SERVIES[k.oeuvre] || null;
+    const serviRoy = !!servie;   /* nom historique : « l'œuvre est servie dans une traduction libre » */
+    const cite = servie ? servie.cite : '';
+    const IMG = servie ? servie.image : '/assets/img/archive/das-kapital-titre-1867.jpg';
+    const lien = (sEl, q) => `${servie ? servie.page : '/oeuvres/capital-1'}#s=${sEl}&q=${encodeURIComponent(q)}`;
     let essai = readFileSync(`${k.dossier}/essai.html`, 'utf8').replace(/<!--[^]*?-->/g, '').trim();
     if (!serviRoy && /data-q=/.test(essai))
       throw new Error(`${qui} : citation liée sur une œuvre dont le site ne sert pas de traduction libre — paraphraser et situer.`);
@@ -1789,11 +1806,11 @@ ${sections.map((x) => `      <li><a href="#${x.id}">${x.h2}</a></li>`).join('\n'
     const ld = ldCm([
       { '@context': 'https://schema.org', '@type': 'Article',
         headline: nu(k.title), description: desc, url, inLanguage: 'fr', wordCount: mots,
-        about: serviRoy ? { '@type': 'Book', name: 'Le Capital — Livre I', url: `${ORIGIN}/oeuvres/capital-1`,
+        about: serviRoy ? { '@type': 'Book', name: servie.livre.name, url: servie.livre.url,
           author: { '@type': 'Person', name: 'Karl Marx', sameAs: 'https://www.wikidata.org/wiki/Q9061' } }
           : { '@type': 'Person', name: 'Karl Marx', sameAs: 'https://www.wikidata.org/wiki/Q9061' },
         author: { '@id': `${ORIGIN}/#organisation` }, publisher: { '@id': `${ORIGIN}/#organisation` },
-        image: `${ORIGIN}/assets/img/archive/das-kapital-titre-1867.jpg` },
+        image: `${ORIGIN}${IMG}` },
       { '@context': 'https://schema.org', '@type': 'BreadcrumbList',
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Lire Marx', item: `${ORIGIN}/` },
@@ -1804,14 +1821,14 @@ ${sections.map((x) => `      <li><a href="#${x.id}">${x.h2}</a></li>`).join('\n'
 
     const marge = [
       tocCm('Dans ce commentaire', num.sections, true),
-      blocCm('Où il se trouve', `      <p>Le Capital, Livre I, chapitre ${k.rn}${k.partie ? `, partie ${k.partie}` : ''}.</p>\n      <ul class="nt-liens">\n${extrait ? `        <li><a href="${extrait}">Lire le passage dans la liseuse →</a></li>\n` : ''}${chap ? `        <li><a href="${chap.href}">Le chapitre ${chap.arabe} expliqué →</a></li>\n` : ''}      </ul>`, ' nt-bloc--source'),
+      blocCm('Où il se trouve', `      <p>${servie ? servie.lieu : `Le Capital, Livre I, chapitre ${k.rn}.`}</p>\n      <ul class="nt-liens">\n${extrait ? `        <li><a href="${extrait}">Lire le passage dans la liseuse →</a></li>\n` : ''}${chap ? `        <li><a href="${chap.href}">Le chapitre ${chap.arabe} expliqué →</a></li>\n` : ''}      </ul>`, ' nt-bloc--source'),
       a ? blocCm(`Donné en ${a.session}`, `      <p>Agrégation externe de philosophie, ${a.epreuve} (${a.programme}), dans la ${a.traduction}.</p>\n      <ul class="nt-liens">\n        <li><a href="${a.rapport.url}" rel="noopener">${a.rapport.name}&nbsp;›</a></li>\n      </ul>`) : '',
       notions.length ? blocCm('Les notions en jeu', `      <ul class="nt-liens">\n${notions.map((x) => `        <li><a href="${x.href}">${decode(x.affiche || x.nom)}</a></li>`).join('\n')}\n      </ul>`) : '',
       blocCm('Ce que cette page est', `      <p>Une lecture proposée par le site, qui n’est ni un corrigé ni une préparation. Sur ce qu’un jury attend, seuls ses rapports font autorité.</p>\n      <ul class="nt-liens">\n        <li><a href="${CARREFOUR.url}">${AG} →</a></li>\n      </ul>`),
     ].filter(Boolean).join('\n');
 
     const html = `${teteCm({ title: k.title, src: k.dossier, desc, og: nu(k.title), type: 'article', url,
-      image: '/assets/img/archive/das-kapital-titre-1867.jpg', ld })}
+      image: IMG, ld })}
 <body>
 <main class="wrap" id="contenu" tabindex="-1">
 <article class="nt nt--ch nt--cm">

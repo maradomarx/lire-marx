@@ -65,11 +65,11 @@ const souple = (q) => new RegExp(q
   .replace(/[-‑‐–—]/g, '[-‑‐–—]')
   .replace(/[\s  ]+/g, '[\\s\\u00a0\\u202f]+'), 'g');
 
-function reparer(fichier, cits) {
+function reparer(fichier, cits, texteDe = section) {
   let html = readFileSync(fichier, 'utf8');
   const faits = [];
   for (const c of cits) {
-    const m = [...section(c.s).matchAll(souple(c.q))];
+    const m = [...texteDe(c.s).matchAll(souple(c.q))];
     if (m.length !== 1) continue;
     const exact = m[0][0];
     if (exact === c.q) continue;
@@ -152,6 +152,40 @@ async function dumpSections() {
   await navigateur.close();
 }
 
+/* ── Le texte du Manifeste, par le chemin de sa liseuse ─────────────────
+   Une seule page Wikisource (Lafargue, 1897), donc une seule « section ».
+   prepareText() de oeuvres/manifeste.html recompose les TITRES mais laisse
+   les paragraphes intacts : on garde donc le texte des <p>, ce que locate()
+   parcourt dans #readerContent. Mis en cache comme les sections de Roy. */
+async function dumpManifeste() {
+  mkdirSync(CACHE, { recursive: true });
+  const require = createRequire(path.join(JEU, 'package.json'));
+  const puppeteer = require('puppeteer-core');
+  const navigateur = await puppeteer.launch({ executablePath: CHROME, headless: 'new', args: ['--no-sandbox', '--disable-dev-shm-usage'] });
+  const page = await navigateur.newPage();
+  await page.setRequestInterception(true);
+  page.on('request', (r) => {
+    if (r.url() === 'https://liremarx.test/') r.respond({ status: 200, contentType: 'text/html', body: '<!doctype html><title>x</title>' });
+    else r.continue();
+  });
+  await page.goto('https://liremarx.test/');
+  const texte = await page.evaluate(async () => {
+    const r = await fetch('https://fr.wikisource.org/w/api.php?action=parse&page=Manifeste_du_parti_communiste%2FLafargue&prop=text&format=json&formatversion=2&origin=*');
+    const j = await r.json();
+    const doc = new DOMParser().parseFromString(j.parse.text, 'text/html');
+    doc.querySelectorAll('style,sup.reference,.mw-references-wrap,ol.references').forEach((e) => e.remove());
+    return [...doc.body.querySelectorAll('p')].map((p) => p.textContent).join('\n');
+  });
+  writeFileSync(path.join(CACHE, 'manifeste.txt'), texte);
+  console.log(`  le Manifeste : ${texte.length.toLocaleString('fr-FR')} caractères`);
+  await navigateur.close();
+}
+function manifeste() {
+  const f = path.join(CACHE, 'manifeste.txt');
+  if (!existsSync(f)) die('Manifeste absent du cache. Lancer : node tools/verif-citations.mjs --refresh');
+  return readFileSync(f, 'utf8');
+}
+
 const sections = {};
 function section(n) {
   if (sections[n]) return sections[n];
@@ -190,6 +224,7 @@ if (refresh || !existsSync(path.join(CACHE, 's8.txt'))) {
   console.log('\nLe texte de Roy, par le chemin de la liseuse :');
   await dumpSections();
 }
+if (refresh || !existsSync(path.join(CACHE, 'manifeste.txt'))) await dumpManifeste();
 
 const dossiers = existsSync(CHAP_DIR) ? readdirSync(CHAP_DIR).filter((d) => !d.startsWith('.')) : [];
 if (!dossiers.length) die('Aucun chapitre sous oeuvres/capital-1/chapitres/.');
@@ -249,18 +284,21 @@ for (const d of comms.sort()) {
   if (seuls.length && !seuls.includes(d.toUpperCase())) continue;
   nComm++;
   const fEssai = path.join(COMM_DIR, d, 'essai.html');
+  /* un commentaire sur le Manifeste se vérifie contre SON texte, pas contre Roy */
+  const oeuvreC = JSON.parse(readFileSync(path.join(COMM_DIR, d, 'meta.json'), 'utf8')).oeuvre;
+  const texteDe = (n) => (oeuvreC === 'manifeste-parti-communiste' ? manifeste() : section(n));
   let essai = readFileSync(fEssai, 'utf8');
   const extraits = [...essai.matchAll(/<blockquote class="cm-texte" data-s="(\d+)" data-q="([^"]+)">([^]*?)<\/blockquote>/g)];
   const cits = [...citations(essai), ...extraits.map((m) => ({ s: Number(m[1]), q: m[2] }))];
   if (corriger) {
-    const faits = reparer(fEssai, cits.filter((c) => section(c.s).indexOf(c.q) < 0));
+    const faits = reparer(fEssai, cits.filter((c) => texteDe(c.s).indexOf(c.q) < 0), texteDe);
     for (const q of faits) console.log(`  ⟳ ${d} : citation réécrite à la lettre — « ${q.slice(0, 52)} »`);
     if (faits.length) essai = readFileSync(fEssai, 'utf8');
   }
   const mal = [];
   for (const c of cits) {
     nCit++;
-    if (section(c.s).indexOf(c.q) < 0) { mal.push(c); nMal++; }
+    if (texteDe(c.s).indexOf(c.q) < 0) { mal.push(c); nMal++; }
     const dej = ailleurs.get(c.q) || vus.get(c.q);
     if (dej) { nDouble++; console.log(`  ~ ${d} partage une citation avec ${dej} : « ${c.q.slice(0, 58)} »`); }
   }
@@ -270,7 +308,7 @@ for (const d of comms.sort()) {
       nPar++;
       const brut = p[1].replace(/<span class="cm-m">[^<]*<\/span>/g, '').replace(/<[^>]+>/g, '')
         .replace(/&lt;/g, '<').replace(/&amp;/g, '&');
-      if (section(Number(m[1])).indexOf(brut) < 0) { nMal++; mal.push({ s: Number(m[1]), q: `[paragraphe ${nPar} de l'extrait] ${brut.slice(0, 60)}…` }); }
+      if (texteDe(Number(m[1])).indexOf(brut) < 0) { nMal++; mal.push({ s: Number(m[1]), q: `[paragraphe ${nPar} de l'extrait] ${brut.slice(0, 60)}…` }); }
     }
   }
   const mots = essai.replace(/<[^>]*>/g, ' ').replace(/&nbsp;/g, ' ').split(/\s+/).filter(Boolean).length;

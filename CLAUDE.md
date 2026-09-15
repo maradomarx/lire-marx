@@ -8577,6 +8577,51 @@ les chiffres clés.
   corrigée (« par ordre alphabétique, chacun défini et relié à la page qui
   l'explique ») dans la section, puis FAQPage regénéré.
 
+### Le premier commentaire sur le Manifeste (mission `commentaire-manifeste`, sept. 2026)
+
+`/commentaires/le-magicien` — partie I, §§ 32-35 de Lafargue : le précédent
+féodal (les chaînes brisées), « le magicien qui ne sait plus dominer les
+puissances infernales », la crise de surproduction, les armes qui se
+retournent. Choisi parce que c'est le passage le plus philosophique du texte
+(la contradiction forces productives / rapports de propriété, dix ans avant la
+préface de 1859), et que les passages sur la lutte des classes ont déjà leur
+page de notion. Thèse proposée : le précédent féodal fournit le CONCEPT, non la
+preuve ; c'est la crise, fait périodique, qui atteste la contradiction, parce
+qu'elle montre une limite de la propriété et non de la nature.
+
+**Le générateur et le vérificateur connaissent désormais deux œuvres servies
+dans une traduction libre.** `gen-seo.mjs` (boucle des commentaires) porte une
+table `SERVIES` — `capital-1` (Roy) et `manifeste-parti-communiste` (Lafargue) :
+citation imprimée, adresse de la liseuse, « Où il se trouve » (`partie`,
+`lieu` dans meta.json), livre du JSON-LD, image. Hors de la table, les
+citations liées restent REFUSÉES (règle Bottigelli). `verif-citations.mjs`
+met le texte du Manifeste en cache (`manifeste.txt`, texte des `<p>` de la page
+Wikisource — prepareText ne touche pas aux paragraphes) et vérifie un
+commentaire contre le texte de SON œuvre ; `--corriger` suit.
+
+**Deux écarts de traduction portent le commentaire**, relevés dans l'allemand
+de Wikisource (« Manifest der Kommunistischen Partei (1850/51) », longtemps
+tenue pour une impression de 1848) : Lafargue écrit que les forces productives
+se révoltent « contre les rapports de propriété » là où l'original dit
+« gegen die modernen Produktions-Verhältnisse, gegen die
+Eigenthums-Verhältnisse » — le concept de rapports de production disparaît de
+la phrase française ; et « l'organisation féodale de l'industrie » traduit
+« der Agrikultur ». Le *Hexenmeister* renvoie à la ballade de Goethe, mais le
+texte déplace la figure : c'est le MAÎTRE, non l'apprenti, qui ne domine plus.
+
+L'extrait a été injecté PAR SCRIPT depuis le texte servi (marqueur
+`<!--EXTRAIT-->` remplacé), en trois moments dont un coupe le § 33 à « Chaque
+crise détruit ». La page-carrefour nomme maintenant le Manifeste et son
+commentaire, et le décompte « quarante-cinq développées en pages » (resté à
+quarante depuis le lot des notions du Manifeste).
+
+**Vérifié** : 20 citations + les 4 paragraphes de l'extrait retrouvés à la
+lettre (5 citations partagées avec les pages de notion, signalées — normal pour
+un commentaire) ; le lien de l'extrait ouvre la liseuse sur le passage ;
+contraste 0 échec (minimum 4,56), zéro débordement à 1380 et 375 px, console
+vide ; détecteur 0 constat ; `gen-seo --check` à jour ; carrefour à 5
+commentaires.
+
 ## Le Manifeste entre dans la bibliothèque (mission `manifeste`, sept. 2026)
 
 Troisième œuvre disponible. Deux arbitrages du propriétaire : **le
