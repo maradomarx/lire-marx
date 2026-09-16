@@ -9287,6 +9287,79 @@ contraste **0 échec sur les cinq salles** (minimum 4,56, plus petit texte
 11 px) ; zéro débordement horizontal ; console sans erreur ;
 `gen-seo --check` à jour.
 
+## Le cheminement est une chaîne (mission `cheminement-clair`, sept. 2026)
+
+Salle I du Dossier de **Capital seul** (les Manuscrits et le Manifeste gardent
+`.walk-rungs`). Mesuré avant, à 1440 et 390 px :
+
+- **le texte sautait sous les yeux** : la marche ouverte au défilement
+  refermait la précédente, et celle qu'on allait lire remontait de **120 px**
+  (145 à 255 sur téléphone, jusque sous les barres collantes) — **11 sauts sur
+  11 changements de marche**. Le défaut que « animer le scroll » visait ;
+- **la thèse était cachée** : la salle dit « chaque catégorie bute sur une
+  contradiction qui rend la suivante nécessaire », et ce LIEN vivait dans un
+  pli, le moteur réduit à une ligne rouge sur une tache noire ;
+- une colonne de 1 188 px (lignes de 850 px, chevron à 1 100 px du texte) ;
+- l'allumage décalait toute la ligne de 14 px (numéros hors du fil), la tête
+  lumineuse passait sur les chiffres, la réglure du fond faisait un moiré
+  sous le texte.
+
+**Arbitrages : « la chaîne + le plan », et le moteur devient le titre du
+nœud** (écartés : une marche en scène épinglée ; garder le pli au clic).
+
+- **Rien n'est replié.** Une marche (`article.asc-step`, `h3.asc-t`) = son
+  rang, son nom, ce qu'elle pose, « Voir à l'œuvre » ; puis **le nœud**
+  (`.asc-knot`) : le moteur en Fraunces italique, la contradiction, ce qu'elle
+  force. Le nœud appartient à SA marche : le tiroir (`openDrawer('step')`,
+  marge « Où l'on en est ») emporte les deux.
+- **Le plan collant** (`nav.asc-plan`, ≥ 1100 px) : les douze marches entre
+  « abstrait » et « concret », la courante marquée (`aria-current="step"`).
+  C'est de l'ORIENTATION : il marche aussi sous reduced-motion. Un clic
+  pose le titre sous les barres (`ascGo`, instantané) et lui donne le focus.
+- **« Voir à l'œuvre » ouvre le TIROIR** (labo, explorations) sans quitter la
+  chaîne ; la chronologie change de salle. Vocabulaire de la marge : panneau
+  = tiroir, flèche = autre salle. `openDrawer(kind,target,label)` prend le
+  libellé en repli — `s-valor` et `s-monnaie` n'ont pas d'entrée dans
+  `LABO_LABELS`, et le tiroir s'ouvrait sans titre.
+- `goDeriv(n)` / `#deriv=n` passent par `ascGo` (plus de `scrollIntoView`
+  smooth, qui ignorait les barres). `walkOpen`/`walkSeized` n'existent plus
+  sur Capital ; `walkDeduce` d'atelier-motion ne trouve plus `#deriv .walk`
+  et se tait.
+
+**Le mouvement ne touche JAMAIS la mise en page ni l'opacité d'un texte**
+(suivi dans la page, `ascFollow`, une passe par image) : le fil se trace
+jusqu'à la **ligne de lecture (46 %)** (`--draw` en px), la pastille atteinte
+se remplit (`.is-on`), le nœud traversé s'éclaire en cloche (`--pass`) et ses
+deux marques **se tracent** — la contradiction puis ce qu'elle force
+(`--lit`, `stroke-dashoffset` sur `pathLength="1"`). Chaque marque est
+dessinée **deux fois** : un calque éteint toujours présent (sans lui, un nœud
+pas encore atteint montrait un blanc, lu comme une icône manquante) et le
+trait qui se trace. Sans `.js-asc` (reduced-motion), tout est à l'état fini.
+
+**Le fond de la salle n'est plus une réglure** : sous le texte elle faisait un
+moiré, sous le plan elle barrait les libellés. C'est une lueur qui descend
+avec `--sp`. La règle `.ds-bg[data-bg="deriv"]` vaut pour les TROIS ateliers,
+qui perdent donc leur réglure aussi.
+
+La salle est plus longue (≈ 3 450 px de chaîne au lieu de 1 818 de salle) :
+c'est le prix d'un argument qui se lit sans ouvrir de pli, et une salle
+« à lire ».
+
+**Vérifié** : **0 saut** à 1440 et 390 px (contre 11) ; course pas à pas
+monotone et **réversible** (retour en haut : `--draw` 23 px, une pastille) ;
+plan → marche 9 posée à 164 px, focus sur son titre ; tiroir labo et tiroir
+marche, rendus à leur place ; `#deriv=7` ; reduced-motion (pas de `js-asc`,
+pastilles pleines, plan marqué) ; contraste **0 échec** à 1440 et 375 px
+(minimum 6,71, plus petit texte 11,52 px, aucune cible sous 24 px), titres
+h2 puis douze h3 ; zéro débordement ; console propre ; Manuscrits et
+Manifeste intacts. Détecteur : `capital-1.html` 19 → 19, `atelier.css`
++4 `overused-font` (Fraunces, DA documentée) — une `transition: height` sur
+le plan relevée et remplacée par un `scaleY`. `atelier.css?v=14`.
+
+**Reste** : les cheminements des Manuscrits et du Manifeste ont le MÊME défaut
+de saut (même `walkOpen` piloté au défilement) ; la chaîne s'y porterait avec
+leurs données (`ressort` seul, sans contradiction séparée).
+
 ## Le jeu : le panneau de formation se replie (mission `mobile-panneaux`, sept. 2026)
 
 Suite de `vivant-sur-mobile`, qui avait laissé les phases avancées « sans

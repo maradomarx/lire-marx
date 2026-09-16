@@ -1113,12 +1113,13 @@ a.mg-row:hover .mg-ic,a.mg-row:focus-visible .mg-ic{transform:translateX(3px);}
    sous reduced-motion le fond se pose à son état fini. */
 .ds-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
 .atl-dossier .panel > :not(.ds-bg){position:relative;z-index:1;}
-/* I — le cheminement : la réglure du carnet se trace à mesure qu'on gravit. */
+/* Le fond de la salle n'est plus une réglure : 36 px de lignes contre un
+   interlignage de 25 faisaient un moiré sous le texte (déjà écarté sur
+   l'accueil), et sous le plan elles barraient les libellés. C'est la
+   LUMIÈRE DE LECTURE qui descend le long du fil, avec la position (--sp). */
 .ds-bg[data-bg="deriv"]{
-  background:repeating-linear-gradient(to bottom,transparent 0 35px,var(--line) 35px 36px);
-  opacity:.55;
-  -webkit-mask:linear-gradient(to bottom,#000 calc(var(--sp,0) * 100%),transparent calc(var(--sp,0) * 100% + 120px));
-  mask:linear-gradient(to bottom,#000 calc(var(--sp,0) * 100%),transparent calc(var(--sp,0) * 100% + 120px));}
+  background:radial-gradient(38% 30% at 6% calc(var(--sp,0) * 100%),rgba(216,173,76,.10),rgba(216,173,76,0) 70%);
+}
 /* II — la chronologie : le jour passe sur la page, d'un acte à l'autre. */
 .ds-bg[data-bg="chrono"]{
   background:linear-gradient(101deg,rgba(213,64,47,.11),rgba(216,173,76,.10) 46%,rgba(33,26,18,0) 82%);
@@ -1582,3 +1583,145 @@ html:has(body.at-plein){scroll-padding-top:90px;}
    la liseuse se montait — CLS 0,15 mesuré sur Capital en 3G, tout entier dû à
    ce saut (le même défaut que le carnet). La place est réservée d'emblée. */
 @media screen{ .atl3:not([hidden]){min-height:calc(100vh - 44px);} }
+
+/* ══════════ LE CHEMINEMENT EST UNE CHAÎNE (mission `cheminement-clair`) ══════════
+   Le Capital seul — les Manuscrits et le Manifeste gardent .walk-rungs.
+   Rien n'est replié : une marche (rang, nom, ce qu'elle pose), puis son NŒUD
+   (le moteur, la contradiction, ce qu'elle force). Le mouvement ne touche
+   jamais la mise en page ni l'opacité d'un texte : le fil se trace, la
+   pastille atteinte se remplit, le nœud traversé s'éclaire, ses marques se
+   tracent. Sans `.js-asc` (sans script, reduced-motion), tout est à l'état
+   fini : fil complet, pastilles pleines, marques tracées. */
+.asc{display:grid;grid-template-columns:minmax(0,700px) minmax(210px,270px);
+  gap:0 clamp(40px,6vw,96px);align-items:start;margin-top:8px;}
+.asc-chain{position:relative;--axis:19px;padding-bottom:4px;}
+
+/* le fil : une ligne éteinte, et par-dessus la part tracée jusqu'à la
+   ligne de lecture (--draw, en px). Sans script, tracée entière. */
+.asc-thread{position:absolute;left:var(--axis);top:20px;bottom:0;width:2px;margin-left:-1px;
+  pointer-events:none;border-radius:2px;background:var(--line);}
+.asc-thread::before{content:"";position:absolute;inset:0 0 auto 0;height:100%;border-radius:2px;
+  background:linear-gradient(to bottom,#39596b,#d5402f);}
+.js-asc .asc-thread::before{height:max(0px,calc(var(--draw,0px) - 20px));}
+.asc-head{position:absolute;left:50%;top:calc(var(--draw,0px) - 20px);width:12px;height:12px;
+  margin:-6px 0 0 -6px;border-radius:50%;opacity:0;
+  background:radial-gradient(circle,#fff1d0 0,var(--gold) 45%,rgba(216,173,76,0) 72%);
+  box-shadow:0 0 18px 6px rgba(216,173,76,.38);transition:opacity .25s;}
+.js-asc .asc-head{opacity:var(--head,0);}
+
+/* la marche */
+.asc-step{position:relative;padding-left:58px;scroll-margin-top:160px;}
+.asc-num{position:absolute;left:0;top:0;z-index:2;width:38px;height:38px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Fraunces',serif;font-weight:900;font-size:1rem;line-height:1;
+  background:var(--rung);color:#fff;box-shadow:0 0 0 6px var(--bg);
+  transition:background .35s,color .35s,box-shadow .35s;}
+.js-asc .asc-step:not(.is-on) .asc-num{background:var(--bg);color:var(--ink);
+  box-shadow:inset 0 0 0 1.5px var(--rung),0 0 0 6px var(--bg);}
+.asc-t{margin:4px 0 0;font-family:'Fraunces',serif;font-weight:600;font-size:1.36rem;
+  line-height:1.2;letter-spacing:-.012em;color:var(--ink);transition:color .35s;}
+.asc-t:focus{outline:none;}
+.asc-t:focus-visible{outline:2px solid var(--gold);outline-offset:4px;border-radius:4px;}
+.js-asc .asc-step:not(.is-on) .asc-t{color:var(--ink-soft);}
+.asc-pose{margin:8px 0 0;max-width:62ch;font-size:1.02rem;line-height:1.6;color:var(--ink-soft);}
+.asc-pose b{color:var(--ink);font-weight:600;}
+.asc-step.flash .asc-t{color:var(--gold);}
+
+/* voir à l'œuvre : une seule forme, discrète — le panneau dit « tiroir »,
+   la flèche dit « une autre salle » (le vocabulaire de la marge) */
+.asc-see{display:flex;flex-wrap:wrap;align-items:center;gap:4px 16px;margin-top:12px;}
+.asc-see-lab{font-size:.8rem;font-style:italic;color:var(--muted);}
+.asc-go{display:inline-flex;align-items:center;gap:7px;min-height:28px;padding:2px 0;
+  font:500 .86rem/1.3 var(--f-ui);color:var(--ink-soft);background:none;border:0;cursor:pointer;
+  text-decoration:underline;text-decoration-color:var(--line-strong);text-underline-offset:4px;
+  transition:color .18s,text-decoration-color .18s;}
+.asc-go:hover,.asc-go:focus-visible{color:var(--ink);text-decoration-color:var(--gold);}
+.asc-ic{flex:none;width:15px;height:15px;color:var(--gold);}
+
+/* le nœud : ce qui fait passer à la suivante. Une carte posée SUR le fil,
+   marquée d'un losange à l'endroit où le fil la traverse. */
+.asc-knot{position:relative;margin:20px 0 34px;padding:16px 20px 6px;border-radius:14px;
+  border:1px solid var(--line);background:rgba(243,233,212,.025);
+  box-shadow:0 0 0 1px rgba(216,173,76,calc(var(--pass,0) * .42)),
+             0 22px 44px -30px rgba(216,173,76,calc(var(--pass,0) * .55));
+}
+.asc-knot::before{content:"";position:absolute;left:calc(var(--axis) - 58px - 5px);top:24px;
+  width:10px;height:10px;transform:rotate(45deg);border-radius:2px;
+  background:var(--bg);box-shadow:inset 0 0 0 1.5px var(--red-text);}
+.asc-knot::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  opacity:var(--pass,0);
+  background:radial-gradient(120% 90% at 0% 0%,rgba(216,173,76,.10),rgba(216,173,76,0) 60%);}
+.asc-motor{margin:0 0 10px;font-family:'Fraunces',serif;font-style:italic;font-weight:500;
+  font-size:1.06rem;line-height:1.3;color:var(--gold);}
+.asc-motor span{font-style:normal;}
+.asc-f{display:grid;grid-template-columns:20px 1fr;gap:12px;align-items:start;margin:0 0 10px;
+  font-size:.98rem;line-height:1.55;color:var(--ink-soft);}
+.asc-f b{color:var(--ink);font-weight:600;}
+.asc-mk{width:20px;height:20px;margin-top:2px;fill:none;stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round;}
+.asc-contra .asc-mk{stroke:var(--red-text);}
+.asc-pass .asc-mk{stroke:var(--gold);}
+/* les deux marques se TRACENT quand la lecture atteint le nœud : la
+   contradiction d'abord, ce qu'elle force ensuite */
+.asc-mk-b{display:none;}
+.js-asc .asc-mk-b{display:inline;stroke:var(--line-strong)!important;}
+.js-asc .asc-mk-f path{stroke-dasharray:1;}
+.js-asc .asc-contra .asc-mk-f path{stroke-dashoffset:calc(1 - min(1, var(--lit,1) * 2));}
+.js-asc .asc-pass .asc-mk-f path{stroke-dashoffset:calc(1 - max(0, var(--lit,1) * 2 - 1));}
+
+.asc-close{display:grid;grid-template-columns:20px 1fr;gap:12px;align-items:start;
+  margin:0;padding-left:58px;font-style:italic;font-size:.98rem;line-height:1.55;color:var(--ink-soft);}
+.asc-close .asc-mk{stroke:var(--gold);}
+
+/* le plan : les douze marches, de l'abstrait au concret. De l'ORIENTATION,
+   donc marqué partout — seules ses transitions tombent en reduced-motion. */
+.asc-plan{position:sticky;top:calc(var(--atl-top,88px) + 70px);padding:4px 0;}
+.asc-end{margin:0;padding-left:30px;font-family:'Fraunces',serif;font-style:italic;
+  font-size:.86rem;color:var(--muted);}
+.asc-plan-list{position:relative;list-style:none;margin:8px 0;padding:0;}
+.asc-plan-list::before,.asc-plan-list::after{content:"";position:absolute;left:10px;top:13px;bottom:13px;
+  width:2px;margin-left:-1px;border-radius:2px;background:var(--line);}
+.asc-plan-list::after{transform-origin:top;transform:scaleY(var(--plan,0));
+  background:linear-gradient(to bottom,#39596b,#d5402f);transition:transform .3s cubic-bezier(.16,1,.3,1);}
+.asc-pl{position:relative;z-index:1;display:grid;grid-template-columns:20px 1fr;gap:10px;align-items:center;
+  width:100%;min-height:26px;padding:1px 6px 1px 0;border:0;background:none;cursor:pointer;
+  text-align:left;font:500 .84rem/1.25 var(--f-ui);color:var(--muted);border-radius:6px;
+  transition:color .2s;}
+.asc-pl:hover{color:var(--ink);}
+.asc-pl-dot{justify-self:center;width:9px;height:9px;border-radius:50%;background:var(--bg);
+  box-shadow:inset 0 0 0 1.5px var(--rung),0 0 0 3px var(--bg);transition:transform .25s,background .25s;}
+.asc-pl.is-past .asc-pl-dot{background:var(--rung);}
+.asc-pl.is-here{color:var(--ink);font-weight:600;}
+.asc-pl.is-here .asc-pl-dot{background:var(--rung);transform:scale(1.45);
+  box-shadow:0 0 0 3px var(--bg),0 0 0 4.5px rgba(216,173,76,.55);}
+.asc-pl:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+
+/* dans le tiroir la marche est seule : pastille pleine, pas de fil */
+.atl-drawer-body .asc-step{padding-left:52px;}
+.atl-drawer-body .asc-num{background:var(--rung);color:#fff;box-shadow:none;}
+.atl-drawer-body .asc-knot{margin-bottom:6px;box-shadow:none;}
+.atl-drawer-body .asc-knot::before,.atl-drawer-body .asc-knot::after{display:none;}
+.atl-drawer-body .asc-mk-f path{stroke-dashoffset:0!important;}
+.atl-drawer-body .asc-mk-b{display:none;}
+.atl-drawer-body .asc-t{color:var(--ink)!important;}
+
+
+
+@media(max-width:1099px){
+  .asc{grid-template-columns:minmax(0,1fr);}
+  .asc-plan{display:none;}
+}
+@media(max-width:600px){
+  .asc-chain{--axis:15px;}
+  .asc-thread{top:15px;}
+  .asc-step{padding-left:44px;}
+  .asc-num{width:30px;height:30px;font-size:.86rem;box-shadow:0 0 0 5px var(--bg);}
+  .js-asc .asc-step:not(.is-on) .asc-num{box-shadow:inset 0 0 0 1.5px var(--rung),0 0 0 5px var(--bg);}
+  .asc-t{margin-top:2px;font-size:1.18rem;}
+  .asc-knot{margin:16px 0 28px;padding:14px 14px 4px;}
+  .asc-knot::before{left:calc(var(--axis) - 44px - 5px);top:20px;}
+  .asc-close{padding-left:44px;}
+}
+@media(prefers-reduced-motion:reduce){
+  .asc-num,.asc-t,.asc-plan-list::after,.asc-pl-dot,.asc-head{transition:none;}
+}
