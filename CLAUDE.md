@@ -9393,6 +9393,53 @@ Capital et Manuscrits inchangés, atelier.css 36 → 33, Manifeste +1
 `dark-glow` (la lueur du nœud, famille documentée). `atelier.css?v=15`,
 `atelier-motion.js?v=5`, `manuscrits-1844.css?v=3`, `ascension.js?v=1`.
 
+## La chronologie se lit (mission `chronologie-listee`, sept. 2026)
+
+Salle II du Dossier, les trois ateliers. Mesuré avant (1440 et 390 px) :
+**trois formes pour la même salle**. Capital : les **16 événements enfermés
+derrière un lecteur** (un seul lisible à la fois, dans la carte « L'événement »,
+après « Jouer » ou le curseur) ; pastilles posées sur les années (« 1750 • »),
+« 1450 » coupé au bord ; glyphes ▶ ⟲ ; consigne au **tutoiement** ; six cartes
+« Comprendre les concepts » (130 mots) qui redisaient le glossaire.
+Manuscrits : cartes empilées et **portrait recadré en bandeau 1 188 × 230 px où
+l'on ne voyait que ses cheveux**. Manifeste : la forme `.chr` (image collante,
+lignes réglées, année en Fraunces italique or), la seule aboutie.
+
+**Arbitrages : « garder le lecteur, lister »** (écartés : une frise qui se lit
+au défilement avec panneau collant ; une frise horizontale épinglée) **et
+« pastilles de notions »** pour les cartes.
+
+- **`.chr` est monté du `<style>` du Manifeste dans atelier.css** et devient la
+  forme commune. Les Manuscrits la prennent (portrait ENTIER dans la colonne
+  collante, page manuscrite de 1846 en `.chr-inset` dans « La postérité ») ;
+  `.timeline`/`.tl-section`/`.event`/`.year` sont retirés de
+  manuscrits-1844.css.
+- **Capital garde sa frise jouable**, corrigée : pastilles sur deux rangs
+  au-dessus de l'axe (0 chevauchement mesuré), première année décalée dans la
+  piste, pictogrammes dessinés (lecture, pause, retour), vouvoiement.
+- **Sous le lecteur, la liste des seize** (`#chronoList`, `.chr--seule`,
+  `buildChronoList`), groupée en Acte I / passage de relais / Acte II. Les
+  renvois de chapitre mènent aux pages de chapitre (`CHAPITRES_HREF`, lien sur
+  « chap. X » entier — un « X » seul faisait 9 px de large). **Synchronisée dans
+  les deux sens** : `renderChrono` marque la ligne de l'événement courant
+  (`.is-current`, `aria-current`, lueur et graisse de l'année — pas de filet
+  latéral), et l'année d'une ligne (`.chr-y-go`, un bouton) place la frise sur
+  l'événement, ramène la piste sous les barres et lui donne le focus.
+- **Les cartes deviennent des pastilles** : un conteneur `data-forme="pastilles"`
+  est rendu en `<ul class="mg-chips">`, une pastille par ADRESSE de glossaire
+  (4 pour les 6 fiches). ⚠️ Rendu à deux endroits, qui bougent ensemble :
+  `chipsHtml()` de la page et la branche `pastilles` du pré-rendu de
+  gen-seo.mjs. Les fiches restent dans `CONCEPTS` : elles nourrissent
+  l'abécédaire. Test d'identité rejoué : 13 conteneurs sur 13.
+
+**Vérifié** : 16 événements en 3 groupes, clic sur 1833 → frise, carte et ligne
+d'accord ; contraste 0 échec sur les trois salles aux deux largeurs (minimum
+4,69), plus petit texte 11,52 px, seules cibles « petites » = les pastilles de
+la frise, qui portent un `::after` de 24 px ; zéro débordement ; console propre.
+Détecteur : pages inchangées, atelier.css +1 `overused-font` (l'année en
+Fraunces), manuscrits-1844.css −2. `atelier.css?v=16`,
+`manuscrits-1844.css?v=4`.
+
 ## Le jeu : le panneau de formation se replie (mission `mobile-panneaux`, sept. 2026)
 
 Suite de `vivant-sur-mobile`, qui avait laissé les phases avancées « sans
