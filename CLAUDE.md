@@ -9289,8 +9289,8 @@ contraste **0 échec sur les cinq salles** (minimum 4,56, plus petit texte
 
 ## Le cheminement est une chaîne (mission `cheminement-clair`, sept. 2026)
 
-Salle I du Dossier de **Capital seul** (les Manuscrits et le Manifeste gardent
-`.walk-rungs`). Mesuré avant, à 1440 et 390 px :
+Salle I du Dossier — d'abord sur Capital, puis portée aux trois ateliers
+(voir plus bas). Mesuré avant, à 1440 et 390 px :
 
 - **le texte sautait sous les yeux** : la marche ouverte au défilement
   refermait la précédente, et celle qu'on allait lire remontait de **120 px**
@@ -9356,9 +9356,89 @@ Manifeste intacts. Détecteur : `capital-1.html` 19 → 19, `atelier.css`
 +4 `overused-font` (Fraunces, DA documentée) — une `transition: height` sur
 le plan relevée et remplacée par un `scaleY`. `atelier.css?v=14`.
 
-**Reste** : les cheminements des Manuscrits et du Manifeste ont le MÊME défaut
-de saut (même `walkOpen` piloté au défilement) ; la chaîne s'y porterait avec
-leurs données (`ressort` seul, sans contradiction séparée).
+### Porté aux trois ateliers : `oeuvres/ascension.js` (mission `cheminement-trois-ateliers`)
+
+La chaîne est un gabarit commun, sur le modèle de `marge.js` / `sommaire.js` /
+`dossier.js`, **chargé sans `defer` dans le `<head>`** :
+`AscensionAtelier.html(steps, {close})` produit la chaîne,
+`AscensionAtelier.mount(root, {offset, onSee})` construit le plan, arme le
+suivi et rend `{go(n, flash)}` (exposé en `window.ascGo`, qu'appellent
+`goDeriv` et `#deriv=n`). Une marche : `{t, plan, pose|lieu, motor?, contra?,
+pass, passLabel, links, color}`.
+
+- **Capital** : pose, moteur, contradiction, passage, « Voir à l'œuvre ».
+- **Manuscrits** : `lieu` = « Cahier I », un seul ressort (`.asc-knot--one`,
+  qui se trace d'un trait). Rendu par script, comme avant.
+- **Manifeste** : `lieu` = « Partie I », un seul ressort. **Le balisage est
+  SERVI dans le HTML** (le dossier du Manifeste l'est entièrement, pour les
+  moteurs) : il a été produit une fois par `AscensionAtelier.html()`, et la
+  page ne fait que `mount()`. Retoucher une marche = retoucher ce balisage.
+
+**Supprimés** : `.walk-rungs` / `.wk-*` / `.js-atwalk` / `.closing` /
+`.step-links` d'atelier.css, `walkDeduce` d'atelier-motion.js, les
+`walkOpen`/`walkSeized` des deux pages. Plus rien ne se replie.
+
+⚠️ **Une sonde qui ne trouve rien mesure zéro.** Le « 0 saut » annoncé pour
+Capital à la mission précédente venait d'une sonde qui visait encore
+`#stair .walk-step` — sur la nouvelle chaîne elle ne trouvait aucun élément,
+donc aucun saut. Le vrai contrôle relève la position DOCUMENT de chaque
+`.asc-step` à chaque arrêt du défilement et vérifie qu'elle ne bouge pas :
+**0 déplacement sur les trois ateliers, à 1440 et à 390 px**, suivi 1→N
+complet. Toute sonde doit d'abord dire combien d'éléments elle a trouvés.
+
+Vérifié : contraste 0 échec (minimum 5,35 / 6,71), plus petit texte
+11,52 px, zéro débordement, tiroir « Où l'on en est » sur les trois (marche
+et nœud dans le tiroir, rendus à leur place), console propre. Détecteur :
+Capital et Manuscrits inchangés, atelier.css 36 → 33, Manifeste +1
+`dark-glow` (la lueur du nœud, famille documentée). `atelier.css?v=15`,
+`atelier-motion.js?v=5`, `manuscrits-1844.css?v=3`, `ascension.js?v=1`.
+
+## La chronologie se lit (mission `chronologie-listee`, sept. 2026)
+
+Salle II du Dossier, les trois ateliers. Mesuré avant (1440 et 390 px) :
+**trois formes pour la même salle**. Capital : les **16 événements enfermés
+derrière un lecteur** (un seul lisible à la fois, dans la carte « L'événement »,
+après « Jouer » ou le curseur) ; pastilles posées sur les années (« 1750 • »),
+« 1450 » coupé au bord ; glyphes ▶ ⟲ ; consigne au **tutoiement** ; six cartes
+« Comprendre les concepts » (130 mots) qui redisaient le glossaire.
+Manuscrits : cartes empilées et **portrait recadré en bandeau 1 188 × 230 px où
+l'on ne voyait que ses cheveux**. Manifeste : la forme `.chr` (image collante,
+lignes réglées, année en Fraunces italique or), la seule aboutie.
+
+**Arbitrages : « garder le lecteur, lister »** (écartés : une frise qui se lit
+au défilement avec panneau collant ; une frise horizontale épinglée) **et
+« pastilles de notions »** pour les cartes.
+
+- **`.chr` est monté du `<style>` du Manifeste dans atelier.css** et devient la
+  forme commune. Les Manuscrits la prennent (portrait ENTIER dans la colonne
+  collante, page manuscrite de 1846 en `.chr-inset` dans « La postérité ») ;
+  `.timeline`/`.tl-section`/`.event`/`.year` sont retirés de
+  manuscrits-1844.css.
+- **Capital garde sa frise jouable**, corrigée : pastilles sur deux rangs
+  au-dessus de l'axe (0 chevauchement mesuré), première année décalée dans la
+  piste, pictogrammes dessinés (lecture, pause, retour), vouvoiement.
+- **Sous le lecteur, la liste des seize** (`#chronoList`, `.chr--seule`,
+  `buildChronoList`), groupée en Acte I / passage de relais / Acte II. Les
+  renvois de chapitre mènent aux pages de chapitre (`CHAPITRES_HREF`, lien sur
+  « chap. X » entier — un « X » seul faisait 9 px de large). **Synchronisée dans
+  les deux sens** : `renderChrono` marque la ligne de l'événement courant
+  (`.is-current`, `aria-current`, lueur et graisse de l'année — pas de filet
+  latéral), et l'année d'une ligne (`.chr-y-go`, un bouton) place la frise sur
+  l'événement, ramène la piste sous les barres et lui donne le focus.
+- **Les cartes deviennent des pastilles** : un conteneur `data-forme="pastilles"`
+  est rendu en `<ul class="mg-chips">`, une pastille par ADRESSE de glossaire
+  (4 pour les 6 fiches). ⚠️ Rendu à deux endroits, qui bougent ensemble :
+  `chipsHtml()` de la page et la branche `pastilles` du pré-rendu de
+  gen-seo.mjs. Les fiches restent dans `CONCEPTS` : elles nourrissent
+  l'abécédaire. Test d'identité rejoué : 13 conteneurs sur 13.
+
+**Vérifié** : 16 événements en 3 groupes, clic sur 1833 → frise, carte et ligne
+d'accord ; contraste 0 échec sur les trois salles aux deux largeurs (minimum
+4,69), plus petit texte 11,52 px, seules cibles « petites » = les pastilles de
+la frise, qui portent un `::after` de 24 px ; zéro débordement ; console propre.
+Détecteur : pages inchangées, atelier.css +1 `overused-font` (l'année en
+Fraunces), manuscrits-1844.css −2. `atelier.css?v=16`,
+`manuscrits-1844.css?v=4`.
 
 ## Le jeu : le panneau de formation se replie (mission `mobile-panneaux`, sept. 2026)
 

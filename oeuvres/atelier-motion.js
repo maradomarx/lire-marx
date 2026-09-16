@@ -279,112 +279,8 @@
     });
   }
 
-  /* ── E. Le cheminement SE DÉDUIT ─────────────────────────────────────
-     La section dit : « Le Capital ne juxtapose pas des thèmes : il
-     DÉDUIT. Chaque catégorie révèle une contradiction qui rend la
-     suivante nécessaire. » Le mouvement le dit donc littéralement : le
-     fil descend au défilement (`--draw`), sa tête éclaire ce qu'elle
-     atteint (`--head`), et rien n'existe devant elle — une marche ne
-     s'allume (`--lit`) que lorsque la déduction parvient à SON point sur
-     l'axe, le moteur (la contradiction) n'apparaît qu'au moment de
-     pousser vers la suivante.
-
-     La position de chaque marche est mesurée SUR L'AXE, en pourcentage
-     de la hauteur du fil — pas sur un simple index : les cartes n'ont
-     pas la même hauteur, un échelonnement régulier aurait allumé des
-     marches que le fil n'a pas encore atteintes. */
-  function walkDeduce() {
-    var walk = document.querySelector('#deriv .walk');
-    if (!walk) return;
-
-    /* Trois serpentins, désormais, et jamais un :has() pour les
-       distinguer : sur Capital la marche est une MARCHE d'ascension
-       (.wk-line, une colonne, le fil à gauche, une seule ouverte à la
-       fois), sur les Manuscrits elle EST le bloc le long d'un fil. La
-       variante « cartes » en zigzag n'existe plus sur Capital ; son CSS
-       reste pour qui la rendrait ailleurs. */
-    var variant = null, rungs = false, cards = false;
-    /* La variante se décide QUAND le serpentin existe, pas à l'init du
-       module. Vécu : sur les Manuscrits le cheminement est construit dans
-       le `DOMContentLoaded` de la page, donc APRÈS ce module (qui est en
-       `defer`, et s'exécute avant l'événement). Décidée trop tôt, la
-       variante restait « fil » pour toujours et le pilotage de l'ascension
-       ne partait jamais — le cheminement s'affichait, mais la marche
-       ouverte ne bougeait plus au défilement.
-       On revérifie aussi que la classe est TOUJOURS là : la page écrit
-       `stair.className='walk walk-rungs'` en clair, ce qui efface tout ce
-       que le module avait posé. */
-    function detect() {
-      if (!walk.querySelector('.walk-step')) return false;
-      rungs = !!walk.querySelector('.wk-line');
-      cards = !rungs && !!walk.querySelector('.walk-card');
-      variant = rungs ? 'walk-rungs' : cards ? 'walk-cards' : 'walk-thread';
-      walk.classList.add(variant);
-      if (!cards) walk.style.setProperty('--axis', rungs ? '23px' : '8px');
-      return true;
-    }
-    detect();
-    document.documentElement.classList.add('js-atwalk');
-
-    /* Le serpentin est construit par le script de la page. Il l'est avant
-       nous (script inline pendant le parse, ce module en defer), mais on
-       ne s'y fie pas : la liste se relit tant qu'elle est vide. */
-    var parts = [], steps = [];
-    function collect() {
-      parts = [].slice.call(walk.querySelectorAll('.walk-step, .walk-motor'));
-      steps = [].slice.call(walk.querySelectorAll('.walk-step'));
-      return parts.length;
-    }
-    collect();
-
-    addSub(function (y, vh) {
-      if (!shown(walk)) return;
-      if (!parts.length && !collect()) return;
-      if (!variant || !walk.classList.contains(variant)) detect();
-      var r = walk.getBoundingClientRect();
-      if (!r.height) return;
-      /* le fil se trace pendant que la section traverse la fenêtre : il
-         part quand le haut du bloc atteint les deux tiers de l'écran, il
-         est complet quand le bas du bloc passe le tiers bas */
-      var a = vh * 0.66, b = -r.height + vh * 0.78;
-      var p = clamp01((a - r.top) / (a - b));
-      walk.style.setProperty('--draw', (p * 100).toFixed(2) + '%');
-      walk.style.setProperty('--head', (p > 0.004 && p < 0.996 ? 1 : 0));
-
-      /* où en est la déduction, en pixels écran. La position de chaque
-         marche est mesurée SUR L'AXE et non déduite d'un index : les
-         cartes n'ont pas la même hauteur, un échelonnement régulier
-         allumerait des marches que le fil n'a pas encore atteintes. */
-      var front = r.top + p * r.height;
-      for (var i = 0; i < parts.length; i++) {
-        var er = parts[i].getBoundingClientRect();
-        var anchor = er.top + (cards ? er.height / 2 : 14);
-        /* la lumière arrive AVEC le fil, elle ne le devance pas */
-        parts[i].style.setProperty('--lit',
-          clamp01((front - anchor + 90) / 110).toFixed(3));
-      }
-
-      /* L'ASCENSION : la marche ouverte est celle où l'on est. On ne
-         mesure pas contre le front du fil mais contre la LIGNE DE
-         LECTURE (38 % de la hauteur) — le fil, lui, court en avance sur
-         toute la section, et il aurait déplié la dernière marche bien
-         avant qu'on y arrive. Fonction de la POSITION, donc réversible :
-         on remonte, la marche précédente se rouvre.
-         Rien n'est piloté une fois que le lecteur a saisi l'objet (clic,
-         ou focus clavier dans la colonne) : refermer sous les yeux de
-         quelqu'un ce qu'il vient d'ouvrir serait le pire des services. */
-      if (!rungs || !window.walkOpen) return;
-      if (window.walkSeized && window.walkSeized()) return;
-      var line = vh * 0.38, best = 0;
-      for (var j = 0; j < steps.length; j++) {
-        if (steps[j].getBoundingClientRect().top <= line) best = j + 1;
-      }
-      /* au-dessus de la première marche, c'est encore la première qui
-         est « celle où l'on est » : on n'affiche jamais douze lignes
-         nues, ce serait un sommaire, pas une déduction */
-      window.walkOpen(best || 1, false);
-    });
-  }
+  /* E. Le cheminement : rendu et animé par oeuvres/ascension.js depuis la
+     mission `cheminement-clair` (walkDeduce et le pli piloté sont retirés). */
 
   /* ── E bis. L'INSTRUMENT SE DÉMONTRE ─────────────────────────────────
      Treize pavés « Comment lire » disaient ce qu'on comprend en une
@@ -731,7 +627,6 @@
     instDemo();
     chronoUnfold();
     poseBlocks();
-    walkDeduce();
     tocInscribe();
     poseParts();
     watchPanels();

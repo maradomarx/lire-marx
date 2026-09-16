@@ -2041,7 +2041,14 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
     for (const id of Object.keys(CONCEPTS)) {
       const deb = `<!--CC:${id}-->`, fin = '<!--/CC-->';
       if (src.indexOf(deb) < 0) throw new Error(`maillage : conteneur ${id} sans marqueur dans ${file}`);
-      const html = CONCEPTS[id].map((x) => ccHtml(x, ICONS, (liens[x.t] || {}).h || '')).join('');
+      /* data-forme="pastilles" : la même ligne que chipsHtml() de la page */
+      const bloc = src.slice(Math.max(0, src.indexOf(deb) - 200), src.indexOf(deb));
+      const pastilles = /data-forme="pastilles"[^>]*>$/.test(bloc);
+      const vus = new Set();
+      const html = pastilles
+        ? CONCEPTS[id].map((x) => liens[x.t]).filter((l) => l && l.h && !vus.has(l.h) && vus.add(l.h))
+            .map((l) => '<li><a href="' + l.h + '">' + l.n + '</a></li>').join('')
+        : CONCEPTS[id].map((x) => ccHtml(x, ICONS, (liens[x.t] || {}).h || '')).join('');
       src = entreMarqueurs(src, deb, fin, html, file);
     }
   } else if (oeuvre === 'Manifeste du parti communiste') {

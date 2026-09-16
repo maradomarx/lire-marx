@@ -26,7 +26,7 @@
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="fonts/fonts.css?v=2">
-<link rel="stylesheet" href="atelier.css?v=14">
+<link rel="stylesheet" href="atelier.css?v=16">
 <link rel="stylesheet" href="shell.css?v=11">
 <link rel="stylesheet" href="reader-tools.css">
 <style>
@@ -258,10 +258,16 @@ svg.circuits{width:100%;height:auto;display:block;margin:6px 0 4px;font-family:'
 .chrono-actband{position:absolute;top:0;bottom:0;}
 .chrono-actband.act1{background:rgba(216,173,76,0.070);}
 .chrono-actband.act2{background:rgba(213,64,47,0.084);}
-.chrono-axisline{position:absolute;left:0;right:0;top:50%;border-top:1px solid var(--line);}
-.chrono-tick{position:absolute;top:50%;}
+/* Les pastilles vivent sur deux rangs AU-DESSUS de l'axe, les années dessous :
+   posées sur la moitié de la piste, elles chevauchaient les années (« 1750 • »). */
+.chrono-axisline{position:absolute;left:0;right:0;top:62px;border-top:1px solid var(--line);}
+.chrono-tick{position:absolute;top:62px;}
 .chrono-tick i{display:block;width:1px;height:6px;background:var(--line);}
-.chrono-tick span{font-size:.72rem;color:var(--ink-soft);position:absolute;top:8px;left:0;transform:translateX(-50%);white-space:nowrap;}
+.chrono-tick span{font-size:.72rem;color:var(--ink-soft);position:absolute;top:9px;left:0;transform:translateX(-50%);white-space:nowrap;}
+/* la première année était coupée par le bord de la piste (« 50 ») */
+.chrono-tick.is-first span{transform:translateX(6px);}
+.chrono-controls .btn{display:inline-flex;align-items:center;gap:8px;}
+.chrono-controls .btn svg{width:14px;height:14px;flex:none;}
 /* Les pastilles sont devenues des <button> : il faut neutraliser le
    remplissage par défaut. Et leurs 13 px passaient sous les 24 px de
    WCAG 2.5.8 — un ::after transparent élargit la prise sans changer le
@@ -775,7 +781,7 @@ nav.tabs.worktabs{position:sticky;top:44px;z-index:62;
 <script src="shell-annotations.js?v=2"></script>
 <script src="shell-progress.js"></script>
 <script src="reader-tools.js?v=6" defer></script>
-<script src="atelier-motion.js?v=4" defer></script>
+<script src="atelier-motion.js?v=5" defer></script>
 <style id="socCss">#msgDot{position:absolute;top:5px;right:6px;width:6px;height:6px;border-radius:50%;background:var(--red);display:none;}.tb-msg{position:relative;}.nt-list{max-height:58vh;overflow:auto;margin:2px -6px -4px;}.nt-item{display:block;width:100%;text-align:left;background:transparent;border:0;border-top:1px solid var(--line-soft);padding:10px 8px;cursor:pointer;font-family:inherit;}.nt-item:first-child{border-top:0;}.nt-item:hover{background:var(--paper-2);}.nt-item.unseen{background:rgba(213,64,47,0.084);}.nt-top{display:flex;gap:7px;align-items:baseline;}.nt-who{font-family:"Fraunces",serif;font-weight:600;font-size:.86rem;color:var(--ink);}.nt-kind{font-family:var(--f-ui);font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;border-radius:999px;padding:1px 7px;}.nt-k-reply{background:rgba(92,138,163,.20);color:#8fb8cc;}.nt-k-mention{background:rgba(213,64,47,.18);color:#e5644f;}.nt-when{margin-left:auto;font-family:var(--f-ui);font-size:.72rem;color:var(--const);}.nt-snip{font-family:"Spectral",Georgia,serif;font-size:.84rem;color:var(--ink-soft);margin-top:3px;line-height:1.45;}.msg-wrap{display:flex;flex-direction:column;min-height:0;height:min(74vh,620px);}.msg-head{display:flex;align-items:center;gap:9px;margin-bottom:10px;}.msg-head h3{font-family:"Fraunces",serif;font-size:1.18rem;margin:0;color:var(--ink);}.msg-back{background:transparent;border:0;font-size:1.5rem;line-height:1;cursor:pointer;color:var(--ink);padding:0 6px;}.msg-add{display:flex;gap:7px;margin-bottom:12px;}.msg-add input{flex:1;min-width:0;height:34px;font-family:var(--f-ui);font-size:.85rem;padding:0 11px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);}.msg-list{flex:1;overflow:auto;margin:0 -4px;}.msg-ct{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:transparent;border:0;border-radius:9px;padding:10px;cursor:pointer;font-family:inherit;}.msg-ct:hover{background:var(--paper-2);}.msg-ava{flex:0 0 auto;width:34px;height:34px;border-radius:50%;background:var(--red);color:var(--text);font-family:"Fraunces",serif;font-weight:700;font-size:.9rem;display:flex;align-items:center;justify-content:center;}.msg-ct-main{flex:1;min-width:0;display:flex;flex-direction:column;}.msg-ct-name{font-family:"Fraunces",serif;font-weight:600;font-size:.92rem;color:var(--ink);}.msg-ct-prev{font-family:"Spectral",Georgia,serif;font-size:.8rem;color:var(--const);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}.msg-badge{flex:0 0 auto;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:var(--red);color:#fff;font-family:var(--f-ui);font-size:.72rem;display:flex;align-items:center;justify-content:center;}.msg-thread{flex:1;overflow:auto;display:flex;flex-direction:column;gap:7px;padding:6px 2px;}.msg-b{max-width:78%;padding:7px 11px;border-radius:13px;font-family:"Spectral",Georgia,serif;font-size:.92rem;line-height:1.45;white-space:pre-wrap;word-wrap:break-word;}.msg-b.me{align-self:flex-end;background:var(--red);color:var(--text);border-bottom-right-radius:4px;}.msg-b.them{align-self:flex-start;background:var(--paper-2);color:var(--ink);border-bottom-left-radius:4px;}.msg-b-t{display:block;font-size:.72rem;opacity:.7;margin-top:3px;font-family:var(--f-ui);}.msg-compose{display:flex;gap:7px;margin-top:10px;}.msg-compose textarea{flex:1;min-height:40px;max-height:130px;font-family:"Spectral",serif;font-size:.92rem;padding:9px 11px;border:1px solid var(--line);border-radius:9px;background:var(--paper);color:var(--ink);resize:vertical;}.msg-empty,.msg-state{font-family:var(--f-ui);font-size:.85rem;color:var(--const);padding:18px 8px;text-align:center;line-height:1.5;}</style>
 <style id="socCss2">.tb-pop.msg-pop{width:330px;max-width:86vw;padding:12px 14px;}.msg-pop .msg-list{max-height:300px;}.msg-pop .msg-thread{height:264px;}.msg-pop .msg-head{margin-bottom:8px;}.msg-pop .msg-add{margin-bottom:10px;}.msg-pop .msg-compose{margin-top:8px;}.msg-pop .msg-compose textarea{min-height:36px;}.msg-poplink{display:block;width:100%;text-align:center;margin-top:8px;font-family:"Fraunces",serif;font-weight:600;font-size:.8rem;color:var(--red-deep);background:transparent;border:0;border-top:1px solid var(--line-soft);padding-top:9px;cursor:pointer;}.msg-poplink:hover{color:var(--red-text);}.msg-ct.on{background:var(--paper-2);}</style>
 <style id="socCss7">.msg-ava,.ac-ava,.chip-ava{position:relative;overflow:hidden;}.ava-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}</style>
@@ -838,6 +844,7 @@ nav.tabs.worktabs{position:sticky;top:44px;z-index:62;
 <script src="marge.js?v=1"></script>
 <script src="sommaire.js?v=1"></script>
 <script src="dossier.js?v=1"></script>
+<script src="ascension.js?v=1"></script>
 </head>
 <body class="at-atelier">
 <!-- NOTIONS:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main.
@@ -973,8 +980,8 @@ nav.tabs.worktabs{position:sticky;top:44px;z-index:62;
 
     <p class="inst-cue">Jouez la frise, ou saisissez le curseur.</p>
     <div class="chrono-controls">
-      <button class="btn red" id="chronoPlay" type="button">▶ Jouer</button>
-      <button class="btn" id="chronoReset" type="button">⟲ Début</button>
+      <button class="btn red" id="chronoPlay" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 3v10l8.5-5z" fill="currentColor"/></svg><span>Jouer</span></button>
+      <button class="btn" id="chronoReset" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8a4.5 4.5 0 1 0 1.3-3.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M3 2.5v3h3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Début</span></button>
       <div class="chrono-year" id="chronoYear">1450</div>
     </div>
     <div class="chrono-track" id="chronoTrack" role="slider" tabindex="0" aria-label="Curseur chronologique — flèches pour avancer d'une année, Page haut/bas pour dix ans" aria-valuemin="1450" aria-valuemax="1870" aria-valuenow="1450">
@@ -999,7 +1006,9 @@ nav.tabs.worktabs{position:sticky;top:44px;z-index:62;
       </div>
     </div>
 
-    <div class="concepts-wrap"><h3>Comprendre les concepts</h3><div class="concept-cards" id="cc-chrono" data-prerendu><!--CC:cc-chrono--><a class="ccard cc-go" style="--accent:var(--gold-deep)" href="/glossaire/accumulation-primitive"><div class="cc-icon"><svg viewBox="0 0 24 24"><path d="M12 4v16M6 20h12"/><path d="M12 6l-6 2 6 2 6-2-6-2z"/></svg></div><div><div class="cc-term">Accumulation primitive</div><div class="cc-def">La genèse violente du capital : le présupposé historique posé, à la fin, comme résultat.</div><span class="cc-formula">présupposé ≠ éternel</span></div></a><a class="ccard cc-go" style="--accent:var(--gold-deep)" href="/glossaire/accumulation-primitive"><div class="cc-icon"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg></div><div><div class="cc-term">Expropriation / enclosures</div><div class="cc-def">Séparer le producteur de la terre : la condition de naissance du salariat.</div><span class="cc-formula">producteur ⊥ moyens</span></div></a><a class="ccard cc-go" style="--accent:var(--red)" href="/glossaire/legislation-sanglante"><div class="cc-icon"><svg viewBox="0 0 24 24"><path d="M13 2L5 13h6l-1 9 8-12h-6l1-8z" fill="#fff" stroke="none"/></svg></div><div><div class="cc-term">Législation sanglante</div><div class="cc-def">Dresser de force les expropriés à la discipline du travail salarié.</div><span class="cc-formula">fouet, marque, loi</span></div></a><a class="ccard cc-go" style="--accent:var(--ink)" href="/glossaire/journee-de-travail"><div class="cc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/></svg></div><div><div class="cc-term">La journée de travail</div><div class="cc-def">Un champ de lutte, non une donnée naturelle : capital et loi s'y disputent les heures.</div><span class="cc-formula">le terrain du conflit</span></div></a><a class="ccard cc-go" style="--accent:var(--blue)" href="/glossaire/legislation-de-fabrique"><div class="cc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="1.5" fill="#fff" stroke="none"/><circle cx="12" cy="17" r="1.5" fill="#fff" stroke="none"/><path d="M6 12h12"/></svg></div><div><div class="cc-term">Factory Acts & inspecteurs</div><div class="cc-def">La loi limite la journée ; les inspecteurs fournissent les Blue Books où Marx puise ses faits.</div><span class="cc-formula">la loi entre en scène</span></div></a><a class="ccard cc-go" style="--accent:var(--red)" href="/glossaire/legislation-sanglante"><div class="cc-icon"><svg viewBox="0 0 24 24"><path d="M5 12a7 7 0 0 1 12-4.5"/><path d="M19 12a7 7 0 0 1-12 4.5"/><path d="M17 3.5V8h-4"/><path d="M7 20.5V16h4"/></svg></div><div><div class="cc-term">Le passage de relais</div><div class="cc-def">Une fois institué, le rapport capitaliste se reproduit de lui-même, sans plus de violence ouverte.</div><span class="cc-formula">force → mécanique</span></div></a><!--/CC--></div></div>
+    <div class="chr chr--seule" id="chronoList"></div>
+
+    <div class="chr-notions"><h3 class="chr-notions-h">Les notions de cette histoire</h3><ul class="mg-chips" id="cc-chrono" data-prerendu data-forme="pastilles"><!--CC:cc-chrono--><li><a href="/glossaire/accumulation-primitive">Accumulation primitive</a></li><li><a href="/glossaire/legislation-sanglante">Législation sanglante</a></li><li><a href="/glossaire/journee-de-travail">Journée de travail</a></li><li><a href="/glossaire/legislation-de-fabrique">Factory Acts & inspecteurs</a></li><!--/CC--></ul></div>
   </section>
 
   <!-- LABORATOIRE -->
@@ -2893,7 +2902,11 @@ function ccHtml(x,h){
           :'<div class="ccard" style="--accent:'+x.ac+'">'+inner+'</div>';
 }
 const NOTIONS_HREF=window.NOTIONS_HREF||{};
-for(const id in CONCEPTS){document.getElementById(id).innerHTML=CONCEPTS[id].map(x=>ccHtml(x,(NOTIONS_HREF[x.t]||{}).h||'')).join('');}
+/* Un conteneur marqué data-forme="pastilles" (la chronologie) ne montre pas
+   de cartes mais une ligne de pastilles vers les pages du glossaire, une par
+   adresse. Même contrat à deux endroits que ccHtml : `chipsHtml` du générateur. */
+function chipsHtml(xs){const vus=new Set();return xs.map(x=>NOTIONS_HREF[x.t]).filter(l=>l&&l.h&&!vus.has(l.h)&&vus.add(l.h)).map(l=>'<li><a href="'+l.h+'">'+l.n+'</a></li>').join('');}
+for(const id in CONCEPTS){const el=document.getElementById(id);el.innerHTML=el.dataset.forme==='pastilles'?chipsHtml(CONCEPTS[id]):CONCEPTS[id].map(x=>ccHtml(x,(NOTIONS_HREF[x.t]||{}).h||'')).join('');}
 
 /* ---- Lab 1 ---- */
 const rc=document.getElementById('rc'),rv=document.getElementById('rv'),rpl=document.getElementById('rpl');
@@ -3123,10 +3136,10 @@ function buildChronoTrack(){
   const b1=document.getElementById('band1'),b2=document.getElementById('band2');
   b1.style.left='0%';b1.style.width=yearToPct(CYB)+'%';
   b2.style.left=yearToPct(CYB)+'%';b2.style.width=(100-yearToPct(CYB))+'%';
-  let ticks='';for(let y=1450;y<=1850;y+=50){ticks+=`<div class="chrono-tick" style="left:${yearToPct(y)}%"><i></i><span>${y}</span></div>`;}
+  let ticks='';for(let y=1450;y<=1850;y+=50){ticks+=`<div class="chrono-tick${y===1450?' is-first':''}" style="left:${yearToPct(y)}%"><i></i><span>${y}</span></div>`;}
   document.getElementById('chronoAxis').innerHTML='<div class="chrono-axisline"></div>'+ticks;
   document.getElementById('chronoEvents').innerHTML=CHRONO.map((e,i)=>{
-    const top=i%2===0?32:64;return `<button type="button" class="chrono-dot ${e.act===1?'act1':e.act===2?'act2':'relais'}" data-i="${i}" style="left:${yearToPct(e.year)}%;top:${top}px" aria-label="${e.year} — ${e.title}"></button>`;}).join('');
+    const top=i%2===0?22:42;return `<button type="button" class="chrono-dot ${e.act===1?'act1':e.act===2?'act2':'relais'}" data-i="${i}" style="left:${yearToPct(e.year)}%;top:${top}px" aria-label="${e.year} — ${e.title}"></button>`;}).join('');
   document.querySelectorAll('.chrono-dot').forEach(d=>d.addEventListener('click',ev=>{ev.stopPropagation();stopChrono();setChronoYear(CHRONO[+d.dataset.i].year);}));
 }
 function setChronoYear(y){chronoYear=Math.max(CY0,Math.min(CY1,y));renderChrono();}
@@ -3157,6 +3170,7 @@ function renderChrono(){
   let depo=0,hours=null,force=null,curr=null;
   CHRONO.forEach(e=>{if(e.year<=chronoYear){curr=e;if(e.depo!=null)depo=e.depo;if(e.hours!=null)hours=e.hours;if(e.force!=null)force=e.force;}});
   document.querySelectorAll('.chrono-dot').forEach(d=>{const e=CHRONO[+d.dataset.i];d.classList.toggle('fired',e.year<=chronoYear);d.classList.toggle('current',curr&&e.year===curr.year);});
+  document.querySelectorAll('#chronoList .chr-ev').forEach(li=>{const on=!!curr&&+li.dataset.year===curr.year;li.classList.toggle('is-current',on);if(on)li.setAttribute('aria-current','true');else li.removeAttribute('aria-current');});
   // phase
   let phase,pc='var(--ink)';
   if(!curr){phase="Avant-propos — l'ancien monde";}
@@ -3172,9 +3186,10 @@ function renderChrono(){
   else{const cap=Math.max(0,100-force);document.getElementById('instDay').innerHTML=`<div class="inst-lab"><span>Journée de travail légale</span><b>${hFmt(hours)}</b></div><div class="gauge"><div class="g-cap" style="width:${cap}%">${cap>22?'Capital ⟶ allonger':''}</div><div class="g-lab" style="width:${force}%">${force>22?'limiter ⟵ Loi':''}</div></div><div style="font-size:.84rem;color:var(--ink-soft);margin-top:7px;font-style:italic">Le rapport de forces bascule vers la limitation à mesure que la classe ouvrière et la loi contraignent le capital.</div>`;}
   // carte événement
   const card=document.getElementById('chronoCard');
-  if(!curr){card.innerHTML=`<div class="inst-muted">Appuie sur <b>Jouer</b> ou fais glisser le curseur sur la frise pour parcourir l'histoire que Marx documente, de l'expropriation des paysans à la journée de travail de 1867.</div>`;}
+  if(!curr){card.innerHTML=`<div class="inst-muted">Appuyez sur <b>Jouer</b> ou faites glisser le curseur sur la frise pour parcourir l'histoire que Marx documente, de l'expropriation des paysans à la journée de travail de 1867.</div>`;}
   else{const cls=curr.act===1?'act1':curr.act===2?'act2':'relais';card.innerHTML=`<div class="ec-year ${cls}">${curr.year}</div><div class="ec-title">${curr.title}</div><div class="ec-desc">${curr.desc}</div><span class="ec-chap">→ ${curr.chap}</span>`;}
 }
+const CH_IC_PLAY='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 3v10l8.5-5z" fill="currentColor"/></svg>',CH_IC_PAUSE='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 3h3v10H4zM9 3h3v10H9z" fill="currentColor"/></svg>';
 const CH_TICK=40,CH_LEG=1700,CH_DWELL=2800;
 let legFrom=0,legTo=0,legStart=0,dwellUntil=0,playIdx=-1,playMode='idle';
 function beginLeg(y){const idx=CHRONO.findIndex(e=>e.year>y+0.001);legFrom=y;legStart=Date.now();playMode='travel';if(idx===-1){legTo=CY1;playIdx=-1;}else{playIdx=idx;legTo=CHRONO[idx].year;}}
@@ -3183,8 +3198,8 @@ function tickChrono(){const now=Date.now();
   const t=Math.min(1,(now-legStart)/CH_LEG);
   setChronoYear(Math.round(legFrom+(legTo-legFrom)*t));
   if(t>=1){setChronoYear(legTo);if(playIdx===-1){stopChrono();return;}playMode='dwell';dwellUntil=now+CH_DWELL;}}
-function startChrono(){if(chronoPlaying)return;if(chronoYear>=CY1)setChronoYear(CY0);chronoPlaying=true;document.getElementById('chronoPlay').textContent='❚❚ Pause';beginLeg(chronoYear);chronoTimer=setInterval(tickChrono,CH_TICK);}
-function stopChrono(){chronoPlaying=false;clearInterval(chronoTimer);playMode='idle';document.getElementById('chronoPlay').textContent='▶ Jouer';}
+function startChrono(){if(chronoPlaying)return;if(chronoYear>=CY1)setChronoYear(CY0);chronoPlaying=true;document.getElementById('chronoPlay').innerHTML=CH_IC_PAUSE+'<span>Pause</span>';beginLeg(chronoYear);chronoTimer=setInterval(tickChrono,CH_TICK);}
+function stopChrono(){chronoPlaying=false;clearInterval(chronoTimer);playMode='idle';document.getElementById('chronoPlay').innerHTML=CH_IC_PLAY+'<span>Jouer</span>';}
 document.getElementById('chronoPlay').addEventListener('click',()=>{chronoPlaying?stopChrono():startChrono();});
 document.getElementById('chronoReset').addEventListener('click',()=>{stopChrono();setChronoYear(CY0);});
 function cClientToYear(clientX){const r=cTrack.getBoundingClientRect();const p=(clientX-r.left)/r.width*100;return pctToYear(Math.max(0,Math.min(100,p)));}
@@ -3192,7 +3207,24 @@ cTrack.addEventListener('pointerdown',e=>{if(e.target.classList.contains('chrono
 cTrack.addEventListener('pointermove',e=>{if(chronoDrag)setChronoYear(cClientToYear(e.clientX));});
 cTrack.addEventListener('pointerup',()=>{chronoDrag=false;});
 cTrack.addEventListener('pointercancel',()=>{chronoDrag=false;});
-buildChronoTrack();renderChrono();
+/* LA LISTE DES SEIZE ÉVÉNEMENTS (mission `chronologie-listee`). La frise ne
+   montrait qu'un événement à la fois, derrière « Jouer » ou le curseur : rien
+   ne se parcourait d'un coup d'œil. La liste les donne tous, groupés par
+   acte ; l'événement que la frise désigne y est marqué, et l'année d'une
+   ligne ramène la frise sur elle. */
+function buildChronoList(){
+  const el=document.getElementById('chronoList');if(!el)return;
+  const CH=window.CHAPITRES_HREF||{};
+  const chap=c=>(c.match(/[IVXLC]+/g)||[]).map(rn=>CH[rn]?`<a href="${CH[rn]}">chap. ${rn}</a>`:'chap. '+rn).join(' · ');
+  const groups=[{k:1,h:"Acte I — la genèse (accumulation primitive)"},{k:'relais',h:"Le passage de relais"},{k:2,h:"Acte II — la journée de travail"}];
+  el.innerHTML=groups.map((g,gi)=>`<section class="chr-temps" aria-labelledby="chr-c${gi}"><h3 class="chr-h" id="chr-c${gi}">${g.h}</h3><ol class="chr-list">`+
+    CHRONO.filter(e=>e.act===g.k).map(e=>`<li class="chr-ev chr-ev--${e.act==='relais'?'relais':'act'+e.act}" data-year="${e.year}"><button type="button" class="chr-y chr-y-go" data-year="${e.year}" aria-label="${e.year} — placer la frise sur cet événement">${e.year}</button><div><h4>${e.title}</h4><p>${e.desc}</p><p class="chr-ref">${chap(e.chap)}</p></div></li>`).join('')+
+    `</ol></section>`).join('');
+  el.addEventListener('click',ev=>{const b=ev.target.closest('.chr-y-go');if(!b)return;stopChrono();setChronoYear(+b.dataset.year);
+    const t=document.getElementById('chronoTrack');const y=t.getBoundingClientRect().top+window.scrollY-dosOffset()-70;
+    window.scrollTo({top:Math.max(0,y),behavior:'instant'});t.focus({preventScroll:true});});
+}
+buildChronoList();buildChronoTrack();renderChrono();
 
 /* ====== Outil : le procès de valorisation (Section III) ====== */
 const gid=id=>document.getElementById(id);
@@ -3399,128 +3431,20 @@ function goExplore(xid){activateTab('dossier','explore');
    la LISEUSE, puis sautaient en haut de page. La destination est le
    Dossier, l'ancre est la section. */
 function goChrono(){activateTab('dossier','chrono');}
-/* ══════════════════════════════════════════════════════════════════════
-   L'ASCENSION EST UNE CHAÎNE (mission `cheminement-clair`, sept. 2026).
-   La thèse de la salle — chaque catégorie bute sur une contradiction qui
-   rend la suivante nécessaire — tient dans le LIEN entre deux marches. Ce
-   lien vivait dans un pli, et le pli s'ouvrait au défilement : la marche
-   qu'on allait lire remontait de 120 px sous les yeux (de 145 à 255 sur
-   téléphone, jusque sous les barres collantes), onze fois de suite.
-
-   Plus rien n'est replié. Une marche = son rang, son nom, ce qu'elle pose ;
-   puis LE NŒUD : le moteur en titre, la contradiction, ce qu'elle force.
-   Le mouvement ne touche JAMAIS la mise en page : le fil se trace jusqu'à
-   la ligne de lecture, la pastille atteinte se remplit, le nœud traversé
-   s'éclaire et ses deux marques se tracent. Tout est fonction de la
-   POSITION, donc réversible.
-   Le plan collant (au-dessus de 1100 px) est de l'ORIENTATION, pas du
-   mouvement : il marque la marche courante partout, reduced-motion compris.
-   ══════════════════════════════════════════════════════════════════════ */
-/* chaque marque est dessinée DEUX fois : un calque éteint, toujours là (la
-   marque ne manque jamais), et par-dessus le trait qui se trace */
-const mk=d=>{const p=d.map(x=>`<path pathLength="1" d="${x}"/>`).join('');
-  return `<svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b">${p}</g><g class="asc-mk-f">${p}</g></svg>`;};
-const MK_CONTRA=mk(['M2.5 12h6.5','M6 8.5L9.5 12 6 15.5','M21.5 12H15','M18 8.5L14.5 12 18 15.5']);
-const MK_PASS=mk(['M5 3.5v9.5a4 4 0 0 0 4 4h9.5','M14.5 13l4 4-4 4']);
-const IC_TIROIR='<svg class="asc-ic" viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="3" width="12" height="10" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M9.5 3v10" stroke="currentColor" stroke-width="1.4"/><path d="M11 6.5h1.6M11 9h1.6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>';
-const IC_PAGE='<svg class="asc-ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-
-const ascChain=document.getElementById('ascChain'),ascPlan=document.getElementById('ascPlan');
+/* L'ASCENSION est rendue par oeuvres/ascension.js (mission
+   `cheminement-clair`) : la page ne donne que ses marches. */
 const WN=STEPS.length;
 {
-  let ch='',pl='<p class="asc-end">abstrait</p><ol class="asc-plan-list">';
-  STEPS.forEach((s,i)=>{const n=i+1,col=stairColor(i/(WN-1)),last=n===WN;
-    /* « Voir à l'œuvre » ouvre le TIROIR : on regarde l'instrument sans
-       quitter la chaîne (même vocabulaire que la marge : le panneau = le
-       tiroir, la flèche = une autre salle). */
-    const see=(s.links||[]).map(l=>{
-      const drawer=l.k==='labo'||l.k==='explore';
-      return `<button type="button" class="asc-go" data-k="${l.k}" data-t="${l.t||''}">${drawer?IC_TIROIR:IC_PAGE}<span>${l.label}</span></button>`;}).join('');
-    ch+=`<article class="asc-step" id="asc-${n}" data-step="${n}" style="--rung:${col}" aria-labelledby="asc-t${n}">`+
-      `<span class="asc-num" aria-hidden="true">${n}</span>`+
-      `<h3 class="asc-t" id="asc-t${n}" tabindex="-1"><span class="sr-only">Marche ${n} : </span>${s.t}</h3>`+
-      `<p class="asc-pose">${s.pose}</p>`+
-      (see?`<div class="asc-see"><span class="asc-see-lab">Voir à l'œuvre</span>${see}</div>`:'')+
-      `<div class="asc-knot">`+
-        `<p class="asc-motor">${s.motor}${last?'':' <span aria-hidden="true">↓</span>'}</p>`+
-        `<p class="asc-f asc-contra">${MK_CONTRA}<span><span class="sr-only">La contradiction : </span>${s.contra}</span></p>`+
-        `<p class="asc-f asc-pass">${MK_PASS}<span><span class="sr-only">Ce qu'elle force : </span>${s.pass}</span></p>`+
-      `</div></article>`;
-    pl+=`<li><button type="button" class="asc-pl" data-step="${n}" style="--rung:${col}"><span class="asc-pl-dot" aria-hidden="true"></span><span class="asc-pl-t">${s.t.replace(/ \(A-M-A′\)/,'')}</span></button></li>`;
-  });
-  ch+=`<p class="asc-close">${MK_PASS}<span>Les Livres II et III poursuivent l'ascension : circulation, puis procès d'ensemble — profit, prix de production, intérêt, rente, formule trinitaire.</span></p>`;
-  ascChain.innerHTML='<span class="asc-thread" aria-hidden="true"><span class="asc-head"></span></span>'+ch;
-  ascPlan.innerHTML=pl+'</ol><p class="asc-end">concret</p>';
+  const root=document.getElementById('asc');
+  document.getElementById('ascChain').innerHTML=AscensionAtelier.html(STEPS.map((s,i)=>({
+    t:s.t, plan:s.t.replace(/ \(A-M-A′\)/,''), pose:s.pose, motor:s.motor, contra:s.contra, pass:s.pass,
+    color:stairColor(i/(WN-1)),
+    links:(s.links||[]).map(l=>({k:l.k,t:l.t,label:l.label,drawer:l.k==='labo'||l.k==='explore'}))
+  })),{close:"Les Livres II et III poursuivent l'ascension : circulation, puis procès d'ensemble — profit, prix de production, intérêt, rente, formule trinitaire."});
+  const asc=AscensionAtelier.mount(root,{offset:dosOffset,onSee:(k,t,lab)=>{
+    if(k==='labo')openDrawer('labo',t,lab);else if(k==='explore')openDrawer('explo',t,lab);else goChrono();}});
+  window.ascGo=(n,flash)=>asc&&asc.go(n,flash);
 }
-ascChain.addEventListener('click',e=>{const b=e.target.closest('.asc-go');if(!b)return;
-  const k=b.dataset.k,t=b.dataset.t;
-  const lab=b.textContent.trim();
-  if(k==='labo')openDrawer('labo',t,lab);else if(k==='explore')openDrawer('explo',t,lab);else goChrono();});
-
-/* Aller à une marche : le titre se pose sous les deux barres collantes, et
-   le focus va au titre (sans redéfiler) — un lecteur d'écran repart de là. */
-function ascGo(n,flash){
-  const st=document.getElementById('asc-'+n);if(!st||!st.getClientRects().length)return;
-  const y=st.getBoundingClientRect().top+window.scrollY-dosOffset()-18;
-  window.scrollTo({top:Math.max(0,y),behavior:'instant'});
-  const h=st.querySelector('.asc-t');if(h)h.focus({preventScroll:true});
-  if(flash){st.classList.add('flash');setTimeout(()=>st.classList.remove('flash'),1600);}
-  ascFollow();
-}
-window.ascGo=ascGo;
-ascPlan.addEventListener('click',e=>{const b=e.target.closest('.asc-pl');if(b)ascGo(+b.dataset.step);});
-
-/* Le suivi. UNE passe par image, et seulement quand la salle est affichée.
-   La ligne de lecture est à 46 % de l'écran : c'est là que l'œil est, et
-   c'est là que la lumière du fil s'arrête (le fil qui court en avance sur
-   la lecture — piège déjà payé sur la FAQ de l'accueil). */
-const ascMotion=!matchMedia('(prefers-reduced-motion: reduce)').matches;
-if(ascMotion)document.getElementById('asc').classList.add('js-asc');
-const ascSteps=[...ascChain.querySelectorAll('.asc-step')];
-const ascKnots=ascSteps.map(st=>st.querySelector('.asc-knot'));
-const ascPls=[...ascPlan.querySelectorAll('.asc-pl')];
-let ascQueued=false,ascCur=0;
-function ascSet(el,k,v){const x=v.toFixed(3);if(el.style.getPropertyValue(k)!==x)el.style.setProperty(k,x);}
-function ascFollow(){
-  const r=ascChain.getBoundingClientRect();if(!r.height)return;
-  const vh=window.innerHeight||document.documentElement.clientHeight,read=vh*0.46;
-  const top0=ascSteps[0].querySelector('.asc-num').getBoundingClientRect();
-  const start=top0.top+top0.height/2-r.top;           /* le fil part de la 1re pastille */
-  const draw=Math.max(start,Math.min(r.height,read-r.top));
-  let cur=1;
-  ascSteps.forEach((st,i)=>{
-    const d=st.querySelector('.asc-num').getBoundingClientRect();
-    const on=d.top+d.height/2<=read+1;
-    if(on)cur=i+1;
-    st.classList.toggle('is-on',on||i===0);
-    if(ascMotion){
-      const k=ascKnots[i].getBoundingClientRect();
-      ascSet(ascKnots[i],'--lit',Math.max(0,Math.min(1,(read-k.top)/Math.min(k.height,150))));
-      const c=k.top+k.height/2,half=k.height/2+70;
-      ascSet(ascKnots[i],'--pass',Math.max(0,1-Math.abs(read-c)/half));
-    }
-  });
-  if(ascMotion){
-    ascChain.style.setProperty('--draw',Math.round(draw)+'px');
-    ascChain.style.setProperty('--head',draw>start+2&&draw<r.height-2?'1':'0');
-  }
-  ascPlan.style.setProperty('--plan',((cur-1)/(WN-1)).toFixed(3));
-  if(cur!==ascCur){ascCur=cur;
-    ascPls.forEach((b,i)=>{const here=i+1===cur;b.classList.toggle('is-here',here);b.classList.toggle('is-past',i+1<cur);
-      if(here)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current');});}
-}
-function ascQueue(){if(ascQueued)return;ascQueued=true;requestAnimationFrame(()=>{ascQueued=false;ascFollow();});}
-window.addEventListener('scroll',ascQueue,{passive:true});
-window.addEventListener('resize',ascQueue);
-/* la salle s'affiche par son attribut `hidden` : la mesure se refait à
-   l'ouverture, puis APRÈS COUP (polices, barre d'onglets) — la mesure unique
-   est un piège déjà payé plusieurs fois sur ce site */
-new MutationObserver(()=>{ascQueue();setTimeout(ascFollow,400);})
-  .observe(document.getElementById('deriv'),{attributes:true,attributeFilter:['hidden']});
-new MutationObserver(ascQueue).observe(document.getElementById('dossier'),{attributes:true,attributeFilter:['hidden']});
-window.addEventListener('load',()=>setTimeout(ascFollow,0));
-if(document.fonts&&document.fonts.ready)document.fonts.ready.then(ascFollow);
-ascFollow();
 
 drawTRPF();
 
