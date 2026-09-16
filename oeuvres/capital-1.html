@@ -26,7 +26,7 @@
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="fonts/fonts.css?v=2">
-<link rel="stylesheet" href="atelier.css?v=14">
+<link rel="stylesheet" href="atelier.css?v=15">
 <link rel="stylesheet" href="shell.css?v=11">
 <link rel="stylesheet" href="reader-tools.css">
 <style>
@@ -775,7 +775,7 @@ nav.tabs.worktabs{position:sticky;top:44px;z-index:62;
 <script src="shell-annotations.js?v=2"></script>
 <script src="shell-progress.js"></script>
 <script src="reader-tools.js?v=6" defer></script>
-<script src="atelier-motion.js?v=4" defer></script>
+<script src="atelier-motion.js?v=5" defer></script>
 <style id="socCss">#msgDot{position:absolute;top:5px;right:6px;width:6px;height:6px;border-radius:50%;background:var(--red);display:none;}.tb-msg{position:relative;}.nt-list{max-height:58vh;overflow:auto;margin:2px -6px -4px;}.nt-item{display:block;width:100%;text-align:left;background:transparent;border:0;border-top:1px solid var(--line-soft);padding:10px 8px;cursor:pointer;font-family:inherit;}.nt-item:first-child{border-top:0;}.nt-item:hover{background:var(--paper-2);}.nt-item.unseen{background:rgba(213,64,47,0.084);}.nt-top{display:flex;gap:7px;align-items:baseline;}.nt-who{font-family:"Fraunces",serif;font-weight:600;font-size:.86rem;color:var(--ink);}.nt-kind{font-family:var(--f-ui);font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;border-radius:999px;padding:1px 7px;}.nt-k-reply{background:rgba(92,138,163,.20);color:#8fb8cc;}.nt-k-mention{background:rgba(213,64,47,.18);color:#e5644f;}.nt-when{margin-left:auto;font-family:var(--f-ui);font-size:.72rem;color:var(--const);}.nt-snip{font-family:"Spectral",Georgia,serif;font-size:.84rem;color:var(--ink-soft);margin-top:3px;line-height:1.45;}.msg-wrap{display:flex;flex-direction:column;min-height:0;height:min(74vh,620px);}.msg-head{display:flex;align-items:center;gap:9px;margin-bottom:10px;}.msg-head h3{font-family:"Fraunces",serif;font-size:1.18rem;margin:0;color:var(--ink);}.msg-back{background:transparent;border:0;font-size:1.5rem;line-height:1;cursor:pointer;color:var(--ink);padding:0 6px;}.msg-add{display:flex;gap:7px;margin-bottom:12px;}.msg-add input{flex:1;min-width:0;height:34px;font-family:var(--f-ui);font-size:.85rem;padding:0 11px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);}.msg-list{flex:1;overflow:auto;margin:0 -4px;}.msg-ct{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:transparent;border:0;border-radius:9px;padding:10px;cursor:pointer;font-family:inherit;}.msg-ct:hover{background:var(--paper-2);}.msg-ava{flex:0 0 auto;width:34px;height:34px;border-radius:50%;background:var(--red);color:var(--text);font-family:"Fraunces",serif;font-weight:700;font-size:.9rem;display:flex;align-items:center;justify-content:center;}.msg-ct-main{flex:1;min-width:0;display:flex;flex-direction:column;}.msg-ct-name{font-family:"Fraunces",serif;font-weight:600;font-size:.92rem;color:var(--ink);}.msg-ct-prev{font-family:"Spectral",Georgia,serif;font-size:.8rem;color:var(--const);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}.msg-badge{flex:0 0 auto;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:var(--red);color:#fff;font-family:var(--f-ui);font-size:.72rem;display:flex;align-items:center;justify-content:center;}.msg-thread{flex:1;overflow:auto;display:flex;flex-direction:column;gap:7px;padding:6px 2px;}.msg-b{max-width:78%;padding:7px 11px;border-radius:13px;font-family:"Spectral",Georgia,serif;font-size:.92rem;line-height:1.45;white-space:pre-wrap;word-wrap:break-word;}.msg-b.me{align-self:flex-end;background:var(--red);color:var(--text);border-bottom-right-radius:4px;}.msg-b.them{align-self:flex-start;background:var(--paper-2);color:var(--ink);border-bottom-left-radius:4px;}.msg-b-t{display:block;font-size:.72rem;opacity:.7;margin-top:3px;font-family:var(--f-ui);}.msg-compose{display:flex;gap:7px;margin-top:10px;}.msg-compose textarea{flex:1;min-height:40px;max-height:130px;font-family:"Spectral",serif;font-size:.92rem;padding:9px 11px;border:1px solid var(--line);border-radius:9px;background:var(--paper);color:var(--ink);resize:vertical;}.msg-empty,.msg-state{font-family:var(--f-ui);font-size:.85rem;color:var(--const);padding:18px 8px;text-align:center;line-height:1.5;}</style>
 <style id="socCss2">.tb-pop.msg-pop{width:330px;max-width:86vw;padding:12px 14px;}.msg-pop .msg-list{max-height:300px;}.msg-pop .msg-thread{height:264px;}.msg-pop .msg-head{margin-bottom:8px;}.msg-pop .msg-add{margin-bottom:10px;}.msg-pop .msg-compose{margin-top:8px;}.msg-pop .msg-compose textarea{min-height:36px;}.msg-poplink{display:block;width:100%;text-align:center;margin-top:8px;font-family:"Fraunces",serif;font-weight:600;font-size:.8rem;color:var(--red-deep);background:transparent;border:0;border-top:1px solid var(--line-soft);padding-top:9px;cursor:pointer;}.msg-poplink:hover{color:var(--red-text);}.msg-ct.on{background:var(--paper-2);}</style>
 <style id="socCss7">.msg-ava,.ac-ava,.chip-ava{position:relative;overflow:hidden;}.ava-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}</style>
@@ -838,6 +838,7 @@ nav.tabs.worktabs{position:sticky;top:44px;z-index:62;
 <script src="marge.js?v=1"></script>
 <script src="sommaire.js?v=1"></script>
 <script src="dossier.js?v=1"></script>
+<script src="ascension.js?v=1"></script>
 </head>
 <body class="at-atelier">
 <!-- NOTIONS:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main.
@@ -3399,128 +3400,20 @@ function goExplore(xid){activateTab('dossier','explore');
    la LISEUSE, puis sautaient en haut de page. La destination est le
    Dossier, l'ancre est la section. */
 function goChrono(){activateTab('dossier','chrono');}
-/* ══════════════════════════════════════════════════════════════════════
-   L'ASCENSION EST UNE CHAÎNE (mission `cheminement-clair`, sept. 2026).
-   La thèse de la salle — chaque catégorie bute sur une contradiction qui
-   rend la suivante nécessaire — tient dans le LIEN entre deux marches. Ce
-   lien vivait dans un pli, et le pli s'ouvrait au défilement : la marche
-   qu'on allait lire remontait de 120 px sous les yeux (de 145 à 255 sur
-   téléphone, jusque sous les barres collantes), onze fois de suite.
-
-   Plus rien n'est replié. Une marche = son rang, son nom, ce qu'elle pose ;
-   puis LE NŒUD : le moteur en titre, la contradiction, ce qu'elle force.
-   Le mouvement ne touche JAMAIS la mise en page : le fil se trace jusqu'à
-   la ligne de lecture, la pastille atteinte se remplit, le nœud traversé
-   s'éclaire et ses deux marques se tracent. Tout est fonction de la
-   POSITION, donc réversible.
-   Le plan collant (au-dessus de 1100 px) est de l'ORIENTATION, pas du
-   mouvement : il marque la marche courante partout, reduced-motion compris.
-   ══════════════════════════════════════════════════════════════════════ */
-/* chaque marque est dessinée DEUX fois : un calque éteint, toujours là (la
-   marque ne manque jamais), et par-dessus le trait qui se trace */
-const mk=d=>{const p=d.map(x=>`<path pathLength="1" d="${x}"/>`).join('');
-  return `<svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b">${p}</g><g class="asc-mk-f">${p}</g></svg>`;};
-const MK_CONTRA=mk(['M2.5 12h6.5','M6 8.5L9.5 12 6 15.5','M21.5 12H15','M18 8.5L14.5 12 18 15.5']);
-const MK_PASS=mk(['M5 3.5v9.5a4 4 0 0 0 4 4h9.5','M14.5 13l4 4-4 4']);
-const IC_TIROIR='<svg class="asc-ic" viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="3" width="12" height="10" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M9.5 3v10" stroke="currentColor" stroke-width="1.4"/><path d="M11 6.5h1.6M11 9h1.6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>';
-const IC_PAGE='<svg class="asc-ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-
-const ascChain=document.getElementById('ascChain'),ascPlan=document.getElementById('ascPlan');
+/* L'ASCENSION est rendue par oeuvres/ascension.js (mission
+   `cheminement-clair`) : la page ne donne que ses marches. */
 const WN=STEPS.length;
 {
-  let ch='',pl='<p class="asc-end">abstrait</p><ol class="asc-plan-list">';
-  STEPS.forEach((s,i)=>{const n=i+1,col=stairColor(i/(WN-1)),last=n===WN;
-    /* « Voir à l'œuvre » ouvre le TIROIR : on regarde l'instrument sans
-       quitter la chaîne (même vocabulaire que la marge : le panneau = le
-       tiroir, la flèche = une autre salle). */
-    const see=(s.links||[]).map(l=>{
-      const drawer=l.k==='labo'||l.k==='explore';
-      return `<button type="button" class="asc-go" data-k="${l.k}" data-t="${l.t||''}">${drawer?IC_TIROIR:IC_PAGE}<span>${l.label}</span></button>`;}).join('');
-    ch+=`<article class="asc-step" id="asc-${n}" data-step="${n}" style="--rung:${col}" aria-labelledby="asc-t${n}">`+
-      `<span class="asc-num" aria-hidden="true">${n}</span>`+
-      `<h3 class="asc-t" id="asc-t${n}" tabindex="-1"><span class="sr-only">Marche ${n} : </span>${s.t}</h3>`+
-      `<p class="asc-pose">${s.pose}</p>`+
-      (see?`<div class="asc-see"><span class="asc-see-lab">Voir à l'œuvre</span>${see}</div>`:'')+
-      `<div class="asc-knot">`+
-        `<p class="asc-motor">${s.motor}${last?'':' <span aria-hidden="true">↓</span>'}</p>`+
-        `<p class="asc-f asc-contra">${MK_CONTRA}<span><span class="sr-only">La contradiction : </span>${s.contra}</span></p>`+
-        `<p class="asc-f asc-pass">${MK_PASS}<span><span class="sr-only">Ce qu'elle force : </span>${s.pass}</span></p>`+
-      `</div></article>`;
-    pl+=`<li><button type="button" class="asc-pl" data-step="${n}" style="--rung:${col}"><span class="asc-pl-dot" aria-hidden="true"></span><span class="asc-pl-t">${s.t.replace(/ \(A-M-A′\)/,'')}</span></button></li>`;
-  });
-  ch+=`<p class="asc-close">${MK_PASS}<span>Les Livres II et III poursuivent l'ascension : circulation, puis procès d'ensemble — profit, prix de production, intérêt, rente, formule trinitaire.</span></p>`;
-  ascChain.innerHTML='<span class="asc-thread" aria-hidden="true"><span class="asc-head"></span></span>'+ch;
-  ascPlan.innerHTML=pl+'</ol><p class="asc-end">concret</p>';
+  const root=document.getElementById('asc');
+  document.getElementById('ascChain').innerHTML=AscensionAtelier.html(STEPS.map((s,i)=>({
+    t:s.t, plan:s.t.replace(/ \(A-M-A′\)/,''), pose:s.pose, motor:s.motor, contra:s.contra, pass:s.pass,
+    color:stairColor(i/(WN-1)),
+    links:(s.links||[]).map(l=>({k:l.k,t:l.t,label:l.label,drawer:l.k==='labo'||l.k==='explore'}))
+  })),{close:"Les Livres II et III poursuivent l'ascension : circulation, puis procès d'ensemble — profit, prix de production, intérêt, rente, formule trinitaire."});
+  const asc=AscensionAtelier.mount(root,{offset:dosOffset,onSee:(k,t,lab)=>{
+    if(k==='labo')openDrawer('labo',t,lab);else if(k==='explore')openDrawer('explo',t,lab);else goChrono();}});
+  window.ascGo=(n,flash)=>asc&&asc.go(n,flash);
 }
-ascChain.addEventListener('click',e=>{const b=e.target.closest('.asc-go');if(!b)return;
-  const k=b.dataset.k,t=b.dataset.t;
-  const lab=b.textContent.trim();
-  if(k==='labo')openDrawer('labo',t,lab);else if(k==='explore')openDrawer('explo',t,lab);else goChrono();});
-
-/* Aller à une marche : le titre se pose sous les deux barres collantes, et
-   le focus va au titre (sans redéfiler) — un lecteur d'écran repart de là. */
-function ascGo(n,flash){
-  const st=document.getElementById('asc-'+n);if(!st||!st.getClientRects().length)return;
-  const y=st.getBoundingClientRect().top+window.scrollY-dosOffset()-18;
-  window.scrollTo({top:Math.max(0,y),behavior:'instant'});
-  const h=st.querySelector('.asc-t');if(h)h.focus({preventScroll:true});
-  if(flash){st.classList.add('flash');setTimeout(()=>st.classList.remove('flash'),1600);}
-  ascFollow();
-}
-window.ascGo=ascGo;
-ascPlan.addEventListener('click',e=>{const b=e.target.closest('.asc-pl');if(b)ascGo(+b.dataset.step);});
-
-/* Le suivi. UNE passe par image, et seulement quand la salle est affichée.
-   La ligne de lecture est à 46 % de l'écran : c'est là que l'œil est, et
-   c'est là que la lumière du fil s'arrête (le fil qui court en avance sur
-   la lecture — piège déjà payé sur la FAQ de l'accueil). */
-const ascMotion=!matchMedia('(prefers-reduced-motion: reduce)').matches;
-if(ascMotion)document.getElementById('asc').classList.add('js-asc');
-const ascSteps=[...ascChain.querySelectorAll('.asc-step')];
-const ascKnots=ascSteps.map(st=>st.querySelector('.asc-knot'));
-const ascPls=[...ascPlan.querySelectorAll('.asc-pl')];
-let ascQueued=false,ascCur=0;
-function ascSet(el,k,v){const x=v.toFixed(3);if(el.style.getPropertyValue(k)!==x)el.style.setProperty(k,x);}
-function ascFollow(){
-  const r=ascChain.getBoundingClientRect();if(!r.height)return;
-  const vh=window.innerHeight||document.documentElement.clientHeight,read=vh*0.46;
-  const top0=ascSteps[0].querySelector('.asc-num').getBoundingClientRect();
-  const start=top0.top+top0.height/2-r.top;           /* le fil part de la 1re pastille */
-  const draw=Math.max(start,Math.min(r.height,read-r.top));
-  let cur=1;
-  ascSteps.forEach((st,i)=>{
-    const d=st.querySelector('.asc-num').getBoundingClientRect();
-    const on=d.top+d.height/2<=read+1;
-    if(on)cur=i+1;
-    st.classList.toggle('is-on',on||i===0);
-    if(ascMotion){
-      const k=ascKnots[i].getBoundingClientRect();
-      ascSet(ascKnots[i],'--lit',Math.max(0,Math.min(1,(read-k.top)/Math.min(k.height,150))));
-      const c=k.top+k.height/2,half=k.height/2+70;
-      ascSet(ascKnots[i],'--pass',Math.max(0,1-Math.abs(read-c)/half));
-    }
-  });
-  if(ascMotion){
-    ascChain.style.setProperty('--draw',Math.round(draw)+'px');
-    ascChain.style.setProperty('--head',draw>start+2&&draw<r.height-2?'1':'0');
-  }
-  ascPlan.style.setProperty('--plan',((cur-1)/(WN-1)).toFixed(3));
-  if(cur!==ascCur){ascCur=cur;
-    ascPls.forEach((b,i)=>{const here=i+1===cur;b.classList.toggle('is-here',here);b.classList.toggle('is-past',i+1<cur);
-      if(here)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current');});}
-}
-function ascQueue(){if(ascQueued)return;ascQueued=true;requestAnimationFrame(()=>{ascQueued=false;ascFollow();});}
-window.addEventListener('scroll',ascQueue,{passive:true});
-window.addEventListener('resize',ascQueue);
-/* la salle s'affiche par son attribut `hidden` : la mesure se refait à
-   l'ouverture, puis APRÈS COUP (polices, barre d'onglets) — la mesure unique
-   est un piège déjà payé plusieurs fois sur ce site */
-new MutationObserver(()=>{ascQueue();setTimeout(ascFollow,400);})
-  .observe(document.getElementById('deriv'),{attributes:true,attributeFilter:['hidden']});
-new MutationObserver(ascQueue).observe(document.getElementById('dossier'),{attributes:true,attributeFilter:['hidden']});
-window.addEventListener('load',()=>setTimeout(ascFollow,0));
-if(document.fonts&&document.fonts.ready)document.fonts.ready.then(ascFollow);
-ascFollow();
 
 drawTRPF();
 

@@ -23,7 +23,7 @@
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="fonts/fonts.css?v=2">
-<link rel="stylesheet" href="atelier.css?v=14">
+<link rel="stylesheet" href="atelier.css?v=15">
 <link rel="stylesheet" href="shell.css?v=11">
 <link rel="stylesheet" href="reader-tools.css">
 <style>
@@ -230,6 +230,7 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
 <script src="marge.js?v=1"></script>
 <script src="sommaire.js?v=1"></script>
 <script src="dossier.js?v=1"></script>
+<script src="ascension.js?v=1"></script>
 </head>
 <body class="at-atelier">
 <main class="wrap" id="contenu" tabindex="-1">
@@ -287,35 +288,19 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
         <p class="lead">Sept marches : ce que chaque étape oblige à dire ensuite.</p>
       </div>
     </div>
-    <div class="walk walk-rungs" id="walk">
-      <div class="walk-step" data-step="1" style="--rung:rgb(57,89,107)">
-        <button type="button" class="wk-line" id="wk-h1" aria-controls="wk-b1" aria-expanded="true"><span class="wk-num">1</span><span class="wk-said"><span class="wk-t">L'histoire comme lutte de classes</span><span class="wk-cahier">Partie I</span></span><span class="wk-chev"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></span></button>
-        <div class="wk-body" id="wk-b1"><div><p class="wk-f wk-pass"><svg class="wk-mk" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path d="M14.5 13l4 4-4 4"/></svg><span><span class="sr-only">Le ressort : </span>Le texte ne commence pas par le communisme mais par une thèse sur toute l'histoire écrite. C'est elle qui permet de lire la société moderne comme un moment de cette lutte, et non comme son terme.</span></p></div></div>
+    <!-- L'ASCENSION : balisage de oeuvres/ascension.js, servi dans le HTML ; la page
+         le monte (AscensionAtelier.mount) sans le réécrire. -->
+    <div class="asc" id="asc">
+      <div class="asc-chain" id="ascChain"><span class="asc-thread" aria-hidden="true"><span class="asc-head"></span></span>
+      <article class="asc-step" id="asc-1" data-step="1" data-plan="L'histoire comme lutte de classes" style="--rung:rgb(57,89,107)" aria-labelledby="asc-t1"><span class="asc-num" aria-hidden="true">1</span><h3 class="asc-t" id="asc-t1" tabindex="-1"><span class="sr-only">Marche 1 : </span>L'histoire comme lutte de classes</h3><p class="asc-lieu">Partie I</p><div class="asc-knot asc-knot--one"><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Le ressort : </span>Le texte ne commence pas par le communisme mais par une thèse sur toute l'histoire écrite. C'est elle qui permet de lire la société moderne comme un moment de cette lutte, et non comme son terme.</span></p></div></article>
+      <article class="asc-step" id="asc-2" data-step="2" data-plan="La bourgeoisie révolutionnaire" style="--rung:rgb(83,85,97)" aria-labelledby="asc-t2"><span class="asc-num" aria-hidden="true">2</span><h3 class="asc-t" id="asc-t2" tabindex="-1"><span class="sr-only">Marche 2 : </span>La bourgeoisie révolutionnaire</h3><p class="asc-lieu">Partie I</p><div class="asc-knot asc-knot--one"><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Le ressort : </span>Si l'histoire est lutte, la bourgeoisie doit être jugée à ce qu'elle a fait : elle a détruit l'ordre féodal, créé le marché mondial, bouleversé la production. L'éloge est nécessaire à la suite, parce que ce qu'elle a créé, elle ne le maîtrise plus.</span></p></div></article>
+      <article class="asc-step" id="asc-3" data-step="3" data-plan="Les crises, et ceux qui manieront les armes" style="--rung:rgb(109,81,87)" aria-labelledby="asc-t3"><span class="asc-num" aria-hidden="true">3</span><h3 class="asc-t" id="asc-t3" tabindex="-1"><span class="sr-only">Marche 3 : </span>Les crises, et ceux qui manieront les armes</h3><p class="asc-lieu">Partie I</p><div class="asc-knot asc-knot--one"><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Le ressort : </span>Les forces productives débordent les rapports de propriété bourgeois, et les crises de surproduction le montrent. La même bourgeoisie a produit la classe qui retournera ces forces contre elle : le prolétariat, qui passe de la révolte isolée à l'organisation en classe.</span></p></div></article>
+      <article class="asc-step" id="asc-4" data-step="4" data-plan="Les communistes dans le mouvement" style="--rung:rgb(135,77,77)" aria-labelledby="asc-t4"><span class="asc-num" aria-hidden="true">4</span><h3 class="asc-t" id="asc-t4" tabindex="-1"><span class="sr-only">Marche 4 : </span>Les communistes dans le mouvement</h3><p class="asc-lieu">Partie II</p><div class="asc-knot asc-knot--one"><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Le ressort : </span>Le mouvement décrit, il faut situer ceux qui écrivent. Les communistes ne forment pas un parti à part : ils défendent l'intérêt commun du prolétariat par-delà les nations, et l'intérêt du mouvement dans son ensemble.</span></p></div></article>
+      <article class="asc-step" id="asc-5" data-step="5" data-plan="Abolir la propriété bourgeoise" style="--rung:rgb(161,72,67)" aria-labelledby="asc-t5"><span class="asc-num" aria-hidden="true">5</span><h3 class="asc-t" id="asc-t5" tabindex="-1"><span class="sr-only">Marche 5 : </span>Abolir la propriété bourgeoise</h3><p class="asc-lieu">Partie II</p><div class="asc-knot asc-knot--one"><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Le ressort : </span>Le programme se définit contre ses objections : ce n'est pas la propriété en général qu'il s'agit d'abolir, mais celle qui repose sur le travail salarié. La conquête du pouvoir politique par le prolétariat en est le moyen.</span></p></div></article>
+      <article class="asc-step" id="asc-6" data-step="6" data-plan="Contre les autres socialismes" style="--rung:rgb(187,68,57)" aria-labelledby="asc-t6"><span class="asc-num" aria-hidden="true">6</span><h3 class="asc-t" id="asc-t6" tabindex="-1"><span class="sr-only">Marche 6 : </span>Contre les autres socialismes</h3><p class="asc-lieu">Partie III</p><div class="asc-knot asc-knot--one"><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Le ressort : </span>Un programme doit se distinguer de ses voisins. Chaque socialisme est ramené à la classe dont il exprime la position, et à ce qu'il ne voit pas du mouvement réel.</span></p></div></article>
+      <article class="asc-step" id="asc-7" data-step="7" data-plan="Une ligne pour 1848" style="--rung:rgb(213,64,47)" aria-labelledby="asc-t7"><span class="asc-num" aria-hidden="true">7</span><h3 class="asc-t" id="asc-t7" tabindex="-1"><span class="sr-only">Marche 7 : </span>Une ligne pour 1848</h3><p class="asc-lieu">Partie IV</p><div class="asc-knot asc-knot--one"><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Le ressort : </span>La théorie se ferme sur la conjoncture : des alliances pays par pays, l'Allemagne au bord d'une révolution bourgeoise, la question de la propriété posée partout comme fondamentale, et l'appel à l'union des prolétaires de tous les pays.</span></p></div></article>
       </div>
-      <div class="walk-step" data-step="2" style="--rung:rgb(83,85,99)">
-        <button type="button" class="wk-line" id="wk-h2" aria-controls="wk-b2" aria-expanded="true"><span class="wk-num">2</span><span class="wk-said"><span class="wk-t">La bourgeoisie révolutionnaire</span><span class="wk-cahier">Partie I</span></span><span class="wk-chev"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></span></button>
-        <div class="wk-body" id="wk-b2"><div><p class="wk-f wk-pass"><svg class="wk-mk" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path d="M14.5 13l4 4-4 4"/></svg><span><span class="sr-only">Le ressort : </span>Si l'histoire est lutte, la bourgeoisie doit être jugée à ce qu'elle a fait : elle a détruit l'ordre féodal, créé le marché mondial, bouleversé la production. L'éloge est nécessaire à la suite, parce que ce qu'elle a créé, elle ne le maîtrise plus.</span></p></div></div>
-      </div>
-      <div class="walk-step" data-step="3" style="--rung:rgb(109,81,91)">
-        <button type="button" class="wk-line" id="wk-h3" aria-controls="wk-b3" aria-expanded="true"><span class="wk-num">3</span><span class="wk-said"><span class="wk-t">Les crises, et ceux qui manieront les armes</span><span class="wk-cahier">Partie I</span></span><span class="wk-chev"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></span></button>
-        <div class="wk-body" id="wk-b3"><div><p class="wk-f wk-pass"><svg class="wk-mk" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path d="M14.5 13l4 4-4 4"/></svg><span><span class="sr-only">Le ressort : </span>Les forces productives débordent les rapports de propriété bourgeois, et les crises de surproduction le montrent. La même bourgeoisie a produit la classe qui retournera ces forces contre elle : le prolétariat, qui passe de la révolte isolée à l'organisation en classe.</span></p></div></div>
-      </div>
-      <div class="walk-step" data-step="4" style="--rung:rgb(135,77,83)">
-        <button type="button" class="wk-line" id="wk-h4" aria-controls="wk-b4" aria-expanded="true"><span class="wk-num">4</span><span class="wk-said"><span class="wk-t">Les communistes dans le mouvement</span><span class="wk-cahier">Partie II</span></span><span class="wk-chev"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></span></button>
-        <div class="wk-body" id="wk-b4"><div><p class="wk-f wk-pass"><svg class="wk-mk" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path d="M14.5 13l4 4-4 4"/></svg><span><span class="sr-only">Le ressort : </span>Le mouvement décrit, il faut situer ceux qui écrivent. Les communistes ne forment pas un parti à part : ils défendent l'intérêt commun du prolétariat par-delà les nations, et l'intérêt du mouvement dans son ensemble.</span></p></div></div>
-      </div>
-      <div class="walk-step" data-step="5" style="--rung:rgb(161,73,75)">
-        <button type="button" class="wk-line" id="wk-h5" aria-controls="wk-b5" aria-expanded="true"><span class="wk-num">5</span><span class="wk-said"><span class="wk-t">Abolir la propriété bourgeoise</span><span class="wk-cahier">Partie II</span></span><span class="wk-chev"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></span></button>
-        <div class="wk-body" id="wk-b5"><div><p class="wk-f wk-pass"><svg class="wk-mk" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path d="M14.5 13l4 4-4 4"/></svg><span><span class="sr-only">Le ressort : </span>Le programme se définit contre ses objections : ce n'est pas la propriété en général qu'il s'agit d'abolir, mais celle qui repose sur le travail salarié. La conquête du pouvoir politique par le prolétariat en est le moyen.</span></p></div></div>
-      </div>
-      <div class="walk-step" data-step="6" style="--rung:rgb(187,69,67)">
-        <button type="button" class="wk-line" id="wk-h6" aria-controls="wk-b6" aria-expanded="true"><span class="wk-num">6</span><span class="wk-said"><span class="wk-t">Contre les autres socialismes</span><span class="wk-cahier">Partie III</span></span><span class="wk-chev"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></span></button>
-        <div class="wk-body" id="wk-b6"><div><p class="wk-f wk-pass"><svg class="wk-mk" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path d="M14.5 13l4 4-4 4"/></svg><span><span class="sr-only">Le ressort : </span>Un programme doit se distinguer de ses voisins. Chaque socialisme est ramené à la classe dont il exprime la position, et à ce qu'il ne voit pas du mouvement réel.</span></p></div></div>
-      </div>
-      <div class="walk-step" data-step="7" style="--rung:rgb(213,64,47)">
-        <button type="button" class="wk-line" id="wk-h7" aria-controls="wk-b7" aria-expanded="true"><span class="wk-num">7</span><span class="wk-said"><span class="wk-t">Une ligne pour 1848</span><span class="wk-cahier">Partie IV</span></span><span class="wk-chev"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></span></button>
-        <div class="wk-body" id="wk-b7"><div><p class="wk-f wk-pass"><svg class="wk-mk" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path d="M14.5 13l4 4-4 4"/></svg><span><span class="sr-only">Le ressort : </span>La théorie se ferme sur la conjoncture : des alliances pays par pays, l'Allemagne au bord d'une révolution bourgeoise, la question de la propriété posée partout comme fondamentale, et l'appel à l'union des prolétaires de tous les pays.</span></p></div></div>
-      </div>
+      <nav class="asc-plan" aria-label="Les sept marches du cheminement"></nav>
     </div>
       <!--NOTIONS-MF:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main. -->
     <p class="carte-sortie">Les notions du <i>Manifeste</i> qui ont leur page : <a href="/glossaire/lutte-des-classes">Lutte des classes</a>, <a href="/glossaire/bourgeoisie">Bourgeoisie</a>, <a href="/glossaire/proletariat">Prolétariat</a>, <a href="/glossaire/force-productive">Force productive</a>, <a href="/glossaire/pouvoir-politique">Pouvoir politique</a>, <a href="/glossaire/propriete-bourgeoise">Propriété bourgeoise</a> et <a href="/glossaire/idees-dominantes">Idées dominantes</a>.</p>
@@ -867,29 +852,11 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
     document.querySelectorAll('[data-lire]').forEach(function(b){ b.addEventListener('click',function(){ closeDrawer(true); openPart(+b.dataset.lire); }); });
   }
 
-  /* ══════════════════ L'ASCENSION — une marche ouverte à la fois ══════════════════ */
-  var walkOpenN=0, walkSeized=false;
-  function walkOpen(n,seize){
-    if(seize)walkSeized=true;
-    if(n===walkOpenN)return;
-    walkOpenN=n;
-    byId('walk').querySelectorAll('.walk-step').forEach(function(st){
-      var on=+st.dataset.step===n; st.classList.toggle('wk-on',on);
-      var b=st.querySelector('.wk-line'); if(b)b.setAttribute('aria-expanded',on?'true':'false');
-    });
-  }
+  /* ══════════════════ L'ASCENSION — rendue par oeuvres/ascension.js ══════════════════ */
   function wireWalk(){
-    var stair=byId('walk'); if(!stair)return;
-    stair.classList.add('wk-fold');
-    stair.addEventListener('click',function(e){
-      var b=e.target.closest('.wk-line'); if(!b||!stair.contains(b))return;
-      var n=+b.closest('.walk-step').dataset.step;
-      walkOpen(n===walkOpenN?0:n,true);
-    });
-    stair.addEventListener('focusin',function(){walkSeized=true;});
-    walkOpen(1);
-    window.walkOpen=walkOpen;
-    window.walkSeized=function(){return walkSeized;};
+    var root=byId('asc'); if(!root||!window.AscensionAtelier)return;
+    var asc=AscensionAtelier.mount(root,{offset:dosOffset});
+    window.ascGo=function(n,flash){ if(asc)asc.go(n,flash); };
   }
 
   /* ══════════════════ LE TIROIR ══════════════════ */
@@ -899,9 +866,8 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
     var node=null,title='';
     if(kind==='soc'){ node=byId('instr-socialismes'); title='La carte des socialismes'; pickSoc(target); }
     else if(kind==='step'){
-      node=document.querySelector('.walk-step[data-step="'+target+'"]');
+      node=document.querySelector('.asc-step[data-step="'+target+'"]');
       title='Marche '+target+' — '+(WALK_T[target-1]||'');
-      if(node){ node.classList.add('wk-on'); var hb=node.querySelector('.wk-line'); if(hb)hb.setAttribute('aria-expanded','true'); }
     }
     if(!node)return;
     drawerNode=node; drawerHome=node.parentNode; drawerNext=node.nextSibling; drawerOpener=document.activeElement;
@@ -927,10 +893,6 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
     if(drawerNode&&drawerHome){
       drawerNode.classList.remove('atl-drawer-in');
       drawerHome.insertBefore(drawerNode,drawerNext);
-      if(drawerNode.classList.contains('walk-step')&&+drawerNode.dataset.step!==walkOpenN){
-        drawerNode.classList.remove('wk-on');
-        var hb=drawerNode.querySelector('.wk-line'); if(hb)hb.setAttribute('aria-expanded','false');
-      }
     }
     var had=!!drawerNode;
     drawerNode=drawerHome=drawerNext=null;
@@ -1070,7 +1032,7 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
 <script src="shell-annotations.js?v=2"></script>
 <script src="shell-progress.js"></script>
 <script src="reader-tools.js?v=6" defer></script>
-<script src="atelier-motion.js?v=4" defer></script>
+<script src="atelier-motion.js?v=5" defer></script>
 <script>
 installShell({
   workId: 'manifeste-parti-communiste',
