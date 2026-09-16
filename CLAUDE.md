@@ -9165,6 +9165,128 @@ cible sous 24 px) ; zéro débordement ; console sans erreur ; détecteur
 comparé à `main` : atelier.css 39 → 37, pages identiques ; accolades
 équilibrées.
 
+## Le Dossier en cinq salles (mission `dossier-salles`, sept. 2026)
+
+Troisième volet après `marge-trois-gestes` et `sommaire-refonte`, même demande
+pour le Dossier : « revoir l'UI UX et l'accessibilité, éventuellement une
+refonte complète, avec des fonds animés ». Mesuré avant (Capital, ch. XV,
+1440 × 900, puis 390 px) :
+
+| | avant | après |
+|---|---|---|
+| hauteur du document, Dossier ouvert | **8 204 px** | **2 455 px** |
+| idem à 390 px | **13 122 px** | **3 446 px** |
+| éléments focalisables d'affilée | **102** | **35 au plus** (une salle) |
+| ce qu'on sait avant d'entrer dans une section | rien | sa **nature** et le compte |
+
+Le défaut de fond : cinq mondes sans rapport de forme se suivaient dans un
+seul couloir — une ascension qui se déduit au défilement, une frise qu'on
+joue, un laboratoire à neuf stations, trois pièces d'exploration, une
+bibliographie (de **0 contrôle** sur 1 864 px à **75 éléments visuels**), avec
+trois rangs de pilules qui se ressemblaient (5 ancres, 9 stations, 3 stades).
+
+**Ce qui a été vérifié ailleurs** (et non cité de mémoire) : **Ciechanowski**
+garde ses figures dans le fil du texte mais offre **une pause globale de
+toutes les animations** ; **Vitaly Friedman** pose **cinq entrées au plus**
+dans une barre collante sur mobile — la nôtre en a exactement cinq ;
+**WCAG 2.2.2** n'exige un contrôle sur la page que pour un mouvement
+AUTOMATIQUE de plus de cinq secondes, et `prefers-reduced-motion` (2.3.3) ne
+s'y substitue pas.
+
+**Arbitrages du propriétaire** : **cinq salles** (écartés : le dossier
+scrollytellé, qui gardait les 102 arrêts clavier ; le dossier replié en
+accordéon, qui redisait la barre) et **un fond par salle piloté au
+défilement** (écarté : la boucle, qui aurait imposé un bouton de pause).
+
+- Une salle à l'écran, la barre devient la navigation, et le **numéro entre
+  DANS le titre** (« III Le laboratoire des lois ») : il porte l'ordre, qui
+  est l'argument du dossier. **Plus de rubrique au-dessus du titre** — elle ne
+  redisait que le titre.
+- Chaque salle annonce **ce qu'on y fait** : à lire, à jouer, à manipuler, à
+  voir, à parcourir, à consulter. Vocabulaire clos, marque dessinée.
+- **« III / V »** dans la barre, et le rail dit la progression DANS la salle
+  (le dossier, lui, se compte en salles).
+- **Pied de salle** : la précédente, la suivante. On ne sort plus dans le vide.
+- L'adresse suit la salle (`#labo`, `#chrono`…) : un dossier ouvert se partage,
+  et ce sont exactement les hash du contrat de deep-link.
+
+### Un gabarit : `oeuvres/dossier.js`
+
+Même motif que `marge.js` et `sommaire.js` : la page donne
+`ordre:[{id,label,nature}]` + `offset()` + `onShow(id)`, le module tient le
+reste. **Chargé sans `defer` dans le `<head>`.** `dosGo(id)` survit comme nom —
+tous les renvois croisés l'appellent — mais AFFICHE la salle au lieu d'y
+défiler.
+
+- **`.panel.active{display:block}` BAT l'attribut `hidden`** (classe contre
+  sélecteur d'attribut) : sans `.atl-dossier .panel[hidden]{display:none}`,
+  masquer une salle ne la masquait pas. Piège déjà payé sur `.mg-cols`.
+- **Le tiroir emprunte un nœud à une salle MASQUÉE** (`#s-jour` depuis la
+  liseuse) : vérifié — il sort de son ancêtre masqué, s'affiche dans le
+  tiroir avec ses curseurs, et Échap le rend à sa place exacte.
+- **`atelier-motion.js` observe désormais `hidden` autant que `class`** sur
+  les panneaux : une salle s'affiche par son attribut, et sans cela ses titres
+  n'étaient jamais encrés et ses scrubs restaient figés.
+- Le scrub de `.dos-open` est **retiré** : une salle arrive toujours en
+  position de lecture — c'est une entrée orchestrée, pas un scrub (règle déjà
+  écrite pour les titres de panneau).
+- **Le motif ARIA des onglets** vient de `SHELL.tabs`, qui peut n'être pas
+  encore chargé quand la page construit son dossier : les rôles sont reposés
+  dès qu'il arrive, sinon les salles restaient des `<section>` anonymes.
+- **La pilule active se ramène dans le champ**, et se remesure APRÈS COUP :
+  au premier rendu la barre ne déborde pas encore (les polices ne sont pas
+  arrivées) et le calcul rendait zéro — la mesure unique, encore.
+- **Sans JavaScript, toutes les salles restent affichées** : c'est exactement
+  le Dossier d'avant, donc une dégradation honnête.
+
+### Les fonds sont MESURÉS, pas supposés
+
+Un fond par salle (`.ds-bg`, `--sp` = la position de lecture dans la salle) :
+la réglure du carnet qui se trace sous le cheminement, le jour qui passe sur
+la chronologie, la lueur d'établi qui monte au laboratoire, la trame croisée
+des explorations. **Aucune boucle** — donc aucun bouton de pause à prévoir —
+et sous `prefers-reduced-motion` le fond se pose à son état fini.
+
+**Le contrôle qui décide, c'est la différence de pixels** entre la page avec
+et sans le fond (capture des deux, comparaison au canevas) : les explorations
+ne touchaient que 1,4 % des pixels avec un écart maximal de 19 niveaux — trop
+peu pour se voir —, et le lavis des ressources ne dépassait **3 niveaux**.
+Le premier a été renforcé (écart max 33), **le second a été SUPPRIMÉ** : une
+matière invisible ne vaut pas sa complexité, et une bibliographie ne se met
+pas en scène. Ne pas le réintroduire.
+
+### Trois défauts antérieurs corrigés, deux faux positifs écartés
+
+- **`--blue-text` (#6f9db5)** rejoint `--red-text` dans le socle : `--blue`
+  (#5c8aa3) tombait à **4,52:1** sur la pastille d'un renvoi — juste au-dessus
+  du seuil, en dessous dès que le fond change d'un souffle. Les fonds et les
+  traits gardent `--blue` ; **tout texte bleu passe par `--blue-text`** (5,8:1).
+- **Les curseurs du laboratoire mesuraient 531 × 6** : c'était la piste, prise
+  pour la cible. Rembourrage en **boîte de contenu** + `background-clip` :
+  l'élément fait 24 px, la piste reste à 6, et rien ne bouge à l'écran.
+- ⚠️ **Les « trois échecs de contraste » et le « 90 × 17 » relevés par la
+  sonde n'existent pas** : ils viennent de marches REPLIÉES du cheminement.
+  Le repli pose `visibility:hidden` sur `transitionend` — or la sonde
+  neutralise les transitions avant de mesurer, l'événement ne part jamais, et
+  le texte replié entre dans le décompte. Dans la marche OUVERTE, les mêmes
+  liens mesurent 4,52:1 et 106 × 27. Et les pastilles de la frise (7 à 13 px)
+  portent déjà un `::after` de 24 × 24 : une sonde qui lit le rectangle de
+  l'élément ne le voit pas.
+- Détecteur : **+1 `overused-font`** sur atelier.css (un Fraunces de plus) et
+  **+1 advisory `repeating-stripes-gradient`** sur les pages, qui vise la
+  trame de carnet — les deux familles de DA déjà documentées. Capital reste à
+  19 constats, 0 erreur.
+
+`atelier.css?v=13`, `atelier-motion.js?v=4`, `dossier.js?v=1`.
+
+**Vérifié** : les trois ateliers à 1440 et 390 px ; lien profond
+`#labo=s-jour` (destination, salle, station, salle posée à 276 px sous les
+barres) ; clic de pilule, pied de salle, flèches du clavier
+(`aria-selected` exact) ; salle conservée d'un aller-retour vers le texte ;
+contraste **0 échec sur les cinq salles** (minimum 4,56, plus petit texte
+11 px) ; zéro débordement horizontal ; console sans erreur ;
+`gen-seo --check` à jour.
+
 ## Le jeu : le panneau de formation se replie (mission `mobile-panneaux`, sept. 2026)
 
 Suite de `vivant-sur-mobile`, qui avait laissé les phases avancées « sans

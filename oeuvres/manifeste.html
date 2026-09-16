@@ -23,7 +23,7 @@
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="fonts/fonts.css?v=2">
-<link rel="stylesheet" href="atelier.css?v=12">
+<link rel="stylesheet" href="atelier.css?v=13">
 <link rel="stylesheet" href="shell.css?v=11">
 <link rel="stylesheet" href="reader-tools.css">
 <style>
@@ -229,6 +229,7 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
 </script>
 <script src="marge.js?v=1"></script>
 <script src="sommaire.js?v=1"></script>
+<script src="dossier.js?v=1"></script>
 </head>
 <body class="at-atelier">
 <main class="wrap" id="contenu" tabindex="-1">
@@ -613,6 +614,10 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
   var DOSSIER=['deriv','chrono','labo','ressources'];
   var DOSSIER_LABELS={deriv:'Le cheminement',chrono:'La chronologie',labo:'Les socialismes',ressources:'Les ressources'};
   var DOSSIER_ROM=['I','II','III','IV'];
+  /* Ce qu'on FAIT dans chaque salle (vocabulaire clos, marque dessinée
+     dans dossier.js). */
+  var DOSSIER_NATURE={deriv:'à lire',chrono:'à parcourir',labo:'à parcourir',
+    ressources:'à consulter'};
   var curTab='lire', a11yBooted=false;
 
   function tabForHash(h){
@@ -639,50 +644,19 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
   window.syncTabsA11y=syncTabsA11y;
 
   function dosOffset(){ var nav=byId('dossierNav'); return 88+(nav?nav.getBoundingClientRect().height:0)+10; }
+  /* Aller à une salle, c'est l'AFFICHER : il n'y a plus de couloir. */
   function dosGo(id,smooth){
-    var el=byId(id); if(!el)return;
-    var y=el.getBoundingClientRect().top+window.scrollY-dosOffset();
-    window.scrollTo({top:Math.max(0,y),behavior:(smooth&&!rm())?'smooth':'instant'});
+    if(window.DossierAtelier) DossierAtelier.show(id,{smooth:!!smooth});
   }
   function buildDossier(){
-    var dn=byId('dossierNav'); if(!dn)return;
-    dn.innerHTML='<div class="dos-pills">'+DOSSIER.map(function(id,i){
-        return '<button type="button" class="atl-dnav" data-go="'+id+'"><b class="dos-pn">'+DOSSIER_ROM[i]+'</b>'+DOSSIER_LABELS[id]+'</button>';}).join('')
-      +'</div><span class="dos-rail"><i class="dos-rail-fill" id="dosRail"></i></span>';
-    var pills=[].slice.call(dn.querySelectorAll('[data-go]')), on=null;
-    pills.forEach(function(b){b.addEventListener('click',function(){dosGo(b.dataset.go,true);});});
-    DOSSIER.forEach(function(id,i){
-      var sec=byId(id); if(!sec||sec.querySelector('.dos-open'))return;
-      var o=document.createElement('div'); o.className='dos-open';
-      o.innerHTML='<span class="dos-no">'+DOSSIER_ROM[i]+'</span><span class="dos-rub">'+DOSSIER_LABELS[id]+'</span><span class="dos-fil" aria-hidden="true"></span>';
-      sec.insertBefore(o,sec.firstElementChild);
-      var h2=sec.querySelector('.panel-head h2.sec');
-      if(h2){ if(!h2.id)h2.id='dos-h-'+id; sec.setAttribute('aria-labelledby',h2.id); }
+    /* Rendu par oeuvres/dossier.js (mission `dossier-salles`). */
+    var dn=byId('dossierNav'), box=byId('dossier');
+    if(!dn||!box||!window.DossierAtelier)return;
+    DossierAtelier.install({
+      box:box, nav:dn, offset:dosOffset,
+      ordre:DOSSIER.map(function(id){
+        return {id:id,label:DOSSIER_LABELS[id],nature:DOSSIER_NATURE[id]};})
     });
-    var rail=byId('dosRail'), q=false;
-    function paint(){
-      q=false;
-      var dos=byId('dossier'); if(!dos||dos.hidden)return;
-      var line=dosOffset()+4, cur=DOSSIER[0];
-      DOSSIER.forEach(function(id){ var el=byId(id); if(el&&el.getBoundingClientRect().top<=line)cur=id; });
-      if(cur!==on){
-        on=cur;
-        pills.forEach(function(b){
-          var yes=b.dataset.go===cur;
-          b.classList.toggle('on',yes);
-          if(yes)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current');
-        });
-      }
-      if(rail){
-        var r=dos.getBoundingClientRect(), run=r.height-window.innerHeight;
-        rail.style.transform='scaleX('+(run>0?Math.min(1,Math.max(0,(line-r.top)/run)):1).toFixed(4)+')';
-      }
-    }
-    function ping(){ if(q)return; q=true; requestAnimationFrame(paint); }
-    document.addEventListener('scroll',ping,{passive:true,capture:true});
-    window.addEventListener('resize',ping);
-    new MutationObserver(function(){on=null;paint();}).observe(byId('dossier'),{attributes:true,attributeFilter:['hidden']});
-    paint();
   }
 
   window.activateTab=function(id,anchor){
@@ -1096,7 +1070,7 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
 <script src="shell-annotations.js?v=2"></script>
 <script src="shell-progress.js"></script>
 <script src="reader-tools.js?v=6" defer></script>
-<script src="atelier-motion.js?v=3" defer></script>
+<script src="atelier-motion.js?v=4" defer></script>
 <script>
 installShell({
   workId: 'manifeste-parti-communiste',
