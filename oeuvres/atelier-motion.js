@@ -610,23 +610,10 @@
     });
   }
 
-  /* ── G bis. L'ouverture d'une section se pose ────────────────────────
-     Le numéro et la rubrique montent en lumière, le filet se tire de la
-     gauche : la section s'annonce au moment où on l'atteint. Fonction de
-     la POSITION → on remonte, elle se range. Le défaut CSS est l'état
-     posé (`var(--dp, 1)`), donc sans JS la page s'affiche finie. */
-  function dossierOpen() {
-    var opens = [].slice.call(document.querySelectorAll('.dos-open'));
-    if (!opens.length) return;
-    addSub(function (y, vh) {
-      for (var i = 0; i < opens.length; i++) {
-        if (!shown(opens[i])) continue;
-        var p = through(opens[i], vh, 0.96, 0.62);
-        opens[i].style.setProperty('--dp',
-          (1 - Math.pow(1 - p, 3)).toFixed(3));
-      }
-    });
-  }
+  /* (Le scrub de `.dos-open` a été RETIRÉ avec la rubrique elle-même : le
+     numéro vit maintenant dans le titre de la salle, et une salle arrive
+     toujours en position de lecture — c'est une entrée orchestrée, pas un
+     scrub. Règle déjà écrite pour les titres de panneau.) */
 
   /* ── H. Remesurer quand un onglet s'ouvre ────────────────────────────
      Un panneau qui devient actif apparaît à sa place définitive sans
@@ -656,7 +643,11 @@
       requestAnimationFrame(runSubs);
     });
     for (var i = 0; i < panels.length; i++) {
-      mo.observe(panels[i], { attributes: true, attributeFilter: ['class'] });
+      /* `hidden` autant que `class` : depuis `dossier-salles`, une salle
+         du Dossier s'affiche par son attribut `hidden` et non par une
+         classe — sans lui, ses titres n'étaient jamais encrés et ses
+         scrubs restaient figés. */
+      mo.observe(panels[i], { attributes: true, attributeFilter: ['class','hidden'] });
     }
     for (var j = 0; j < boxes.length; j++) {
       mo.observe(boxes[j], { attributes: true, attributeFilter: ['hidden'] });
@@ -743,7 +734,6 @@
     walkDeduce();
     tocInscribe();
     poseParts();
-    dossierOpen();
     watchPanels();
     /* Le contenu arrive par fetch (catalogue, listes) et le navigateur peut
        sauter sur une ancre : on remesure après coup, comme sur l'accueil. */

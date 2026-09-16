@@ -28,6 +28,11 @@
      donc réservé aux FONDS et aux TRAITS, qui n'ont besoin que de 3:1, et le
      texte rouge passe par --red-text (5,64:1 sur --bg). */
   --red-text:#e5644f;
+  /* Le pendant bleu de `--red-text` : `--blue` (#5c8aa3) tombe à 4,52:1
+     sur la pastille d'un renvoi — juste au-dessus du seuil, et en dessous
+     dès que le fond change d'un souffle. Les FONDS et les TRAITS gardent
+     `--blue` ; tout texte bleu passe par ici (5,8:1). */
+  --blue-text:#6f9db5;
   /* --line (13 % de crème) donne 1,37:1 : invisible comme BORDURE DE
      COMPOSANT, ce que WCAG 1.4.11 fixe à 3:1. --line-strong est pour tout ce
      qui délimite un contrôle (champ, select, curseur) ; --line reste aux
@@ -147,7 +152,7 @@ h2.sec{font-family:'Fraunces',serif;font-weight:900;font-size:1.8rem;margin-bott
    page claire le cachait. */
 .lk.read{color:var(--ok);border-color:var(--ok);background:rgba(127,168,85,.12);}.lk.read:hover{background:var(--ok);color:var(--bg);}
 .lk.labo{color:var(--red-text);border-color:var(--red);background:rgba(213,64,47,.12);}.lk.labo:hover{background:var(--red);color:#fff;}
-.lk.deriv{color:var(--blue);border-color:var(--blue);background:rgba(92,138,163,.14);}.lk.deriv:hover{background:var(--blue);color:var(--bg);}
+.lk.deriv{color:var(--blue-text);border-color:var(--blue);background:rgba(92,138,163,.14);}.lk.deriv:hover{background:var(--blue);color:var(--bg);}
 .cta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;}
 .btn{font-family:var(--f-ui);font-weight:600;font-size:.85rem;cursor:pointer;border:1px solid var(--ink);background:none;color:var(--ink);padding:9px 18px;border-radius:999px;transition:all .18s;}
 .btn:hover{background:var(--ink);color:var(--paper);}
@@ -449,6 +454,11 @@ html{scroll-padding-top:60px;}
 
 /* Bordures de composants — WCAG 1.4.11 (3:1). */
 .search input,.reader-bar select,.reader-bar input,
+/* WCAG 2.5.8 : la piste d'un curseur fait 6 px de haut, et c'était donc
+   la hauteur de la cible. Le rembourrage est posé en BOÎTE DE CONTENU et
+   le fond limité au contenu : l'élément fait 24 px, la piste reste à 6. */
+.atl-dossier input[type=range]{box-sizing:content-box;padding:9px 0;
+  background-clip:content-box;}
 textarea,select,input[type=range],input[type=text],input[type=email],
 input[type=password],input[type=search]{border-color:var(--line-strong);}
 
@@ -1018,8 +1028,9 @@ a.mg-row:hover .mg-ic,a.mg-row:focus-visible .mg-ic{transform:translateX(3px);}
    sinon la page saute sous le curseur d'une section à l'autre. */
 .atl-dossier-nav{position:sticky;top:var(--atl-top);z-index:30;
   padding:10px 0 0;background:var(--paper);
-  border-bottom:1px solid var(--line);}
-.dos-pills{display:flex;flex-wrap:nowrap;gap:6px;overflow-x:auto;
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:flex-start;gap:12px;}
+.dos-pills{display:flex;flex-wrap:nowrap;gap:6px;overflow-x:auto;flex:1;min-width:0;
   padding-bottom:10px;scrollbar-width:none;scroll-behavior:smooth;}
 .dos-pills::-webkit-scrollbar{display:none;}
 .atl-dnav{display:inline-flex;align-items:baseline;gap:7px;flex:none;
@@ -1032,34 +1043,105 @@ a.mg-row:hover .mg-ic,a.mg-row:focus-visible .mg-ic{transform:translateX(3px);}
 .atl-dnav:hover{color:var(--ink);border-color:var(--gold-deep);}
 /* L'actif prend la surface éclairée du socle — la même que partout
    ailleurs sur ce site quand une chose est « celle-ci ». */
-.atl-dnav.on{color:var(--ink);border-color:rgba(216,173,76,.42);
+.atl-dnav.active{color:var(--ink);border-color:rgba(216,173,76,.42);
   background:linear-gradient(150deg,#2c2117,#211a12,#1b150e);}
-.atl-dnav.on .dos-pn{color:var(--gold);}
+.atl-dnav.active .dos-pn{color:var(--gold);}
+/* « III / V » : dans un couloir de 7 655 px, rien ne disait combien il
+   restait. Une salle à l'écran, et le compte tient en trois signes. */
+.dos-count{flex:none;margin:0;padding:6px 2px 10px 0;font-family:var(--f-ui);
+  font-size:.74rem;color:var(--ink-soft);font-variant-numeric:tabular-nums;
+  white-space:nowrap;}
+.dos-count b{font-weight:600;color:var(--gold);}
 
-/* Le rail : combien du dossier est derrière soi. */
-.dos-rail{display:block;height:2px;background:var(--line-soft);
-  margin:0 0 -1px;overflow:hidden;}
+/* Le rail : combien de la SALLE est derrière soi (le dossier, lui, se
+   compte en salles — c'est ce que dit « III / V »). */
+.dos-rail{position:absolute;left:0;right:0;bottom:-1px;height:2px;
+  background:var(--line-soft);overflow:hidden;}
 .dos-rail-fill{display:block;height:100%;transform-origin:0 50%;
   transform:scaleX(0);background:linear-gradient(90deg,var(--gold-deep),var(--gold));}
 
-/* ── L'ouverture d'une section ──────────────────────────────────────────
-   Le numéro en Fraunces italique or : le traitement des années de la
-   frise et des numéros de chapitre — la rime qui tient tout le site. */
-.atl-dossier .panel{padding-top:0;}
-.dos-open{display:flex;align-items:center;gap:14px;
-  padding:78px 0 22px;--dp:1;}
-.atl-dossier .panel:first-of-type .dos-open{padding-top:34px;}
-.dos-no{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:900;
-  font-size:1.5rem;line-height:1;color:var(--gold);flex:none;
-  opacity:calc(.25 + .75 * var(--dp));}
-.dos-rub{font-family:var(--f-ui);font-size:.74rem;font-weight:700;
-  letter-spacing:.15em;text-transform:uppercase;color:var(--gold-deep);
-  flex:none;opacity:calc(.25 + .75 * var(--dp));}
-.dos-fil{flex:1;height:1px;background:linear-gradient(90deg,
-  var(--line-strong),var(--line) 60%,transparent);
-  transform:scaleX(var(--dp));transform-origin:0 50%;}
+/* ── UNE SALLE ─────────────────────────────────────────────────────────
+   (mission `dossier-salles`) Une seule salle est à l'écran. Le numéro
+   entre DANS le titre — il porte l'ordre du dossier, qui en est
+   l'argument — au lieu d'une rubrique posée au-dessus, qui ne redisait
+   que le titre. Et la salle annonce ce qu'on y FAIT : « à manipuler »
+   n'est pas « à lire ». */
+.atl-dossier .panel{padding-top:0;position:relative;}
+/* `.panel.active{display:block}` BAT l'attribut `hidden` de l'agent
+   utilisateur (spécificité de classe contre sélecteur d'attribut) :
+   sans cette ligne, masquer une salle ne la masque pas. */
+.atl-dossier .panel[hidden]{display:none;}
+.atl-dossier .panel-head{padding-top:34px;}
+.ds-no{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:900;
+  color:var(--gold);margin-right:.36em;}
+.ds-nat{display:inline-flex;align-items:center;gap:7px;
+  margin:0 0 26px;padding:5px 13px 5px 10px;
+  border:1px solid var(--line);border-radius:100px;background:var(--card);
+  font-family:var(--f-ui);font-size:.76rem;color:var(--ink-soft);}
+.ds-nat-ic{flex:none;width:15px;height:15px;color:var(--gold-deep);}
+
+/* Le pied : on sort d'une salle par la suivante, jamais dans le vide. */
+.ds-foot{display:flex;align-items:stretch;justify-content:space-between;
+  gap:16px;margin-top:56px;padding-top:22px;border-top:1px solid var(--line);}
+.ds-go{display:flex;flex-direction:column;gap:3px;min-height:44px;
+  align-items:flex-start;text-align:left;padding:10px 16px;cursor:pointer;
+  font:inherit;color:var(--ink);background:var(--card);
+  border:1px solid var(--line);border-radius:14px;
+  transition:background .18s,border-color .18s;}
+.ds-next{align-items:flex-end;text-align:right;margin-left:auto;}
+.ds-go:hover,.ds-go:focus-visible{background:var(--hover);border-color:var(--gold-deep);}
+.ds-go-k{font-family:var(--f-ui);font-size:.72rem;color:var(--ink-soft);}
+.ds-go-t{display:inline-flex;align-items:center;gap:9px;
+  font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:.95rem;
+  line-height:1.25;color:var(--ink);}
+.ds-go-t::before,.ds-go-t::after{content:'';flex:none;width:12px;height:8px;
+  background:var(--gold);
+  -webkit-mask:var(--atl-fleche) no-repeat center/12px 8px;
+  mask:var(--atl-fleche) no-repeat center/12px 8px;
+  transition:transform .18s cubic-bezier(.16,1,.3,1);}
+.ds-prev .ds-go-t::after{display:none;}
+.ds-next .ds-go-t::before{display:none;}
+.ds-prev .ds-go-t::before{transform:rotate(180deg);}
+.ds-prev:hover .ds-go-t::before{transform:rotate(180deg) translateX(3px);}
+.ds-next:hover .ds-go-t::after{transform:translateX(3px);}
+
+/* ── LE FOND D'UNE SALLE ────────────────────────────────────────────────
+   Une matière propre à chaque salle, et elle ne bouge que si le lecteur
+   bouge : `--sp` est la position de lecture DANS la salle (dossier.js).
+   Aucune boucle, donc aucun contrôle de pause à prévoir (WCAG 2.2.2, qui
+   ne vise que le mouvement automatique de plus de cinq secondes) ; et
+   sous reduced-motion le fond se pose à son état fini. */
+.ds-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.atl-dossier .panel > :not(.ds-bg){position:relative;z-index:1;}
+/* I — le cheminement : la réglure du carnet se trace à mesure qu'on gravit. */
+.ds-bg[data-bg="deriv"]{
+  background:repeating-linear-gradient(to bottom,transparent 0 35px,var(--line) 35px 36px);
+  opacity:.55;
+  -webkit-mask:linear-gradient(to bottom,#000 calc(var(--sp,0) * 100%),transparent calc(var(--sp,0) * 100% + 120px));
+  mask:linear-gradient(to bottom,#000 calc(var(--sp,0) * 100%),transparent calc(var(--sp,0) * 100% + 120px));}
+/* II — la chronologie : le jour passe sur la page, d'un acte à l'autre. */
+.ds-bg[data-bg="chrono"]{
+  background:linear-gradient(101deg,rgba(213,64,47,.11),rgba(216,173,76,.10) 46%,rgba(33,26,18,0) 82%);
+  background-size:230% 100%;
+  background-position:calc(var(--sp,0) * 100%) 0;}
+/* III — le laboratoire : la lueur de l'établi monte avec la lecture. */
+.ds-bg[data-bg="labo"]{
+  background:radial-gradient(62% 42% at 50% calc(100% - var(--sp,0) * 72%),
+    rgba(216,173,76,.11),rgba(216,173,76,0) 72%);}
+/* IV — les explorations : la trame se croise là où se porte le regard.
+   Mesurée d'abord à .05/.04, elle ne touchait que 1,4 % des pixels — une
+   matière qu'on ne voit pas ne vaut pas sa complexité. */
+.ds-bg[data-bg="explore"]{
+  background:repeating-linear-gradient(45deg,rgba(243,233,212,.085) 0 1px,transparent 1px 15px),
+             repeating-linear-gradient(-45deg,rgba(243,233,212,.07) 0 1px,transparent 1px 23px);
+  -webkit-mask:radial-gradient(150% 90% at 50% calc(var(--sp,0) * 100%),#000,transparent 78%);
+  mask:radial-gradient(150% 90% at 50% calc(var(--sp,0) * 100%),#000,transparent 78%);}
+/* V — les ressources n'ont PAS de fond, et c'est mesuré : le lavis essayé
+   là ne changeait aucun pixel de plus de trois niveaux. Une bibliographie
+   ne se met pas en scène ; la salle reste du papier nu. */
 @media (prefers-reduced-motion:reduce){
-  .dos-no,.dos-rub{opacity:1;}.dos-fil{transform:none;}
+  .ds-bg{--sp:1!important;}
+  .ds-go-t::before,.ds-go-t::after{transition:none;}
 }
 
 /* Faire respirer : le lede ne court pas sur toute la largeur, et le pied
@@ -1068,10 +1150,13 @@ a.mg-row:hover .mg-ic,a.mg-row:focus-visible .mg-ic{transform:translateX(3px);}
 .atl-dossier .panel > :last-child{margin-bottom:0;}
 
 @media (max-width:760px){
-  .dos-open{padding:52px 0 18px;gap:11px;}
-  .atl-dossier .panel:first-of-type .dos-open{padding-top:24px;}
-  .dos-no{font-size:1.25rem;}
-  .dos-rub{font-size:.7rem;letter-spacing:.11em;}
+  .atl-dossier .panel-head{padding-top:24px;}
+  .ds-nat{margin-bottom:20px;}
+  /* Les deux passages prennent la largeur : côte à côte dans 330 px,
+     leurs titres tombaient sur trois lignes chacun. */
+  .ds-foot{flex-direction:column;margin-top:44px;}
+  .ds-next{margin-left:0;align-items:flex-start;text-align:left;}
+  .ds-next .ds-go-t{flex-direction:row-reverse;}
 }
 
 /* ── Le tiroir : l'appareil vient au texte ── */
