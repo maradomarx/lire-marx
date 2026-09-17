@@ -1175,8 +1175,8 @@ ${credit}  </aside>`;
 <link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2"></noscript>
 <link rel="stylesheet" href="/glossaire/notion.css?v=${hashV('glossaire/notion.css')}">
-<link rel="preload" href="/oeuvres/shell.css?v=11" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=11"></noscript>
+<link rel="preload" href="/oeuvres/shell.css?v=12" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=12"></noscript>
 ${ld}
 </head>
 <body>
@@ -1346,8 +1346,8 @@ ${aScene ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-d
 <link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2"></noscript>
 <link rel="stylesheet" href="/glossaire/notion.css">
-<link rel="preload" href="/oeuvres/shell.css?v=11" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=11"></noscript>
+<link rel="preload" href="/oeuvres/shell.css?v=12" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=12"></noscript>
 ${ld}
 </head>
 <body>
@@ -1591,8 +1591,8 @@ ${PIED}
 <link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2"></noscript>
 <link rel="stylesheet" href="/glossaire/notion.css?v=${hashV('glossaire/notion.css')}">
-<link rel="preload" href="/oeuvres/shell.css?v=11" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=11"></noscript>
+<link rel="preload" href="/oeuvres/shell.css?v=12" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=12"></noscript>
 ${ld}
 </head>
 <body>
@@ -1699,8 +1699,8 @@ ${PIED}
 <noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2"></noscript>
 <link rel="stylesheet" href="/glossaire/notion.css?v=${hashV('glossaire/notion.css')}">
 <link rel="stylesheet" href="/commentaires/agregation.css?v=${hashV('commentaires/agregation.css')}">
-<link rel="preload" href="/oeuvres/shell.css?v=11" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=11"></noscript>
+<link rel="preload" href="/oeuvres/shell.css?v=12" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=12"></noscript>
 ${o.ld}
 </head>`;
   const piedCm = (workTitle) => `${PIED}
@@ -1967,6 +1967,37 @@ ${piedCm('Agrégation 2027')}`;
     PAGES_COMMENTAIRES.unshift({ file: CARREFOUR.file, url: CARREFOUR.url, priority: '0.8', changefreq: 'weekly' });
     if (!check) console.log(`  carrefour → ${CARREFOUR.url} — ${num.sections.length} sections, ${COMM_META.length} commentaire(s)`);
   }
+
+  /* Les ressources externes des trois dossiers (mission `recherche-ressources`,
+   * sept. 2026) : entièrement dans le HTML servi (oeuvres/*.html, section
+   * #ressources) et pourtant absentes de tout index — CLAUDE.md ne le
+   * notait que pour le Manifeste, la mesure a montré que les trois œuvres
+   * sont logées à la même enseigne. Un groupe À PART côté client
+   * (k:'ressource') : ce sont des liens VERS D'AUTRES SITES, et le libellé
+   * du groupe 'essai' dit déjà « dans les explications du site » — les y
+   * mêler mentirait. Pas d'ancre par carte (le HTML n'en porte aucune) :
+   * chaque résultat mène à la salle #ressources, qui les montre toutes. */
+  function ressourcesDe(id) {
+    const w = biblio.works.find((x) => x.id === id);
+    if (!w) throw new Error(`recherche-ressources : œuvre inconnue de bibliotheque.json — ${id}.`);
+    const src = readFileSync(w.path, 'utf8');
+    const bloc = (src.match(/<section class="panel active" id="ressources">([^]*?)<\/section>/) || [])[1];
+    if (!bloc) return;
+    const cartes = [...bloc.matchAll(/<a class="rss-card"[^>]*href="[^"]*"[^>]*>([^]*?)<\/a>/g)].map((c) => {
+      const badge = nu((c[1].match(/<span class="rss-badge">([^<]*)<\/span>/) || [])[1] || '');
+      const titre = nu((c[1].match(/<div class="rss-title">([^]*?)<\/div>/) || [])[1] || '');
+      const meta = nu((c[1].match(/<div class="rss-meta">([^]*?)<\/div>/) || [])[1] || '');
+      return { h: titre, x: [titre, badge, meta].filter(Boolean).join(' · ') };
+    }).filter((c) => c.h);
+    if (!cartes.length) {
+      if (/class="rss-card"/.test(bloc)) throw new Error(`recherche-ressources : ${id} a des cartes mais aucune n'a pu être lue — la regex a-t-elle divergé du balisage ?`);
+      return;
+    }
+    ESSAIS.push({ id: 'res-' + id, k: 'ressource', u: hrefOf(w) + '#ressources',
+      t: 'Ressources — ' + w.shortTitle, s: cartes.map((c) => ({ a: 'ressources', h: c.h, x: c.x })) });
+    if (!check) console.log(`  ressources : ${w.shortTitle} — ${cartes.length} cartes indexées`);
+  }
+  ['capital-1', 'manuscrits-1844', 'manifeste-parti-communiste'].forEach(ressourcesDe);
 
   /* L'index des essais — glossaire, chapitres expliqués, commentaires et
    * page-carrefour (mission `recherche-chapitres`) : un fichier à part, chargé à la demande par la

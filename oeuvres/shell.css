@@ -625,6 +625,10 @@ body.at-reading .notes-fab{display:inline-flex;}
 .tb-wait{font-style:italic;opacity:.8;}
 .tb-cat-texte{background:rgba(127,168,85,.18);color:#a9cd85;}
 .tb-cat-essai{background:rgba(216,173,76,.18);color:#e5c176;}
+/* mission `recherche-ressources` : le bleu de chapitre/partie, réutilisé —
+   un lien vers l'extérieur, pas un contenu du site (l'or est déjà pris par
+   « essai »). Même couple déjà vérifié au contraste. */
+.tb-cat-ressource{background:rgba(92,138,163,.20);color:#a8c9da;}
 .tb-res-s{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
 
 /* PAS DE ZOOM AU FOCUS (mission `mobile-lecture`). Safari iOS agrandit la
