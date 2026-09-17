@@ -1920,6 +1920,76 @@ ailleurs dans la recherche partagée. `shell.js` passe en **`?v=15`**
 avec un balisage doit changer d'URL) ; `gen-seo.mjs --check` à jour après
 régénération des pages dérivées, aucune autre divergence.
 
+## La recherche va dans les ressources externes (mission `recherche-ressources`, sept. 2026)
+
+Dernier trou signalé pour le Manifeste (« les lectures et les ressources du
+Manifeste ne sont pas dans recherche-essais.json ») — **et la mesure a
+montré que ce n'est pas propre au Manifeste** : les trois dossiers
+(Capital, Manuscrits, Manifeste) portent chacun une section « Ressources »
+(`section#ressources` → `.rss-grid` → `.rss-card`), entièrement dans le
+HTML servi, et aucune des trois n'était indexée nulle part — ni dans
+`recherche.json`, ni dans `recherche-essais.json`. Traitées les trois
+d'un coup : le balisage est identique, la fonction d'extraction l'est
+aussi.
+
+**Un groupe À PART, `k:'ressource'`, jamais mêlé aux essais.** Ce sont des
+liens VERS D'AUTRES SITES (YouTube, Wikisource, Marxists Internet Archive,
+Gallica…), et le groupe « essai » dit déjà « Dans les explications du
+site » — y mêler un lien externe mentirait. Nouveau libellé « Pour aller
+plus loin », nouvelle pastille (`.tb-cat-ressource`, le bleu déjà utilisé
+par chapitre/partie — l'or est pris par « essai », et c'est un couple déjà
+vérifié au contraste, pas une couleur inventée).
+
+**Un budget SÉPARÉ de celui des essais** (`RES_MAX = 2`), pas partagé avec
+`TXT_MAX` : une ressource entrelacée dans le même budget que
+glossaire/chapitre/commentaire se serait presque toujours fait évincer par
+eux. `chercheRessources()` est une fonction à part, qui relit le même
+`chargeEssais()` (aucun fetch de plus — les ressources voyagent dans
+`recherche-essais.json`, avec un `id`/`u`/`t` par œuvre) et filtre
+`d.k==='ressource'`.
+
+**Pas d'ancre par carte : le HTML n'en porte aucune.** Chaque résultat
+mène à `#ressources` (la salle, pas la carte précise) — c'est tout ce que
+le balisage permet, et le dédoublonnage « une section par page » (déjà en
+place pour les essais) s'applique donc PAR ŒUVRE : au plus un résultat
+« ressource » par œuvre et par recherche, ce qui suffit largement au
+budget de 2.
+
+**L'extraction, côté générateur** (`ressourcesDe(id)`, juste avant
+l'écriture de `recherche-essais.json`) : lit `bibliotheque.json` pour le
+titre et le chemin de l'œuvre (`hrefOf`, déjà utilisée ailleurs — jamais
+de chemin recopié à la main), relit le HTML de la page, isole le bloc
+`#ressources` par regex, puis chaque `.rss-card` (`href` ignoré — inutile,
+`u` porte déjà l'adresse de la salle —, `.rss-badge`/`.rss-title`/
+`.rss-meta` concaténés pour le texte indexé). **Échoue bruyamment si des
+cartes existent mais qu'aucune n'a pu être lue** (`class="rss-card"`
+présent dans le bloc mais `cartes.length === 0`) — le signe que le
+balisage aurait divergé de la regex, pas une raison de publier un index
+silencieusement vide.
+
+**Piège d'outillage rencontré en vérifiant, à ajouter à la liste** : le
+clic sur un résultat « ressource » depuis la recherche, dans la pane
+pilotée, atterrissait sur `#lire` au lieu de `#ressources` — mais une
+navigation DIRECTE vers la même URL (adresse tapée, ou l'outil `navigate`)
+gardait `#ressources` à chaque fois. `document.hidden` valait `true` au
+moment du clic déclenché par script : encore le piège déjà documenté
+des dizaines de fois dans ce dépôt (rAF/IntersectionObserver/scroll gelés
+dans un onglet masqué) — ici c'est visiblement le boot de l'atelier
+(`activateTab('dossier','ressources')`) qui en dépend pour se poser
+correctement. **Le contrat lui-même est vérifié correct** (trois
+navigations directes propres, systématiquement `#ressources`) ; ce que la
+pane ne peut pas prouver ici, c'est le clic bout-à-bout — comme d'habitude.
+
+**Vérifié** : les 26 cartes des trois œuvres indexées (Capital 12,
+Manuscrits 8, Manifeste 6) ; recherche « vampire capitaliste » →
+« Ressources — Capital I — « Karl Marx et le vampire capitaliste » »,
+groupe « Pour aller plus loin », pastille bleue (12,03:1, le couple déjà
+vérifié) ; « Jean Salem » → la ressource des Manuscrits ; « Andler » → la
+traduction Wikisource du Manifeste, à côté d'un « outil » et d'un
+« essai » sans confusion de groupe. `shell.css` passe en **`?v=12`**
+(97 références) ; `gen-seo.mjs --check` à jour et idempotent après
+régénération (« Rien à faire » au second passage).
+
 ## Le Dossier remis en ordre (mission `dossier-lisible`, sept. 2026)
 
 Demande du propriétaire : « unifier, ordonner, faire respirer, styliser,
@@ -8896,10 +8966,10 @@ zéro débordement, ascension à 596 px au lieu de 1 489, fiche collante,
 liens de marge à 26 px ; détecteur : manifeste.html 12 et atelier.css 40
 constats, identiques à avant, 0 erreur.
 
-**Ce qui reste** : les lectures et les ressources du Manifeste ne sont pas
-dans `recherche-essais.json` (le dossier n'est pas un essai du glossaire) ;
-et les deux autres dossiers ont reçu le correctif du cadre rouge sans avoir
-été revus pour autant.
+**Ce qui reste** : ✅ les ressources sont indexées depuis (mission
+`recherche-ressources`, voir plus bas — les trois dossiers, pas seulement
+celui-ci) ; et les deux autres dossiers ont reçu le correctif du cadre
+rouge sans avoir été revus pour autant.
 
 ## La coquille sur téléphone (mission `coquille-mobile`, sept. 2026)
 

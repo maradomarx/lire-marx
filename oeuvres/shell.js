@@ -418,6 +418,7 @@
       page:     { lab: 'Page',       grp: 'Pages du site' },
       'a-venir':{ lab: 'À venir',    grp: 'À venir' },
       essai:    { lab: 'Essai',      grp: 'Dans les explications du site' },
+      ressource:{ lab: 'Ressource',  grp: 'Pour aller plus loin' },
       texte:    { lab: 'Texte',      grp: 'Dans le texte des œuvres' }
     };
     /* « Dans le texte » vient EN DERNIER, et c'est un choix : sur un mot
@@ -756,12 +757,14 @@
        notions du glossaire, les chapitres expliqués, les commentaires. ON LES
        ENTRELACE, pour la raison déjà payée sur le texte des œuvres : mises
        bout à bout, les trente-neuf notions prenaient les trois places et les
-       chapitres n'apparaissaient jamais. */
+       chapitres n'apparaissaient jamais. Les ressources externes (mission
+       `recherche-ressources`) n'entrent PAS dans cette entrelacement — voir
+       chercheRessources() plus bas, budget et groupe à part. */
     function chercheEssais(q, nq, re){
       return chargeEssais().then(function(docs){
         var par = { glossaire: [], chapitre: [], commentaire: [] }, vus = {};
         docs.forEach(function(d){
-          if(vus[d.id]) return;              /* une seule section par page */
+          if(d.k === 'ressource' || vus[d.id]) return;  /* une seule section par page */
           var t = tranche(d.doc, re);
           if(!t) return;
           vus[d.id] = 1;
@@ -781,6 +784,32 @@
       }).catch(function(){ return []; });
     }
 
+    /* Les ressources externes des dossiers (Capital, Manuscrits, Manifeste) :
+       un budget À PART (RES_MAX), jamais mêlé à celui des essais — ce sont
+       des liens VERS D'AUTRES SITES, et le libellé du groupe 'essai' dit
+       déjà « dans les explications du site ». Une seule carte par œuvre
+       (même dédoublonnage « une section par page » que chercheEssais) :
+       le clic mène de toute façon à la salle qui les montre toutes. */
+    var RES_MAX = 2;
+    function chercheRessources(q, nq, re){
+      return chargeEssais().then(function(docs){
+        var out = [], vus = {};
+        docs.forEach(function(d){
+          if(d.k !== 'ressource' || vus[d.id]) return;
+          var t = tranche(d.doc, re);
+          if(!t) return;
+          vus[d.id] = 1;
+          out.push({
+            t: d.nt + ' — ' + d.h,
+            s: extrait(d.doc.brut, t.i, t.exact.length),
+            cat: 'ressource',
+            url: d.u + (d.a ? '#' + d.a : '')
+          });
+        });
+        return out;
+      }).catch(function(){ return []; });
+    }
+
     /* Le groupe s'AJOUTE quand il arrive : le repeindre entier volerait la
        sélection au clavier, et il vient en dernier — rien avant lui n'est
        renuméroté. */
@@ -788,7 +817,7 @@
       var att = box.querySelector('.tb-wait');
       if(!att) return;
       var items = [];
-      ['essai','texte'].forEach(function(c){ (cats[c] || []).forEach(function(x){ items.push(x); }); });
+      ['essai','ressource','texte'].forEach(function(c){ (cats[c] || []).forEach(function(x){ items.push(x); }); });
       att.remove();
       if(!items.length){
         /* Si RIEN n'a été trouvé nulle part, c'est le message complet qu'il
@@ -835,7 +864,7 @@
       txtTimer = setTimeout(function(){
         if(renderSeq !== seq) return;
         var re = motif(nq);
-        Promise.all([chercheCapital(q, nq, re), chercheManuscrits(q, nq, re), chercheEssais(q, nq, re), chercheManifeste(q, nq, re)])
+        Promise.all([chercheCapital(q, nq, re), chercheManuscrits(q, nq, re), chercheEssais(q, nq, re), chercheManifeste(q, nq, re), chercheRessources(q, nq, re)])
           .then(function(r){
             if(renderSeq !== seq) return;
             /* ON ENTRELACE LES ŒUVRES. Mises bout à bout, les sections du
@@ -848,7 +877,7 @@
               src.forEach(function(s){ if(i < s.length && texte.length < TXT_MAX) texte.push(s[i]); });
               i++;
             }
-            poseTexte({ essai: r[2].slice(0, TXT_MAX), texte: texte }, q, sug);
+            poseTexte({ essai: r[2].slice(0, TXT_MAX), ressource: r[4].slice(0, RES_MAX), texte: texte }, q, sug);
           });
       }, TXT_ATTENTE);
     }
