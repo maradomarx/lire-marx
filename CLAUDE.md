@@ -1865,10 +1865,60 @@ jour et idempotent.
 - La recherche ne va pas dans les **notes et discussions** (carnet, Place
   publique) : le carnet est privé et la Place publique vit dans Supabase.
   Ce serait une autre mission, et elle demanderait une requête au serveur.
-- Une recherche qui ne rend rien ne **propose pas d'orthographe voisine**.
-  Sur un corpus où l'on tape « fétichisme » sans accent — ce que la
-  normalisation couvre déjà — ou « Bottiguelli », un repli par distance
-  d'édition sur les seuls titres de l'index serait peu coûteux.
+- ✅ **L'orthographe voisine est faite** (mission `recherche-orthographe`,
+  sept. 2026) — voir plus bas.
+
+## La recherche propose une orthographe voisine (mission `recherche-orthographe`, sept. 2026)
+
+Dernier point de la liste « Ce qui reste » de `recherche-chapitres` :
+« fétichisme » sans accent était déjà couvert par `norm()` (NFD, diacritiques
+retirés), mais une vraie faute de frappe — un « t » en trop, une lettre
+manquante — ne rendait rien, sans le moindre repli.
+
+**Distance d'édition (Levenshtein), sur les SEULS titres de l'index**
+(`buildIndex()`, la même source que le reste de la recherche partagée) —
+jamais sur le plein texte ni les essais, hors de portée pour ce que ça
+coûterait. Calculé uniquement quand `hits.length === 0` : sur une recherche
+qui trouve déjà quelque chose, la question ne se pose pas.
+
+**On compare aussi MOT PAR MOT, pas seulement le titre entier.** Une
+comparaison au titre entier échoue par construction sur un titre à
+rallonge : la distance explose avec la longueur, et « subomption » (une
+faute sur « subsomption ») n'aurait jamais rejoint « Subsomption réelle » —
+douze caractères de trop dans la comparaison. `buildWordPool()` éclate
+chaque titre en mots (≥ 4 lettres, pour écarter « de », « le », « du »…),
+dédupliqué, et compare la requête à CE pool. C'est ce qui retrouve un mot
+mal orthographié à l'intérieur d'un titre qui ne le porte pas seul.
+
+**Le seuil suit la longueur de la requête** (1 caractère d'écart toléré
+jusqu'à 5 lettres, 2 jusqu'à 9, 3 au-delà) et un garde-fou de longueur
+(`Math.abs(diff) > 3` → candidat écarté d'emblée) évite de comparer un mot
+de quatre lettres à un titre de quarante. Pas de suggestion pour
+« chapitre X » ou une année qui ne correspond à rien : ce sont des
+adresses, pas des mots, et une distance d'édition n'y a pas de sens.
+
+**La suggestion se rend en vrai résultat `[role=option]`**, sous un groupe
+« Vouliez-vous dire ? » — pas un texte à part avec sa propre logique de
+clic : elle rejoint la navigation clavier (flèches, Entrée) et le clic déjà
+câblés sur `.tb-res`, sans une ligne de plus pour ça. Calculée une fois par
+recherche dans `render()`, elle est threadée à travers les DEUX chemins
+« rien trouvé » qui existaient déjà : le repli immédiat (pas de plein
+texte à attendre : requête trop courte, ou `chapitre X`/année) et
+`poseTexte()` (le plein texte est revenu bredouille lui aussi) — sans
+elle, la seconde moitié du cas « rien nulle part » n'aurait plus dit
+« vouliez-vous dire » alors que la première l'aurait fait.
+
+**Vérifié** : « subomption » (faute sur « subsomption ») → suggestion
+« Subsomption réelle », clic → `/glossaire/subsomption-reelle` (bonne
+page, bon titre affiché) ; navigation clavier (`ArrowDown` pose
+`aria-activedescendant` sur la suggestion, comme sur n'importe quel autre
+résultat) ; une requête sans aucun rapport (« zzzqwxkq ») ne suggère
+rien — pas de faux positif. Aucun CSS nouveau : la suggestion réutilise
+`.tb-empty`/`.tb-grp`/`.tb-res`/`.tb-cat-*`, déjà éprouvés partout
+ailleurs dans la recherche partagée. `shell.js` passe en **`?v=15`**
+(97 références — la règle du projet : un actif mis en cache qui change
+avec un balisage doit changer d'URL) ; `gen-seo.mjs --check` à jour après
+régénération des pages dérivées, aucune autre divergence.
 
 ## Le Dossier remis en ordre (mission `dossier-lisible`, sept. 2026)
 
