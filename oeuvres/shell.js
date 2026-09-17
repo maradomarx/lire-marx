@@ -784,7 +784,7 @@
     /* Le groupe s'AJOUTE quand il arrive : le repeindre entier volerait la
        sélection au clavier, et il vient en dernier — rien avant lui n'est
        renuméroté. */
-    function poseTexte(cats, q){
+    function poseTexte(cats, q, sug){
       var att = box.querySelector('.tb-wait');
       if(!att) return;
       var items = [];
@@ -795,8 +795,7 @@
            faut — celui qui dit quoi essayer. Le lecteur qui ne trouve rien
            ne reformule pas de lui-même. */
         if(!box.querySelector('.tb-res')){
-          box.innerHTML = '<div class="tb-empty">Aucun résultat pour « ' + esc(q) + ' », ni dans le site ni dans le texte des œuvres. Essayez un autre mot, un chapitre (« chapitre X ») ou une année.</div>';
-          announce('Aucun résultat pour ' + q);
+          renderEmpty(q, true, sug);
           return;
         }
         var v = document.createElement('div');
@@ -831,7 +830,7 @@
       box.dataset.n = n;
       announce(items.length + (items.length > 1 ? ' passages trouvés dans le texte' : ' passage trouvé dans le texte'));
     }
-    function lancePlein(q, nq, seq){
+    function lancePlein(q, nq, seq, sug){
       clearTimeout(txtTimer);
       txtTimer = setTimeout(function(){
         if(renderSeq !== seq) return;
@@ -849,7 +848,7 @@
               src.forEach(function(s){ if(i < s.length && texte.length < TXT_MAX) texte.push(s[i]); });
               i++;
             }
-            poseTexte({ essai: r[2].slice(0, TXT_MAX), texte: texte }, q);
+            poseTexte({ essai: r[2].slice(0, TXT_MAX), texte: texte }, q, sug);
           });
       }, TXT_ATTENTE);
     }
@@ -956,6 +955,91 @@
       return 0;
     }
 
+    /* ── ORTHOGRAPHE VOISINE (mission `recherche-orthographe`) ──────────
+       Une recherche qui ne rend rien ne proposait pas d'orthographe
+       voisine. « fétichisme » sans accent est déjà couvert par norm() ;
+       une vraie faute (« Bottiguelli ») ne l'est pas. Le repli porte
+       SEULEMENT sur les titres de l'index (chapitres, notions, dates,
+       instruments, œuvres, pages) — jamais sur le plein texte ni les
+       essais, hors de portée pour un coût pareil. */
+    function levenshtein(a, b){
+      var m = a.length, n = b.length;
+      if(!m) return n; if(!n) return m;
+      var prev = new Array(n + 1), cur = new Array(n + 1), i, j, cost;
+      for(j = 0; j <= n; j++) prev[j] = j;
+      for(i = 1; i <= m; i++){
+        cur[0] = i;
+        for(j = 1; j <= n; j++){
+          cost = a.charAt(i - 1) === b.charAt(j - 1) ? 0 : 1;
+          cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + cost);
+        }
+        var t = prev; prev = cur; cur = t;
+      }
+      return prev[n];
+    }
+    /* Comparer un mot mal orthographié au titre ENTIER d'un chapitre ou
+       d'une page à rallonge ne rendrait jamais rien : la distance
+       d'édition explose avec la longueur. On compare donc aussi à chaque
+       MOT de chaque titre (≥ 4 lettres, pour écarter « de », « le »…),
+       dédupliqué — c'est ce qui retrouve « Bottigelli » dans un titre
+       qui ne le nomme pas seul, ou « subsomption » dans « Subsomption
+       réelle ». */
+    var wordPool = null;
+    function buildWordPool(ix){
+      if(wordPool) return wordPool;
+      var seen = {}, pool = [];
+      ix.forEach(function(it){
+        if(it.tn && !seen[it.tn]){ seen[it.tn] = 1; pool.push({ w: it.tn, it: it }); }
+        it.tn.split(/[^a-z0-9]+/).forEach(function(w){
+          if(w.length < 4 || seen[w]) return;
+          seen[w] = 1; pool.push({ w: w, it: it });
+        });
+      });
+      wordPool = pool;
+      return pool;
+    }
+    function suggestion(nq, ix){
+      if(nq.length < 4) return null;              /* trop court, trop de bruit */
+      var pool = buildWordPool(ix), best = null, bestD = Infinity;
+      pool.forEach(function(p){
+        if(Math.abs(p.w.length - nq.length) > 3) return;
+        var d = levenshtein(nq, p.w);
+        if(d < bestD){ bestD = d; best = p.it; }
+      });
+      var seuil = nq.length <= 5 ? 1 : (nq.length <= 9 ? 2 : 3);
+      return (best && bestD > 0 && bestD <= seuil) ? best : null;
+    }
+    /* Rend l'état « rien trouvé », avec ou sans suggestion — appelée à
+       la fois par le repli immédiat et par poseTexte(), une fois le
+       plein texte revenu bredouille lui aussi. La suggestion se rend en
+       vrai résultat `[role=option]` : elle rejoint la navigation clavier
+       existante sans rien y ajouter. */
+    function renderEmpty(q, aussiTexte, sug){
+      var msg = aussiTexte
+        ? 'Aucun résultat pour « ' + esc(q) + ' », ni dans le site ni dans le texte des œuvres. Essayez un autre mot, un chapitre (« chapitre X ») ou une année.'
+        : 'Aucun résultat pour « ' + esc(q) + ' ». Essayez un mot du texte, un chapitre (« chapitre X ») ou une année.';
+      box.innerHTML = '<div class="tb-empty">' + msg + '</div>';
+      if(sug){
+        var h = document.createElement('div');
+        h.className = 'tb-grp'; h.setAttribute('role', 'presentation');
+        h.textContent = 'Vouliez-vous dire ?';
+        box.appendChild(h);
+        var cat = CAT[sug.cat] ? sug.cat : 'page';
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'tb-res'; b.setAttribute('role', 'option');
+        b.id = 'tbo-0'; b.tabIndex = -1;
+        b.innerHTML = '<span class="tb-res-main"><span class="tb-res-t">' + esc(sug.t) + '</span>'
+          + (sug.s ? '<span class="tb-res-s">' + esc(sug.s) + '</span>' : '') + '</span>'
+          + '<span class="tb-res-cat tb-cat-' + cat + '">' + esc(CAT[cat].lab) + '</span>';
+        b.addEventListener('mousedown', function(ev){ ev.preventDefault(); });
+        b.addEventListener('click', function(){ remember(q); inp.value = ''; close(); go(sug.url); });
+        box.appendChild(b);
+      }
+      box.hidden = false;
+      inp.setAttribute('aria-expanded', 'true');
+      announce(sug ? ('Aucun résultat. Vouliez-vous dire ' + sug.t + ' ?') : ('Aucun résultat pour ' + q));
+    }
+
     function render(q){
       var nq = norm(q).trim();
       clearTimeout(txtTimer);
@@ -973,11 +1057,11 @@
         var hits = [];
         ix.forEach(function(it, k){ var sc = score(it, nq, chapRn, year); if(sc) hits.push({ it: it, sc: sc, k: k }); });
         hits.sort(function(a,b){ return b.sc - a.sc || a.k - b.k; });
+        /* pas de suggestion pour « chapitre X » ou une année qui ne
+           correspond à rien : ce sont des adresses, pas des mots */
+        var sug = (hits.length || chapRn || year) ? null : suggestion(nq, ix);
         if(!hits.length && !veutTexte){
-          box.innerHTML = '<div class="tb-empty">Aucun résultat pour « ' + esc(q) + ' ». Essayez un mot du texte, un chapitre (« chapitre X ») ou une année.</div>';
-          box.hidden = false;
-          inp.setAttribute('aria-expanded','true');
-          announce('Aucun résultat pour ' + q);
+          renderEmpty(q, false, sug);
           return;
         }
         var groups = {}, total = 0;
@@ -988,7 +1072,7 @@
         });
         var n = paint(groups, q, veutTexte);
         announce(n + (n > 1 ? ' résultats' : ' résultat'));
-        if(veutTexte) lancePlein(q, txq, seq);
+        if(veutTexte) lancePlein(q, txq, seq, sug);
       });
     }
 
