@@ -29,9 +29,11 @@
 // haut ; la page ne fait que rendre, et s'abonne via SHELL.social.dm.
 // Elle ne parle jamais à Supabase pour la messagerie.
 //
-// Profil membre cliquable + saut précis dans la liseuse : différés à
-// la mission annotations (contrat de deep-link commun avec
-// SHELL.commune).
+// Profil membre cliquable : fait (mission `profil-membre`, sept. 2026),
+// entièrement dans oeuvres/place-publique.html (#u=<id>, même motif que
+// #d=<id>) — ce module n'y est pour rien, la page fait ses propres
+// requêtes Supabase comme pour le reste du forum. Messages se contente
+// d'y pointer (#u=<id> depuis l'en-tête de conversation).
 
 (function(){
   var SHELL = window.SHELL = window.SHELL || {};

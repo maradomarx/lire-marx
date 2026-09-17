@@ -46,6 +46,17 @@
    de second client Supabase (SHELL.auth.getClient()), petits outils
    dupliqués (esc/ago/toast). SHELL.commune (aperçus compacts des
    autres pages) n'est PAS modifié.
+
+   PROFIL MEMBRE CLIQUABLE (mission `profil-membre`, sept. 2026) : un
+   troisième état, state.view = 'profile', au même rang que 'feed' et
+   'detail' — même contrat (pushState/popstate, #u=<id>, deep-link
+   consommé au premier rendu qui en dispose). Le pseudo+cachet de
+   metaHtml() devient un <button data-act="profile"> ; la vue liste les
+   discussions ouvertes par ce lecteur (racines seulement — une réponse
+   n'a pas de citation propre, et la profondeur d'un fil n'est pas ce
+   qu'un profil doit montrer). Entièrement autonome à cette page (la
+   même requête Supabase que fetchAll, juste filtrée par author_id) ;
+   Messages ne fait que POINTER ici (#u=<id>), voir sa propre page.
    Les SOUTIENS s'appuient sur la table `note_votes` (schema.sql, à
    rejouer dans Supabase) : tant qu'elle n'existe pas, la page dégrade
    proprement (comptes cachés, clic → toast). Un « titre » de
@@ -178,6 +189,13 @@
   font-family:var(--f-ui);font-weight:700;font-size:.5rem;color:#f6ecd8;}
 .pf-seal img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
 .pf-name{font-family:var(--f-hand);font-weight:700;font-size:1.08rem;color:var(--ink);line-height:1;}
+/* le pseudo+cachet ouvre le profil — bouton sans habillage, le survol
+   ne fait bouger que le nom, pas le cachet */
+.pf-who{display:inline-flex;align-items:center;gap:6px;background:none;border:0;
+  padding:3px 5px 3px 3px;margin:-3px -5px -3px -3px;border-radius:8px;cursor:pointer;
+  font:inherit;color:inherit;transition:background .15s;}
+.pf-who:hover{background:var(--hover);}
+.pf-who:hover .pf-name{color:var(--gold);}
 .pf-title{font-family:'Fraunces',serif;font-weight:600;font-size:1.08rem;
   letter-spacing:-.01em;color:var(--text);line-height:1.35;margin:7px 0 0;}
 /* la citation garde son filet de gauche — règle typographique maison */
@@ -221,6 +239,26 @@
   font-size:.84rem;color:var(--ink);background:var(--card);
   border:1px solid var(--line-strong);border-radius:9px;padding:8px 11px;}
 
+/* ── la vue de profil ── */
+.pf-profile-head{display:flex;flex-wrap:wrap;align-items:flex-start;gap:16px;
+  background:var(--surface);border:1px solid var(--line);border-radius:16px;
+  padding:20px 20px 18px;margin-bottom:18px;}
+.pf-profile-seal{position:relative;width:56px;height:56px;border-radius:50%;
+  overflow:hidden;flex:none;display:inline-flex;align-items:center;justify-content:center;
+  font-family:var(--f-ui);font-weight:700;font-size:1.15rem;color:#f6ecd8;}
+.pf-profile-seal img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.pf-profile-main{min-width:0;flex:1;}
+/* la signature de la Place publique, en grand — le même motif que
+   l'aperçu de Mon compte (cachet + Caveat or) */
+.pf-profile-name{font-family:var(--f-hand);font-weight:700;
+  font-size:clamp(1.5rem,4vw,1.9rem);line-height:1.05;color:var(--gold);
+  margin:0;overflow-wrap:anywhere;}
+.pf-profile-bio{font-family:var(--f-serif);font-size:.92rem;line-height:1.55;
+  color:var(--ink-soft);margin:9px 0 0;max-width:56ch;}
+.pf-profile-stats{font-family:var(--f-ui);font-size:.78rem;color:var(--muted);margin:9px 0 0;}
+.pf-profile-msg{flex:none;text-decoration:none;align-self:flex-start;}
+@media(max-width:520px){.pf-profile-head{flex-direction:column;}}
+
 /* ── le rail ── */
 .pf-rail{display:flex;flex-direction:column;gap:14px;position:sticky;top:62px;}
 .pf-rail-card{background:var(--surface);border:1px solid var(--line);
@@ -262,6 +300,7 @@
   .pf-chip{padding:11px 14px;}
   .pf-vote-btn{width:40px;height:40px;}
   .pf-act{padding:11px 0;margin:-8px 0;}
+  .pf-who{padding:11px 5px 11px 3px;margin:-11px -5px -11px -3px;}
 }
 </style>
 </head>
@@ -364,8 +403,10 @@ installShell({
   var loaded = false;
 
   var state = {
-    view: 'feed',           // 'feed' | 'detail'
+    view: 'feed',           // 'feed' | 'detail' | 'profile'
     detailId: null,
+    profileId: null,
+    profileName: '',        // connu immédiatement si on vient d'un clic (data-uname)
     sort: 'recent',         // 'recent' | 'top' | 'talk'
     filter: 'all',          // id d'œuvre résolu ou 'all'
     composing: false,       // composeur « Ouvrir une discussion » ouvert
@@ -374,6 +415,7 @@ installShell({
     confirmDel: null        // id en attente de confirmation de suppression
   };
   var drafts = {};          // id de boîte → brouillon (survit aux re-rendus)
+  var profileCache = {};    // author_id → {loaded, profile, notes, repliesN, error}
 
   // ── petits outils (duplication précédentée : shell-social pareil) ──
   function esc(s){
@@ -542,8 +584,12 @@ installShell({
       h += '<span class="pf-tag' + (w.meta.status === 'available' ? '' : ' pf-tag-soon') + '">' +
         esc(w.meta.title) + '</span>';
     }
-    h += sealHtml(note) +
-      '<span class="pf-name">' + esc(name) + '</span>' +
+    /* le pseudo+cachet ouvre le profil — sans author_id (jamais vu en
+       pratique) le bouton reste inerte, pas d'erreur */
+    h += '<button type="button" class="pf-who" data-act="profile"' +
+      ' data-uid="' + esc(note.author_id || '') + '" data-uname="' + esc(name) + '"' +
+      ' aria-label="Voir le profil de ' + esc(name) + '">' +
+      sealHtml(note) + '<span class="pf-name">' + esc(name) + '</span></button>' +
       '<span>' + esc(ago(note.created)) + '</span>';
     if(opts.section && note.section != null && +note.section > 0){
       h += '<span>· section ' + esc(note.section) + '</span>';
@@ -676,6 +722,100 @@ installShell({
       '</div></div>';
   }
 
+  /* ── le profil d'un lecteur ── */
+  function profileHtml(uid){
+    var backBtn = '<button type="button" class="pf-btn pf-btn-ghost pf-back" data-act="profile-back">← Retour au fil</button>';
+    var d = profileCache[uid];
+    if(!d || !d.loaded){
+      return '<div class="pf-detail">' + backBtn +
+        '<h2 class="pf-title" id="pfDetailH" tabindex="-1">' + esc(state.profileName || 'Profil') + '</h2>' +
+        '<div class="pf-state">Le profil s’ouvre…</div></div>';
+    }
+    if(d.error || !d.profile){
+      return '<div class="pf-detail">' + backBtn +
+        '<div class="pf-state">Ce profil est introuvable — le lecteur a peut-être supprimé son compte.</div></div>';
+    }
+    var pf = d.profile;
+    var name = pf.username || state.profileName || 'ce lecteur';
+    var nRoots = (d.notes || []).length;
+    var statsTxt = nRoots + ' discussion' + (nRoots > 1 ? 's' : '') +
+      (d.repliesN != null ? ' ouverte' + (nRoots > 1 ? 's' : '') + ' · ' + d.repliesN + ' réponse' + (d.repliesN > 1 ? 's' : '') : '');
+    var actions = isMine({ author_id: uid }) ? '' :
+      '<a class="pf-btn pf-profile-msg" href="/oeuvres/messages#c=' + encodeURIComponent(name) + '">Écrire un message</a>';
+    return '<div class="pf-detail pf-profile">' + backBtn +
+      '<div class="pf-profile-head">' +
+        '<span class="pf-profile-seal" style="background:' + sealColor(uid) + '">' +
+          esc(initials(name)) + (pf.avatar_url ? '<img src="' + esc(pf.avatar_url) + '" alt="" loading="lazy">' : '') +
+        '</span>' +
+        '<div class="pf-profile-main">' +
+          '<h2 class="pf-profile-name" id="pfDetailH" tabindex="-1">' + esc(name) + '</h2>' +
+          (pf.bio ? '<p class="pf-profile-bio">' + esc(pf.bio) + '</p>' : '') +
+          '<p class="pf-profile-stats">' + esc(statsTxt) + '</p>' +
+        '</div>' +
+        actions +
+      '</div>' +
+      '<div class="pf-comments-h">' + (nRoots ? 'Discussions ouvertes' : '') + '</div>' +
+      (nRoots ? '<div class="pf-feed">' + d.notes.map(cardHtml).join('') + '</div>'
+              : '<div class="pf-state">Aucune discussion publique pour l’instant.</div>') +
+      '</div>';
+  }
+
+  async function loadProfile(uid){
+    var entry = profileCache[uid];
+    if(entry && (entry.loaded || entry.loading)) return;
+    profileCache[uid] = { loading: true };
+    var auth = window.SHELL && window.SHELL.auth;
+    var c = auth ? await auth.getClient() : null;
+    if(!c){
+      profileCache[uid] = { loaded: true, error: true };
+      if(state.profileId === uid) render();
+      return;
+    }
+    try {
+      var isMod = isModNow();
+      var pr = await c.from('profiles').select('id,username,avatar_url,bio').eq('id', uid).maybeSingle();
+      if(pr.error) throw pr.error;
+      var qn = c.from('public_notes')
+        .select('id,author_id,work,section,quote,body,parent_id,hidden,created,profiles(username,avatar_url)')
+        .eq('author_id', uid).is('parent_id', null);
+      if(!isMod) qn = qn.eq('hidden', false);
+      var rn = await qn.order('created', { ascending: false }).limit(150);
+      if(rn.error) throw rn.error;
+      var qc = c.from('public_notes').select('id', { count: 'exact', head: true })
+        .eq('author_id', uid).not('parent_id', 'is', null);
+      if(!isMod) qc = qc.eq('hidden', false);
+      var rc = await qc;
+      /* ces notes rejoignent byId : cardHtml y ouvre un fil via data-open,
+         qui passe par openDetail → byId[id] — sans la fusion, le clic
+         rebondirait en silence vers le fil (règle déjà écrite pour
+         resolveDeepLink : un id absent de byId ne s'ouvre pas). */
+      (rn.data || []).forEach(function(n){ byId[n.id] = n; });
+      profileCache[uid] = {
+        loaded: true,
+        profile: pr.data || null,
+        notes: rn.data || [],
+        repliesN: (rc && typeof rc.count === 'number') ? rc.count : null
+      };
+    } catch(e){
+      profileCache[uid] = { loaded: true, error: true };
+    }
+    if(state.profileId === uid) render();
+  }
+
+  function openProfile(uid, uname, push){
+    if(!uid) return;
+    state.view = 'profile'; state.profileId = uid; state.profileName = uname || '';
+    state.replyOpen = null; state.reportOpen = null; state.confirmDel = null;
+    if(push){
+      try { history.pushState({ u: uid }, '', '#u=' + encodeURIComponent(uid)); } catch(e){}
+    }
+    render();
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    var hd = document.getElementById('pfDetailH');
+    if(hd) hd.focus({ preventScroll: true });
+    loadProfile(uid);
+  }
+
   function composerHtml(){
     if(!state.composing){
       return '<div class="pf-launch">' +
@@ -751,6 +891,10 @@ installShell({
 
   function render(){
     if(!loaded) return;
+    if(state.view === 'profile'){
+      main.innerHTML = profileHtml(state.profileId);
+      return;
+    }
     if(state.view === 'detail'){
       var note = byId[state.detailId];
       if(!note || (note.hidden && !isModNow() && !isMine(note))){
@@ -790,7 +934,7 @@ installShell({
     if(hd) hd.focus({ preventScroll: true });
   }
   function backToFeed(push){
-    state.view = 'feed'; state.detailId = null;
+    state.view = 'feed'; state.detailId = null; state.profileId = null;
     state.replyOpen = null; state.reportOpen = null; state.confirmDel = null;
     if(push){
       try { history.pushState({}, '', location.pathname); } catch(e){}
@@ -799,7 +943,9 @@ installShell({
   }
   window.addEventListener('popstate', function(){
     var m = /^#d=(.+)$/.exec(location.hash);
+    var mu = /^#u=(.+)$/.exec(location.hash);
     if(m && byId[decodeURIComponent(m[1])]) openDetail(decodeURIComponent(m[1]), false);
+    else if(mu) openProfile(decodeURIComponent(mu[1]), '', false);
     else backToFeed(false);
   });
 
@@ -970,6 +1116,10 @@ installShell({
           state.filter = btn.dataset.w; render();
           return;
         case 'back': backToFeed(true); return;
+        case 'profile':
+          if(btn.dataset.uid) openProfile(btn.dataset.uid, btn.dataset.uname, true);
+          return;
+        case 'profile-back': backToFeed(true); return;
         case 'vote': case 'vote-txt': if(note) toggleVote(id); return;
         case 'reply':
           if(!note) return;
@@ -1022,9 +1172,12 @@ installShell({
       return;
     }
     loaded = true;
-    /* deep-link #d=<id> : on arrive directement sur un fil */
+    /* deep-link #d=<id> ou #u=<id> : on arrive directement sur un fil
+       ou un profil (celui-ci venu de Messages ou d'une notification) */
     var m = /^#d=(.+)$/.exec(location.hash);
+    var mu = /^#u=(.+)$/.exec(location.hash);
     if(m && byId[decodeURIComponent(m[1])]){ openDetail(decodeURIComponent(m[1]), false); }
+    else if(mu){ openProfile(decodeURIComponent(mu[1]), '', false); }
     else render();
   }
   load();

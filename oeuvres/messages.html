@@ -154,6 +154,12 @@
 .mg-conv-name{font-family:'Fraunces',Georgia,serif;font-weight:900;font-size:1.12rem;
   letter-spacing:-.02em;color:var(--text);margin:0;min-width:0;overflow-wrap:anywhere;}
 .mg-conv-sub{font-family:var(--f-ui);font-size:.74rem;color:var(--ink-soft);margin:2px 0 0;}
+/* le profil est sur la Place publique (mission `profil-membre`) : un simple
+   lien, pas de rendu ici — cette page ne parle jamais à Supabase pour rien
+   qui ne soit la messagerie */
+.mg-profile-link{margin-left:auto;flex:none;white-space:nowrap;
+  display:inline-flex;align-items:center;gap:6px;text-decoration:none;}
+.mg-profile-link svg{width:14px;height:14px;flex:none;}
 .mg-thread{flex:1;min-height:0;overflow-y:auto;padding:18px;display:flex;
   flex-direction:column;gap:8px;scrollbar-width:thin;}
 .mg-b{max-width:min(72%,560px);padding:9px 14px;border-radius:16px;
@@ -228,6 +234,10 @@
   .mg{padding:18px 14px 48px;}
   .mg-b{max-width:86%;}
   .mg-thread,.mg-compose,.mg-conv-head{padding-left:14px;padding-right:14px;}
+  /* le nom peut déjà prendre deux lignes (overflow-wrap:anywhere) ; le lien
+     de profil se réduit à son icône plutôt que de forcer une 3e rangée */
+  .mg-profile-link{padding:0;width:34px;height:34px;justify-content:center;border-radius:50%;}
+  .mg-profile-link .txt{display:none;}
 }
 @media (prefers-reduced-motion:reduce){
   .mg-ct,.mg-btn,.mg-inp,.mg-ta{transition:none;}
@@ -285,6 +295,10 @@
             <h2 class="mg-conv-name" id="mgConvName"></h2>
             <p class="mg-conv-sub" id="mgConvSub"></p>
           </div>
+          <a class="mg-btn mg-profile-link" id="mgProfileLink" href="#" aria-label="Voir le profil">
+            <svg viewBox="0 0 18 18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="6.2" r="3"/><path d="M3 15c0-3 2.7-5 6-5s6 2 6 5"/></svg>
+            <span class="txt">Voir le profil</span>
+          </a>
         </div>
         <div class="mg-thread" id="mgThread" role="log" aria-live="polite" aria-label="Messages"></div>
         <button class="mg-new" id="mgNew" type="button" hidden>Nouveau message ↓</button>
@@ -381,6 +395,7 @@ installShell({
   var convAva = document.getElementById('mgConvAva');
   var convName = document.getElementById('mgConvName');
   var convSub = document.getElementById('mgConvSub');
+  var profileLink = document.getElementById('mgProfileLink');
   var thread = document.getElementById('mgThread');
   var ta = document.getElementById('mgTa');
   var sendBtn = document.getElementById('mgSend');
@@ -556,6 +571,9 @@ installShell({
     convAva.innerHTML = DM.ava(cur.username, found ? found.avatar : '');
     convName.textContent = cur.username;
     convSub.textContent = 'Conversation privée';
+    /* le profil vit sur la Place publique (contrat #u=<id>, mission
+       `profil-membre`) — cette page ne fait que pointer vers lui */
+    if(profileLink) profileLink.href = '/oeuvres/place-publique#u=' + encodeURIComponent(cur.id);
   }
 
   // ── rendu global ─────────────────────────────────────────────────────
