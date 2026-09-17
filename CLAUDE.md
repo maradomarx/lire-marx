@@ -3476,6 +3476,87 @@ section du texte intégral produit une cinquantaine d'erreurs 400 — les images
 de formules mathématiques venant de `wikimedia.org/api/rest_v1/media/math/
 render/svg/…`. Constaté identique à HEAD.
 
+## Le profil membre est cliquable (mission `profil-membre`, sept. 2026)
+
+Signalé depuis la mission `messages-page` (« le bouton "Voir le profil"
+n'existe pas encore ») et redit dans `shell-social.js` (« différés à la
+mission annotations ») : le pseudo d'un lecteur, partout où il apparaît sur
+la Place publique, était un `<span>` inerte.
+
+**Décision d'architecture, avant d'écrire quoi que ce soit** : où vit la vue
+de profil ? Pas une modale — c'est exactement ce que `messages-page` a
+supprimé (la vieille modale Contacts : sans URL, sans lien profond, un pavé
+qui recouvre tout). Pas une page dédiée `oeuvres/profil.html?u=…` non plus —
+la Place publique a déjà le motif exact qu'il faut : `state.view` à trois
+valeurs, `#d=<id>` qui ouvre un fil sans quitter la page, pushState/popstate
+qui font marcher le bouton retour. **Le profil est le troisième état,
+`state.view = 'profile'`, `#u=<id>`.**
+
+**Autonome à `place-publique.html`, rien touché ailleurs.** La page fait déjà
+ses propres requêtes Supabase directement (`fetchAll`, `postDiscussion`…) —
+ce n'est pas `SHELL.social` qui possède les données du forum. Le profil
+suit : `loadProfile(uid)` lit `profiles` (id, username, avatar_url, bio) et
+les `public_notes` DE CET AUTEUR (`.eq('author_id', uid)`), filtrées
+`hidden=false` sauf modérateur — la même requête que `dm.suggestions()`
+dans `shell-social.js`, juste tournée vers un auteur au lieu d'une liste.
+Aucune table ni policy nouvelle.
+
+**Seules les discussions RACINES** (`parent_id` null) — pas les réponses :
+une réponse n'a pas de citation propre (elle hérite de celle de son
+ancêtre), et la profondeur d'un fil n'est pas ce qu'un profil doit montrer.
+Le compte de réponses affiché (« 1 discussion ouverte · 3 réponses ») vient
+d'une requête séparée `count:'exact', head:true` — motif déjà posé par
+`compte-refonte` pour les chiffres de Mon compte.
+
+**Le pseudo+cachet devient un `<button data-act="profile">`**
+(`metaHtml()`), avec `data-uid`/`data-uname` — un attribut DISTINCT de
+`data-id` (déjà utilisé par le délégué pour retrouver une NOTE dans `byId`) :
+les mélanger aurait fait chercher un id de note là où il fallait un id
+d'auteur. Le bouton hérite du texte du parent (`.pf-who{font:inherit}`) et
+ne change que le fond au survol — visuellement identique à l'ancien `<span>`.
+Reproduit partout où `metaHtml` sert déjà : le fil, la vue de fil, les
+réponses imbriquées.
+
+**Les notes fetchées pour le profil REJOIGNENT `byId`.** Sans ça, cliquer une
+discussion listée dans un profil aurait échoué en silence : `openDetail`
+lit `byId[id]`, et un id absent y fait retomber `render()` sur `state.view
+= 'feed'` sans un mot — exactement le genre de bug que `resolveDeepLink`
+évite déjà côté liseuse en vérifiant l'existence avant d'ouvrir. Les cartes
+du profil réutilisent `cardHtml()` tel quel (même select `profiles(username,
+avatar_url)` que `fetchAll`, pour que `metaHtml` s'y comporte pareil).
+
+**« Écrire un message » pointe vers `#c=<pseudo>`** (le contrat déjà posé
+par `messages-page`), et ne s'affiche pas sur son propre profil
+(`isMine({author_id:uid})`, réutilisée telle quelle). Viewing est en
+lecture seule — aucun gate `ensurePoster()` : un invité peut voir un
+profil comme il peut lire le forum.
+
+**Messages ne fait que POINTER, il ne rend rien.** Un lien
+« Voir le profil » dans l'en-tête de la conversation ouverte
+(`.mg-conv-head`) construit `/oeuvres/place-publique#u=<id>` — `cur.id` de
+`DM.convo()` EST le `profiles.id`/`author_id`, le même contrat des deux
+côtés. Dupliquer la vue de profil sur Messages aurait recopié ~250 lignes
+pour un gain nul ; un lien suffit, exactement le calcul déjà fait pour ne
+pas équiper `SHELL.commune`. Icône ronde 34×34 (taille de `.mg-back`, son
+symétrique) sous 560 px — le label texte disparaît, l'`aria-label` reste.
+
+**Vérifié** (production, données réelles via `SHELL.auth.getClient()`) :
+clic sur un pseudo → profil peuplé (avatar, bio, cachet+Caveat or,
+compte exact) ; clic sur une discussion listée → fil ouvert (byId fusionné) ;
+bouton retour du navigateur → `#u=` restauré depuis le cache, sans
+re-fetch ; « Écrire un message » → `/oeuvres/messages#c=<pseudo>` exact ;
+contraste 0 échec (nom 8,44:1, bio 8,86:1, compte 7,57:1, bouton 15,68:1 —
+mesuré sur le FOND PROPRE du bouton, pas celui de la carte, piège déjà
+documenté) ; cible tactile 42×108 sous émulation `pointer:coarse` ; 375 px
+sans débordement, deux colonnes qui s'empilent ; console sans erreur propre
+au code (les deux erreurs de service worker sont le piège déjà documenté de
+la pane intégrée, pas une régression).
+
+**Ce qui reste** : un profil n'affiche que les discussions OUVERTES par ce
+lecteur, pas ses réponses — cohérent avec la doctrine ci-dessus, mais si un
+jour on veut montrer « ce qu'il a dit », c'est une requête `.not('parent_id',
+'is',null)` de plus à écrire, avec la même prudence sur la fusion `byId`.
+
 
 ## Shell partagé : atelier.css + shell.css + shell.js (+ shell-social.js)
 
@@ -3593,13 +3674,8 @@ dans `public_notes` (avec `before/quote/after`). La modération
 (`reports`, `hidden`, rôle `moderators`) est **faite** — mission
 `moderation-5c`, voir la section « Modération » ci-dessous.
 
-**Reste couplé à la liseuse.** Le surlignage précis du passage
-(deep-link au passage) et le profil membre cliquable (notes publiques
-+ « aller au passage ») partagent le même contrat de deep-link et
-sortiront avec la mission annotations. En attendant, le bouton
-« Voir le profil » n'existe pas encore sur la page Messages, et un clic sur
-une notification ouvrira la page de l'œuvre sans surligner le passage
-exact.
+**✅ Le profil membre est cliquable** (mission `profil-membre`,
+sept. 2026) — voir « Le profil membre » plus bas.
 
 **Pour ajouter un livre :**
 1. Créer `oeuvres/<id>.html` + `oeuvres/<id>.css` + le dossier
