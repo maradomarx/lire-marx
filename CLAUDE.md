@@ -10141,6 +10141,105 @@ serveur d'une session précédente, et ses réponses passaient pour les miennes.
   `recherche.json` ne porte donc rien pour cette œuvre — la structure, si.
 - Les notes de Marx ne sont pas servies (comme sur le Capital).
 
+### Le dossier de la Contribution (mission `contribution-dossier`, sept. 2026)
+
+Suite immédiate de `contribution-1859`, sur une consigne qui commande tout :
+**« il faut que le dossier serve précisément la lecture »**. Cinq salles
+(`dossier.js`), tout le contenu SERVI dans le HTML — le motif du Manifeste.
+
+| salle | nature | ce qu'elle fait |
+|---|---|---|
+| I `#deriv` — Le cheminement | à lire | sept marches, de « la marchandise a deux aspects » à « l'argent devient le but » |
+| II `#labo` — La préface, au mot | à manipuler | les sept moments du fil conducteur, chacun avec sa phrase et son allemand |
+| III `#capital` — De 1859 au Capital | à parcourir | trois colonnes réglées : ce qui est déjà là / ce que Le Capital refait / ce qui n'y est pas encore |
+| IV `#chrono` — La chronologie | à parcourir | l'itinéraire 1842-1850, le livre 1857-1859, la suite 1867-1909 |
+| V `#ressources` — Ressources | à consulter | quatre liens vérifiés (Wikisource, Gallica `bpt6k1135015`) |
+
+#### CE QUI A DEMANDÉ LE PLUS DE TRAVAIL : « précisément »
+
+La consigne n'est pas décorative, et la première version ne la tenait pas :
+**quatorze renvois déposaient au haut d'une partie**, c'est-à-dire nulle part.
+Mesuré, puis corrigé en deux temps.
+
+1. **Les sept moments de l'instrument déposaient tous AU MÊME ENDROIT.** Le
+   fil conducteur de la préface est **UN SEUL paragraphe de 673 mots, 2 521 px
+   — presque trois écrans** : viser le BLOC (ce que font `jumpToQuote` et le
+   `flashAnchor` de la maison) mettait le septième moment à trois écrans de sa
+   phrase. `jumpToQuote` cherche donc la phrase dans les **nœuds de TEXTE** et
+   mesure un **`Range`** — aucune mutation du texte servi, dont les
+   annotations sont ancrées par citation. Mesuré après : sept positions
+   distinctes et croissantes, la phrase à 196 px sous les barres à chaque
+   fois. La recherche se fait sur le texte NORMALISÉ et l'index doit revenir
+   au texte brut : on recompte les blancs avalés (`rangeDe`).
+2. **Quatre des sept marches vivent dans le chapitre premier** : leurs quatre
+   renvois disaient « Lire le chapitre premier » et menaient au même haut de
+   page. Chaque marche porte maintenant **sa phrase** (`q`), relevée dans le
+   texte que la liseuse sert, et le libellé dit « Lire ce passage » — le lieu
+   est déjà dans `.asc-lieu`. **`ascension.js` gagne un champ `q` facultatif**
+   sur ses liens et passe le `dataset` du bouton en quatrième argument
+   d'`onSee` : additif, les trois autres ateliers ne changent pas d'un pixel.
+3. **La citation de la marche 4 a été DÉPLACÉE pour que l'ordre du texte suive
+   l'ordre des marches.** Première version : marche 3 à 44 % du chapitre,
+   marche 4 à 22 % — on remontait le texte en descendant la chaîne. La marche
+   4 vise désormais la phrase qu'elle cite déjà (« le procès d'échange est en
+   même temps le procès de formation de l'argent », 99 %). **Vérifier l'ordre
+   des positions, pas seulement que chaque lien tombe juste.**
+
+#### Trois défauts trouvés en éprouvant
+
+- **`rm()` n'existait pas sur cette page.** `activateTab` a été repris du
+  Manifeste sans son aide de reduced-motion : `ReferenceError` au premier clic
+  sur « Le dossier », donc **le dossier ne s'ouvrait pas du tout**. Une
+  fonction copiée d'une autre page emporte ses dépendances.
+- ⚠️ **LE RENVOI ÉTAIT MORT DANS LE TIROIR — et ce défaut valait aussi pour
+  Capital.** `openDrawer` **DÉPLACE** la marche hors de `.asc-chain` ;
+  `ascension.js` déléguait son clic SUR la chaîne, qui ne contient alors plus
+  le nœud. « Voir à l'œuvre » ne faisait donc rien une fois la marche
+  empruntée. L'écouteur est passé sur le `document`, borné aux marches de
+  CETTE chaîne (un `Set` des `.asc-step`). Vérifié sur Capital : la marche
+  revient à sa place et l'instrument prend le tiroir. **Tout écouteur délégué
+  sur un conteneur dont le tiroir emprunte les nœuds est cassé par
+  construction.**
+- **Les trois têtes de colonne de la salle III étaient des `<p>`** : sous le
+  `h2` de la salle, un lecteur d'écran n'avait aucune structure. Passées en
+  `h3` — la règle `.v59-h` fixe taille, graisse et marge, l'aspect ne bouge
+  pas.
+
+#### Faux positifs du détecteur, à ne pas « corriger »
+
+Cinq constats de plus, **0 erreur**. Quatre `cramped-padding` : `.v59` a bien
+`padding:0`, et c'est voulu — c'est la grille dont le **gap de 1 px sur
+`var(--line)` DESSINE le filet**, ses colonnes portent l'air (mesuré au rendu :
+26 px à 1380, 18 px à 375 — le détecteur ne résout pas `clamp()`). C'est le
+motif de `.j-voile`, déjà documenté. Plus un `dark-glow` doré, famille de DA
+documentée.
+
+#### Vérifié
+
+Contraste sur le rendu, **les cinq salles à 1380 et 375 px : 0 échec sur
+954 mesures**, minimum 5,12, aucun texte sous 11 px, aucune cible sous
+24 × 24, **zéro débordement horizontal**, console propre. Les sept moments et
+les sept marches déposent chacun sur SA phrase (position relevée par `Range`,
+indépendamment du code de la page). Tiroir sur les deux espèces de nœud
+(l'instrument, la marche) : emprunt, retour à la place exacte, `aria-modal`,
+cycle de Tab dans les deux sens, **focus rendu au déclencheur** (au VRAI clic
+de souris : un `.click()` de script laisse `document.activeElement` sur
+`<body>` et fait croire à un défaut). Liens profonds `#labo=<moment>`,
+`#deriv=<n>`, `#dossier` et les cinq ids de salle. Rôles ARIA identiques aux
+deux autres dossiers (le `<nav>` garde son landmark, le `tablist` vit sur
+l'enveloppe), flèches du clavier. **Les trois autres ateliers intacts**
+(12 / 6 / 7 marches, plan, renvois, 0 erreur). Détecteur compté **avant et
+après en remisant les modifications** : Capital 19, Manuscrits 13, Manifeste
+14 — **identiques** ; la Contribution passe de 13 à 18, 0 erreur.
+`gen-seo --check` à jour et idempotent. **`ascension.js?v=2`** sur les quatre
+ateliers — il change en même temps qu'un balisage.
+
+#### Ce qui reste pour cette œuvre
+
+Le **glossaire** (elle n'a pas de `CONCEPTS=`, donc rien n'entre encore dans
+l'abécédaire) et la **recherche plein texte** (dix pages Wikisource à charger,
+là où le Manifeste n'en a qu'une).
+
 ## Conventions de travail
 
 - **Une mission par session.** Une demande utilisateur = un objectif clair,

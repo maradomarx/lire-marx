@@ -27,11 +27,32 @@
 <link rel="stylesheet" href="shell.css?v=12">
 <link rel="stylesheet" href="reader-tools.css">
 <style>
-/* Quatrième atelier. Une seule destination dans cette livraison — le texte :
-   pas de barre d'onglets, donc la coquille collante commence sous la seule
-   topbar. C'est exactement l'état de la première livraison du Manifeste. */
-:root{--atl-top:44px;}
+/* Quatrième atelier. Deux destinations, comme les trois autres : le texte
+   et le dossier. `--atl-top` vaut donc 88 (topbar 44 + onglets 44) ; sous
+   600 px atelier.css le ramène à 44 et les offsets JS le RELISENT plutôt
+   que de coder la valeur en dur (atlTop()). */
 .wrap{max-width:1120px;padding:0 22px 90px;}
+
+/* ── LES DEUX DESTINATIONS — le sélecteur segmenté des trois ateliers.
+   Ces règles vivent dans la page et non dans atelier.css : à spécificité
+   égale (0,3,1), c'est le <style> de la page qui gagne. ── */
+nav.tabs.worktabs{display:flex;gap:6px;flex-wrap:nowrap;margin:0;
+  justify-content:flex-start;text-align:left;align-items:center;
+  min-height:44px;overflow-x:auto;scrollbar-width:none;
+  position:sticky;top:44px;z-index:62;padding-top:2px;
+  background:var(--bg);border-top:none;border-bottom:1px solid var(--line);}
+nav.tabs.worktabs::-webkit-scrollbar{display:none;}
+nav.tabs.worktabs .tab{font-family:var(--f-ui);font-weight:600;
+  font-size:.86rem;color:var(--muted);background:none;
+  border:1px solid transparent;border-radius:999px;
+  padding:7px 17px;cursor:pointer;white-space:nowrap;flex:0 0 auto;
+  transition:color .16s,background .16s,border-color .16s;}
+nav.tabs.worktabs .tab:hover{color:var(--ink);background:var(--hover);}
+nav.tabs.worktabs .tab.active{color:var(--ink);
+  background:linear-gradient(150deg,#2c2117,#211a12,#1b150e);
+  border-color:rgba(216,173,76,.28);}
+nav.tabs.worktabs .tab.active::after{display:none;}
+nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
 
 /* ── L'en-tête d'œuvre : son identité, sobre (motif des trois ateliers) ── */
 .work-head{padding:clamp(26px,4vh,38px) 0 clamp(18px,2.4vh,24px);text-align:left;}
@@ -87,6 +108,70 @@
   text-decoration-color:rgba(216,173,76,.5);text-underline-offset:2px;}
 .reader-content .mc-src a:hover{color:var(--gold);}
 .reader.theme-sepia .reader-content h2.mc-part .mc-rn{color:var(--red-deep);}
+
+/* ══════════════════ LE DOSSIER ══════════════════ */
+/* L'ascension (.asc*), la chronologie (.chr*) et la bibliographie (.rss*)
+   vivent dans atelier.css : les quatre ateliers les partagent. Seul
+   l'instrument propre à cette œuvre est ici. */
+
+/* ── L'INSTRUMENT : la préface, au mot.
+   À gauche les sept moments du paragraphe, à droite la fiche, collante
+   pour rester sous les yeux quand on choisit plus bas dans la liste.
+   Même grammaire que la carte des socialismes du Manifeste. ── */
+.prf{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);
+  gap:clamp(24px,3.5vw,44px);align-items:start;}
+.prf-liste{display:flex;flex-direction:column;gap:6px;}
+.prf-pick{display:block;width:100%;text-align:left;font-family:'Fraunces',Georgia,serif;
+  font-weight:600;font-size:.98rem;line-height:1.3;color:var(--ink-soft);background:transparent;
+  border:1px solid var(--line);border-radius:12px;padding:11px 15px;cursor:pointer;
+  transition:color .15s,border-color .15s,background .15s;}
+.prf-pick span{display:block;font-family:var(--f-ui);font-weight:600;font-size:.72rem;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.prf-pick:hover{color:var(--ink);border-color:rgba(216,173,76,.45);background:var(--hover);}
+.prf-pick[aria-pressed="true"]{color:var(--ink);
+  background:linear-gradient(150deg,#2c2117,#211a12,#1b150e);border-color:rgba(216,173,76,.4);}
+.prf-pick[aria-pressed="true"] span{color:var(--gold);}
+.prf-pick:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+.prf-detail{position:sticky;top:calc(var(--atl-top,88px) + 80px);}
+.prf-node{background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:26px clamp(20px,3vw,32px) 24px;}
+.prf-node[hidden]{display:none;}
+.prf-cite{font-family:var(--f-serif);font-size:1.05rem;line-height:1.66;color:var(--ink);
+  margin:0;padding-left:16px;border-left:2px solid var(--red-deep);}
+.prf-de{font-family:var(--f-serif);font-style:italic;font-size:.92rem;line-height:1.6;
+  color:var(--muted);margin:14px 0 0;padding-left:16px;border-left:1px solid var(--line);}
+.prf-node dl{margin:20px 0 0;}
+.prf-node dt{font-family:var(--f-ui);font-size:.8rem;font-weight:600;color:var(--muted);
+  padding-top:14px;border-top:1px solid var(--line);}
+.prf-node dd{margin:5px 0 16px;max-width:64ch;font-family:var(--f-serif);
+  color:var(--ink-soft);line-height:1.62;}
+.prf-node dd:last-of-type{margin-bottom:0;}
+.prf-go{margin:20px 0 0;}
+@media(max-width:820px){.prf{grid-template-columns:1fr;}.prf-detail{position:static;}}
+
+/* ── DE 1859 AU CAPITAL : trois colonnes réglées, une ligne par fait.
+   Ce ne sont pas des cartes : c'est un relevé, et il se lit en colonnes. ── */
+.v59{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;
+  overflow:hidden;margin:0;}
+.v59-col{background:var(--bg);padding:clamp(18px,2.4vw,26px);}
+.v59-h{font-family:var(--f-ui);font-size:.72rem;font-weight:600;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--gold);margin:0 0 4px;}
+.v59-s{font-family:var(--f-serif);font-style:italic;font-size:.9rem;color:var(--muted);
+  margin:0 0 16px;line-height:1.5;}
+.v59-col ul{list-style:none;margin:0;padding:0;}
+.v59-col li{font-family:var(--f-serif);font-size:.95rem;line-height:1.6;color:var(--ink-soft);
+  padding:12px 0;border-top:1px solid var(--line);}
+.v59-col li:first-child{border-top:none;padding-top:0;}
+.v59-col li b{color:var(--ink);font-weight:600;}
+.v59-n{display:block;font-family:var(--f-ui);font-size:.78rem;color:var(--muted);margin-top:4px;}
+.v59-col a{color:var(--ink);text-decoration:underline;
+  text-decoration-color:var(--line-strong);text-underline-offset:3px;}
+.v59-col a:hover,.v59-col a:focus-visible{color:var(--gold);text-decoration-color:var(--gold);}
+.v59-note{font-family:var(--f-serif);font-size:.95rem;line-height:1.65;color:var(--ink-soft);
+  max-width:72ch;margin:22px 0 0;}
+@media(max-width:900px){.v59{grid-template-columns:1fr;}}
+
 </style>
 <!-- Book : DÉRIVÉ de oeuvres/bibliotheque.json par tools/gen-seo.mjs.
      Ne pas éditer à la main — corriger la source, puis regénérer :
@@ -136,6 +221,8 @@
 </script>
 <script src="marge.js?v=1"></script>
 <script src="sommaire.js?v=1"></script>
+<script src="dossier.js?v=1"></script>
+<script src="ascension.js?v=2"></script>
 </head>
 <body class="at-atelier">
 <main class="wrap" id="contenu" tabindex="-1">
@@ -144,6 +231,8 @@
     <h1 class="work-title">Contribution<span class="work-vol">à la critique de l'économie politique</span></h1>
     <p class="work-meta">Karl Marx · 1859 · traduction Laura Lafargue (1909) · domaine public</p>
   </header>
+
+  <nav class="tabs worktabs" id="worktabs" aria-label="Destinations de l'œuvre"></nav>
 
   <div class="atl3" id="atl3">
 
@@ -166,6 +255,243 @@
   <button type="button" class="atl3-full-exit" id="atlFullExit" hidden>
     Quitter le plein écran <kbd>Échap</kbd>
   </button>
+
+  <!-- LE TIROIR — l'appareil vient au texte. Il DÉPLACE le nœud existant
+       (l'instrument, une marche) et le remet à sa place à la fermeture. -->
+  <div class="atl-drawer" id="atlDrawer" hidden role="dialog" aria-labelledby="atlDrawerT">
+    <div class="atl-drawer-bar">
+      <span class="atl-drawer-k">Dans cette partie</span>
+      <span class="atl-drawer-t" id="atlDrawerT"></span>
+      <button type="button" class="atl-drawer-x" id="atlDrawerX" aria-label="Fermer le tiroir">×</button>
+    </div>
+    <div class="atl-drawer-body" id="atlDrawerBody"></div>
+  </div>
+
+  <!-- ===================== LE DOSSIER =====================
+       Tout le contenu est dans le HTML servi (motif du Manifeste) : le
+       script ne fait que monter l'ascension, choisir le moment de la
+       préface et naviguer. Cinq salles, une à l'écran (oeuvres/dossier.js). -->
+  <div class="atl-dossier" id="dossier" hidden>
+  <nav class="atl-dossier-nav" id="dossierNav" aria-label="Sections du dossier"></nav>
+
+  <section class="panel active" id="deriv">
+    <div class="panel-head">
+      <div class="panel-head-main">
+        <h2 class="sec">Le cheminement de la Contribution</h2>
+        <p class="lead">Sept marches, de la marchandise isolée à l'argent — et l'endroit exact où le livre s'arrête.</p>
+      </div>
+    </div>
+    <!-- L'ASCENSION : balisage de oeuvres/ascension.js, produit une fois par
+         AscensionAtelier.html() et servi ici ; la page le monte sans le réécrire. -->
+    <div class="asc" id="asc">
+      <div class="asc-chain" id="ascChain"><span class="asc-thread" aria-hidden="true"><span class="asc-head"></span></span><article class="asc-step" id="asc-1" data-step="1" data-plan="Les deux aspects" style="--rung:rgb(57,89,107)" aria-labelledby="asc-t1"><span class="asc-num" aria-hidden="true">1</span><h3 class="asc-t" id="asc-t1" tabindex="-1"><span class="sr-only">Marche 1 : </span>La marchandise a deux aspects</h3><p class="asc-lieu">Chapitre premier</p><p class="asc-pose">Le livre s'ouvre sur la marchandise isolée, « forme élémentaire » de la richesse bourgeoise. Elle est à la fois une valeur d'usage — un objet utile, d'une qualité déterminée — et une valeur d'échange, où cette qualité ne compte plus.</p><div class="asc-see"><span class="asc-see-lab">Voir à l'œuvre</span><button type="button" class="asc-go" data-k="partie" data-t="2" data-q="Mais chaque marchandise se manifeste sous le double aspect de valeur d’usage et de valeur d’échange"><svg class="asc-ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Lire ce passage</span></button></div><div class="asc-knot"><p class="asc-motor">Deux déterminations dans un même objet <span aria-hidden="true">↓</span></p><p class="asc-f asc-contra"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M2.5 12h6.5"/><path pathLength="1" d="M6 8.5L9.5 12 6 15.5"/><path pathLength="1" d="M21.5 12H15"/><path pathLength="1" d="M18 8.5L14.5 12 18 15.5"/></g><g class="asc-mk-f"><path pathLength="1" d="M2.5 12h6.5"/><path pathLength="1" d="M6 8.5L9.5 12 6 15.5"/><path pathLength="1" d="M21.5 12H15"/><path pathLength="1" d="M18 8.5L14.5 12 18 15.5"/></g></svg><span><span class="sr-only">La contradiction : </span>Comme valeurs d'usage, les marchandises diffèrent par leur qualité ; comme valeurs d'échange, elles ne peuvent différer que par la quantité. Or on les échange : il faut donc qu'elles aient quelque chose de commun, et ce commun ne peut pas être leur utilité, puisque c'est par elle qu'elles diffèrent.</span></p><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Ce qu'elle force : </span>Chercher ce qui les rend commensurables, c'est-à-dire ce qui reste d'une marchandise quand on fait abstraction de son corps.</span></p></div></article><article class="asc-step" id="asc-2" data-step="2" data-plan="Le temps de travail" style="--rung:rgb(83,85,97)" aria-labelledby="asc-t2"><span class="asc-num" aria-hidden="true">2</span><h3 class="asc-t" id="asc-t2" tabindex="-1"><span class="sr-only">Marche 2 : </span>Le temps de travail est la substance</h3><p class="asc-lieu">Chapitre premier</p><p class="asc-pose">Ce qui reste, c'est du travail — non le travail d'un métier, mais du travail général, indifférent à sa forme. Sa seule différence est alors sa durée : « le temps de travail est l'expression quantitative du travail ».</p><div class="asc-see"><span class="asc-see-lab">Voir à l'œuvre</span><button type="button" class="asc-go" data-k="partie" data-t="2" data-q="Le temps de travail est la substance vitale du travail"><svg class="asc-ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Lire ce passage</span></button></div><div class="asc-knot"><p class="asc-motor">Une substance que personne ne produit <span aria-hidden="true">↓</span></p><p class="asc-f asc-contra"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M2.5 12h6.5"/><path pathLength="1" d="M6 8.5L9.5 12 6 15.5"/><path pathLength="1" d="M21.5 12H15"/><path pathLength="1" d="M18 8.5L14.5 12 18 15.5"/></g><g class="asc-mk-f"><path pathLength="1" d="M2.5 12h6.5"/><path pathLength="1" d="M6 8.5L9.5 12 6 15.5"/><path pathLength="1" d="M21.5 12H15"/><path pathLength="1" d="M18 8.5L14.5 12 18 15.5"/></g></svg><span><span class="sr-only">La contradiction : </span>Ce travail général n'est celui de personne en particulier, et il n'existe nulle part comme tel : aucun producteur ne file du travail abstrait, chacun file, tisse ou forge.</span></p><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Ce qu'elle force : </span>Il faut que ce caractère général prenne une forme visible — donc qu'il s'exprime dans quelque chose d'autre que la marchandise elle-même.</span></p></div></article><article class="asc-step" id="asc-3" data-step="3" data-plan="L'expression de la valeur" style="--rung:rgb(109,81,87)" aria-labelledby="asc-t3"><span class="asc-num" aria-hidden="true">3</span><h3 class="asc-t" id="asc-t3" tabindex="-1"><span class="sr-only">Marche 3 : </span>Une valeur ne s'exprime que dans une autre marchandise</h3><p class="asc-lieu">Chapitre premier</p><p class="asc-pose">Une marchandise ne peut pas dire sa valeur seule. Elle ne l'exprime qu'en se rapportant à une autre, qui lui sert de miroir.</p><div class="asc-see"><span class="asc-see-lab">Voir à l'œuvre</span><button type="button" class="asc-go" data-k="partie" data-t="2" data-q="Un équivalent est, en fait, la valeur d’échange d’une marchandise exprimée dans la valeur d’usage d’une autre marchandise"><svg class="asc-ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Lire ce passage</span></button></div><div class="asc-knot"><p class="asc-motor">Nul ne mesure sa propre valeur <span aria-hidden="true">↓</span></p><p class="asc-f asc-contra"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M2.5 12h6.5"/><path pathLength="1" d="M6 8.5L9.5 12 6 15.5"/><path pathLength="1" d="M21.5 12H15"/><path pathLength="1" d="M18 8.5L14.5 12 18 15.5"/></g><g class="asc-mk-f"><path pathLength="1" d="M2.5 12h6.5"/><path pathLength="1" d="M6 8.5L9.5 12 6 15.5"/><path pathLength="1" d="M21.5 12H15"/><path pathLength="1" d="M18 8.5L14.5 12 18 15.5"/></g></svg><span><span class="sr-only">La contradiction : </span>Chaque marchandise renvoie alors à toutes les autres, et chacune de celles-là à toutes : la série n'a pas de fin, et le rapport reste privé, valable pour deux échangistes à la fois.</span></p><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Ce qu'elle force : </span>Il faut qu'une marchandise soit exclue de la série pour servir de mesure à toutes les autres.</span></p></div></article><article class="asc-step" id="asc-4" data-step="4" data-plan="L'équivalent général" style="--rung:rgb(135,77,77)" aria-labelledby="asc-t4"><span class="asc-num" aria-hidden="true">4</span><h3 class="asc-t" id="asc-t4" tabindex="-1"><span class="sr-only">Marche 4 : </span>L'équivalent général, et l'argent qui en sort</h3><p class="asc-lieu">Chapitre premier</p><p class="asc-pose">Une marchandise devient l'équivalent général : le produit dans lequel toutes les autres expriment leur valeur. « Le procès d'échange est en même temps le procès de formation de l'argent. »</p><div class="asc-see"><span class="asc-see-lab">Voir à l'œuvre</span><button type="button" class="asc-go" data-k="partie" data-t="2" data-q="Les rapports évolutifs des marchandises les unes aux autres se cristallisent en déterminations distinctes de l’équivalent général"><svg class="asc-ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Lire ce passage</span></button></div><div class="asc-knot"><p class="asc-motor">L'argent est un résultat, non un présupposé <span aria-hidden="true">↓</span></p><p class="asc-f asc-contra"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M2.5 12h6.5"/><path pathLength="1" d="M6 8.5L9.5 12 6 15.5"/><path pathLength="1" d="M21.5 12H15"/><path pathLength="1" d="M18 8.5L14.5 12 18 15.5"/></g><g class="asc-mk-f"><path pathLength="1" d="M2.5 12h6.5"/><path pathLength="1" d="M6 8.5L9.5 12 6 15.5"/><path pathLength="1" d="M21.5 12H15"/><path pathLength="1" d="M18 8.5L14.5 12 18 15.5"/></g></svg><span><span class="sr-only">La contradiction : </span>L'argent n'a donc rien d'une convention ni d'un signe qu'on aurait choisi pour la commodité. Mais tant qu'on en reste à l'échange de deux marchandises, ce résultat n'est pas encore en mouvement.</span></p><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Ce qu'elle force : </span>Passer de l'échange à la circulation — c'est l'objet du second chapitre.</span></p></div></article><article class="asc-step" id="asc-5" data-step="5" data-plan="Mesure des valeurs" style="--rung:rgb(161,72,67)" aria-labelledby="asc-t5"><span class="asc-num" aria-hidden="true">5</span><h3 class="asc-t" id="asc-t5" tabindex="-1"><span class="sr-only">Marche 5 : </span>Mesurer : le prix vient avant la vente</h3><p class="asc-lieu">Chapitre II, 1</p><p class="asc-pose">Première fonction de l'argent : mesurer les valeurs. Les marchandises ne s'y transforment qu'idéalement ; le prix est une expression de pensée avant d'être une somme versée.</p><div class="asc-see"><span class="asc-see-lab">Voir à l'œuvre</span><button type="button" class="asc-go" data-k="partie" data-t="4" data-q="La détermination de leur prix est leur transformation purement idéale en l’équivalent général"><svg class="asc-ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Lire ce passage</span></button></div><div class="asc-knot"><p class="asc-motor">Une mesure qui n'a pas besoin d'être présente <span aria-hidden="true">↓</span></p><p class="asc-f asc-contra"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M2.5 12h6.5"/><path pathLength="1" d="M6 8.5L9.5 12 6 15.5"/><path pathLength="1" d="M21.5 12H15"/><path pathLength="1" d="M18 8.5L14.5 12 18 15.5"/></g><g class="asc-mk-f"><path pathLength="1" d="M2.5 12h6.5"/><path pathLength="1" d="M6 8.5L9.5 12 6 15.5"/><path pathLength="1" d="M21.5 12H15"/><path pathLength="1" d="M18 8.5L14.5 12 18 15.5"/></g></svg><span><span class="sr-only">La contradiction : </span>Si le prix est idéal, rien ne garantit qu'il coïncide avec la grandeur de valeur, ni même que la marchandise trouve preneur : on peut afficher un prix que personne ne paiera.</span></p><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Ce qu'elle force : </span>Il faut que la marchandise change réellement de mains.</span></p></div></article><article class="asc-step" id="asc-6" data-step="6" data-plan="Moyen de circulation" style="--rung:rgb(187,68,57)" aria-labelledby="asc-t6"><span class="asc-num" aria-hidden="true">6</span><h3 class="asc-t" id="asc-t6" tabindex="-1"><span class="sr-only">Marche 6 : </span>Circuler : la vente et l'achat se séparent</h3><p class="asc-lieu">Chapitre II, 2</p><p class="asc-pose">La métamorphose M—A—M coupe l'échange en deux actes, une vente et un achat, que rien n'oblige à se suivre.</p><div class="asc-see"><span class="asc-see-lab">Voir à l'œuvre</span><button type="button" class="asc-go" data-k="partie" data-t="6" data-q="Or, chaque vente ou achat particulier constitue en même temps un acte indifférent et isolé"><svg class="asc-ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Lire ce passage</span></button></div><div class="asc-knot"><p class="asc-motor">Deux actes, et un intervalle entre eux <span aria-hidden="true">↓</span></p><p class="asc-f asc-contra"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M2.5 12h6.5"/><path pathLength="1" d="M6 8.5L9.5 12 6 15.5"/><path pathLength="1" d="M21.5 12H15"/><path pathLength="1" d="M18 8.5L14.5 12 18 15.5"/></g><g class="asc-mk-f"><path pathLength="1" d="M2.5 12h6.5"/><path pathLength="1" d="M6 8.5L9.5 12 6 15.5"/><path pathLength="1" d="M21.5 12H15"/><path pathLength="1" d="M18 8.5L14.5 12 18 15.5"/></g></svg><span><span class="sr-only">La contradiction : </span>Celui qui a vendu n'est pas tenu d'acheter : la possibilité de la crise est logée dans cette séparation. Et la pièce s'use, cesse de valoir son poids, jusqu'à pouvoir être remplacée par un simple signe.</span></p><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Ce qu'elle force : </span>L'argent cesse d'être un passage entre deux marchandises pour devenir ce qu'on veut garder.</span></p></div></article><article class="asc-step" id="asc-7" data-step="7" data-plan="L'argent ou la monnaie" style="--rung:rgb(213,64,47)" aria-labelledby="asc-t7"><span class="asc-num" aria-hidden="true">7</span><h3 class="asc-t" id="asc-t7" tabindex="-1"><span class="sr-only">Marche 7 : </span>L'argent devient le but</h3><p class="asc-lieu">Chapitre II, 3</p><p class="asc-pose">De M—A—M on passe à A—M—A. L'argent est thésaurisé, sert de moyen de paiement — ce qui noue les producteurs par des dettes — et dépouille sa livrée nationale au passage des frontières.</p><div class="asc-see"><span class="asc-see-lab">Voir à l'œuvre</span><button type="button" class="asc-go" data-k="partie" data-t="7" data-q="L’argent qui, dans la première forme, apparaît comme simple moyen est, dans la dernière, le but final de la circulation"><svg class="asc-ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Lire ce passage</span></button></div><div class="asc-knot"><p class="asc-motor">Ce que ce volume ne dira pas</p><p class="asc-f asc-contra"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M2.5 12h6.5"/><path pathLength="1" d="M6 8.5L9.5 12 6 15.5"/><path pathLength="1" d="M21.5 12H15"/><path pathLength="1" d="M18 8.5L14.5 12 18 15.5"/></g><g class="asc-mk-f"><path pathLength="1" d="M2.5 12h6.5"/><path pathLength="1" d="M6 8.5L9.5 12 6 15.5"/><path pathLength="1" d="M21.5 12H15"/><path pathLength="1" d="M18 8.5L14.5 12 18 15.5"/></g></svg><span><span class="sr-only">La contradiction : </span>Un argent qu'on avance pour le retrouver n'est pourtant pas encore du capital : il faudrait qu'il revienne augmenté, et rien ici ne dit d'où viendrait cette augmentation.</span></p><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Ce qui vient ensuite : </span>La préface annonçait un troisième chapitre, « Le capital en général », et précisait que « les deux premiers chapitres forment le contenu du présent volume ». Le troisième n'a pas paru : huit ans plus tard, c'est Le Capital.</span></p></div></article><p class="asc-close"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span>Les trois excursus — A, B et C — ne sont pas des étapes de cette déduction : ce sont des histoires de théories, que Marx intercale à l'endroit où chaque question avait été débattue avant lui. Ils se lisent à part, et le fil ci-dessus se suit sans eux.</span></p></div>
+      <nav class="asc-plan" aria-label="Les sept marches du cheminement"></nav>
+    </div>
+  </section>
+
+  <section class="panel active" id="labo">
+    <div class="panel-head">
+      <div class="panel-head-main">
+        <h2 class="sec">La préface, au mot</h2>
+        <p class="lead">Le paragraphe du « fil conducteur » en sept moments : ce que chacun pose, et le contresens qu'il appelle.</p>
+      </div>
+    </div>
+    <div class="prf" id="instr-preface">
+      <div class="prf-liste" role="group" aria-label="Les sept moments du paragraphe">
+        <button type="button" class="prf-pick" data-prf="depart" aria-pressed="false"><span>Moment I</span>Le point de départ</button>
+        <button type="button" class="prf-pick" data-prf="base" aria-pressed="false"><span>Moment II</span>La base et la superstructure</button>
+        <button type="button" class="prf-pick" data-prf="conscience" aria-pressed="false"><span>Moment III</span>La conscience — et un mot de la traduction</button>
+        <button type="button" class="prf-pick" data-prf="contradiction" aria-pressed="false"><span>Moment IV</span>La contradiction, et l'ère qui s'ouvre</button>
+        <button type="button" class="prf-pick" data-prf="ideologie" aria-pressed="false"><span>Moment V</span>Les formes idéologiques</button>
+        <button type="button" class="prf-pick" data-prf="limites" aria-pressed="false"><span>Moment VI</span>Les deux limites</button>
+        <button type="button" class="prf-pick" data-prf="prehistoire" aria-pressed="false"><span>Moment VII</span>Les époques, et la préhistoire</button>
+      </div>
+      <div class="prf-detail">
+        <article class="prf-node" id="prf-depart">
+          <blockquote class="prf-cite">Dans la production sociale de leur existence, les hommes entrent en des rapports déterminés, nécessaires, indépendants de leur volonté ; ces rapports de production correspondent à un degré de développement donné de leurs forces productives matérielles.</blockquote>
+          <p class="prf-de" lang="de">In der gesellschaftlichen Produktion ihres Lebens gehen die Menschen bestimmte, notwendige, von ihrem Willen unabhängige Verhältnisse ein, Produktionsverhältnisse, die einer bestimmten Entwicklungsstufe ihrer materiellen Produktivkräfte entsprechen.</p>
+          <dl>
+            <dt>Ce que le moment pose</dt><dd>On ne commence ni par l'individu ni par l'idée, mais par un rapport qu'on trouve déjà là en naissant. « Indépendants de leur volonté » ne dit pas que les hommes subissent : cela dit qu'ils n'ont pas décidé, à l'entrée, des rapports dans lesquels ils produisent.</dd>
+            <dt>L'écueil</dt><dd>Lire cette clause comme « les hommes ne font pas leur histoire ». La phrase situe le lieu où l'on agit ; elle ne nie pas qu'on y agisse.</dd>
+          </dl>
+          <p class="prf-go"><button type="button" class="btn" data-lire="1" data-q="Dans la production sociale de leur existence">Voir dans le texte →</button></p>
+        </article>
+        <article class="prf-node" id="prf-base" hidden>
+          <blockquote class="prf-cite">L'ensemble de ces rapports de production constitue la structure économique de la société, la base réelle, sur quoi s'élève une superstructure juridique et politique et à laquelle correspondent des formes de conscience sociales déterminées.</blockquote>
+          <p class="prf-de" lang="de">Die Gesamtheit dieser Produktionsverhältnisse bildet die ökonomische Struktur der Gesellschaft, die reale Basis, worauf sich ein juristischer und politischer Überbau erhebt, und welcher bestimmte gesellschaftliche Bewußtseinsformen entsprechen.</p>
+          <dl>
+            <dt>Ce que le moment pose</dt><dd>La métaphore la plus citée de Marx tient en une phrase, dans une préface, et elle n'est jamais reprise sous cette forme dans Le Capital. Les verbes sont ceux de la correspondance — « s'élève », « correspondent » — non ceux de la cause à effet.</dd>
+            <dt>L'écueil</dt><dd>En faire un modèle à deux étages où le bas commanderait le haut. Ce n'est pas la phrase qui dit cela, c'est l'usage qu'on en a fait ; et Marx écrit trois lignes plus bas que les formes idéologiques sont là où le conflit se mène à bout.</dd>
+          </dl>
+          <p class="prf-go"><button type="button" class="btn" data-lire="1" data-q="la base réelle, sur quoi s’élève une superstructure">Voir dans le texte →</button></p>
+        </article>
+        <article class="prf-node" id="prf-conscience" hidden>
+          <blockquote class="prf-cite">Ce n'est pas la conscience des hommes qui détermine la réalité ; c'est au contraire la réalité sociale qui détermine leur conscience.</blockquote>
+          <p class="prf-de" lang="de">Es ist nicht das Bewußtsein der Menschen, das ihr Sein, sondern umgekehrt ihr gesellschaftliches Sein, das ihr Bewußtsein bestimmt.</p>
+          <dl>
+            <dt>Ce que le moment pose</dt><dd>L'allemand dit « leur <i>être</i> » (<i lang="de">ihr Sein</i>) et « leur <i>être social</i> » (<i lang="de">ihr gesellschaftliches Sein</i>). Laura Lafargue rend les deux par « la réalité ». Le mot que la phrase perd est un terme de philosophie : ce que la conscience ne détermine pas, ce n'est pas le réel en général, c'est la manière dont les hommes existent ensemble.</dd>
+            <dt>L'écueil</dt><dd>Dans la traduction française, la phrase ressemble à une thèse sur la pensée et le réel — et l'on discute alors de matérialisme et d'idéalisme. Dans l'allemand, c'est une thèse sur la société.</dd>
+          </dl>
+          <p class="prf-go"><button type="button" class="btn" data-lire="1" data-q="Ce n’est pas la conscience des hommes qui détermine la réalité">Voir dans le texte →</button></p>
+        </article>
+        <article class="prf-node" id="prf-contradiction" hidden>
+          <blockquote class="prf-cite">À un certain stade de leur développement les forces productives de la société entrent en contradiction avec les rapports de production existants […] De formes évolutives des forces productives qu'ils étaient, ces rapports deviennent des entraves de ces forces. Alors s'ouvre une ère de révolution sociale.</blockquote>
+          <dl>
+            <dt>Ce que le moment pose</dt><dd>C'est le moteur du paragraphe, et le seul endroit où il dit un mouvement. Les mêmes rapports qui permettaient le développement finissent par l'empêcher : ce n'est pas une force extérieure qui vient briser l'ordre, c'est l'ordre qui devient sa propre entrave.</dd>
+            <dt>L'écueil</dt><dd>Lire « alors s'ouvre » comme une échéance. Une ère qui s'ouvre n'est pas une date, et la suite du paragraphe pose aussitôt deux limites à ce mouvement.</dd>
+          </dl>
+          <p class="prf-go"><button type="button" class="btn" data-lire="1" data-q="Alors s’ouvre une ère de révolution sociale">Voir dans le texte →</button></p>
+        </article>
+        <article class="prf-node" id="prf-ideologie" hidden>
+          <blockquote class="prf-cite">il importe de distinguer toujours entre le bouleversement matériel des conditions de production économiques […] et les formes juridiques, politiques, religieuses, artistiques ou philosophiques, bref, les formes idéologiques sous lesquelles les hommes deviennent conscients de ce conflit et le mènent à bout.</blockquote>
+          <dl>
+            <dt>Ce que le moment pose</dt><dd>La phrase qui interdit de tenir les idées pour un décor. On y prend conscience du conflit, et on l'y <i>mène à bout</i> : c'est donc là que la lutte se joue, et pas seulement là qu'elle se reflète.</dd>
+            <dt>L'écueil</dt><dd>La lire comme un congédiement des idées. Elle dit qu'on ne les explique pas par elles-mêmes — « de même qu'on ne juge pas un individu sur l'idée qu'il se fait de lui » — non qu'elles ne font rien.</dd>
+          </dl>
+          <p class="prf-go"><button type="button" class="btn" data-lire="1" data-q="les formes idéologiques sous lesquelles les hommes deviennent conscients">Voir dans le texte →</button></p>
+        </article>
+        <article class="prf-node" id="prf-limites" hidden>
+          <blockquote class="prf-cite">Une société ne disparaît jamais avant que soient développées toutes les forces productives qu'elle est assez large pour contenir […] C'est pourquoi l'humanité ne se pose jamais que les problèmes qu'elle peut résoudre.</blockquote>
+          <dl>
+            <dt>Ce que le moment pose</dt><dd>Les deux propositions les plus discutées du paragraphe, et la seconde découle de la première : un problème ne se présente que lorsque les conditions matérielles de le résoudre « existent ou du moins sont en voie de devenir ».</dd>
+            <dt>L'écueil</dt><dd>Citer la seconde seule, comme un optimisme ou une maxime. Détachée de la première, elle devient une formule de sagesse ; rattachée, c'est une thèse sur le moment où une question peut être posée.</dd>
+          </dl>
+          <p class="prf-go"><button type="button" class="btn" data-lire="1" data-q="l’humanité ne se pose jamais que les problèmes qu’elle peut résoudre">Voir dans le texte →</button></p>
+        </article>
+        <article class="prf-node" id="prf-prehistoire" hidden>
+          <blockquote class="prf-cite">Esquissés à grands traits, les modes de production asiatiques, antiques, féodaux et bourgeois modernes peuvent être désignés comme autant d'époques progressives de la formation sociale économique. […] Avec cette formation sociale s'achève donc la préhistoire de la société humaine.</blockquote>
+          <p class="prf-de" lang="de">ökonomische Gesellschaftsformation · Vorgeschichte der menschlichen Gesellschaft</p>
+          <dl>
+            <dt>Ce que le moment pose</dt><dd>Marx écrit « esquissés à grands traits » : c'est une esquisse, et il le dit. « Préhistoire » ne veut pas dire que rien n'a eu lieu — cela dit que ce qui a eu lieu jusqu'ici s'est fait sous un antagonisme né des conditions sociales, et non des individus.</dd>
+            <dt>L'écueil</dt><dd>En tirer une succession obligatoire de stades que toute société devrait parcourir. Le « mode de production asiatique » a nourri un siècle de débats précisément parce qu'il ne se range pas dans cette file.</dd>
+          </dl>
+          <p class="prf-go"><button type="button" class="btn" data-lire="1" data-q="autant d’époques progressives de la formation sociale économique">Voir dans le texte →</button></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel active" id="capital">
+    <div class="panel-head">
+      <div class="panel-head-main">
+        <h2 class="sec">De 1859 au Capital</h2>
+        <p class="lead">Huit ans séparent les deux livres, et ils commencent par la même phrase. Relevé dans les deux textes que ce site sert.</p>
+      </div>
+    </div>
+    <div class="v59">
+      <div class="v59-col">
+        <h3 class="v59-h">Ce qui est déjà là</h3>
+        <p class="v59-s">1859 le pose, 1867 le reprend.</p>
+        <ul>
+          <li>La <b>marchandise</b> comme point de départ, « forme élémentaire » de la richesse.</li>
+          <li>Le <b>double aspect</b> : valeur d'usage et valeur d'échange.</li>
+          <li>Le <b>temps de travail</b> comme substance de la valeur.<span class="v59-n">182 occurrences dans le livre.</span></li>
+          <li>L'<b>équivalent général</b>, et l'argent qui en sort.<span class="v59-n">35 occurrences.</span></li>
+          <li>La circulation <b>M—A—M</b>, la vente séparée de l'achat, et la possibilité de la crise.</li>
+          <li>Les <b>fonctions de l'argent</b> : mesure, moyen de circulation, thésaurisation, paiement, monnaie universelle.</li>
+        </ul>
+      </div>
+      <div class="v59-col">
+        <h3 class="v59-h">Ce que Le Capital refait</h3>
+        <p class="v59-s">Le même sujet, autrement exposé.</p>
+        <ul>
+          <li><b>La première phrase.</b> Ici : « la richesse de la <i>société bourgeoise</i> ». En 1867 : « la richesse des <i>sociétés dans lesquelles règne le mode de production capitaliste</i> » — et Marx l'y met entre guillemets, avec une note : il se cite lui-même.</li>
+          <li><b>La forme-valeur.</b> Le chapitre I de 1867 la déroule en quatre formes, de la forme simple à la forme argent. Les mots « forme relative » et « forme équivalent » n'apparaissent <b>pas une seule fois</b> ici.<span class="v59-n"><a href="/glossaire/forme-valeur">La forme-valeur →</a></span></li>
+          <li><b>L'ordre de l'exposé.</b> Ce qui tient ici en deux chapitres et trois excursus devient une première section de trois chapitres, notes rejetées en bas de page.<span class="v59-n"><a href="/oeuvres/capital-1/chapitre-1">Le chapitre I expliqué →</a></span></li>
+        </ul>
+      </div>
+      <div class="v59-col">
+        <h3 class="v59-h">Ce qui n'y est pas encore</h3>
+        <p class="v59-s">Le volume s'arrête avant le capital.</p>
+        <ul>
+          <li><b>Le fétichisme de la marchandise.</b> Zéro occurrence ici ; une section entière du chapitre I en 1867.<span class="v59-n"><a href="/glossaire/fetichisme">Le fétichisme →</a></span></li>
+          <li><b>La force de travail.</b> Zéro occurrence : la marchandise dont l'usage produit de la valeur n'est pas encore nommée.<span class="v59-n"><a href="/glossaire/force-de-travail">La force de travail →</a></span></li>
+          <li><b>La plus-value.</b> Une seule occurrence dans tout le livre, et elle est dans un excursus d'histoire des théories.<span class="v59-n"><a href="/glossaire/plus-value">La plus-value →</a></span></li>
+        </ul>
+      </div>
+    </div>
+    <p class="v59-note">La préface annonce pourtant la suite : la première section devait compter « 1. La marchandise ; 2. La monnaie ou la circulation simple ; 3. Le capital en général », et Marx précise que « les deux premiers chapitres forment le contenu du présent volume ». Le troisième n'a jamais paru sous ce titre. Ce qui vient à sa place, huit ans plus tard, est un autre livre.</p>
+  </section>
+
+  <section class="panel active" id="chrono">
+    <div class="panel-head">
+      <div class="panel-head-main">
+        <h2 class="sec">La chronologie de la Contribution</h2>
+        <p class="lead">Seize ans d'études avant un volume de deux chapitres — et cinquante ans avant sa traduction française.</p>
+      </div>
+    </div>
+    <div class="chr">
+      <figure class="chr-fig">
+        <picture>
+          <source srcset="../assets/img/archive/zur-kritik-titre-1859.webp" type="image/webp">
+          <img src="../assets/img/archive/zur-kritik-titre-1859.jpg" alt="Page de titre de la première édition : Zur Kritik der Politischen Oekonomie von Karl Marx, Erstes Heft, Berlin, Verlag von Franz Duncker, 1859" loading="lazy" decoding="async" width="500" height="788">
+        </picture>
+        <figcaption>Page de titre, Berlin, Franz Duncker, 1859 · domaine public</figcaption>
+      </figure>
+      <div class="chr-main">
+        <section class="chr-temps" aria-labelledby="chr-t1">
+          <h3 class="chr-h" id="chr-t1">L'itinéraire</h3>
+          <p class="chr-note">Ces quatre étapes, c'est la préface elle-même qui les raconte.</p>
+          <ol class="chr-list">
+            <li class="chr-ev"><span class="chr-y">1842-43</span><div><h4>La Rheinische Zeitung</h4><p>Rédacteur du journal, Marx se trouve « dans l'obligation embarrassante de dire [son] mot sur les soi-disant intérêts matériels » : les débats du Landtag rhénan sur les délits forestiers et le morcellement de la propriété foncière le mènent aux questions économiques.</p></div></li>
+            <li class="chr-ev"><span class="chr-y">1844</span><div><h4>Paris, et la révision critique de Hegel</h4><p>L'introduction à une révision de la philosophie du droit de Hegel paraît dans les <i>Deutsch-Französische Jahrbücher</i>. Le résultat, dit la préface : « l'anatomie de la société est à chercher dans l'économie politique ».</p></div></li>
+            <li class="chr-ev"><span class="chr-y">1845</span><div><h4>Bruxelles, et le manuscrit abandonné</h4><p>Avec Engels, deux forts volumes sont écrits puis laissés « à la critique rongeuse des souris », le but principal étant atteint : « voir clair en nous-mêmes ».</p></div></li>
+            <li class="chr-ev"><span class="chr-y">1850</span><div><h4>Londres, le British Museum</h4><p>Les études reprennent devant « la prodigieuse quantité de matériaux pour l'histoire de l'Économie politique amoncelée au British Museum ».</p></div></li>
+          </ol>
+        </section>
+        <section class="chr-temps" aria-labelledby="chr-t2">
+          <h3 class="chr-h" id="chr-t2">Le livre</h3>
+          <ol class="chr-list">
+            <li class="chr-ev"><span class="chr-y">août 1857</span><div><h4>Une introduction écrite, puis écartée</h4><p>Marx ébauche une introduction générale et renonce à l'employer : « anticiper sur des résultats qu'il reste encore à démontrer pourrait déconcerter ». Elle restera manuscrite.</p></div></li>
+            <li class="chr-ev"><span class="chr-y">1858-59</span><div><h4>La rédaction</h4><p>Le texte est écrit d'août 1858 à janvier 1859 ; la préface est datée « Londres, janvier 1859 ».</p></div></li>
+            <li class="chr-ev"><span class="chr-y">1859</span><div><h4>Berlin, chez Franz Duncker</h4><p>Le volume paraît sous la mention <i lang="de">Erstes Heft</i> — premier fascicule. Le plan qu'annonce la préface en compte six livres : « Capital, Propriété, Travail salarié ; État, Commerce extérieur, Marché mondial ». Aucun n'a été achevé sous cette forme.</p></div></li>
+          </ol>
+        </section>
+        <section class="chr-temps" aria-labelledby="chr-t3">
+          <h3 class="chr-h" id="chr-t3">La suite</h3>
+          <ol class="chr-list">
+            <li class="chr-ev"><span class="chr-y">1867</span><div><h4>Le Capital, Livre I</h4><p>La marchandise et la monnaie sont reprises et refondues ; la première phrase de 1859 y revient, entre guillemets.</p></div></li>
+            <li class="chr-ev"><span class="chr-y">1902-03</span><div><h4>Kautsky retrouve l'introduction</h4><p>Karl Kautsky découvre l'introduction de 1857 dans les papiers laissés par Marx et la publie en mars 1903 dans <i>Die Neue Zeit</i>. Les carnets dont elle provient — les <i>Grundrisse</i> — ne seront retrouvés qu'en 1923.</p></div></li>
+            <li class="chr-ev"><span class="chr-y">1909</span><div><h4>La traduction de Laura Lafargue</h4><p>Elle paraît chez V. Giard et E. Brière, établie sur la deuxième édition allemande de Kautsky. C'est pourquoi l'introduction de 1857, absente du volume de 1859, se trouve en appendice du volume français — et donc dans le texte que vous lisez ici.</p></div></li>
+          </ol>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel active" id="ressources">
+    <div class="panel-head">
+      <div class="panel-head-main">
+        <h2 class="sec">Ressources</h2>
+        <p class="lead">Le texte, son fac-similé, et les deux morceaux qu'on cite le plus souvent seuls.</p>
+      </div>
+    </div>
+    <span class="rss-section-label">Le texte et son original</span>
+    <div class="rss-grid">
+      <a class="rss-card" href="https://fr.wikisource.org/wiki/Contribution_%C3%A0_la_critique_de_l%E2%80%99%C3%A9conomie_politique" target="_blank" rel="noopener">
+        <div class="rss-card-top"><span class="rss-badge">Texte</span><span class="rss-ext"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12L12 2M12 2H7.5M12 2V6.5"/></svg></span></div>
+        <div class="rss-title">Le livre entier sur Wikisource</div>
+        <div class="rss-meta">Traduction Laura Lafargue, 1909 · la source du texte servi ici</div>
+      </a>
+      <a class="rss-card" href="https://gallica.bnf.fr/ark:/12148/bpt6k1135015" target="_blank" rel="noopener">
+        <div class="rss-card-top"><span class="rss-badge">Fac-similé</span><span class="rss-ext"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12L12 2M12 2H7.5M12 2V6.5"/></svg></span></div>
+        <div class="rss-title">L'édition de 1909, page à page</div>
+        <div class="rss-meta">Gallica, BnF · l'exemplaire numérisé dont Wikisource a tiré son texte</div>
+      </a>
+      <a class="rss-card" href="https://fr.wikisource.org/wiki/Contribution_%C3%A0_la_critique_de_l%E2%80%99%C3%A9conomie_politique/Pr%C3%A9face" target="_blank" rel="noopener">
+        <div class="rss-card-top"><span class="rss-badge">Extrait</span><span class="rss-ext"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12L12 2M12 2H7.5M12 2V6.5"/></svg></span></div>
+        <div class="rss-title">La préface seule</div>
+        <div class="rss-meta">Wikisource · à citer ou à transmettre sans le reste du volume</div>
+      </a>
+      <a class="rss-card" href="https://fr.wikisource.org/wiki/Contribution_%C3%A0_la_critique_de_l%E2%80%99%C3%A9conomie_politique/Appendice" target="_blank" rel="noopener">
+        <div class="rss-card-top"><span class="rss-badge">Extrait</span><span class="rss-ext"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12L12 2M12 2H7.5M12 2V6.5"/></svg></span></div>
+        <div class="rss-title">L'introduction de 1857 seule</div>
+        <div class="rss-meta">Wikisource · l'appendice, sur la méthode de l'économie politique</div>
+      </a>
+    </div>
+  </section>
+
+  </div><!-- /#dossier -->
 
 </main>
 <!-- PIED:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main -->
@@ -229,11 +555,11 @@
      l'écrit. `t` : le titre de la partie.
      ══════════════════════════════════════════════════════════════════ */
   var MC_STRUCT=[
-    {g:1, grp:'Préface', t:'Préface', rn:'',
+    {g:1, grp:'Préface', t:'Préface', rn:'', prf:'depart',
      p:[{page:'Préface', d:'preface'}],
      s:"On l'appelle la préface de 1859, du lieu et de la date qu'elle porte en bas : Londres, janvier 1859. Marx y donne le plan de l'ouvrage, puis raconte un itinéraire — le droit, la Rheinische Zeitung, les débats du Landtag rhénan sur les délits forestiers, la révision critique de la philosophie du droit de Hegel. Au milieu de ce récit vient, en un seul paragraphe, le « fil conducteur » de ses études : les rapports de production comme base réelle, la superstructure juridique et politique qui s'élève dessus, et le conflit entre forces productives et rapports de propriété qui ouvre une ère de révolution sociale. C'est la page la plus citée de toute son œuvre, et elle n'est pas donnée comme une doctrine : comme le résumé d'un travail."},
 
-    {g:2, grp:'Chapitre premier — La marchandise', t:'La marchandise', rn:'I', sur:'Chapitre premier',
+    {g:2, grp:'Chapitre premier — La marchandise', t:'La marchandise', rn:'I', sur:'Chapitre premier', w:1,
      p:[{page:'Chapitre 1', d:'chapitre premier la marchandise'}],
      s:"La richesse de la société bourgeoise apparaît d'abord comme une immense accumulation de marchandises — la phrase qui ouvrira Le Capital huit ans plus tard. Marx analyse le double aspect de la marchandise, valeur d'usage et valeur d'échange, établit que le temps de travail social est ce qui rend les marchandises commensurables, puis suit la difficulté qui en résulte : une marchandise ne peut exprimer sa valeur que dans une autre, jusqu'à ce qu'une marchandise exclue de la série devienne l'équivalent général. La formation de l'argent est le dénouement de ce procès, jamais son présupposé."},
 
@@ -241,7 +567,7 @@
      p:[{page:'A', d:'a historique de l analyse de la marchandise'}],
      s:"Le premier des trois excursus d'histoire des théories, que l'édition intercale entre les chapitres. Marx remonte à Petty et à Boisguillebert, passe par Franklin, les physiocrates, Adam Smith et Ricardo, et date pour chacun ce qui a été découvert et ce qui manquait encore. La discussion se referme sur Ricardo et sur ses critiques socialistes, puis sur une question laissée ouverte, que la théorie de la rente foncière devra reprendre : d'où vient la valeur d'échange de simples forces de la nature ?"},
 
-    {g:4, grp:'Chapitre II — La monnaie ou la circulation simple', t:'1. Mesure des valeurs', rn:'II', sur:'Chapitre II',
+    {g:4, grp:'Chapitre II — La monnaie ou la circulation simple', t:'1. Mesure des valeurs', rn:'II', sur:'Chapitre II', w:5,
      p:[{page:'Chapitre 2', d:'chapitre ii la monnaie ou la circulation simple'},
         {page:'Chapitre 2/1', d:'i mesure des valeurs', h:'1. Mesure des valeurs'}],
      s:"Le chapitre s'ouvre sur un mot de Gladstone — l'amour lui-même n'a pas tourné la tête à plus de gens que la spéculation sur l'essence de l'argent — et pose que l'or y sera partout supposé la marchandise monnaie. Vient alors la première fonction : mesurer les valeurs. Dans la détermination du prix, les marchandises ne se transforment en or qu'idéalement ; le prix est une expression de pensée avant d'être une somme versée. De là suivent l'étalon des prix, sa différence d'avec la mesure des valeurs, et l'écart possible entre le prix d'une marchandise et sa grandeur de valeur."},
@@ -250,11 +576,11 @@
      p:[{page:'B', d:'b theories de l unite de mesure de la monnaie'}],
      s:"Deuxième excursus, et il découle du précédent : puisque la transformation des marchandises en or n'est qu'idéale dans le prix, on a cru pouvoir faire de l'unité monétaire une mesure purement idéale, détachée de toute marchandise. Marx suit cette doctrine de Steuart à Urquhart, à travers les controverses anglaises sur la livre sterling, et en montre l'origine : la confusion du nom des espèces avec leur substance. Il s'achève sur les socialistes qui font de la marchandise le principe et de la monnaie un accident dont on pourrait se défaire."},
 
-    {g:6, grp:'Chapitre II — La monnaie ou la circulation simple', t:'2. Moyen de circulation', rn:'II', sur:'Chapitre II',
+    {g:6, grp:'Chapitre II — La monnaie ou la circulation simple', t:'2. Moyen de circulation', rn:'II', sur:'Chapitre II', w:6,
      p:[{page:'Chapitre 2/2', d:'2 moyen de circulation'}],
      s:"La partie la plus longue du livre. Fixer un prix n'est pas vendre : il faut que la marchandise change réellement de mains. Marx suit la métamorphose M—A—M, la sépare en une vente et un achat, et montre que la possibilité de la crise est déjà logée dans cette séparation — rien ne garantit que celui qui a vendu achète. Viennent ensuite le cours de la monnaie, la masse de moyens de circulation qu'il exige, puis l'apparition du signe de valeur : la pièce s'use, cesse de valoir son poids, et l'État peut y substituer un jeton dont le mouvement ne dérive plus de la métamorphose des marchandises."},
 
-    {g:7, grp:'Chapitre II — La monnaie ou la circulation simple', t:'3. L’argent ou la monnaie', rn:'II', sur:'Chapitre II',
+    {g:7, grp:'Chapitre II — La monnaie ou la circulation simple', t:'3. L’argent ou la monnaie', rn:'II', sur:'Chapitre II', w:7,
      p:[{page:'Chapitre 2/3', d:'3 l argent ou la monnaie'}],
      s:"L'argent cesse d'être un intermédiaire pour devenir le but : de M—A—M on passe à A—M—A. Marx en suit les trois figures. La thésaurisation, où l'argent est retiré de la circulation et gardé pour lui-même. Le moyen de paiement, où la vente et le règlement se séparent dans le temps, ce qui noue les producteurs les uns aux autres par des dettes et prépare les crises. La monnaie universelle enfin, qui dépouille sa livrée nationale au passage des frontières : les possesseurs de marchandises finissent par comprendre que la nationalité n'est qu'une empreinte sur la pièce."},
 
@@ -278,12 +604,140 @@
   function norm(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')
     .replace(/[^a-z0-9]+/g,' ').trim();}
 
-  /* Une seule destination dans cette livraison. window.activateTab existe
-     parce que le shell l'appelle ; elle n'a rien à faire ici. */
-  var curTab='lire';
-  window.activateTab=function(){ curTab='lire'; };
-  function syncTabsA11y(){}
+  /* ══════════════════════════════════════════════════════════════════
+     DEUX DESTINATIONS, ET LE TEXTE EST LA PREMIÈRE.
+     Le dossier est un CONTENEUR : ses salles restent `panel active`,
+     c'est oeuvres/dossier.js qui n'en montre qu'une.
+     ══════════════════════════════════════════════════════════════════ */
+  var TABS=[{id:'lire',label:'Lire le texte'},{id:'dossier',label:'Le dossier',glose:'pour approfondir'}];
+  var DOSSIER=['deriv','labo','capital','chrono','ressources'];
+  var DOSSIER_LABELS={deriv:'Le cheminement',labo:'La préface, au mot',
+    capital:'De 1859 au Capital',chrono:'La chronologie',ressources:'Les ressources'};
+  var DOSSIER_NATURE={deriv:'à lire',labo:'à manipuler',capital:'à parcourir',
+    chrono:'à parcourir',ressources:'à consulter'};
+  var WALK_T=['La marchandise a deux aspects','Le temps de travail est la substance',
+    'Une valeur ne s’exprime que dans une autre marchandise','L’équivalent général, et l’argent qui en sort',
+    'Mesurer : le prix vient avant la vente','Circuler : la vente et l’achat se séparent',
+    'L’argent devient le but'];
+  var PRF_T={depart:'Le point de départ',base:'La base et la superstructure',
+    conscience:'La conscience — et un mot de la traduction',
+    contradiction:'La contradiction, et l’ère qui s’ouvre',ideologie:'Les formes idéologiques',
+    limites:'Les deux limites',prehistoire:'Les époques, et la préhistoire'};
+  var curTab='lire', a11yBooted=false;
+  function rm(){ return window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+
+  /* La coquille collante vaut 88 (topbar + onglets), mais atelier.css la
+     ramène à 44 sous 600 px : on RELIT la variable au lieu de la figer. */
+  function atlTop(){
+    var v=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--atl-top'));
+    return isFinite(v)&&v>0?v:88;
+  }
+  function tabForHash(h){
+    if(h==='lire'||h==='dossier')return h;
+    return DOSSIER.indexOf(h)>=0?'dossier':null;
+  }
+  function buildTabs(){
+    var bar=byId('worktabs'); if(!bar)return;
+    bar.innerHTML=TABS.map(function(p){
+      return '<button type="button" class="tab" data-panel="'+p.id+'">'+p.label
+        +(p.glose?'<span class="tab-glose"> · '+p.glose+'</span>':'')+'</button>';}).join('');
+    bar.querySelectorAll('.tab').forEach(function(b){
+      b.addEventListener('click',function(){window.activateTab(b.dataset.panel);});});
+  }
+  function syncTabsA11y(pid){
+    var S=window.SHELL; if(!S)return;
+    if(S.tabs)S.tabs(byId('worktabs'),function(b){return b.dataset.panel;});
+    var deep=/^#(note=|s=|partie=|labo=)/.test(location.hash||'');
+    if(a11yBooted&&!(deep&&!window.__deepBooted)){ try{history.replaceState(null,'','#'+pid);}catch(e){} }
+    if(pid!=='lire')document.body.classList.remove('at-reading');
+    if(a11yBooted&&S.announce)S.announce(pid==='dossier'?'Le dossier':'Lire le texte');
+    a11yBooted=true;
+  }
   window.syncTabsA11y=syncTabsA11y;
+
+  function dosOffset(){ var nav=byId('dossierNav'); return atlTop()+(nav?nav.getBoundingClientRect().height:0)+10; }
+  function dosGo(id,smooth){ if(window.DossierAtelier) DossierAtelier.show(id,{smooth:!!smooth}); }
+  function buildDossier(){
+    var dn=byId('dossierNav'), box=byId('dossier');
+    if(!dn||!box||!window.DossierAtelier)return;
+    DossierAtelier.install({
+      box:box, nav:dn, offset:dosOffset,
+      ordre:DOSSIER.map(function(id){
+        return {id:id,label:DOSSIER_LABELS[id],nature:DOSSIER_NATURE[id]};})
+    });
+  }
+
+  window.activateTab=function(id,anchor){
+    if(id!=='dossier')id='lire';
+    curTab=id; window.curTabId=id;
+    document.querySelectorAll('#worktabs .tab').forEach(function(b){ b.classList.toggle('active',b.dataset.panel===id); });
+    byId('atl3').hidden=(id!=='lire');
+    byId('dossier').hidden=(id!=='dossier');
+    document.body.classList.toggle('at-dossier',id==='dossier');
+    if(anchor){ var boot=!a11yBooted; setTimeout(function(){dosGo(anchor,!boot);},boot?90:60); }
+    else if(a11yBooted) window.scrollTo({top:0,behavior:rm()?'auto':'smooth'});
+    syncTabsA11y(id);
+  };
+  window.curTabId='lire';
+
+  /* ══════════════════ L'INSTRUMENT : la préface, au mot ══════════════════ */
+  function pickMoment(id){
+    var node=byId('prf-'+id); if(!node)return;
+    document.querySelectorAll('.prf-pick').forEach(function(b){
+      b.setAttribute('aria-pressed', b.dataset.prf===id?'true':'false'); });
+    document.querySelectorAll('.prf-node').forEach(function(n){ n.hidden=(n!==node); });
+  }
+  function wirePreface(){
+    document.querySelectorAll('.prf-pick').forEach(function(b){
+      b.addEventListener('click',function(){ pickMoment(b.dataset.prf); }); });
+    /* « Voir dans le texte » : on quitte le dossier pour la partie, et l'on
+       se pose sur la phrase — c'est tout l'objet de cette salle. */
+    document.querySelectorAll('.prf-node [data-lire]').forEach(function(b){
+      b.addEventListener('click',function(){ goTexte(+b.dataset.lire, b.dataset.q); }); });
+  }
+
+  /* ══════════════════ LE TIROIR ══════════════════ */
+  var drawerNode=null,drawerHome=null,drawerNext=null,drawerOpener=null;
+  function openDrawer(kind,target){
+    closeDrawer(true);
+    var node=null,title='';
+    if(kind==='prf'){ node=byId('instr-preface'); title='La préface, au mot'; pickMoment(target); }
+    else if(kind==='step'){
+      node=document.querySelector('.asc-step[data-step="'+target+'"]');
+      title='Marche '+target+' — '+(WALK_T[target-1]||'');
+    }
+    if(!node)return;
+    drawerNode=node; drawerHome=node.parentNode; drawerNext=node.nextSibling; drawerOpener=document.activeElement;
+    byId('atlDrawerBody').appendChild(node);
+    node.classList.add('atl-drawer-in');
+    byId('atlDrawerT').textContent=title;
+    var d=byId('atlDrawer'); d.hidden=false; d.setAttribute('aria-modal','true'); d.addEventListener('keydown',drawerTrap);
+    document.body.classList.add('atl-drawer-on');
+    var x=byId('atlDrawerX'); if(x)x.focus();
+    if(window.SHELL&&SHELL.announce)SHELL.announce('Ouvert : '+title);
+  }
+  function drawerTrap(e){
+    if(e.key!=='Tab')return;
+    var f=[].slice.call(byId('atlDrawer').querySelectorAll('a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])')).filter(function(el){return el.getClientRects().length;});
+    if(!f.length)return;
+    var first=f[0],last=f[f.length-1];
+    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+    else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+  }
+  function closeDrawer(silent){
+    var d=byId('atlDrawer');
+    if(d){ d.removeEventListener('keydown',drawerTrap); d.removeAttribute('aria-modal'); }
+    if(drawerNode&&drawerHome){
+      drawerNode.classList.remove('atl-drawer-in');
+      drawerHome.insertBefore(drawerNode,drawerNext);
+    }
+    var had=!!drawerNode;
+    drawerNode=drawerHome=drawerNext=null;
+    if(d)d.hidden=true;
+    document.body.classList.remove('atl-drawer-on');
+    if(!silent&&had&&drawerOpener&&drawerOpener.focus){ try{drawerOpener.focus();}catch(e){} }
+    drawerOpener=null;
+  }
 
   /* ══════════════════ LE NETTOYAGE DU HTML DE WIKISOURCE ══════════════════
      Parsé dans un document INERTE (DOMParser) et non dans un <div> détaché :
@@ -376,7 +830,7 @@
   }
 
   /* ══════════════════ LE SOMMAIRE ══════════════════ */
-  var viewG=0, loaded=0, pendingG=0, CACHE={};
+  var viewG=0, loaded=0, pendingG=0, pendingQuote='', CACHE={};
   function cur(){ return MC_STRUCT[(viewG||1)-1]; }
   function renderTocRail(){
     /* Rendu par oeuvres/sommaire.js. Quatre sections : la préface et
@@ -416,28 +870,71 @@
     try{ if(AN&&AN.context&&AN.publicCount){ var cx=AN.context(); if(cx.work===WORK&&+cx.section===g) pub=AN.publicCount()||0; } }catch(e){}
     MargeAtelier.render(el,{
       label:'Dans cette partie', rn:c.rn||'', title:c.t,
-      sum:c.s?esc(c.s):'', notions:[], tools:[],
+      sum:c.s?esc(c.s):'', notions:[], tools:margeTools(c),
       notes:{list:margeNotes, where:'Dans la Contribution', pub:pub}
     },{
       anno:function(a){
         jumpToQuote(a.quote);
         if(AN&&AN.flashAnchor)AN.flashAnchor(a);
       },
-      drawer:function(){},
+      drawer:function(kind,target){ openDrawer(kind,target); },
       fab:function(id){ var f=byId(id); if(f)f.click();
         else if(window.SHELL&&SHELL.announce)SHELL.announce('Le texte se charge encore.'); }
     });
   }
 
+  /* CE QUE LA MARGE OUVRE DANS LE TIROIR, partie par partie. Le lecteur
+     ne quitte pas son texte : l'appareil vient à lui.
+     `w` est la marche du cheminement, `prf` le moment de la préface. */
+  function margeTools(c){
+    var t=[];
+    if(c.prf) t.push({kind:'prf',target:c.prf,k:'La préface, au mot',t:PRF_T[c.prf]||''});
+    if(c.w)   t.push({kind:'step',target:String(c.w),k:'Marche '+c.w+' sur '+WALK_T.length,t:WALK_T[c.w-1]});
+    return t;
+  }
+
   /* ══════════════════ LE SUIVI ══════════════════ */
   function stickyOffset(){ var tb=document.querySelector('#lire .rd-toolbar');
-    return 44+(tb?tb.getBoundingClientRect().height:0)+16; }
+    return atlTop()+(tb?tb.getBoundingClientRect().height:0)+16; }
+  /* SE POSER SUR LA PHRASE, PAS SUR LE BLOC. Le fil conducteur de la
+     préface est UN SEUL paragraphe de 673 mots — 2 521 px, presque trois
+     écrans : les sept moments de l'instrument y vivent tous, et viser le
+     bloc les déposait tous au même endroit, le septième à trois écrans de
+     sa phrase. On cherche donc la phrase dans les nœuds de TEXTE et l'on
+     mesure un `Range` — aucune mutation du texte servi, dont les
+     annotations sont ancrées par citation. Le bloc s'éclaire quand même
+     (`pub-flash`, la classe de shell-annotations) : c'est lui qui dit
+     qu'on est dans le fil. */
+  function rangeDe(box,probe){
+    var w=document.createTreeWalker(box,NodeFilter.SHOW_TEXT,null), plat='', noeuds=[];
+    for(var n;(n=w.nextNode());){ noeuds.push({n:n,d:plat.length}); plat+=n.nodeValue; }
+    var i=plat.replace(/\s+/g,' ').indexOf(probe);
+    /* la recherche se fait sur le texte NORMALISÉ, l'index doit revenir au
+       texte brut : on recompte les blancs avalés jusqu'à la cible. */
+    if(i<0){ i=plat.indexOf(probe); if(i<0) return null; }
+    else { var vu=0,brut=0,prec=false;
+      while(brut<plat.length&&vu<i){ var c=plat[brut], bl=/\s/.test(c);
+        if(!(bl&&prec)) vu++; prec=bl; brut++; }
+      i=brut; }
+    var a=null,b=null;
+    for(var k=0;k<noeuds.length;k++){ var s0=noeuds[k].d, s1=s0+noeuds[k].n.nodeValue.length;
+      if(a===null&&i>=s0&&i<s1) a={n:noeuds[k].n,o:i-s0};
+      if(a!==null&&i+probe.length<=s1){ b={n:noeuds[k].n,o:Math.min(i+probe.length-s0,noeuds[k].n.nodeValue.length)}; break; } }
+    if(!a) return null;
+    if(!b) b={n:a.n,o:a.n.nodeValue.length};
+    var r=document.createRange(); r.setStart(a.n,a.o); r.setEnd(b.n,b.o); return r;
+  }
   function jumpToQuote(quote){
     var box=byId('readerContent'); if(!box||!quote)return;
     var probe=String(quote).replace(/\s+/g,' ').trim().slice(0,40); if(!probe)return;
     var els=box.querySelectorAll('p,h2,h3,h4'),target=null;
     for(var i=0;i<els.length;i++){ if(els[i].textContent.replace(/\s+/g,' ').indexOf(probe)>=0){target=els[i];break;} }
-    if(target) window.scrollTo({top:Math.max(0,window.scrollY+target.getBoundingClientRect().top-stickyOffset()-30),behavior:'instant'});
+    if(!target)return;
+    var r=rangeDe(target,probe), rect=r?r.getBoundingClientRect():null;
+    if(!rect||!rect.height) rect=target.getBoundingClientRect();
+    window.scrollTo({top:Math.max(0,window.scrollY+rect.top-stickyOffset()-30),behavior:'instant'});
+    target.classList.add('pub-flash');
+    setTimeout(function(){ target.classList.remove('pub-flash'); },1600);
   }
   /* La progression se marque quand on atteint le BAS de la partie, pas à
      l'ouverture : on ne l'a pas lue parce qu'on l'a ouverte. */
@@ -549,6 +1046,7 @@
         setTimeout(function(){
           installFullBtn(); renderTocRail(); renderMarge(); watchAnnos();
           if(window.SommaireAtelier)SommaireAtelier.setCurrent(byId('atl3Toc'),g);
+          if(pendingQuote){ var q=pendingQuote; pendingQuote=''; jumpToQuote(q); }
           trackProgress();
         },0);
       })
@@ -568,12 +1066,30 @@
   }
   window.openPart=openPart;
 
-  /* Contrat de deep-link : #partie=<g> (la recherche et le sommaire), et le
-     passage (#note=, #s=) que attach() résout. */
+  /* DU DOSSIER AU TEXTE, sur la phrase. La partie se charge par `fetch` :
+     la citation est mise en attente et jouée par load() quand elle arrive. */
+  function goTexte(g,q){
+    pendingQuote=q||'';
+    if(curTab!=='lire')window.activateTab('lire');
+    closeDrawer(true);
+    if(g===loaded){ pendingQuote=''; window.scrollTo({top:0,behavior:'instant'}); if(q)jumpToQuote(q); return; }
+    openPart(g,true);
+  }
+
+  /* Contrat de deep-link : #partie=<g> (la recherche et le sommaire),
+     #labo=<moment> (l'instrument), les salles du dossier, et le passage
+     (#note=, #s=) que attach() résout. */
   function applyHash(boot){
     var raw=(location.hash||'').replace(/^#/,'');
     var m=raw.match(/^partie=(\d+)$/);
     if(m){ var g=+m[1]; if(boot)pendingG=g; else openPart(g,true); return true; }
+    if(/^labo=/.test(raw)){
+      window.activateTab('dossier','labo');
+      var id=raw.split('=')[1]; if(PRF_T[id])pickMoment(id);
+      return true;
+    }
+    var t=tabForHash(raw);
+    if(t){ window.activateTab(t,(t==='dossier'&&raw!=='dossier')?raw:null); return true; }
     m=raw.match(/^s=(\d+)/);
     if(m){ var s=+m[1]; if(MC_STRUCT[s-1]){ if(boot)pendingG=s; else if(s!==loaded)openPart(s,true); else attach(s); return true; } }
     if(/^note=/.test(raw)){ if(!boot&&loaded)attach(loaded); return true; }
@@ -581,17 +1097,33 @@
   }
 
   function init(){
+    buildTabs();
+    buildDossier();
+    wirePreface();
+    if(window.AscensionAtelier) AscensionAtelier.mount(byId('asc'),{
+      offset:function(){ return atlTop()+(byId('dossierNav')?byId('dossierNav').getBoundingClientRect().height:0)+16; },
+      /* CHAQUE MARCHE DÉPOSE SUR SA PHRASE. Quatre des sept vivent dans le
+         chapitre premier : sans la citation, les quatre renvois menaient au
+         même haut de page et ne servaient plus la lecture. */
+      onSee:function(k,t,label,data){ if(k==='partie')goTexte(+t,(data&&data.q)||''); }
+    });
     renderTocRail();
     renderMarge();
     watchAnnos();
+    byId('atlDrawerX').addEventListener('click',function(){closeDrawer();});
     var mg=byId('atl3Marge');
     if(mg){ mg.addEventListener('scroll',margeFade,{passive:true}); window.addEventListener('resize',margeFade); }
     byId('atlFullExit').addEventListener('click',function(){setPlein(false);});
     document.addEventListener('fullscreenchange',function(){ if(!document.fullscreenElement&&pleinEcran())setPlein(false); });
-    document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&pleinEcran())setPlein(false); });
+    document.addEventListener('keydown',function(e){
+      if(e.key!=='Escape')return;
+      if(!byId('atlDrawer').hidden){ closeDrawer(); return; }
+      if(pleinEcran())setPlein(false);
+    });
     if(window.SHELL&&SHELL.progress) SHELL.progress.init(WORK,function(){ renderTocRail(); });
 
     if(!applyHash(true)){
+      window.activateTab('lire');
       var r=(window.SHELL&&SHELL.resume)?SHELL.resume.get(WORK):null;
       if(r&&r.g)pendingG=+r.g;
     }
@@ -610,6 +1142,7 @@
 <script src="shell-annotations.js?v=2"></script>
 <script src="shell-progress.js"></script>
 <script src="reader-tools.js?v=6" defer></script>
+<script src="atelier-motion.js?v=5" defer></script>
 <script>
 installShell({
   workId: 'contribution-critique-economie-politique',

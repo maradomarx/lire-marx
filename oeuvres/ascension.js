@@ -14,8 +14,12 @@
    API
      AscensionAtelier.html(steps, {close})  → balisage de la chaîne
        step = {t, plan?, pose?, lieu?, motor?, contra?, pass, passLabel?,
-               links?:[{k, t, label, drawer}], color}
-     AscensionAtelier.mount(root, {offset(), onSee(k, t, label)})
+               links?:[{k, t, label, drawer, q?}], color}
+       `q` est FACULTATIF : la phrase du texte servi sur laquelle le renvoi
+       dépose. Sans elle on arrive en tête de la partie — ce qui suffit quand
+       une marche EST une partie, et ne suffit plus quand quatre marches
+       vivent dans le même chapitre.
+     AscensionAtelier.mount(root, {offset(), onSee(k, t, label, data)})
        root = .asc (contient .asc-chain et nav.asc-plan) → {go(n, flash)}
    Chargé SANS defer dans le <head> : les pages l'appellent pendant leur
    propre exécution.
@@ -37,7 +41,7 @@
     steps.forEach(function(s,i){
       var k=i+1, last=k===n, one=!s.contra;
       var see=(s.links||[]).map(function(l){
-        return '<button type="button" class="asc-go" data-k="'+attr(l.k)+'" data-t="'+attr(l.t||'')+'">'+(l.drawer?IC_TIROIR:IC_PAGE)+'<span>'+l.label+'</span></button>';
+        return '<button type="button" class="asc-go" data-k="'+attr(l.k)+'" data-t="'+attr(l.t||'')+'"'+(l.q?' data-q="'+attr(l.q)+'"':'')+'>'+(l.drawer?IC_TIROIR:IC_PAGE)+'<span>'+l.label+'</span></button>';
       }).join('');
       out+='<article class="asc-step" id="asc-'+k+'" data-step="'+k+'" data-plan="'+attr(s.plan||s.t)+'" style="--rung:'+s.color+'" aria-labelledby="asc-t'+k+'">'
         +'<span class="asc-num" aria-hidden="true">'+k+'</span>'
@@ -129,9 +133,15 @@
       follow();
     }
     if(plan) plan.addEventListener('click',function(e){ var b=e.target.closest('.asc-pl'); if(b) go(+b.dataset.step); });
-    chain.addEventListener('click',function(e){
-      var b=e.target.closest('.asc-go'); if(!b||!o.onSee) return;
-      o.onSee(b.dataset.k,b.dataset.t,b.textContent.trim());
+    /* LE RENVOI DOIT SURVIVRE AU TIROIR. `openDrawer` DÉPLACE la marche hors
+       de la chaîne : délégué sur `.asc-chain`, l'écouteur ne la voyait plus et
+       « Voir à l'œuvre » était mort dans le tiroir. On écoute donc le
+       document, et l'on ne répond que pour une marche de CETTE chaîne. */
+    var miennes=new Set(steps);
+    document.addEventListener('click',function(e){
+      var b=e.target.closest&&e.target.closest('.asc-go'); if(!b||!o.onSee) return;
+      var st=b.closest('.asc-step'); if(!st||!miennes.has(st)) return;
+      o.onSee(b.dataset.k,b.dataset.t,b.textContent.trim(),b.dataset);
     });
     follow();
     return {go:go, follow:follow};
