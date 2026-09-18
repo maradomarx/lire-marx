@@ -46,6 +46,10 @@
   X-Robots-Tag: noindex
 /oeuvres/manuscrits-1844/manifest.json
   X-Robots-Tag: noindex
+/oeuvres/manifeste/manifest.json
+  X-Robots-Tag: noindex
+/oeuvres/contribution-1859/manifest.json
+  X-Robots-Tag: noindex
 /assets/chariot.json
   X-Robots-Tag: noindex
 /jeu/build.json

@@ -1,3 +1,6 @@
-# Textes — Contribution a la critique de l'economie politique
+# Textes — Contribution à la critique de l'économie politique
 
-Emplacement reserve aux futurs fichiers de texte. Aucun texte complet n'est encore integre.
+Vide, et ce n'est pas un oubli : le texte n'est pas servi localement. La
+liseuse charge chaque partie depuis Wikisource, sous-page par sous-page —
+voir `MC_STRUCT` dans `oeuvres/contribution-1859.html`, qui fait foi pour le
+découpage. Même dispositif que le Manifeste et que Le Capital.

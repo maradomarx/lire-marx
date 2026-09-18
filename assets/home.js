@@ -549,7 +549,8 @@
     var IMG = {
       'capital-1': 'manufacture',
       'manuscrits-1844': 'marx-jeune',
-      'manifeste-parti-communiste': 'manifeste-1848'
+      'manifeste-parti-communiste': 'manifeste-1848',
+      'contribution-critique-economie-politique': 'zur-kritik-titre-1859'
     };
     var FALLBACK = { works: [
       { id: 'capital-1', title: 'Le Capital — Livre I', author: 'Karl Marx', year: 1867,
@@ -559,7 +560,17 @@
       { id: 'manuscrits-1844', title: 'Manuscrits de 1844', author: 'Karl Marx', year: 1844,
         status: 'available', category: 'philosophie', path: 'oeuvres/manuscrits-1844.html',
         description: 'Les carnets de jeunesse : travail aliéné, propriété privée, dépassement communiste.',
-        concepts: ['aliénation', 'travail', 'propriété privée'] }
+        concepts: ['aliénation', 'travail', 'propriété privée'] },
+      { id: 'manifeste-parti-communiste', title: 'Manifeste du parti communiste',
+        author: 'Karl Marx et Friedrich Engels', year: 1848,
+        status: 'available', category: 'politique', path: 'oeuvres/manifeste.html',
+        description: 'Lutte des classes, bourgeoisie, prolétariat : le texte le plus lu de Marx.',
+        concepts: ['lutte des classes', 'bourgeoisie', 'prolétariat'] },
+      { id: 'contribution-critique-economie-politique',
+        title: "Contribution à la critique de l'économie politique", author: 'Karl Marx', year: 1859,
+        status: 'available', category: 'critique-economie-politique', path: 'oeuvres/contribution-1859.html',
+        description: 'La préface sur la base et la superstructure, la marchandise, la monnaie.',
+        concepts: ['base et superstructure', 'rapports de production', 'méthode'] }
     ] };
 
     function esc(s) {

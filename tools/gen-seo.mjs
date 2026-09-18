@@ -134,6 +134,32 @@ const EDITION = {
     source: { name: 'Manifeste du parti communiste sur Wikisource',
               url: 'https://fr.wikisource.org/wiki/Manifeste_du_parti_communiste/Lafargue' },
     colophon: 'traduction Laura Lafargue (1897), domaine public, servie depuis Wikisource'
+  },
+
+  'contribution-critique-economie-politique': {
+    // « Karl Marx · 1859 · traduction Laura Lafargue (1909) · domaine
+    //   public » — <p class="work-meta"> de oeuvres/contribution-1859.html,
+    //   et la notice de source sous le texte.
+    datePublished: '1859',
+    translator: 'Laura Lafargue',
+    // La page Wikisource imprime cette édition : « traduit sur la 2e édition
+    // par Karl Kautsky », texte établi par Alfred Bonnet, V. Giard et
+    // E. Brière, Paris, 1909.
+    bookEdition: "Traduction française de Laura Lafargue sur la deuxième édition de Karl Kautsky, publiée en 1909 (V. Giard et E. Brière)",
+    // Laura Lafargue est morte en 1911 : la traduction est dans le domaine
+    // public, on peut l'affirmer. C'est la même traductrice que le Manifeste.
+    license: 'https://creativecommons.org/publicdomain/mark/1.0/',
+    translationOfWork: {
+      '@type': 'Book',
+      name: 'Zur Kritik der politischen Ökonomie',
+      inLanguage: 'de',
+      datePublished: '1859'
+    },
+    // load() de la page appelle l'API de Wikisource sur les sous-pages de
+    // ce livre-là — c'est la source réelle du texte affiché.
+    source: { name: "Contribution à la critique de l'économie politique sur Wikisource",
+              url: 'https://fr.wikisource.org/wiki/Contribution_%C3%A0_la_critique_de_l%E2%80%99%C3%A9conomie_politique' },
+    colophon: 'traduction Laura Lafargue (1909), domaine public, servie depuis Wikisource'
   }
 };
 
@@ -328,6 +354,7 @@ const PIED_PAGES = [
   'oeuvres/capital-1.html',
   'oeuvres/manuscrits-1844.html',
   'oeuvres/manifeste.html',
+  'oeuvres/contribution-1859.html',
   'oeuvres/place-publique.html',
   'oeuvres/carnet.html',
   'oeuvres/messages.html',
@@ -2202,6 +2229,14 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
     ['La chronologie du Manifeste', '/oeuvres/manifeste#chrono', 'Ligue des communistes 1847 1848 préfaces 1872 1888 traductions Laura Lafargue Andler'],
     ['La carte des socialismes', '/oeuvres/manifeste#labo=socialismes', 'socialisme féodal petit-bourgeois vrai socialisme bourgeois Proudhon utopique Saint-Simon Fourier Owen Sismondi']
   ]) items.push({ t, s: 'Le dossier · Manifeste du parti communiste', cat: 'outil', url, hay });
+
+  /* La Contribution : ses dix parties, lues dans le plan de la page
+     (MC_STRUCT). Chaque partie est une page de Wikisource à part, donc une
+     section d'annotation à part : `g` est à la fois le numéro que #partie=
+     ouvre et le `#s=` du contrat de deep-link. */
+  for (const p of litteralJS(readFileSync('oeuvres/contribution-1859.html', 'utf8'), 'MC_STRUCT=', '['))
+    items.push({ t: strip(p.t), s: `Contribution (1859) · ${strip(p.grp)}`,
+      cat: 'partie', url: `/oeuvres/contribution-1859#partie=${p.g}`, hay: court(p.s, 400) });
 
   for (const n of INDEX_NOTIONS) {
     items.push({ t: n.nom, s: (n.de ? n.de + ' · ' : '') + n.oeuvre, cat: 'notion',

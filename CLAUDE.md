@@ -10002,6 +10002,145 @@ petit texte 11,2 px), zéro débordement, console vide ; détecteur **0 constat*
 sur chacune ; `gen-seo --check` à jour. Abécédaire inchangé à **81 notions**
 (les renvois ne créent pas d'entrée) ; **45 pages de notion** en tout.
 
+## La Contribution de 1859 entre au corpus (mission `contribution-1859`, sept. 2026)
+
+Quatrième œuvre servie. Elle apporte **deux textes canoniques** que le site
+n'avait nulle part : la **préface de 1859** — la page la plus citée de Marx,
+celle de la base et de la superstructure — et, en appendice, l'**introduction
+de 1857** sur la méthode.
+
+- **Traduction Laura Lafargue**, établie sur la 2e édition de Karl Kautsky,
+  V. Giard et E. Brière, 1909, **texte validé** sur Wikisource. Domaine
+  public : la traductrice est morte en 1911 — c'est la même que le Manifeste,
+  donc le `license` du `Book` peut être affirmé.
+- Page : `oeuvres/contribution-1859.html` → `/oeuvres/contribution-1859`. Le
+  `path` était déjà déclaré dans `bibliotheque.json`, on l'a suivi.
+- **Une seule destination dans cette livraison — le texte.** Pas de barre
+  d'onglets, donc `:root{--atl-top:44px}` ; c'est exactement l'état de la
+  première livraison du Manifeste, et le dossier viendra après.
+
+### Dix parties, dix pages Wikisource, dix sections d'annotation
+
+`MC_STRUCT` est la source unique (titres, résumés, découpage), lue aussi par
+`gen-seo.mjs` pour l'index de la recherche. **Chaque partie est une page de
+Wikisource à part, donc une section d'annotation à part** : `g` est à la fois
+le `#partie=` du sommaire et le `#s=` du contrat de deep-link. C'est le modèle
+du Capital (chargement par section), pas celui du Manifeste (une seule page).
+
+Le champ `p` est un TABLEAU de pages : la partie 4 en porte deux, parce que
+l'ouverture du chapitre II fait deux cent vingt mots — elle n'est pas une
+partie, elle est le seuil de « Mesure des valeurs ».
+
+### Le nettoyage du HTML, et ce que la source donne vraiment
+
+Mesuré avant d'écrire une ligne, page par page :
+
+- **Wikisource ne titre PAS ces pages.** Le titre de la partie vit dans le
+  bandeau de navigation (`.ws-noexport`, retiré), et les sous-titres sont des
+  `<div style="text-align:center">` — jamais des `<h*>`. La page les recompose.
+- **Tout ce qui est centré n'est pas un titre.** « M-A-M / A-M-A » est une
+  formule posée au milieu de la page. Les titres de l'édition de 1909 sont
+  **tous** composés en gras ou en italique : c'est le seul indice que la source
+  donne, et c'est celui qu'on suit (`querySelector('b,i,strong,em')`). Le reste
+  devient `.mc-formule`.
+- **LIRE UN TITRE À TRAVERS SON BALISAGE** — la leçon de `headText()`, repayée :
+  `textContent` ne pose aucune espace à la place d'un `<br>`, et
+  « INTRODUCTION<br>À UNE CRITIQUE… » rendait « INTRODUCTIONÀ UNE… », qui ne
+  correspondait plus au titre cherché. Le titre de l'appendice s'affichait donc
+  deux fois.
+- Le champ `d` déclare, par page, le titre que la source imprime, **normalisé** :
+  on retire les nœuds de tête qui en sont une sous-chaîne, on pose le nôtre.
+- **Le filet qui SUIVAIT le titre de la source devient orphelin** quand on
+  retire ce titre : sous le nôtre, qui porte déjà son trait, il en faisait deux.
+  Seul un `hr` de TÊTE est retiré.
+- **Les tableaux d'équivalences sont du CONTENU** (« 1 tonne de fer = 2 onces
+  d'or ») : ne pas les prendre pour du mobilier Wikisource.
+- La **note du traducteur** de la fin du chapitre C n'apparaît pas, et c'est
+  normal : elle est une **note de bas de page** (`ol.references`), retirée comme
+  toutes les notes — même comportement que le Capital.
+- Parsé dans un document INERTE (`DOMParser`), règle déjà écrite pour le Capital.
+
+### Le défaut trouvé à la sonde, et il était invisible à l'œil
+
+**Le bouton de plein écran doit porter `btn` ET `atl3-full`.** Écrit avec la
+seule classe `atl3-full`, il n'a ni fond ni rayon — il retombe sur le **gris de
+l'agent utilisateur** (#efefef), et son or tombe à **1,83:1**. C'est la règle
+déjà payée sur `.lk` et `.rd-chip`, dans l'autre sens : là un `color` manquait,
+ici c'est le `background`. Son id est `atlFullBtn`, comme sur les trois autres
+ateliers — ne pas en inventer un autre.
+
+### La sur-ligne SITUE, elle ne redit pas
+
+`sur` (« Chapitre premier », « Chapitre II », « Appendice ») et non le titre du
+chapitre en entier : la colonne de gauche le porte déjà. Et un titre déclaré
+dans `p[i].h` ne se pose que s'il APPORTE quelque chose — sur la partie 4 il
+répétait mot pour mot le titre de la partie, deux lignes plus haut.
+
+### Un défaut ANTÉRIEUR corrigé au passage
+
+**`oeuvres/carnet.html` construisait ses liens de passage avec le `.html`** —
+donc une 308 sur chaque passage de chaque œuvre. C'est le **quatrième** point
+d'usage qui doit retirer l'extension, après `href()` de la bibliothèque,
+`localPath()` de `home.js` et `hrefOf()` de `gen-seo.mjs`. Le `path` de la
+donnée, lui, garde son extension : c'est son contrat.
+
+### Ce qui a suivi
+
+`bibliotheque.json` (available, `entry` « Comprendre la méthode matérialiste »,
+`sourceNote` qui dit la traduction ET le statut) ; `EDITION` et `PIED_PAGES`
+dans `gen-seo.mjs` ; l'index de recherche (dix parties) ; `/a-propos` (quatre
+œuvres, les chiffres — **toute modification du corpus doit y passer**) ; le
+`FALLBACK` de `home.js`, qui était resté à deux œuvres depuis le Manifeste, et
+`IMG` ; `_headers` (les manifests du Manifeste et de la Contribution, le
+premier oublié à sa mission) ; `home.js?v=6`.
+
+**L'image** est le titre de la première édition allemande (*Zur Kritik der
+politischen Oekonomie*, Berlin, Franz Duncker, 1859 — Commons, domaine public,
+`Artist: Franz Duncker`), exactement le motif de `das-kapital-titre-1867.jpg`.
+
+**« La préface de 1859 » est dans le résumé de la partie 1, et volontairement
+au DÉBUT** : la recherche du site apparie une **sous-chaîne contiguë** de la
+requête, et le `hay` est tronqué à 400 caractères. Une phrase utile à la
+recherche qui vit à la fin d'un résumé n'y est pas.
+
+### Vérifié
+
+Dans le **vrai Chrome**, contre un serveur qui imite Cloudflare (URL propres,
+**fichier avant dossier**, 308 sur `.html` et sur un dossier), validé URL par
+URL avant de servir à quoi que ce soit.
+
+Les **dix parties** chargées une à une : titre unique, sous-titres justes,
+zéro résidu Wikisource, zéro `[style]`, comptes de mots conformes à la source
+(1 724 · 9 677 · 3 086 · 4 056 · 3 624 · 13 018 · 10 563 · 1 596 · 10 977 ·
+11 388). Sommaire en quatre sections, marge, reprise (`liremarx.resume.<work>`),
+progression, plein écran, deep-links `#partie=` et `#s=`. **Le contrat
+d'annotation de bout en bout** : passage surligné, `notesFor`, pied de marge,
+`statsFor`, et le carnet qui affiche le cahier, la citation et la note.
+Contraste sur le rendu : **0 échec sur trois états** (100, 221 et 205 mesures),
+minimum **5,12**, aucun texte sous 11 px, aucune cible sous 24 × 24. Détecteur
+statique : **13 constats, 0 erreur** — la liste est celle du Manifeste (14) à
+`all-caps-body` près, et ses deux `7,04 px` sont le faux positif `clamp()`
+documenté (mesuré au rendu : **21,12 px** à 1380, **14,08 px** à 375). Les
+**onze pages** qui montent la coquille : pied de page à douze liens, zéro
+débordement, console propre. Registre de la bibliothèque : **pré-rendu et rendu
+JS identiques** (13 962 caractères). `gen-seo --check` à jour et idempotent.
+
+**Piège d'outillage ajouté** : pour semer le magasin d'annotations, il faut
+`evaluateOnNewDocument` — `shell-annotations.js` lit `localStorage` **à son
+chargement**, et un `evaluate` posé après coup n'est jamais relu. Et, revécu :
+un serveur de test peut ne PAS être le sien — le port était déjà tenu par un
+serveur d'une session précédente, et ses réponses passaient pour les miennes.
+
+### Ce qui reste
+
+- **Le dossier** (cheminement, chronologie, instrument, ressources) et le
+  **glossaire** de l'œuvre : c'est la suite, comme pour le Manifeste, qui a eu
+  ses deux missions.
+- **La recherche plein texte n'y va pas encore** : dix pages Wikisource à
+  charger, là où le Manifeste n'en a qu'une. Le bloc `texte` de
+  `recherche.json` ne porte donc rien pour cette œuvre — la structure, si.
+- Les notes de Marx ne sont pas servies (comme sur le Capital).
+
 ## Conventions de travail
 
 - **Une mission par session.** Une demande utilisateur = un objectif clair,

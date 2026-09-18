@@ -419,6 +419,7 @@ a.cnb-act{font-weight:600;}
         <p class="lm-foot-h">Le corpus</p>
         <ul>
         <li><a href="/oeuvres/capital-1">Le Capital — Livre I</a></li>
+        <li><a href="/oeuvres/contribution-1859">Contribution à la critique de l'économie politique</a></li>
         <li><a href="/oeuvres/manuscrits-1844">Manuscrits de 1844</a></li>
         <li><a href="/oeuvres/manifeste">Manifeste du parti communiste</a></li>
         <li><a href="/oeuvres/bibliotheque">Toute la bibliothèque</a></li>
@@ -545,8 +546,13 @@ installShell({
     var w = biblio[id];
     /* Les `path` de bibliotheque.json sont relatifs à la RACINE
        ('oeuvres/capital-1.html') alors que cette page vit DANS oeuvres/ :
-       sans le '/' de tête, le lien résoudrait en oeuvres/oeuvres/… */
-    var path = (w && w.status === 'available' && w.path) ? String(w.path) : null;
+       sans le '/' de tête, le lien résoudrait en oeuvres/oeuvres/…
+       Et l'extension se retire ICI : Cloudflare sert des URL propres, un
+       lien interne en .html part en 308 pour rien. C'est le quatrième
+       point d'usage à le faire, après href() de la bibliothèque,
+       localPath() de home.js et hrefOf() de tools/gen-seo.mjs — le `path`
+       de la donnée, lui, garde son extension, c'est son contrat. */
+    var path = (w && w.status === 'available' && w.path) ? String(w.path).replace(/\.html$/, '') : null;
     if(path && path.indexOf('/') !== 0) path = '/' + path;
     return { id: id, title: (w && w.title) || id,
       short: (w && (w.shortTitle || w.title)) || id, path: path };

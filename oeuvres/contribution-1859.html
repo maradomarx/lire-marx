@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contribution à la critique de l'économie politique — Texte intégral et Préface de 1859</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="/assets/img/logo/icon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/logo/icon-192.png">
+<link rel="apple-touch-icon" href="/assets/img/logo/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#15100b">
+<meta name="apple-mobile-web-app-title" content="Lire Marx">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="description" content="La Contribution de Marx (1859) en texte intégral, traduction Laura Lafargue : la Préface sur la base et la superstructure, l'Introduction de 1857, chaque partie résumée en marge.">
+<meta property="og:title" content="Contribution à la critique de l'économie politique — Texte intégral et Préface de 1859">
+<meta property="og:description" content="La Contribution de Marx (1859) en texte intégral, traduction Laura Lafargue : la Préface sur la base et la superstructure, l'Introduction de 1857, chaque partie résumée en marge.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lire Marx">
+<meta property="og:url" content="https://liremarx.com/oeuvres/contribution-1859">
+<link rel="canonical" href="https://liremarx.com/oeuvres/contribution-1859">
+<meta property="og:image" content="https://liremarx.com/assets/img/archive/zur-kritik-titre-1859.jpg">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="fonts/fonts.css?v=2">
+<link rel="stylesheet" href="atelier.css?v=16">
+<link rel="stylesheet" href="shell.css?v=12">
+<link rel="stylesheet" href="reader-tools.css">
+<style>
+/* Quatrième atelier. Une seule destination dans cette livraison — le texte :
+   pas de barre d'onglets, donc la coquille collante commence sous la seule
+   topbar. C'est exactement l'état de la première livraison du Manifeste. */
+:root{--atl-top:44px;}
+.wrap{max-width:1120px;padding:0 22px 90px;}
+
+/* ── L'en-tête d'œuvre : son identité, sobre (motif des trois ateliers) ── */
+.work-head{padding:clamp(26px,4vh,38px) 0 clamp(18px,2.4vh,24px);text-align:left;}
+.work-title{font-family:'Fraunces',serif;font-weight:900;
+  font-size:clamp(2rem,4.4vw,3rem);letter-spacing:-.03em;line-height:1.02;
+  color:var(--text);margin:0;display:flex;align-items:baseline;
+  gap:.4em;flex-wrap:wrap;}
+.work-vol{font-style:italic;font-weight:500;font-size:.44em;
+  letter-spacing:-.01em;color:var(--red-text);}
+.work-meta{font-family:var(--f-ui);font-size:.82rem;color:var(--muted);margin:12px 0 0;}
+
+/* ── La liseuse ── */
+.reader-head{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:13px 15px;border-bottom:1px solid var(--line);}
+.reader-title{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:1.1rem;color:var(--ink);}
+.reader-content{min-height:72vh;background:transparent;padding:28px clamp(18px,4vw,46px);
+  color:inherit;font-family:var(--f-serif);font-size:1rem;line-height:1.72;overflow:auto;}
+.reader-content[hidden],.placeholder[hidden]{display:none;}
+.reader-content p{margin:.72em 0;}
+.reader-content .reader-error{max-width:720px;margin:40px auto;padding:22px;
+  border:1px dashed var(--line);border-radius:12px;font-family:var(--f-serif);color:var(--ink-soft);}
+.reader-content .reader-error b{display:block;color:var(--ink);font-family:'Fraunces',Georgia,serif;
+  font-size:1.18rem;margin-bottom:8px;}
+.placeholder .pi{color:var(--muted);line-height:0;font-size:0;margin-bottom:14px;
+  display:flex;justify-content:center;}
+.placeholder .pi svg{width:40px;height:40px;fill:none;stroke:currentColor;
+  stroke-width:1;stroke-linecap:round;stroke-linejoin:round;}
+
+/* Les titres du texte. Wikisource ne les compose pas en titres : le titre de
+   la partie vit dans le bandeau de navigation (retiré au nettoyage), et les
+   sous-titres sont des <div style="text-align:center"> — jamais des <h*>.
+   La page les recompose en vrais titres : c'est ce qui donne ses repères au
+   suivi de lecture et au lecteur d'écran. */
+.reader-content h2.mc-part{font-family:'Fraunces',Georgia,serif;font-weight:900;
+  font-size:clamp(1.4rem,2.5vw,1.85rem);letter-spacing:-.02em;line-height:1.14;
+  color:var(--bright);margin:0 0 1em;padding-bottom:.7em;border-bottom:1px solid var(--line);}
+.reader-content h2.mc-part .mc-rn{display:block;font-style:italic;font-weight:500;
+  font-size:.56em;color:var(--gold);letter-spacing:0;margin-bottom:.3em;}
+.reader-content h3.mc-sub{font-family:'Fraunces',Georgia,serif;font-weight:700;
+  font-size:1.18rem;line-height:1.22;color:var(--bright);margin:2.1em 0 .6em;}
+.reader-content hr{width:8em;margin:2.2em auto;border:0;border-top:1px solid var(--line);}
+.reader-content table{margin:1.6em auto;border-collapse:collapse;
+  font-family:var(--f-serif);font-size:.95rem;color:var(--ink);}
+.reader-content table td,.reader-content table th{padding:3px 12px;vertical-align:baseline;}
+.reader-content .mc-formule{text-align:center;font-family:var(--f-serif);
+  color:var(--ink);margin:1.6em 0;}
+.reader-content .mc-formule p{margin:0;}
+.reader-content .mc-env{margin:2.2em 0 0;font-family:'Fraunces',Georgia,serif;
+  font-style:italic;color:var(--ink-soft);}
+.reader-content .mc-src{margin:3em 0 0;padding-top:1.2em;border-top:1px solid var(--line);
+  font-family:var(--f-ui);font-size:.8rem;line-height:1.6;color:var(--muted);}
+.reader-content .mc-src a{color:var(--ink);text-decoration:underline;
+  text-decoration-color:rgba(216,173,76,.5);text-underline-offset:2px;}
+.reader-content .mc-src a:hover{color:var(--gold);}
+.reader.theme-sepia .reader-content h2.mc-part .mc-rn{color:var(--red-deep);}
+</style>
+<!-- Book : DÉRIVÉ de oeuvres/bibliotheque.json par tools/gen-seo.mjs.
+     Ne pas éditer à la main — corriger la source, puis regénérer :
+       node tools/gen-seo.mjs
+     Chaque champ doit rester vérifiable dans la page elle-même. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Book",
+  "name": "Contribution à la critique de l'économie politique",
+  "author": {
+    "@type": "Person",
+    "name": "Karl Marx",
+    "sameAs": "https://www.wikidata.org/wiki/Q9061"
+  },
+  "translator": {
+    "@type": "Person",
+    "name": "Laura Lafargue"
+  },
+  "bookEdition": "Traduction française de Laura Lafargue sur la deuxième édition de Karl Kautsky, publiée en 1909 (V. Giard et E. Brière)",
+  "inLanguage": "fr",
+  "datePublished": "1859",
+  "translationOfWork": {
+    "@type": "Book",
+    "name": "Zur Kritik der politischen Ökonomie",
+    "inLanguage": "de",
+    "datePublished": "1859"
+  },
+  "url": "https://liremarx.com/oeuvres/contribution-1859",
+  "description": "Première mise en forme publiée de la critique de l'économie politique. Elle contient la préface où Marx formule le fil conducteur de ses recherches — la base économique et la superstructure —, deux chapitres que Le Capital reprendra, et l'introduction de 1857 restée manuscrite.",
+  "about": [
+    "base et superstructure",
+    "rapports de production",
+    "forces productives",
+    "marchandise",
+    "monnaie",
+    "méthode"
+  ],
+  "isAccessibleForFree": true,
+  "license": "https://creativecommons.org/publicdomain/mark/1.0/",
+  "isBasedOn": {
+    "@type": "WebPage",
+    "name": "Contribution à la critique de l'économie politique sur Wikisource",
+    "url": "https://fr.wikisource.org/wiki/Contribution_%C3%A0_la_critique_de_l%E2%80%99%C3%A9conomie_politique"
+  }
+}
+</script>
+<script src="marge.js?v=1"></script>
+<script src="sommaire.js?v=1"></script>
+</head>
+<body class="at-atelier">
+<main class="wrap" id="contenu" tabindex="-1">
+
+  <header class="work-head">
+    <h1 class="work-title">Contribution<span class="work-vol">à la critique de l'économie politique</span></h1>
+    <p class="work-meta">Karl Marx · 1859 · traduction Laura Lafargue (1909) · domaine public</p>
+  </header>
+
+  <div class="atl3" id="atl3">
+
+    <aside class="atl3-col atl3-toc" id="atl3Toc" aria-label="Sommaire de la Contribution" data-sheet-lbl="Sommaire"></aside>
+
+    <div class="atl3-mid">
+      <section class="panel active" id="lire">
+        <div class="atl3-midbar" id="atlMidbar"></div>
+        <div class="reader">
+          <div class="reader-head"><div class="reader-title" id="readerTitle">Contribution à la critique de l'économie politique</div></div>
+          <div class="placeholder" id="readerPlaceholder"><div><div class="pi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.4C10 4.6 7.2 3.9 3.6 4.1v13.2c3.6-.2 6.4.5 8.4 2.3 2-1.8 4.8-2.5 8.4-2.3V4.1c-3.6-.2-6.4.5-8.4 2.3Z"/><path d="M12 6.4v13.2"/></svg></div><b>Le texte s'affiche ici.</b></div></div>
+          <div class="reader-content" id="readerContent" hidden></div>
+        </div>
+      </section>
+    </div>
+
+    <aside class="atl3-col atl3-marge" id="atl3Marge" aria-label="Dans cette partie" data-sheet-lbl="Cette partie" data-sheet-short="Partie"></aside>
+  </div>
+
+  <button type="button" class="atl3-full-exit" id="atlFullExit" hidden>
+    Quitter le plein écran <kbd>Échap</kbd>
+  </button>
+
+</main>
+<!-- PIED:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main -->
+<footer class="lm-foot wrap">
+  <div class="lm-foot-in">
+    <div class="lm-foot-id">
+      <p class="lm-foot-mark">Lire<span class="d">.</span>Marx</p>
+      <p class="lm-foot-lede">Marx en texte intégral, l&rsquo;appareil critique en marge du chapitre.</p>
+    </div>
+    <nav class="lm-foot-nav" aria-label="Pied de page">
+      <div class="lm-foot-col">
+        <p class="lm-foot-h">Le corpus</p>
+        <ul>
+        <li><a href="/oeuvres/capital-1">Le Capital — Livre I</a></li>
+        <li><a href="/oeuvres/contribution-1859">Contribution à la critique de l'économie politique</a></li>
+        <li><a href="/oeuvres/manuscrits-1844">Manuscrits de 1844</a></li>
+        <li><a href="/oeuvres/manifeste">Manifeste du parti communiste</a></li>
+        <li><a href="/oeuvres/bibliotheque">Toute la bibliothèque</a></li>
+        </ul>
+      </div>
+      <div class="lm-foot-col">
+        <p class="lm-foot-h">Comprendre</p>
+        <ul>
+        <li><a href="/glossaire/">L’abécédaire de Marx</a></li>
+        <li><a href="/jeu/">Le circuit du capital</a></li>
+        <li><a href="/agregation-2027">Marx à l’agrégation 2027</a></li>
+        </ul>
+      </div>
+      <div class="lm-foot-col">
+        <p class="lm-foot-h">Le site</p>
+        <ul>
+        <li><a href="/">Accueil</a></li>
+        <li><a href="/oeuvres/place-publique">Place publique</a></li>
+        <li><a href="/a-propos">À propos</a></li>
+        <li><a href="/mentions-legales">CGU &amp; confidentialité</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</footer>
+<!-- PIED:FIN -->
+
+<script>
+(function(){
+  var WORK='contribution-critique-economie-politique';
+  var WS_ROOT='Contribution à la critique de l’économie politique';
+  var WS_PAGE='https://fr.wikisource.org/wiki/Contribution_%C3%A0_la_critique_de_l%E2%80%99%C3%A9conomie_politique';
+
+  /* ══════════════════════════════════════════════════════════════════
+     LE PLAN DU TEXTE — source unique des titres, des résumés et du
+     découpage, lue aussi par tools/gen-seo.mjs pour l'index de la
+     recherche (#partie=<g>).
+
+     `p` : les pages Wikisource qui composent la partie. Une partie en
+     porte DEUX quand le livre les enchaîne sans qu'aucune ne tienne
+     seule : l'ouverture du chapitre II fait deux cent vingt mots, elle
+     n'est pas une partie, elle est le seuil de « Mesure des valeurs ».
+     `d` : le titre que la SOURCE imprime en tête de la page, sous forme
+     normalisée. Il sert à le retirer — on pose le nôtre à la place.
+     `grp` : la section du livre, telle que la table des matières de 1909
+     l'écrit. `t` : le titre de la partie.
+     ══════════════════════════════════════════════════════════════════ */
+  var MC_STRUCT=[
+    {g:1, grp:'Préface', t:'Préface', rn:'',
+     p:[{page:'Préface', d:'preface'}],
+     s:"On l'appelle la préface de 1859, du lieu et de la date qu'elle porte en bas : Londres, janvier 1859. Marx y donne le plan de l'ouvrage, puis raconte un itinéraire — le droit, la Rheinische Zeitung, les débats du Landtag rhénan sur les délits forestiers, la révision critique de la philosophie du droit de Hegel. Au milieu de ce récit vient, en un seul paragraphe, le « fil conducteur » de ses études : les rapports de production comme base réelle, la superstructure juridique et politique qui s'élève dessus, et le conflit entre forces productives et rapports de propriété qui ouvre une ère de révolution sociale. C'est la page la plus citée de toute son œuvre, et elle n'est pas donnée comme une doctrine : comme le résumé d'un travail."},
+
+    {g:2, grp:'Chapitre premier — La marchandise', t:'La marchandise', rn:'I', sur:'Chapitre premier',
+     p:[{page:'Chapitre 1', d:'chapitre premier la marchandise'}],
+     s:"La richesse de la société bourgeoise apparaît d'abord comme une immense accumulation de marchandises — la phrase qui ouvrira Le Capital huit ans plus tard. Marx analyse le double aspect de la marchandise, valeur d'usage et valeur d'échange, établit que le temps de travail social est ce qui rend les marchandises commensurables, puis suit la difficulté qui en résulte : une marchandise ne peut exprimer sa valeur que dans une autre, jusqu'à ce qu'une marchandise exclue de la série devienne l'équivalent général. La formation de l'argent est le dénouement de ce procès, jamais son présupposé."},
+
+    {g:3, grp:'Chapitre premier — La marchandise', t:'A. Historique de l’analyse de la marchandise', rn:'I', sur:'Chapitre premier',
+     p:[{page:'A', d:'a historique de l analyse de la marchandise'}],
+     s:"Le premier des trois excursus d'histoire des théories, que l'édition intercale entre les chapitres. Marx remonte à Petty et à Boisguillebert, passe par Franklin, les physiocrates, Adam Smith et Ricardo, et date pour chacun ce qui a été découvert et ce qui manquait encore. La discussion se referme sur Ricardo et sur ses critiques socialistes, puis sur une question laissée ouverte, que la théorie de la rente foncière devra reprendre : d'où vient la valeur d'échange de simples forces de la nature ?"},
+
+    {g:4, grp:'Chapitre II — La monnaie ou la circulation simple', t:'1. Mesure des valeurs', rn:'II', sur:'Chapitre II',
+     p:[{page:'Chapitre 2', d:'chapitre ii la monnaie ou la circulation simple'},
+        {page:'Chapitre 2/1', d:'i mesure des valeurs', h:'1. Mesure des valeurs'}],
+     s:"Le chapitre s'ouvre sur un mot de Gladstone — l'amour lui-même n'a pas tourné la tête à plus de gens que la spéculation sur l'essence de l'argent — et pose que l'or y sera partout supposé la marchandise monnaie. Vient alors la première fonction : mesurer les valeurs. Dans la détermination du prix, les marchandises ne se transforment en or qu'idéalement ; le prix est une expression de pensée avant d'être une somme versée. De là suivent l'étalon des prix, sa différence d'avec la mesure des valeurs, et l'écart possible entre le prix d'une marchandise et sa grandeur de valeur."},
+
+    {g:5, grp:'Chapitre II — La monnaie ou la circulation simple', t:'B. Théories de l’unité de mesure de la monnaie', rn:'II', sur:'Chapitre II',
+     p:[{page:'B', d:'b theories de l unite de mesure de la monnaie'}],
+     s:"Deuxième excursus, et il découle du précédent : puisque la transformation des marchandises en or n'est qu'idéale dans le prix, on a cru pouvoir faire de l'unité monétaire une mesure purement idéale, détachée de toute marchandise. Marx suit cette doctrine de Steuart à Urquhart, à travers les controverses anglaises sur la livre sterling, et en montre l'origine : la confusion du nom des espèces avec leur substance. Il s'achève sur les socialistes qui font de la marchandise le principe et de la monnaie un accident dont on pourrait se défaire."},
+
+    {g:6, grp:'Chapitre II — La monnaie ou la circulation simple', t:'2. Moyen de circulation', rn:'II', sur:'Chapitre II',
+     p:[{page:'Chapitre 2/2', d:'2 moyen de circulation'}],
+     s:"La partie la plus longue du livre. Fixer un prix n'est pas vendre : il faut que la marchandise change réellement de mains. Marx suit la métamorphose M—A—M, la sépare en une vente et un achat, et montre que la possibilité de la crise est déjà logée dans cette séparation — rien ne garantit que celui qui a vendu achète. Viennent ensuite le cours de la monnaie, la masse de moyens de circulation qu'il exige, puis l'apparition du signe de valeur : la pièce s'use, cesse de valoir son poids, et l'État peut y substituer un jeton dont le mouvement ne dérive plus de la métamorphose des marchandises."},
+
+    {g:7, grp:'Chapitre II — La monnaie ou la circulation simple', t:'3. L’argent ou la monnaie', rn:'II', sur:'Chapitre II',
+     p:[{page:'Chapitre 2/3', d:'3 l argent ou la monnaie'}],
+     s:"L'argent cesse d'être un intermédiaire pour devenir le but : de M—A—M on passe à A—M—A. Marx en suit les trois figures. La thésaurisation, où l'argent est retiré de la circulation et gardé pour lui-même. Le moyen de paiement, où la vente et le règlement se séparent dans le temps, ce qui noue les producteurs les uns aux autres par des dettes et prépare les crises. La monnaie universelle enfin, qui dépouille sa livrée nationale au passage des frontières : les possesseurs de marchandises finissent par comprendre que la nationalité n'est qu'une empreinte sur la pièce."},
+
+    {g:8, grp:'Chapitre II — La monnaie ou la circulation simple', t:'4. Les métaux précieux', rn:'II', sur:'Chapitre II',
+     p:[{page:'Chapitre 2/4', d:'4 les metaux precieux'}],
+     s:"Une partie courte, presque documentaire, et c'est son intérêt : pourquoi l'or et l'argent, plutôt qu'un autre corps, servent-ils de matière à la monnaie ? La réponse est prise dans leurs propriétés physiques — homogénéité, divisibilité sans perte, inaltérabilité, forte valeur sous petit volume — et dans l'histoire de leur production, jusqu'à la baisse de valeur de l'or que les mines de Californie et d'Australie rendaient alors vraisemblable."},
+
+    {g:9, grp:'Chapitre II — La monnaie ou la circulation simple', t:'C. Théories sur les moyens de circulation et sur la monnaie', rn:'II', sur:'Chapitre II',
+     p:[{page:'C', d:'c theorie sur les moyens de circulation et sur la monnaie'}],
+     s:"Le troisième excursus, et le plus long. Marx traverse trois siècles de controverses anglaises : le système monétaire, Hume et la théorie quantitative, Steuart, Ricardo et le Bullion Report, puis la Currency School et l'acte bancaire de 1844. L'enjeu n'est pas d'érudition. Ce que ces débats manquent tous, c'est la différence entre les formes abstraites que l'argent prend face à la marchandise et les rapports bien plus concrets qui se cachent dessous — le capital, le revenu — et que le livre suivant aura seul les moyens de nommer."},
+
+    {g:10, grp:'Appendice', t:'Introduction à une critique de l’économie politique', rn:'1857', sur:'Appendice',
+     p:[{page:'Appendice', d:'introduction a une critique de l economie politique'}],
+     s:"L'introduction que Marx annonce, dès la première page de sa préface, avoir supprimée : « anticiper sur des résultats qu'il reste encore à démontrer pourrait déconcerter ». Écrite en 1857, restée manuscrite, l'édition de 1909 l'imprime en appendice. Elle discute la production en général, puis le rapport de la production à la distribution, à l'échange et à la consommation, expose la méthode — partir du concret représenté pour remonter aux déterminations les plus simples, et refaire le chemin en sens inverse, le concret devenant alors « synthèse de multiples déterminations » —, et se termine sur une question qu'elle laisse ouverte : pourquoi l'art grec, lié à des conditions sociales révolues, nous procure-t-il encore une jouissance ?"}
+  ];
+
+  var INTRO="Publiée à Berlin en 1859, la Contribution est la première mise en forme imprimée de la critique de l'économie politique. Elle contient deux chapitres — la marchandise, la monnaie — que Le Capital reprendra huit ans plus tard, trois excursus d'histoire des théories, et deux textes qui l'ont rendue célèbre : la préface, où Marx formule en un paragraphe le fil conducteur de ses recherches, et, en appendice, l'introduction de 1857 qu'il avait écartée.";
+
+  function byId(id){return document.getElementById(id);}
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function norm(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .replace(/[^a-z0-9]+/g,' ').trim();}
+
+  /* Une seule destination dans cette livraison. window.activateTab existe
+     parce que le shell l'appelle ; elle n'a rien à faire ici. */
+  var curTab='lire';
+  window.activateTab=function(){ curTab='lire'; };
+  function syncTabsA11y(){}
+  window.syncTabsA11y=syncTabsA11y;
+
+  /* ══════════════════ LE NETTOYAGE DU HTML DE WIKISOURCE ══════════════════
+     Parsé dans un document INERTE (DOMParser) et non dans un <div> détaché :
+     un div appartient au document courant, donc lui poser un innerHTML lance
+     immédiatement le chargement de ses images — les retirer ensuite n'annule
+     rien, les requêtes sont parties. Règle déjà payée sur le Capital. */
+  function clean(raw, meta){
+    var doc=new DOMParser().parseFromString(raw,'text/html'), b=doc.body;
+    b.querySelectorAll('style,link,meta,script,img,.ws-noexport,.noprint,.mw-editsection,'
+      +'.pagenum,sup.reference,sup[class*="reference"],.mw-references-wrap,ol.references,'
+      +'.references,[class*="header"],#ws-data,#toc').forEach(function(e){e.remove();});
+    b.querySelectorAll('a').forEach(function(a){a.replaceWith(doc.createTextNode(a.textContent));});
+
+    /* Les titres internes sont des <div style="text-align:center"> ou des
+       <center> — jamais des <h*>. Ceux qui redisent le titre de la partie
+       s'en vont (nous posons le nôtre) ; les autres deviennent des h3. */
+    var attendu=meta.d||'';
+    /* LIRE UN TITRE À TRAVERS SON BALISAGE. textContent ne pose aucune espace
+       à la place d'un <br> : le titre de l'appendice, composé
+       « INTRODUCTION<br>À UNE CRITIQUE… », rendait « INTRODUCTIONÀ UNE… » et
+       ne correspondait plus à ce qu'on cherchait. Même leçon que headText()
+       sur le Capital. */
+    function titreDe(e){
+      var c=e.cloneNode(true);
+      c.querySelectorAll('br').forEach(function(br){ br.replaceWith(doc.createTextNode(' ')); });
+      return c.textContent.replace(/\s+/g,' ').trim();
+    }
+    b.querySelectorAll('h1,h2,h3,h4,h5,h6,center,div').forEach(function(e){
+      var centre = e.tagName==='CENTER'
+        || /text-align:\s*center/.test(e.getAttribute('style')||'')
+        || /^H[1-6]$/.test(e.tagName);
+      if(!centre)return;
+      var t=titreDe(e);
+      if(!t||t.length>120)return;
+      if(attendu && attendu.indexOf(norm(t))>=0){ e.remove(); return; }
+      /* Tout ce qui est centré n'est pas un titre : « M-A-M / A-M-A » est une
+         formule posée au milieu de la page. Les titres de l'édition de 1909
+         sont TOUS composés en gras ou en italique — c'est ce qui les
+         distingue, et c'est le seul indice que la source donne. */
+      if(!e.querySelector('b,i,strong,em')){
+        if(e.tagName==='DIV'){ e.className='mc-formule'; }
+        return;
+      }
+      var h=doc.createElement('h3'); h.className='mc-sub'; h.textContent=t;
+      e.replaceWith(h);
+    });
+
+    /* Les cales de Wikisource (<div style="padding-bottom:1em">) et les
+       paragraphes qui ne portent qu'un <br>. */
+    /* Les cales de Wikisource, et les enveloppes laissées vides par le
+       retrait d'un titre (un titre centré est souvent emboîté dans un
+       second div centré, qui ne porte plus rien après lui). */
+    b.querySelectorAll('div').forEach(function(d){
+      if(!d.textContent.trim() && !d.querySelector('img,table,hr')) d.remove();
+    });
+    b.querySelectorAll('p').forEach(function(p){ if(!p.textContent.trim())p.remove(); });
+    /* Le filet qui SUIVAIT le titre de la source devient orphelin quand on
+       retire ce titre : posé sous le nôtre, qui porte déjà son trait, il en
+       fait deux. Celui qui CLÔT une partie (fin du chapitre C) reste. */
+    var vus=document.createTreeWalker(b,NodeFilter.SHOW_ALL), n, texte=false;
+    while((n=vus.nextNode())){
+      if(n.nodeType===3 && n.nodeValue.trim()){ texte=true; break; }
+      if(n.nodeType===1 && n.tagName==='HR' && !texte){ n.remove(); vus.currentNode=b; }
+    }
+    b.querySelectorAll('[style]').forEach(function(e){e.removeAttribute('style');});
+    return b.innerHTML;
+  }
+
+  function partHtml(part, morceaux){
+    /* La sur-ligne SITUE, elle ne redit pas : « Chapitre II » au-dessus de
+       « 1. Mesure des valeurs », jamais le titre du chapitre en entier — la
+       colonne de gauche le porte déjà, et le lire deux fois dans le même
+       écran ne dit rien de plus. */
+    var h='<h2 class="mc-part">'
+      + (part.sur ? '<span class="mc-rn">'+esc(part.sur)+'</span>' : '')
+      + esc(part.t) + '</h2>';
+    morceaux.forEach(function(m,i){
+      /* Le titre que la source imprime en tête de sa seconde page ne se pose
+         que s'il APPORTE quelque chose : sur la partie 4, il répéterait mot
+         pour mot le titre de la partie, deux lignes plus haut. */
+      var sub=part.p[i].h;
+      if(sub && norm(sub)!==norm(part.t)) h+='<h3 class="mc-sub">'+esc(sub)+'</h3>';
+      h+=m;
+    });
+    h+='<p class="mc-src">Texte : <i>Contribution à la critique de l’économie politique</i>, '
+      +'traduction de Laura Lafargue sur la deuxième édition de Karl Kautsky, texte établi par '
+      +'Alfred Bonnet (Paris, V. Giard et E. Brière, 1909). Domaine public. '
+      +'<a href="'+WS_PAGE+'" rel="noopener">Lire le livre sur Wikisource ›</a></p>';
+    return h;
+  }
+
+  /* ══════════════════ LE SOMMAIRE ══════════════════ */
+  var viewG=0, loaded=0, pendingG=0, CACHE={};
+  function cur(){ return MC_STRUCT[(viewG||1)-1]; }
+  function renderTocRail(){
+    /* Rendu par oeuvres/sommaire.js. Quatre sections : la préface et
+       l'appendice n'ont qu'une entrée, elles s'affichent comme une ligne. */
+    var root=byId('atl3Toc'); if(!root||!window.SommaireAtelier)return;
+    var pg=window.SHELL&&SHELL.progress, done=pg?pg.getSet():new Set();
+    var logged=!!(pg&&pg.isLoggedIn());
+    var sections=[], by={};
+    MC_STRUCT.forEach(function(e){
+      var k=norm(e.grp);
+      if(!by[k]){ by[k]={key:k,rn:e.rn,t:e.grp,items:[]}; sections.push(by[k]); }
+      by[k].items.push({g:e.g,n:'',t:e.t,done:done.has(e.g),text:e.t+' '+e.grp});
+    });
+    SommaireAtelier.render(root,{
+      label:'Le sommaire', cur:viewG||1, sections:sections,
+      progress:{logged:logged, n:MC_STRUCT.filter(function(e){return done.has(e.g);}).length,
+                total:MC_STRUCT.length, word:'parties lues'},
+      filter:null
+    },{
+      open:function(g){ openPart(g); },
+      login:function(){ if(window.SHELL&&SHELL.auth)SHELL.auth.openModal(); }
+    });
+  }
+
+  /* ══════════════════ LA MARGE ══════════════════ */
+  var margeNotes=[], annoUnsub=null;
+  function watchAnnos(){ var AN=window.SHELL&&SHELL.annotations; if(!AN||!AN.onChange||annoUnsub)return;
+    annoUnsub=AN.onChange(function(){renderMarge();}); }
+  function margeFade(){ if(window.MargeAtelier) MargeAtelier.fade(); }
+  function renderMarge(){
+    var el=byId('atl3Marge'); if(!el||!window.MargeAtelier)return;
+    var c=cur(), g=c.g;
+    margeNotes=[];
+    var AN=(window.SHELL&&SHELL.annotations)||null;
+    try{ if(AN&&AN.notesFor) margeNotes=AN.notesFor(WORK,g).sort(function(a,b){return (b.created||0)-(a.created||0);}); }catch(e){}
+    var pub=0;
+    try{ if(AN&&AN.context&&AN.publicCount){ var cx=AN.context(); if(cx.work===WORK&&+cx.section===g) pub=AN.publicCount()||0; } }catch(e){}
+    MargeAtelier.render(el,{
+      label:'Dans cette partie', rn:c.rn||'', title:c.t,
+      sum:c.s?esc(c.s):'', notions:[], tools:[],
+      notes:{list:margeNotes, where:'Dans la Contribution', pub:pub}
+    },{
+      anno:function(a){
+        jumpToQuote(a.quote);
+        if(AN&&AN.flashAnchor)AN.flashAnchor(a);
+      },
+      drawer:function(){},
+      fab:function(id){ var f=byId(id); if(f)f.click();
+        else if(window.SHELL&&SHELL.announce)SHELL.announce('Le texte se charge encore.'); }
+    });
+  }
+
+  /* ══════════════════ LE SUIVI ══════════════════ */
+  function stickyOffset(){ var tb=document.querySelector('#lire .rd-toolbar');
+    return 44+(tb?tb.getBoundingClientRect().height:0)+16; }
+  function jumpToQuote(quote){
+    var box=byId('readerContent'); if(!box||!quote)return;
+    var probe=String(quote).replace(/\s+/g,' ').trim().slice(0,40); if(!probe)return;
+    var els=box.querySelectorAll('p,h2,h3,h4'),target=null;
+    for(var i=0;i<els.length;i++){ if(els[i].textContent.replace(/\s+/g,' ').indexOf(probe)>=0){target=els[i];break;} }
+    if(target) window.scrollTo({top:Math.max(0,window.scrollY+target.getBoundingClientRect().top-stickyOffset()-30),behavior:'instant'});
+  }
+  /* La progression se marque quand on atteint le BAS de la partie, pas à
+     l'ouverture : on ne l'a pas lue parce qu'on l'a ouverte. */
+  var marked={};
+  function trackProgress(){
+    var pg=window.SHELL&&SHELL.progress; if(!pg||!pg.isLoggedIn()||!loaded)return;
+    var g=loaded, box=byId('readerContent');
+    if(!box||marked[g]||pg.getSet().has(g))return;
+    if(box.getBoundingClientRect().bottom<window.innerHeight*1.15){ marked[g]=true; pg.markDone(g); }
+  }
+  var followAt=0;
+  window.addEventListener('scroll',function(){ var now=Date.now(); if(now-followAt<160)return;
+    followAt=now; trackProgress(); },{passive:true});
+
+  /* ══════════════════ LE PLEIN ÉCRAN ══════════════════ */
+  /* Repris tel quel des trois autres ateliers : le bouton porte `btn` ET
+     `atl3-full`. Sans `btn`, il n'a ni fond ni rayon — il retombe sur le
+     gris de l'agent utilisateur, et son or passe à 1,83:1. C'est la règle
+     déjà payée sur .lk et .rd-chip, dans l'autre sens. */
+  function pleinEcran(){ return document.body.classList.contains('at-plein'); }
+  function setPlein(on){
+    if(on===pleinEcran())return;
+    document.body.classList.toggle('at-plein',on);
+    var ex=byId('atlFullExit'); if(ex)ex.hidden=!on;
+    var b=byId('atlFullBtn'); if(b)b.setAttribute('aria-pressed',on?'true':'false');
+    try{
+      if(on&&!document.fullscreenElement&&document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(function(){});
+      if(!on&&document.fullscreenElement&&document.exitFullscreen) document.exitFullscreen().catch(function(){});
+    }catch(e){}
+    if(!on&&b)b.focus({preventScroll:true}); else if(on&&ex)ex.focus({preventScroll:true});
+    if(window.SHELL&&SHELL.announce) SHELL.announce(on?'Lecture plein écran. Échap pour revenir à l’atelier.':'Retour à l’atelier.');
+  }
+  /* Reconstruit à chaque montage de la liseuse, jamais déplacé, et APRÈS
+     Reading.mount — qui construit la barre : appelé plus haut, il ne
+     trouverait pas `.rd-row`. */
+  function installFullBtn(){
+    var old=byId('atlFullBtn'); if(old)old.remove();
+    var row=document.querySelector('#lire .rd-row'), bar=byId('atlMidbar'), host=row||bar;
+    if(!host)return;
+    if(bar)bar.hidden=!!row;
+    var b=document.createElement('button');
+    b.type='button'; b.id='atlFullBtn'; b.className='btn atl3-full';
+    b.setAttribute('aria-pressed',pleinEcran()?'true':'false');
+    b.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true" class="atl3-full-i"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span class="atl3-full-lbl"> Plein écran</span>';
+    b.addEventListener('click',function(){setPlein(!pleinEcran());});
+    if(!row){ host.appendChild(b); return; }
+    var wrap=document.createElement('div'); wrap.className='atl3-toolhead';
+    row.parentNode.insertBefore(wrap,row); wrap.appendChild(b); wrap.appendChild(row);
+  }
+
+  /* ══════════════════ LE CHARGEMENT ══════════════════ */
+  function wsUrl(page){
+    return 'https://fr.wikisource.org/w/api.php?action=parse&page='
+      + encodeURIComponent(WS_ROOT+'/'+page)
+      + '&prop=text&format=json&formatversion=2&redirects=1&origin=*';
+  }
+  function fetchPage(page){
+    if(CACHE[page])return Promise.resolve(CACHE[page]);
+    return fetch(wsUrl(page))
+      .then(function(r){ if(!r.ok)throw new Error('HTTP '+r.status); return r.json(); })
+      .then(function(j){
+        var raw=j&&j.parse&&j.parse.text; if(raw&&typeof raw==='object')raw=raw['*'];
+        if(!raw)throw new Error('réponse vide');
+        CACHE[page]=raw; return raw;
+      });
+  }
+  function showError(g){
+    var rc=byId('readerContent');
+    rc.innerHTML='<div class="reader-error" role="alert"><b>Texte momentanément indisponible.</b>'
+      +'<p>La Contribution est lue sur Wikisource, qui n’a pas répondu. Vérifiez votre connexion, puis réessayez.</p>'
+      +'<p><button type="button" class="btn red" data-retry>Réessayer</button></p></div>';
+    rc.hidden=false; byId('readerPlaceholder').hidden=true;
+    rc.querySelector('[data-retry]').onclick=function(){ load(g); };
+    if(window.SHELL&&SHELL.announce)SHELL.announce('Le texte n’a pas pu être chargé.');
+  }
+  function attach(g){
+    if(window.SHELL&&SHELL.reader&&SHELL.reader.attach)
+      SHELL.reader.attach({workId:WORK, section:g, container:byId('readerContent'),
+        sectionLabel:MC_STRUCT[g-1].t});
+  }
+  var loading=0;
+  function load(g){
+    g=g||1; if(!MC_STRUCT[g-1])g=1;
+    var part=MC_STRUCT[g-1];
+    loading=g;
+    var rc=byId('readerContent');
+    byId('readerPlaceholder').hidden=true; rc.hidden=false;
+    rc.innerHTML='<div class="placeholder" role="status"><div><b>Chargement du texte…</b></div></div>';
+    if(window.SHELL&&SHELL.announce)SHELL.announce('Chargement du texte en cours…');
+    Promise.all(part.p.map(function(m){ return fetchPage(m.page).then(function(raw){ return clean(raw,m); }); }))
+      .then(function(morceaux){
+        if(loading!==g)return;                      /* une autre partie a été demandée */
+        rc.innerHTML=partHtml(part,morceaux);
+        loaded=g; viewG=g;
+        if(window.SHELL&&SHELL.resume)SHELL.resume.set(WORK,{g:g,title:part.t});
+        if(window.SHELL&&SHELL.announce)SHELL.announce('Texte chargé : '+part.t);
+        attach(g);
+        if(window.Reading){
+          window.Reading.mount(byId('lire'),{
+            ctx:{id:g, title:part.t}, textSel:'.reader-content',
+            summaryHtml:'<div class="rd-clear-body">'+esc(part.s)+'</div>',
+            nav:{
+              prev: g>1 ? function(){ openPart(g-1,true); } : null,
+              next: g<MC_STRUCT.length ? function(){ openPart(g+1,true); } : null
+            },
+            glossary:[], xref:[]
+          });
+        }
+        setTimeout(function(){
+          installFullBtn(); renderTocRail(); renderMarge(); watchAnnos();
+          if(window.SommaireAtelier)SommaireAtelier.setCurrent(byId('atl3Toc'),g);
+          trackProgress();
+        },0);
+      })
+      .catch(function(){ if(loading===g)showError(g); });
+  }
+
+  /* Ouvrir une partie, c'est en CHARGER le texte : chaque partie est une
+     page de Wikisource à part, et une section d'annotation à part (#s=<g>). */
+  function openPart(g,haut){
+    if(!MC_STRUCT[g-1])return;
+    if(g===loaded){
+      if(haut)window.scrollTo({top:0,behavior:'instant'});
+      return;
+    }
+    load(g);
+    window.scrollTo({top:0,behavior:'instant'});
+  }
+  window.openPart=openPart;
+
+  /* Contrat de deep-link : #partie=<g> (la recherche et le sommaire), et le
+     passage (#note=, #s=) que attach() résout. */
+  function applyHash(boot){
+    var raw=(location.hash||'').replace(/^#/,'');
+    var m=raw.match(/^partie=(\d+)$/);
+    if(m){ var g=+m[1]; if(boot)pendingG=g; else openPart(g,true); return true; }
+    m=raw.match(/^s=(\d+)/);
+    if(m){ var s=+m[1]; if(MC_STRUCT[s-1]){ if(boot)pendingG=s; else if(s!==loaded)openPart(s,true); else attach(s); return true; } }
+    if(/^note=/.test(raw)){ if(!boot&&loaded)attach(loaded); return true; }
+    return false;
+  }
+
+  function init(){
+    renderTocRail();
+    renderMarge();
+    watchAnnos();
+    var mg=byId('atl3Marge');
+    if(mg){ mg.addEventListener('scroll',margeFade,{passive:true}); window.addEventListener('resize',margeFade); }
+    byId('atlFullExit').addEventListener('click',function(){setPlein(false);});
+    document.addEventListener('fullscreenchange',function(){ if(!document.fullscreenElement&&pleinEcran())setPlein(false); });
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&pleinEcran())setPlein(false); });
+    if(window.SHELL&&SHELL.progress) SHELL.progress.init(WORK,function(){ renderTocRail(); });
+
+    if(!applyHash(true)){
+      var r=(window.SHELL&&SHELL.resume)?SHELL.resume.get(WORK):null;
+      if(r&&r.g)pendingG=+r.g;
+    }
+    window.__deepBooted=true;
+    load(pendingG||1);
+    window.addEventListener('hashchange',function(){ applyHash(false); });
+  }
+  window.renderTocRail=renderTocRail;
+  window.renderResume=function(){ renderTocRail(); };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+<script src="../config.js"></script>
+<script src="shell.js?v=15"></script>
+<script src="shell-social.js"></script>
+<script src="shell-annotations.js?v=2"></script>
+<script src="shell-progress.js"></script>
+<script src="reader-tools.js?v=6" defer></script>
+<script>
+installShell({
+  workId: 'contribution-critique-economie-politique',
+  workTitle: 'Contribution à la critique de l\'économie politique'
+});
+(function(){
+  if(typeof renderResume==='function')renderResume();
+})();
+</script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-27",
+  "updated": "2026-09-17",
   "readingGroups": [
     {
       "id": "seuils",
@@ -120,23 +120,24 @@
       "shortTitle": "Contribution",
       "author": "Karl Marx",
       "year": 1859,
-      "status": "planned",
+      "status": "available",
       "category": "critique-economie-politique",
       "path": "oeuvres/contribution-1859.html",
       "manifest": "oeuvres/contribution-1859/manifest.json",
-      "description": "Première mise en forme publiée de la critique de l'économie politique, avec la célèbre préface sur la méthode matérialiste.",
+      "description": "Première mise en forme publiée de la critique de l'économie politique. Elle contient la préface où Marx formule le fil conducteur de ses recherches — la base économique et la superstructure —, deux chapitres que Le Capital reprendra, et l'introduction de 1857 restée manuscrite.",
       "concepts": [
+        "base et superstructure",
+        "rapports de production",
+        "forces productives",
         "marchandise",
-        "argent",
-        "méthode",
-        "production",
-        "rapports sociaux",
-        "base et superstructure"
+        "monnaie",
+        "méthode"
       ],
-      "readingGuide": "Lire la préface avant le corps du texte : elle donne un point d'entrée utile sur la méthode historique de Marx.",
-      "sourceNote": "Texte du domaine public à intégrer depuis une édition fiable.",
+      "readingGuide": "La préface se lit seule, en vingt minutes : c'est le texte le plus cité de Marx. Le corps du livre est plus technique — la marchandise, puis la monnaie —, et l'appendice de 1857 expose la méthode.",
+      "sourceNote": "Texte publié à Berlin en 1859. Le texte servi ici est la traduction française de Laura Lafargue, établie sur la deuxième édition de Karl Kautsky et publiée en 1909 chez V. Giard et E. Brière, chargée depuis Wikisource. Elle est dans le domaine public : sa traductrice est morte en 1911.",
       "reading": {
-        "group": "critique"
+        "group": "critique",
+        "entry": "Comprendre la méthode matérialiste"
       }
     },
     {
