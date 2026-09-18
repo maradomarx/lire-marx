@@ -1,33 +1,18 @@
 {
   "work": "contribution-critique-economie-politique",
-  "title": "Contribution a la critique de l'economie politique",
+  "title": "Contribution à la critique de l'économie politique",
   "author": "Karl Marx",
   "year": 1859,
-  "status": "planned",
+  "status": "available",
   "source": {
     "type": "public-domain",
-    "note": "Texte complet non integre pour l'instant. Source fiable a confirmer avant publication."
+    "translator": "Laura Lafargue",
+    "edition": "V. Giard et E. Brière, Paris, 1909, sur la 2e édition de Karl Kautsky",
+    "served": "https://fr.wikisource.org/wiki/Contribution_%C3%A0_la_critique_de_l%E2%80%99%C3%A9conomie_politique",
+    "note": "Le texte n'est pas servi localement : la liseuse charge chaque partie depuis Wikisource. Le plan fait foi dans MC_STRUCT (oeuvres/contribution-1859.html), pas ici."
   },
-  "sections": [
-    {
-      "id": "preface",
-      "title": "Preface",
-      "chapters": []
-    },
-    {
-      "id": "marchandise",
-      "title": "La marchandise",
-      "chapters": []
-    },
-    {
-      "id": "argent",
-      "title": "L'argent ou la circulation simple",
-      "chapters": []
-    }
-  ],
   "notes": [
-    "Structure preparatoire uniquement.",
-    "Aucun texte complet n'est encore integre.",
+    "Ce fichier n'est lu par aucun code : il documente l'œuvre.",
     "Le champ work reprend l'id utilise dans oeuvres/bibliotheque.json."
   ]
 }
