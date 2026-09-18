@@ -10240,6 +10240,71 @@ Le **glossaire** (elle n'a pas de `CONCEPTS=`, donc rien n'entre encore dans
 l'abécédaire) et la **recherche plein texte** (dix pages Wikisource à charger,
 là où le Manifeste n'en a qu'une).
 
+### La recherche va dans le texte de la Contribution (mission `contribution-recherche`, sept. 2026)
+
+Le dernier trou de l'œuvre côté recherche : « thésaurisation », « salto
+mortale », « fil conducteur » ne rendaient rien, alors que le site sert le
+texte qui les contient.
+
+#### Ni le modèle du Manifeste, ni tout à fait celui du Capital
+
+La Contribution a **onze pages Wikisource** pour dix parties. Tout charger
+(le Manifeste, une page) ferait onze requêtes et soixante-neuf mille mots à
+la première frappe ; le seul extrait de l'API de recherche (le Capital) ne
+donne pas la tranche exacte. **On fait les deux, dans cet ordre** : l'API de
+RECHERCHE dit quelles pages répondent — une requête, `prefix:` sur la racine
+—, puis on ne charge que celles-là, **trois au plus**, pour en tirer la
+phrase au caractère près. Les pages chargées restent en cache d'une
+recherche à l'autre, et les requêtes déjà posées aussi.
+
+`recherche.json` gagne le bloc `texte['contribution-critique-economie-politique']`
+(racine + table `pages`), **dérivé de MC_STRUCT** : c'est lui qui apparie le
+titre Wikisource à la partie, donc qui donne le `#s=` du contrat de
+deep-link. Une partie peut porter deux pages (l'ouverture du chapitre II
+précède « Mesure des valeurs ») : elle n'est proposée qu'une fois. Le
+générateur échoue si MC_STRUCT rend moins de dix pages.
+
+#### SEULS LES BLOCS DE TEXTE COMPTENT — la règle du Manifeste, repayée
+
+Les titres de l'édition de 1909 sont des `<div>` centrés que la page RETIRE
+pour poser les siens. Relevée dans le texte brut de la page, « métaux
+précieux » sortait du TITRE de la partie — et le `q=` renvoyait donc en haut
+de page. Le chargeur ne garde que `p, li, blockquote, td` : mesuré, **99 %
+des mots de chaque page** (1 665 · 9 467 · 3 038 · 214 · 3 797 · 3 574 ·
+12 952 · 10 507 · 1 551 · 10 925 · 11 279), seuls les titres tombent. Les
+tableaux d'équivalences restent — ce sont des `td`, et c'est du contenu.
+
+#### ⚠️ ET LE MÊME DÉFAUT VIVAIT DANS `flashAnchor`, POUR TOUT LE SITE
+
+Corrigé le chargeur, « métaux précieux » déposait encore en haut de la
+partie : `flashAnchor` (shell-annotations) prend le **premier** bloc de
+`p,h2,h3,h4,h5,li,blockquote` qui contient la phrase — et notre propre
+`<h2>` de partie s'appelle « 4. Les métaux précieux ». **Un `q=` vient
+toujours d'une citation ou d'une tranche relevée dans le texte : il vise un
+passage.** La prose l'emporte donc, le titre n'est que le repli — pour une
+phrase qui n'existe que là. Même correction dans le `jumpToQuote` de la
+page, qui est l'autre chemin (le dossier, `goTexte`).
+
+Vérifié que les trois autres œuvres ne bougent pas : citations réelles
+relevées dans les sources des pages-monde, Capital à 40 540 px, Manuscrits
+à 75 853, Manifeste à 1 221 — toutes trouvées, toutes profondes.
+
+#### Vérifié
+
+Six requêtes menées de bout en bout par un **vrai clic de souris** depuis
+l'accueil : « métaux précieux » `#s=8`, « thésaurisation » `#s=7`, « fil
+conducteur » et « superstructure » `#s=1`, « salto mortale » `#s=6`,
+« Gladstone » `#s=4` — la partie juste, la phrase retrouvée dans le texte
+servi, et le défilement sur la prose à chaque fois. L'entrelacement passe
+désormais sur les **quatre** œuvres (« métaux précieux » rend le Capital,
+les Manuscrits et la Contribution ; « aliénation » le Capital, les
+Manuscrits et le Manifeste). **Wikisource coupé, la recherche est celle
+d'avant** : structure et essais répondent seuls, aucune exception. Les
+**treize pages** qui montent la coquille : zéro débordement, console propre.
+Détecteur compté **avant et après en remisant** : 18 / 19 / 14 / 13 / 26,
+**identiques**, 0 erreur. `gen-seo --check` à jour et idempotent.
+**`shell.js?v=16`** (101 références) et **`shell-annotations.js?v=3`** (5).
+
 ## Conventions de travail
 
 - **Une mission par session.** Une demande utilisateur = un objectif clair,

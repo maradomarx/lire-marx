@@ -731,6 +731,100 @@
       }).catch(function(){ return []; });
     }
 
+    /* La Contribution : DIX pages de Wikisource. Ni tout charger (le modèle
+       du Manifeste : ce serait onze requêtes et soixante-neuf mille mots à
+       la première frappe), ni le seul extrait de l'API (le modèle du
+       Capital, qui ne donne pas la tranche exacte). On demande d'abord à
+       l'API de RECHERCHE quelles pages répondent — une requête —, puis on
+       ne charge que celles-là, trois au plus, pour en tirer la phrase au
+       caractère près. Les pages chargées restent en cache d'une recherche à
+       l'autre.
+
+       LE TEXTE EST NETTOYÉ COMME LA LISEUSE LE NETTOIE. Sans cela, une
+       phrase relevée dans une note de bas de page ou dans le bandeau de
+       navigation partirait en `q=` vers un texte qui ne la contient pas :
+       `locate()` cherche par `indexOf` exact, et ne la trouverait jamais. */
+    var mcPages = {}, mcQ = {};
+    function mcCharge(p, racine){
+      if(mcPages[p]) return Promise.resolve(mcPages[p]);
+      var u = 'https://fr.wikisource.org/w/api.php?action=parse&page='
+        + encodeURIComponent(racine + '/' + p)
+        + '&prop=text&format=json&formatversion=2&redirects=1&origin=*';
+      return fetch(u).then(function(r){ return r.ok ? r.json() : null; }).then(function(j){
+        var raw = j && j.parse && j.parse.text; if(raw && typeof raw === 'object') raw = raw['*'];
+        if(!raw) return null;
+        var d = new DOMParser().parseFromString(raw, 'text/html');
+        d.querySelectorAll('style,link,meta,script,img,.ws-noexport,.noprint,.mw-editsection,'
+          + '.pagenum,sup.reference,sup[class*="reference"],.mw-references-wrap,ol.references,'
+          + '.references,[class*="header"],#ws-data,#toc').forEach(function(n){ n.remove(); });
+        /* SEULS LES BLOCS DE TEXTE COMPTENT — la règle est déjà celle du
+           Manifeste, et elle se paie ici aussi : les titres de l'édition de
+           1909 sont des <div> centrés que la page RETIRE pour poser les
+           siens. Relevée dans un titre, « métaux précieux » renvoyait au
+           haut de la partie au lieu de la phrase. */
+        var buf = [];
+        (d.querySelector('.mw-parser-output') || d.body)
+          .querySelectorAll('p, li, blockquote, td').forEach(function(n){
+            var t = n.textContent; if(t && t.trim()) buf.push(t);
+          });
+        mcPages[p] = prepare(buf.join('\n'));
+        return mcPages[p];
+      }).catch(function(){ return null; });
+    }
+    function chercheContribution(q, nq, re){
+      var meta = TEXTE && TEXTE['contribution-critique-economie-politique'];
+      if(!meta || !meta.pages || !meta.racine) return Promise.resolve([]);
+      if(mcQ[nq]) return Promise.resolve(mcQ[nq]);
+      var terme = /\s/.test(q.trim()) ? '"' + q.trim().replace(/"/g, '') + '"' : q.trim();
+      var u = 'https://fr.wikisource.org/w/api.php?action=query&list=search&srnamespace=0'
+        + '&srsearch=' + encodeURIComponent(terme + ' prefix:' + meta.racine + '/')
+        + '&srlimit=12&srprop=snippet&format=json&origin=*';
+      var stop = null, sig = null;
+      try { var ac = new AbortController(); sig = ac.signal; stop = setTimeout(function(){ ac.abort(); }, 8000); } catch(e){}
+      return fetch(u, sig ? { signal: sig } : undefined).then(function(r){
+        if(stop) clearTimeout(stop);
+        return r.ok ? r.json() : null;
+      }).then(function(j){
+        var vus = {}, prises = [];
+        ((j && j.query && j.query.search) || []).forEach(function(h){
+          var titre = String(h.title || '');
+          var court = titre.indexOf(meta.racine + '/') === 0 ? titre.slice(meta.racine.length + 1) : null;
+          if(!court) return;
+          var fiche = null, k;
+          for(k = 0; k < meta.pages.length; k++) if(meta.pages[k].p === court) fiche = meta.pages[k];
+          /* une partie peut porter deux pages : on ne la propose qu'une fois */
+          if(!fiche || vus[fiche.g] || prises.length >= 3) return;
+          vus[fiche.g] = 1;
+          prises.push({ f: fiche, snip: String(h.snippet || '').replace(/<[^>]*>/g, '')
+            .replace(/&quot;/g, '"').replace(/&#0?39;/g, "'").replace(/&nbsp;/g, ' ')
+            .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&') });
+        });
+        return Promise.all(prises.map(function(x){
+          return mcCharge(x.f.p, meta.racine).then(function(doc){
+            var t = doc && tranche(doc, re);
+            /* la page chargée donne la tranche EXACTE ; sans elle on retombe
+               sur l'extrait de l'API, comme le fait le Capital */
+            if(!t){
+              var ts = tranche(prepare(x.snip), re);
+              return { f: x.f, exact: ts ? ts.exact : q.trim(),
+                s: ts ? extrait(x.snip, ts.i, ts.exact.length) : x.snip.replace(/\s+/g, ' ').trim() };
+            }
+            return { f: x.f, exact: t.exact, s: extrait(doc.brut, t.i, t.exact.length) };
+          });
+        }));
+      }).then(function(a){
+        var out = a.filter(Boolean).map(function(x){
+          return {
+            t: 'Contribution (1859) — ' + (x.f.sur && x.f.sur !== x.f.t ? x.f.sur + ', ' : '') + x.f.t,
+            s: x.s, cat: 'texte',
+            url: '/oeuvres/contribution-1859#s=' + x.f.g + '&q=' + encodeURIComponent(x.exact)
+          };
+        });
+        mcQ[nq] = out;
+        return out;
+      }).catch(function(){ if(stop) clearTimeout(stop); return []; });
+    }
+
     /* Les essais du glossaire : quarante-six mille mots écrits à la main
        que le champ ne voyait pas. Ils sont NOTRE texte, pas celui de Marx —
        d'où un groupe à part : le site est scrupuleux sur cette frontière, la
@@ -864,15 +958,16 @@
       txtTimer = setTimeout(function(){
         if(renderSeq !== seq) return;
         var re = motif(nq);
-        Promise.all([chercheCapital(q, nq, re), chercheManuscrits(q, nq, re), chercheEssais(q, nq, re), chercheManifeste(q, nq, re), chercheRessources(q, nq, re)])
+        Promise.all([chercheCapital(q, nq, re), chercheManuscrits(q, nq, re), chercheEssais(q, nq, re), chercheManifeste(q, nq, re), chercheRessources(q, nq, re), chercheContribution(q, nq, re)])
           .then(function(r){
             if(renderSeq !== seq) return;
             /* ON ENTRELACE LES ŒUVRES. Mises bout à bout, les sections du
                Capital — huit, contre cinq fragments — prenaient les places et
                les Manuscrits n'apparaissaient jamais : « aliénation » rendait
                quatre passages du Capital et pas un des cahiers de 1844, où le
-               mot est le sujet. Le tour passe d'une œuvre à l'autre. */
-            var src = [r[0], r[1], r[3]], texte = [], i = 0;
+               mot est le sujet. Le tour passe d'une œuvre à l'autre — les
+               QUATRE, depuis que la Contribution y entre. */
+            var src = [r[0], r[1], r[3], r[5]], texte = [], i = 0;
             while(texte.length < TXT_MAX && src.some(function(s){ return i < s.length; })){
               src.forEach(function(s){ if(i < s.length && texte.length < TXT_MAX) texte.push(s[i]); });
               i++;

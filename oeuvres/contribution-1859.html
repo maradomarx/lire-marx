@@ -927,8 +927,18 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
   function jumpToQuote(quote){
     var box=byId('readerContent'); if(!box||!quote)return;
     var probe=String(quote).replace(/\s+/g,' ').trim().slice(0,40); if(!probe)return;
-    var els=box.querySelectorAll('p,h2,h3,h4'),target=null;
-    for(var i=0;i<els.length;i++){ if(els[i].textContent.replace(/\s+/g,' ').indexOf(probe)>=0){target=els[i];break;} }
+    /* ON PRÉFÈRE LA PROSE AU TITRE. Un `q=` vient d'une citation ou d'une
+       tranche relevée dans le texte : il vise un passage. Cherché dans
+       l'ordre du document, « métaux précieux » tombait sur le h2 de la
+       partie — qui porte ce titre — et déposait en haut de page. Le titre
+       reste le repli, pour une phrase qui n'existe que là. */
+    var els=box.querySelectorAll('p,h2,h3,h4'),target=null,repli=null;
+    for(var i=0;i<els.length;i++){
+      if(els[i].textContent.replace(/\s+/g,' ').indexOf(probe)<0) continue;
+      if(/^H[2-4]$/.test(els[i].tagName)){ if(!repli)repli=els[i]; continue; }
+      target=els[i]; break;
+    }
+    if(!target)target=repli;
     if(!target)return;
     var r=rangeDe(target,probe), rect=r?r.getBoundingClientRect():null;
     if(!rect||!rect.height) rect=target.getBoundingClientRect();
@@ -1137,9 +1147,9 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
 })();
 </script>
 <script src="../config.js"></script>
-<script src="shell.js?v=15"></script>
+<script src="shell.js?v=16"></script>
 <script src="shell-social.js"></script>
-<script src="shell-annotations.js?v=2"></script>
+<script src="shell-annotations.js?v=3"></script>
 <script src="shell-progress.js"></script>
 <script src="reader-tools.js?v=6" defer></script>
 <script src="atelier-motion.js?v=5" defer></script>
