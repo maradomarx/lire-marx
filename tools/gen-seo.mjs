@@ -2237,6 +2237,11 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
   for (const p of litteralJS(readFileSync('oeuvres/contribution-1859.html', 'utf8'), 'MC_STRUCT=', '['))
     items.push({ t: strip(p.t), s: `Contribution (1859) · ${strip(p.grp)}`,
       cat: 'partie', url: `/oeuvres/contribution-1859#partie=${p.g}`, hay: court(p.s, 400) });
+  for (const [t, url, hay] of [
+    ['Le cheminement de la Contribution', '/oeuvres/contribution-1859#deriv', 'marches marchandise valeur temps de travail équivalent général monnaie argent'],
+    ['La préface de 1859, au mot', '/oeuvres/contribution-1859#labo', 'base superstructure rapports de production forces productives conscience être social idéologie fil conducteur'],
+    ['De 1859 au Capital', '/oeuvres/contribution-1859#capital', 'comparaison 1867 forme-valeur fétichisme force de travail plus-value ce qui manque encore']
+  ]) items.push({ t, s: 'Le dossier · Contribution (1859)', cat: 'outil', url, hay });
 
   for (const n of INDEX_NOTIONS) {
     items.push({ t: n.nom, s: (n.de ? n.de + ' · ' : '') + n.oeuvre, cat: 'notion',
