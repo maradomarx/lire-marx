@@ -684,11 +684,19 @@
     if(!box || !an || !an.quote) return;
     var probe = String(an.quote).replace(/\s+/g, ' ').trim().slice(0, 40);
     if(!probe) return;
+    /* ON PRÉFÈRE LA PROSE AU TITRE. Un `q=` vient d'une citation ou d'une
+       tranche relevée dans le texte : il vise un passage. Cherché dans le
+       seul ordre du document, « métaux précieux » tombait sur le titre de la
+       partie — qui porte ces mots — et déposait en haut de page. Le titre
+       reste le repli, pour une phrase qui n'existe que là. */
     var els = box.querySelectorAll('p,h2,h3,h4,h5,li,blockquote');
-    var target = null;
+    var target = null, repli = null;
     for(var i = 0; i < els.length; i++){
-      if(els[i].textContent.replace(/\s+/g, ' ').indexOf(probe) >= 0){ target = els[i]; break; }
+      if(els[i].textContent.replace(/\s+/g, ' ').indexOf(probe) < 0) continue;
+      if(/^H[2-5]$/.test(els[i].tagName)){ if(!repli) repli = els[i]; continue; }
+      target = els[i]; break;
     }
+    if(!target) target = repli;
     if(!target && probe.length > 14){
       var short = probe.slice(0, 16);
       for(var j = 0; j < els.length; j++){

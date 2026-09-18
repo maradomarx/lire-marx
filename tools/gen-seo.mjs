@@ -1270,7 +1270,7 @@ ${monde}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=15"></script>
+<script src="/oeuvres/shell.js?v=16"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 ${aScene ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-driver.js')}" defer></script>` : ''}
@@ -1431,7 +1431,7 @@ ${voisines.map((v) => `      <a href="${v.href}">${v.nom}</a>`).join('\n')}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=15"></script>
+<script src="/oeuvres/shell.js?v=16"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 </body>
@@ -1667,7 +1667,7 @@ ${marge}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=15"></script>
+<script src="/oeuvres/shell.js?v=16"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Le Capital', tabs: [] });</script>
 </body>
@@ -1732,7 +1732,7 @@ ${o.ld}
 </head>`;
   const piedCm = (workTitle) => `${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=15"></script>
+<script src="/oeuvres/shell.js?v=16"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: '${workTitle}', tabs: [] });</script>
 <script src="/commentaires/agregation.js?v=${hashV('commentaires/agregation.js')}" defer></script>
@@ -2274,6 +2274,14 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
    *     lui qui donne le `#s=` du contrat de deep-link (parts[n-1]).
    * Le tableau `parts` de la page est la source : le manifeste en porte une
    * seconde copie, aux accents près, et c'est la page qui fait foi. */
+  /* Les pages Wikisource de la Contribution, aplaties : une partie peut en
+     porter deux (l'ouverture du chapitre II precede « Mesure des valeurs »). */
+  const MC_RACINE = 'Contribution à la critique de l\u2019économie politique';
+  const MC_PAGES = [];
+  for (const p of litteralJS(readFileSync('oeuvres/contribution-1859.html', 'utf8'), 'MC_STRUCT=', '['))
+    for (const w of (p.p || []))
+      MC_PAGES.push({ p: w.page, g: p.g, t: strip(p.t), sur: strip(p.sur || p.grp || '') });
+
   const texte = {
     'capital-1': { sections: ROY.map((sec, i) => ({ n: i + 1, rn: sec.rn, t: strip(sec.t) })) },
     /* Le Manifeste : une seule page de Wikisource, lue par l'API `parse`
@@ -2291,8 +2299,22 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
         n: i + 1, t: strip(p.title),
         f: `/oeuvres/manuscrits-1844/textes/${String(p.file).replace(/\.html$/, '')}`
       }))
+    },
+    /* La Contribution : DIX pages de Wikisource. Ni le modele du Manifeste
+       (tout charger : ce serait dix requetes et 69 000 mots a la premiere
+       frappe), ni tout a fait celui du Capital (le seul extrait de l'API,
+       qui ne donne pas la tranche exacte). On interroge l'API de RECHERCHE
+       pour savoir QUELLES pages repondent, puis on ne charge que celles-la
+       — trois au plus — pour en tirer la phrase au caractere pres.
+       `pages` apparie le titre Wikisource a la partie : c'est lui qui donne
+       le `#s=` du contrat de deep-link, et il est derive de MC_STRUCT. */
+    'contribution-critique-economie-politique': {
+      racine: MC_RACINE,
+      pages: MC_PAGES
     }
   };
+  if (MC_PAGES.length < 10)
+    throw new Error(`MC_STRUCT rend ${MC_PAGES.length} pages Wikisource — la Contribution en a onze.`);
   if (texte['capital-1'].sections.length !== 8)
     throw new Error(`ROY_STRUCT rend ${texte['capital-1'].sections.length} sections — le Livre I en a huit.`);
   if (texte['manuscrits-1844'].parts.length < 3)
