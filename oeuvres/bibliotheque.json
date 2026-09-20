@@ -307,27 +307,28 @@
     },
     {
       "id": "salaire-prix-profit",
-      "title": "Salaire, prix et profit",
-      "shortTitle": "Salaire, prix et profit",
+      "title": "Salaires, prix, profits",
+      "shortTitle": "Salaires, prix, profits",
       "author": "Karl Marx",
       "year": 1865,
-      "status": "planned",
+      "status": "available",
       "category": "critique-economie-politique",
       "path": "oeuvres/salaire-prix-profit.html",
       "manifest": "oeuvres/salaire-prix-profit/manifest.json",
-      "description": "Exposé polémique sur les salaires, les prix, la valeur, le profit et le rôle des luttes salariales.",
+      "description": "Deux séances devant le Conseil général de l’Internationale, en juin 1865, pour répondre à un collègue qui soutenait qu’une hausse des salaires ne sert à rien. Marx y expose la valeur, la force de travail et la plus-value deux ans avant Le Capital. L’ouvrage est aussi connu sous le titre « Salaire, prix et profit ».",
       "concepts": [
-        "salaire",
-        "prix",
-        "profit",
         "valeur",
         "force de travail",
+        "plus-value",
+        "salaire",
+        "taux de profit",
         "lutte salariale"
       ],
-      "readingGuide": "Bonne porte d'entrée pédagogique vers la théorie de la valeur et de la plus-value avant ou pendant le Livre I du Capital.",
-      "sourceNote": "Exposé de 1865 publié ensuite sous forme de brochure. Texte du domaine public.",
+      "readingGuide": "La porte d’entrée la plus courte du corpus : Marx y dit en quinze sections, et devant un auditoire d’ouvriers, ce que Le Capital démontrera en huit cents pages. Les cinq premières sections réfutent un contradicteur, l’exposé commence à la sixième — on peut l’ouvrir là, et revenir au débat ensuite.",
+      "sourceNote": "Exposé lu devant le Conseil général de l’Association internationale des travailleurs en juin 1865, resté inédit du vivant de Marx et publié en 1898 par sa fille Eleanor. Le texte servi ici est la traduction française de Charles Longuet, deuxième édition, publiée en 1912 chez M. Giard et É. Brière, chargée depuis Wikisource. Elle est dans le domaine public : son traducteur est mort en 1903.",
       "reading": {
-        "group": "seuils"
+        "group": "seuils",
+        "entry": "Comprendre d’où vient le profit"
       }
     },
     {

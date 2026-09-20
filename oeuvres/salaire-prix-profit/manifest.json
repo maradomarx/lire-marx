@@ -1,33 +1,19 @@
 {
   "work": "salaire-prix-profit",
-  "title": "Salaire, prix et profit",
+  "title": "Salaires, prix, profits",
   "author": "Karl Marx",
   "year": 1865,
-  "status": "planned",
+  "status": "available",
   "source": {
     "type": "public-domain",
-    "note": "Expose de 1865 publie ensuite sous forme de brochure. Texte complet non integre pour l'instant."
+    "translator": "Charles Longuet",
+    "edition": "M. Giard et É. Brière, Paris, 1912, deuxième édition",
+    "served": "https://fr.wikisource.org/wiki/Salaires,_prix,_profits",
+    "note": "Le texte n'est pas servi localement : la liseuse charge chaque section depuis Wikisource. Le plan fait foi dans SP_STRUCT (oeuvres/salaire-prix-profit.html), pas ici."
   },
-  "sections": [
-    {
-      "id": "valeur-et-travail",
-      "title": "Valeur et travail",
-      "chapters": []
-    },
-    {
-      "id": "force-de-travail-et-profit",
-      "title": "Force de travail, salaire et profit",
-      "chapters": []
-    },
-    {
-      "id": "luttes-salariales",
-      "title": "Luttes salariales et organisation",
-      "chapters": []
-    }
-  ],
   "notes": [
-    "Structure preparatoire uniquement.",
-    "Aucun texte complet n'est encore integre.",
-    "Le status restera planned tant que le texte n'est pas ajoute."
+    "Ce fichier n'est lu par aucun code : il documente l'œuvre.",
+    "Le champ work reprend l'id utilise dans oeuvres/bibliotheque.json.",
+    "L'oeuvre est aussi connue sous le titre « Salaire, prix et profit » ; celui qui est ecrit ici est celui de l'edition servie."
   ]
 }

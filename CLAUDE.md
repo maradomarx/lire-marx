@@ -30,9 +30,11 @@ oeuvres/<id>/textes/           # textes locaux servis à la liseuse
 ```
 
 Les œuvres sont **de même niveau** dans l'arborescence. Aucune n'est « la »
-page principale. Actuellement disponibles : `capital-1`, `manuscrits-1844` et
-`manifeste-parti-communiste` (page `oeuvres/manifeste.html` — le `path` de
-bibliotheque.json fait foi, pas l’id).
+page principale. Actuellement disponibles : `capital-1`, `manuscrits-1844`,
+`manifeste-parti-communiste` (page `oeuvres/manifeste.html`),
+`contribution-critique-economie-politique` (page `oeuvres/contribution-1859.html`)
+et `salaire-prix-profit` — **le `path` de bibliotheque.json fait foi, pas
+l’id**, et les cinq ateliers le rappellent.
 
 L'accueil du site est `oeuvres/index.html` (la bibliothèque), pilotée par
 `oeuvres/bibliotheque.json` — **source centrale unique** de la liste des
@@ -10304,6 +10306,139 @@ d'avant** : structure et essais répondent seuls, aucune exception. Les
 Détecteur compté **avant et après en remisant** : 18 / 19 / 14 / 13 / 26,
 **identiques**, 0 erreur. `gen-seo --check` à jour et idempotent.
 **`shell.js?v=16`** (101 références) et **`shell-annotations.js?v=3`** (5).
+
+## Salaires, prix, profits entre au corpus (mission `salaire-prix-profit`, sept. 2026)
+
+Cinquième œuvre servie, et la plus courte porte d’entrée du corpus : deux
+séances devant le Conseil général de l’Internationale, en juin 1865, où Marx
+expose la valeur, la force de travail et la plus-value **deux ans avant Le
+Capital**, devant un auditoire d’ouvriers et pour répondre à un contradicteur.
+Elle était déjà `primer` du Capital I dans le graphe de lecture : la relation
+existait, il manquait le texte.
+
+- **Le texte** : traduction **Charles Longuet**, telle que Wikisource la sert
+  (`Salaires, prix, profits`, M. Giard et É. Brière, **deuxième édition**,
+  1912 — la page de titre servie l’imprime). Domaine public : le traducteur
+  est mort en **1903** (Wikidata Q1065362, vérifié). L’original est **anglais**
+  (*Value, Price and Profit*), lu le 20 juin 1865 et publié seulement en
+  **1898** par Eleanor Marx — d’où `datePublished: '1898'` et
+  `dateCreated: '1865'` dans EDITION : c’est l’écart qui situe l’œuvre, comme
+  les 88 ans des Manuscrits.
+- **Une seule destination dans cette livraison — le texte**, comme les
+  premières livraisons du Manifeste et de la Contribution ; le dossier suit.
+  Donc pas de barre d’onglets, et `:root{--atl-top:44px}`.
+
+### Le titre est celui de l’édition servie, l’autre est dit
+
+La page s’appelle **Salaires, prix, profits** — ce que la page de titre de
+1912 imprime, sur deux lignes, que le `<h1>` reprend (« Salaires » puis
+« prix, profits » dans le `.work-vol`). Mais l’ouvrage circule surtout sous
+**« Salaire, prix et profit »** (Éditions sociales), et c’est ce qu’on tape :
+ce second titre vit dans le `<title>` entre parenthèses, dans la description
+du catalogue, et dans l’`alternateName` du `Book`. **Un `alternateName` n’est
+légitime que s’il est visible dans la page** — ici le `<title>` le porte.
+
+### Quinze entrées, et c’est la table des matières de 1912
+
+`SP_STRUCT` est la source unique. L’avant-propos, puis les **quatorze
+sections** numérotées ; chacune est une sous-page de Wikisource, donc une
+section d’annotation à part (`#s=<g>`), et **aucune n’en porte deux** — le cas
+de figure de la Contribution (une ouverture de chapitre qui ne tenait pas
+seule) ne se présente pas ici.
+
+**Le sommaire est PLAT, et c’est un choix mesuré** : le livre n’a pas de
+chapitres, sa table des matières ne groupe rien. Chaque entrée est donc une
+section de `sommaire.js` **à entrée unique**, que le module rend comme une
+ligne portant son chiffre romain en marge — et non comme un dépliant. On
+n’invente pas un regroupement (les cinq sections de réfutation, l’exposé
+positif) que la source ne porte pas.
+
+⚠️ **LA SOURCE IMPRIME « IV » EN TÊTE DE LA SECTION VI**, et ce n’est pas une
+erreur de transcription : la page 43 du livre porte bien IV (vérifié sur le
+scan `Page:Marx - Salaires, prix, profits.djvu/43`) quand sa propre table des
+matières annonce « Section VI ». C’est une coquille de l’édition de 1912. Le
+champ `d` retire ce que la source imprime, le champ `rn` pose le numéro juste
+— sans quoi le sommaire compterait deux fois IV et sauterait VI.
+
+### Deux choses que le nettoyage a dû apprendre
+
+1. **UN DIV QUI NE PORTE QUE DU TEXTE DEVIENT UN PARAGRAPHE.** La source
+   compose l’apostrophe liminaire — « Citoyens, » — en `<div>` décalé et non
+   en `<p>` : laissé tel quel, il se collait au paragraphe suivant, la liseuse
+   ne donnant de marge qu’aux paragraphes. La conversion ne touche ni aux
+   enveloppes (elles portent des blocs) ni aux formules centrées, qui ont leur
+   classe. Ajout au `clean()` du modèle, à reprendre pour toute œuvre à venir.
+2. **La sur-ligne est dérivée de `rn`, pas écrite** : « Section VI » au-dessus
+   du titre, jamais le numéro collé — la source le compose ainsi, sur deux
+   lignes, et le sommaire porte déjà le chiffre. L’avant-propos n’étant pas
+   numéroté, il n’en reçoit pas.
+
+Les pièges déjà écrits pour la Contribution valent tous : DOMParser et jamais
+un `<div>` détaché ; lire un titre **à travers** son balisage (un `<br>` ne
+rend aucune espace, « SALAIRES<br>PRIX, PROFITS ») ; tout ce qui est centré
+n’est pas un titre — ici les titres de 1912 sont **tous en gras**, c’est le
+seul indice que la source donne ; le filet qui suivait le titre retiré devient
+orphelin ; et le bouton de plein écran porte **`btn` ET `atl3-full`**.
+
+### Ce qui a suivi
+
+`bibliotheque.json` (available, `entry` « Comprendre d’où vient le profit »,
+`sourceNote` qui dit la traduction ET le statut) ; `EDITION` et `PIED_PAGES`
+dans `gen-seo.mjs` ; l’index de la recherche (quinze sections dérivées de
+`SP_STRUCT`) ; `/a-propos` (**cinq** œuvres, et les chiffres — la règle vaut
+toujours : **toute modification du corpus y passe**) ; `IMG` et le `FALLBACK`
+d’`assets/home.js`, plus son **`?v=7`** ; `_headers` pour son manifeste.
+L’image est la **page de titre de 1912** (scan Gallica via Commons, domaine
+public), recadrée de ses bords de numérisation — le motif de
+`zur-kritik-titre-1859`.
+
+### Vérifié
+
+Dans le **vrai Chrome**, contre un serveur qui imite Cloudflare (URL propres,
+**fichier avant dossier**, 308 sur `.html` et sur un dossier).
+
+Les **quinze sections** chargées une à une : un seul `h2`, zéro résidu
+Wikisource, zéro `[style]`, notice de source présente, **21 600 mots** au
+total. Sommaire à quinze lignes, numéros exacts **VI compris**. Marge,
+reprise (`liremarx.resume.salaire-prix-profit`), progression, plein écran et
+Échap, deep-links `#partie=7` et `#s=12&q=` — ce dernier posant la phrase à
+**278 px** sous les barres collantes (le même contrôle sur la Contribution
+dépasse de 1 111 px : notre page fait mieux que le témoin). **Le contrat
+d’annotation de bout en bout** : passage surligné, marge qui l’affiche,
+carnet qui montre le cahier, le libellé de section, la citation et la note,
+et son lien `#s=9&q=` sans `.html`.
+
+Contraste sur le rendu : **0 échec** à 1380, 1000 et 375 px (209, 130 et 170
+mesures), minimum **5,12**, plus petit texte **11,52 px**, aucune cible sous
+24 × 24, **zéro débordement horizontal**. Sur téléphone, la barre tient sur
+UNE rangée de 40 px et les deux feuilles s’ouvrent (la marge, le sommaire à
+quinze entrées). Détecteur statique : **12 constats, 0 erreur** — la liste est
+celle de la Contribution (18) en plus courte, et son `undersized-ui-text` à
+7,04 px est le faux positif `clamp()` déjà documenté (mesuré au rendu :
+**21,12 px** à 1380, 14,08 px à 375). Les **quatorze pages** qui montent la
+coquille : pied de page à six entrées de corpus, console propre, zéro
+débordement. Registre de la bibliothèque : **pré-rendu et rendu JS
+identiques** (14 827 caractères). Catalogue de l’accueil : cinq cartes, triées
+par année décroissante, image servie. Recherche du site : « étalon des
+salaires » rend la section IV, « plus-value » rend la section VIII.
+`gen-seo --check` à jour et **idempotent**. Titre mesuré à **579 px** (Arial
+20 px, coupure Google ~600) et description à **143 caractères**.
+
+### Ce qui reste pour cette œuvre
+
+- **Le dossier** (cheminement, chronologie, instrument, ressources) et le
+  **glossaire** : c’est la suite, comme pour le Manifeste et la Contribution,
+  qui ont eu leurs missions dédiées.
+- **La recherche plein texte n’y va pas encore.** Quinze sous-pages : ni le
+  modèle du Manifeste (tout charger), ni celui du Capital (l’extrait de l’API).
+  Le mécanisme de la Contribution — l’API de recherche pour savoir quelles
+  pages répondent, puis trois pages au plus chargées pour la tranche exacte —
+  s’y transposerait, mais `chercheContribution()` est aujourd’hui écrite pour
+  UNE œuvre : il faudrait la rendre générique plutôt que la recopier.
+- Les notes de bas de page ne sont pas servies (comme sur les autres œuvres).
+  Celle de Charles Longuet, en tête, date la lecture du 20 juin 1865 et dit que
+  le texte est « un abrégé du *Capital* avant la lettre » : c’est d’elle que
+  vient la ligne d’identité de la page.
 
 ## Conventions de travail
 

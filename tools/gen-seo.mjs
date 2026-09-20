@@ -160,6 +160,45 @@ const EDITION = {
     source: { name: "Contribution à la critique de l'économie politique sur Wikisource",
               url: 'https://fr.wikisource.org/wiki/Contribution_%C3%A0_la_critique_de_l%E2%80%99%C3%A9conomie_politique' },
     colophon: 'traduction Laura Lafargue (1909), domaine public, servie depuis Wikisource'
+  },
+
+  'salaire-prix-profit': {
+    // « Karl Marx · lu devant le Conseil général de l'Internationale en juin
+    //   1865, publié en 1898 · traduction Charles Longuet (1912) · domaine
+    //   public » — <p class="work-meta"> de oeuvres/salaire-prix-profit.html,
+    //   et la notice de source sous le texte.
+    // datePublished est 1898 et non 1865, et c'est le fait qui situe
+    // l'œuvre : l'exposé est resté inédit du vivant de Marx, sa fille
+    // Eleanor l'a publié trente-trois ans après l'avoir entendu lire.
+    // 1865 est la date de la LECTURE, que la note de Charles Longuet
+    // imprime en tête du texte servi (Conseil général, 20 juin 1865).
+    datePublished: '1898',
+    dateCreated: '1865',
+    // Le second titre sous lequel l'ouvrage circule en français. Il est
+    // VISIBLE dans la page — le <title> le porte entre parenthèses — donc
+    // le schéma a le droit de l'affirmer.
+    alternateName: 'Salaire, prix et profit',
+    translator: 'Charles Longuet',
+    // La page de titre servie imprime cette édition : « SALAIRES / PRIX,
+    // PROFITS par KARL MARX / Traduction par Charles Longuet / Deuxième
+    // édition / PARIS (5e) M. GIARD & É. BRIÈRE / 1912 ».
+    bookEdition: 'Traduction française de Charles Longuet, deuxième édition, 1912 (M. Giard et É. Brière)',
+    // Charles Longuet est mort en 1903 (Wikidata Q1065362, vérifié) : la
+    // traduction est dans le domaine public, on peut l'affirmer.
+    license: 'https://creativecommons.org/publicdomain/mark/1.0/',
+    // L'original est anglais, et non allemand : Marx a écrit et lu ce texte
+    // en anglais devant le Conseil général, à Londres.
+    translationOfWork: {
+      '@type': 'Book',
+      name: 'Value, Price and Profit',
+      inLanguage: 'en',
+      datePublished: '1898'
+    },
+    // load() de la page appelle l'API de Wikisource sur les sous-pages de
+    // ce livre-là — c'est la source réelle du texte affiché.
+    source: { name: 'Salaires, prix, profits sur Wikisource',
+              url: 'https://fr.wikisource.org/wiki/Salaires,_prix,_profits' },
+    colophon: 'traduction Charles Longuet (1912), domaine public, servie depuis Wikisource'
   }
 };
 
@@ -355,6 +394,7 @@ const PIED_PAGES = [
   'oeuvres/manuscrits-1844.html',
   'oeuvres/manifeste.html',
   'oeuvres/contribution-1859.html',
+  'oeuvres/salaire-prix-profit.html',
   'oeuvres/place-publique.html',
   'oeuvres/carnet.html',
   'oeuvres/messages.html',
@@ -2237,6 +2277,14 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
   for (const p of litteralJS(readFileSync('oeuvres/contribution-1859.html', 'utf8'), 'MC_STRUCT=', '['))
     items.push({ t: strip(p.t), s: `Contribution (1859) · ${strip(p.grp)}`,
       cat: 'partie', url: `/oeuvres/contribution-1859#partie=${p.g}`, hay: court(p.s, 400) });
+  /* Salaires, prix, profits : ses quinze sections, lues dans le plan de la
+     page (SP_STRUCT). Chacune est une sous-page de Wikisource, donc une
+     section d'annotation : `g` est à la fois le numéro que #partie= ouvre et
+     le `#s=` du contrat de deep-link. */
+  for (const p of litteralJS(readFileSync('oeuvres/salaire-prix-profit.html', 'utf8'), 'SP_STRUCT=', '['))
+    items.push({ t: strip(p.t), s: `Salaires, prix, profits (1865)${p.rn ? ' · section ' + p.rn : ''}`,
+      cat: 'partie', url: `/oeuvres/salaire-prix-profit#partie=${p.g}`, hay: court(p.s, 400) });
+
   for (const [t, url, hay] of [
     ['Le cheminement de la Contribution', '/oeuvres/contribution-1859#deriv', 'marches marchandise valeur temps de travail équivalent général monnaie argent'],
     ['La préface de 1859, au mot', '/oeuvres/contribution-1859#labo', 'base superstructure rapports de production forces productives conscience être social idéologie fil conducteur'],
