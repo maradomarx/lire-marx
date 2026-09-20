@@ -744,9 +744,13 @@
        phrase relevée dans une note de bas de page ou dans le bandeau de
        navigation partirait en `q=` vers un texte qui ne la contient pas :
        `locate()` cherche par `indexOf` exact, et ne la trouverait jamais. */
+    /* Clé par RACINE + page : les sous-pages de Salaires, prix, profits
+       s'appellent « 0 » à « 14 », et rien n'interdit à une autre œuvre d'en
+       nommer une pareil. */
     var mcPages = {}, mcQ = {};
     function mcCharge(p, racine){
-      if(mcPages[p]) return Promise.resolve(mcPages[p]);
+      var cle = racine + '/' + p;
+      if(mcPages[cle]) return Promise.resolve(mcPages[cle]);
       var u = 'https://fr.wikisource.org/w/api.php?action=parse&page='
         + encodeURIComponent(racine + '/' + p)
         + '&prop=text&format=json&formatversion=2&redirects=1&origin=*';
@@ -767,14 +771,19 @@
           .querySelectorAll('p, li, blockquote, td').forEach(function(n){
             var t = n.textContent; if(t && t.trim()) buf.push(t);
           });
-        mcPages[p] = prepare(buf.join('\n'));
-        return mcPages[p];
+        mcPages[cle] = prepare(buf.join('\n'));
+        return mcPages[cle];
       }).catch(function(){ return null; });
     }
-    function chercheContribution(q, nq, re){
-      var meta = TEXTE && TEXTE['contribution-critique-economie-politique'];
+    /* GÉNÉRIQUE : toute œuvre dont le bloc `texte` porte `racine` + `pages`
+       passe par ici — la Contribution et Salaires, prix, profits aujourd'hui.
+       Le libellé (`t`) et l'adresse (`u`) viennent du bloc, dérivé par
+       gen-seo : shell.js ne code en dur ni l'un ni l'autre. */
+    function chercheSousPages(oeuvre, q, nq, re){
+      var meta = TEXTE && TEXTE[oeuvre];
       if(!meta || !meta.pages || !meta.racine) return Promise.resolve([]);
-      if(mcQ[nq]) return Promise.resolve(mcQ[nq]);
+      var cq = oeuvre + '\u0000' + nq;
+      if(mcQ[cq]) return Promise.resolve(mcQ[cq]);
       var terme = /\s/.test(q.trim()) ? '"' + q.trim().replace(/"/g, '') + '"' : q.trim();
       var u = 'https://fr.wikisource.org/w/api.php?action=query&list=search&srnamespace=0'
         + '&srsearch=' + encodeURIComponent(terme + ' prefix:' + meta.racine + '/')
@@ -815,12 +824,12 @@
       }).then(function(a){
         var out = a.filter(Boolean).map(function(x){
           return {
-            t: 'Contribution (1859) — ' + (x.f.sur && x.f.sur !== x.f.t ? x.f.sur + ', ' : '') + x.f.t,
+            t: (meta.t || oeuvre) + ' — ' + (x.f.sur && x.f.sur !== x.f.t ? x.f.sur + ', ' : '') + x.f.t,
             s: x.s, cat: 'texte',
-            url: '/oeuvres/contribution-1859#s=' + x.f.g + '&q=' + encodeURIComponent(x.exact)
+            url: (meta.u || ('/oeuvres/' + oeuvre)) + '#s=' + x.f.g + '&q=' + encodeURIComponent(x.exact)
           };
         });
-        mcQ[nq] = out;
+        mcQ[cq] = out;
         return out;
       }).catch(function(){ if(stop) clearTimeout(stop); return []; });
     }
@@ -958,7 +967,9 @@
       txtTimer = setTimeout(function(){
         if(renderSeq !== seq) return;
         var re = motif(nq);
-        Promise.all([chercheCapital(q, nq, re), chercheManuscrits(q, nq, re), chercheEssais(q, nq, re), chercheManifeste(q, nq, re), chercheRessources(q, nq, re), chercheContribution(q, nq, re)])
+        Promise.all([chercheCapital(q, nq, re), chercheManuscrits(q, nq, re), chercheEssais(q, nq, re), chercheManifeste(q, nq, re), chercheRessources(q, nq, re),
+          chercheSousPages('contribution-critique-economie-politique', q, nq, re),
+          chercheSousPages('salaire-prix-profit', q, nq, re)])
           .then(function(r){
             if(renderSeq !== seq) return;
             /* ON ENTRELACE LES ŒUVRES. Mises bout à bout, les sections du
@@ -966,8 +977,8 @@
                les Manuscrits n'apparaissaient jamais : « aliénation » rendait
                quatre passages du Capital et pas un des cahiers de 1844, où le
                mot est le sujet. Le tour passe d'une œuvre à l'autre — les
-               QUATRE, depuis que la Contribution y entre. */
-            var src = [r[0], r[1], r[3], r[5]], texte = [], i = 0;
+               CINQ, depuis que Salaires, prix, profits y entre. */
+            var src = [r[0], r[1], r[3], r[5], r[6]], texte = [], i = 0;
             while(texte.length < TXT_MAX && src.some(function(s){ return i < s.length; })){
               src.forEach(function(s){ if(i < s.length && texte.length < TXT_MAX) texte.push(s[i]); });
               i++;

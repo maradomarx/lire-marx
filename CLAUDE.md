@@ -10426,9 +10426,11 @@ salaires » rend la section IV, « plus-value » rend la section VIII.
 
 ### Ce qui reste pour cette œuvre
 
-- ✅ **Le dossier est fait** — voir la mission `salaire-prix-profit-dossier`
-  juste en dessous. Reste le **glossaire** (l’œuvre n’expose pas encore de
-  table de concepts).
+- ✅ **Le dossier est fait** (mission `salaire-prix-profit-dossier`) et ✅ **la
+  recherche plein texte aussi** (mission `salaire-prix-profit-recherche`) —
+  les deux juste en dessous. Reste le **glossaire** : l’œuvre n’expose pas
+  encore de table de concepts, il faudrait lui écrire l’équivalent du
+  `GLOSS_MF` du Manifeste.
 - **La recherche plein texte n’y va pas encore.** Quinze sous-pages : ni le
   modèle du Manifeste (tout charger), ni celui du Capital (l’extrait de l’API).
   Le mécanisme de la Contribution — l’API de recherche pour savoir quelles
@@ -10536,6 +10538,60 @@ documenté — mesuré au rendu : conteneur 0, colonnes 26 px à 1380 et 18 px �
 **Au passage** : `ressourcesDe` ne couvrait que trois œuvres — la Contribution
 n'avait donc jamais eu ses ressources indexées. Les **cinq** le sont
 maintenant (12 · 8 · 6 · 4 · 5 cartes).
+
+### La recherche va dans le texte de Salaires, prix, profits (mission `salaire-prix-profit-recherche`, sept. 2026)
+
+Le dernier trou de l’œuvre : « soupière », « Repetitio », « Menenius Agrippa »
+ne rendaient rien, alors que le site sert le texte qui les contient.
+
+**Le mécanisme de la Contribution est devenu GÉNÉRIQUE plutôt que recopié.**
+C’était écrit noir sur blanc comme le travail à faire, et c’est le bon
+partage : les deux œuvres sont servies en sous-pages de Wikisource (onze et
+quinze), donc ni le modèle du Manifeste (tout charger) ni celui du Capital
+(le seul extrait de l’API) ne convient — on demande à l’API de RECHERCHE
+quelles pages répondent, puis on n’en charge que trois au plus pour la tranche
+exacte.
+
+- **Côté générateur**, `wikiPages(fichier, struct, libellé, url, mini, surDe)`
+  remplace le bloc en dur de la Contribution. **La racine Wikisource est LUE
+  dans la page** (son `var WS_ROOT`, que la liseuse appelle) au lieu d’être
+  recopiée dans une constante du générateur — une source de moins à faire
+  diverger, et le générateur échoue bruyamment s’il ne la trouve pas.
+- **Côté shell**, `chercheContribution` devient `chercheSousPages(oeuvre, …)`.
+  Le **libellé** (`t`) et l’**adresse** (`u`) viennent désormais du bloc
+  `texte` de `recherche.json`, dérivé : shell.js ne code en dur ni l’un ni
+  l’autre, et une troisième œuvre de la même espèce n’y coûtera qu’une ligne.
+- **Les deux caches sont clés par œuvre** : `mcPages` par `racine + '/' + page`
+  — les sous-pages de Salaires s’appellent « 0 » à « 14 », et rien n’interdit à
+  une autre œuvre d’en nommer une pareil —, et `mcQ` par `œuvre \0 requête`,
+  sans quoi la seconde œuvre aurait servi le résultat de la première.
+- **L’entrelacement passe à CINQ œuvres** (`r[0], r[1], r[3], r[5], r[6]`) :
+  la leçon déjà payée deux fois — bout à bout, les huit sections du Capital
+  prennent toutes les places.
+
+**La sur-ligne se DÉRIVE comme la page la dérive.** La Contribution porte son
+`sur` dans sa structure ; Salaires, prix, profits ne l’a pas — sa page la
+calcule (`surDe(part)` = « Section » + le chiffre romain). Le générateur refait
+donc ce calcul au lieu de laisser le champ vide : sans lui, le résultat disait
+« Salaires, prix, profits — Influence des variations… » sans dire où c’est.
+C’est le paramètre `surDe` de `wikiPages`, et c’est le seul endroit où une
+particularité d’œuvre subsiste.
+
+#### Vérifié
+
+Requêtes menées de bout en bout par un **vrai clic** depuis l’accueil :
+« soupière » → `#s=3`, section II, phrase retrouvée dans le texte servi à
+250 px sous les barres ; « Repetitio » → `#s=5`, section IV, à 364 px. Les
+quatre autres œuvres ne bougent pas — « surtravail » entrelace le Capital et
+Salaires, « métaux précieux » le Capital, les Manuscrits et la Contribution,
+« aliénation » le Capital, les Manuscrits et le Manifeste. **Wikisource
+coupé** (requêtes avortées à l’interception), la recherche est celle d’avant :
+dix résultats en cinq groupes, `pageerror` vide. Les **quatorze pages** qui
+montent la coquille : coquille montée, champ câblé, zéro débordement, console
+propre. Détecteur compté **avant et après en remisant** : identique
+(17 constats sur la page, 0 erreur) — le changement est de la logique, pas du
+rendu. `gen-seo --check` à jour et **idempotent**. **`shell.js?v=17`**
+(102 références, toutes des `src=`).
 
 ## Conventions de travail
 

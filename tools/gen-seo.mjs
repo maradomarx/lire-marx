@@ -1310,7 +1310,7 @@ ${monde}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=16"></script>
+<script src="/oeuvres/shell.js?v=17"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 ${aScene ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-driver.js')}" defer></script>` : ''}
@@ -1471,7 +1471,7 @@ ${voisines.map((v) => `      <a href="${v.href}">${v.nom}</a>`).join('\n')}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=16"></script>
+<script src="/oeuvres/shell.js?v=17"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 </body>
@@ -1707,7 +1707,7 @@ ${marge}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=16"></script>
+<script src="/oeuvres/shell.js?v=17"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Le Capital', tabs: [] });</script>
 </body>
@@ -1772,7 +1772,7 @@ ${o.ld}
 </head>`;
   const piedCm = (workTitle) => `${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=16"></script>
+<script src="/oeuvres/shell.js?v=17"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: '${workTitle}', tabs: [] });</script>
 <script src="/commentaires/agregation.js?v=${hashV('commentaires/agregation.js')}" defer></script>
@@ -2332,11 +2332,30 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
    * seconde copie, aux accents près, et c'est la page qui fait foi. */
   /* Les pages Wikisource de la Contribution, aplaties : une partie peut en
      porter deux (l'ouverture du chapitre II precede « Mesure des valeurs »). */
-  const MC_RACINE = 'Contribution à la critique de l\u2019économie politique';
-  const MC_PAGES = [];
-  for (const p of litteralJS(readFileSync('oeuvres/contribution-1859.html', 'utf8'), 'MC_STRUCT=', '['))
-    for (const w of (p.p || []))
-      MC_PAGES.push({ p: w.page, g: p.g, t: strip(p.t), sur: strip(p.sur || p.grp || '') });
+  /* LES ŒUVRES SERVIES EN SOUS-PAGES DE WIKISOURCE (la Contribution, puis
+     Salaires prix profits). Le meme bloc pour les deux : la racine est lue
+     dans la PAGE (son `WS_ROOT`, qui fait foi — c'est lui que la liseuse
+     appelle), et `pages` apparie le titre Wikisource a la partie, donc donne
+     le `#s=` du contrat de deep-link. `t` et `u` sont la pour que shell.js
+     n'ait a coder en dur ni le libelle ni l'adresse de l'œuvre. */
+  function wikiPages(fichier, nomStruct, libelle, url, mini, surDe) {
+    const s = readFileSync(fichier, 'utf8');
+    const m = s.match(/var WS_ROOT\s*=\s*'((?:[^'\\]|\\.)*)'/);
+    if (!m) throw new Error(`${fichier} : WS_ROOT introuvable — la racine Wikisource fait foi dans la page.`);
+    const racine = m[1].replace(/\\(['\\])/g, '$1');
+    const pages = [];
+    for (const p of litteralJS(s, nomStruct, '['))
+      for (const w of (p.p || []))
+        pages.push({ p: w.page, g: p.g, t: strip(p.t),
+          /* La sur-ligne SITUE le passage (« Section VI, ... »). La
+             Contribution la porte dans sa structure ; Salaires, prix, profits
+             la DÉRIVE de son chiffre romain, comme le fait sa page
+             (`surDe`) — on refait ici le meme calcul, jamais une recopie. */
+          sur: strip(surDe ? surDe(p) : (p.sur || p.grp || '')) });
+    if (pages.length < mini)
+      throw new Error(`${nomStruct} rend ${pages.length} pages Wikisource — il en faut au moins ${mini}.`);
+    return { racine, t: libelle, u: url, pages };
+  }
 
   const texte = {
     'capital-1': { sections: ROY.map((sec, i) => ({ n: i + 1, rn: sec.rn, t: strip(sec.t) })) },
@@ -2356,21 +2375,20 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
         f: `/oeuvres/manuscrits-1844/textes/${String(p.file).replace(/\.html$/, '')}`
       }))
     },
-    /* La Contribution : DIX pages de Wikisource. Ni le modele du Manifeste
-       (tout charger : ce serait dix requetes et 69 000 mots a la premiere
-       frappe), ni tout a fait celui du Capital (le seul extrait de l'API,
-       qui ne donne pas la tranche exacte). On interroge l'API de RECHERCHE
-       pour savoir QUELLES pages repondent, puis on ne charge que celles-la
-       — trois au plus — pour en tirer la phrase au caractere pres.
-       `pages` apparie le titre Wikisource a la partie : c'est lui qui donne
-       le `#s=` du contrat de deep-link, et il est derive de MC_STRUCT. */
-    'contribution-critique-economie-politique': {
-      racine: MC_RACINE,
-      pages: MC_PAGES
-    }
+    /* Ni le modele du Manifeste (tout charger : ce serait onze requetes et
+       69 000 mots a la premiere frappe), ni tout a fait celui du Capital (le
+       seul extrait de l'API, qui ne donne pas la tranche exacte). On
+       interroge l'API de RECHERCHE pour savoir QUELLES pages repondent, puis
+       on ne charge que celles-la — trois au plus — pour en tirer la phrase au
+       caractere pres. */
+    'contribution-critique-economie-politique': wikiPages(
+      'oeuvres/contribution-1859.html', 'MC_STRUCT=',
+      'Contribution (1859)', '/oeuvres/contribution-1859', 10),
+    'salaire-prix-profit': wikiPages(
+      'oeuvres/salaire-prix-profit.html', 'SP_STRUCT=',
+      'Salaires, prix, profits', '/oeuvres/salaire-prix-profit', 15,
+      p => p.rn ? 'Section ' + p.rn : '')
   };
-  if (MC_PAGES.length < 10)
-    throw new Error(`MC_STRUCT rend ${MC_PAGES.length} pages Wikisource — la Contribution en a onze.`);
   if (texte['capital-1'].sections.length !== 8)
     throw new Error(`ROY_STRUCT rend ${texte['capital-1'].sections.length} sections — le Livre I en a huit.`);
   if (texte['manuscrits-1844'].parts.length < 3)
