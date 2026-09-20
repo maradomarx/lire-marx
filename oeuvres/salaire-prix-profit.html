@@ -240,6 +240,9 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
       </div>
       <nav class="asc-plan" aria-label="Les huit marches du cheminement"></nav>
     </div>
+      <!--NOTIONS-SP:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main. -->
+    <p class="carte-sortie">Les notions de <i>Salaires, prix, profits</i> qui ont leur page : <a href="/glossaire/journee-de-travail">Journée de travail</a>, <a href="/glossaire/forme-salaire">Le « prix du travail »</a>, <a href="/glossaire/loi-tendancielle">Taux de profit</a>, <a href="/glossaire/travail-necessaire">Travail nécessaire</a>, <a href="/glossaire/force-de-travail">Force de travail</a>, <a href="/glossaire/plus-value">Plus-value</a>, <a href="/glossaire/surtravail">Surtravail</a> et <a href="/glossaire/taux-de-plus-value">Taux de plus-value</a>.</p>
+    <!--NOTIONS-SP:FIN -->
   </section>
 
   <section class="panel active" id="labo">
@@ -477,6 +480,13 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
 </footer>
 <!-- PIED:FIN -->
 
+<!-- NOTIONS:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main.
+     La table du titre de fiche vers sa page de notion : la résolution
+     (identité, suffixe de station, renvoi « voir ») se fait dans le
+     générateur, la page ne fait que lire. -->
+<script>window.NOTIONS_HREF={"Journée de travail":{"h":"/glossaire/journee-de-travail","n":"Journée de travail"},"Le « prix du travail »":{"h":"/glossaire/forme-salaire","n":"Le « prix du travail »"},"Taux de profit":{"h":"/glossaire/loi-tendancielle","n":"Taux de profit"},"Travail nécessaire":{"h":"/glossaire/travail-necessaire","n":"Travail nécessaire"},"Force de travail":{"h":"/glossaire/force-de-travail","n":"Force de travail"},"Plus-value":{"h":"/glossaire/plus-value","n":"Plus-value"},"Surtravail":{"h":"/glossaire/surtravail","n":"Surtravail"},"Taux de plus-value":{"h":"/glossaire/taux-de-plus-value","n":"Taux de plus-value"},"Travail payé":{"h":"/glossaire/forme-salaire","n":"Travail payé"},"Travail gratuit":{"h":"/glossaire/forme-salaire","n":"Travail gratuit"}};</script>
+<!-- NOTIONS:FIN -->
+
 <script>
 (function(){
   var WORK='salaire-prix-profit';
@@ -566,6 +576,65 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
     {g:15, rn:'XIV', t:'La lutte entre le capital et le travail et ses résultats', w:8,
      p:[{page:'14', d:'xiv la lutte entre le capital et le travail et ses resultats'}],
      s:"Si la lutte ne fait que suivre, à quoi sert-elle ? Marx répond que la valeur de la force de travail se compose de deux éléments, l’un physique, l’autre historique et social — et que le second peut s’élargir, se resserrer ou s’évanouir tout à fait. La valeur du travail est donc une grandeur variable, et comme aucune loi ne fixe de minimum au profit, la question se résout en une question de puissance respective entre les deux combattants. La limitation de la journée n’a jamais été obtenue que par le législateur, sous la pression continue de la rue sur le Parlement. Et parce que la tendance générale de la production capitaliste est d’abaisser le salaire moyen, renoncer à la lutte quotidienne réduirait les travailleurs à une masse uniforme et écrasée. Ils ne doivent pourtant pas s’en exagérer le résultat : ils combattent les effets et non les causes, ils retardent le mouvement descendant sans en changer la direction, ils appliquent des palliatifs. De là les trois résolutions qui ferment le texte, et la dernière demande aux syndicats de se servir de leurs forces organisées comme d’un levier pour affranchir définitivement la classe ouvrière, c’est-à-dire pour abolir le salariat."}
+  ];
+
+  /* ══════════════════════════════════════════════════════════════════
+     LE GLOSSAIRE DE LA LISEUSE — et la QUATRIÈME source de l'abécédaire,
+     après CONCEPTS (Capital), CONCEPTS (Manuscrits) et GLOSS_MF.
+
+     `t` porte l'IDENTITÉ : écrit au titre exact d'une fiche existante, la
+     notion n'en crée pas une seconde — elle gagne une provenance, ce qui
+     est le cas de dix des treize entrées. Le Capital les a toutes posées ;
+     ce texte les pose aussi, deux ans plus tôt et devant des ouvriers.
+
+     `s` est la forme que la liseuse surligne (première occurrence), et
+     elle doit EXISTER dans le texte servi : c'est ce qui interdit une
+     provenance de complaisance. « La forme-salaire » n'est donc pas ici —
+     la notion est bien celle de la section IX, mais le texte ne la nomme
+     pas ainsi, et « Le "prix du travail" », « Travail payé » et « Travail
+     gratuit », qu'il nomme, disent la même chose.
+
+     `g` dit la SECTION : c'est elle que la provenance affiche et vers
+     laquelle elle mène, plutôt qu'un « le texte » qui ne situerait rien.
+
+     ⚠️ LE SURLIGNAGE NE FRANCHIT PAS UNE BALISE EN LIGNE : `glFind` cherche
+     dans un NŒUD DE TEXTE. La section IX écrit « du travail <i>payé</i> » —
+     la forme y est donc introuvable, et c'est aux sections XI et XII, où
+     elle est en clair, que l'infobulle se pose. La provenance, elle, reste
+     à la IX : c'est là que le texte établit la distinction.
+
+     `de` n'est donné que là où il est canonique chez Marx. Les trois
+     entrées neuves n'en portent pas, et pour une raison propre à cette
+     œuvre : Marx l'a écrite EN ANGLAIS. Un allemand y serait la traduction
+     d'une traduction.
+     ══════════════════════════════════════════════════════════════════ */
+  var GLOSS_SP=[
+    {t:"Journée de travail", g:3, s:["journée de travail"], de:"Arbeitstag",
+     def:"Le temps pendant lequel le capitaliste dispose de la force de travail qu'il a achetée. Sa durée n'est pas donnée : elle se dispute entre deux droits également fondés."},
+    {t:"L'offre et la demande", g:5, s:["l'offre et la demande"],
+     def:"Elles expliquent pourquoi un prix s'élève au-dessus de sa valeur ou tombe au-dessous, jamais cette valeur même. Venant à s'équilibrer, elles cessent d'agir, et il faut alors dire ce qui reste."},
+    {t:"Le « prix du travail »", g:6, s:["valeur du travail","prix du travail"], de:"Wert der Arbeit",
+     def:"Expression courante et pourtant impossible : le travail est la mesure des valeurs, il ne peut pas en avoir une. Ce qui se vend est la force de travail."},
+    {t:"Taux de profit", g:6, s:["taux du profit"], de:"Profitrate",
+     def:"Le rapport de la plus-value au capital avancé tout entier. Une hausse des salaires le fait baisser sans toucher aux prix : c'est la réponse à la question posée au Conseil général."},
+    {t:"Travail nécessaire", g:7, s:["travail nécessaire"], de:"notwendige Arbeit",
+     def:"La part de la journée qui reproduit la valeur de la force de travail. Six heures, dans l'exemple du texte, sur une journée de douze."},
+    {t:"Force de travail", g:8, s:["force de travail"], de:"Arbeitskraft",
+     def:"Ce que l'ouvrier vend, pour un temps déterminé — faute de quoi il vendrait sa personne. Comme toute marchandise elle a une valeur : celle des subsistances nécessaires à la produire et à la perpétuer."},
+    {t:"Plus-value", g:9, s:["plus-value"], de:"Mehrwert",
+     def:"La valeur que le surtravail crée et que le capitaliste garde. Elle ne vient pas d'une vente au-dessus de la valeur : elle est produite avant d'être vendue."},
+    {t:"Surtravail", g:9, s:["surtravail"], de:"Mehrarbeit",
+     def:"Les heures qui excèdent le travail nécessaire. Le point décisif est que la valeur journalière de la force de travail est distincte de son exercice journalier."},
+    {t:"Taux de plus-value", g:9, s:["taux de la plus-value"], de:"Rate des Mehrwerts",
+     def:"Le rapport du surtravail au travail nécessaire — six sur six fait cent pour cent. C'est le degré d'exploitation, que le taux de profit, lui, dissimule."},
+    {t:"Travail payé", g:10, s:["travail payé","le rapport réel entre le travail"], de:"bezahlte Arbeit",
+     def:"Les heures qui reproduisent le salaire. Comme l'ouvrier est payé après coup, la journée entière paraît payée — et c'est cette apparence qui distingue le salariat du servage."},
+    {t:"Travail gratuit", g:10, s:["travail gratuit"], de:"unbezahlte Arbeit",
+     def:"Les heures que la forme du salaire rend invisibles. Chez le serf, les jours payés et les jours gratuits se comptaient séparément."},
+    {t:"L'élément historique de la valeur du travail", g:15, s:["élément historique"],
+     def:"Outre le strict nécessaire physique, la valeur de la force de travail comprend un mode de vie traditionnel. Elle varie donc d'un pays et d'une époque à l'autre, ce qui laisse à la lutte une marge réelle."},
+    {t:"L'abolition du salariat", g:15, s:["Abolition du salariat"],
+     def:"Le mot d'ordre sur lequel le texte se ferme. Les syndicats retardent le mouvement de baisse sans en changer la direction : ils combattent les effets, et l'abolition vise la cause."}
   ];
 
 
@@ -791,6 +860,17 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
     try{ if(AN&&AN.notesFor) margeNotes=AN.notesFor(WORK,g).sort(function(a,b){return (b.created||0)-(a.created||0);}); }catch(e){}
     var pub=0;
     try{ if(AN&&AN.context&&AN.publicCount){ var cx=AN.context(); if(cx.work===WORK&&+cx.section===g) pub=AN.publicCount()||0; } }catch(e){}
+    /* LES NOTIONS DE CETTE SECTION. Elles ne sont PAS déclarées une seconde
+       fois dans SP_STRUCT : GLOSS_SP porte déjà le `g` de chacune, et c'est
+       lui qui fait foi — le générateur lit la même chose pour l'abécédaire.
+       Seules paraissent celles qui ont une page, dont l'adresse est dans
+       NOTIONS_HREF (bloc dérivé). */
+    var nts=[], vusH={};
+    GLOSS_SP.forEach(function(x){
+      if(x.g!==c.g) return;
+      var e=(window.NOTIONS_HREF||{})[x.t];
+      if(e && e.h && !vusH[e.h]){ vusH[e.h]=1; nts.push({h:e.h, n:e.n}); }
+    });
     /* L'APPAREIL DE CETTE SECTION, lu dans SP_STRUCT : la fiche du débat
        quand la section en discute un argument, et la marche du cheminement
        où elle se situe. Les deux s'ouvrent dans le tiroir — on ne quitte
@@ -800,7 +880,7 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
     if(c.w) tools.push({kind:'step',target:String(c.w),k:'Marche '+c.w+' sur '+WALK_T.length,t:WALK_T[c.w-1]||''});
     MargeAtelier.render(el,{
       label:'Dans cette section', rn:c.rn||'', title:c.t,
-      sum:c.s?esc(c.s):'', notions:[], tools:tools,
+      sum:c.s?esc(c.s):'', notions:nts, tools:tools,
       notes:{list:margeNotes, where:'Dans Salaires, prix, profits', pub:pub}
     },{
       anno:function(a){
@@ -1024,7 +1104,7 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
               prev: g>1 ? function(){ openPart(g-1,true); } : null,
               next: g<SP_STRUCT.length ? function(){ openPart(g+1,true); } : null
             },
-            glossary:[], xref:[]
+            glossary:GLOSS_SP, xref:[]
           });
         }
         setTimeout(function(){

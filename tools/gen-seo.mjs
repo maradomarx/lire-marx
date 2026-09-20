@@ -295,7 +295,7 @@ let INDEX_NOTIONS = [];
  * consommé par la section « maillage » : la résolution (identité, suffixe
  * de station, renvoi `voir`, `page.slug`) se fait une seule fois, ici, et
  * les ateliers n'ont plus qu'une table à lire. */
-let LIENS_FICHES = { 'Le Capital': {}, 'Manuscrits de 1844': {}, 'Manifeste du parti communiste': {} };
+let LIENS_FICHES = { 'Le Capital': {}, 'Manuscrits de 1844': {}, 'Manifeste du parti communiste': {}, 'Salaires, prix, profits': {} };
 
 function lastmod(file) {
   try {
@@ -799,6 +799,25 @@ function identite(nom) {
     brut.push({ nom: c.t, legende: c.def || '', formule: '', de: c.de || '',
                 oeuvre: 'Manifeste du parti communiste', groupe: 'le texte', chaps: [],
                 url: '/oeuvres/manifeste' });
+  }
+
+  /* — Salaires, prix, profits : meme motif que le Manifeste, a une chose
+       pres — chaque entree dit sa SECTION (`g`), et c'est elle que la
+       provenance affiche et vers laquelle elle mene. « le texte » aurait ete
+       une provenance qui ne situe rien, dans un livre de quinze sections.
+       Dix des treize entrees portent le titre d'une fiche deja existante :
+       elles n'en creent pas une seconde, elles lui ajoutent une provenance. */
+  const spSrc = readFileSync('oeuvres/salaire-prix-profit.html', 'utf8');
+  const SP_SECTIONS = new Map();
+  for (const s of litteralJS(spSrc, 'SP_STRUCT=', '['))
+    SP_SECTIONS.set(s.g, s.rn ? `section ${s.rn}` : 'l\u2019avant-propos');
+  for (const c of litteralJS(spSrc, 'GLOSS_SP=', '[')) {
+    if (!c.t) throw new Error(`salaire-prix-profit.html : une entrée de GLOSS_SP n'a pas de titre (t) — ${JSON.stringify(c.s)}`);
+    if (!SP_SECTIONS.has(c.g)) throw new Error(
+      `GLOSS_SP « ${c.t} » : g=${JSON.stringify(c.g)} ne correspond à aucune section de SP_STRUCT.`);
+    brut.push({ nom: c.t, legende: c.def || '', formule: '', de: c.de || '',
+                oeuvre: 'Salaires, prix, profits', groupe: SP_SECTIONS.get(c.g), chaps: [],
+                url: `/oeuvres/salaire-prix-profit#partie=${c.g}` });
   }
 
   /* Une clé du lexique qui ne correspond à AUCUNE fiche est une erreur, pas
@@ -2117,7 +2136,8 @@ function ccHtml(x, ICONS, h) {
 
 for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
                               ['oeuvres/manuscrits-1844.html', 'Manuscrits de 1844'],
-                              ['oeuvres/manifeste.html', 'Manifeste du parti communiste']]) {
+                              ['oeuvres/manifeste.html', 'Manifeste du parti communiste'],
+                              ['oeuvres/salaire-prix-profit.html', 'Salaires, prix, profits']]) {
   let src = readFileSync(file, 'utf8');
   const liens = LIENS_FICHES[oeuvre];
 
@@ -2150,20 +2170,24 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
         : CONCEPTS[id].map((x) => ccHtml(x, ICONS, (liens[x.t] || {}).h || '')).join('');
       src = entreMarqueurs(src, deb, fin, html, file);
     }
-  } else if (oeuvre === 'Manifeste du parti communiste') {
-    /* Le Manifeste n'a ni cartes ni carte de concepts : ses notions vivent
-       dans l'infobulle de la liseuse et dans la marge, toutes deux peuplées
-       par le script. La ligne servie, au pied du cheminement, est ce qu'un
-       crawler en voit. On nomme la NOTION et l'on dédoublonne par l'adresse. */
+  } else if (oeuvre === 'Manifeste du parti communiste' || oeuvre === 'Salaires, prix, profits') {
+    /* Ni cartes ni carte de concepts : leurs notions vivent dans l'infobulle
+       de la liseuse et dans la marge, toutes deux peuplées par le script. La
+       ligne servie, au pied du cheminement, est ce qu'un crawler en voit. On
+       nomme la NOTION et l'on dédoublonne par l'adresse. */
+    const mf = oeuvre === 'Manifeste du parti communiste';
+    const balise = mf ? 'NOTIONS-MF' : 'NOTIONS-SP';
+    /* L'article vit dans la chaîne : « du Manifeste », « de Salaires ». */
+    const titre = mf ? 'du <i>Manifeste</i>' : 'de <i>Salaires, prix, profits</i>';
     const vus = new Set(), items = [];
     for (const n of Object.keys(liens)) if (!vus.has(liens[n].h)) { vus.add(liens[n].h); items.push(liens[n]); }
     const lien = (e) => `<a href="${e.h}">${e.n}</a>`;
     const liste = items.length > 1
       ? items.slice(0, -1).map(lien).join(', ') + ' et ' + lien(items[items.length - 1])
       : items.map(lien).join('');
-    src = entreMarqueurs(src, '<!--NOTIONS-MF:DÉBUT', '<!--NOTIONS-MF:FIN -->',
+    src = entreMarqueurs(src, `<!--${balise}:DÉBUT`, `<!--${balise}:FIN -->`,
       ` — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main. -->
-    <p class="carte-sortie"${items.length ? '' : ' hidden'}>Les notions du <i>Manifeste</i> qui ont leur page : ${liste}.</p>
+    <p class="carte-sortie"${items.length ? '' : ' hidden'}>Les notions ${titre} qui ont leur page : ${liste}.</p>
     `, file);
   } else {
     /* Les Manuscrits n'ont pas de fiches : leurs sept concepts vivent dans

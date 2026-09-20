@@ -10426,11 +10426,9 @@ salaires » rend la section IV, « plus-value » rend la section VIII.
 
 ### Ce qui reste pour cette œuvre
 
-- ✅ **Le dossier est fait** (mission `salaire-prix-profit-dossier`) et ✅ **la
-  recherche plein texte aussi** (mission `salaire-prix-profit-recherche`) —
-  les deux juste en dessous. Reste le **glossaire** : l’œuvre n’expose pas
-  encore de table de concepts, il faudrait lui écrire l’équivalent du
-  `GLOSS_MF` du Manifeste.
+- ✅ **Tout est fait** : le dossier (`salaire-prix-profit-dossier`), la
+  recherche plein texte (`salaire-prix-profit-recherche`) et le glossaire
+  (`salaire-prix-profit-glossaire`) — les trois missions juste en dessous.
 - **La recherche plein texte n’y va pas encore.** Quinze sous-pages : ni le
   modèle du Manifeste (tout charger), ni celui du Capital (l’extrait de l’API).
   Le mécanisme de la Contribution — l’API de recherche pour savoir quelles
@@ -10592,6 +10590,107 @@ propre. Détecteur compté **avant et après en remisant** : identique
 (17 constats sur la page, 0 erreur) — le changement est de la logique, pas du
 rendu. `gen-seo --check` à jour et **idempotent**. **`shell.js?v=17`**
 (102 références, toutes des `src=`).
+
+### Le glossaire de Salaires, prix, profits (mission `salaire-prix-profit-glossaire`, sept. 2026)
+
+**La mesure a précédé l’écriture, et elle a changé la question.** Les grands
+concepts de ce texte — force de travail, surtravail, travail nécessaire,
+plus-value, taux de plus-value, « prix du travail », taux de profit — ont
+**tous déjà leur entrée** dans l’abécédaire, posée par le Capital. La question
+n’était donc pas « quelles notions ajouter » mais « qu’apporte cette œuvre à
+des entrées qui existent ».
+
+**Arbitrage du propriétaire : les provenances ET trois entrées neuves.**
+L’abécédaire passe de **81 à 84 notions** et de trois à **quatre œuvres**.
+
+#### `GLOSS_SP` — quatrième source de l’abécédaire
+
+Même motif que `GLOSS_MF` : la table sert d’abord l’infobulle de la liseuse
+(le `glossary:` de `Reading.mount`, jusque-là vide sur cette page), et le
+générateur la lit ensuite. Treize entrées, dont **dix portent le titre exact
+d’une fiche existante** : elles n’en créent pas une seconde, elles lui ajoutent
+une provenance.
+
+- **`g` dit la SECTION**, et c’est le seul écart avec le Manifeste. Celui-ci
+  affiche « le texte » ; dans un livre de quinze sections, cela ne situerait
+  rien. La provenance affiche donc « Salaires, prix, profits · section VIII »
+  et mène à `#partie=9`. Le générateur **échoue** si un `g` ne correspond à
+  aucune section de `SP_STRUCT`.
+- **`s` doit EXISTER dans le texte servi**, et c’est ce qui interdit une
+  provenance de complaisance. « La forme-salaire » n’est donc pas dans la
+  table : la notion est bien celle de la section IX, mais le texte ne la nomme
+  pas ainsi — et « Le “prix du travail” », « Travail payé » et « Travail
+  gratuit », qu’il nomme, disent la même chose.
+- **Pas d’allemand sur les trois entrées neuves**, pour une raison propre à
+  cette œuvre : **Marx l’a écrite en anglais**. Un allemand y serait la
+  traduction d’une traduction. Les dix autres gardent le leur, canonique chez
+  Marx indépendamment de ce texte.
+- **La marge ne redéclare rien** : elle lit `GLOSS_SP` (filtré sur le `g` de la
+  section courante) et résout l’adresse dans `NOTIONS_HREF`. Une notion sans
+  page n’y paraît pas — les sections IV et XIV n’affichent donc aucune notion,
+  et c’est juste.
+
+#### Les trois entrées neuves, et pourquoi elles le sont
+
+| notion | section | ce qu’elle ajoute |
+|---|---|---|
+| **L’offre et la demande** | IV | elles expliquent l’écart d’un prix à sa valeur, jamais cette valeur ; venant à s’équilibrer, elles cessent d’agir |
+| **L’élément historique de la valeur du travail** | XIV | la valeur de la force de travail comprend un mode de vie traditionnel, donc elle varie — c’est ce qui laisse à la lutte une marge réelle |
+| **L’abolition du salariat** | XIV | le mot d’ordre qui ferme le texte : les syndicats traitent les effets, l’abolition vise la cause |
+
+Aucune n’a de page, et c’est le bon état : **le seuil d’une page-monde n’est
+pas levé**. Elles vivent dans l’abécédaire, où le tri les range à O, E et A —
+la clé ignore l’article de tête, vérifié.
+
+#### ⚠️ LE SURLIGNAGE NE FRANCHIT PAS UNE BALISE EN LIGNE
+
+`glFind` de reader-tools cherche dans un **nœud de texte**. La section IX écrit
+« du travail <i>payé</i> » : la forme y est introuvable, et aucune relecture ne
+le montre — seule la sonde l’a dit (douze formes surlignées sur treize). La
+provenance reste à la IX, où le texte établit la distinction ; une seconde
+forme fait poser l’infobulle aux sections XI et XII, où « travail payé » est en
+clair. **Toute forme d’un glossaire de liseuse doit être cherchée dans le HTML
+SERVI, tags compris, et non dans le texte dépouillé** — c’est la même famille
+que les insécables de Roy.
+
+#### Ce qui a suivi
+
+`LIENS_FICHES` gagne son quatrième livre ; la boucle du maillage couvre la
+page (bloc `NOTIONS:DÉBUT/FIN` et ligne servie `NOTIONS-SP`, huit notions qui
+ont une page) ; `/a-propos` passe à **84** et « quatre-vingt-quatre » — la règle
+tient toujours, **toute modification du glossaire y passe** ; le compte de
+l’accueil suit tout seul (« 84 notions · 45 pages expliquées · 4 œuvres »), il
+est dérivé. Le lexique reçoit sa note `_salaire` : ne pas y recopier ces
+définitions.
+
+**Un piège d’écriture, corrigé du même geste** : en factorisant la ligne servie
+du Manifeste pour la partager, l’article est parti dans le gabarit et celui-ci
+a rendu « Les notions de *Manifeste* ». L’article vit donc DANS la chaîne
+(`du <i>Manifeste</i>` / `de <i>Salaires…</i>`). Deux substitutions dans un même
+script dont la seconde échoue n’écrivent RIEN — mais le générateur, lui, avait
+déjà tourné : le contrôle est de relire la page, pas de se fier au script.
+
+#### Vérifié
+
+Les **treize formes** surlignées au moins une fois, relevées sur dix sections
+dans un vrai navigateur, réglage « Mots du glossaire » activé — zéro erreur.
+Marge éprouvée section par section (VIII : plus-value, surtravail, taux de
+plus-value, avec leurs adresses ; V : le « prix du travail », taux de profit ;
+IV et XIV : aucune, faute de page). Abécédaire à **84 entrées**, les trois
+neuves aux lettres A, E et O, leurs ancres présentes, leur provenance affichée
+et cliquable ; provenances cumulées sur les entrées existantes (« Le Capital —
+chapitres IV, VI, VIII, IX, XI, XVIII · Taux & profit · Salaires, prix,
+profits · section VIII »). Recherche : les trois entrent dans l’index comme
+`notion`. Contraste sur le rendu : **0 échec** — abécédaire 670 mesures
+(minimum 4,14, le faux positif documenté), marge 136 à 1380 px et 88 à 375 px
+(minimum 5,12), plus petit texte 11,52 px, aucune cible sous 24 × 24, **zéro
+débordement**. Accueil mesuré **identique avant/après** (183 mesures, minimum
+3,88, 8,96 px : caractéristiques antérieures de la page, pas une régression).
+Les **quatorze pages** qui montent la coquille : console propre. Détecteur
+mesuré **à commande identique dans les deux états** : aucun constat de plus,
+0 erreur, et **un advisory de moins** — deux tirets cadratins de mes
+définitions retirés, ce qui a fait retomber `index.html` sous le seuil de
+saturation. `gen-seo --check` à jour et **idempotent**.
 
 ## Conventions de travail
 
