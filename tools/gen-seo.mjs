@@ -160,6 +160,45 @@ const EDITION = {
     source: { name: "Contribution à la critique de l'économie politique sur Wikisource",
               url: 'https://fr.wikisource.org/wiki/Contribution_%C3%A0_la_critique_de_l%E2%80%99%C3%A9conomie_politique' },
     colophon: 'traduction Laura Lafargue (1909), domaine public, servie depuis Wikisource'
+  },
+
+  'salaire-prix-profit': {
+    // « Karl Marx · lu devant le Conseil général de l'Internationale en juin
+    //   1865, publié en 1898 · traduction Charles Longuet (1912) · domaine
+    //   public » — <p class="work-meta"> de oeuvres/salaire-prix-profit.html,
+    //   et la notice de source sous le texte.
+    // datePublished est 1898 et non 1865, et c'est le fait qui situe
+    // l'œuvre : l'exposé est resté inédit du vivant de Marx, sa fille
+    // Eleanor l'a publié trente-trois ans après l'avoir entendu lire.
+    // 1865 est la date de la LECTURE, que la note de Charles Longuet
+    // imprime en tête du texte servi (Conseil général, 20 juin 1865).
+    datePublished: '1898',
+    dateCreated: '1865',
+    // Le second titre sous lequel l'ouvrage circule en français. Il est
+    // VISIBLE dans la page — le <title> le porte entre parenthèses — donc
+    // le schéma a le droit de l'affirmer.
+    alternateName: 'Salaire, prix et profit',
+    translator: 'Charles Longuet',
+    // La page de titre servie imprime cette édition : « SALAIRES / PRIX,
+    // PROFITS par KARL MARX / Traduction par Charles Longuet / Deuxième
+    // édition / PARIS (5e) M. GIARD & É. BRIÈRE / 1912 ».
+    bookEdition: 'Traduction française de Charles Longuet, deuxième édition, 1912 (M. Giard et É. Brière)',
+    // Charles Longuet est mort en 1903 (Wikidata Q1065362, vérifié) : la
+    // traduction est dans le domaine public, on peut l'affirmer.
+    license: 'https://creativecommons.org/publicdomain/mark/1.0/',
+    // L'original est anglais, et non allemand : Marx a écrit et lu ce texte
+    // en anglais devant le Conseil général, à Londres.
+    translationOfWork: {
+      '@type': 'Book',
+      name: 'Value, Price and Profit',
+      inLanguage: 'en',
+      datePublished: '1898'
+    },
+    // load() de la page appelle l'API de Wikisource sur les sous-pages de
+    // ce livre-là — c'est la source réelle du texte affiché.
+    source: { name: 'Salaires, prix, profits sur Wikisource',
+              url: 'https://fr.wikisource.org/wiki/Salaires,_prix,_profits' },
+    colophon: 'traduction Charles Longuet (1912), domaine public, servie depuis Wikisource'
   }
 };
 
@@ -256,7 +295,7 @@ let INDEX_NOTIONS = [];
  * consommé par la section « maillage » : la résolution (identité, suffixe
  * de station, renvoi `voir`, `page.slug`) se fait une seule fois, ici, et
  * les ateliers n'ont plus qu'une table à lire. */
-let LIENS_FICHES = { 'Le Capital': {}, 'Manuscrits de 1844': {}, 'Manifeste du parti communiste': {} };
+let LIENS_FICHES = { 'Le Capital': {}, 'Manuscrits de 1844': {}, 'Manifeste du parti communiste': {}, 'Salaires, prix, profits': {} };
 
 function lastmod(file) {
   try {
@@ -355,6 +394,7 @@ const PIED_PAGES = [
   'oeuvres/manuscrits-1844.html',
   'oeuvres/manifeste.html',
   'oeuvres/contribution-1859.html',
+  'oeuvres/salaire-prix-profit.html',
   'oeuvres/place-publique.html',
   'oeuvres/carnet.html',
   'oeuvres/messages.html',
@@ -759,6 +799,25 @@ function identite(nom) {
     brut.push({ nom: c.t, legende: c.def || '', formule: '', de: c.de || '',
                 oeuvre: 'Manifeste du parti communiste', groupe: 'le texte', chaps: [],
                 url: '/oeuvres/manifeste' });
+  }
+
+  /* — Salaires, prix, profits : meme motif que le Manifeste, a une chose
+       pres — chaque entree dit sa SECTION (`g`), et c'est elle que la
+       provenance affiche et vers laquelle elle mene. « le texte » aurait ete
+       une provenance qui ne situe rien, dans un livre de quinze sections.
+       Dix des treize entrees portent le titre d'une fiche deja existante :
+       elles n'en creent pas une seconde, elles lui ajoutent une provenance. */
+  const spSrc = readFileSync('oeuvres/salaire-prix-profit.html', 'utf8');
+  const SP_SECTIONS = new Map();
+  for (const s of litteralJS(spSrc, 'SP_STRUCT=', '['))
+    SP_SECTIONS.set(s.g, s.rn ? `section ${s.rn}` : 'l\u2019avant-propos');
+  for (const c of litteralJS(spSrc, 'GLOSS_SP=', '[')) {
+    if (!c.t) throw new Error(`salaire-prix-profit.html : une entrée de GLOSS_SP n'a pas de titre (t) — ${JSON.stringify(c.s)}`);
+    if (!SP_SECTIONS.has(c.g)) throw new Error(
+      `GLOSS_SP « ${c.t} » : g=${JSON.stringify(c.g)} ne correspond à aucune section de SP_STRUCT.`);
+    brut.push({ nom: c.t, legende: c.def || '', formule: '', de: c.de || '',
+                oeuvre: 'Salaires, prix, profits', groupe: SP_SECTIONS.get(c.g), chaps: [],
+                url: `/oeuvres/salaire-prix-profit#partie=${c.g}` });
   }
 
   /* Une clé du lexique qui ne correspond à AUCUNE fiche est une erreur, pas
@@ -1270,7 +1329,7 @@ ${monde}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=16"></script>
+<script src="/oeuvres/shell.js?v=17"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 ${aScene ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-driver.js')}" defer></script>` : ''}
@@ -1431,7 +1490,7 @@ ${voisines.map((v) => `      <a href="${v.href}">${v.nom}</a>`).join('\n')}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=16"></script>
+<script src="/oeuvres/shell.js?v=17"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 </body>
@@ -1667,7 +1726,7 @@ ${marge}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=16"></script>
+<script src="/oeuvres/shell.js?v=17"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Le Capital', tabs: [] });</script>
 </body>
@@ -1732,7 +1791,7 @@ ${o.ld}
 </head>`;
   const piedCm = (workTitle) => `${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=16"></script>
+<script src="/oeuvres/shell.js?v=17"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: '${workTitle}', tabs: [] });</script>
 <script src="/commentaires/agregation.js?v=${hashV('commentaires/agregation.js')}" defer></script>
@@ -2024,7 +2083,8 @@ ${piedCm('Agrégation 2027')}`;
       t: 'Ressources — ' + w.shortTitle, s: cartes.map((c) => ({ a: 'ressources', h: c.h, x: c.x })) });
     if (!check) console.log(`  ressources : ${w.shortTitle} — ${cartes.length} cartes indexées`);
   }
-  ['capital-1', 'manuscrits-1844', 'manifeste-parti-communiste'].forEach(ressourcesDe);
+  ['capital-1', 'manuscrits-1844', 'manifeste-parti-communiste',
+    'contribution-critique-economie-politique', 'salaire-prix-profit'].forEach(ressourcesDe);
 
   /* L'index des essais — glossaire, chapitres expliqués, commentaires et
    * page-carrefour (mission `recherche-chapitres`) : un fichier à part, chargé à la demande par la
@@ -2076,7 +2136,8 @@ function ccHtml(x, ICONS, h) {
 
 for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
                               ['oeuvres/manuscrits-1844.html', 'Manuscrits de 1844'],
-                              ['oeuvres/manifeste.html', 'Manifeste du parti communiste']]) {
+                              ['oeuvres/manifeste.html', 'Manifeste du parti communiste'],
+                              ['oeuvres/salaire-prix-profit.html', 'Salaires, prix, profits']]) {
   let src = readFileSync(file, 'utf8');
   const liens = LIENS_FICHES[oeuvre];
 
@@ -2109,20 +2170,24 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
         : CONCEPTS[id].map((x) => ccHtml(x, ICONS, (liens[x.t] || {}).h || '')).join('');
       src = entreMarqueurs(src, deb, fin, html, file);
     }
-  } else if (oeuvre === 'Manifeste du parti communiste') {
-    /* Le Manifeste n'a ni cartes ni carte de concepts : ses notions vivent
-       dans l'infobulle de la liseuse et dans la marge, toutes deux peuplées
-       par le script. La ligne servie, au pied du cheminement, est ce qu'un
-       crawler en voit. On nomme la NOTION et l'on dédoublonne par l'adresse. */
+  } else if (oeuvre === 'Manifeste du parti communiste' || oeuvre === 'Salaires, prix, profits') {
+    /* Ni cartes ni carte de concepts : leurs notions vivent dans l'infobulle
+       de la liseuse et dans la marge, toutes deux peuplées par le script. La
+       ligne servie, au pied du cheminement, est ce qu'un crawler en voit. On
+       nomme la NOTION et l'on dédoublonne par l'adresse. */
+    const mf = oeuvre === 'Manifeste du parti communiste';
+    const balise = mf ? 'NOTIONS-MF' : 'NOTIONS-SP';
+    /* L'article vit dans la chaîne : « du Manifeste », « de Salaires ». */
+    const titre = mf ? 'du <i>Manifeste</i>' : 'de <i>Salaires, prix, profits</i>';
     const vus = new Set(), items = [];
     for (const n of Object.keys(liens)) if (!vus.has(liens[n].h)) { vus.add(liens[n].h); items.push(liens[n]); }
     const lien = (e) => `<a href="${e.h}">${e.n}</a>`;
     const liste = items.length > 1
       ? items.slice(0, -1).map(lien).join(', ') + ' et ' + lien(items[items.length - 1])
       : items.map(lien).join('');
-    src = entreMarqueurs(src, '<!--NOTIONS-MF:DÉBUT', '<!--NOTIONS-MF:FIN -->',
+    src = entreMarqueurs(src, `<!--${balise}:DÉBUT`, `<!--${balise}:FIN -->`,
       ` — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main. -->
-    <p class="carte-sortie"${items.length ? '' : ' hidden'}>Les notions du <i>Manifeste</i> qui ont leur page : ${liste}.</p>
+    <p class="carte-sortie"${items.length ? '' : ' hidden'}>Les notions ${titre} qui ont leur page : ${liste}.</p>
     `, file);
   } else {
     /* Les Manuscrits n'ont pas de fiches : leurs sept concepts vivent dans
@@ -2237,6 +2302,21 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
   for (const p of litteralJS(readFileSync('oeuvres/contribution-1859.html', 'utf8'), 'MC_STRUCT=', '['))
     items.push({ t: strip(p.t), s: `Contribution (1859) · ${strip(p.grp)}`,
       cat: 'partie', url: `/oeuvres/contribution-1859#partie=${p.g}`, hay: court(p.s, 400) });
+  /* Salaires, prix, profits : ses quinze sections, lues dans le plan de la
+     page (SP_STRUCT). Chacune est une sous-page de Wikisource, donc une
+     section d'annotation : `g` est à la fois le numéro que #partie= ouvre et
+     le `#s=` du contrat de deep-link. */
+  for (const p of litteralJS(readFileSync('oeuvres/salaire-prix-profit.html', 'utf8'), 'SP_STRUCT=', '['))
+    items.push({ t: strip(p.t), s: `Salaires, prix, profits (1865)${p.rn ? ' · section ' + p.rn : ''}`,
+      cat: 'partie', url: `/oeuvres/salaire-prix-profit#partie=${p.g}`, hay: court(p.s, 400) });
+
+  for (const [t, url, hay] of [
+    ['Le cheminement de Salaires, prix, profits', '/oeuvres/salaire-prix-profit#deriv', 'marches salaire prix valeur force de travail plus-value surtravail lutte syndicats'],
+    ['Le débat avec Weston', '/oeuvres/salaire-prix-profit#labo', 'John Weston soupière cuillères Menenius Agrippa monnaie quantité fixe salaires élevés dogme salaire règle le prix Ricardo'],
+    ['De 1865 au Capital', '/oeuvres/salaire-prix-profit#capital', 'comparaison 1867 abrégé du Capital avant la lettre fétichisme forme-valeur valeur d’usage capital constant variable armée de réserve'],
+    ['La chronologie de Salaires, prix, profits', '/oeuvres/salaire-prix-profit#chrono', 'Internationale 1864 Saint-Martin Hall 1865 Conseil général Genève 1866 Eleanor Marx 1898 Charles Longuet 1912 Salaire prix et profit']
+  ]) items.push({ t, s: 'Le dossier · Salaires, prix, profits', cat: 'outil', url, hay });
+
   for (const [t, url, hay] of [
     ['Le cheminement de la Contribution', '/oeuvres/contribution-1859#deriv', 'marches marchandise valeur temps de travail équivalent général monnaie argent'],
     ['La préface de 1859, au mot', '/oeuvres/contribution-1859#labo', 'base superstructure rapports de production forces productives conscience être social idéologie fil conducteur'],
@@ -2276,11 +2356,30 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
    * seconde copie, aux accents près, et c'est la page qui fait foi. */
   /* Les pages Wikisource de la Contribution, aplaties : une partie peut en
      porter deux (l'ouverture du chapitre II precede « Mesure des valeurs »). */
-  const MC_RACINE = 'Contribution à la critique de l\u2019économie politique';
-  const MC_PAGES = [];
-  for (const p of litteralJS(readFileSync('oeuvres/contribution-1859.html', 'utf8'), 'MC_STRUCT=', '['))
-    for (const w of (p.p || []))
-      MC_PAGES.push({ p: w.page, g: p.g, t: strip(p.t), sur: strip(p.sur || p.grp || '') });
+  /* LES ŒUVRES SERVIES EN SOUS-PAGES DE WIKISOURCE (la Contribution, puis
+     Salaires prix profits). Le meme bloc pour les deux : la racine est lue
+     dans la PAGE (son `WS_ROOT`, qui fait foi — c'est lui que la liseuse
+     appelle), et `pages` apparie le titre Wikisource a la partie, donc donne
+     le `#s=` du contrat de deep-link. `t` et `u` sont la pour que shell.js
+     n'ait a coder en dur ni le libelle ni l'adresse de l'œuvre. */
+  function wikiPages(fichier, nomStruct, libelle, url, mini, surDe) {
+    const s = readFileSync(fichier, 'utf8');
+    const m = s.match(/var WS_ROOT\s*=\s*'((?:[^'\\]|\\.)*)'/);
+    if (!m) throw new Error(`${fichier} : WS_ROOT introuvable — la racine Wikisource fait foi dans la page.`);
+    const racine = m[1].replace(/\\(['\\])/g, '$1');
+    const pages = [];
+    for (const p of litteralJS(s, nomStruct, '['))
+      for (const w of (p.p || []))
+        pages.push({ p: w.page, g: p.g, t: strip(p.t),
+          /* La sur-ligne SITUE le passage (« Section VI, ... »). La
+             Contribution la porte dans sa structure ; Salaires, prix, profits
+             la DÉRIVE de son chiffre romain, comme le fait sa page
+             (`surDe`) — on refait ici le meme calcul, jamais une recopie. */
+          sur: strip(surDe ? surDe(p) : (p.sur || p.grp || '')) });
+    if (pages.length < mini)
+      throw new Error(`${nomStruct} rend ${pages.length} pages Wikisource — il en faut au moins ${mini}.`);
+    return { racine, t: libelle, u: url, pages };
+  }
 
   const texte = {
     'capital-1': { sections: ROY.map((sec, i) => ({ n: i + 1, rn: sec.rn, t: strip(sec.t) })) },
@@ -2300,21 +2399,20 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
         f: `/oeuvres/manuscrits-1844/textes/${String(p.file).replace(/\.html$/, '')}`
       }))
     },
-    /* La Contribution : DIX pages de Wikisource. Ni le modele du Manifeste
-       (tout charger : ce serait dix requetes et 69 000 mots a la premiere
-       frappe), ni tout a fait celui du Capital (le seul extrait de l'API,
-       qui ne donne pas la tranche exacte). On interroge l'API de RECHERCHE
-       pour savoir QUELLES pages repondent, puis on ne charge que celles-la
-       — trois au plus — pour en tirer la phrase au caractere pres.
-       `pages` apparie le titre Wikisource a la partie : c'est lui qui donne
-       le `#s=` du contrat de deep-link, et il est derive de MC_STRUCT. */
-    'contribution-critique-economie-politique': {
-      racine: MC_RACINE,
-      pages: MC_PAGES
-    }
+    /* Ni le modele du Manifeste (tout charger : ce serait onze requetes et
+       69 000 mots a la premiere frappe), ni tout a fait celui du Capital (le
+       seul extrait de l'API, qui ne donne pas la tranche exacte). On
+       interroge l'API de RECHERCHE pour savoir QUELLES pages repondent, puis
+       on ne charge que celles-la — trois au plus — pour en tirer la phrase au
+       caractere pres. */
+    'contribution-critique-economie-politique': wikiPages(
+      'oeuvres/contribution-1859.html', 'MC_STRUCT=',
+      'Contribution (1859)', '/oeuvres/contribution-1859', 10),
+    'salaire-prix-profit': wikiPages(
+      'oeuvres/salaire-prix-profit.html', 'SP_STRUCT=',
+      'Salaires, prix, profits', '/oeuvres/salaire-prix-profit', 15,
+      p => p.rn ? 'Section ' + p.rn : '')
   };
-  if (MC_PAGES.length < 10)
-    throw new Error(`MC_STRUCT rend ${MC_PAGES.length} pages Wikisource — la Contribution en a onze.`);
   if (texte['capital-1'].sections.length !== 8)
     throw new Error(`ROY_STRUCT rend ${texte['capital-1'].sections.length} sections — le Livre I en a huit.`);
   if (texte['manuscrits-1844'].parts.length < 3)

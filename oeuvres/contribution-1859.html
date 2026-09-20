@@ -23,7 +23,7 @@
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="fonts/fonts.css?v=2">
-<link rel="stylesheet" href="atelier.css?v=16">
+<link rel="stylesheet" href="atelier.css?v=17">
 <link rel="stylesheet" href="shell.css?v=12">
 <link rel="stylesheet" href="reader-tools.css">
 <style>
@@ -114,63 +114,11 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
    vivent dans atelier.css : les quatre ateliers les partagent. Seul
    l'instrument propre à cette œuvre est ici. */
 
-/* ── L'INSTRUMENT : la préface, au mot.
-   À gauche les sept moments du paragraphe, à droite la fiche, collante
-   pour rester sous les yeux quand on choisit plus bas dans la liste.
-   Même grammaire que la carte des socialismes du Manifeste. ── */
-.prf{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);
-  gap:clamp(24px,3.5vw,44px);align-items:start;}
-.prf-liste{display:flex;flex-direction:column;gap:6px;}
-.prf-pick{display:block;width:100%;text-align:left;font-family:'Fraunces',Georgia,serif;
-  font-weight:600;font-size:.98rem;line-height:1.3;color:var(--ink-soft);background:transparent;
-  border:1px solid var(--line);border-radius:12px;padding:11px 15px;cursor:pointer;
-  transition:color .15s,border-color .15s,background .15s;}
-.prf-pick span{display:block;font-family:var(--f-ui);font-weight:600;font-size:.72rem;
-  letter-spacing:.11em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
-.prf-pick:hover{color:var(--ink);border-color:rgba(216,173,76,.45);background:var(--hover);}
-.prf-pick[aria-pressed="true"]{color:var(--ink);
-  background:linear-gradient(150deg,#2c2117,#211a12,#1b150e);border-color:rgba(216,173,76,.4);}
-.prf-pick[aria-pressed="true"] span{color:var(--gold);}
-.prf-pick:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
-.prf-detail{position:sticky;top:calc(var(--atl-top,88px) + 80px);}
-.prf-node{background:var(--card);border:1px solid var(--line);border-radius:16px;
-  padding:26px clamp(20px,3vw,32px) 24px;}
-.prf-node[hidden]{display:none;}
-.prf-cite{font-family:var(--f-serif);font-size:1.05rem;line-height:1.66;color:var(--ink);
-  margin:0;padding-left:16px;border-left:2px solid var(--red-deep);}
-.prf-de{font-family:var(--f-serif);font-style:italic;font-size:.92rem;line-height:1.6;
-  color:var(--muted);margin:14px 0 0;padding-left:16px;border-left:1px solid var(--line);}
-.prf-node dl{margin:20px 0 0;}
-.prf-node dt{font-family:var(--f-ui);font-size:.8rem;font-weight:600;color:var(--muted);
-  padding-top:14px;border-top:1px solid var(--line);}
-.prf-node dd{margin:5px 0 16px;max-width:64ch;font-family:var(--f-serif);
-  color:var(--ink-soft);line-height:1.62;}
-.prf-node dd:last-of-type{margin-bottom:0;}
-.prf-go{margin:20px 0 0;}
-@media(max-width:820px){.prf{grid-template-columns:1fr;}.prf-detail{position:static;}}
-
-/* ── DE 1859 AU CAPITAL : trois colonnes réglées, une ligne par fait.
-   Ce ne sont pas des cartes : c'est un relevé, et il se lit en colonnes. ── */
-.v59{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;
-  overflow:hidden;margin:0;}
-.v59-col{background:var(--bg);padding:clamp(18px,2.4vw,26px);}
-.v59-h{font-family:var(--f-ui);font-size:.72rem;font-weight:600;letter-spacing:.11em;
-  text-transform:uppercase;color:var(--gold);margin:0 0 4px;}
-.v59-s{font-family:var(--f-serif);font-style:italic;font-size:.9rem;color:var(--muted);
-  margin:0 0 16px;line-height:1.5;}
-.v59-col ul{list-style:none;margin:0;padding:0;}
-.v59-col li{font-family:var(--f-serif);font-size:.95rem;line-height:1.6;color:var(--ink-soft);
-  padding:12px 0;border-top:1px solid var(--line);}
-.v59-col li:first-child{border-top:none;padding-top:0;}
-.v59-col li b{color:var(--ink);font-weight:600;}
-.v59-n{display:block;font-family:var(--f-ui);font-size:.78rem;color:var(--muted);margin-top:4px;}
-.v59-col a{color:var(--ink);text-decoration:underline;
-  text-decoration-color:var(--line-strong);text-underline-offset:3px;}
-.v59-col a:hover,.v59-col a:focus-visible{color:var(--gold);text-decoration-color:var(--gold);}
-.v59-note{font-family:var(--f-serif);font-size:.95rem;line-height:1.65;color:var(--ink-soft);
-  max-width:72ch;margin:22px 0 0;}
-@media(max-width:900px){.v59{grid-template-columns:1fr;}}
+/* Les deux composants de ce dossier — l'instrument « liste + fiche »
+   (.fiche*) et le relevé en colonnes (.relv*) — sont montés dans
+   atelier.css depuis qu'un troisième atelier les partage. Ne pas les
+   redéclarer ici : c'est cette duplication en tête de page qui avait fait
+   diverger les ateliers la première fois. */
 
 </style>
 <!-- Book : DÉRIVÉ de oeuvres/bibliotheque.json par tools/gen-seo.mjs.
@@ -296,76 +244,76 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
         <p class="lead">Le paragraphe du « fil conducteur » en sept moments : ce que chacun pose, et le contresens qu'il appelle.</p>
       </div>
     </div>
-    <div class="prf" id="instr-preface">
-      <div class="prf-liste" role="group" aria-label="Les sept moments du paragraphe">
-        <button type="button" class="prf-pick" data-prf="depart" aria-pressed="false"><span>Moment I</span>Le point de départ</button>
-        <button type="button" class="prf-pick" data-prf="base" aria-pressed="false"><span>Moment II</span>La base et la superstructure</button>
-        <button type="button" class="prf-pick" data-prf="conscience" aria-pressed="false"><span>Moment III</span>La conscience — et un mot de la traduction</button>
-        <button type="button" class="prf-pick" data-prf="contradiction" aria-pressed="false"><span>Moment IV</span>La contradiction, et l'ère qui s'ouvre</button>
-        <button type="button" class="prf-pick" data-prf="ideologie" aria-pressed="false"><span>Moment V</span>Les formes idéologiques</button>
-        <button type="button" class="prf-pick" data-prf="limites" aria-pressed="false"><span>Moment VI</span>Les deux limites</button>
-        <button type="button" class="prf-pick" data-prf="prehistoire" aria-pressed="false"><span>Moment VII</span>Les époques, et la préhistoire</button>
+    <div class="fiche" id="instr-preface">
+      <div class="fiche-liste" role="group" aria-label="Les sept moments du paragraphe">
+        <button type="button" class="fiche-pick" data-prf="depart" aria-pressed="false"><span>Moment I</span>Le point de départ</button>
+        <button type="button" class="fiche-pick" data-prf="base" aria-pressed="false"><span>Moment II</span>La base et la superstructure</button>
+        <button type="button" class="fiche-pick" data-prf="conscience" aria-pressed="false"><span>Moment III</span>La conscience — et un mot de la traduction</button>
+        <button type="button" class="fiche-pick" data-prf="contradiction" aria-pressed="false"><span>Moment IV</span>La contradiction, et l'ère qui s'ouvre</button>
+        <button type="button" class="fiche-pick" data-prf="ideologie" aria-pressed="false"><span>Moment V</span>Les formes idéologiques</button>
+        <button type="button" class="fiche-pick" data-prf="limites" aria-pressed="false"><span>Moment VI</span>Les deux limites</button>
+        <button type="button" class="fiche-pick" data-prf="prehistoire" aria-pressed="false"><span>Moment VII</span>Les époques, et la préhistoire</button>
       </div>
-      <div class="prf-detail">
-        <article class="prf-node" id="prf-depart">
-          <blockquote class="prf-cite">Dans la production sociale de leur existence, les hommes entrent en des rapports déterminés, nécessaires, indépendants de leur volonté ; ces rapports de production correspondent à un degré de développement donné de leurs forces productives matérielles.</blockquote>
-          <p class="prf-de" lang="de">In der gesellschaftlichen Produktion ihres Lebens gehen die Menschen bestimmte, notwendige, von ihrem Willen unabhängige Verhältnisse ein, Produktionsverhältnisse, die einer bestimmten Entwicklungsstufe ihrer materiellen Produktivkräfte entsprechen.</p>
+      <div class="fiche-detail">
+        <article class="fiche-node" id="fiche-depart">
+          <blockquote class="fiche-cite">Dans la production sociale de leur existence, les hommes entrent en des rapports déterminés, nécessaires, indépendants de leur volonté ; ces rapports de production correspondent à un degré de développement donné de leurs forces productives matérielles.</blockquote>
+          <p class="fiche-de" lang="de">In der gesellschaftlichen Produktion ihres Lebens gehen die Menschen bestimmte, notwendige, von ihrem Willen unabhängige Verhältnisse ein, Produktionsverhältnisse, die einer bestimmten Entwicklungsstufe ihrer materiellen Produktivkräfte entsprechen.</p>
           <dl>
             <dt>Ce que le moment pose</dt><dd>On ne commence ni par l'individu ni par l'idée, mais par un rapport qu'on trouve déjà là en naissant. « Indépendants de leur volonté » ne dit pas que les hommes subissent : cela dit qu'ils n'ont pas décidé, à l'entrée, des rapports dans lesquels ils produisent.</dd>
             <dt>L'écueil</dt><dd>Lire cette clause comme « les hommes ne font pas leur histoire ». La phrase situe le lieu où l'on agit ; elle ne nie pas qu'on y agisse.</dd>
           </dl>
-          <p class="prf-go"><button type="button" class="btn" data-lire="1" data-q="Dans la production sociale de leur existence">Voir dans le texte →</button></p>
+          <p class="fiche-go"><button type="button" class="btn" data-lire="1" data-q="Dans la production sociale de leur existence">Voir dans le texte →</button></p>
         </article>
-        <article class="prf-node" id="prf-base" hidden>
-          <blockquote class="prf-cite">L'ensemble de ces rapports de production constitue la structure économique de la société, la base réelle, sur quoi s'élève une superstructure juridique et politique et à laquelle correspondent des formes de conscience sociales déterminées.</blockquote>
-          <p class="prf-de" lang="de">Die Gesamtheit dieser Produktionsverhältnisse bildet die ökonomische Struktur der Gesellschaft, die reale Basis, worauf sich ein juristischer und politischer Überbau erhebt, und welcher bestimmte gesellschaftliche Bewußtseinsformen entsprechen.</p>
+        <article class="fiche-node" id="fiche-base" hidden>
+          <blockquote class="fiche-cite">L'ensemble de ces rapports de production constitue la structure économique de la société, la base réelle, sur quoi s'élève une superstructure juridique et politique et à laquelle correspondent des formes de conscience sociales déterminées.</blockquote>
+          <p class="fiche-de" lang="de">Die Gesamtheit dieser Produktionsverhältnisse bildet die ökonomische Struktur der Gesellschaft, die reale Basis, worauf sich ein juristischer und politischer Überbau erhebt, und welcher bestimmte gesellschaftliche Bewußtseinsformen entsprechen.</p>
           <dl>
             <dt>Ce que le moment pose</dt><dd>La métaphore la plus citée de Marx tient en une phrase, dans une préface, et elle n'est jamais reprise sous cette forme dans Le Capital. Les verbes sont ceux de la correspondance — « s'élève », « correspondent » — non ceux de la cause à effet.</dd>
             <dt>L'écueil</dt><dd>En faire un modèle à deux étages où le bas commanderait le haut. Ce n'est pas la phrase qui dit cela, c'est l'usage qu'on en a fait ; et Marx écrit trois lignes plus bas que les formes idéologiques sont là où le conflit se mène à bout.</dd>
           </dl>
-          <p class="prf-go"><button type="button" class="btn" data-lire="1" data-q="la base réelle, sur quoi s’élève une superstructure">Voir dans le texte →</button></p>
+          <p class="fiche-go"><button type="button" class="btn" data-lire="1" data-q="la base réelle, sur quoi s’élève une superstructure">Voir dans le texte →</button></p>
         </article>
-        <article class="prf-node" id="prf-conscience" hidden>
-          <blockquote class="prf-cite">Ce n'est pas la conscience des hommes qui détermine la réalité ; c'est au contraire la réalité sociale qui détermine leur conscience.</blockquote>
-          <p class="prf-de" lang="de">Es ist nicht das Bewußtsein der Menschen, das ihr Sein, sondern umgekehrt ihr gesellschaftliches Sein, das ihr Bewußtsein bestimmt.</p>
+        <article class="fiche-node" id="fiche-conscience" hidden>
+          <blockquote class="fiche-cite">Ce n'est pas la conscience des hommes qui détermine la réalité ; c'est au contraire la réalité sociale qui détermine leur conscience.</blockquote>
+          <p class="fiche-de" lang="de">Es ist nicht das Bewußtsein der Menschen, das ihr Sein, sondern umgekehrt ihr gesellschaftliches Sein, das ihr Bewußtsein bestimmt.</p>
           <dl>
             <dt>Ce que le moment pose</dt><dd>L'allemand dit « leur <i>être</i> » (<i lang="de">ihr Sein</i>) et « leur <i>être social</i> » (<i lang="de">ihr gesellschaftliches Sein</i>). Laura Lafargue rend les deux par « la réalité ». Le mot que la phrase perd est un terme de philosophie : ce que la conscience ne détermine pas, ce n'est pas le réel en général, c'est la manière dont les hommes existent ensemble.</dd>
             <dt>L'écueil</dt><dd>Dans la traduction française, la phrase ressemble à une thèse sur la pensée et le réel — et l'on discute alors de matérialisme et d'idéalisme. Dans l'allemand, c'est une thèse sur la société.</dd>
           </dl>
-          <p class="prf-go"><button type="button" class="btn" data-lire="1" data-q="Ce n’est pas la conscience des hommes qui détermine la réalité">Voir dans le texte →</button></p>
+          <p class="fiche-go"><button type="button" class="btn" data-lire="1" data-q="Ce n’est pas la conscience des hommes qui détermine la réalité">Voir dans le texte →</button></p>
         </article>
-        <article class="prf-node" id="prf-contradiction" hidden>
-          <blockquote class="prf-cite">À un certain stade de leur développement les forces productives de la société entrent en contradiction avec les rapports de production existants […] De formes évolutives des forces productives qu'ils étaient, ces rapports deviennent des entraves de ces forces. Alors s'ouvre une ère de révolution sociale.</blockquote>
+        <article class="fiche-node" id="fiche-contradiction" hidden>
+          <blockquote class="fiche-cite">À un certain stade de leur développement les forces productives de la société entrent en contradiction avec les rapports de production existants […] De formes évolutives des forces productives qu'ils étaient, ces rapports deviennent des entraves de ces forces. Alors s'ouvre une ère de révolution sociale.</blockquote>
           <dl>
             <dt>Ce que le moment pose</dt><dd>C'est le moteur du paragraphe, et le seul endroit où il dit un mouvement. Les mêmes rapports qui permettaient le développement finissent par l'empêcher : ce n'est pas une force extérieure qui vient briser l'ordre, c'est l'ordre qui devient sa propre entrave.</dd>
             <dt>L'écueil</dt><dd>Lire « alors s'ouvre » comme une échéance. Une ère qui s'ouvre n'est pas une date, et la suite du paragraphe pose aussitôt deux limites à ce mouvement.</dd>
           </dl>
-          <p class="prf-go"><button type="button" class="btn" data-lire="1" data-q="Alors s’ouvre une ère de révolution sociale">Voir dans le texte →</button></p>
+          <p class="fiche-go"><button type="button" class="btn" data-lire="1" data-q="Alors s’ouvre une ère de révolution sociale">Voir dans le texte →</button></p>
         </article>
-        <article class="prf-node" id="prf-ideologie" hidden>
-          <blockquote class="prf-cite">il importe de distinguer toujours entre le bouleversement matériel des conditions de production économiques […] et les formes juridiques, politiques, religieuses, artistiques ou philosophiques, bref, les formes idéologiques sous lesquelles les hommes deviennent conscients de ce conflit et le mènent à bout.</blockquote>
+        <article class="fiche-node" id="fiche-ideologie" hidden>
+          <blockquote class="fiche-cite">il importe de distinguer toujours entre le bouleversement matériel des conditions de production économiques […] et les formes juridiques, politiques, religieuses, artistiques ou philosophiques, bref, les formes idéologiques sous lesquelles les hommes deviennent conscients de ce conflit et le mènent à bout.</blockquote>
           <dl>
             <dt>Ce que le moment pose</dt><dd>La phrase qui interdit de tenir les idées pour un décor. On y prend conscience du conflit, et on l'y <i>mène à bout</i> : c'est donc là que la lutte se joue, et pas seulement là qu'elle se reflète.</dd>
             <dt>L'écueil</dt><dd>La lire comme un congédiement des idées. Elle dit qu'on ne les explique pas par elles-mêmes — « de même qu'on ne juge pas un individu sur l'idée qu'il se fait de lui » — non qu'elles ne font rien.</dd>
           </dl>
-          <p class="prf-go"><button type="button" class="btn" data-lire="1" data-q="les formes idéologiques sous lesquelles les hommes deviennent conscients">Voir dans le texte →</button></p>
+          <p class="fiche-go"><button type="button" class="btn" data-lire="1" data-q="les formes idéologiques sous lesquelles les hommes deviennent conscients">Voir dans le texte →</button></p>
         </article>
-        <article class="prf-node" id="prf-limites" hidden>
-          <blockquote class="prf-cite">Une société ne disparaît jamais avant que soient développées toutes les forces productives qu'elle est assez large pour contenir […] C'est pourquoi l'humanité ne se pose jamais que les problèmes qu'elle peut résoudre.</blockquote>
+        <article class="fiche-node" id="fiche-limites" hidden>
+          <blockquote class="fiche-cite">Une société ne disparaît jamais avant que soient développées toutes les forces productives qu'elle est assez large pour contenir […] C'est pourquoi l'humanité ne se pose jamais que les problèmes qu'elle peut résoudre.</blockquote>
           <dl>
             <dt>Ce que le moment pose</dt><dd>Les deux propositions les plus discutées du paragraphe, et la seconde découle de la première : un problème ne se présente que lorsque les conditions matérielles de le résoudre « existent ou du moins sont en voie de devenir ».</dd>
             <dt>L'écueil</dt><dd>Citer la seconde seule, comme un optimisme ou une maxime. Détachée de la première, elle devient une formule de sagesse ; rattachée, c'est une thèse sur le moment où une question peut être posée.</dd>
           </dl>
-          <p class="prf-go"><button type="button" class="btn" data-lire="1" data-q="l’humanité ne se pose jamais que les problèmes qu’elle peut résoudre">Voir dans le texte →</button></p>
+          <p class="fiche-go"><button type="button" class="btn" data-lire="1" data-q="l’humanité ne se pose jamais que les problèmes qu’elle peut résoudre">Voir dans le texte →</button></p>
         </article>
-        <article class="prf-node" id="prf-prehistoire" hidden>
-          <blockquote class="prf-cite">Esquissés à grands traits, les modes de production asiatiques, antiques, féodaux et bourgeois modernes peuvent être désignés comme autant d'époques progressives de la formation sociale économique. […] Avec cette formation sociale s'achève donc la préhistoire de la société humaine.</blockquote>
-          <p class="prf-de" lang="de">ökonomische Gesellschaftsformation · Vorgeschichte der menschlichen Gesellschaft</p>
+        <article class="fiche-node" id="fiche-prehistoire" hidden>
+          <blockquote class="fiche-cite">Esquissés à grands traits, les modes de production asiatiques, antiques, féodaux et bourgeois modernes peuvent être désignés comme autant d'époques progressives de la formation sociale économique. […] Avec cette formation sociale s'achève donc la préhistoire de la société humaine.</blockquote>
+          <p class="fiche-de" lang="de">ökonomische Gesellschaftsformation · Vorgeschichte der menschlichen Gesellschaft</p>
           <dl>
             <dt>Ce que le moment pose</dt><dd>Marx écrit « esquissés à grands traits » : c'est une esquisse, et il le dit. « Préhistoire » ne veut pas dire que rien n'a eu lieu — cela dit que ce qui a eu lieu jusqu'ici s'est fait sous un antagonisme né des conditions sociales, et non des individus.</dd>
             <dt>L'écueil</dt><dd>En tirer une succession obligatoire de stades que toute société devrait parcourir. Le « mode de production asiatique » a nourri un siècle de débats précisément parce qu'il ne se range pas dans cette file.</dd>
           </dl>
-          <p class="prf-go"><button type="button" class="btn" data-lire="1" data-q="autant d’époques progressives de la formation sociale économique">Voir dans le texte →</button></p>
+          <p class="fiche-go"><button type="button" class="btn" data-lire="1" data-q="autant d’époques progressives de la formation sociale économique">Voir dans le texte →</button></p>
         </article>
       </div>
     </div>
@@ -378,39 +326,39 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
         <p class="lead">Huit ans séparent les deux livres, et ils commencent par la même phrase. Relevé dans les deux textes que ce site sert.</p>
       </div>
     </div>
-    <div class="v59">
-      <div class="v59-col">
-        <h3 class="v59-h">Ce qui est déjà là</h3>
-        <p class="v59-s">1859 le pose, 1867 le reprend.</p>
+    <div class="relv">
+      <div class="relv-col">
+        <h3 class="relv-h">Ce qui est déjà là</h3>
+        <p class="relv-s">1859 le pose, 1867 le reprend.</p>
         <ul>
           <li>La <b>marchandise</b> comme point de départ, « forme élémentaire » de la richesse.</li>
           <li>Le <b>double aspect</b> : valeur d'usage et valeur d'échange.</li>
-          <li>Le <b>temps de travail</b> comme substance de la valeur.<span class="v59-n">182 occurrences dans le livre.</span></li>
-          <li>L'<b>équivalent général</b>, et l'argent qui en sort.<span class="v59-n">35 occurrences.</span></li>
+          <li>Le <b>temps de travail</b> comme substance de la valeur.<span class="relv-n">182 occurrences dans le livre.</span></li>
+          <li>L'<b>équivalent général</b>, et l'argent qui en sort.<span class="relv-n">35 occurrences.</span></li>
           <li>La circulation <b>M—A—M</b>, la vente séparée de l'achat, et la possibilité de la crise.</li>
           <li>Les <b>fonctions de l'argent</b> : mesure, moyen de circulation, thésaurisation, paiement, monnaie universelle.</li>
         </ul>
       </div>
-      <div class="v59-col">
-        <h3 class="v59-h">Ce que Le Capital refait</h3>
-        <p class="v59-s">Le même sujet, autrement exposé.</p>
+      <div class="relv-col">
+        <h3 class="relv-h">Ce que Le Capital refait</h3>
+        <p class="relv-s">Le même sujet, autrement exposé.</p>
         <ul>
           <li><b>La première phrase.</b> Ici : « la richesse de la <i>société bourgeoise</i> ». En 1867 : « la richesse des <i>sociétés dans lesquelles règne le mode de production capitaliste</i> » — et Marx l'y met entre guillemets, avec une note : il se cite lui-même.</li>
-          <li><b>La forme-valeur.</b> Le chapitre I de 1867 la déroule en quatre formes, de la forme simple à la forme argent. Les mots « forme relative » et « forme équivalent » n'apparaissent <b>pas une seule fois</b> ici.<span class="v59-n"><a href="/glossaire/forme-valeur">La forme-valeur →</a></span></li>
-          <li><b>L'ordre de l'exposé.</b> Ce qui tient ici en deux chapitres et trois excursus devient une première section de trois chapitres, notes rejetées en bas de page.<span class="v59-n"><a href="/oeuvres/capital-1/chapitre-1">Le chapitre I expliqué →</a></span></li>
+          <li><b>La forme-valeur.</b> Le chapitre I de 1867 la déroule en quatre formes, de la forme simple à la forme argent. Les mots « forme relative » et « forme équivalent » n'apparaissent <b>pas une seule fois</b> ici.<span class="relv-n"><a href="/glossaire/forme-valeur">La forme-valeur →</a></span></li>
+          <li><b>L'ordre de l'exposé.</b> Ce qui tient ici en deux chapitres et trois excursus devient une première section de trois chapitres, notes rejetées en bas de page.<span class="relv-n"><a href="/oeuvres/capital-1/chapitre-1">Le chapitre I expliqué →</a></span></li>
         </ul>
       </div>
-      <div class="v59-col">
-        <h3 class="v59-h">Ce qui n'y est pas encore</h3>
-        <p class="v59-s">Le volume s'arrête avant le capital.</p>
+      <div class="relv-col">
+        <h3 class="relv-h">Ce qui n'y est pas encore</h3>
+        <p class="relv-s">Le volume s'arrête avant le capital.</p>
         <ul>
-          <li><b>Le fétichisme de la marchandise.</b> Zéro occurrence ici ; une section entière du chapitre I en 1867.<span class="v59-n"><a href="/glossaire/fetichisme">Le fétichisme →</a></span></li>
-          <li><b>La force de travail.</b> Zéro occurrence : la marchandise dont l'usage produit de la valeur n'est pas encore nommée.<span class="v59-n"><a href="/glossaire/force-de-travail">La force de travail →</a></span></li>
-          <li><b>La plus-value.</b> Une seule occurrence dans tout le livre, et elle est dans un excursus d'histoire des théories.<span class="v59-n"><a href="/glossaire/plus-value">La plus-value →</a></span></li>
+          <li><b>Le fétichisme de la marchandise.</b> Zéro occurrence ici ; une section entière du chapitre I en 1867.<span class="relv-n"><a href="/glossaire/fetichisme">Le fétichisme →</a></span></li>
+          <li><b>La force de travail.</b> Zéro occurrence : la marchandise dont l'usage produit de la valeur n'est pas encore nommée.<span class="relv-n"><a href="/glossaire/force-de-travail">La force de travail →</a></span></li>
+          <li><b>La plus-value.</b> Une seule occurrence dans tout le livre, et elle est dans un excursus d'histoire des théories.<span class="relv-n"><a href="/glossaire/plus-value">La plus-value →</a></span></li>
         </ul>
       </div>
     </div>
-    <p class="v59-note">La préface annonce pourtant la suite : la première section devait compter « 1. La marchandise ; 2. La monnaie ou la circulation simple ; 3. Le capital en général », et Marx précise que « les deux premiers chapitres forment le contenu du présent volume ». Le troisième n'a jamais paru sous ce titre. Ce qui vient à sa place, huit ans plus tard, est un autre livre.</p>
+    <p class="relv-note">La préface annonce pourtant la suite : la première section devait compter « 1. La marchandise ; 2. La monnaie ou la circulation simple ; 3. Le capital en général », et Marx précise que « les deux premiers chapitres forment le contenu du présent volume ». Le troisième n'a jamais paru sous ce titre. Ce qui vient à sa place, huit ans plus tard, est un autre livre.</p>
   </section>
 
   <section class="panel active" id="chrono">
@@ -509,6 +457,7 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
         <li><a href="/oeuvres/contribution-1859">Contribution à la critique de l'économie politique</a></li>
         <li><a href="/oeuvres/manuscrits-1844">Manuscrits de 1844</a></li>
         <li><a href="/oeuvres/manifeste">Manifeste du parti communiste</a></li>
+        <li><a href="/oeuvres/salaire-prix-profit">Salaires, prix, profits</a></li>
         <li><a href="/oeuvres/bibliotheque">Toute la bibliothèque</a></li>
         </ul>
       </div>
@@ -682,17 +631,17 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
 
   /* ══════════════════ L'INSTRUMENT : la préface, au mot ══════════════════ */
   function pickMoment(id){
-    var node=byId('prf-'+id); if(!node)return;
-    document.querySelectorAll('.prf-pick').forEach(function(b){
+    var node=byId('fiche-'+id); if(!node)return;
+    document.querySelectorAll('.fiche-pick').forEach(function(b){
       b.setAttribute('aria-pressed', b.dataset.prf===id?'true':'false'); });
-    document.querySelectorAll('.prf-node').forEach(function(n){ n.hidden=(n!==node); });
+    document.querySelectorAll('.fiche-node').forEach(function(n){ n.hidden=(n!==node); });
   }
   function wirePreface(){
-    document.querySelectorAll('.prf-pick').forEach(function(b){
+    document.querySelectorAll('.fiche-pick').forEach(function(b){
       b.addEventListener('click',function(){ pickMoment(b.dataset.prf); }); });
     /* « Voir dans le texte » : on quitte le dossier pour la partie, et l'on
        se pose sur la phrase — c'est tout l'objet de cette salle. */
-    document.querySelectorAll('.prf-node [data-lire]').forEach(function(b){
+    document.querySelectorAll('.fiche-node [data-lire]').forEach(function(b){
       b.addEventListener('click',function(){ goTexte(+b.dataset.lire, b.dataset.q); }); });
   }
 
@@ -1147,7 +1096,7 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
 })();
 </script>
 <script src="../config.js"></script>
-<script src="shell.js?v=16"></script>
+<script src="shell.js?v=17"></script>
 <script src="shell-social.js"></script>
 <script src="shell-annotations.js?v=3"></script>
 <script src="shell-progress.js"></script>

@@ -550,7 +550,8 @@
       'capital-1': 'manufacture',
       'manuscrits-1844': 'marx-jeune',
       'manifeste-parti-communiste': 'manifeste-1848',
-      'contribution-critique-economie-politique': 'zur-kritik-titre-1859'
+      'contribution-critique-economie-politique': 'zur-kritik-titre-1859',
+      'salaire-prix-profit': 'salaires-prix-profits-titre-1912'
     };
     var FALLBACK = { works: [
       { id: 'capital-1', title: 'Le Capital — Livre I', author: 'Karl Marx', year: 1867,
@@ -570,7 +571,11 @@
         title: "Contribution à la critique de l'économie politique", author: 'Karl Marx', year: 1859,
         status: 'available', category: 'critique-economie-politique', path: 'oeuvres/contribution-1859.html',
         description: 'La préface sur la base et la superstructure, la marchandise, la monnaie.',
-        concepts: ['base et superstructure', 'rapports de production', 'méthode'] }
+        concepts: ['base et superstructure', 'rapports de production', 'méthode'] },
+      { id: 'salaire-prix-profit', title: 'Salaires, prix, profits', author: 'Karl Marx', year: 1865,
+        status: 'available', category: 'critique-economie-politique', path: 'oeuvres/salaire-prix-profit.html',
+        description: 'La valeur, la force de travail et la plus-value, exposées deux ans avant Le Capital.',
+        concepts: ['valeur', 'force de travail', 'plus-value'] }
     ] };
 
     function esc(s) {

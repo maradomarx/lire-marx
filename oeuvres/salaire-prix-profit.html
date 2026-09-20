@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salaires, prix, profits — Marx, texte intégral (Salaire, prix et profit)</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="/assets/img/logo/icon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/logo/icon-192.png">
+<link rel="apple-touch-icon" href="/assets/img/logo/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#15100b">
+<meta name="apple-mobile-web-app-title" content="Lire Marx">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="description" content="Salaires, prix, profits de Marx (1865) en texte intégral : la valeur, la force de travail et la plus-value, exposées deux ans avant Le Capital.">
+<meta property="og:title" content="Salaires, prix, profits — Marx, texte intégral (Salaire, prix et profit)">
+<meta property="og:description" content="Salaires, prix, profits de Marx (1865) en texte intégral : la valeur, la force de travail et la plus-value, exposées deux ans avant Le Capital.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lire Marx">
+<meta property="og:url" content="https://liremarx.com/oeuvres/salaire-prix-profit">
+<link rel="canonical" href="https://liremarx.com/oeuvres/salaire-prix-profit">
+<meta property="og:image" content="https://liremarx.com/assets/img/archive/salaires-prix-profits-titre-1912.jpg">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="fonts/fonts.css?v=2">
+<link rel="stylesheet" href="atelier.css?v=17">
+<link rel="stylesheet" href="shell.css?v=12">
+<link rel="stylesheet" href="reader-tools.css">
+<style>
+/* Cinquième atelier. Deux destinations, comme les quatre autres : le texte
+   et le dossier. `--atl-top` vaut donc 88 (topbar 44 + onglets 44) ; sous
+   600 px atelier.css le ramène à 44 et les offsets JS le RELISENT plutôt
+   que de coder la valeur en dur (atlTop()). */
+.wrap{max-width:1120px;padding:0 22px 90px;}
+
+/* ── LES DEUX DESTINATIONS — le sélecteur segmenté des quatre ateliers.
+   Ces règles vivent dans la page et non dans atelier.css : à spécificité
+   égale (0,3,1), c'est le <style> de la page qui gagne. ── */
+nav.tabs.worktabs{display:flex;gap:6px;flex-wrap:nowrap;margin:0;
+  justify-content:flex-start;text-align:left;align-items:center;
+  min-height:44px;overflow-x:auto;scrollbar-width:none;
+  position:sticky;top:44px;z-index:62;padding-top:2px;
+  background:var(--bg);border-top:none;border-bottom:1px solid var(--line);}
+nav.tabs.worktabs::-webkit-scrollbar{display:none;}
+nav.tabs.worktabs .tab{font-family:var(--f-ui);font-weight:600;
+  font-size:.86rem;color:var(--muted);background:none;
+  border:1px solid transparent;border-radius:999px;
+  padding:7px 17px;cursor:pointer;white-space:nowrap;flex:0 0 auto;
+  transition:color .16s,background .16s,border-color .16s;}
+nav.tabs.worktabs .tab:hover{color:var(--ink);background:var(--hover);}
+nav.tabs.worktabs .tab.active{color:var(--ink);
+  background:linear-gradient(150deg,#2c2117,#211a12,#1b150e);
+  border-color:rgba(216,173,76,.28);}
+nav.tabs.worktabs .tab.active::after{display:none;}
+nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+
+/* Les deux composants de ce dossier — l'instrument « liste + fiche »
+   (.fiche*) et le relevé en colonnes (.relv*) — vivent dans atelier.css,
+   partagés avec la Contribution. L'ascension (.asc*), la chronologie
+   (.chr*) et la bibliographie (.rss*) aussi. Rien de tout cela ne se
+   redéclare ici. */
+
+/* ── L'en-tête d'œuvre : son identité, sobre (motif des trois ateliers) ── */
+.work-head{padding:clamp(26px,4vh,38px) 0 clamp(18px,2.4vh,24px);text-align:left;}
+.work-title{font-family:'Fraunces',serif;font-weight:900;
+  font-size:clamp(2rem,4.4vw,3rem);letter-spacing:-.03em;line-height:1.02;
+  color:var(--text);margin:0;display:flex;align-items:baseline;
+  gap:.4em;flex-wrap:wrap;}
+.work-vol{font-style:italic;font-weight:500;font-size:.44em;
+  letter-spacing:-.01em;color:var(--red-text);}
+.work-meta{font-family:var(--f-ui);font-size:.82rem;color:var(--muted);margin:12px 0 0;}
+
+/* ── La liseuse ── */
+.reader-head{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:13px 15px;border-bottom:1px solid var(--line);}
+.reader-title{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:1.1rem;color:var(--ink);}
+.reader-content{min-height:72vh;background:transparent;padding:28px clamp(18px,4vw,46px);
+  color:inherit;font-family:var(--f-serif);font-size:1rem;line-height:1.72;overflow:auto;}
+.reader-content[hidden],.placeholder[hidden]{display:none;}
+.reader-content p{margin:.72em 0;}
+.reader-content .reader-error{max-width:720px;margin:40px auto;padding:22px;
+  border:1px dashed var(--line);border-radius:12px;font-family:var(--f-serif);color:var(--ink-soft);}
+.reader-content .reader-error b{display:block;color:var(--ink);font-family:'Fraunces',Georgia,serif;
+  font-size:1.18rem;margin-bottom:8px;}
+.placeholder .pi{color:var(--muted);line-height:0;font-size:0;margin-bottom:14px;
+  display:flex;justify-content:center;}
+.placeholder .pi svg{width:40px;height:40px;fill:none;stroke:currentColor;
+  stroke-width:1;stroke-linecap:round;stroke-linejoin:round;}
+
+/* Les titres du texte. Wikisource ne les compose pas en titres : celui de
+   la section est un <div style="text-align:center"> qui porte le chiffre
+   romain et l'intitulé séparés d'un <br>, et l'avant-propos porte un <h2>
+   qui redit le titre du livre. La page les retire et pose les siens : c'est
+   ce qui donne ses repères au suivi de lecture et au lecteur d'écran. */
+.reader-content h2.sp-part{font-family:'Fraunces',Georgia,serif;font-weight:900;
+  font-size:clamp(1.4rem,2.5vw,1.85rem);letter-spacing:-.02em;line-height:1.14;
+  color:var(--bright);margin:0 0 1em;padding-bottom:.7em;border-bottom:1px solid var(--line);}
+.reader-content h2.sp-part .sp-rn{display:block;font-style:italic;font-weight:500;
+  font-size:.56em;color:var(--gold);letter-spacing:0;margin-bottom:.3em;}
+.reader-content h3.sp-sub{font-family:'Fraunces',Georgia,serif;font-weight:700;
+  font-size:1.18rem;line-height:1.22;color:var(--bright);margin:2.1em 0 .6em;}
+.reader-content hr{width:8em;margin:2.2em auto;border:0;border-top:1px solid var(--line);}
+.reader-content table{margin:1.6em auto;border-collapse:collapse;
+  font-family:var(--f-serif);font-size:.95rem;color:var(--ink);}
+.reader-content table td,.reader-content table th{padding:3px 12px;vertical-align:baseline;}
+.reader-content .sp-formule{text-align:center;font-family:var(--f-serif);
+  color:var(--ink);margin:1.6em 0;}
+.reader-content .sp-formule p{margin:0;}
+.reader-content .sp-env{margin:2.2em 0 0;font-family:'Fraunces',Georgia,serif;
+  font-style:italic;color:var(--ink-soft);}
+.reader-content .sp-src{margin:3em 0 0;padding-top:1.2em;border-top:1px solid var(--line);
+  font-family:var(--f-ui);font-size:.8rem;line-height:1.6;color:var(--muted);}
+.reader-content .sp-src a{color:var(--ink);text-decoration:underline;
+  text-decoration-color:rgba(216,173,76,.5);text-underline-offset:2px;}
+.reader-content .sp-src a:hover{color:var(--gold);}
+.reader.theme-sepia .reader-content h2.sp-part .sp-rn{color:var(--red-deep);}
+</style>
+<!-- Book : DÉRIVÉ de oeuvres/bibliotheque.json par tools/gen-seo.mjs.
+     Ne pas éditer à la main — corriger la source, puis regénérer :
+       node tools/gen-seo.mjs
+     Chaque champ doit rester vérifiable dans la page elle-même. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Book",
+  "name": "Salaires, prix, profits",
+  "alternateName": "Salaire, prix et profit",
+  "author": {
+    "@type": "Person",
+    "name": "Karl Marx",
+    "sameAs": "https://www.wikidata.org/wiki/Q9061"
+  },
+  "translator": {
+    "@type": "Person",
+    "name": "Charles Longuet"
+  },
+  "bookEdition": "Traduction française de Charles Longuet, deuxième édition, 1912 (M. Giard et É. Brière)",
+  "inLanguage": "fr",
+  "dateCreated": "1865",
+  "datePublished": "1898",
+  "translationOfWork": {
+    "@type": "Book",
+    "name": "Value, Price and Profit",
+    "inLanguage": "en",
+    "datePublished": "1898"
+  },
+  "url": "https://liremarx.com/oeuvres/salaire-prix-profit",
+  "description": "Deux séances devant le Conseil général de l’Internationale, en juin 1865, pour répondre à un collègue qui soutenait qu’une hausse des salaires ne sert à rien. Marx y expose la valeur, la force de travail et la plus-value deux ans avant Le Capital. L’ouvrage est aussi connu sous le titre « Salaire, prix et profit ».",
+  "about": [
+    "valeur",
+    "force de travail",
+    "plus-value",
+    "salaire",
+    "taux de profit",
+    "lutte salariale"
+  ],
+  "isAccessibleForFree": true,
+  "license": "https://creativecommons.org/publicdomain/mark/1.0/",
+  "isBasedOn": {
+    "@type": "WebPage",
+    "name": "Salaires, prix, profits sur Wikisource",
+    "url": "https://fr.wikisource.org/wiki/Salaires,_prix,_profits"
+  }
+}
+</script>
+<script src="marge.js?v=1"></script>
+<script src="sommaire.js?v=1"></script>
+<script src="dossier.js?v=1"></script>
+<script src="ascension.js?v=2"></script>
+</head>
+<body class="at-atelier">
+<main class="wrap" id="contenu" tabindex="-1">
+
+  <header class="work-head">
+    <h1 class="work-title">Salaires<span class="work-vol">prix, profits</span></h1>
+    <p class="work-meta">Karl Marx · lu devant le Conseil général de l’Internationale en juin 1865, publié en 1898 · traduction Charles Longuet (1912) · domaine public</p>
+  </header>
+
+  <nav class="tabs worktabs" id="worktabs" aria-label="Destinations de l'œuvre"></nav>
+
+  <div class="atl3" id="atl3">
+
+    <aside class="atl3-col atl3-toc" id="atl3Toc" aria-label="Sommaire de Salaires, prix, profits" data-sheet-lbl="Sommaire"></aside>
+
+    <div class="atl3-mid">
+      <section class="panel active" id="lire">
+        <div class="atl3-midbar" id="atlMidbar"></div>
+        <div class="reader">
+          <div class="reader-head"><div class="reader-title" id="readerTitle">Salaires, prix, profits</div></div>
+          <div class="placeholder" id="readerPlaceholder"><div><div class="pi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.4C10 4.6 7.2 3.9 3.6 4.1v13.2c3.6-.2 6.4.5 8.4 2.3 2-1.8 4.8-2.5 8.4-2.3V4.1c-3.6-.2-6.4.5-8.4 2.3Z"/><path d="M12 6.4v13.2"/></svg></div><b>Le texte s'affiche ici.</b></div></div>
+          <div class="reader-content" id="readerContent" hidden></div>
+        </div>
+      </section>
+    </div>
+
+    <aside class="atl3-col atl3-marge" id="atl3Marge" aria-label="Dans cette section" data-sheet-lbl="Cette section" data-sheet-short="Section"></aside>
+  </div>
+
+  <button type="button" class="atl3-full-exit" id="atlFullExit" hidden>
+    Quitter le plein écran <kbd>Échap</kbd>
+  </button>
+
+  <!-- ===================== LE TIROIR ===================== -->
+  <div class="atl-drawer" id="atlDrawer" hidden role="dialog" aria-labelledby="atlDrawerT">
+    <div class="atl-drawer-bar">
+      <span class="atl-drawer-k">Dans cette section</span>
+      <span class="atl-drawer-t" id="atlDrawerT"></span>
+      <button type="button" class="atl-drawer-x" id="atlDrawerX" aria-label="Fermer le tiroir">×</button>
+    </div>
+    <div class="atl-drawer-body" id="atlDrawerBody"></div>
+  </div>
+
+  <!-- ===================== LE DOSSIER =====================
+       Tout le contenu est dans le HTML servi (motif du Manifeste et de la
+       Contribution) : le script ne fait que monter l'ascension, choisir la
+       fiche du débat et naviguer. Cinq salles, une à l'écran
+       (oeuvres/dossier.js). -->
+  <div class="atl-dossier" id="dossier" hidden>
+  <nav class="atl-dossier-nav" id="dossierNav" aria-label="Sections du dossier"></nav>
+
+  <section class="panel active" id="deriv">
+    <div class="panel-head">
+      <div class="panel-head-main">
+        <h2 class="sec">Le cheminement</h2>
+        <p class="lead">Huit marches : d’une question de salaire à la théorie de la plus-value.</p>
+      </div>
+    </div>
+    <!-- L'ASCENSION : balisage de oeuvres/ascension.js, servi dans le HTML ;
+         la page le monte (AscensionAtelier.mount) sans le réécrire. -->
+    <div class="asc" id="asc">
+      <div class="asc-chain" id="ascChain"><span class="asc-thread" aria-hidden="true"><span class="asc-head"></span></span>
+      <article class="asc-step" id="asc-1" data-step="1" data-plan="La question posée devant l’Internationale" style="--rung:rgb(57,89,107)" aria-labelledby="asc-t1"><span class="asc-num" aria-hidden="true">1</span><h3 class="asc-t" id="asc-t1" tabindex="-1"><span class="sr-only">Marche 1 : </span>La question posée devant l’Internationale</h3><p class="asc-lieu">Avant-propos, section I</p><div class="asc-knot asc-knot--one"><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Le ressort : </span>Une épidémie de grèves traverse le continent, et le Conseil général doit se faire une opinion : une hausse générale des salaires sert-elle à quelque chose ? Weston répond non, et son refus repose sur deux grandeurs qu’il tient pour fixes. Marx ne discute pas l’intention, il déplace la question : ce qu’il faut établir n’est pas ce que le capitaliste veut, mais ce qu’il peut, et quelles sont les limites de ce pouvoir.</span></p></div></article>
+      <article class="asc-step" id="asc-2" data-step="2" data-plan="Le salaire ne commande pas les prix" style="--rung:rgb(79,85,98)" aria-labelledby="asc-t2"><span class="asc-num" aria-hidden="true">2</span><h3 class="asc-t" id="asc-t2" tabindex="-1"><span class="sr-only">Marche 2 : </span>Le salaire ne commande pas les prix</h3><p class="asc-lieu">Sections II et III</p><div class="asc-knot asc-knot--one"><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Le ressort : </span>Pour rendre au capitaliste ce que la hausse lui coûte, il faudrait qu’il élève ses prix — or les prix ne dépendent pas de sa volonté. Marx suit le mouvement réel : la demande d’objets de première nécessité monte, celle des autres baisse, le taux de profit se nivelle plus bas, et les prix n’ont pas bougé. Les faits de 1849 à 1859 le confirment. Il faut donc chercher ailleurs ce qui règle les prix.</span></p></div></article>
+      <article class="asc-step" id="asc-3" data-step="3" data-plan="Il manque un étalon" style="--rung:rgb(102,82,90)" aria-labelledby="asc-t3"><span class="asc-num" aria-hidden="true">3</span><h3 class="asc-t" id="asc-t3" tabindex="-1"><span class="sr-only">Marche 3 : </span>Il manque un étalon</h3><p class="asc-lieu">Sections IV et V</p><div class="asc-knot asc-knot--one"><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Le ressort : </span>Weston s’élève contre les hauts salaires sans pouvoir dire ce qu’est un salaire haut : cinq schellings sont bas devant vingt, vingt sont bas devant deux cents. Et son dogme — le salaire détermine le prix — revient à dire que la valeur est déterminée par la valeur. Cette tautologie ne se lève qu’en définissant ce qu’est la valeur.</span></p></div></article>
+      <article class="asc-step" id="asc-4" data-step="4" data-plan="La valeur est du temps de travail social" style="--rung:rgb(124,78,81)" aria-labelledby="asc-t4"><span class="asc-num" aria-hidden="true">4</span><h3 class="asc-t" id="asc-t4" tabindex="-1"><span class="sr-only">Marche 4 : </span>La valeur est du temps de travail social</h3><p class="asc-lieu">Section VI</p><div class="asc-knot asc-knot--one"><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Le ressort : </span>Si deux marchandises s’échangent, c’est qu’elles sont égales à une troisième chose, comme un triangle et un rectangle se comparent en se ramenant à une expression étrangère à leur figure. Cette substance commune est le travail, mesuré par sa durée et socialement nécessaire. D’où une conséquence qui contredit l’expérience journalière : le profit ne peut pas venir de la vente au-dessus de la valeur, et il faut partir de ce que les marchandises se vendent à leur valeur.</span></p></div></article>
+      <article class="asc-step" id="asc-5" data-step="5" data-plan="Ce qui se vend n’est pas le travail" style="--rung:rgb(146,75,73)" aria-labelledby="asc-t5"><span class="asc-num" aria-hidden="true">5</span><h3 class="asc-t" id="asc-t5" tabindex="-1"><span class="sr-only">Marche 5 : </span>Ce qui se vend n’est pas le travail</h3><p class="asc-lieu">Section VII</p><div class="asc-knot asc-knot--one"><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Le ressort : </span>Si tout se vend à sa valeur, le salaire aussi. Mais parler de la valeur du travail est absurde : le travail est la mesure des valeurs, il ne peut pas en avoir une lui-même. Ce que l’ouvrier vend est sa force de travail, pour un temps déterminé — sans quoi il vendrait sa personne — et cette force a une valeur comme toute marchandise : celle des subsistances nécessaires à la produire et à la perpétuer.</span></p></div></article>
+      <article class="asc-step" id="asc-6" data-step="6" data-plan="L’usage dépasse ce qu’il a coûté" style="--rung:rgb(168,71,64)" aria-labelledby="asc-t6"><span class="asc-num" aria-hidden="true">6</span><h3 class="asc-t" id="asc-t6" tabindex="-1"><span class="sr-only">Marche 6 : </span>L’usage dépasse ce qu’il a coûté</h3><p class="asc-lieu">Section VIII</p><div class="asc-knot asc-knot--one"><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Le ressort : </span>Le point décisif tient en une distinction : la valeur journalière de la force de travail est tout à fait distincte de son exercice journalier. Six heures reproduisent la valeur du salaire ; le capitaliste, qui a acheté cette force à sa valeur, a acquis le droit de l’employer douze. Les six heures d’excédent sont du surtravail, et le surtravail se réalise en plus-value.</span></p></div></article>
+      <article class="asc-step" id="asc-7" data-step="7" data-plan="Pourquoi cela ne se voit pas" style="--rung:rgb(191,68,56)" aria-labelledby="asc-t7"><span class="asc-num" aria-hidden="true">7</span><h3 class="asc-t" id="asc-t7" tabindex="-1"><span class="sr-only">Marche 7 : </span>Pourquoi cela ne se voit pas</h3><p class="asc-lieu">Sections IX, X et XI</p><div class="asc-knot asc-knot--one"><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Le ressort : </span>L’ouvrier est payé après coup, et la journée entière paraît payée : c’est cette apparence qui distingue le salariat du servage, où les jours payés et les jours gratuits se comptaient séparément. La plus-value se réalise donc par une vente à la valeur, non au-dessus ; et la rente, l’intérêt et le profit industriel ne sont que des noms pour des parts du même travail impayé.</span></p></div></article>
+      <article class="asc-step" id="asc-8" data-step="8" data-plan="Ce que la lutte peut, et ce qu’elle ne peut pas" style="--rung:rgb(213,64,47)" aria-labelledby="asc-t8"><span class="asc-num" aria-hidden="true">8</span><h3 class="asc-t" id="asc-t8" tabindex="-1"><span class="sr-only">Marche 8 : </span>Ce que la lutte peut, et ce qu’elle ne peut pas</h3><p class="asc-lieu">Sections XII, XIII et XIV</p><div class="asc-knot asc-knot--one"><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Le ressort : </span>La valeur que l’ouvrier ajoute est une grandeur donnée : capitaliste et ouvrier s’y partagent en sens inverse, et une hausse des salaires fait baisser le taux du profit sans toucher aux prix — la question posée à l’ouverture est répondue. Reste que la valeur du travail comporte un élément historique et social, et qu’aucune loi ne fixe de minimum au profit : la question se résout en une question de puissance respective. D’où les trois résolutions finales, et le mot sur l’abolition du salariat.</span></p></div></article>
+      </div>
+      <nav class="asc-plan" aria-label="Les huit marches du cheminement"></nav>
+    </div>
+      <!--NOTIONS-SP:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main. -->
+    <p class="carte-sortie">Les notions de <i>Salaires, prix, profits</i> qui ont leur page : <a href="/glossaire/journee-de-travail">Journée de travail</a>, <a href="/glossaire/forme-salaire">Le « prix du travail »</a>, <a href="/glossaire/loi-tendancielle">Taux de profit</a>, <a href="/glossaire/travail-necessaire">Travail nécessaire</a>, <a href="/glossaire/force-de-travail">Force de travail</a>, <a href="/glossaire/plus-value">Plus-value</a>, <a href="/glossaire/surtravail">Surtravail</a> et <a href="/glossaire/taux-de-plus-value">Taux de plus-value</a>.</p>
+    <!--NOTIONS-SP:FIN -->
+  </section>
+
+  <section class="panel active" id="labo">
+    <div class="panel-head">
+      <div class="panel-head-main">
+        <h2 class="sec">Le débat avec Weston</h2>
+        <p class="lead">Cinq arguments, et ce que chacun a obligé Marx à établir.</p>
+      </div>
+    </div>
+    <p class="inst-cue">Choisissez un argument.</p>
+    <div class="fiche" id="instr-weston">
+      <div class="fiche-liste" role="group" aria-label="Les cinq arguments du citoyen Weston">
+        <button type="button" class="fiche-pick" data-wst="grandeurs" aria-pressed="false"><span>Argument I · section I</span>Deux grandeurs fixes</button>
+        <button type="button" class="fiche-pick" data-wst="soupiere" aria-pressed="false"><span>Argument II · section II</span>La soupière et les cuillères</button>
+        <button type="button" class="fiche-pick" data-wst="monnaie" aria-pressed="false"><span>Argument III · section III</span>La monnaie manquerait</button>
+        <button type="button" class="fiche-pick" data-wst="eleves" aria-pressed="false"><span>Argument IV · section IV</span>Les salaires trop élevés</button>
+        <button type="button" class="fiche-pick" data-wst="dogme" aria-pressed="false"><span>Argument V · section V</span>Le salaire règle le prix</button>
+      </div>
+      <div class="fiche-detail">
+        <article class="fiche-node" id="wst-grandeurs">
+          <blockquote class="fiche-cite">La somme de la production nationale est une chose fixe, une quantité ou, comme disent les mathématiciens, une grandeur constante ; la somme des salaires réels est une somme fixe, une grandeur constante.</blockquote>
+          <dl>
+            <dt>Ce que Marx répond</dt><dd>La première proposition est fausse à l’évidence : la production varie d’année en année avec l’accumulation du capital et les forces productives. La seconde n’est pas démontrée, elle est affirmée — et même accordée, elle ne prouverait rien, car d’un total donné les parts peuvent changer sans que le total bouge. Si les profits sont six et les salaires deux, les salaires peuvent monter à six et les profits descendre à deux : la somme reste huit.</dd>
+            <dt>Ce que l’argument coûte à qui le tient</dt><dd>Il est à double tranchant, et Weston ne le fait jouer que dans un sens. Si la somme des salaires est fixe, le capitaliste qui la fait baisser commet la même folie que l’ouvrier qui la fait monter — et résister à la baisse, ce qui est agir pour la hausse, devient légitime.</dd>
+            <dt>Ce qu’il oblige à établir</dt><dd>Le déplacement qui commande tout l’exposé : la question n’est pas ce que le capitaliste veut, mais ce qu’il peut, et quelles sont les limites de ce pouvoir.</dd>
+          </dl>
+          <p class="fiche-go"><button type="button" class="btn" data-lire="2" data-q="la somme de la production nationale est une chose fixe">Voir dans le texte →</button></p>
+        </article>
+        <article class="fiche-node" id="wst-soupiere" hidden>
+          <blockquote class="fiche-cite">Quand une soupière contient une certaine quantité de soupe destinée à un certain nombre de personnes, une augmentation de la grandeur des cuillères n’amènera aucune augmentation de la quantité de soupe.</blockquote>
+          <dl>
+            <dt>Ce que Marx répond</dt><dd>« Sa soupière cloche » — et la comparaison lui rappelle celle de Menenius Agrippa, qui expliquait aux plébéiens en grève que le ventre patricien les nourrissait. Reste la question de fait : par quel moyen le capitaliste rendrait-il quatre schellings de marchandises contre cinq ? En élevant ses prix. Or les prix ne dépendent pas de sa volonté, et une hausse générale des salaires n’accroît la demande que des objets de première nécessité : leurs producteurs se remboursent, les autres non, le capital se déplace, et le nivellement se fait sur un taux de profit plus bas.</dd>
+            <dt>L’épreuve des faits</dt><dd>De 1849 à 1859, la loi des dix heures et la hausse des salaires agricoles auraient dû faire flamber les prix. Le prix moyen du blé a baissé, et le paupérisme officiel a légèrement reculé.</dd>
+            <dt>Ce qu’il oblige à établir</dt><dd>Si ce n’est pas le salaire qui règle les prix, il faut dire ce qui les règle — et l’on ne peut pas y répondre sans une théorie de la valeur.</dd>
+          </dl>
+          <p class="fiche-go"><button type="button" class="btn" data-lire="3" data-q="Quand une soupière">Voir dans le texte →</button></p>
+        </article>
+        <article class="fiche-node" id="wst-monnaie" hidden>
+          <blockquote class="fiche-cite">La monnaie en circulation étant en quantité fixe, comment payer avec cette monnaie fixe des salaires en argent qui ont augmenté ?</blockquote>
+          <dl>
+            <dt>Ce que Marx répond</dt><dd>La question est étrangère au sujet. La masse de numéraire nécessaire dépend de la vitesse à laquelle la même pièce revient au capitaliste, donc du système de banques : l’Angleterre fait circuler deux cent cinquante millions de livres de revenu ouvrier avec environ trois millions en espèces, là où le continent, à salaires plus bas, en absorbe bien davantage.</dd>
+            <dt>L’épreuve des faits</dt><dd>La comparaison de 1862 à 1842 est sans appel : la masse des transactions a explosé, celle de la monnaie est restée la même. Et l’argument est réversible — la crise cotonnière de 1858 à 1860 aurait dû produire l’effet inverse à la même échelle.</dd>
+            <dt>Ce qu’il oblige à établir</dt><dd>Rien de la valeur, et c’est l’intérêt de cette section : elle montre qu’un obstacle avancé comme matériel peut n’être qu’une confusion sur le rôle de la monnaie.</dd>
+          </dl>
+          <p class="fiche-go"><button type="button" class="btn" data-lire="4" data-q="La monnaie en circulation étant en quantité fixe">Voir dans le texte →</button></p>
+        </article>
+        <article class="fiche-node" id="wst-eleves" hidden>
+          <blockquote class="fiche-cite">Qu’est-ce qu’un salaire élevé et qu’est-ce qu’un bas salaire ? Pourquoi dire qu’un salaire de cinq schellings par semaine est bas et qu’un salaire de vingt schellings est élevé ?</blockquote>
+          <dl>
+            <dt>Ce que Marx répond</dt><dd>C’est Marx qui pose la question, et Weston ne peut pas y répondre : cinq sont bas devant vingt, vingt sont bas devant deux cents. Il s’élève contre les hauts salaires sans disposer d’aucun étalon. Invoquer l’offre et la demande ne lève pas la difficulté, puisqu’il faudrait alors dire quelle loi règle l’offre et la demande elles-mêmes.</dd>
+            <dt>Ce que la section établit</dt><dd>L’offre et la demande ne règlent que les fluctuations temporaires des prix courants : elles expliquent pourquoi un prix s’élève au-dessus de sa valeur ou tombe au-dessous, jamais cette valeur même.</dd>
+            <dt>Ce qu’il oblige à établir</dt><dd>Un étalon des valeurs — c’est-à-dire l’exposé positif, qui commence deux sections plus loin.</dd>
+          </dl>
+          <p class="fiche-go"><button type="button" class="btn" data-lire="5" data-q="qu’est-ce qu’un salaire élevé">Voir dans le texte →</button></p>
+        </article>
+        <article class="fiche-node" id="wst-dogme" hidden>
+          <blockquote class="fiche-cite">Les prix des marchandises sont déterminés ou réglés par les salaires.</blockquote>
+          <dl>
+            <dt>Ce que Marx répond</dt><dd>Weston n’a jamais formulé ce dogme, mais tous ses arguments s’y résolvent. Or le salaire n’est qu’un nom pour le prix du travail : la proposition revient à dire que la valeur des marchandises est déterminée par la valeur du travail. Il faudrait alors dire comment se détermine la valeur du travail — et c’est là qu’on s’arrête, si l’on raisonne.</dd>
+            <dt>Ce que le dogme dit vraiment</dt><dd>Réduit à ses termes les plus abstraits, il énonce que la valeur est déterminée par la valeur : une tautologie dont le sens réel est qu’on ne sait rien de la valeur. Marx rappelle que ce fut le grand mérite de Ricardo, dans ses <i>Principes d’économie politique</i> de 1817, de la détruire.</dd>
+            <dt>Ce qu’il oblige à établir</dt><dd>Tout le reste du texte. C’est ici que la réfutation s’achève et que l’exposé commence.</dd>
+          </dl>
+          <p class="fiche-go"><button type="button" class="btn" data-lire="6" data-q="Les prix des marchandises sont déterminés ou réglés par les salaires">Voir dans le texte →</button></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel active" id="capital">
+    <div class="panel-head">
+      <div class="panel-head-main">
+        <h2 class="sec">De 1865 au Capital</h2>
+        <p class="lead">Son traducteur l’appelait « un abrégé du <i>Capital</i> avant la lettre ». Relevé dans les deux textes que ce site sert.</p>
+      </div>
+    </div>
+    <div class="relv">
+      <div class="relv-col">
+        <h3 class="relv-h">Ce qui est déjà là</h3>
+        <p class="relv-s">1865 le pose, 1867 le démontre.</p>
+        <ul>
+          <li>La <b>valeur</b> comme quantité de travail socialement nécessaire, et le prix comme son expression monétaire.</li>
+          <li>La distinction du <b>travail</b> et de la <b>force de travail</b> — la marchandise dont l’usage produit plus de valeur qu’elle n’en coûte.<span class="relv-n">34 occurrences dans le texte. <a href="/glossaire/force-de-travail">La force de travail →</a></span></li>
+          <li>Le travail <b>nécessaire</b> et le <b>surtravail</b>, et le taux de la plus-value comme rapport des deux.<span class="relv-n"><a href="/glossaire/surtravail">Le surtravail →</a></span></li>
+          <li>La <b>plus-value</b>, réalisée par une vente à la valeur et non au-dessus.<span class="relv-n">25 occurrences. <a href="/glossaire/plus-value">La plus-value →</a></span></li>
+          <li>La <b>journée de travail</b> et le conflit de deux droits sur sa durée.<span class="relv-n">25 occurrences. <a href="/glossaire/journee-de-travail">La journée de travail →</a></span></li>
+          <li>L’<b>élément historique et social</b> de la valeur du travail, qui la rend variable d’un pays et d’une époque à l’autre.</li>
+        </ul>
+      </div>
+      <div class="relv-col">
+        <h3 class="relv-h">Ce que Le Capital refait</h3>
+        <p class="relv-s">Le même argument, autrement établi.</p>
+        <ul>
+          <li><b>L’échelle.</b> Ce qui tient ici en quatorze sections et deux soirées devient huit sections et trente-trois chapitres — et l’exposé cesse d’être une réponse à quelqu’un.</li>
+          <li><b>La preuve historique.</b> Ici la loi des dix heures est un argument en quelques paragraphes ; en 1867 elle occupe le chapitre le plus long du livre, avec les rapports des inspecteurs de fabrique.<span class="relv-n"><a href="/oeuvres/capital-1/chapitre-10">Le chapitre X expliqué →</a></span></li>
+          <li><b>La forme du salaire.</b> Ici l’apparence du « travail payé » est énoncée en une section ; en 1867 elle devient une section entière, qui distingue le salaire au temps et le salaire aux pièces.<span class="relv-n"><a href="/glossaire/forme-salaire">La forme-salaire →</a></span></li>
+          <li><b>La tendance à la baisse des salaires.</b> Elle est ici une conclusion de la dernière section ; en 1867 elle devient la loi de l’accumulation et l’armée de réserve.<span class="relv-n"><a href="/glossaire/armee-de-reserve">L’armée de réserve →</a></span></li>
+        </ul>
+      </div>
+      <div class="relv-col">
+        <h3 class="relv-h">Ce qui n’y est pas</h3>
+        <p class="relv-s">Deux ans, et tout le premier chapitre manque.</p>
+        <ul>
+          <li><b>La valeur d’usage.</b> Zéro occurrence : le double caractère de la marchandise, qui ouvre Le Capital, n’est pas posé.<span class="relv-n"><a href="/glossaire/valeur-d-usage-et-valeur">Valeur d’usage et valeur →</a></span></li>
+          <li><b>La forme-valeur.</b> « Forme relative » et « forme équivalent » n’apparaissent pas une seule fois.<span class="relv-n"><a href="/glossaire/forme-valeur">La forme-valeur →</a></span></li>
+          <li><b>Le fétichisme de la marchandise.</b> Zéro occurrence, alors qu’il ferme le chapitre I de 1867.<span class="relv-n"><a href="/glossaire/fetichisme">Le fétichisme →</a></span></li>
+          <li><b>Le capital constant et le capital variable.</b> Aucune des deux expressions n’est employée : Marx calcule le taux du profit sur le capital déboursé en salaires, mais sans nommer la distinction.<span class="relv-n"><a href="/glossaire/capital-constant-et-variable">Capital constant et variable →</a></span></li>
+        </ul>
+      </div>
+    </div>
+    <p class="relv-note">La note que Charles Longuet met en tête de sa traduction dit les deux choses à la fois : la réplique à Weston « constitue donc, en quelque sorte, un abrégé du <i>Capital</i> avant la lettre », et « elle traite aussi certains points à peine indiqués dans le premier volume et qui n’ont été approfondis que dans les livres suivants ». Ce texte n’est donc ni un résumé ni un brouillon : c’est le même auteur exposant la même chose à des gens qui ne liront pas huit cents pages.</p>
+  </section>
+
+  <section class="panel active" id="chrono">
+    <div class="panel-head">
+      <div class="panel-head-main">
+        <h2 class="sec">La chronologie</h2>
+        <p class="lead">Deux soirées de 1865, un livre qui attend trente-trois ans, et trois titres français.</p>
+      </div>
+    </div>
+    <div class="chr">
+      <figure class="chr-fig">
+        <img src="../assets/img/archive/salaires-prix-profits-titre-1912.webp" alt="Page de titre : Salaires, prix, profits, par Karl Marx, traduction par Charles Longuet, deuxième édition, Paris, M. Giard et É. Brière, 1912" loading="lazy" decoding="async" width="500" height="781">
+        <figcaption>Page de titre de l’édition servie, 1912 · numérisation Gallica, domaine public</figcaption>
+      </figure>
+      <div class="chr-main">
+        <section class="chr-temps" aria-labelledby="chr-t1">
+          <h3 class="chr-h" id="chr-t1">Le moment</h3>
+          <ol class="chr-list">
+            <li class="chr-ev"><span class="chr-y">1864</span><div><h4>L’Internationale se fonde</h4><p>Le 28 septembre, à Saint-Martin’s Hall à Londres, naît l’Association internationale des travailleurs. Marx en rédige le manifeste inaugural et siège à son Conseil général.</p></div></li>
+            <li class="chr-ev"><span class="chr-y">avril 1865</span><div><h4>La thèse de Weston</h4><p>John Weston, charpentier owéniste, membre et trésorier du même Conseil général, y soutient qu’une hausse des salaires ne profite pas aux ouvriers et nuit à l’ensemble. Le Conseil décide d’en débattre.</p></div></li>
+            <li class="chr-ev"><span class="chr-y">20 et 27 juin 1865</span><div><h4>Les deux séances</h4><p>Marx lit sa réponse en anglais, en deux soirées — la seconde section III le rappelle : « le second jour du débat, notre ami Weston a revêtu ses vieilles assertions de formes nouvelles ». Le Conseil adopte les trois résolutions finales.</p></div></li>
+            <li class="chr-ev"><span class="chr-y">sept. 1866</span><div><h4>Le congrès de Genève</h4><p>Le premier congrès de l’Internationale se tient enfin, quinze mois après le débat qui devait le préparer.</p></div></li>
+          </ol>
+        </section>
+        <section class="chr-temps" aria-labelledby="chr-t2">
+          <h3 class="chr-h" id="chr-t2">Le livre qui vient</h3>
+          <ol class="chr-list">
+            <li class="chr-ev"><span class="chr-y">1867</span><div><h4>Le Capital, Livre I</h4><p>Le premier volume paraît en allemand au mois de juillet, deux ans après les deux soirées. Ce que Marx avait exposé devant le Conseil général y est établi pour de bon.</p></div></li>
+            <li class="chr-ev"><span class="chr-y">1883</span><div><h4>Marx meurt sans l’avoir publié</h4><p>Le manuscrit anglais reste dans ses papiers. Il n’a jamais cherché à le faire paraître : c’était un rapport à une assemblée, non un livre.</p></div></li>
+          </ol>
+        </section>
+        <section class="chr-temps" aria-labelledby="chr-t3">
+          <h3 class="chr-h" id="chr-t3">Le texte exhumé</h3>
+          <ol class="chr-list">
+            <li class="chr-ev"><span class="chr-y">1898</span><div><h4>Eleanor Marx le publie</h4><p>Trente-trois ans après la lecture, la fille cadette de Marx édite le manuscrit à Londres sous le titre <i>Value, Price and Profit</i>. C’est la première parution du texte, sous quelque langue que ce soit.</p></div></li>
+            <li class="chr-ev"><span class="chr-y">1912</span><div><h4>L’édition servie ici</h4><p>La traduction de Charles Longuet — gendre de Marx, comme Paul Lafargue — paraît en deuxième édition chez M. Giard et É. Brière, sous le titre <i>Salaires, prix, profits</i>. C’est le texte de la liseuse.</p></div></li>
+            <li class="chr-ev"><span class="chr-y">1931, 1955</span><div><h4>Trois titres pour un texte</h4><p>Les Éditions sociales internationales le republient en 1931 sous le titre <i>Salaires, prix et profits</i>, puis les Éditions sociales à partir de 1955 sous celui de <i>Salaire, prix et profit</i>, qui est aujourd’hui le plus répandu. Trois formes du même titre, pour le même texte — de quoi ne pas le trouver quand on le cherche.</p></div></li>
+          </ol>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel active" id="ressources">
+    <div class="panel-head">
+      <div class="panel-head-main">
+        <h2 class="sec">Ressources</h2>
+        <p class="lead">L’anglais d’origine, le volume numérisé, et le contexte de l’Internationale.</p>
+      </div>
+    </div>
+    <span class="rss-section-label">Le texte et ses éditions</span>
+    <div class="rss-grid">
+      <a class="rss-card" href="https://www.marxists.org/archive/marx/works/1865/value-price-profit/" target="_blank" rel="noopener">
+        <div class="rss-card-top"><span class="rss-badge">Texte</span><span class="rss-ext"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12L12 2M12 2H7.5M12 2V6.5"/></svg></span></div>
+        <div class="rss-title">Value, Price and Profit</div>
+        <div class="rss-meta">Marxists Internet Archive · l’anglais que Marx a lu, édité par Eleanor Marx en 1898</div>
+      </a>
+      <a class="rss-card" href="https://fr.wikisource.org/wiki/Salaires,_prix,_profits" target="_blank" rel="noopener">
+        <div class="rss-card-top"><span class="rss-badge">Texte</span><span class="rss-ext"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12L12 2M12 2H7.5M12 2V6.5"/></svg></span></div>
+        <div class="rss-title">Le livre entier sur Wikisource</div>
+        <div class="rss-meta">Wikisource · traduction Charles Longuet, texte validé, domaine public</div>
+      </a>
+      <a class="rss-card" href="https://gallica.bnf.fr/ark:/12148/bpt6k113503x" target="_blank" rel="noopener">
+        <div class="rss-card-top"><span class="rss-badge">Fac-similé</span><span class="rss-ext"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12L12 2M12 2H7.5M12 2V6.5"/></svg></span></div>
+        <div class="rss-title">Le volume de 1912, page à page</div>
+        <div class="rss-meta">Gallica · Bibliothèque nationale de France</div>
+      </a>
+    </div>
+    <span class="rss-section-label">Le contexte</span>
+    <div class="rss-grid">
+      <a class="rss-card" href="https://www.marxists.org/francais/ait/1864/09/18640928.htm" target="_blank" rel="noopener">
+        <div class="rss-card-top"><span class="rss-badge">Texte</span><span class="rss-ext"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12L12 2M12 2H7.5M12 2V6.5"/></svg></span></div>
+        <div class="rss-title">Le manifeste inaugural de l’Internationale</div>
+        <div class="rss-meta">Marxists Internet Archive · Marx, 28 septembre 1864</div>
+      </a>
+      <a class="rss-card" href="https://www.marxists.org/francais/ait/index.htm" target="_blank" rel="noopener">
+        <div class="rss-card-top"><span class="rss-badge">Archives</span><span class="rss-ext"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12L12 2M12 2H7.5M12 2V6.5"/></svg></span></div>
+        <div class="rss-title">Les archives de la Première Internationale</div>
+        <div class="rss-meta">Marxists Internet Archive · statuts, adresses, congrès</div>
+      </a>
+    </div>
+  </section>
+
+  </div>
+
+</main>
+<!-- PIED:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main -->
+<footer class="lm-foot wrap">
+  <div class="lm-foot-in">
+    <div class="lm-foot-id">
+      <p class="lm-foot-mark">Lire<span class="d">.</span>Marx</p>
+      <p class="lm-foot-lede">Marx en texte intégral, l&rsquo;appareil critique en marge du chapitre.</p>
+    </div>
+    <nav class="lm-foot-nav" aria-label="Pied de page">
+      <div class="lm-foot-col">
+        <p class="lm-foot-h">Le corpus</p>
+        <ul>
+        <li><a href="/oeuvres/capital-1">Le Capital — Livre I</a></li>
+        <li><a href="/oeuvres/contribution-1859">Contribution à la critique de l'économie politique</a></li>
+        <li><a href="/oeuvres/manuscrits-1844">Manuscrits de 1844</a></li>
+        <li><a href="/oeuvres/manifeste">Manifeste du parti communiste</a></li>
+        <li><a href="/oeuvres/salaire-prix-profit">Salaires, prix, profits</a></li>
+        <li><a href="/oeuvres/bibliotheque">Toute la bibliothèque</a></li>
+        </ul>
+      </div>
+      <div class="lm-foot-col">
+        <p class="lm-foot-h">Comprendre</p>
+        <ul>
+        <li><a href="/glossaire/">L’abécédaire de Marx</a></li>
+        <li><a href="/jeu/">Le circuit du capital</a></li>
+        <li><a href="/agregation-2027">Marx à l’agrégation 2027</a></li>
+        </ul>
+      </div>
+      <div class="lm-foot-col">
+        <p class="lm-foot-h">Le site</p>
+        <ul>
+        <li><a href="/">Accueil</a></li>
+        <li><a href="/oeuvres/place-publique">Place publique</a></li>
+        <li><a href="/a-propos">À propos</a></li>
+        <li><a href="/mentions-legales">CGU &amp; confidentialité</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</footer>
+<!-- PIED:FIN -->
+
+<!-- NOTIONS:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main.
+     La table du titre de fiche vers sa page de notion : la résolution
+     (identité, suffixe de station, renvoi « voir ») se fait dans le
+     générateur, la page ne fait que lire. -->
+<script>window.NOTIONS_HREF={"Journée de travail":{"h":"/glossaire/journee-de-travail","n":"Journée de travail"},"Le « prix du travail »":{"h":"/glossaire/forme-salaire","n":"Le « prix du travail »"},"Taux de profit":{"h":"/glossaire/loi-tendancielle","n":"Taux de profit"},"Travail nécessaire":{"h":"/glossaire/travail-necessaire","n":"Travail nécessaire"},"Force de travail":{"h":"/glossaire/force-de-travail","n":"Force de travail"},"Plus-value":{"h":"/glossaire/plus-value","n":"Plus-value"},"Surtravail":{"h":"/glossaire/surtravail","n":"Surtravail"},"Taux de plus-value":{"h":"/glossaire/taux-de-plus-value","n":"Taux de plus-value"},"Travail payé":{"h":"/glossaire/forme-salaire","n":"Travail payé"},"Travail gratuit":{"h":"/glossaire/forme-salaire","n":"Travail gratuit"}};</script>
+<!-- NOTIONS:FIN -->
+
+<script>
+(function(){
+  var WORK='salaire-prix-profit';
+  var WS_ROOT='Salaires, prix, profits';
+  var WS_PAGE='https://fr.wikisource.org/wiki/Salaires,_prix,_profits';
+
+  /* ══════════════════════════════════════════════════════════════════
+     LE PLAN DU TEXTE — source unique des titres, des résumés et du
+     découpage, lue aussi par tools/gen-seo.mjs pour l'index de la
+     recherche (#partie=<g>).
+
+     QUINZE ENTRÉES, et c'est la table des matières de l'édition de 1912
+     sans rien y ajouter : l'avant-propos, puis les quatorze sections que
+     le livre numérote. Chacune est une sous-page de Wikisource, donc une
+     section d'annotation à part (#s=<g>), et aucune n'en porte deux — il
+     n'y a pas ici le cas de figure de la Contribution, où l'ouverture
+     d'un chapitre ne tenait pas seule.
+
+     `p` : la sous-page Wikisource. `d` : le titre que la SOURCE imprime
+     en tête de cette page, sous forme normalisée — il sert à le retirer,
+     puisque nous posons le nôtre à sa place. `rn` : le chiffre romain.
+
+     ⚠️ LA SOURCE IMPRIME « IV » EN TÊTE DE LA SECTION VI, et ce n'est pas
+     une erreur de transcription : la page 43 du livre porte bien IV, quand
+     sa propre table des matières annonce « Section VI ». C'est une coquille
+     de l'édition de 1912. Le champ `d` retire ce qui est imprimé, le champ
+     `rn` pose le numéro juste — sans quoi le sommaire compterait deux fois
+     IV et sauterait VI.
+     ══════════════════════════════════════════════════════════════════ */
+  var SP_STRUCT=[
+    {g:1, rn:'', t:'Avant-propos', w:1,
+     p:[{page:'0', d:'salaires prix profits'}],
+     s:"Marx commence par dire d’où il parle : une épidémie de grèves traverse alors les nations du continent, la question du salaire sera portée au prochain Congrès, et les membres du Conseil général de l’Internationale doivent s’en être fait une opinion. Vient ensuite un mot sur son contradicteur, le citoyen Weston, membre et trésorier du même Conseil : Marx salue le courage moral d’avoir soutenu en public une thèse que la classe ouvrière déteste, reconnaît qu’une idée juste s’y cache, et annonce qu’il la tient, sous sa forme présente, pour fausse en théorie et dangereuse en pratique. Tout ce qui suit est la démonstration de cette phrase."},
+
+    {g:2, rn:'I', t:'Produit national et part du salaire', w:1, wst:'grandeurs',
+     p:[{page:'1', d:'i produit national et part du salaire'}],
+     s:"Marx dégage les deux propositions sur lesquelles repose l’argument de Weston : la somme de la production nationale serait une grandeur constante, et la somme des salaires réels une autre. La première est fausse à l’évidence, puisque la production varie continuellement avec l’accumulation du capital et les forces productives du travail. Quant à la seconde, elle ne prouverait rien même si on l’accordait : d’un nombre donné, huit, les parties peuvent changer leurs limites relatives sans que le total bouge. Et l’affirmation est à double tranchant — si la somme des salaires est fixe, le capitaliste qui la fait baisser commet la même folie que l’ouvrier qui la fait monter, de sorte que résister à la baisse, ce qui est agir pour la hausse, deviendrait légitime. La section se ferme sur le déplacement qui commande tout le reste : la question n’est pas ce que le capitaliste veut, mais ce qu’il peut, et quelles sont les limites de ce pouvoir."},
+
+    {g:3, rn:'II', t:'Influence des variations du salaire sur la quantité et le genre des produits', w:2, wst:'soupiere',
+     p:[{page:'2', d:'ii influence des variations du salaire sur la quantite et le genre des produits'}],
+     s:"Weston tenait que le capitaliste rendrait quatre schellings de marchandises contre cinq de salaire — sa soupière et ses cuillères plus grandes, que Marx rapproche de l’apologue de Menenius Agrippa. Reste à savoir par quel moyen le prix monterait : uniquement par la proportion de l’offre et de la demande. Or une hausse générale des salaires n’accroît la demande que des objets de première nécessité ; leurs producteurs se remboursent, les autres ne le peuvent pas, leur taux de profit baisse, capital et travail se déplacent, et le nivellement se fait sur un taux général de profit plus bas — les prix, eux, n’ont pas bougé. Vient alors la vérification par les faits : la loi des dix heures introduite après 1848, puis la hausse des salaires agricoles de 1849 à 1859, pendant laquelle le prix du blé baissa et le paupérisme officiel recula légèrement. Marx y glisse un avertissement qui vaut encore : ne jamais se laisser étourdir par la fanfare du tant pour cent, et demander toujours quel était le salaire avant la hausse."},
+
+    {g:4, rn:'III', t:'Mouvements des salaires et de l’argent', w:2, wst:'monnaie',
+     p:[{page:'3', d:'iii mouvements des salaires et de l argent'}],
+     s:"Le second jour du débat, Weston revêt ses assertions d’une forme nouvelle : une hausse générale des salaires exigerait plus de monnaie, et la monnaie en circulation est en quantité fixe. Marx montre que la question est étrangère au sujet. La masse de numéraire nécessaire dépend de la rapidité avec laquelle la même pièce revient au capitaliste, donc du système de banques : l’Angleterre fait circuler deux cent cinquante millions de livres de revenu ouvrier avec environ trois millions en espèces, là où le continent, à salaires plus bas, en absorbe bien davantage. L’argument est d’ailleurs réversible, et la crise cotonnière de 1858 à 1860 le montre. Enfin la comparaison de 1862 à 1842 est sans appel : la masse des transactions a explosé, celle de la monnaie est restée la même."},
+
+    {g:5, rn:'IV', t:'Étalon des salaires', w:3, wst:'eleves',
+     p:[{page:'4', d:'iv etalon des salaires'}],
+     s:"Une seule remarque suffit à établir que Weston a traité son sujet sans esprit critique : il s’élève contre les hauts salaires sans pouvoir dire ce qu’est un salaire haut et ce qu’est un salaire bas. Cinq schellings sont bas devant vingt, vingt sont bas devant deux cents : il manque un étalon. Répondre que l’offre et la demande y pourvoient ne fait que reculer la difficulté, car il faudrait alors dire quelle loi règle l’offre et la demande elles-mêmes. Marx pose ici la thèse qui commande toute la seconde moitié de l’exposé : l’offre et la demande ne règlent rien que les fluctuations temporaires des prix courants — elles expliquent pourquoi un prix s’élève au-dessus de sa valeur ou tombe au-dessous, jamais cette valeur même."},
+
+    {g:6, rn:'V', t:'Salaires du travail et prix des marchandises', w:3, wst:'dogme',
+     p:[{page:'5', d:'v salaires du travail et prix des marchandises'}],
+     s:"Réduits à leur expression la plus simple, tous les arguments de Weston se résolvent en un dogme unique : le prix des marchandises est déterminé par le salaire. Or le salaire n’est qu’un nom pour le prix du travail ; la proposition revient donc à dire que la valeur des marchandises est déterminée par la valeur du travail. Il faudrait alors dire comment se détermine la valeur du travail — et c’est là qu’on s’arrête, si l’on raisonne. Le dogme, dans ses termes les plus abstraits, énonce que la valeur est déterminée par la valeur, tautologie dont le sens réel est qu’on ne sait rien de la valeur. Marx rappelle que ce fut le grand mérite de Ricardo, dans ses Principes de 1817, de détruire ce sophisme : c’est pourquoi il faut maintenant exposer positivement ce qu’est la valeur."},
+
+    {g:7, rn:'VI', t:'De la valeur et des prix', w:4,
+     p:[{page:'6', d:'iv de la valeur et des prix'}],
+     s:"La section la plus dense, et celle où l’exposé cesse d’être une réfutation. Les proportions selon lesquelles une marchandise s’échange varient à l’infini, sa valeur restant la même : si un quarter de blé s’échange contre une certaine quantité de fer, les deux sont égaux à une troisième chose qui n’est ni blé ni fer, comme un triangle et un rectangle se comparent en se ramenant à une expression étrangère à leur figure. Cette substance sociale commune est le travail, mesuré par sa durée, et socialement nécessaire — l’ouvrier indolent ne rend pas sa marchandise plus précieuse. La valeur est donc en raison directe du temps de travail et en raison inverse des forces productives, le prix n’en étant que l’expression monétaire. D’où la conclusion qui contredit l’expérience journalière, et que Marx assume comme telle : le profit ne peut pas venir de ce que les marchandises se vendent au-dessus de leur valeur, il faut partir de ce qu’elles se vendent à leur valeur — la vérité scientifique est toujours un paradoxe au jugement de l’apparence."},
+
+    {g:8, rn:'VII', t:'La force de travail', w:5,
+     p:[{page:'7', d:'vii la force de travail'}],
+     s:"Le paradoxe apparent par lequel tout se dénoue : ce que l’ouvrier vend n’est pas son travail, mais sa force de travail, qu’il met temporairement à la disposition du capitaliste. S’il pouvait l’aliéner en une fois et pour toujours, il vendrait sa personne et passerait de l’homme libre à l’esclave — c’est pourquoi la loi, sur le continent, en limite la durée. Marx reconnaît à Hobbes d’avoir touché le point d’instinct : la valeur d’un homme est son prix, c’est-à-dire ce que l’on donnerait pour l’usage de sa force. Il laisse ici de côté, en la nommant, la question de savoir d’où vient ce phénomène singulier — des acheteurs qui possèdent la terre, les machines et les subsistances, des vendeurs qui n’ont que leur force à vendre — et détermine cette valeur comme celle de toute autre marchandise : par le travail nécessaire pour produire, développer, entretenir et perpétuer la force de travail."},
+
+    {g:9, rn:'VIII', t:'Production de la plus-value', w:6,
+     p:[{page:'8', d:'viii production de la plus value'}],
+     s:"La démonstration en chiffres, et elle tient en une distinction. Six heures de travail moyen produisent les subsistances journalières de l’ouvrier et valent trois schellings : c’est la valeur journalière de sa force de travail, et le capitaliste la paie à sa valeur. Mais ayant acheté cette force, il a acquis le droit de l’employer, comme on emploie une machine en la faisant fonctionner — or la valeur journalière de la force de travail est tout à fait distincte de son exercice journalier. Il fait donc filer douze heures, et les six heures qui excèdent le nécessaire sont du surtravail, qui se réalise en une plus-value et un surproduit. Le taux de la plus-value dépend du rapport entre ces deux portions de la journée : rien n’a été volé, rien n’a été vendu au-dessus de sa valeur, et le profit est là."},
+
+    {g:10, rn:'IX', t:'Valeur du travail', w:7,
+     p:[{page:'9', d:'ix valeur du travail'}],
+     s:"Marx revient sur l’expression qu’il a d’abord accordée au langage courant pour montrer qu’elle est une apparence, et pourquoi cette apparence est nécessaire. L’ouvrier étant payé après coup, et sachant qu’il a livré du travail, la valeur de sa force lui paraît être la valeur de son travail : d’où deux conséquences, que les termes de valeur et de prix du travail sont rigoureusement dénués de sens, et que la journée entière semble payée alors qu’une partie seulement l’est. C’est cette fausse apparence qui distingue le salariat des autres formes historiques du travail. Chez l’esclave, tout paraît impayé, la part qui le nourrit comprise ; chez le serf, les trois jours à son champ et les trois jours au domaine du seigneur sont séparés dans le temps et dans l’espace — le salariat, lui, entremêle les deux portions et les rend inséparables au regard."},
+
+    {g:11, rn:'X', t:'Le profit se réalise par la vente d’une marchandise à sa valeur', w:7,
+     p:[{page:'10', d:'x le profit se realise par la vente d une marchandise a sa valeur'}],
+     s:"Trois paragraphes, et c’est la réponse qui était cherchée depuis le début. La valeur d’une marchandise est la quantité totale de travail qu’elle contient ; or une partie de ce travail a reçu son équivalent sous forme de salaire et l’autre non. Le coût de la marchandise pour le capitaliste et son coût réel sont donc deux choses différentes, et l’écart entre les deux est exactement le profit. Les profits normaux et moyens se réalisent ainsi par la vente des marchandises non pas au-dessus de leur valeur, mais bien à leur valeur."},
+
+    {g:12, rn:'XI', t:'Les différentes parties dans lesquelles se décompose la plus-value', w:7,
+     p:[{page:'11', d:'xi les differentes parties dans lesquelles se decompose la plus value'}],
+     s:"Le capitaliste-entrepreneur extrait la plus-value, mais il n’en garde pas la totalité : le monopole foncier en prélève la rente, le prêteur l’intérêt. Rente, intérêt et profit industriel ne sont que des noms différents pour des parties du même travail impayé, et ils ne proviennent ni de la terre ni du capital pris en eux-mêmes — c’est pourquoi tout le mécanisme du salariat tourne sur le rapport de l’entrepreneur à l’ouvrier, et non sur le prêteur ou le propriétaire. Marx distingue ensuite les deux manières d’exprimer le taux du profit : rapporté au seul capital déboursé en salaires, il montre le degré réel d’exploitation ; rapporté au capital total, il est l’usage courant, commode à bien des égards, et très commode pour cacher ce degré. Il annonce qu’il retiendra la première."},
+
+    {g:13, rn:'XII', t:'Rapport général des profits, des salaires, et des prix', w:8,
+     p:[{page:'12', d:'xii rapport general des profits des salaires et des prix'}],
+     s:"La proposition que tout l’exposé devait établir, et elle tient en une page. Déduisez de la valeur d’une marchandise ce qui rembourse les moyens de production consommés, et le reste se résout dans le travail qu’a ajouté le dernier ouvrier : une grandeur donnée. Capitaliste et ouvrier ne font que la partager, de sorte que si l’un reçoit davantage l’autre reçoit d’autant moins. Une hausse générale des salaires fait donc baisser le taux général du profit sans toucher aux prix des marchandises, et rien n’est changé si l’on met douze millions de journées de travail à la place d’une seule."},
+
+    {g:14, rn:'XIII', t:'Tentatives pour relever les salaires ou pour s’opposer à leur baisse, cas principaux', w:8,
+     p:[{page:'13', d:'xiii tentatives pour relever les salaires ou pour s opposer a leur baisse cas principaux'}],
+     s:"Cinq cas, numérotés, et l’on passe de la théorie à ce qui se joue dans les ateliers. La valeur des subsistances peut changer, et avec elle la valeur du travail. La valeur de l’argent peut changer, et les prix avec elle sans que rien de réel ait bougé. La journée de travail n’a par elle-même aucune limite constante, et le capital tend à la prolonger : une hausse de salaire qui ne compense pas le supplément de travail ni l’usure plus rapide abaisse en réalité la valeur du travail, et l’intensité produit le même effet à durée égale. La production traverse enfin des cycles périodiques que les salaires suivent. De quoi Marx tire la conclusion qui donne son sens à la section suivante : quatre-vingt-dix-neuf fois sur cent, la lutte pour la hausse ne fait que suivre des changements antérieurs — elle est une réaction, non une initiative."},
+
+    {g:15, rn:'XIV', t:'La lutte entre le capital et le travail et ses résultats', w:8,
+     p:[{page:'14', d:'xiv la lutte entre le capital et le travail et ses resultats'}],
+     s:"Si la lutte ne fait que suivre, à quoi sert-elle ? Marx répond que la valeur de la force de travail se compose de deux éléments, l’un physique, l’autre historique et social — et que le second peut s’élargir, se resserrer ou s’évanouir tout à fait. La valeur du travail est donc une grandeur variable, et comme aucune loi ne fixe de minimum au profit, la question se résout en une question de puissance respective entre les deux combattants. La limitation de la journée n’a jamais été obtenue que par le législateur, sous la pression continue de la rue sur le Parlement. Et parce que la tendance générale de la production capitaliste est d’abaisser le salaire moyen, renoncer à la lutte quotidienne réduirait les travailleurs à une masse uniforme et écrasée. Ils ne doivent pourtant pas s’en exagérer le résultat : ils combattent les effets et non les causes, ils retardent le mouvement descendant sans en changer la direction, ils appliquent des palliatifs. De là les trois résolutions qui ferment le texte, et la dernière demande aux syndicats de se servir de leurs forces organisées comme d’un levier pour affranchir définitivement la classe ouvrière, c’est-à-dire pour abolir le salariat."}
+  ];
+
+  /* ══════════════════════════════════════════════════════════════════
+     LE GLOSSAIRE DE LA LISEUSE — et la QUATRIÈME source de l'abécédaire,
+     après CONCEPTS (Capital), CONCEPTS (Manuscrits) et GLOSS_MF.
+
+     `t` porte l'IDENTITÉ : écrit au titre exact d'une fiche existante, la
+     notion n'en crée pas une seconde — elle gagne une provenance, ce qui
+     est le cas de dix des treize entrées. Le Capital les a toutes posées ;
+     ce texte les pose aussi, deux ans plus tôt et devant des ouvriers.
+
+     `s` est la forme que la liseuse surligne (première occurrence), et
+     elle doit EXISTER dans le texte servi : c'est ce qui interdit une
+     provenance de complaisance. « La forme-salaire » n'est donc pas ici —
+     la notion est bien celle de la section IX, mais le texte ne la nomme
+     pas ainsi, et « Le "prix du travail" », « Travail payé » et « Travail
+     gratuit », qu'il nomme, disent la même chose.
+
+     `g` dit la SECTION : c'est elle que la provenance affiche et vers
+     laquelle elle mène, plutôt qu'un « le texte » qui ne situerait rien.
+
+     ⚠️ LE SURLIGNAGE NE FRANCHIT PAS UNE BALISE EN LIGNE : `glFind` cherche
+     dans un NŒUD DE TEXTE. La section IX écrit « du travail <i>payé</i> » —
+     la forme y est donc introuvable, et c'est aux sections XI et XII, où
+     elle est en clair, que l'infobulle se pose. La provenance, elle, reste
+     à la IX : c'est là que le texte établit la distinction.
+
+     `de` n'est donné que là où il est canonique chez Marx. Les trois
+     entrées neuves n'en portent pas, et pour une raison propre à cette
+     œuvre : Marx l'a écrite EN ANGLAIS. Un allemand y serait la traduction
+     d'une traduction.
+     ══════════════════════════════════════════════════════════════════ */
+  var GLOSS_SP=[
+    {t:"Journée de travail", g:3, s:["journée de travail"], de:"Arbeitstag",
+     def:"Le temps pendant lequel le capitaliste dispose de la force de travail qu'il a achetée. Sa durée n'est pas donnée : elle se dispute entre deux droits également fondés."},
+    {t:"L'offre et la demande", g:5, s:["l'offre et la demande"],
+     def:"Elles expliquent pourquoi un prix s'élève au-dessus de sa valeur ou tombe au-dessous, jamais cette valeur même. Venant à s'équilibrer, elles cessent d'agir, et il faut alors dire ce qui reste."},
+    {t:"Le « prix du travail »", g:6, s:["valeur du travail","prix du travail"], de:"Wert der Arbeit",
+     def:"Expression courante et pourtant impossible : le travail est la mesure des valeurs, il ne peut pas en avoir une. Ce qui se vend est la force de travail."},
+    {t:"Taux de profit", g:6, s:["taux du profit"], de:"Profitrate",
+     def:"Le rapport de la plus-value au capital avancé tout entier. Une hausse des salaires le fait baisser sans toucher aux prix : c'est la réponse à la question posée au Conseil général."},
+    {t:"Travail nécessaire", g:7, s:["travail nécessaire"], de:"notwendige Arbeit",
+     def:"La part de la journée qui reproduit la valeur de la force de travail. Six heures, dans l'exemple du texte, sur une journée de douze."},
+    {t:"Force de travail", g:8, s:["force de travail"], de:"Arbeitskraft",
+     def:"Ce que l'ouvrier vend, pour un temps déterminé — faute de quoi il vendrait sa personne. Comme toute marchandise elle a une valeur : celle des subsistances nécessaires à la produire et à la perpétuer."},
+    {t:"Plus-value", g:9, s:["plus-value"], de:"Mehrwert",
+     def:"La valeur que le surtravail crée et que le capitaliste garde. Elle ne vient pas d'une vente au-dessus de la valeur : elle est produite avant d'être vendue."},
+    {t:"Surtravail", g:9, s:["surtravail"], de:"Mehrarbeit",
+     def:"Les heures qui excèdent le travail nécessaire. Le point décisif est que la valeur journalière de la force de travail est distincte de son exercice journalier."},
+    {t:"Taux de plus-value", g:9, s:["taux de la plus-value"], de:"Rate des Mehrwerts",
+     def:"Le rapport du surtravail au travail nécessaire — six sur six fait cent pour cent. C'est le degré d'exploitation, que le taux de profit, lui, dissimule."},
+    {t:"Travail payé", g:10, s:["travail payé","le rapport réel entre le travail"], de:"bezahlte Arbeit",
+     def:"Les heures qui reproduisent le salaire. Comme l'ouvrier est payé après coup, la journée entière paraît payée — et c'est cette apparence qui distingue le salariat du servage."},
+    {t:"Travail gratuit", g:10, s:["travail gratuit"], de:"unbezahlte Arbeit",
+     def:"Les heures que la forme du salaire rend invisibles. Chez le serf, les jours payés et les jours gratuits se comptaient séparément."},
+    {t:"L'élément historique de la valeur du travail", g:15, s:["élément historique"],
+     def:"Outre le strict nécessaire physique, la valeur de la force de travail comprend un mode de vie traditionnel. Elle varie donc d'un pays et d'une époque à l'autre, ce qui laisse à la lutte une marge réelle."},
+    {t:"L'abolition du salariat", g:15, s:["Abolition du salariat"],
+     def:"Le mot d'ordre sur lequel le texte se ferme. Les syndicats retardent le mouvement de baisse sans en changer la direction : ils combattent les effets, et l'abolition vise la cause."}
+  ];
+
+
+  function byId(id){return document.getElementById(id);}
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function norm(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .replace(/[^a-z0-9]+/g,' ').trim();}
+
+  function rm(){ return window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+
+  /* ══════════════════════════════════════════════════════════════════
+     DEUX DESTINATIONS, ET LE TEXTE EST LA PREMIÈRE.
+     Le dossier est un CONTENEUR : ses salles restent `panel active`,
+     c'est oeuvres/dossier.js qui n'en montre qu'une.
+     ══════════════════════════════════════════════════════════════════ */
+  var TABS=[{id:'lire',label:'Lire le texte'},{id:'dossier',label:'Le dossier',glose:'pour approfondir'}];
+  var DOSSIER=['deriv','labo','capital','chrono','ressources'];
+  var DOSSIER_LABELS={deriv:'Le cheminement',labo:'Le débat avec Weston',
+    capital:'De 1865 au Capital',chrono:'La chronologie',ressources:'Les ressources'};
+  /* Ce qu'on FAIT dans chaque salle (vocabulaire clos, marque dessinée
+     dans dossier.js). */
+  var DOSSIER_NATURE={deriv:'à lire',labo:'à manipuler',capital:'à parcourir',
+    chrono:'à parcourir',ressources:'à consulter'};
+  var WALK_T=['La question posée devant l’Internationale','Le salaire ne commande pas les prix',
+    'Il manque un étalon','La valeur est du temps de travail social',
+    'Ce qui se vend n’est pas le travail','L’usage dépasse ce qu’il a coûté',
+    'Pourquoi cela ne se voit pas','Ce que la lutte peut, et ce qu’elle ne peut pas'];
+  var WST_T={grandeurs:'Deux grandeurs fixes',soupiere:'La soupière et les cuillères',
+    monnaie:'La monnaie manquerait',eleves:'Les salaires trop élevés',
+    dogme:'Le salaire règle le prix'};
+  var curTab='lire', a11yBooted=false;
+
+  /* La coquille collante vaut 88 (topbar + onglets), mais atelier.css la
+     ramène à 44 sous 600 px : on RELIT la variable au lieu de la figer. */
+  function atlTop(){
+    var v=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--atl-top'));
+    return isFinite(v)&&v>0?v:88;
+  }
+  function tabForHash(h){
+    if(h==='lire'||h==='dossier')return h;
+    return DOSSIER.indexOf(h)>=0?'dossier':null;
+  }
+  function buildTabs(){
+    var bar=byId('worktabs'); if(!bar)return;
+    bar.innerHTML=TABS.map(function(p){
+      return '<button type="button" class="tab" data-panel="'+p.id+'">'+p.label
+        +(p.glose?'<span class="tab-glose"> · '+p.glose+'</span>':'')+'</button>';}).join('');
+    bar.querySelectorAll('.tab').forEach(function(b){
+      b.addEventListener('click',function(){window.activateTab(b.dataset.panel);});});
+  }
+  function syncTabsA11y(pid){
+    var S=window.SHELL; if(!S)return;
+    if(S.tabs)S.tabs(byId('worktabs'),function(b){return b.dataset.panel;});
+    var deep=/^#(note=|s=|partie=|labo=|deriv=)/.test(location.hash||'');
+    if(a11yBooted&&!(deep&&!window.__deepBooted)){ try{history.replaceState(null,'','#'+pid);}catch(e){} }
+    if(pid!=='lire')document.body.classList.remove('at-reading');
+    if(a11yBooted&&S.announce)S.announce(pid==='dossier'?'Le dossier':'Lire le texte');
+    a11yBooted=true;
+  }
+  window.syncTabsA11y=syncTabsA11y;
+
+  function dosOffset(){ var nav=byId('dossierNav'); return atlTop()+(nav?nav.getBoundingClientRect().height:0)+10; }
+  /* Aller à une salle, c'est l'AFFICHER : il n'y a plus de couloir. */
+  function dosGo(id,smooth){ if(window.DossierAtelier) DossierAtelier.show(id,{smooth:!!smooth}); }
+  function buildDossier(){
+    var dn=byId('dossierNav'), box=byId('dossier');
+    if(!dn||!box||!window.DossierAtelier)return;
+    DossierAtelier.install({
+      box:box, nav:dn, offset:dosOffset,
+      ordre:DOSSIER.map(function(id){
+        return {id:id,label:DOSSIER_LABELS[id],nature:DOSSIER_NATURE[id]};})
+    });
+  }
+
+  window.activateTab=function(id,anchor){
+    if(id!=='dossier')id='lire';
+    curTab=id; window.curTabId=id;
+    document.querySelectorAll('#worktabs .tab').forEach(function(b){ b.classList.toggle('active',b.dataset.panel===id); });
+    byId('atl3').hidden=(id!=='lire');
+    byId('dossier').hidden=(id!=='dossier');
+    document.body.classList.toggle('at-dossier',id==='dossier');
+    if(anchor){ var boot=!a11yBooted; setTimeout(function(){dosGo(anchor,!boot);},boot?90:60); }
+    else if(a11yBooted) window.scrollTo({top:0,behavior:rm()?'auto':'smooth'});
+    syncTabsA11y(id);
+  };
+  window.curTabId='lire';
+
+  /* ══════════════════ LE NETTOYAGE DU HTML DE WIKISOURCE ══════════════════
+     Parsé dans un document INERTE (DOMParser) et non dans un <div> détaché :
+     un div appartient au document courant, donc lui poser un innerHTML lance
+     immédiatement le chargement de ses images — les retirer ensuite n'annule
+     rien, les requêtes sont parties. Règle déjà payée sur le Capital. */
+  function clean(raw, meta){
+    var doc=new DOMParser().parseFromString(raw,'text/html'), b=doc.body;
+    b.querySelectorAll('style,link,meta,script,img,.ws-noexport,.noprint,.mw-editsection,'
+      +'.pagenum,sup.reference,sup[class*="reference"],.mw-references-wrap,ol.references,'
+      +'.references,[class*="header"],#ws-data,#toc').forEach(function(e){e.remove();});
+    b.querySelectorAll('a').forEach(function(a){a.replaceWith(doc.createTextNode(a.textContent));});
+
+    /* Les titres internes sont des <div style="text-align:center"> ou des
+       <center> — jamais des <h*>. Ceux qui redisent le titre de la partie
+       s'en vont (nous posons le nôtre) ; les autres deviennent des h3. */
+    var attendu=meta.d||'';
+    /* LIRE UN TITRE À TRAVERS SON BALISAGE. textContent ne pose aucune espace
+       à la place d'un <br> : le titre de l'appendice, composé
+       « INTRODUCTION<br>À UNE CRITIQUE… », rendait « INTRODUCTIONÀ UNE… » et
+       ne correspondait plus à ce qu'on cherchait. Même leçon que headText()
+       sur le Capital. */
+    function titreDe(e){
+      var c=e.cloneNode(true);
+      c.querySelectorAll('br').forEach(function(br){ br.replaceWith(doc.createTextNode(' ')); });
+      return c.textContent.replace(/\s+/g,' ').trim();
+    }
+    b.querySelectorAll('h1,h2,h3,h4,h5,h6,center,div').forEach(function(e){
+      var centre = e.tagName==='CENTER'
+        || /text-align:\s*center/.test(e.getAttribute('style')||'')
+        || /^H[1-6]$/.test(e.tagName);
+      if(!centre)return;
+      var t=titreDe(e);
+      if(!t||t.length>120)return;
+      if(attendu && attendu.indexOf(norm(t))>=0){ e.remove(); return; }
+      /* Tout ce qui est centré n'est pas un titre : une formule ou une
+         adresse peuvent l'être aussi. Les titres de l'édition de 1912 sont
+         TOUS composés en gras — c'est ce qui les distingue, et c'est le seul
+         indice que la source donne. */
+      if(!e.querySelector('b,i,strong,em')){
+        if(e.tagName==='DIV'){ e.className='sp-formule'; }
+        return;
+      }
+      var h=doc.createElement('h3'); h.className='sp-sub'; h.textContent=t;
+      e.replaceWith(h);
+    });
+
+    /* Les cales de Wikisource, les filets décoratifs (des div vides à
+       bordure) et les enveloppes laissées vides par le retrait d'un titre. */
+    b.querySelectorAll('div').forEach(function(d){
+      if(!d.textContent.trim() && !d.querySelector('img,table,hr')) d.remove();
+    });
+    b.querySelectorAll('p').forEach(function(p){ if(!p.textContent.trim())p.remove(); });
+
+    /* UN DIV QUI NE PORTE QUE DU TEXTE DEVIENT UN PARAGRAPHE. La source
+       compose l'apostrophe liminaire — « Citoyens, » — en <div> décalé, et
+       non en <p> : laissé tel quel, il se collait au paragraphe suivant,
+       puisque la liseuse ne donne de marge qu'aux paragraphes. On ne touche
+       ni aux enveloppes (elles portent des blocs) ni aux formules centrées,
+       qui ont leur classe. */
+    b.querySelectorAll('div').forEach(function(d){
+      if(d.className) return;
+      if(d.querySelector('div,p,table,ul,ol,hr,blockquote,h1,h2,h3,h4,h5,h6')) return;
+      if(!d.textContent.trim()) return;
+      var p=doc.createElement('p'); while(d.firstChild)p.appendChild(d.firstChild);
+      d.replaceWith(p);
+    });
+    /* Le filet qui SUIVAIT le titre de la source devient orphelin quand on
+       retire ce titre : posé sous le nôtre, qui porte déjà son trait, il en
+       ferait deux. Celui qui CLÔT une section, lui, reste. */
+    var vus=document.createTreeWalker(b,NodeFilter.SHOW_ALL), n, texte=false;
+    while((n=vus.nextNode())){
+      if(n.nodeType===3 && n.nodeValue.trim()){ texte=true; break; }
+      if(n.nodeType===1 && n.tagName==='HR' && !texte){ n.remove(); vus.currentNode=b; }
+    }
+    b.querySelectorAll('[style]').forEach(function(e){e.removeAttribute('style');});
+    return b.innerHTML;
+  }
+
+  /* La sur-ligne SITUE : « Section VI » au-dessus de « De la valeur et des
+     prix », jamais le numéro collé au titre — la source le compose ainsi,
+     sur deux lignes, et le sommaire porte déjà le chiffre en marge.
+     L'avant-propos n'est pas numéroté : il n'en reçoit pas. */
+  function surDe(part){ return part.rn ? 'Section '+part.rn : ''; }
+
+  function partHtml(part, morceaux){
+    var sur=surDe(part);
+    var h='<h2 class="sp-part">'
+      + (sur ? '<span class="sp-rn">'+esc(sur)+'</span>' : '')
+      + esc(part.t) + '</h2>';
+    morceaux.forEach(function(m){ h+=m; });
+    h+='<p class="sp-src">Texte : <i>Salaires, prix, profits</i>, traduction de '
+      +'Charles Longuet, deuxième édition (Paris, M. Giard et É. Brière, 1912). '
+      +'Domaine public. '
+      +'<a href="'+WS_PAGE+'" rel="noopener">Lire le livre sur Wikisource ›</a></p>';
+    return h;
+  }
+
+  /* ══════════════════ LE SOMMAIRE ══════════════════ */
+  var viewG=0, loaded=0, pendingG=0, CACHE={};
+  function cur(){ return SP_STRUCT[(viewG||1)-1]; }
+  function renderTocRail(){
+    /* Rendu par oeuvres/sommaire.js. Le livre n'a pas de chapitres : il a
+       un avant-propos et quatorze sections numérotées. Chacune est donc une
+       section du sommaire à ENTRÉE UNIQUE — sommaire.js les rend alors comme
+       une ligne, portant le chiffre romain en marge, et non comme un
+       dépliant. On n'invente pas de regroupement : la table des matières de
+       1912 est plate, le sommaire l'est aussi. */
+    var root=byId('atl3Toc'); if(!root||!window.SommaireAtelier)return;
+    var pg=window.SHELL&&SHELL.progress, done=pg?pg.getSet():new Set();
+    var logged=!!(pg&&pg.isLoggedIn());
+    var sections=SP_STRUCT.map(function(e){
+      return {key:'g'+e.g, rn:e.rn, t:e.t,
+        items:[{g:e.g, n:'', t:e.t, done:done.has(e.g), text:e.t}]};
+    });
+    SommaireAtelier.render(root,{
+      label:'Le sommaire', cur:viewG||1, sections:sections,
+      progress:{logged:logged, n:SP_STRUCT.filter(function(e){return done.has(e.g);}).length,
+                total:SP_STRUCT.length, word:'sections lues'},
+      filter:null
+    },{
+      open:function(g){ openPart(g); },
+      login:function(){ if(window.SHELL&&SHELL.auth)SHELL.auth.openModal(); }
+    });
+  }
+
+  /* ══════════════════ LA MARGE ══════════════════ */
+  var margeNotes=[], annoUnsub=null;
+  function watchAnnos(){ var AN=window.SHELL&&SHELL.annotations; if(!AN||!AN.onChange||annoUnsub)return;
+    annoUnsub=AN.onChange(function(){renderMarge();}); }
+  function margeFade(){ if(window.MargeAtelier) MargeAtelier.fade(); }
+  function renderMarge(){
+    var el=byId('atl3Marge'); if(!el||!window.MargeAtelier)return;
+    var c=cur(), g=c.g;
+    margeNotes=[];
+    var AN=(window.SHELL&&SHELL.annotations)||null;
+    try{ if(AN&&AN.notesFor) margeNotes=AN.notesFor(WORK,g).sort(function(a,b){return (b.created||0)-(a.created||0);}); }catch(e){}
+    var pub=0;
+    try{ if(AN&&AN.context&&AN.publicCount){ var cx=AN.context(); if(cx.work===WORK&&+cx.section===g) pub=AN.publicCount()||0; } }catch(e){}
+    /* LES NOTIONS DE CETTE SECTION. Elles ne sont PAS déclarées une seconde
+       fois dans SP_STRUCT : GLOSS_SP porte déjà le `g` de chacune, et c'est
+       lui qui fait foi — le générateur lit la même chose pour l'abécédaire.
+       Seules paraissent celles qui ont une page, dont l'adresse est dans
+       NOTIONS_HREF (bloc dérivé). */
+    var nts=[], vusH={};
+    GLOSS_SP.forEach(function(x){
+      if(x.g!==c.g) return;
+      var e=(window.NOTIONS_HREF||{})[x.t];
+      if(e && e.h && !vusH[e.h]){ vusH[e.h]=1; nts.push({h:e.h, n:e.n}); }
+    });
+    /* L'APPAREIL DE CETTE SECTION, lu dans SP_STRUCT : la fiche du débat
+       quand la section en discute un argument, et la marche du cheminement
+       où elle se situe. Les deux s'ouvrent dans le tiroir — on ne quitte
+       pas le texte pour les consulter. */
+    var tools=[];
+    if(c.wst) tools.push({kind:'wst',target:c.wst,k:'Le débat avec Weston',t:WST_T[c.wst]||''});
+    if(c.w) tools.push({kind:'step',target:String(c.w),k:'Marche '+c.w+' sur '+WALK_T.length,t:WALK_T[c.w-1]||''});
+    MargeAtelier.render(el,{
+      label:'Dans cette section', rn:c.rn||'', title:c.t,
+      sum:c.s?esc(c.s):'', notions:nts, tools:tools,
+      notes:{list:margeNotes, where:'Dans Salaires, prix, profits', pub:pub}
+    },{
+      anno:function(a){
+        jumpToQuote(a.quote);
+        if(AN&&AN.flashAnchor)AN.flashAnchor(a);
+      },
+      drawer:function(kind,target){ openDrawer(kind,target); },
+      fab:function(id){ var f=byId(id); if(f)f.click();
+        else if(window.SHELL&&SHELL.announce)SHELL.announce('Le texte se charge encore.'); }
+    });
+  }
+
+  /* ══════════════════ LE DÉBAT AVEC WESTON ══════════════════ */
+  function pickWst(id){
+    var node=byId('wst-'+id); if(!node)return;
+    document.querySelectorAll('.fiche-pick').forEach(function(b){
+      b.setAttribute('aria-pressed', b.dataset.wst===id?'true':'false'); });
+    document.querySelectorAll('.fiche-node').forEach(function(n){ n.hidden=(n!==node); });
+  }
+  function wireWeston(){
+    document.querySelectorAll('.fiche-pick').forEach(function(b){
+      b.addEventListener('click',function(){
+        pickWst(b.dataset.wst);
+        /* Sous 820 px la fiche passe SOUS la liste : un choix pris en bas
+           de liste ne montrait rien. On va à la fiche. */
+        if(window.matchMedia&&window.matchMedia('(max-width:820px)').matches&&!b.closest('#atlDrawer')){
+          var n=byId('wst-'+b.dataset.wst);
+          if(n)window.scrollTo({top:Math.max(0,window.scrollY+n.getBoundingClientRect().top-dosOffset()-20),
+            behavior:rm()?'instant':'smooth'});
+        }
+      });
+    });
+    /* « Voir dans le texte » : on quitte le dossier pour la section, et
+       l'on se pose sur la phrase — c'est tout l'objet de cette salle. */
+    document.querySelectorAll('.fiche-node [data-lire]').forEach(function(b){
+      b.addEventListener('click',function(){ goTexte(+b.dataset.lire, b.dataset.q); }); });
+  }
+
+  /* ══════════════════ L'ASCENSION — rendue par oeuvres/ascension.js ══════════════════ */
+  function wireWalk(){
+    var root=byId('asc'); if(!root||!window.AscensionAtelier)return;
+    var asc=AscensionAtelier.mount(root,{offset:dosOffset});
+    window.ascGo=function(n,flash){ if(asc)asc.go(n,flash); };
+  }
+  /* On vient chercher CETTE marche : `activateTab` diffère son propre
+     défilement vers le haut de la salle (60 à 90 ms) — se poser plus tôt
+     que lui, c'est se faire écraser. D'où les 260 ms, comme sur les trois
+     autres ateliers. Le saut est instantané : un défilement doux ignore
+     les deux barres collantes. */
+  function goDeriv(n){
+    window.activateTab('dossier','deriv');
+    setTimeout(function(){ if(window.ascGo)window.ascGo(n,true); },260);
+  }
+
+  /* ══════════════════ LE TIROIR ══════════════════ */
+  var drawerNode=null,drawerHome=null,drawerNext=null,drawerOpener=null;
+  function openDrawer(kind,target){
+    closeDrawer(true);
+    var node=null,title='';
+    if(kind==='wst'){ node=byId('instr-weston'); title='Le débat — '+(WST_T[target]||''); pickWst(target); }
+    else if(kind==='step'){
+      node=document.querySelector('.asc-step[data-step="'+target+'"]');
+      title='Marche '+target+' — '+(WALK_T[target-1]||'');
+    }
+    if(!node)return;
+    drawerNode=node; drawerHome=node.parentNode; drawerNext=node.nextSibling; drawerOpener=document.activeElement;
+    byId('atlDrawerBody').appendChild(node);
+    node.classList.add('atl-drawer-in');
+    byId('atlDrawerT').textContent=title;
+    var d=byId('atlDrawer'); d.hidden=false; d.setAttribute('aria-modal','true'); d.addEventListener('keydown',drawerTrap);
+    document.body.classList.add('atl-drawer-on');
+    var x=byId('atlDrawerX'); if(x)x.focus();
+    if(window.SHELL&&SHELL.announce)SHELL.announce('Ouvert : '+title);
+  }
+  function drawerTrap(e){
+    if(e.key!=='Tab')return;
+    var f=[].slice.call(byId('atlDrawer').querySelectorAll('a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])')).filter(function(el){return el.getClientRects().length;});
+    if(!f.length)return;
+    var first=f[0],last=f[f.length-1];
+    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+    else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+  }
+  function closeDrawer(silent){
+    var d=byId('atlDrawer');
+    if(d){ d.removeEventListener('keydown',drawerTrap); d.removeAttribute('aria-modal'); }
+    if(drawerNode&&drawerHome){
+      drawerNode.classList.remove('atl-drawer-in');
+      drawerHome.insertBefore(drawerNode,drawerNext);
+    }
+    var had=!!drawerNode;
+    drawerNode=drawerHome=drawerNext=null;
+    if(d)d.hidden=true;
+    document.body.classList.remove('atl-drawer-on');
+    if(!silent&&had&&drawerOpener&&drawerOpener.focus){ try{drawerOpener.focus();}catch(e){} }
+    drawerOpener=null;
+  }
+
+  /* ══════════════════ LE SUIVI ══════════════════ */
+  function stickyOffset(){ var tb=document.querySelector('#lire .rd-toolbar');
+    return atlTop()+(tb?tb.getBoundingClientRect().height:0)+16; }
+  /* Quitter le dossier pour une section, et se poser sur la phrase. Le
+     texte est chargé par fetch : la citation attend dans pendingQuote et
+     load() la consomme une fois le HTML posé. */
+  var pendingQuote='';
+  function goTexte(g,q){
+    pendingQuote=q||'';
+    if(curTab!=='lire')window.activateTab('lire');
+    closeDrawer(true);
+    if(g===loaded){ pendingQuote=''; window.scrollTo({top:0,behavior:'instant'}); if(q)jumpToQuote(q); return; }
+    openPart(g,true);
+  }
+  function jumpToQuote(quote){
+    var box=byId('readerContent'); if(!box||!quote)return;
+    var probe=String(quote).replace(/\s+/g,' ').trim().slice(0,40); if(!probe)return;
+    var els=box.querySelectorAll('p,h2,h3,h4'),target=null;
+    for(var i=0;i<els.length;i++){ if(els[i].textContent.replace(/\s+/g,' ').indexOf(probe)>=0){target=els[i];break;} }
+    if(target) window.scrollTo({top:Math.max(0,window.scrollY+target.getBoundingClientRect().top-stickyOffset()-30),behavior:'instant'});
+  }
+  /* La progression se marque quand on atteint le BAS de la section, pas à
+     l'ouverture : on ne l'a pas lue parce qu'on l'a ouverte. */
+  var marked={};
+  function trackProgress(){
+    var pg=window.SHELL&&SHELL.progress; if(!pg||!pg.isLoggedIn()||!loaded)return;
+    var g=loaded, box=byId('readerContent');
+    if(!box||marked[g]||pg.getSet().has(g))return;
+    if(box.getBoundingClientRect().bottom<window.innerHeight*1.15){ marked[g]=true; pg.markDone(g); }
+  }
+  var followAt=0;
+  window.addEventListener('scroll',function(){ var now=Date.now(); if(now-followAt<160)return;
+    followAt=now; trackProgress(); },{passive:true});
+
+  /* ══════════════════ LE PLEIN ÉCRAN ══════════════════ */
+  /* Repris tel quel des trois autres ateliers : le bouton porte `btn` ET
+     `atl3-full`. Sans `btn`, il n'a ni fond ni rayon — il retombe sur le
+     gris de l'agent utilisateur, et son or passe à 1,83:1. C'est la règle
+     déjà payée sur .lk et .rd-chip, dans l'autre sens. */
+  function pleinEcran(){ return document.body.classList.contains('at-plein'); }
+  function setPlein(on){
+    if(on===pleinEcran())return;
+    document.body.classList.toggle('at-plein',on);
+    var ex=byId('atlFullExit'); if(ex)ex.hidden=!on;
+    var b=byId('atlFullBtn'); if(b)b.setAttribute('aria-pressed',on?'true':'false');
+    if(on)closeDrawer(true);
+    try{
+      if(on&&!document.fullscreenElement&&document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(function(){});
+      if(!on&&document.fullscreenElement&&document.exitFullscreen) document.exitFullscreen().catch(function(){});
+    }catch(e){}
+    if(!on&&b)b.focus({preventScroll:true}); else if(on&&ex)ex.focus({preventScroll:true});
+    if(window.SHELL&&SHELL.announce) SHELL.announce(on?'Lecture plein écran. Échap pour revenir à l’atelier.':'Retour à l’atelier.');
+  }
+  /* Reconstruit à chaque montage de la liseuse, jamais déplacé, et APRÈS
+     Reading.mount — qui construit la barre : appelé plus haut, il ne
+     trouverait pas `.rd-row`. */
+  function installFullBtn(){
+    var old=byId('atlFullBtn'); if(old)old.remove();
+    var row=document.querySelector('#lire .rd-row'), bar=byId('atlMidbar'), host=row||bar;
+    if(!host)return;
+    if(bar)bar.hidden=!!row;
+    var b=document.createElement('button');
+    b.type='button'; b.id='atlFullBtn'; b.className='btn atl3-full';
+    b.setAttribute('aria-pressed',pleinEcran()?'true':'false');
+    b.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true" class="atl3-full-i"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span class="atl3-full-lbl"> Plein écran</span>';
+    b.addEventListener('click',function(){setPlein(!pleinEcran());});
+    if(!row){ host.appendChild(b); return; }
+    var wrap=document.createElement('div'); wrap.className='atl3-toolhead';
+    row.parentNode.insertBefore(wrap,row); wrap.appendChild(b); wrap.appendChild(row);
+  }
+
+  /* ══════════════════ LE CHARGEMENT ══════════════════ */
+  function wsUrl(page){
+    return 'https://fr.wikisource.org/w/api.php?action=parse&page='
+      + encodeURIComponent(WS_ROOT+'/'+page)
+      + '&prop=text&format=json&formatversion=2&redirects=1&origin=*';
+  }
+  function fetchPage(page){
+    if(CACHE[page])return Promise.resolve(CACHE[page]);
+    return fetch(wsUrl(page))
+      .then(function(r){ if(!r.ok)throw new Error('HTTP '+r.status); return r.json(); })
+      .then(function(j){
+        var raw=j&&j.parse&&j.parse.text; if(raw&&typeof raw==='object')raw=raw['*'];
+        if(!raw)throw new Error('réponse vide');
+        CACHE[page]=raw; return raw;
+      });
+  }
+  function showError(g){
+    var rc=byId('readerContent');
+    rc.innerHTML='<div class="reader-error" role="alert"><b>Texte momentanément indisponible.</b>'
+      +'<p>Le texte est lu sur Wikisource, qui n’a pas répondu. Vérifiez votre connexion, puis réessayez.</p>'
+      +'<p><button type="button" class="btn red" data-retry>Réessayer</button></p></div>';
+    rc.hidden=false; byId('readerPlaceholder').hidden=true;
+    rc.querySelector('[data-retry]').onclick=function(){ load(g); };
+    if(window.SHELL&&SHELL.announce)SHELL.announce('Le texte n’a pas pu être chargé.');
+  }
+  function attach(g){
+    if(window.SHELL&&SHELL.reader&&SHELL.reader.attach)
+      SHELL.reader.attach({workId:WORK, section:g, container:byId('readerContent'),
+        sectionLabel:SP_STRUCT[g-1].t});
+  }
+  var loading=0;
+  function load(g){
+    g=g||1; if(!SP_STRUCT[g-1])g=1;
+    var part=SP_STRUCT[g-1];
+    loading=g;
+    var rc=byId('readerContent');
+    byId('readerPlaceholder').hidden=true; rc.hidden=false;
+    rc.innerHTML='<div class="placeholder" role="status"><div><b>Chargement du texte…</b></div></div>';
+    if(window.SHELL&&SHELL.announce)SHELL.announce('Chargement du texte en cours…');
+    Promise.all(part.p.map(function(m){ return fetchPage(m.page).then(function(raw){ return clean(raw,m); }); }))
+      .then(function(morceaux){
+        if(loading!==g)return;                      /* une autre section a été demandée */
+        rc.innerHTML=partHtml(part,morceaux);
+        loaded=g; viewG=g;
+        if(window.SHELL&&SHELL.resume)SHELL.resume.set(WORK,{g:g,title:part.t});
+        if(window.SHELL&&SHELL.announce)SHELL.announce('Texte chargé : '+part.t);
+        attach(g);
+        if(window.Reading){
+          window.Reading.mount(byId('lire'),{
+            ctx:{id:g, title:part.t}, textSel:'.reader-content',
+            summaryHtml:'<div class="rd-clear-body">'+esc(part.s)+'</div>',
+            nav:{
+              prev: g>1 ? function(){ openPart(g-1,true); } : null,
+              next: g<SP_STRUCT.length ? function(){ openPart(g+1,true); } : null
+            },
+            glossary:GLOSS_SP, xref:[]
+          });
+        }
+        setTimeout(function(){
+          installFullBtn(); renderTocRail(); renderMarge(); watchAnnos();
+          if(window.SommaireAtelier)SommaireAtelier.setCurrent(byId('atl3Toc'),g);
+          if(pendingQuote){ var q=pendingQuote; pendingQuote=''; jumpToQuote(q); }
+          trackProgress();
+        },0);
+      })
+      .catch(function(){ if(loading===g)showError(g); });
+  }
+
+  /* Ouvrir une section, c'est en CHARGER le texte : chaque section est une
+     sous-page de Wikisource à part, et une section d'annotation à part
+     (#s=<g>). Le hash reste `#partie=` : c'est le contrat déjà posé par la
+     recherche et par les trois autres ateliers, on ne le renomme pas. */
+  function openPart(g,haut){
+    if(!SP_STRUCT[g-1])return;
+    if(g===loaded){
+      if(haut)window.scrollTo({top:0,behavior:'instant'});
+      return;
+    }
+    load(g);
+    window.scrollTo({top:0,behavior:'instant'});
+  }
+  window.openPart=openPart;
+
+  /* Contrat de deep-link : #partie=<g> (la recherche et le sommaire),
+     #labo=<argument> et #deriv=<marche> (le dossier), les salles, et le
+     passage (#note=, #s=) que attach() résout. */
+  function applyHash(boot){
+    var raw=(location.hash||'').replace(/^#/,'');
+    var m=raw.match(/^partie=(\d+)$/);
+    if(m){ var g=+m[1]; if(boot)pendingG=g; else openPart(g,true); return true; }
+    if(/^labo=/.test(raw)){
+      window.activateTab('dossier','labo');
+      var id=raw.split('=')[1]; if(WST_T[id])pickWst(id);
+      return true;
+    }
+    m=raw.match(/^deriv=(\d+)$/);
+    if(m){ goDeriv(+m[1]); return true; }
+    var t=tabForHash(raw);
+    if(t){ window.activateTab(t,(t==='dossier'&&raw!=='dossier')?raw:null); return true; }
+    m=raw.match(/^s=(\d+)/);
+    if(m){ var s=+m[1]; if(SP_STRUCT[s-1]){ if(boot)pendingG=s; else if(s!==loaded)openPart(s,true); else attach(s); return true; } }
+    if(/^note=/.test(raw)){ if(!boot&&loaded)attach(loaded); return true; }
+    return false;
+  }
+
+  function init(){
+    buildTabs();
+    buildDossier();
+    wireWeston();
+    pickWst('grandeurs');
+    wireWalk();
+    renderTocRail();
+    renderMarge();
+    watchAnnos();
+    byId('atlDrawerX').addEventListener('click',function(){closeDrawer();});
+    var mg=byId('atl3Marge');
+    if(mg){ mg.addEventListener('scroll',margeFade,{passive:true}); window.addEventListener('resize',margeFade); }
+    byId('atlFullExit').addEventListener('click',function(){setPlein(false);});
+    document.addEventListener('fullscreenchange',function(){ if(!document.fullscreenElement&&pleinEcran())setPlein(false); });
+    /* Échap : le tiroir d'abord (couche du dessus), le plein écran ensuite. */
+    document.addEventListener('keydown',function(e){
+      if(e.key!=='Escape')return;
+      if(!byId('atlDrawer').hidden){ closeDrawer(); return; }
+      if(pleinEcran())setPlein(false);
+    });
+    if(window.SHELL&&SHELL.progress) SHELL.progress.init(WORK,function(){ renderTocRail(); });
+
+    if(!applyHash(true)){
+      window.activateTab('lire');
+      var r=(window.SHELL&&SHELL.resume)?SHELL.resume.get(WORK):null;
+      if(r&&r.g)pendingG=+r.g;
+    }
+    window.__deepBooted=true;
+    load(pendingG||1);
+    window.addEventListener('hashchange',function(){ applyHash(false); });
+  }
+  window.renderTocRail=renderTocRail;
+  window.renderResume=function(){ renderTocRail(); };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+<script src="../config.js"></script>
+<script src="shell.js?v=17"></script>
+<script src="shell-social.js"></script>
+<script src="shell-annotations.js?v=2"></script>
+<script src="shell-progress.js"></script>
+<script src="reader-tools.js?v=6" defer></script>
+<script>
+installShell({
+  workId: 'salaire-prix-profit',
+  workTitle: 'Salaires, prix, profits'
+});
+(function(){
+  if(typeof renderResume==='function')renderResume();
+})();
+</script>
+</body>
+</html>
