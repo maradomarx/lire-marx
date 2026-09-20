@@ -2064,7 +2064,8 @@ ${piedCm('Agrégation 2027')}`;
       t: 'Ressources — ' + w.shortTitle, s: cartes.map((c) => ({ a: 'ressources', h: c.h, x: c.x })) });
     if (!check) console.log(`  ressources : ${w.shortTitle} — ${cartes.length} cartes indexées`);
   }
-  ['capital-1', 'manuscrits-1844', 'manifeste-parti-communiste'].forEach(ressourcesDe);
+  ['capital-1', 'manuscrits-1844', 'manifeste-parti-communiste',
+    'contribution-critique-economie-politique', 'salaire-prix-profit'].forEach(ressourcesDe);
 
   /* L'index des essais — glossaire, chapitres expliqués, commentaires et
    * page-carrefour (mission `recherche-chapitres`) : un fichier à part, chargé à la demande par la
@@ -2284,6 +2285,13 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
   for (const p of litteralJS(readFileSync('oeuvres/salaire-prix-profit.html', 'utf8'), 'SP_STRUCT=', '['))
     items.push({ t: strip(p.t), s: `Salaires, prix, profits (1865)${p.rn ? ' · section ' + p.rn : ''}`,
       cat: 'partie', url: `/oeuvres/salaire-prix-profit#partie=${p.g}`, hay: court(p.s, 400) });
+
+  for (const [t, url, hay] of [
+    ['Le cheminement de Salaires, prix, profits', '/oeuvres/salaire-prix-profit#deriv', 'marches salaire prix valeur force de travail plus-value surtravail lutte syndicats'],
+    ['Le débat avec Weston', '/oeuvres/salaire-prix-profit#labo', 'John Weston soupière cuillères Menenius Agrippa monnaie quantité fixe salaires élevés dogme salaire règle le prix Ricardo'],
+    ['De 1865 au Capital', '/oeuvres/salaire-prix-profit#capital', 'comparaison 1867 abrégé du Capital avant la lettre fétichisme forme-valeur valeur d’usage capital constant variable armée de réserve'],
+    ['La chronologie de Salaires, prix, profits', '/oeuvres/salaire-prix-profit#chrono', 'Internationale 1864 Saint-Martin Hall 1865 Conseil général Genève 1866 Eleanor Marx 1898 Charles Longuet 1912 Salaire prix et profit']
+  ]) items.push({ t, s: 'Le dossier · Salaires, prix, profits', cat: 'outil', url, hay });
 
   for (const [t, url, hay] of [
     ['Le cheminement de la Contribution', '/oeuvres/contribution-1859#deriv', 'marches marchandise valeur temps de travail équivalent général monnaie argent'],

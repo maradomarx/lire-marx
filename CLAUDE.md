@@ -10426,9 +10426,9 @@ salaires » rend la section IV, « plus-value » rend la section VIII.
 
 ### Ce qui reste pour cette œuvre
 
-- **Le dossier** (cheminement, chronologie, instrument, ressources) et le
-  **glossaire** : c’est la suite, comme pour le Manifeste et la Contribution,
-  qui ont eu leurs missions dédiées.
+- ✅ **Le dossier est fait** — voir la mission `salaire-prix-profit-dossier`
+  juste en dessous. Reste le **glossaire** (l’œuvre n’expose pas encore de
+  table de concepts).
 - **La recherche plein texte n’y va pas encore.** Quinze sous-pages : ni le
   modèle du Manifeste (tout charger), ni celui du Capital (l’extrait de l’API).
   Le mécanisme de la Contribution — l’API de recherche pour savoir quelles
@@ -10439,6 +10439,103 @@ salaires » rend la section IV, « plus-value » rend la section VIII.
   Celle de Charles Longuet, en tête, date la lecture du 20 juin 1865 et dit que
   le texte est « un abrégé du *Capital* avant la lettre » : c’est d’elle que
   vient la ligne d’identité de la page.
+
+### Le dossier de Salaires, prix, profits (mission `salaire-prix-profit-dossier`, sept. 2026)
+
+Cinq salles (`dossier.js`), tout le contenu SERVI dans le HTML — le motif du
+Manifeste et de la Contribution. La page reprend donc la coquille à **deux
+destinations**, et `--atl-top` repasse à 88.
+
+| salle | nature | ce qu'elle fait |
+|---|---|---|
+| I `#deriv` — Le cheminement | à lire | huit marches, d'une question de salaire à la plus-value |
+| II `#labo` — Le débat avec Weston | à manipuler | les cinq arguments du contradicteur, et ce que chacun a obligé Marx à établir |
+| III `#capital` — De 1865 au Capital | à parcourir | trois colonnes réglées, chiffrées dans le texte servi |
+| IV `#chrono` — La chronologie | à parcourir | le moment (1864-1866), le livre qui vient, le texte exhumé |
+| V `#ressources` — Ressources | à consulter | cinq liens vérifiés (MIA anglais, Wikisource, Gallica, l'AIT) |
+
+**LA SALLE PROPRE À CETTE ŒUVRE EST LE DÉBAT.** Ce texte est une *réplique* —
+c'est ce qui le distingue de tout le reste du corpus, et ce qu'aucune des
+quatre autres œuvres ne permet de montrer. Les cinq arguments de John Weston
+sont donc l'instrument : sa citation, ce que Marx répond, l'épreuve des faits
+quand il y en a une, et **ce que l'argument oblige à établir** — cette
+dernière rubrique est ce qui fait de la salle une chaîne et non une liste de
+réfutations. Les cinq `data-q` sont relevés dans le texte servi, apostrophes
+typographiques comprises ; « Voir dans le texte » quitte le dossier et pose la
+phrase (mesuré : 204 px sous les barres).
+
+**Les chiffres de « De 1865 au Capital » sont COMPTÉS, pas estimés** : dans
+les 21 807 mots servis, « force de travail » 34 fois, « plus-value » 25,
+« journée de travail » 25, « surtravail » 10 — et **zéro** pour « valeur
+d'usage », « forme relative », « forme équivalent », « fétichisme », « capital
+constant », « capital variable », « armée de réserve ». C'est ce relevé qui
+autorise la troisième colonne : deux ans avant Le Capital, tout le premier
+chapitre manque, et l'exposé va droit de la valeur à la force de travail.
+Le titre de la salle est justifié par le texte lui-même — la note de Charles
+Longuet appelle la réplique « un abrégé du *Capital* avant la lettre ».
+
+**Les trois titres français sont dans la chronologie**, relevés au catalogue
+de la BnF : *Salaires, prix, profits* (Longuet, 1912), *Salaires, prix et
+profits* (Éditions sociales internationales, 1931), *Salaire, prix et profit*
+(Éditions sociales, à partir de 1955) — le plus répandu aujourd'hui. C'est un
+fait pratique autant qu'éditorial : un lecteur qui cherche le livre sous le
+titre moderne doit comprendre qu'il est au bon endroit.
+
+⚠️ **Le 27 juin 1865 est attesté**, et pas seulement déduit : la notice source
+du Marxists Internet Archive donne « Written: between end of May and June 27,
+1865 », ce qui confirme la seconde séance. Le manifeste inaugural de l'AIT
+(même site) date la fondation du **28 septembre 1864 à Saint-Martin's Hall**.
+Le MIA **n'a pas** de version française de ce texte (index des œuvres vérifié)
+— ne pas reconstruire d'URL, la ressource est l'original anglais.
+
+#### Deux composants montés dans atelier.css
+
+`.prf-*` (« la préface, au mot ») et `.v59-*` (« de 1859 au Capital »)
+vivaient dans le `<style>` de la Contribution sous des noms qui disaient
+l'usage d'UNE page. Un troisième atelier en ayant besoin, ils sont montés dans
+le système de record sous des noms de FORME : **`.fiche-*`** (liste + fiche
+collante) et **`.relv-*`** (relevé en colonnes). C'est la règle déjà appliquée
+à l'ascension, à l'amorce, à la bibliographie et à la bande photographique.
+La Contribution garde ses `data-prf` : une clé de page n'est pas une classe de
+composant, et la renommer aurait cassé son `pickMoment`. `atelier.css?v=17`.
+
+**Un défaut ANTÉRIEUR corrigé du même geste** : les renvois de `.relv-n`
+(« La force de travail → ») sont SEULS sur leur ligne — ce ne sont pas des
+liens dans une phrase, l'exemption de WCAG 2.5.8 ne les couvre pas, et ils
+mesuraient 15 px. Rembourrage vertical + marge négative égale sous
+`pointer:coarse`, donc **la Contribution en bénéficie aussi**.
+
+#### Le piège du timing, revécu
+
+`goDeriv(n)` posait `ascGo` à 80 ms alors qu'`activateTab` diffère son propre
+défilement vers le haut de la salle à 60-90 ms : la marche était atteinte puis
+**écrasée**, et `#deriv=6` déposait en haut du cheminement. Les trois autres
+ateliers attendent 260 ms — c'est écrit dans leur code depuis longtemps, et
+c'est pour cette raison. Mesuré après : marche 6 à 163 px, focus sur son titre,
+plan marqué.
+
+#### Vérifié
+
+Les cinq salles à 1380 px : **0 échec de contraste** (120 · 83 · 117 · 99 · 79
+mesures, minimum 5,12) et **0 échec à 375 px** (minimum 5,64), plus petit texte
+11,52 px, **zéro débordement horizontal**. Aucune cible sous 24 × 24 en
+émulation tactile, sur les cinq salles ET sur la Contribution. Deep-links
+`#labo=soupiere` (salle, fiche, bouton pressé) et `#deriv=6` ; tiroir sur les
+deux espèces de nœud — emprunt, `aria-modal`, Échap, retour à la place exacte,
+et la fiche qui cesse d'être collante dedans. Marge de la section III : les
+deux outils, chacun ouvrant le tiroir. **La Contribution éprouvée après le
+renommage** : fiche à son fond et son rayon, colonne collante, relevé à trois
+colonnes, moments qui basculent. Les **quatorze pages** qui montent la
+coquille : console propre, zéro débordement. Détecteur compté **avant et après
+en remisant** : Contribution 18, Manifeste 14, Capital 19, Manuscrits 13 —
+**identiques** ; la page passe de 12 à 17, atelier.css de 40 à 41, **0 erreur**
+(quatre `cramped-padding` sur `.relv`, le faux positif `clamp()` déjà
+documenté — mesuré au rendu : conteneur 0, colonnes 26 px à 1380 et 18 px à
+375 ; plus un `dark-glow` doré). `gen-seo --check` à jour et idempotent.
+
+**Au passage** : `ressourcesDe` ne couvrait que trois œuvres — la Contribution
+n'avait donc jamais eu ses ressources indexées. Les **cinq** le sont
+maintenant (12 · 8 · 6 · 4 · 5 cartes).
 
 ## Conventions de travail
 
