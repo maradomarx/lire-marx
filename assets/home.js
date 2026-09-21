@@ -551,7 +551,8 @@
       'manuscrits-1844': 'marx-jeune',
       'manifeste-parti-communiste': 'manifeste-1848',
       'contribution-critique-economie-politique': 'zur-kritik-titre-1859',
-      'salaire-prix-profit': 'salaires-prix-profits-titre-1912'
+      'salaire-prix-profit': 'salaires-prix-profits-titre-1912',
+      'dix-huit-brumaire': 'dix-huit-brumaire-titre-1900'
     };
     var FALLBACK = { works: [
       { id: 'capital-1', title: 'Le Capital — Livre I', author: 'Karl Marx', year: 1867,
@@ -575,7 +576,11 @@
       { id: 'salaire-prix-profit', title: 'Salaires, prix, profits', author: 'Karl Marx', year: 1865,
         status: 'available', category: 'critique-economie-politique', path: 'oeuvres/salaire-prix-profit.html',
         description: 'La valeur, la force de travail et la plus-value, exposées deux ans avant Le Capital.',
-        concepts: ['valeur', 'force de travail', 'plus-value'] }
+        concepts: ['valeur', 'force de travail', 'plus-value'] },
+      { id: 'dix-huit-brumaire', title: 'Le XVIII brumaire de Louis Bonaparte', author: 'Karl Marx', year: 1852,
+        status: 'available', category: 'histoire-politique', path: 'oeuvres/18-brumaire.html',
+        description: 'Le coup d’État du 2 décembre 1851, et comment un État se détache de la société.',
+        concepts: ['lutte des classes', 'pouvoir exécutif', 'représentation politique'] }
     ] };
 
     function esc(s) {

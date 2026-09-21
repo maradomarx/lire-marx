@@ -199,6 +199,42 @@ const EDITION = {
     source: { name: 'Salaires, prix, profits sur Wikisource',
               url: 'https://fr.wikisource.org/wiki/Salaires,_prix,_profits' },
     colophon: 'traduction Charles Longuet (1912), domaine public, servie depuis Wikisource'
+  },
+
+  'dix-huit-brumaire': {
+    // « Karl Marx · écrit de décembre 1851 à février 1852, publié à New York
+    //   en 1852 · traduction Léon Remy (1900) · domaine public » —
+    //   <p class="work-meta"> de oeuvres/18-brumaire.html, et la notice de
+    //   source sous chaque chapitre.
+    // Les deux dates sont celles de la préface, que le texte servi imprime :
+    // Marx y dit avoir écrit chaque semaine jusqu'à la mi-février, et que le
+    // deuxième numéro de la revue de Weydemeyer parut au printemps de 1852.
+    datePublished: '1852',
+    dateCreated: '1852',
+    // Le titre sous lequel l'ouvrage circule aujourd'hui. Il est VISIBLE
+    // dans la page — le <title> le porte entre parenthèses, et la
+    // description du catalogue le nomme — donc le schéma peut l'affirmer.
+    alternateName: 'Le 18 Brumaire de Louis Bonaparte',
+    translator: 'Léon Remy',
+    // La page de titre servie imprime cette édition : « LA LUTTE DES CLASSES
+    // EN FRANCE (1848-1850) / LE XVIII BRUMAIRE DE LOUIS BONAPARTE / PAR
+    // KARL MARX / Traduit de l'allemand par Léon REMY / PARIS, LIBRAIRIE
+    // C. REINWALD, SCHLEICHER FRÈRES, ÉDITEURS / 1900 ».
+    bookEdition: "Traduction française de Léon Remy, 1900 (Schleicher frères), dans le volume « La Lutte des classes en France (1848-1850). Le XVIII brumaire de Louis Bonaparte »",
+    // Léon Rémy est mort en 1910 (Wikidata Q18197824, vérifié) : la
+    // traduction est dans le domaine public, on peut l'affirmer.
+    license: 'https://creativecommons.org/publicdomain/mark/1.0/',
+    translationOfWork: {
+      '@type': 'Book',
+      name: 'Der achtzehnte Brumaire des Louis Bonaparte',
+      inLanguage: 'de',
+      datePublished: '1852'
+    },
+    // load() de la page appelle l'API de Wikisource sur les sous-pages de ce
+    // livre-là — c'est la source réelle du texte affiché.
+    source: { name: 'Le XVIII brumaire de Louis Bonaparte sur Wikisource',
+              url: 'https://fr.wikisource.org/wiki/Le_XVIII_brumaire_de_Louis_Bonaparte' },
+    colophon: 'traduction Léon Remy (1900), domaine public, servie depuis Wikisource'
   }
 };
 
@@ -295,7 +331,7 @@ let INDEX_NOTIONS = [];
  * consommé par la section « maillage » : la résolution (identité, suffixe
  * de station, renvoi `voir`, `page.slug`) se fait une seule fois, ici, et
  * les ateliers n'ont plus qu'une table à lire. */
-let LIENS_FICHES = { 'Le Capital': {}, 'Manuscrits de 1844': {}, 'Manifeste du parti communiste': {}, 'Salaires, prix, profits': {} };
+let LIENS_FICHES = { 'Le Capital': {}, 'Manuscrits de 1844': {}, 'Manifeste du parti communiste': {}, 'Salaires, prix, profits': {}, 'Le XVIII brumaire': {} };
 
 function lastmod(file) {
   try {
@@ -395,6 +431,7 @@ const PIED_PAGES = [
   'oeuvres/manifeste.html',
   'oeuvres/contribution-1859.html',
   'oeuvres/salaire-prix-profit.html',
+  'oeuvres/18-brumaire.html',
   'oeuvres/place-publique.html',
   'oeuvres/carnet.html',
   'oeuvres/messages.html',
@@ -818,6 +855,25 @@ function identite(nom) {
     brut.push({ nom: c.t, legende: c.def || '', formule: '', de: c.de || '',
                 oeuvre: 'Salaires, prix, profits', groupe: SP_SECTIONS.get(c.g), chaps: [],
                 url: `/oeuvres/salaire-prix-profit#partie=${c.g}` });
+  }
+
+  /* GLOSS_BR — la CINQUIEME source. Meme motif que GLOSS_MF et GLOSS_SP :
+     `g` dit le CHAPITRE, et c'est lui que la provenance affiche et vers
+     lequel elle mene. Quatre des douze entrees portent le titre d'une fiche
+     existante : elles n'en creent pas une seconde, elles lui ajoutent une
+     provenance. Les huit autres sont d'analyse politique, et aucune autre
+     oeuvre du corpus ne les pose. */
+  const brSrc = readFileSync('oeuvres/18-brumaire.html', 'utf8');
+  const BR_CHAPS = new Map();
+  for (const c of litteralJS(brSrc, 'BR_STRUCT=', '['))
+    BR_CHAPS.set(c.g, c.rn ? `chapitre ${c.rn}` : 'la pr\u00e9face');
+  for (const c of litteralJS(brSrc, 'GLOSS_BR=', '[')) {
+    if (!c.t) throw new Error(`18-brumaire.html : une entrée de GLOSS_BR n'a pas de titre (t) — ${JSON.stringify(c.s)}`);
+    if (!BR_CHAPS.has(c.g)) throw new Error(
+      `GLOSS_BR « ${c.t} » : g=${JSON.stringify(c.g)} ne correspond à aucun chapitre de BR_STRUCT.`);
+    brut.push({ nom: c.t, legende: c.def || '', formule: '', de: c.de || '',
+                oeuvre: 'Le XVIII brumaire', groupe: BR_CHAPS.get(c.g), chaps: [],
+                url: `/oeuvres/18-brumaire#partie=${c.g}` });
   }
 
   /* Une clé du lexique qui ne correspond à AUCUNE fiche est une erreur, pas
@@ -1329,7 +1385,7 @@ ${monde}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=17"></script>
+<script src="/oeuvres/shell.js?v=18"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 ${aScene ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-driver.js')}" defer></script>` : ''}
@@ -1490,7 +1546,7 @@ ${voisines.map((v) => `      <a href="${v.href}">${v.nom}</a>`).join('\n')}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=17"></script>
+<script src="/oeuvres/shell.js?v=18"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 </body>
@@ -1726,7 +1782,7 @@ ${marge}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=17"></script>
+<script src="/oeuvres/shell.js?v=18"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Le Capital', tabs: [] });</script>
 </body>
@@ -1791,7 +1847,7 @@ ${o.ld}
 </head>`;
   const piedCm = (workTitle) => `${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=17"></script>
+<script src="/oeuvres/shell.js?v=18"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: '${workTitle}', tabs: [] });</script>
 <script src="/commentaires/agregation.js?v=${hashV('commentaires/agregation.js')}" defer></script>
@@ -2084,7 +2140,8 @@ ${piedCm('Agrégation 2027')}`;
     if (!check) console.log(`  ressources : ${w.shortTitle} — ${cartes.length} cartes indexées`);
   }
   ['capital-1', 'manuscrits-1844', 'manifeste-parti-communiste',
-    'contribution-critique-economie-politique', 'salaire-prix-profit'].forEach(ressourcesDe);
+    'contribution-critique-economie-politique', 'salaire-prix-profit',
+    'dix-huit-brumaire'].forEach(ressourcesDe);
 
   /* L'index des essais — glossaire, chapitres expliqués, commentaires et
    * page-carrefour (mission `recherche-chapitres`) : un fichier à part, chargé à la demande par la
@@ -2137,7 +2194,8 @@ function ccHtml(x, ICONS, h) {
 for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
                               ['oeuvres/manuscrits-1844.html', 'Manuscrits de 1844'],
                               ['oeuvres/manifeste.html', 'Manifeste du parti communiste'],
-                              ['oeuvres/salaire-prix-profit.html', 'Salaires, prix, profits']]) {
+                              ['oeuvres/salaire-prix-profit.html', 'Salaires, prix, profits'],
+                              ['oeuvres/18-brumaire.html', 'Le XVIII brumaire']]) {
   let src = readFileSync(file, 'utf8');
   const liens = LIENS_FICHES[oeuvre];
 
@@ -2170,15 +2228,19 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
         : CONCEPTS[id].map((x) => ccHtml(x, ICONS, (liens[x.t] || {}).h || '')).join('');
       src = entreMarqueurs(src, deb, fin, html, file);
     }
-  } else if (oeuvre === 'Manifeste du parti communiste' || oeuvre === 'Salaires, prix, profits') {
+  } else if (oeuvre === 'Manifeste du parti communiste' || oeuvre === 'Salaires, prix, profits'
+             || oeuvre === 'Le XVIII brumaire') {
     /* Ni cartes ni carte de concepts : leurs notions vivent dans l'infobulle
        de la liseuse et dans la marge, toutes deux peuplées par le script. La
        ligne servie, au pied du cheminement, est ce qu'un crawler en voit. On
        nomme la NOTION et l'on dédoublonne par l'adresse. */
-    const mf = oeuvre === 'Manifeste du parti communiste';
-    const balise = mf ? 'NOTIONS-MF' : 'NOTIONS-SP';
+    const balise = { 'Manifeste du parti communiste': 'NOTIONS-MF',
+                     'Salaires, prix, profits': 'NOTIONS-SP',
+                     'Le XVIII brumaire': 'NOTIONS-BR' }[oeuvre];
     /* L'article vit dans la chaîne : « du Manifeste », « de Salaires ». */
-    const titre = mf ? 'du <i>Manifeste</i>' : 'de <i>Salaires, prix, profits</i>';
+    const titre = { 'Manifeste du parti communiste': 'du <i>Manifeste</i>',
+                    'Salaires, prix, profits': 'de <i>Salaires, prix, profits</i>',
+                    'Le XVIII brumaire': 'du <i>XVIII brumaire</i>' }[oeuvre];
     const vus = new Set(), items = [];
     for (const n of Object.keys(liens)) if (!vus.has(liens[n].h)) { vus.add(liens[n].h); items.push(liens[n]); }
     const lien = (e) => `<a href="${e.h}">${e.n}</a>`;
@@ -2282,6 +2344,21 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
     items.push({ t: strip(lab), s: 'Le laboratoire · Manuscrits de 1844', cat: 'outil', url: `/oeuvres/manuscrits-1844#labo=${id}`, hay: 'instrument laboratoire manipuler' });
   for (const [id, lab] of Object.entries(litteralJS(manSrc, 'EXPLO_LABELS=', '{')))
     items.push({ t: strip(lab), s: 'Les explorations · Manuscrits de 1844', cat: 'outil', url: `/oeuvres/manuscrits-1844#explore=${id}`, hay: 'exploration pièce' });
+
+  /* Le XVIII brumaire : la préface et les sept chapitres, lus dans BR_STRUCT.
+     ⚠️ Les intitulés sont ÉCRITS PAR LE SITE — Marx ne titre pas ses
+     chapitres, la source n'imprime qu'un chiffre romain. La sur-ligne dit
+     donc le numéro, qui est le seul repère de l'auteur. */
+  const brSearch = readFileSync('oeuvres/18-brumaire.html', 'utf8');
+  for (const p of litteralJS(brSearch, 'BR_STRUCT=', '['))
+    items.push({ t: strip(p.t), s: `Le XVIII brumaire${p.rn ? ' · chapitre ' + p.rn : ''}`,
+      cat: 'partie', url: `/oeuvres/18-brumaire#partie=${p.g}`, hay: court(p.s, 400) });
+  for (const [t, url, hay] of [
+    ['Le cheminement du XVIII brumaire', '/oeuvres/18-brumaire#deriv', 'marches méthode conditions données superstructure ligne descendante État parcelle'],
+    ['Qui parle pour qui', '/oeuvres/18-brumaire#labo', 'parti de l’ordre légitimistes orléanistes National Montagne société du 10 décembre paysans parcellaires prolétariat base sociale'],
+    ['Ce que le XVIII brumaire a ouvert', '/oeuvres/18-brumaire#apres', 'bonapartisme césarisme autonomie de l’État contresens histoire se répète tragédie farce'],
+    ['La chronologie du XVIII brumaire', '/oeuvres/18-brumaire#chrono', 'février 1848 journées de juin 10 décembre 13 juin 1849 31 mai 1850 2 décembre 1851 Die Revolution Weydemeyer 1885 Engels 1900 Remy']
+  ]) items.push({ t, s: 'Le dossier · Le XVIII brumaire', cat: 'outil', url, hay });
 
   /* Le Manifeste : ses parties, lues dans le plan de la page (MF_STRUCT),
      qui est aussi la source du sommaire et de la marge. `g` est le numéro
@@ -2411,7 +2488,11 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
     'salaire-prix-profit': wikiPages(
       'oeuvres/salaire-prix-profit.html', 'SP_STRUCT=',
       'Salaires, prix, profits', '/oeuvres/salaire-prix-profit', 15,
-      p => p.rn ? 'Section ' + p.rn : '')
+      p => p.rn ? 'Section ' + p.rn : ''),
+    'dix-huit-brumaire': wikiPages(
+      'oeuvres/18-brumaire.html', 'BR_STRUCT=',
+      'Le XVIII brumaire', '/oeuvres/18-brumaire', 8,
+      p => p.rn ? 'Chapitre ' + p.rn : '')
   };
   if (texte['capital-1'].sections.length !== 8)
     throw new Error(`ROY_STRUCT rend ${texte['capital-1'].sections.length} sections — le Livre I en a huit.`);

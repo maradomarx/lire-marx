@@ -23,7 +23,7 @@
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="fonts/fonts.css?v=2">
-<link rel="stylesheet" href="atelier.css?v=17">
+<link rel="stylesheet" href="atelier.css?v=18">
 <link rel="stylesheet" href="shell.css?v=12">
 <link rel="stylesheet" href="reader-tools.css">
 <style>
@@ -136,13 +136,8 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
 .soc-node dd:last-of-type{margin-bottom:0;}
 .soc-go{margin:20px 0 0;}
 @media(max-width:820px){.soc{grid-template-columns:1fr;}.soc-detail{position:static;}}
-/* La ligne servie qui mène aux pages de notion (dérivée par gen-seo) :
-   mêmes valeurs que .carte-sortie des Manuscrits. Liens EN LIGNE dans une
-   phrase — WCAG 2.5.8 les exempte de la taille de cible. */
-.carte-sortie{margin:22px 0 0;font-family:var(--f-ui);font-size:.82rem;line-height:1.7;color:var(--muted);}
-.carte-sortie a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--line-strong);
-  text-underline-offset:3px;transition:color .16s,text-decoration-color .16s;}
-.carte-sortie a:hover,.carte-sortie a:focus-visible{color:var(--gold);text-decoration-color:var(--gold);}
+/* .carte-sortie — la ligne servie des notions — vit dans atelier.css :
+   quatre ateliers l'emploient. */
 </style>
 <!-- Book : DÉRIVÉ de oeuvres/bibliotheque.json par tools/gen-seo.mjs.
      Ne pas éditer à la main — corriger la source, puis regénérer :
@@ -472,6 +467,7 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
         <li><a href="/oeuvres/contribution-1859">Contribution à la critique de l'économie politique</a></li>
         <li><a href="/oeuvres/manuscrits-1844">Manuscrits de 1844</a></li>
         <li><a href="/oeuvres/manifeste">Manifeste du parti communiste</a></li>
+        <li><a href="/oeuvres/18-brumaire">Le XVIII brumaire de Louis Bonaparte</a></li>
         <li><a href="/oeuvres/salaire-prix-profit">Salaires, prix, profits</a></li>
         <li><a href="/oeuvres/bibliotheque">Toute la bibliothèque</a></li>
         </ul>
@@ -999,7 +995,7 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
 })();
 </script>
 <script src="../config.js"></script>
-<script src="shell.js?v=17"></script>
+<script src="shell.js?v=18"></script>
 <script src="shell-social.js"></script>
 <script src="shell-annotations.js?v=3"></script>
 <script src="shell-progress.js"></script>

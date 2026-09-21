@@ -32,9 +32,10 @@ oeuvres/<id>/textes/           # textes locaux servis à la liseuse
 Les œuvres sont **de même niveau** dans l'arborescence. Aucune n'est « la »
 page principale. Actuellement disponibles : `capital-1`, `manuscrits-1844`,
 `manifeste-parti-communiste` (page `oeuvres/manifeste.html`),
-`contribution-critique-economie-politique` (page `oeuvres/contribution-1859.html`)
-et `salaire-prix-profit` — **le `path` de bibliotheque.json fait foi, pas
-l’id**, et les cinq ateliers le rappellent.
+`contribution-critique-economie-politique` (page `oeuvres/contribution-1859.html`),
+`salaire-prix-profit` et `dix-huit-brumaire` (page `oeuvres/18-brumaire.html`)
+— **le `path` de bibliotheque.json fait foi, pas l’id**, et les six ateliers
+le rappellent.
 
 L'accueil du site est `oeuvres/index.html` (la bibliothèque), pilotée par
 `oeuvres/bibliotheque.json` — **source centrale unique** de la liste des
@@ -10691,6 +10692,183 @@ mesuré **à commande identique dans les deux états** : aucun constat de plus,
 0 erreur, et **un advisory de moins** — deux tirets cadratins de mes
 définitions retirés, ce qui a fait retomber `index.html` sous le seuil de
 saturation. `gen-seo --check` à jour et **idempotent**.
+
+## Le XVIII brumaire entre au corpus (mission `dix-huit-brumaire`, sept. 2026)
+
+Sixième œuvre servie, et la première du groupe « interventions ». Elle apporte
+un registre que le corpus n’avait pas du tout : **l’analyse politique
+concrète** — l’État, les partis, les classes en action — là où les cinq autres
+sont d’économie ou de philosophie. Un lecteur qui sortait du *Capital* et
+voulait voir Marx analyser une situation réelle n’avait rien.
+
+- **Le texte** : traduction **Léon Remy**, telle que Wikisource la sert, parue
+  en 1900 chez **Schleicher frères** dans un volume qui contient aussi *La
+  Lutte des classes en France*. Domaine public : Léon Rémy est mort en **1910**
+  (Wikidata Q18197824, vérifié). La page de titre servie imprime « Traduit de
+  l’allemand par Léon REMY » — c’est cette graphie, sans accent, que le site
+  reprend.
+- **Huit sections** : la préface de l’auteur et les sept chapitres, chacun une
+  sous-page de Wikisource, donc une section d’annotation à part (`#s=<g>`).
+  40 000 mots.
+- Page `oeuvres/18-brumaire.html` → `/oeuvres/18-brumaire` (le `path` de
+  `bibliotheque.json` faisait déjà foi). Deux destinations d’emblée : le texte
+  ET le dossier.
+
+### ⚠️ MARX NE TITRE PAS SES CHAPITRES — et la page le dit
+
+La source n’imprime qu’un **chiffre romain** en tête de chaque chapitre. Les
+intitulés du sommaire, du bandeau et de la marge (« La tragédie et la farce »,
+« La ligne descendante », « La machine d’État et la parcelle »…) sont donc
+**écrits par ce site**, et la notice de source sous chaque chapitre l’écrit en
+toutes lettres : « Marx ne donne pas de titre à ses chapitres : celui-ci est de
+*Lire Marx*. » Un sommaire de « I, II, III… » n’aurait servi personne ; un
+titre attribué à Marx aurait été un faux. Le même scrupule vaut pour le
+manifeste de l’œuvre.
+
+### Le nettoyage est PLUS SIMPLE ici, et il ne faut pas recopier celui d’à côté
+
+Wikisource compose ici de **vrais titres** — un `<h2>` pour la préface, un
+`<h3>` qui ne porte que le chiffre romain pour chaque chapitre. Le `clean()` de
+cette page n’a donc rien à deviner parmi les blocs centrés, et compare une
+**égalité** de titres normalisés (`d`), non une inclusion : `d` vaut « i » pour
+le premier chapitre, et une inclusion aurait retiré n’importe quel titre
+contenant cette lettre.
+
+**C’est une chance, et elle se mesure** : le seul bloc centré du livre — « Hic
+Rhodus, hic salta ! », au chapitre premier — est **en italique**, et la règle de
+Salaires (« un titre de 1912 est composé en gras ou en italique ») en aurait
+fait un titre. Les blocs centrés sont ici du CONTENU (`.br-centre`), y compris
+le « FIN » de l’imprimeur au bout du chapitre VII. **Ne jamais recopier une
+règle de nettoyage d’une page à l’autre sans avoir regardé la source.**
+
+### Le dossier — cinq salles, et l’instrument est propre à ce livre
+
+| salle | nature | ce qu’elle fait |
+|---|---|---|
+| I `#deriv` — Le cheminement | à lire | huit marches, d’un fait que personne n’explique à un État qui repose sur un sac de pommes de terre |
+| II `#labo` — **Qui parle pour qui** | à manipuler | six forces politiques : ce qu’elle dit d’elle-même, ce que Marx montre, ce qu’il en résulte |
+| III `#apres` — Ce que le livre a ouvert | à parcourir | trois acquis, quatre contresens, où l’argument se poursuit |
+| IV `#chrono` — La chronologie | à parcourir | les dates que Marx retient lui-même, l’écriture, les éditions |
+| V `#ressources` | à consulter | cinq liens vérifiés par leur CONTENU |
+
+**L’instrument est l’apport propre de cette œuvre.** Le livre rapporte chaque
+parti à sa base sociale : le parti de l’ordre (deux espèces de propriété), les
+républicains du *National* (une coterie sans base), la Montagne, la société du
+10 décembre, les paysans parcellaires, le prolétariat parisien. C’est ce que
+personne d’autre du corpus ne permet de montrer, et c’est ce qu’un étudiant
+vient chercher. La salle III dit que **« bonapartisme » n’est pas un mot du
+livre** — zéro occurrence, mesuré — et que Marx y refuse expressément
+*césarisme*.
+
+**Les citations sont extraites PAR SCRIPT**, jamais recopiées : les six
+blockquotes de l’instrument et les quatorze `data-q` des renvois viennent de
+tranches relevées dans le texte servi.
+
+### Le glossaire : douze entrées, dont huit neuves
+
+`GLOSS_BR` est la **cinquième source de l’abécédaire**, après les deux
+`CONCEPTS`, `GLOSS_MF` et `GLOSS_SP`. Quatre entrées portent le titre d’une
+fiche existante et lui ajoutent une provenance (Lutte des classes, Prolétariat,
+Bourgeoisie, Pouvoir politique) ; **huit sont neuves et d’analyse politique** :
+le parti de l’ordre, la ligne descendante, la superstructure, le crétinisme
+parlementaire, la société du 10 décembre, le pouvoir exécutif, les paysans
+parcellaires, les idées napoléoniennes. L’abécédaire passe de **84 à 92
+notions**.
+
+Deux entrées ont été ÉCARTÉES faute de forme dans le texte servi, et c’est la
+règle qui interdit une provenance de complaisance : **« Lumpenprolétariat »**
+n’existe que dans une note du traducteur, et les notes ne sont pas servies (le
+corps du texte dit « la Bohême » et « canaille ») ; **« Idées dominantes »**
+n’y a aucune occurrence.
+
+### ⚠️ DEUX CHEMINS, DEUX RÈGLES DE COMPARAISON — et c’est ce qui a failli tromper
+
+Wikisource conserve les **retours à la ligne de la transcription page à
+page** : le texte servi dit « Ils ne peuvent\nse représenter eux-mêmes ».
+Deux mécanismes cherchent une citation, et ils ne comparent pas pareil :
+
+- **`jumpToQuote`** (les renvois du dossier) normalise les blancs des deux
+  côtés et travaille sur 40 caractères : un `data-q` écrit à plat fonctionne.
+- **`locate()`** (les annotations, `#s=&q=`) fait un `indexOf` **exact** : une
+  citation à plat n’y serait jamais trouvée. Ce n’est pas un défaut — une vraie
+  sélection de lecteur produit la tranche du DOM, retours à la ligne compris.
+
+Le contrôle du dépôt reproduit donc le chemin réel : `verif-citations.mjs`
+gagne `dumpBrumaire()` (huit sous-pages, blocs de texte seulement, comme le
+Manifeste) et vérifie les renvois de la page **après normalisation**, là où un
+`data-q` d’essai reste comparé à la lettre. Vérifié : 14 renvois, 0 introuvable.
+**Une sonde qui compare à plat un texte qui ne l’est pas rend des faux échecs
+(10 sur 14 au premier jet).**
+
+### Deux défauts ANTÉRIEURS trouvés par la mesure
+
+1. **`.carte-sortie` n’existait dans aucune feuille partagée**, et **Salaires,
+   prix, profits servait ses huit liens de notion en BLEU SOULIGNÉ, à 2,01:1**,
+   depuis sa mise en ligne. Le Manifeste et les Manuscrits avaient chacun leur
+   copie de la règle ; la page neuve, rien. C’est le défaut déjà payé sur
+   `.lk`, sur `.rd-chip` et sur les douze liens de l’abécédaire : **changer le
+   TYPE d’un élément change ce que l’agent utilisateur lui applique — vérifier
+   `color` ET `text-decoration`.** La règle est montée dans `atelier.css`, le
+   système de record, et la duplication du Manifeste a été retirée.
+2. **`#partie=` ne ramenait pas à la liseuse.** Reçu alors que le dossier est
+   ouvert — ce qui arrive dès qu’on clique un résultat de recherche sans
+   quitter la page —, le hash chargeait bien le chapitre, mais derrière le
+   dossier : le lecteur ne voyait rien changer. Corrigé sur cette page ; **les
+   quatre autres ateliers ont le même défaut**, et c’est une correction d’une
+   ligne à porter.
+
+### Vérifié
+
+Dans le **vrai Chrome**, contre un serveur qui imite Cloudflare (URL propres,
+fichier avant dossier, 308) — et le port a d’abord été pris par un serveur
+d’une autre session, dont les réponses passaient pour les miennes : le piège
+déjà documenté.
+
+Les **huit sections** chargées une à une : un seul `h2`, zéro résidu Wikisource,
+zéro `[style]`, comptes de mots conformes. Sommaire à huit entrées avec les
+chiffres romains, marge, reprise, progression, plein écran, tiroir sur les deux
+espèces de nœud (emprunt, `aria-modal`, Échap, retour à la place exacte).
+Deep-links `#partie=`, `#labo=`, `#deriv=`, les cinq salles. **Les douze formes
+du glossaire surlignées** au moins une fois, relevées chapitre par chapitre,
+réglage « Mots du glossaire » activé pour de vrai. **Le contrat d’annotation de
+bout en bout** : `notesFor`, `statsFor`, la marge, le surlignage posé
+(`mark.anno`), et le carnet qui montre le cahier, la citation, la note et son
+lien `#s=8&q=` sans `.html`.
+
+Contraste sur le rendu : **0 échec** sur sept états (114 à 155 mesures),
+minimum **5,12**, aucun texte sous 11 px, aucune cible sous 24 × 24, **zéro
+débordement horizontal** à 1380 comme à 375 px. Détecteur statique compté
+**avant et après en remisant** : les cinq fichiers existants **identiques**
+(atelier.css 41, manifeste 14, salaire 17, index 26, a-propos 5), la page neuve
+**17 constats, 0 erreur** — toutes familles documentées, dont
+l’`undersized-ui-text` à 7,04 px qui est le faux positif `clamp()` habituel
+(mesuré au rendu : **21,12 px** à 1380, 14,08 à 375) et les `cramped-padding`
+de `.relv` (conteneur à 0, colonnes à 26/18 px).
+
+Les **quinze pages** qui montent la coquille : console propre, pied de page à
+quatorze liens, zéro débordement. Recherche éprouvée de bout en bout —
+structure (« La ligne descendante » → chapitre III et notion), plein texte
+(« cauchemar », « Hégel remarque ») avec la sur-ligne « Chapitre I », et le
+clic qui dépose sur la phrase (`#s=2&q=cauchemar`, défilement à 687 px).
+L’entrelacement passe désormais sur **six** œuvres. Registre de la
+bibliothèque : **pré-rendu et rendu JS identiques** (15 844 caractères).
+Catalogue de l’accueil : six cartes, triées par année décroissante, images
+servies. `gen-seo --check` à jour et **idempotent** ; `verif-citations` complet :
+283 citations, **0 introuvable**. **`atelier.css?v=18`** (dix pages) et
+**`shell.js?v=18`** (99 pages + les gabarits) — la règle : un actif mis en cache
+qui change avec un balisage change d’URL.
+
+### Ce qui reste pour cette œuvre
+
+- **Le glossaire n’a pas de page-monde** : les huit notions neuves vivent dans
+  l’abécédaire. « Les paysans parcellaires » et « Le pouvoir exécutif » sont les
+  deux qui porteraient le mieux une page — la première a une figure évidente
+  (le sac de pommes de terre), la seconde est le concept le plus discuté du
+  livre.
+- **Le `#partie=` des quatre autres ateliers** : même correction d’une ligne.
+- *La Lutte des classes en France*, même traducteur et même volume de 1900,
+  est **libre et absente du corpus** : c’est le pendant direct de ce livre, et
+  elle s’ajouterait sans nouvelle mécanique.
 
 ## Conventions de travail
 

@@ -969,7 +969,8 @@
         var re = motif(nq);
         Promise.all([chercheCapital(q, nq, re), chercheManuscrits(q, nq, re), chercheEssais(q, nq, re), chercheManifeste(q, nq, re), chercheRessources(q, nq, re),
           chercheSousPages('contribution-critique-economie-politique', q, nq, re),
-          chercheSousPages('salaire-prix-profit', q, nq, re)])
+          chercheSousPages('salaire-prix-profit', q, nq, re),
+          chercheSousPages('dix-huit-brumaire', q, nq, re)])
           .then(function(r){
             if(renderSeq !== seq) return;
             /* ON ENTRELACE LES ŒUVRES. Mises bout à bout, les sections du
@@ -977,8 +978,8 @@
                les Manuscrits n'apparaissaient jamais : « aliénation » rendait
                quatre passages du Capital et pas un des cahiers de 1844, où le
                mot est le sujet. Le tour passe d'une œuvre à l'autre — les
-               CINQ, depuis que Salaires, prix, profits y entre. */
-            var src = [r[0], r[1], r[3], r[5], r[6]], texte = [], i = 0;
+               SIX, depuis que le XVIII brumaire y entre. */
+            var src = [r[0], r[1], r[3], r[5], r[6], r[7]], texte = [], i = 0;
             while(texte.length < TXT_MAX && src.some(function(s){ return i < s.length; })){
               src.forEach(function(s){ if(i < s.length && texte.length < TXT_MAX) texte.push(s[i]); });
               i++;
