@@ -261,6 +261,8 @@ const SITE_PAGES = [
      C'est l'autre moitié de la règle du slash rappelée juste au-dessus :
      un dossier prend son slash, un fichier n'en prend pas. */
   { file: 'a-propos.html',             url: '/a-propos',               priority: '0.6', changefreq: 'yearly' },
+  /* /karl-marx — la page-pilier sur l'homme : page-FICHIER, sans slash. */
+  { file: 'karl-marx.html',            url: '/karl-marx',              priority: '0.9', changefreq: 'monthly' },
   /* /mentions-legales — page-FICHIER elle aussi. Priorité basse : ce n'est
      pas une page qu'on cherche, mais elle doit rester trouvable. */
   { file: 'mentions-legales.html',     url: '/mentions-legales',       priority: '0.3', changefreq: 'yearly' }
@@ -423,6 +425,7 @@ const PIED_FIN = '<!-- PIED:FIN -->';
    doit pas dépendre de ce qu'on n'a pas réussi à servir. */
 const PIED_PAGES = [
   'index.html',
+  'karl-marx.html',
   'a-propos.html',
   'mentions-legales.html',
   'oeuvres/bibliotheque.html',
@@ -463,6 +466,7 @@ ${lien('/oeuvres/bibliotheque', 'Toute la bibliothèque')}
       <div class="lm-foot-col">
         <p class="lm-foot-h">Comprendre</p>
         <ul>
+${lien('/karl-marx', 'Qui était Karl Marx')}
 ${lien('/glossaire/', 'L’abécédaire de Marx')}
 ${lien('/jeu/', 'Le circuit du capital')}
 ${lien('/agregation-2027', 'Marx à l’agrégation 2027')}
@@ -663,7 +667,7 @@ function texteNu(html) {
 
 function questionsDe(src) {
   const i = src.indexOf('id="questions"');
-  if (i < 0) throw new Error('Section #questions introuvable dans index.html.');
+  if (i < 0) throw new Error('Section #questions introuvable.');
   const fin = src.indexOf('</section>', i);
   const zone = src.slice(i, fin);
   const out = [];
@@ -680,8 +684,9 @@ function questionsDe(src) {
   return out;
 }
 
-{
-  const file = 'index.html';
+/* Le même balisage vit sur l'accueil ET sur /karl-marx : la dérivation
+ * vaut pour les deux, et `--check` surveille les deux. */
+for (const file of ['index.html', 'karl-marx.html']) {
   const src = readFileSync(file, 'utf8');
   const json = JSON.stringify(
     { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: questionsDe(src) },
@@ -691,7 +696,7 @@ function questionsDe(src) {
    * balise ouvrante par index — pas de motif qui puisse courir au-delà, le
    * piège qui avait mangé 779 lignes de capital-1.html. */
   const k = src.indexOf('"@type": "FAQPage"');
-  if (k < 0) throw new Error('Bloc FAQPage introuvable dans index.html.');
+  if (k < 0) throw new Error('Bloc FAQPage introuvable dans ' + file + '.');
   const deb = src.lastIndexOf(OPEN, k);
   const f   = src.indexOf(CLOSE, k);
   if (deb < 0 || f < 0) throw new Error('Bloc FAQPage mal délimité.');
@@ -1385,7 +1390,7 @@ ${monde}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=18"></script>
+<script src="/oeuvres/shell.js?v=19"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 ${aScene ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-driver.js')}" defer></script>` : ''}
@@ -1546,7 +1551,7 @@ ${voisines.map((v) => `      <a href="${v.href}">${v.nom}</a>`).join('\n')}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=18"></script>
+<script src="/oeuvres/shell.js?v=19"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 </body>
@@ -1782,7 +1787,7 @@ ${marge}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=18"></script>
+<script src="/oeuvres/shell.js?v=19"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Le Capital', tabs: [] });</script>
 </body>
@@ -1847,7 +1852,7 @@ ${o.ld}
 </head>`;
   const piedCm = (workTitle) => `${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=18"></script>
+<script src="/oeuvres/shell.js?v=19"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: '${workTitle}', tabs: [] });</script>
 <script src="/commentaires/agregation.js?v=${hashV('commentaires/agregation.js')}" defer></script>
@@ -2412,6 +2417,7 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
     ['Le circuit du capital', 'Le jeu de la plus-value', '/jeu/', 'jeu jouer simulation chariot'],
     ['Mon carnet', 'Vos passages et vos notes', '/oeuvres/carnet', 'surlignages annotations notes'],
     ['Messages', 'Vos conversations privées', '/oeuvres/messages', 'messagerie contacts'],
+    ['Karl Marx', 'Sa vie, ses idées, ses livres, par où le lire', '/karl-marx', 'biographie vie exil trèves londres idées principales théorie philosophie livres œuvres commencer'],
     ['À propos', 'Qui tient Lire Marx, et comment', '/a-propos', 'auteur sources méthode contact'],
     ['CGU & confidentialité', 'Mentions légales et règles du site', '/mentions-legales', 'cgu rgpd confidentialité règles'],
     ['Marx à l’agrégation 2027', 'Le programme, le commentaire, l’œuvre', '/agregation-2027', 'agrégation concours programme 2027 épreuve histoire de la philosophie commentaire de texte plotin'],
@@ -2573,6 +2579,83 @@ const entries = [
   writeIfNeeded(f, page, f + ' (sources + JSON-LD)');
 }
 
+/* ------------------------------ /karl-marx ------------------------------ *
+ * La page-pilier sur l'homme. Trois blocs y sont dérivés de bibliotheque.json
+ * — l'œuvre dans l'ordre, les portes d'entrée — et de la page elle-même (le
+ * Person en JSON-LD n'affirme que ce que le corps imprime : dates, lieux,
+ * les œuvres servies). Le FAQPage est dérivé plus haut, avec l'accueil.
+ * ---------------------------------------------------------------------- */
+{
+  const f = 'karl-marx.html';
+  const src = readFileSync(f, 'utf8');
+  const parAnnee = biblio.works.slice().sort((a, b) => (a.year - b.year) || String(a.title).localeCompare(String(b.title), 'fr'));
+  const livres = '\n' + parAnnee.map(w => {
+    const ok = w.status === 'available';
+    const t = ok ? `<a class="km-liv-t" href="${esc(hrefOf(w))}">${esc(w.title)}</a>` : `<span class="km-liv-t">${esc(w.title)}</span>`;
+    const st = ok ? `<span class="km-liv-s ok">Texte intégral et atelier</span>` : `<span class="km-liv-s">En préparation</span>`;
+    return `          <li class="km-liv"><span class="km-liv-y">${esc(String(w.year))}</span><div>${t}${st}</div></li>`;
+  }).join('\n') + '\n        ';
+  const grp = Object.fromEntries((biblio.readingGroups || []).map(g => [g.id, g]));
+  const portes = '\n' + available.filter(w => w.reading && w.reading.entry).map(w => {
+    const g = grp[w.reading.group] || {};
+    return `        <a class="km-porte" href="${esc(hrefOf(w))}">\n` +
+      `          <span class="km-porte-g">${esc(g.label || '')}</span>\n` +
+      `          <span class="km-porte-q">${esc(w.reading.entry)}</span>\n` +
+      `          <span class="km-porte-t"><i>${esc(w.title)}</i> · ${esc(String(w.year))}</span>\n` +
+      `        </a>`;
+  }).join('\n') + '\n      ';
+  const ld = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'ProfilePage',
+        '@id': `${ORIGIN}/karl-marx#page`,
+        url: `${ORIGIN}/karl-marx`,
+        name: 'Karl Marx (1818-1883) : sa vie, ses idées, ses livres, par où le lire',
+        inLanguage: 'fr',
+        isPartOf: { '@id': `${ORIGIN}/#site` },
+        publisher: { '@id': `${ORIGIN}/#organisation` },
+        mainEntity: { '@id': `${ORIGIN}/karl-marx#personne` }
+      },
+      {
+        '@type': 'Person',
+        '@id': `${ORIGIN}/karl-marx#personne`,
+        name: 'Karl Marx',
+        givenName: 'Karl',
+        familyName: 'Marx',
+        birthDate: '1818-05-05',
+        birthPlace: { '@type': 'Place', name: 'Trèves' },
+        deathDate: '1883-03-14',
+        deathPlace: { '@type': 'Place', name: 'Londres' },
+        description: 'Philosophe, journaliste, économiste et révolutionnaire allemand, auteur du Capital et, avec Friedrich Engels, du Manifeste du parti communiste.',
+        image: `${ORIGIN}/assets/img/archive/marx-portrait.png`,
+        sameAs: ['https://www.wikidata.org/wiki/Q9061', 'https://fr.wikipedia.org/wiki/Karl_Marx'],
+        spouse: { '@type': 'Person', name: 'Jenny von Westphalen' },
+        colleague: { '@type': 'Person', name: 'Friedrich Engels', sameAs: 'https://www.wikidata.org/wiki/Q34787' },
+        mainEntityOfPage: { '@id': `${ORIGIN}/karl-marx#page` }
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Lire Marx', item: `${ORIGIN}/` },
+          { '@type': 'ListItem', position: 2, name: 'Karl Marx', item: `${ORIGIN}/karl-marx` }
+        ]
+      }
+    ]
+  };
+  let page = entreMarqueurs(src,
+    '<!-- KARL-MARX:LIVRES:DÉBUT — DÉRIVÉ de bibliotheque.json par tools/gen-seo.mjs, ne pas éditer à la main -->',
+    '<!-- KARL-MARX:LIVRES:FIN -->', `\n        <ol class="km-livs" id="kmLivs">${livres}</ol>\n        `, f);
+  page = entreMarqueurs(page,
+    '<!-- KARL-MARX:PORTES:DÉBUT — DÉRIVÉ de bibliotheque.json par tools/gen-seo.mjs, ne pas éditer à la main -->',
+    '<!-- KARL-MARX:PORTES:FIN -->', `\n      <div class="km-portes" id="kmPortes">${portes}</div>\n      `, f);
+  page = entreMarqueurs(page,
+    '<!-- KARL-MARX:LD:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main -->',
+    '<!-- KARL-MARX:LD:FIN -->',
+    `\n${OPEN}\n${JSON.stringify(ld, null, 2)}\n${CLOSE}\n`, f);
+  writeIfNeeded(f, page, f + ' (livres + portes + JSON-LD)');
+}
+
 /* Le pied de page, écrit entre ses marqueurs dans les neuf pages tenues à la
    main. Les douze pages de notion le reçoivent par leur gabarit, plus bas —
    elles sont entièrement générées, elles n'ont pas besoin de marqueurs. */
@@ -2605,7 +2688,7 @@ if (check) {
     process.exit(1);
   }
   console.log('À jour : ' + [...available.map(w => w.path),
-    'oeuvres/bibliotheque.html (registre)', 'index.html (FAQPage)',
+    'oeuvres/bibliotheque.html (registre)', 'index.html (FAQPage)', 'karl-marx.html (FAQPage)',
     ...PIED_PAGES.map(f => f + ' (pied de page)'),
     'glossaire/index.html', ...PAGES_NOTIONS.map(p => p.file),
     'sitemap.xml'].join(', '));

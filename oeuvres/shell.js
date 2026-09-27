@@ -100,6 +100,10 @@
          que la classe. Mission `atelier-a11y-2`. */
       '<nav class="sidebar" id="sidebar" aria-label="Navigation du site">' +
         '<a class="sb-item" href="/" data-act="home"><span class="sb-dot" style="background:var(--gold)"></span>Accueil</a>' +
+        /* « Karl Marx » — la page-pilier sur l'homme (mission karl-marx) :
+           qui il était, ce qu'il a pensé, ce qu'il a écrit, par où le lire.
+           Juste sous l'accueil : c'est la première question qu'on pose. */
+        '<a class="sb-item" href="/karl-marx" data-act="marx"><span class="sb-dot" style="background:var(--red)"></span>Karl Marx</a>' +
         '<a class="sb-item" href="/oeuvres/bibliotheque" data-act="biblio"><span class="sb-dot" style="background:var(--ink-soft)"></span>Bibliothèque</a>' +
                 /* Le glossaire suit la Bibliothèque : ce sont les deux outils du
            CORPUS, l'un qui dit quelles œuvres existent, l'autre les mots
@@ -282,6 +286,8 @@
     /* La page-carrefour ET les commentaires guidés, qui en dépendent. */
     var agBtn = sb.querySelector('[data-act="agregation"]');
     if(/^\/agregation-2027$/.test(here) || /^\/commentaires\//.test(here)) mark(agBtn);
+    var marxBtn = sb.querySelector('[data-act="marx"]');
+    if(/^\/karl-marx$/.test(here)) mark(marxBtn);
     var aproposBtn = sb.querySelector('[data-act="apropos"]');
     if(/^\/a-propos$/.test(here)) mark(aproposBtn);
     var cguBtn = sb.querySelector('[data-act="cgu"]');
