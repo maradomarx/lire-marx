@@ -210,11 +210,14 @@ html.js:not(.no-motion) .hv.lit .hv-face{animation:km-dev 1.6s cubic-bezier(.16,
    `.tb-stage` la scène collante, pleine hauteur ; `.tb-copy` le texte,
    qui commence DANS la scène (marge négative) et la traverse. */
 .tb-intro{padding-bottom:clamp(24px,4vh,48px);}
+.tb-copy{margin-bottom:0;}
 /* Un tableau doit être PLUS HAUT que sa scène, sinon la course est
    négative et `--q` s'inverse (vécu : l'exil, au texte court, montrait
    Londres dès l'entrée). Le texte, en marge négative, ne compte pas pour
    la hauteur : on impose une hauteur minimale, plus longue pour la carte. */
-.tb{position:relative;--q:0;--rev:1;padding-bottom:clamp(16vh,22vh,240px);min-height:calc((100vh - var(--km-top)) * 1.7);}
+/* pas d'espace entre les tableaux : la scène suivante commence là où la
+   précédente s'arrête, à la manière de la référence */
+.tb{position:relative;--q:0;--rev:1;padding-bottom:0;min-height:calc((100vh - var(--km-top)) * 1.7);}
 #vie-exil{min-height:calc((100vh - var(--km-top)) * 3.2);}
 .tb-stage{position:sticky;top:var(--km-top);height:calc(100vh - var(--km-top));overflow:hidden;
   background:#100c08;}
@@ -445,7 +448,7 @@ html.js-faq .hs-faq-q{color:var(--muted);}
   .hv-year{display:none;}
   .hv-hint{display:none;}
   .hv-rule{bottom:34px;}
-  .tb{padding-bottom:40px;}
+  .tb{padding-bottom:0;}
   .tb-stage{height:min(52vh,460px);border-radius:0 0 16px 16px;}
   .tb-fig--photo{width:100%;}
   .tb-fig--photo::before{background:linear-gradient(180deg,rgba(16,12,8,0) 55%,rgba(16,12,8,.7) 100%);}
