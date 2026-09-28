@@ -252,15 +252,6 @@ html.js:not(.no-motion) .hv.lit .hv-face{animation:km-dev 1.6s cubic-bezier(.16,
 .tb-cap b{display:block;font-weight:600;color:var(--text);letter-spacing:.06em;text-transform:uppercase;font-size:.72rem;margin-bottom:2px;}
 .tb-cap a{color:var(--ink-soft);}
 /* l'année, géante, derrière tout : elle glisse en entrant */
-/* l'année : en haut à droite, AU-DESSUS de l'image, entière — dans le
-   même habit que le compteur du héros (en bas à gauche, en contour, elle
-   passait sous le feuillet et sous le bord de la scène : on n'en voyait
-   que le début). Elle glisse à l'entrée. */
-/* le sommaire collant (44 px) recouvre le haut de la scène : l'année se pose dessous */
-.tb-year{position:absolute;right:clamp(24px,5vw,72px);top:calc(2vh + 54px);z-index:2;margin:0;
-  font-family:'Fraunces',serif;font-weight:900;font-size:clamp(3.6rem,8vw,7.2rem);line-height:1;letter-spacing:-.04em;
-  color:var(--gold);text-shadow:0 2px 24px rgba(0,0,0,.55),0 2px 24px rgba(216,173,76,.18);pointer-events:none;user-select:none;
-  transform:translateX(calc((1 - var(--rev)) * 6vw));opacity:var(--rev);}
 /* le texte : un feuillet translucide qui traverse la scène */
 .tb-copy{position:relative;z-index:2;max-width:540px;
   margin:calc(-100vh + var(--km-top) + 16vh) 0 0 clamp(24px,6vw,96px);
@@ -268,7 +259,12 @@ html.js:not(.no-motion) .hv.lit .hv-face{animation:km-dev 1.6s cubic-bezier(.16,
   background:rgba(21,16,11,.80);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
   border:1px solid var(--border);box-shadow:0 30px 70px -40px rgba(0,0,0,.9);}
 .tb-copy>*{--n:1;opacity:var(--n);transform:translateY(calc((1 - var(--n)) * 10px));}
-.tb-y{display:block;font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:1.02rem;color:var(--gold);letter-spacing:.01em;margin:0 0 6px;}
+/* L'ANNÉE VIT DANS LE FEUILLET, en tête, grande et or — posée sur la scène
+   elle recouvrait tôt ou tard l'image (la maison de Trèves, le Manifeste,
+   Highgate). Ici rien ne peut la recouvrir, et c'est l'habit du compteur du
+   héros. */
+.tb-y{display:flex;align-items:baseline;gap:10px;font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:1.05rem;color:var(--gold);letter-spacing:.01em;margin:0 0 10px;}
+.tb-y b{font-style:normal;font-weight:900;font-size:2.6rem;line-height:1;letter-spacing:-.03em;color:var(--gold);}
 .tb-copy h3{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(1.4rem,2.4vw,1.85rem);letter-spacing:-.025em;line-height:1.12;margin:0 0 14px;color:var(--text);}
 .tb-copy p{font-family:var(--f-serif);font-size:1.02rem;line-height:1.72;color:var(--muted);margin:0 0 14px;}
 .tb-copy p:last-child{margin-bottom:0;}
@@ -455,7 +451,6 @@ html.js-faq .hs-faq-q{color:var(--muted);}
   .tb-fig--doc{right:auto;left:50%;transform:translate(-50%,-50%) scale(calc(.94 + var(--rev) * .06));max-width:70%;}
   .tb-fig--b{width:120px;bottom:52px;}
   .tb-cap{max-width:70%;right:16px;bottom:12px;}
-  .tb-year{font-size:clamp(2.6rem,12vw,4rem);right:14px;top:56px;}
   /* le texte passe SOUS la bande épinglée (z-index inversé), comme sous un
      en-tête fixe : la scène reste visible pendant qu'on lit dessous. Un
      dégradé au pied de la bande adoucit la ligne de coupe. */
@@ -716,14 +711,13 @@ html.no-motion .km-scene{display:none;}
   <!-- 1 · Trèves -->
   <section class="tb" id="vie-treves" aria-labelledby="h-treves">
     <div class="tb-stage">
-      <p class="tb-year" aria-hidden="true">1818</p>
       <figure class="tb-fig tb-fig--photo">
         <img src="/assets/img/marx/treves-maison.webp" width="1600" height="1177" alt="La maison natale de Karl Marx à Trèves, Brückenstraße : une façade baroque à trois étages, volets clairs." loading="lazy">
       </figure>
       <p class="tb-cap"><b>La maison natale, Brückenstraße 10, Trèves</b>Photographie Lutz Hartmann, 2014 · <a href="https://commons.wikimedia.org/wiki/File:Trier_Marx_Haus.jpg" rel="noopener">CC BY-SA 3.0</a></p>
     </div>
     <div class="tb-copy">
-      <span class="tb-y">1818 – 1835</span>
+      <span class="tb-y"><b>1818</b> – 1835</span>
       <h3 id="h-treves">Trèves, une enfance rhénane</h3>
       <p>Karl Marx naît le 5 mai 1818 à Trèves, ville de la Moselle que le congrès de Vienne
       vient de rendre à la Prusse après vingt ans d'administration française. Le détail compte
@@ -741,14 +735,13 @@ html.no-motion .km-scene{display:none;}
   <!-- 2 · Bonn, Berlin -->
   <section class="tb" id="vie-berlin" aria-labelledby="h-berlin">
     <div class="tb-stage">
-      <p class="tb-year" aria-hidden="true">1836</p>
       <figure class="tb-fig tb-fig--doc" style="--ar:.72">
         <img src="/assets/img/archive/marx-jeune.jpg" width="500" height="696" alt="Portrait dessiné de Karl Marx étudiant, vers 1836 : cheveux épais, col d'uniforme d'étudiant." loading="lazy">
       </figure>
       <p class="tb-cap"><b>Marx étudiant, vers 1836</b>Dessin d'après nature · domaine public</p>
     </div>
     <div class="tb-copy">
-      <span class="tb-y">1835 – 1841</span>
+      <span class="tb-y"><b>1835</b> – 1841</span>
       <h3 id="h-berlin">Bonn, puis Berlin : la philosophie contre le droit</h3>
       <p>Il commence le droit à Bonn à l'automne 1835 ; son père, inquiet de ses dépenses et de
       ses duels, le fait passer l'année suivante à Berlin, où le droit cède vite à la
@@ -766,11 +759,10 @@ html.no-motion .km-scene{display:none;}
   <!-- 3 · Cologne, 1842 — le tableau typographique -->
   <section class="tb" id="vie-cologne" aria-labelledby="h-cologne" data-quote>
     <div class="tb-stage">
-      <p class="tb-year" aria-hidden="true">1842</p>
       <blockquote class="tb-quote"><p id="tbQuote">je me trouvai, pour la première fois, dans l'obligation embarrassante de dire mon mot sur les soi-disant intérêts matériels.</p><cite>Marx, préface de 1859 · <a href="/oeuvres/contribution-1859#s=1&amp;q=dire%20mon%20mot%20sur%20les%20soi-disant%20int%C3%A9r%C3%AAts%20mat%C3%A9riels">lire le passage</a></cite></blockquote>
     </div>
     <div class="tb-copy">
-      <span class="tb-y">1842 – 1843</span>
+      <span class="tb-y"><b>1842</b> – 1843</span>
       <h3 id="h-cologne">Cologne : le journal, et les « intérêts matériels »</h3>
       <p>Reste le journalisme. Marx écrit dès le printemps 1842 dans la <i>Rheinische
       Zeitung</i>, journal que la bourgeoisie industrielle rhénane vient de fonder à Cologne,
@@ -789,7 +781,6 @@ html.no-motion .km-scene{display:none;}
   <!-- 4 · Paris -->
   <section class="tb" id="vie-paris" aria-labelledby="h-paris">
     <div class="tb-stage">
-      <p class="tb-year" aria-hidden="true">1844</p>
       <figure class="tb-fig tb-fig--doc" style="--ar:.6">
         <img src="/assets/img/marx/dfj-1844.webp" width="1100" height="1834" alt="Page de titre des Deutsch-Französische Jahrbücher, Paris, 1844, dirigées par Arnold Ruge et Karl Marx." loading="lazy">
       </figure>
@@ -800,7 +791,7 @@ html.no-motion .km-scene{display:none;}
       <p class="tb-cap"><b>Les Annales franco-allemandes, Paris, 1844</b>Page de titre de l'unique livraison · domaine public</p>
     </div>
     <div class="tb-copy">
-      <span class="tb-y">1843 – 1845</span>
+      <span class="tb-y"><b>1843</b> – 1845</span>
       <h3 id="h-paris">Paris : le prolétariat, l'économie, Engels</h3>
       <p>Fin octobre 1843, les Marx s'installent à Paris, où Arnold Ruge veut fonder une revue
       qui unirait la philosophie allemande au socialisme français. Les <i>Annales
@@ -820,7 +811,6 @@ html.no-motion .km-scene{display:none;}
   <!-- 5 · Bruxelles -->
   <section class="tb" id="vie-bruxelles" aria-labelledby="h-bruxelles">
     <div class="tb-stage">
-      <p class="tb-year" aria-hidden="true">1848</p>
       <figure class="tb-fig tb-fig--doc" style="--ar:.563">
         <img src="/assets/img/marx/manifest-1848.webp" width="1100" height="1954" alt="Page de titre du Manifest der Kommunistischen Partei, Londres, février 1848, en caractères gothiques." loading="lazy">
       </figure>
@@ -831,7 +821,7 @@ html.no-motion .km-scene{display:none;}
       <p class="tb-cap"><b>Le Manifeste, Londres, février 1848</b>Page de titre de la première édition, sans nom d'auteur · domaine public</p>
     </div>
     <div class="tb-copy">
-      <span class="tb-y">1845 – 1848</span>
+      <span class="tb-y"><b>1845</b> – 1848</span>
       <h3 id="h-bruxelles">Bruxelles : la méthode, la Ligue, le Manifeste</h3>
       <p>Bruxelles accueille l'exilé à condition qu'il ne publie rien sur la politique du jour.
       Marx y renonce à la nationalité prussienne en décembre 1845 et n'en reprendra jamais
@@ -851,7 +841,6 @@ html.no-motion .km-scene{display:none;}
   <!-- 6 · Cologne, 1848 -->
   <section class="tb" id="vie-cologne-1848" aria-labelledby="h-cologne-1848">
     <div class="tb-stage">
-      <p class="tb-year" aria-hidden="true">1849</p>
       <figure class="tb-fig tb-fig--photo" style="width:100%">
         <img src="/assets/img/marx/perov-nrz.webp" width="1600" height="1122" alt="Marx à la rédaction de la Neue Rheinische Zeitung, tableau de Vassili Perov : Marx debout, un journal à la main, entouré de rédacteurs." loading="lazy">
       </figure>
@@ -861,7 +850,7 @@ html.no-motion .km-scene{display:none;}
       <p class="tb-cap"><b>Le numéro rouge, 19 mai 1849</b>Dernier numéro de la Neue Rheinische Zeitung · domaine public. Fond : Vassili Perov, <i>Marx à la rédaction</i>, avant 1882 · domaine public</p>
     </div>
     <div class="tb-copy">
-      <span class="tb-y">1848 – 1849</span>
+      <span class="tb-y"><b>1848</b> – 1849</span>
       <h3 id="h-cologne-1848">Cologne encore : la révolution, à chaud</h3>
       <p>Il repasse par Paris, où le gouvernement provisoire l'a invité, puis gagne Cologne en
       avril 1848 pour y fonder la <i>Neue Rheinische Zeitung</i>, dont le premier numéro paraît
@@ -882,7 +871,7 @@ html.no-motion .km-scene{display:none;}
       <p class="tb-cap"><b>La route de l'exil, 1843-1849</b>Carte dessinée pour cette page ; côtes et fleuves d'après <a href="https://www.naturalearthdata.com/" rel="noopener">Natural Earth</a> (domaine public). Elle se trace à mesure qu'on lit.</p>
     </div>
     <div class="tb-copy">
-      <span class="tb-y">1845 · 1848 · 1849</span>
+      <span class="tb-y"><b>1845</b> · 1848 · 1849</span>
       <h3 id="h-exil">Trois expulsions en quatre ans</h3>
       <p>Chassé de Paris par Guizot en janvier 1845, de Bruxelles par la police belge en mars
       1848, de Cologne par la Prusse en mai 1849, puis relégué hors de Paris à l'été : en quatre
@@ -898,7 +887,6 @@ html.no-motion .km-scene{display:none;}
   <!-- 8 · Londres — la séquence -->
   <section class="tb" id="vie-londres" aria-labelledby="h-londres" data-seq>
     <div class="tb-stage">
-      <p class="tb-year" aria-hidden="true">1867</p>
       <div class="tb-seq" id="tbSeq">
         <img src="/assets/img/marx/marx-1861.webp" width="1000" height="1564" alt="Karl Marx en mai 1861, debout, la main sur une chaise, photographie de Richard Beard." loading="lazy">
         <img src="/assets/img/marx/dean-street.webp" width="1100" height="1467" alt="Le 28 Dean Street, à Soho, où la famille Marx vécut de 1851 à 1856 ; une plaque le rappelle." loading="lazy">
@@ -910,7 +898,7 @@ html.no-motion .km-scene{display:none;}
       <p class="tb-cap" id="tbSeqCap"><span class="on"><b>Marx à 43 ans, mai 1861</b>Photographie de Richard Beard, Londres · domaine public</span><span><b>28 Dean Street, Soho</b>Deux pièces, de 1851 à 1856 · photographie Spudgun67, 2015 · <a href="https://commons.wikimedia.org/wiki/File:Karl_Marx_-_28_Dean_Street_Soho_London_W1D_3RY.jpg" rel="noopener">CC BY-SA 4.0</a></span><span><b>Marx à Margate, mars 1866</b>The London Photographic Company · domaine public</span><span><b>Das Kapital, Hambourg, 1867</b>Page de titre de la première édition · Zentralbibliothek Zürich · domaine public</span><span><b>Avec sa fille Jenny, 1869</b>Photographie · domaine public</span><span><b>La première tombe, Highgate</b>Photographie Pierre-Yves Beaudouin, 2016 · <a href="https://commons.wikimedia.org/wiki/File:Highgate_Cemetery_-_East_-_Marx_(first_grave)_01.jpg" rel="noopener">CC BY-SA 4.0</a></span></p>
     </div>
     <div class="tb-copy">
-      <span class="tb-y">1849 – 1883</span>
+      <span class="tb-y"><b>1849</b> – 1883</span>
       <h3 id="h-londres">Londres : la misère, le British Museum, <i>Le Capital</i></h3>
       <p>Marx arrive à Londres le 27 août 1849 ; il y restera trente-quatre ans, jusqu'à sa
       mort. Les premières années sont celles de la misère : la famille loge à Soho, dans deux
@@ -1409,9 +1397,6 @@ html.no-motion .km-scene{display:none;}
         var k = seqOpacity(imgs, ease(q) * (imgs.length - 1));
         var caps = [].slice.call(sec.querySelectorAll('.tb-cap > span'));
         caps.forEach(function (s, i) { s.classList.toggle('on', i === k); });
-        var yr = sec.querySelector('.tb-year');
-        var yrs = ['1861', '1851', '1866', '1867', '1869', '1883'];
-        if (yr && yr.textContent !== yrs[k]) yr.textContent = yrs[k];
       }
       if (sec.hasAttribute('data-quote')) {
         var ws = sec.querySelectorAll('.tb-quote .rw'), n = ws.length;
