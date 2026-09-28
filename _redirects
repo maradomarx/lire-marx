@@ -5,3 +5,8 @@
 # de notion étaient neuves — c'est le moment le moins cher. La redirection
 # reste : une URL publiée ne meurt pas.
 /glossaire/valeur-d-usage-vs-valeur /glossaire/valeur-d-usage-et-valeur 301
+# « Place publique » s'appelle « Forum » depuis septembre 2026, adresse
+# comprise. Les liens déjà publiés (et leurs #d= / #u=, que le navigateur
+# garde à travers la redirection) doivent continuer de mener au forum.
+/oeuvres/place-publique /oeuvres/forum 301
+/oeuvres/place-publique.html /oeuvres/forum 301

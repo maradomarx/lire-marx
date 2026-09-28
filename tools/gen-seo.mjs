@@ -242,7 +242,7 @@ const EDITION = {
 const SITE_PAGES = [
   { file: 'index.html',                 url: '/',                       priority: '1.0', changefreq: 'weekly' },
   { file: 'oeuvres/bibliotheque.html',  url: '/oeuvres/bibliotheque',   priority: '0.8', changefreq: 'weekly' },
-  { file: 'oeuvres/place-publique.html',url: '/oeuvres/place-publique', priority: '0.7', changefreq: 'weekly' },
+  { file: 'oeuvres/forum.html',url: '/oeuvres/forum', priority: '0.7', changefreq: 'weekly' },
   /* /jeu/ — la page qui présente « Le circuit du capital ». C'est ELLE qui
      entre au sitemap, pas /jeu/jouer : la partie est une application sans
      contenu à indexer, et elle porte un noindex posé par
@@ -383,7 +383,7 @@ function bookFor(w) {
  * suit ses ancres ; les crawlers des moteurs de réponse (GPTBot, ClaudeBot,
  * PerplexityBot) lisent le HTML brut et ne voyaient rien. Mesuré avant :
  * le HTML servi portait 2 liens internes sur Capital, 1 sur les Manuscrits,
- * 0 sur Place publique.
+ * 0 sur le forum.
  *
  * Le pied de page est donc du BALISAGE STATIQUE, présent dans le fichier —
  * c'est tout son objet. Et comme il vit dans vingt-deux pages, il est DÉRIVÉ :
@@ -435,7 +435,7 @@ const PIED_PAGES = [
   'oeuvres/contribution-1859.html',
   'oeuvres/salaire-prix-profit.html',
   'oeuvres/18-brumaire.html',
-  'oeuvres/place-publique.html',
+  'oeuvres/forum.html',
   'oeuvres/carnet.html',
   'oeuvres/messages.html',
   'glossaire/index.html',
@@ -476,7 +476,7 @@ ${lien('/agregation-2027', 'Marx à l’agrégation 2027')}
         <p class="lm-foot-h">Le site</p>
         <ul>
 ${lien('/', 'Accueil')}
-${lien('/oeuvres/place-publique', 'Place publique')}
+${lien('/oeuvres/forum', 'Forum')}
 ${lien('/a-propos', 'À propos')}
 ${lien('/mentions-legales', 'CGU & confidentialité')}
         </ul>
@@ -1390,7 +1390,7 @@ ${monde}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=19"></script>
+<script src="/oeuvres/shell.js?v=21"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 ${aScene ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-driver.js')}" defer></script>` : ''}
@@ -1551,7 +1551,7 @@ ${voisines.map((v) => `      <a href="${v.href}">${v.nom}</a>`).join('\n')}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=19"></script>
+<script src="/oeuvres/shell.js?v=21"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 </body>
@@ -1787,7 +1787,7 @@ ${marge}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=19"></script>
+<script src="/oeuvres/shell.js?v=21"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Le Capital', tabs: [] });</script>
 </body>
@@ -1852,7 +1852,7 @@ ${o.ld}
 </head>`;
   const piedCm = (workTitle) => `${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=19"></script>
+<script src="/oeuvres/shell.js?v=21"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: '${workTitle}', tabs: [] });</script>
 <script src="/commentaires/agregation.js?v=${hashV('commentaires/agregation.js')}" defer></script>
@@ -2413,7 +2413,7 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
   for (const [t, s, url, hay] of [
     ['La bibliothèque', 'Toutes les œuvres, et par où commencer', '/oeuvres/bibliotheque', 'corpus livres œuvres rayons'],
     ["Le glossaire — l'abécédaire de Marx", 'Les notions, de A à Z', '/glossaire/', 'définitions concepts vocabulaire lexique'],
-    ['Place publique', 'Le forum des lecteurs', '/oeuvres/place-publique', 'discussions notes partagées forum'],
+    ['Forum', 'Les discussions des lecteurs', '/oeuvres/forum', 'discussions notes partagées forum'],
     ['Le circuit du capital', 'Le jeu de la plus-value', '/jeu/', 'jeu jouer simulation chariot'],
     ['Mon carnet', 'Vos passages et vos notes', '/oeuvres/carnet', 'surlignages annotations notes'],
     ['Messages', 'Vos conversations privées', '/oeuvres/messages', 'messagerie contacts'],

@@ -117,8 +117,8 @@
            atteignable que par le pied de page. Elle suit les deux outils du
            corpus parce qu'elle en est un usage : lire l'œuvre pour l'épreuve. */
         '<a class="sb-item" href="/agregation-2027" data-act="agregation"><span class="sb-dot" style="background:var(--red)"></span>Agrégation 2027</a>' +
-'<a class="sb-item" href="/oeuvres/place-publique" data-act="commune"><span class="sb-dot" style="background:var(--red)"></span>Place publique</a>' +
-        /* le carnet est le pendant PRIVÉ de la Place publique : là-bas
+'<a class="sb-item" href="/oeuvres/forum" data-act="forum"><span class="sb-dot" style="background:var(--red)"></span>Forum</a>' +
+        /* le carnet est le pendant PRIVÉ du forum : là-bas
            les notes partagées, ici les vôtres — d'où sa place juste en
            dessous. */
         '<a class="sb-item" href="/oeuvres/carnet" data-act="carnet"><span class="sb-dot" style="background:var(--gold)"></span>Mon carnet</a>' +
@@ -266,9 +266,9 @@
     }
     if(here === '/' || here === '/index') mark(home);
     if(/\/bibliotheque$/.test(here)) mark(bib);
-    // Place publique : marquer l'entrée quand on est sur sa page dédiée.
-    var communeBtn = sb.querySelector('[data-act="commune"]');
-    if(/\/place-publique$/.test(here)) mark(communeBtn);
+    // Forum : marquer l'entrée quand on est sur sa page dédiée.
+    var forumBtn = sb.querySelector('[data-act="forum"]');
+    if(/\/forum$/.test(here)) mark(forumBtn);
     var carnetBtn = sb.querySelector('[data-act="carnet"]');
     if(/\/carnet$/.test(here)) mark(carnetBtn);
     var msgBtnSb = sb.querySelector('[data-act="messages"]');
@@ -1394,7 +1394,7 @@
   /* L'entrée d'œuvre courante dans la sidebar. C'était la seule des trois
      navigations à montrer toutes les destinations d'un coup, et la seule à
      ne jamais dire laquelle est ouverte : wire() ne posait .on que sur
-     Accueil, Bibliothèque et Place publique. */
+     Accueil, Bibliothèque et Forum. */
   function setWorkTab(id){
     var items = document.querySelectorAll('.sidebar .sb-item[data-act^="tab:"]');
     items.forEach(function(b){
@@ -1963,7 +1963,7 @@
       + ((p && p.avatar_url) ? '<button class="ac-quiet" data-act="ava-clear" type="button">Retirer</button>' : '')
       + '</div></div></div>'
 
-      + '<div class="ac-sec"><p class="ac-sec-h">Sur la Place publique, on vous lit ainsi</p>'
+      + '<div class="ac-sec"><p class="ac-sec-h">Sur le forum, on vous lit ainsi</p>'
       + '<div class="ac-preview"><span class="ac-ava" id="acPvAva">'
       + avaHtml(pseudo || '?', p && p.avatar_url) + '</span>'
       + '<div><div class="ac-pv-sig" id="acPvSig">' + esc(pseudo || 'votre pseudo') + '</div>'
@@ -2093,7 +2093,7 @@
     if(signup){
       h += '<div class="ac-sec"><p class="ac-sec-h">Ce qu’un compte ajoute</p><ul class="ac-bens">'
         + '<li class="ac-ben">' + MK_SYNC + '<span><b>Vos passages vous suivent.</b> Surlignages et notes se retrouvent sur tous vos appareils.</span></li>'
-        + '<li class="ac-ben">' + MK_TALK + '<span><b>Vous pouvez écrire.</b> Ouvrir une discussion, répondre et appuyer une lecture sur la Place publique.</span></li>'
+        + '<li class="ac-ben">' + MK_TALK + '<span><b>Vous pouvez écrire.</b> Ouvrir une discussion, répondre et appuyer une lecture sur le forum.</span></li>'
         + '<li class="ac-ben">' + MK_STEP + '<span><b>Votre progression se garde.</b> Les chapitres lus restent cochés d’une visite à l’autre.</span></li>'
         + '</ul></div>';
     }
@@ -2247,7 +2247,7 @@
 
     /* L'aperçu suit la frappe SANS re-rendu : re-rendre volerait le focus
        du champ à chaque lettre (le défaut déjà corrigé sur les soutiens de
-       la Place publique). */
+       le forum). */
     var uf = slot.querySelector('#acUser'), sig = slot.querySelector('#acPvSig');
     if(uf && sig){
       uf.addEventListener('input', function(){
@@ -2474,12 +2474,12 @@
   try { getClient(); } catch(e){}
 })();
 
-/* ===== SHELL.commune — Place publique partagée (lecture seule)
+/* ===== SHELL.commune — Forum partagé (lecture seule)
    ----------------------------------------------------------------
    Flux agrégé des notes publiques (`public_notes`), monté dans
    n'importe quel conteneur DOM via SHELL.commune.mount(el, opts).
    Deux surfaces :
-   - page dédiée oeuvres/place-publique.html (mount sans limite) ;
+   - page dédiée oeuvres/forum.html (mount sans limite) ;
    - aperçu colonne droite de la bibliothèque (mount avec
      {limit:6, compact:true} → ajoute un lien « Voir toutes les
      notes → » qui mène à la page dédiée).
@@ -2649,7 +2649,7 @@
   // opts.limit   : nombre max de cartes affichées (sinon : tout ce qui
   //                est revenu de fetchData, jusqu'à 200) ;
   // opts.compact : ajoute un lien « Voir toutes les notes → » vers
-  //                place-publique.html si fetchData a renvoyé plus de
+  //                forum.html si fetchData a renvoyé plus de
   //                cartes que la limite.
   async function mount(container, opts){
     if(!container) return;
@@ -2668,7 +2668,7 @@
       return;
     }
     if(!data || data.mode === 'no-client'){
-      container.innerHTML = '<div class="cm-state">La Place publique est disponible en ligne, une fois la synchronisation des comptes activée.</div>';
+      container.innerHTML = '<div class="cm-state">Le forum est disponible en ligne, une fois la synchronisation des comptes activée.</div>';
       return;
     }
     if(!data.tops.length){
@@ -2678,7 +2678,7 @@
     var tops = opts.limit ? data.tops.slice(0, opts.limit) : data.tops;
     var html = tops.map(function(n){ return cardHtml(n, data.counts, biblio); }).join('');
     if(opts.compact && data.tops.length > tops.length){
-      html += '<a class="cm-all" href="/oeuvres/place-publique">Voir toutes les notes →</a>';
+      html += '<a class="cm-all" href="/oeuvres/forum">Voir toutes les notes →</a>';
     }
     container.innerHTML = html;
     wireCards(container);

@@ -23,7 +23,7 @@
 <link rel="stylesheet" href="shell.css?v=12">
 <style>
 /* ═══════════════════════════════════════════════════════════════════
-   MESSAGES — le pendant PRIVÉ de la Place publique (mission
+   MESSAGES — le pendant PRIVÉ du forum (mission
    `messages-page`, septembre 2026)
    -------------------------------------------------------------------
    Là-bas on parle devant tout le monde, ici à quelqu'un. La page
@@ -136,7 +136,7 @@
   display:flex;align-items:center;justify-content:center;}
 .mg-when{flex:0 0 auto;font-family:var(--f-ui);font-size:.72rem;color:var(--const);}
 
-/* ── suggestions : les lecteurs de la Place publique ── */
+/* ── suggestions : les lecteurs du forum ── */
 .mg-sug{display:flex;flex-direction:column;gap:2px;}
 .mg-sug .mg-ct-prev{font-style:italic;}
 .mg-sug-note{font-family:var(--f-ui);font-size:.76rem;line-height:1.5;
@@ -154,7 +154,7 @@
 .mg-conv-name{font-family:'Fraunces',Georgia,serif;font-weight:900;font-size:1.12rem;
   letter-spacing:-.02em;color:var(--text);margin:0;min-width:0;overflow-wrap:anywhere;}
 .mg-conv-sub{font-family:var(--f-ui);font-size:.74rem;color:var(--ink-soft);margin:2px 0 0;}
-/* le profil est sur la Place publique (mission `profil-membre`) : un simple
+/* le profil est sur le forum (mission `profil-membre`) : un simple
    lien, pas de rendu ici — cette page ne parle jamais à Supabase pour rien
    qui ne soit la messagerie */
 .mg-profile-link{margin-left:auto;flex:none;white-space:nowrap;
@@ -251,7 +251,7 @@
     <header class="mg-head">
       <div class="mg-label">Lire Marx</div>
       <h1 class="mg-h1">Messages</h1>
-      <p class="mg-lede">Le pendant privé de la Place publique&nbsp;: là-bas on écrit devant tout le monde, ici à quelqu'un.</p>
+      <p class="mg-lede">Le pendant privé du forum&nbsp;: là-bas on écrit devant tout le monde, ici à quelqu'un.</p>
     </header>
 
     <!-- Préalables (non configuré / déconnecté / sans pseudo). Une seule
@@ -280,7 +280,7 @@
           <p class="mg-group" id="mgListH">Vos conversations</p>
           <div id="mgList"></div>
           <div id="mgSugWrap" hidden>
-            <p class="mg-group">Des lecteurs de la Place publique</p>
+            <p class="mg-group">Des lecteurs du forum</p>
             <p class="mg-sug-note">Ils ont écrit publiquement&nbsp;; vous pouvez leur écrire en privé.</p>
             <div class="mg-sug" id="mgSug"></div>
           </div>
@@ -353,7 +353,7 @@
         <p class="lm-foot-h">Le site</p>
         <ul>
         <li><a href="/">Accueil</a></li>
-        <li><a href="/oeuvres/place-publique">Place publique</a></li>
+        <li><a href="/oeuvres/forum">Forum</a></li>
         <li><a href="/a-propos">À propos</a></li>
         <li><a href="/mentions-legales">CGU &amp; confidentialité</a></li>
         </ul>
@@ -364,7 +364,7 @@
 <!-- PIED:FIN -->
 
 <script src="../config.js"></script>
-<script src="shell.js?v=19"></script>
+<script src="shell.js?v=21"></script>
 <script src="shell-social.js"></script>
 <script>
 installShell({
@@ -415,7 +415,7 @@ installShell({
 
   /* ── deep-link ────────────────────────────────────────────────────────
      #c=<pseudo> : une conversation a une adresse, et le bouton retour du
-     navigateur ramène à la liste. C'est le contrat de la Place publique
+     navigateur ramène à la liste. C'est le contrat du forum
      (#d=<id>), appliqué ici — la modale, elle, n'avait pas d'URL du tout. */
   function hashName(){
     var m = String(location.hash || '').match(/[#&]c=([^&]+)/);
@@ -471,7 +471,7 @@ installShell({
       : 'Vos conversations';
     listEl.innerHTML = list.length
       ? list.map(function(c){ return ctHtml(c, cur && cur.id === c.id); }).join('')
-      : '<p class="mg-empty">Aucune conversation pour l’instant. <b>Écrivez à un lecteur</b> — son pseudo suffit, et ceux qui parlent sur la Place publique sont proposés ci-dessous.</p>';
+      : '<p class="mg-empty">Aucune conversation pour l’instant. <b>Écrivez à un lecteur</b> — son pseudo suffit, et ceux qui parlent sur le forum sont proposés ci-dessous.</p>';
     // La liste des pseudos connus alimente l'autocomplétion du champ.
     seekList.innerHTML = list.map(function(c){
       return '<option value="' + esc(c.username) + '"></option>';
@@ -575,9 +575,9 @@ installShell({
     convAva.innerHTML = DM.ava(cur.username, found ? found.avatar : '');
     convName.textContent = cur.username;
     convSub.textContent = 'Conversation privée';
-    /* le profil vit sur la Place publique (contrat #u=<id>, mission
+    /* le profil vit sur le forum (contrat #u=<id>, mission
        `profil-membre`) — cette page ne fait que pointer vers lui */
-    if(profileLink) profileLink.href = '/oeuvres/place-publique#u=' + encodeURIComponent(cur.id);
+    if(profileLink) profileLink.href = '/oeuvres/forum#u=' + encodeURIComponent(cur.id);
   }
 
   // ── rendu global ─────────────────────────────────────────────────────

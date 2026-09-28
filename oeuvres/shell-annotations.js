@@ -905,7 +905,7 @@
   }
 
   // ----- contrat de deep-link au passage (#note=<id> ou #s=&q=) -----
-  // SHELL.commune (Place publique) et SHELL.social (notifications)
+  // SHELL.commune (Forum) et SHELL.social (notifications)
   // ajoutent `#note=<id>` au lien d'ouverture de l'œuvre. Au chargement
   // de la page, on parse le hash et on garde la cible en attente :
   //   - si #note=<id> : on fetch la ligne public_notes pour récupérer
@@ -1039,7 +1039,7 @@
       // premier accès à cette œuvre + utilisateur connecté → pullAll
       if(user && !pulledWorks[workId]) pullAll(workId);
       // 5b : recharger les notes publiques de la section + appliquer
-      // le deep-link en attente (Place publique / notifications).
+      // le deep-link en attente (Forum / notifications).
       loadPublic(workId, section);
       applyDeepLinkOnAttach(workId, section);
       ensurePolling();

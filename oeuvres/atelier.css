@@ -4,7 +4,7 @@
    fonts/fonts.css, qui porte désormais aussi Fraunces 600 et Spectral 600. */
 :root{
   /* ── DA sombre-chaude — MÊMES VALEURS que /index.html, oeuvres/bibliotheque.html
-     et oeuvres/place-publique.html. Ce bloc est le système de record des pages
+     et oeuvres/forum.html. Ce bloc est le système de record des pages
      d'atelier : ne pas le dupliquer en tête de page, ne pas le diverger. ── */
   --bg:#15100b;--surface:#1e1710;--text:#f3e9d4;
   --muted:#b7a888;--accent:#d5402f;--border:rgba(243,233,212,.13);

@@ -573,7 +573,7 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);
         <p class="lm-foot-h">Le site</p>
         <ul>
         <li><a href="/">Accueil</a></li>
-        <li><a href="/oeuvres/place-publique">Place publique</a></li>
+        <li><a href="/oeuvres/forum">Forum</a></li>
         <li><a href="/a-propos">À propos</a></li>
         <li><a href="/mentions-legales">CGU &amp; confidentialité</a></li>
         </ul>
@@ -1890,7 +1890,7 @@ function syncTabsA11y(pid){
 
 
   // Contrat de deep-link au passage : si la page a été ouverte avec
-  // #note=<id> (Place publique / notifications) ou #s=N&q=..., on
+  // #note=<id> (Forum / notifications) ou #s=N&q=..., on
   // ouvre l'onglet « Texte intégral », on charge la bonne partie ;
   // attach() finit le travail (flashAnchor au passage) côté shell.
   async function applyDeepLinkIfAny(){
@@ -1911,7 +1911,7 @@ function syncTabsA11y(pid){
 })();
 </script>
 <script src="../config.js"></script>
-<script src="shell.js?v=19"></script>
+<script src="shell.js?v=21"></script>
 <script src="shell-social.js"></script>
 <script src="shell-annotations.js?v=3"></script>
 <script src="shell-progress.js"></script>

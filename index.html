@@ -268,7 +268,7 @@ html:not(.no-anim) .hs-hero.lit .hs-right{opacity:1;transform:none;transition-de
 
 /* ── L'invite à descendre : l'accueil s'ouvre sur un héros plein écran,
    rien ne disait qu'il fallait faire défiler. Même vocabulaire que la
-   bibliothèque et la Place publique (filet vertical + capitales
+   bibliothèque et le forum (filet vertical + capitales
    espacées), posé au pied du héros. Son opacité est ensuite pilotée au
    défilement par heroHint() dans home.js — elle s'efface dès qu'on
    descend, et revient si l'on remonte. ── */
@@ -736,7 +736,7 @@ body.lm-driving .lm-drive-hud{opacity:1;visibility:visible;transform:translate(-
 .circuit-node.lit b{color:var(--gold);text-shadow:0 0 16px rgba(216,173,76,.5);}
 .circuit-node--end.lit b{color:var(--accent);text-shadow:0 0 20px rgba(213,64,47,.55);}
 
-/* — aperçu Place publique — */
+/* — aperçu Forum — */
 /* La place change de sol : aplat --surface + filet, comme la bande circuit
    et la bande CTA — le vocabulaire du site pour « on change de registre ».
    Mais SANS trame quadrillée, et c'est ce qui la distingue de ces deux-là :
@@ -1032,7 +1032,7 @@ html.js-gloss .hs-gl-L{transform:scale(calc(1 + (1 - var(--strike,1)) * .24))
 .js-candle .hs-closer .btn-filled{opacity:calc(.18 + .82 * var(--lum,1));
   filter:drop-shadow(0 0 calc(var(--lum,1) * 22px) rgba(216,173,76,.30));}
 
-/* G. Place publique — les notes se déposent une à une, et le filet de
+/* G. Forum — les notes se déposent une à une, et le filet de
    leur citation se trace de haut en bas comme un trait de plume qu'on
    vient de poser. html.js-place + --pin par note (home.js : communeScrub). */
 .js-place #homeCommune .cm-card{
@@ -1336,7 +1336,7 @@ html.no-motion header.topbar,html.no-motion header.topbar .topbar-in{transition:
       "name": "Le site est-il gratuit ? Faut-il créer un compte ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Lire Marx est libre, gratuit et sans publicité, et aucun compte n'est nécessaire pour lire. Un compte ne sert qu'à deux choses : retrouver ses annotations d'un appareil à l'autre, et participer à la Place publique, l'espace de discussion où l'on commente un passage précis et où les lectures se répondent en fil."
+        "text": "Lire Marx est libre, gratuit et sans publicité, et aucun compte n'est nécessaire pour lire. Un compte ne sert qu'à deux choses : retrouver ses annotations d'un appareil à l'autre, et participer au forum, l'espace de discussion où l'on commente un passage précis et où les lectures se répondent en fil."
       }
     },
     {
@@ -1438,7 +1438,7 @@ html.no-motion header.topbar,html.no-motion header.topbar .topbar-in{transition:
         </article>
         <article class="hs-do-item">
           <span class="hs-do-n" aria-hidden="true">III</span>
-          <h3>La Place publique</h3>
+          <h3>Le forum</h3>
           <p>Les passages se commentent, les lectures se répondent. Un espace
             d'échange ouvert entre lecteurs</p>
         </article>
@@ -1550,14 +1550,14 @@ html.no-motion header.topbar,html.no-motion header.topbar .topbar-in{transition:
       <p class="hs-gl-more"><a class="btn-outline" href="/glossaire/">Ouvrir l'abécédaire<span class="btn-ar" aria-hidden="true">→</span></a></p>
     </section>
 
-    <!-- Aperçu Place publique -->
-    <section class="hs-block hs-commune reveal" aria-label="Place publique">
+    <!-- Aperçu Forum -->
+    <section class="hs-block hs-commune reveal" aria-label="Forum">
       <div class="hs-commune-head">
         <div>
           <p class="hs-sec-label">En ce moment</p>
-          <h2 class="hs-sec-h">Sur la Place publique</h2>
+          <h2 class="hs-sec-h">Sur le forum</h2>
         </div>
-        <a class="hs-commune-more" href="oeuvres/place-publique">Toutes les discussions →</a>
+        <a class="hs-commune-more" href="oeuvres/forum">Toutes les discussions →</a>
       </div>
       <div id="homeCommune"></div>
     </section>
@@ -1586,7 +1586,7 @@ html.no-motion header.topbar,html.no-motion header.topbar .topbar-in{transition:
     <!-- Questions fréquentes. Elles sont choisies sur ce qu'on demande RÉELLEMENT
          à propos de Marx (par où commencer, quelle traduction, faut-il tout lire),
          pas sur ce qu'un visiteur déjà présent se demande : une question de marque
-         (« qu'est-ce que la Place publique ? ») n'est posée nulle part ailleurs et
+         (« qu'est-ce que le forum ? ») n'est posée nulle part ailleurs et
          ne sera jamais citée. Les trois dernières restent pratiques, pour les gens.
          Les réponses sont dans le HTML même repliées : c'est ce qui les rend
          citables. Le JSON-LD FAQPage du <head> en reprend le texte MOT POUR MOT —
@@ -1625,7 +1625,7 @@ html.no-motion header.topbar,html.no-motion header.topbar .topbar-in{transition:
       </details>
       <details class="hs-faq-item">
         <summary><span class="hs-faq-q">Le site est-il gratuit&nbsp;? Faut-il créer un compte&nbsp;?</span><span class="hs-faq-mk" aria-hidden="true"></span></summary>
-        <div class="hs-faq-a"><p>Lire Marx est libre, gratuit et sans publicité, et aucun compte n'est nécessaire pour lire. Un compte ne sert qu'à deux choses&nbsp;: retrouver ses annotations d'un appareil à l'autre, et participer à la Place publique, l'espace de discussion où l'on commente un passage précis et où les lectures se répondent en fil.</p></div>
+        <div class="hs-faq-a"><p>Lire Marx est libre, gratuit et sans publicité, et aucun compte n'est nécessaire pour lire. Un compte ne sert qu'à deux choses&nbsp;: retrouver ses annotations d'un appareil à l'autre, et participer au forum, l'espace de discussion où l'on commente un passage précis et où les lectures se répondent en fil.</p></div>
       </details>
       <details class="hs-faq-item">
         <summary><span class="hs-faq-q">Peut-on annoter le texte et garder ses notes&nbsp;?</span><span class="hs-faq-mk" aria-hidden="true"></span></summary>
@@ -1636,8 +1636,8 @@ html.no-motion header.topbar,html.no-motion header.topbar .topbar-in{transition:
         <div class="hs-faq-a"><p>Deux aujourd'hui, l'une et l'autre en texte intégral&nbsp;: <i>Le Capital — Livre&nbsp;I</i> (1867) et les <i>Manuscrits de 1844</i>. Le corpus en prévoit douze, de <i>L'Idéologie allemande</i> (1846) aux Livres&nbsp;II et III du <i>Capital</i>, en passant par les <i>Grundrisse</i> et la <i>Critique du programme de Gotha</i>. La bibliothèque montre la trajectoire entière et signale ce qui est déjà lisible.</p></div>
       </details>
       </div>
-      <p class="hs-faq-more">Une autre question&nbsp;? Elle a sa place sur la
-        <a href="oeuvres/place-publique">Place publique</a>.</p>
+      <p class="hs-faq-more">Une autre question&nbsp;? Elle a sa place sur le
+        <a href="oeuvres/forum">forum</a>.</p>
     </section>
 
     <!-- Bande finale : la dernière page. Même structure que toutes les
@@ -1701,7 +1701,7 @@ html.no-motion header.topbar,html.no-motion header.topbar .topbar-in{transition:
         <p class="lm-foot-h">Le site</p>
         <ul>
         <li><a href="/">Accueil</a></li>
-        <li><a href="/oeuvres/place-publique">Place publique</a></li>
+        <li><a href="/oeuvres/forum">Forum</a></li>
         <li><a href="/a-propos">À propos</a></li>
         <li><a href="/mentions-legales">CGU &amp; confidentialité</a></li>
         </ul>
@@ -1775,7 +1775,7 @@ html.no-motion header.topbar,html.no-motion header.topbar .topbar-in{transition:
 
 <!-- Shell de navigation (topbar + sidebar + auth + social) -->
 <script src="config.js"></script>
-<script src="oeuvres/shell.js?v=19"></script>
+<script src="oeuvres/shell.js?v=21"></script>
 <script src="oeuvres/shell-social.js"></script>
 <script>
 (function(){
@@ -1797,7 +1797,7 @@ html.no-motion header.topbar,html.no-motion header.topbar .topbar-in{transition:
   // Installer le shell (topbar + sidebar + auth)
   installShell({ workTitle: 'Bibliothèque', tabs: [] });
 
-  // Aperçu de la Place publique (4 dernières notes partagées)
+  // Aperçu du forum (4 dernières notes partagées)
   if(window.SHELL && SHELL.commune){
     SHELL.commune.mount(document.getElementById('homeCommune'), { limit: 4 });
   }
