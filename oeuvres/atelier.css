@@ -21,7 +21,7 @@
      de remplissage, uniquement de couleur de texte (25 usages dans les
      deux pages d'atelier). Il est donc repointé sur un rouge qui se lit.
      Les pages qui redéclarent leur propre :root (accueil, bibliothèque,
-     place publique) gardent le leur. */
+     forum) gardent le leur. */
   --red-deep:#e5644f;
   /* --red (#d5402f) plafonne à 4,14:1 sur --bg et 3,76:1 sur --card : il ne
      peut PAS porter du texte sous 18,66 px (WCAG 1.4.3 exige 4,5:1). Il reste

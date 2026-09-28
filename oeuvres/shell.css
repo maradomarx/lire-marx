@@ -274,44 +274,34 @@
    absente : un <button> retombait sur le noir de l'agent utilisateur. */
 .lk{font-family:var(--f-ui);font-size:.78rem;font-weight:600;padding:5px 12px;border-radius:5px;cursor:pointer;border:1px solid;background:none;color:var(--ink);transition:all .16s;}
 
-/* ----- Forum (.cm-* / #placeFull / .pp-*) — flux agrégé en lecture seule ----- */
-/* Page dédiée : oeuvres/forum.html (colonne centrée, lisible). */
-.pp-head{max-width:680px;margin:36px auto 18px;text-align:center;padding:0 16px;}
-.pp-head h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(1.8rem,4.5vw,2.6rem);line-height:1.05;letter-spacing:-.02em;margin:8px 0 6px;}
-.pp-head .sub{margin-top:4px;}
-#placeFull{max-width:680px;margin:0 auto 60px;padding:0 16px;display:flex;flex-direction:column;gap:11px;}
-/* Aperçu en colonne droite de la bibliothèque (#placeCommuneFlux). */
-.pp-aside{display:flex;flex-direction:column;gap:9px;}
+/* ----- Forum (.fm-*) — flux agrégé en lecture seule ----- */
 /* États (chargement, indispo, vide) — partagés page et aperçu. */
-.cm-state{font-family:var(--f-ui);font-size:.92rem;color:var(--ink-soft);text-align:center;padding:24px 14px;line-height:1.55;}
-.cm-retry{font-family:var(--f-ui);font-size:.82rem;font-weight:600;color:var(--red-deep);background:transparent;border:1px solid var(--red);border-radius:6px;padding:4px 11px;margin-left:6px;cursor:pointer;}
-.cm-retry:hover{background:var(--red);color:#f7f1e2;}
+.fm-state{font-family:var(--f-ui);font-size:.92rem;color:var(--ink-soft);text-align:center;padding:24px 14px;line-height:1.55;}
+.fm-retry{font-family:var(--f-ui);font-size:.82rem;font-weight:600;color:var(--red-deep);background:transparent;border:1px solid var(--red);border-radius:6px;padding:4px 11px;margin-left:6px;cursor:pointer;}
+.fm-retry:hover{background:var(--red);color:#f7f1e2;}
 /* Cartes. */
-.cm-card{border:1px solid var(--line);background:var(--paper);border-radius:10px;padding:13px 15px 11px;cursor:pointer;transition:border-color .14s,background .14s,box-shadow .14s;}
-.cm-card:hover{border-color:var(--red);background:var(--card);box-shadow:0 4px 14px rgba(124,29,22,.08);}
-.cm-card:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
-.cm-card.cm-card-soon{cursor:default;opacity:.78;}
-.cm-card.cm-card-soon:hover{border-color:var(--line);background:var(--paper);box-shadow:none;}
-.cm-row{display:flex;align-items:center;gap:9px;margin-bottom:4px;}
-.cm-av{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:var(--red);color:#f7f1e2;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:700;font-size:.78rem;}
-.cm-name{font-family:'Fraunces',serif;font-weight:600;font-size:.92rem;color:var(--ink);}
-.cm-tag{font-family:var(--f-ui);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;background:rgba(154,123,53,.16);color:var(--gold-deep);border-radius:999px;padding:2px 8px;}
-.cm-when{margin-left:auto;font-family:var(--f-ui);font-size:.7rem;color:var(--const);}
-.cm-work{font-family:var(--f-ui);font-size:.72rem;letter-spacing:.04em;color:var(--ink-soft);margin:2px 0 6px;}
-.cm-quote{font-family:'Fraunces',serif;font-style:italic;font-size:.95rem;color:var(--ink);border-left:3px solid var(--red);padding:1px 0 1px 12px;margin:4px 0 6px;line-height:1.45;}
-.cm-body{font-family:'Spectral',Georgia,serif;font-size:.92rem;color:var(--ink-soft);line-height:1.5;margin-bottom:6px;}
-.cm-foot{display:flex;align-items:baseline;gap:12px;border-top:1px solid var(--line-soft);padding-top:7px;margin-top:6px;}
-.cm-rc{font-family:var(--f-ui);font-size:.72rem;color:var(--const);}
-.cm-go{margin-left:auto;font-family:'Fraunces',serif;font-weight:600;font-size:.82rem;color:var(--red-deep);}
-.cm-card:hover .cm-go{color:var(--red-text,#e5644f);}
-.cm-go-soon{color:var(--const);font-style:italic;font-weight:500;}
+.fm-card{border:1px solid var(--line);background:var(--paper);border-radius:10px;padding:13px 15px 11px;cursor:pointer;transition:border-color .14s,background .14s,box-shadow .14s;}
+.fm-card:hover{border-color:var(--red);background:var(--card);box-shadow:0 4px 14px rgba(124,29,22,.08);}
+.fm-card:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+.fm-card.fm-card-soon{cursor:default;opacity:.78;}
+.fm-card.fm-card-soon:hover{border-color:var(--line);background:var(--paper);box-shadow:none;}
+.fm-row{display:flex;align-items:center;gap:9px;margin-bottom:4px;}
+.fm-av{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:var(--red);color:#f7f1e2;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:700;font-size:.78rem;}
+.fm-name{font-family:'Fraunces',serif;font-weight:600;font-size:.92rem;color:var(--ink);}
+.fm-tag{font-family:var(--f-ui);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;background:rgba(154,123,53,.16);color:var(--gold-deep);border-radius:999px;padding:2px 8px;}
+.fm-when{margin-left:auto;font-family:var(--f-ui);font-size:.7rem;color:var(--const);}
+.fm-work{font-family:var(--f-ui);font-size:.72rem;letter-spacing:.04em;color:var(--ink-soft);margin:2px 0 6px;}
+.fm-quote{font-family:'Fraunces',serif;font-style:italic;font-size:.95rem;color:var(--ink);border-left:3px solid var(--red);padding:1px 0 1px 12px;margin:4px 0 6px;line-height:1.45;}
+.fm-body{font-family:'Spectral',Georgia,serif;font-size:.92rem;color:var(--ink-soft);line-height:1.5;margin-bottom:6px;}
+.fm-foot{display:flex;align-items:baseline;gap:12px;border-top:1px solid var(--line-soft);padding-top:7px;margin-top:6px;}
+.fm-rc{font-family:var(--f-ui);font-size:.72rem;color:var(--const);}
+.fm-go{margin-left:auto;font-family:'Fraunces',serif;font-weight:600;font-size:.82rem;color:var(--red-deep);}
+.fm-card:hover .fm-go{color:var(--red-text,#e5644f);}
+.fm-go-soon{color:var(--const);font-style:italic;font-weight:500;}
 /* Lien « Voir toutes les notes → » (mode compact, aperçu accueil). */
-.cm-all{display:inline-block;margin-top:6px;font-family:'Fraunces',serif;font-weight:600;font-size:.86rem;color:var(--red-deep);text-decoration:none;border-bottom:1px solid transparent;transition:color .15s,border-color .15s;}
-.cm-all:hover{color:var(--red-text,#e5644f);border-bottom-color:var(--red);}
+.fm-all{display:inline-block;margin-top:6px;font-family:'Fraunces',serif;font-weight:600;font-size:.86rem;color:var(--red-deep);text-decoration:none;border-bottom:1px solid transparent;transition:color .15s,border-color .15s;}
+.fm-all:hover{color:var(--red-text,#e5644f);border-bottom-color:var(--red);}
 /* Cartes plus compactes dans l'aperçu de la colonne accueil. */
-.pp-aside .cm-card{padding:10px 12px 9px;}
-.pp-aside .cm-quote,.pp-aside .cm-body{font-size:.86rem;}
-.pp-aside .cm-foot{padding-top:5px;margin-top:4px;}
 
 /* ----- Messagerie privée (SHELL.social) — popover msgBtn + modale Contacts ----- */
 /* Pastille de non-lus sur le bouton enveloppe : variante des dots existantes. */

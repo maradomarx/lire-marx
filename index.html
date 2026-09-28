@@ -111,8 +111,8 @@ header.topbar.tb-solid{background:rgba(21,16,11,.92);
 .acct-modal{background:rgba(6,4,3,.7);}
 .ac-card,.ac-card input,.msg-add input,.ac-bio{background:var(--paper);border-color:var(--line);color:var(--ink);}
 .ac-card code,.ac-p code,.ac-note code{background:rgba(255,255,255,.08);}
-.cm-card{background:var(--paper-2);border-color:var(--line);}
-.cm-card:hover{background:var(--card);border-color:var(--red);box-shadow:0 6px 20px rgba(0,0,0,.5);}
+.fm-card{background:var(--paper-2);border-color:var(--line);}
+.fm-card:hover{background:var(--card);border-color:var(--red);box-shadow:0 6px 20px rgba(0,0,0,.5);}
 
 /* ── Home wrapper (décalé de la sidebar + topbar fixées) ── */
 /* `clip` et NON `hidden` : la spec ne laisse pas `overflow-y:visible` à
@@ -742,17 +742,17 @@ body.lm-driving .lm-drive-hud{opacity:1;visibility:visible;transform:translate(-
    Mais SANS trame quadrillée, et c'est ce qui la distingue de ces deux-là :
    ici on n'est plus dans le carnet, on est dehors. Pas de filet bas : la
    barre de chiffres qui suit apporte déjà le sien. */
-.hs-commune{background:var(--surface);border-top:1px solid var(--border);}
+.hs-forum{background:var(--surface);border-top:1px solid var(--border);}
 /* les notes doivent rester plus claires que leur sol : sur --surface, leur
    --paper (= --bg) les creuserait en trous sombres. */
-.hs-commune .cm-card{background:var(--card);}
-.hs-commune-head{display:flex;align-items:baseline;justify-content:space-between;
+.hs-forum .fm-card{background:var(--card);}
+.hs-forum-head{display:flex;align-items:baseline;justify-content:space-between;
   gap:16px;flex-wrap:wrap;margin-bottom:26px;}
-.hs-commune-head .hs-sec-h{margin-bottom:0;}
-.hs-commune-more{font-family:'Inter',system-ui,sans-serif;font-size:.86rem;font-weight:600;
+.hs-forum-head .hs-sec-h{margin-bottom:0;}
+.hs-forum-more{font-family:'Inter',system-ui,sans-serif;font-size:.86rem;font-weight:600;
   color:var(--accent);text-decoration:none;white-space:nowrap;}
-.hs-commune-more:hover{text-decoration:underline;}
-#homeCommune{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px;}
+.hs-forum-more:hover{text-decoration:underline;}
+#homeForum{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px;}
 
 /* — bande CTA finale — */
 .hs-closer{position:relative;overflow:hidden;
@@ -1034,12 +1034,12 @@ html.js-gloss .hs-gl-L{transform:scale(calc(1 + (1 - var(--strike,1)) * .24))
 
 /* G. Forum — les notes se déposent une à une, et le filet de
    leur citation se trace de haut en bas comme un trait de plume qu'on
-   vient de poser. html.js-place + --pin par note (home.js : communeScrub). */
-.js-place #homeCommune .cm-card{
+   vient de poser. html.js-forum + --pin par note (home.js : forumScrub). */
+.js-forum #homeForum .fm-card{
   opacity:calc(.04 + .96 * var(--pin,1));
   transform:translate3d(calc((1 - var(--pin,1)) * -16px),
                         calc((1 - var(--pin,1)) * 12px),0);}
-.js-place #homeCommune .cm-quote{
+.js-forum #homeForum .fm-quote{
   border-left-color:transparent;
   background-image:linear-gradient(var(--red),var(--red));
   background-repeat:no-repeat;background-origin:border-box;
@@ -1216,10 +1216,10 @@ html.no-motion header.topbar,html.no-motion header.topbar .topbar-in{transition:
   .btn-mag{transition:none!important;}
 }
 /* Au doigt (mission `cibles-tactiles`) : « Toutes les discussions » 16 px. */
-@media (pointer:coarse){ .hs-commune-more{display:inline-block;padding:14px 0;margin:-14px 0;} }
+@media (pointer:coarse){ .hs-forum-more{display:inline-block;padding:14px 0;margin:-14px 0;} }
 </style>
-<link rel="preload" href="oeuvres/shell.css?v=12" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="oeuvres/shell.css?v=12"></noscript>
+<link rel="preload" href="oeuvres/shell.css?v=13" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="oeuvres/shell.css?v=13"></noscript>
 <!-- WebSite — C'EST ICI que Google lit le « nom de site » affiché au-dessus
      de l'URL dans un résultat de recherche. PAS dans Organization : le site
      déclarait « Lire Marx » depuis la mission titre-description-logo et le
@@ -1551,15 +1551,15 @@ html.no-motion header.topbar,html.no-motion header.topbar .topbar-in{transition:
     </section>
 
     <!-- Aperçu Forum -->
-    <section class="hs-block hs-commune reveal" aria-label="Forum">
-      <div class="hs-commune-head">
+    <section class="hs-block hs-forum reveal" aria-label="Forum">
+      <div class="hs-forum-head">
         <div>
           <p class="hs-sec-label">En ce moment</p>
           <h2 class="hs-sec-h">Sur le forum</h2>
         </div>
-        <a class="hs-commune-more" href="oeuvres/forum">Toutes les discussions →</a>
+        <a class="hs-forum-more" href="oeuvres/forum">Toutes les discussions →</a>
       </div>
-      <div id="homeCommune"></div>
+      <div id="homeForum"></div>
     </section>
 
     <!-- ④ Barre de chiffres clés -->
@@ -1771,11 +1771,11 @@ html.no-motion header.topbar,html.no-motion header.topbar .topbar-in{transition:
      la balise three.min.js a quitté cette page alors que withThree() vivait
      dans home.js : décor mort jusqu'à expiration du cache.
      BUMPER CE NUMÉRO à chaque fois que les deux fichiers sont solidaires. -->
-<script src="assets/home.js?v=8" defer></script>
+<script src="assets/home.js?v=9" defer></script>
 
 <!-- Shell de navigation (topbar + sidebar + auth + social) -->
 <script src="config.js"></script>
-<script src="oeuvres/shell.js?v=21"></script>
+<script src="oeuvres/shell.js?v=22"></script>
 <script src="oeuvres/shell-social.js"></script>
 <script>
 (function(){
@@ -1798,8 +1798,8 @@ html.no-motion header.topbar,html.no-motion header.topbar .topbar-in{transition:
   installShell({ workTitle: 'Bibliothèque', tabs: [] });
 
   // Aperçu du forum (4 dernières notes partagées)
-  if(window.SHELL && SHELL.commune){
-    SHELL.commune.mount(document.getElementById('homeCommune'), { limit: 4 });
+  if(window.SHELL && SHELL.forum){
+    SHELL.forum.mount(document.getElementById('homeForum'), { limit: 4 });
   }
 })();
 </script>

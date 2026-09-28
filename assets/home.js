@@ -29,7 +29,7 @@
    - libraryScrub()   : la bibliothèque se constitue — les photos d'archive
                         se développent au scroll, la frise « en préparation »
                         s'écrit année après année
-   - communeScrub()   : Forum — les notes se déposent une à une,
+   - forumScrub()   : Forum — les notes se déposent une à une,
                         leur filet de citation se trace derrière elles
    - closerCandle()   : bande finale — la bougie prend au défilement,
                         puis vacille tant que la bande est à l'écran
@@ -1613,11 +1613,11 @@
        Chacune arrive décalée, poussée de quelques pixels, et le filet rouge
        de sa citation se trace de haut en bas juste après, comme un trait de
        plume qu'on vient de poser. Les notes sont montées par
-       SHELL.commune.mount() de façon asynchrone : on attend qu'elles
+       SHELL.forum.mount() de façon asynchrone : on attend qu'elles
        existent (MutationObserver) avant de s'abonner au défilement. — */
-  function communeScrub() {
+  function forumScrub() {
     if (REDUCE) return;
-    var host = document.getElementById('homeCommune');
+    var host = document.getElementById('homeForum');
     if (!host) return;
     var armed = false, mo = null;
 
@@ -1626,11 +1626,11 @@
 
     function arm() {
       if (armed) return;
-      var cards = [].slice.call(host.querySelectorAll('.cm-card'));
+      var cards = [].slice.call(host.querySelectorAll('.fm-card'));
       if (!cards.length) return;          /* encore en chargement, ou flux vide */
       armed = true;
       if (mo) { mo.disconnect(); mo = null; }
-      document.documentElement.classList.add('js-place');
+      document.documentElement.classList.add('js-forum');
 
       addScrollSub(function (y, vh) {
         var r = host.getBoundingClientRect();
@@ -2002,7 +2002,7 @@
     try { doCards(); } catch (e) { /* non bloquant */ }
     try { magneticButtons(); } catch (e) { /* non bloquant */ }
     try { glossPrint(); } catch (e) { /* non bloquant */ }
-    try { communeScrub(); } catch (e) { /* non bloquant */ }
+    try { forumScrub(); } catch (e) { /* non bloquant */ }
     try { faqScrub(); } catch (e) { /* non bloquant */ }
     try { closerCandle(); } catch (e) { /* non bloquant */ }
     try { heroHint(); } catch (e) { /* non bloquant */ }

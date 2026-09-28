@@ -905,7 +905,7 @@
   }
 
   // ----- contrat de deep-link au passage (#note=<id> ou #s=&q=) -----
-  // SHELL.commune (Forum) et SHELL.social (notifications)
+  // SHELL.forum (Forum) et SHELL.social (notifications)
   // ajoutent `#note=<id>` au lien d'ouverture de l'œuvre. Au chargement
   // de la page, on parse le hash et on garde la cible en attente :
   //   - si #note=<id> : on fetch la ligne public_notes pour récupérer

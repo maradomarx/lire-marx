@@ -124,8 +124,8 @@
         '<a class="sb-item" href="/oeuvres/carnet" data-act="carnet"><span class="sb-dot" style="background:var(--gold)"></span>Mon carnet</a>' +
         /* « Messages », et non « Contacts » : la même chose portait deux
            noms — l'icône de la barre du haut et son popover disent
-           « Messages » depuis toujours. C'est le pendant PRIVÉ de la Place
-           publique, comme « Mon carnet » l'est pour les notes. */
+           « Messages » depuis toujours. C'est le pendant PRIVÉ du
+           forum, comme « Mon carnet » l'est pour les notes. */
         '<a class="sb-item" href="/oeuvres/messages" data-act="messages"><span class="sb-dot" style="background:var(--blue)"></span>Messages</a>' +
         /* « Le jeu » et non « Jeux » : il y en a un, et l'entrée dit son
            nom au singulier comme le fait la section de l'accueil. Elle
@@ -1786,7 +1786,7 @@
   var MK_STEP = mk('<path d="M3.4 16.6V11"/><path d="M10 16.6V4.6"/><path d="M16.6 16.6v-7.4"/>');
 
   /* La bibliothèque, en petit : titre + chemin d'une œuvre. Le même outil
-     existe dans SHELL.commune — dupliqué à dessein plutôt que couplé. */
+     existe dans SHELL.forum — dupliqué à dessein plutôt que couplé. */
   var acBiblio = null, acBiblioPending = null;
   function bibLite(){
     if(acBiblio) return Promise.resolve(acBiblio);
@@ -2474,16 +2474,16 @@
   try { getClient(); } catch(e){}
 })();
 
-/* ===== SHELL.commune — Forum partagé (lecture seule)
+/* ===== SHELL.forum — Forum partagé (lecture seule)
    ----------------------------------------------------------------
    Flux agrégé des notes publiques (`public_notes`), monté dans
-   n'importe quel conteneur DOM via SHELL.commune.mount(el, opts).
+   n'importe quel conteneur DOM via SHELL.forum.mount(el, opts).
    Deux surfaces :
    - page dédiée oeuvres/forum.html (mount sans limite) ;
    - aperçu colonne droite de la bibliothèque (mount avec
      {limit:6, compact:true} → ajoute un lien « Voir toutes les
      notes → » qui mène à la page dédiée).
-   Contrairement à la vue riche de capital-1.html (placeCommune +
+   Contrairement à la vue riche de capital-1.html (vue du forum +
    commonsView : tri, filtres, composition, profil membre,
    modération, deep-link au passage), cette vue est en lecture
    seule : pas de composer, pas de réponse, pas de signalement,
@@ -2493,7 +2493,7 @@
    ================================================================ */
 (function(){
   var SHELL = window.SHELL = window.SHELL || {};
-  if(SHELL.commune) return;
+  if(SHELL.forum) return;
 
   // Alias hérité : les premières lignes de public_notes ont été insérées
   // par capital-1.html avec work='capital' (avant la généralisation à
@@ -2607,20 +2607,20 @@
     var sec = (note.section != null && note.section !== '') ? ('Section ' + note.section) : '';
     var ac = accent(note.section);
     return (
-      '<article class="cm-card' + (clickable ? '' : ' cm-card-soon') + '"' +
+      '<article class="fm-card' + (clickable ? '' : ' fm-card-soon') + '"' +
         (clickable ? ' data-open="' + esc(path) + '" data-note="' + esc(note.id) + '" role="button" tabindex="0"' : '') + '>' +
-        '<div class="cm-row">' +
-          '<span class="cm-av" style="background:' + ac + '">' + esc(initials(name)) + '</span>' +
-          '<span class="cm-name">' + esc(name) + '</span>' +
-          (sec ? '<span class="cm-tag">' + esc(sec) + '</span>' : '') +
-          '<span class="cm-when">' + esc(ago(note.created)) + '</span>' +
+        '<div class="fm-row">' +
+          '<span class="fm-av" style="background:' + ac + '">' + esc(initials(name)) + '</span>' +
+          '<span class="fm-name">' + esc(name) + '</span>' +
+          (sec ? '<span class="fm-tag">' + esc(sec) + '</span>' : '') +
+          '<span class="fm-when">' + esc(ago(note.created)) + '</span>' +
         '</div>' +
-        '<div class="cm-work">' + esc(workTitle) + '</div>' +
-        (note.quote ? '<div class="cm-quote">« ' + esc(trunc(note.quote, 140)) + ' »</div>' : '') +
-        (note.body ? '<div class="cm-body">' + esc(trunc(note.body, 260)) + '</div>' : '') +
-        '<div class="cm-foot">' +
-          '<span class="cm-rc">' + esc(rcTxt) + '</span>' +
-          (clickable ? '<span class="cm-go">Ouvrir →</span>' : '<span class="cm-go cm-go-soon">à venir</span>') +
+        '<div class="fm-work">' + esc(workTitle) + '</div>' +
+        (note.quote ? '<div class="fm-quote">« ' + esc(trunc(note.quote, 140)) + ' »</div>' : '') +
+        (note.body ? '<div class="fm-body">' + esc(trunc(note.body, 260)) + '</div>' : '') +
+        '<div class="fm-foot">' +
+          '<span class="fm-rc">' + esc(rcTxt) + '</span>' +
+          (clickable ? '<span class="fm-go">Ouvrir →</span>' : '<span class="fm-go fm-go-soon">à venir</span>') +
         '</div>' +
       '</article>'
     );
@@ -2654,37 +2654,37 @@
   async function mount(container, opts){
     if(!container) return;
     opts = opts || {};
-    container.innerHTML = '<div class="cm-state">Chargement…</div>';
+    container.innerHTML = '<div class="fm-state">Chargement…</div>';
     var biblio = await loadBiblio();
     var data;
     try { data = await fetchData(); }
     catch(e){
       container.innerHTML = (
-        '<div class="cm-state">Notes partagées momentanément indisponibles. ' +
-        '<button type="button" class="cm-retry">Réessayer</button></div>'
+        '<div class="fm-state">Notes partagées momentanément indisponibles. ' +
+        '<button type="button" class="fm-retry">Réessayer</button></div>'
       );
-      var rb = container.querySelector('.cm-retry');
+      var rb = container.querySelector('.fm-retry');
       if(rb) rb.addEventListener('click', function(){ mount(container, opts); });
       return;
     }
     if(!data || data.mode === 'no-client'){
-      container.innerHTML = '<div class="cm-state">Le forum est disponible en ligne, une fois la synchronisation des comptes activée.</div>';
+      container.innerHTML = '<div class="fm-state">Le forum est disponible en ligne, une fois la synchronisation des comptes activée.</div>';
       return;
     }
     if(!data.tops.length){
-      container.innerHTML = '<div class="cm-state">Aucune note partagée pour l’instant. Ouvre un chapitre et sois la première personne à annoter un passage.</div>';
+      container.innerHTML = '<div class="fm-state">Aucune note partagée pour l’instant. Ouvre un chapitre et sois la première personne à annoter un passage.</div>';
       return;
     }
     var tops = opts.limit ? data.tops.slice(0, opts.limit) : data.tops;
     var html = tops.map(function(n){ return cardHtml(n, data.counts, biblio); }).join('');
     if(opts.compact && data.tops.length > tops.length){
-      html += '<a class="cm-all" href="/oeuvres/forum">Voir toutes les notes →</a>';
+      html += '<a class="fm-all" href="/oeuvres/forum">Voir toutes les notes →</a>';
     }
     container.innerHTML = html;
     wireCards(container);
   }
 
-  SHELL.commune = { mount: mount };
+  SHELL.forum = { mount: mount };
 })();
 
 /* ══════════════════════════════════════════════════════════════════════
