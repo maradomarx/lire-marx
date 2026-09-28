@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le XVIII brumaire de Louis Bonaparte — Marx, texte intégral (Le 18 Brumaire)</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="/assets/img/logo/icon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/logo/icon-192.png">
+<link rel="apple-touch-icon" href="/assets/img/logo/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#15100b">
+<meta name="apple-mobile-web-app-title" content="Lire Marx">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="description" content="Le XVIII brumaire de Louis Bonaparte (1852) en texte intégral : comment la lutte des classes a permis à un personnage médiocre de jouer un rôle héroïque, et comment l’État s’est détaché de la société.">
+<meta property="og:title" content="Le XVIII brumaire de Louis Bonaparte — Marx, texte intégral (Le 18 Brumaire)">
+<meta property="og:description" content="Le XVIII brumaire de Louis Bonaparte (1852) en texte intégral : comment la lutte des classes a permis à un personnage médiocre de jouer un rôle héroïque, et comment l’État s’est détaché de la société.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lire Marx">
+<meta property="og:url" content="https://liremarx.com/oeuvres/18-brumaire">
+<link rel="canonical" href="https://liremarx.com/oeuvres/18-brumaire">
+<meta property="og:image" content="https://liremarx.com/assets/img/archive/dix-huit-brumaire-titre-1900.jpg">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="fonts/fonts.css?v=2">
+<link rel="stylesheet" href="atelier.css?v=18">
+<link rel="stylesheet" href="shell.css?v=12">
+<link rel="stylesheet" href="reader-tools.css">
+<style>
+/* Sixième atelier. Deux destinations, comme les cinq autres : le texte et
+   le dossier. `--atl-top` vaut donc 88 (topbar 44 + onglets 44) ; sous
+   600 px atelier.css le ramène à 44 et les offsets JS le RELISENT plutôt
+   que de coder la valeur en dur (atlTop()). */
+.wrap{max-width:1120px;padding:0 22px 90px;}
+
+/* ── LES DEUX DESTINATIONS — le sélecteur segmenté des cinq ateliers.
+   Ces règles vivent dans la page et non dans atelier.css : à spécificité
+   égale (0,3,1), c'est le <style> de la page qui gagne. ── */
+nav.tabs.worktabs{display:flex;gap:6px;flex-wrap:nowrap;margin:0;
+  justify-content:flex-start;text-align:left;align-items:center;
+  min-height:44px;overflow-x:auto;scrollbar-width:none;
+  position:sticky;top:44px;z-index:62;padding-top:2px;
+  background:var(--bg);border-top:none;border-bottom:1px solid var(--line);}
+nav.tabs.worktabs::-webkit-scrollbar{display:none;}
+nav.tabs.worktabs .tab{font-family:var(--f-ui);font-weight:600;
+  font-size:.86rem;color:var(--muted);background:none;
+  border:1px solid transparent;border-radius:999px;
+  padding:7px 17px;cursor:pointer;white-space:nowrap;flex:0 0 auto;
+  transition:color .16s,background .16s,border-color .16s;}
+nav.tabs.worktabs .tab:hover{color:var(--ink);background:var(--hover);}
+nav.tabs.worktabs .tab.active{color:var(--ink);
+  background:linear-gradient(150deg,#2c2117,#211a12,#1b150e);
+  border-color:rgba(216,173,76,.28);}
+nav.tabs.worktabs .tab.active::after{display:none;}
+nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+
+/* Les composants de ce dossier — l'instrument « liste + fiche » (.fiche*),
+   le relevé en colonnes (.relv*), l'ascension (.asc*), la chronologie
+   (.chr*) et la bibliographie (.rss*) — vivent dans atelier.css, partagés
+   avec les autres ateliers. Rien de tout cela ne se redéclare ici. */
+
+/* ── L'en-tête d'œuvre : son identité, sobre (motif des cinq ateliers) ── */
+.work-head{padding:clamp(26px,4vh,38px) 0 clamp(18px,2.4vh,24px);text-align:left;}
+.work-title{font-family:'Fraunces',serif;font-weight:900;
+  font-size:clamp(2rem,4.4vw,3rem);letter-spacing:-.03em;line-height:1.02;
+  color:var(--text);margin:0;display:flex;align-items:baseline;
+  gap:.4em;flex-wrap:wrap;}
+.work-vol{font-style:italic;font-weight:500;font-size:.44em;
+  letter-spacing:-.01em;color:var(--red-text);}
+.work-meta{font-family:var(--f-ui);font-size:.82rem;color:var(--muted);margin:12px 0 0;}
+
+/* ── La liseuse ── */
+.reader-head{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:13px 15px;border-bottom:1px solid var(--line);}
+.reader-title{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:1.1rem;color:var(--ink);}
+.reader-content{min-height:72vh;background:transparent;padding:28px clamp(18px,4vw,46px);
+  color:inherit;font-family:var(--f-serif);font-size:1rem;line-height:1.72;overflow:auto;}
+.reader-content[hidden],.placeholder[hidden]{display:none;}
+.reader-content p{margin:.72em 0;}
+.reader-content .reader-error{max-width:720px;margin:40px auto;padding:22px;
+  border:1px dashed var(--line);border-radius:12px;font-family:var(--f-serif);color:var(--ink-soft);}
+.reader-content .reader-error b{display:block;color:var(--ink);font-family:'Fraunces',Georgia,serif;
+  font-size:1.18rem;margin-bottom:8px;}
+.placeholder .pi{color:var(--muted);line-height:0;font-size:0;margin-bottom:14px;
+  display:flex;justify-content:center;}
+.placeholder .pi svg{width:40px;height:40px;fill:none;stroke:currentColor;
+  stroke-width:1;stroke-linecap:round;stroke-linejoin:round;}
+
+/* Les titres du texte. ⚠️ CONTRAIREMENT à Salaires et à la Contribution,
+   Wikisource compose ICI de VRAIS titres : un <h2> pour la préface, un <h3>
+   qui porte le seul chiffre romain pour chacun des sept chapitres. Le
+   nettoyage n'a donc RIEN à deviner parmi les blocs centrés — et c'est une
+   chance, parce que le seul bloc centré du livre, « Hic Rhodus, hic salta ! »,
+   est en italique : la règle de Salaires (« un titre est composé en gras ou
+   en italique ») en aurait fait un titre. Ne pas recopier une règle de
+   nettoyage d'une page à l'autre sans regarder la source. */
+.reader-content h2.br-part{font-family:'Fraunces',Georgia,serif;font-weight:900;
+  font-size:clamp(1.4rem,2.5vw,1.85rem);letter-spacing:-.02em;line-height:1.14;
+  color:var(--bright);margin:0 0 1em;padding-bottom:.7em;border-bottom:1px solid var(--line);}
+.reader-content h2.br-part .br-rn{display:block;font-style:italic;font-weight:500;
+  font-size:.56em;color:var(--gold);letter-spacing:0;margin-bottom:.3em;}
+.reader-content h3.br-sub{font-family:'Fraunces',Georgia,serif;font-weight:700;
+  font-size:1.18rem;line-height:1.22;color:var(--bright);margin:2.1em 0 .6em;}
+.reader-content hr{width:8em;margin:2.2em auto;border:0;border-top:1px solid var(--line);}
+.reader-content .br-centre{text-align:center;font-family:var(--f-serif);
+  color:var(--ink);margin:1.6em 0;}
+.reader-content .br-centre p{margin:0;}
+.reader-content .br-src{margin:3em 0 0;padding-top:1.2em;border-top:1px solid var(--line);
+  font-family:var(--f-ui);font-size:.8rem;line-height:1.6;color:var(--muted);}
+.reader-content .br-src a{color:var(--ink);text-decoration:underline;
+  text-decoration-color:rgba(216,173,76,.5);text-underline-offset:2px;}
+.reader-content .br-src a:hover{color:var(--gold);}
+.reader.theme-sepia .reader-content h2.br-part .br-rn{color:var(--red-deep);}
+</style>
+<!-- Book : DÉRIVÉ de oeuvres/bibliotheque.json par tools/gen-seo.mjs.
+     Ne pas éditer à la main — corriger la source, puis regénérer :
+       node tools/gen-seo.mjs
+     Chaque champ doit rester vérifiable dans la page elle-même. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Book",
+  "name": "Le XVIII brumaire de Louis Bonaparte",
+  "alternateName": "Le 18 Brumaire de Louis Bonaparte",
+  "author": {
+    "@type": "Person",
+    "name": "Karl Marx",
+    "sameAs": "https://www.wikidata.org/wiki/Q9061"
+  },
+  "translator": {
+    "@type": "Person",
+    "name": "Léon Remy"
+  },
+  "bookEdition": "Traduction française de Léon Remy, 1900 (Schleicher frères), dans le volume « La Lutte des classes en France (1848-1850). Le XVIII brumaire de Louis Bonaparte »",
+  "inLanguage": "fr",
+  "dateCreated": "1852",
+  "datePublished": "1852",
+  "translationOfWork": {
+    "@type": "Book",
+    "name": "Der achtzehnte Brumaire des Louis Bonaparte",
+    "inLanguage": "de",
+    "datePublished": "1852"
+  },
+  "url": "https://liremarx.com/oeuvres/18-brumaire",
+  "description": "Le récit du coup d’État du 2 décembre 1851, écrit six semaines après, et le texte où Marx montre comment un État peut se détacher de la société qu’il gouverne. On le trouve aussi sous le titre « Le 18 Brumaire de Louis Bonaparte ».",
+  "about": [
+    "lutte des classes",
+    "pouvoir exécutif",
+    "parti de l’ordre",
+    "paysans parcellaires",
+    "représentation politique",
+    "coup d’État"
+  ],
+  "isAccessibleForFree": true,
+  "license": "https://creativecommons.org/publicdomain/mark/1.0/",
+  "isBasedOn": {
+    "@type": "WebPage",
+    "name": "Le XVIII brumaire de Louis Bonaparte sur Wikisource",
+    "url": "https://fr.wikisource.org/wiki/Le_XVIII_brumaire_de_Louis_Bonaparte"
+  }
+}
+</script>
+<script src="marge.js?v=1"></script>
+<script src="sommaire.js?v=1"></script>
+<script src="dossier.js?v=1"></script>
+<script src="ascension.js?v=2"></script>
+</head>
+<body class="at-atelier">
+<main class="wrap" id="contenu" tabindex="-1">
+
+  <header class="work-head">
+    <h1 class="work-title">Le XVIII brumaire<span class="work-vol">de Louis Bonaparte</span></h1>
+    <p class="work-meta">Karl Marx · écrit de décembre 1851 à février 1852, publié à New York en 1852 · traduction Léon Remy (1900) · domaine public</p>
+  </header>
+
+  <nav class="tabs worktabs" id="worktabs" aria-label="Destinations de l'œuvre"></nav>
+
+  <div class="atl3" id="atl3">
+
+    <aside class="atl3-col atl3-toc" id="atl3Toc" aria-label="Sommaire du XVIII brumaire de Louis Bonaparte" data-sheet-lbl="Sommaire"></aside>
+
+    <div class="atl3-mid">
+      <section class="panel active" id="lire">
+        <div class="atl3-midbar" id="atlMidbar"></div>
+        <div class="reader">
+          <div class="reader-head"><div class="reader-title" id="readerTitle">Le XVIII brumaire de Louis Bonaparte</div></div>
+          <div class="placeholder" id="readerPlaceholder"><div><div class="pi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.4C10 4.6 7.2 3.9 3.6 4.1v13.2c3.6-.2 6.4.5 8.4 2.3 2-1.8 4.8-2.5 8.4-2.3V4.1c-3.6-.2-6.4.5-8.4 2.3Z"/><path d="M12 6.4v13.2"/></svg></div><b>Le texte s'affiche ici.</b></div></div>
+          <div class="reader-content" id="readerContent" hidden></div>
+        </div>
+      </section>
+    </div>
+
+    <aside class="atl3-col atl3-marge" id="atl3Marge" aria-label="Dans ce chapitre" data-sheet-lbl="Ce chapitre" data-sheet-short="Chapitre"></aside>
+  </div>
+
+  <button type="button" class="atl3-full-exit" id="atlFullExit" hidden>
+    Quitter le plein écran <kbd>Échap</kbd>
+  </button>
+
+  <!-- ===================== LE TIROIR ===================== -->
+  <div class="atl-drawer" id="atlDrawer" hidden role="dialog" aria-labelledby="atlDrawerT">
+    <div class="atl-drawer-bar">
+      <span class="atl-drawer-k">Dans ce chapitre</span>
+      <span class="atl-drawer-t" id="atlDrawerT"></span>
+      <button type="button" class="atl-drawer-x" id="atlDrawerX" aria-label="Fermer le tiroir">×</button>
+    </div>
+    <div class="atl-drawer-body" id="atlDrawerBody"></div>
+  </div>
+
+  <!-- ===================== LE DOSSIER =====================
+       Tout le contenu est dans le HTML servi (motif du Manifeste, de la
+       Contribution et de Salaires) : le script ne fait que monter
+       l’ ascension, choisir la fiche et naviguer. Cinq salles, une à
+       l’ écran (oeuvres/dossier.js). -->
+  <div class="atl-dossier" id="dossier" hidden>
+  <nav class="atl-dossier-nav" id="dossierNav" aria-label="Sections du dossier"></nav>
+
+  <section class="panel active" id="deriv">
+    <div class="panel-head">
+      <div class="panel-head-main">
+        <h2 class="sec">Le cheminement</h2>
+        <p class="lead">Huit marches : d’un fait que personne n’explique à un État qui repose sur un sac de pommes de terre.</p>
+      </div>
+    </div>
+    <!-- L'ASCENSION : balisage de oeuvres/ascension.js, servi dans le HTML ;
+         la page le monte (AscensionAtelier.mount) sans le réécrire. -->
+    <div class="asc" id="asc">
+      <div class="asc-chain" id="ascChain"><span class="asc-thread" aria-hidden="true"><span class="asc-head"></span></span><article class="asc-step" id="asc-1" data-step="1" data-plan="Un fait que personne n’explique" style="--rung:rgb(57,89,107)" aria-labelledby="asc-t1"><span class="asc-num" aria-hidden="true">1</span><h3 class="asc-t" id="asc-t1" tabindex="-1"><span class="sr-only">Marche 1 : </span>Un fait que personne n’explique</h3><p class="asc-lieu">Préface de l’auteur</p><p class="asc-pose">Trois livres paraissent sur le coup d’État. Victor Hugo n’y voit que l’acte de violence d’un individu isolé, et grandit ainsi celui qu’il veut abattre, en lui prêtant une force d’initiative sans exemple ; Proudhon le rapporte à un développement antérieur, et sa construction historique se change insensiblement en apologie du héros.</p><div class="asc-see"><span class="asc-see-lab">Voir à l'œuvre</span><button type="button" class="asc-go" data-k="partie" data-t="1" data-q="Pour moi, je montre que la Lutte des classes en France a créé des circonstances"><svg class="asc-ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Lire ce passage</span></button></div><div class="asc-knot asc-knot--one"><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Ce qu'elle force : </span>Marx annonce une troisième voie, qui est tout le programme du livre : montrer que la lutte des classes a créé des circonstances telles qu’un personnage médiocre et grotesque ait pu y jouer un rôle héroïque. Ce n’est donc ni l’homme ni la fatalité qu’il s’agit d’expliquer, mais la situation qui a rendu l’un et l’autre possibles.</span></p></div></article><article class="asc-step" id="asc-2" data-step="2" data-plan="Les hommes font leur histoire" style="--rung:rgb(79,85,98)" aria-labelledby="asc-t2"><span class="asc-num" aria-hidden="true">2</span><h3 class="asc-t" id="asc-t2" tabindex="-1"><span class="sr-only">Marche 2 : </span>Les hommes font leur histoire, mais non dans des conditions choisies</h3><p class="asc-lieu">Chapitre I</p><p class="asc-pose">La proposition de méthode, et elle tient en deux temps : les hommes font leur propre histoire, mais dans des conditions qu’ils ont trouvées toutes faites, et la tradition de toutes les générations défuntes pèse comme un cauchemar sur le cerveau des vivants.</p><div class="asc-see"><span class="asc-see-lab">Voir à l'œuvre</span><button type="button" class="asc-go" data-k="partie" data-t="2" data-q="Les hommes font leur propre histoire"><svg class="asc-ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Lire ce passage</span></button></div><div class="asc-knot asc-knot--one"><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Ce qu'elle force : </span>Il suit de là que le déguisement historique n’est pas un ornement mais un symptôme. Là où 1789 empruntait le costume romain pour hausser une tâche réelle, 1848 le reprend pour fuir la sienne : une révolution qui doit emprunter sa langue au passé n’a pas encore trouvé son objet, et celle du XIXe siècle devra prendre sa poésie à l’avenir.</span></p></div></article><article class="asc-step" id="asc-3" data-step="3" data-plan="Ce qu’un parti dit de lui-même" style="--rung:rgb(102,82,90)" aria-labelledby="asc-t3"><span class="asc-num" aria-hidden="true">3</span><h3 class="asc-t" id="asc-t3" tabindex="-1"><span class="sr-only">Marche 3 : </span>Ce qu’un parti dit de lui-même ne suffit pas</h3><p class="asc-lieu">Chapitre III</p><p class="asc-pose">Légitimistes et orléanistes ne se séparent pas par des principes mais par deux espèces de propriété, la terre et le capital ; et sur ces conditions matérielles s’élève toute une superstructure de sensations, d’illusions et de manières de penser que l’individu reçoit de la tradition et prend pour les raisons propres de son action.</p><div class="asc-see"><span class="asc-see-lab">Voir à l'œuvre</span><button type="button" class="asc-go" data-k="qpq" data-t="ordre"><svg class="asc-ic" viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="3" width="12" height="10" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M9.5 3v10" stroke="currentColor" stroke-width="1.4"/><path d="M11 6.5h1.6M11 9h1.6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg><span>Qui parle pour qui</span></button><button type="button" class="asc-go" data-k="partie" data-t="4" data-q="Sur les différentes formes de propriété"><svg class="asc-ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Lire ce passage</span></button></div><div class="asc-knot asc-knot--one"><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Ce qu'elle force : </span>D’où la règle de lecture qui commande tout le livre : dans les luttes historiques plus encore que dans la vie privée, il faut distinguer ce qu’un parti dit et s’imagine de ce qu’il est réellement. Les drapeaux se lisent à partir des intérêts, et jamais l’inverse.</span></p></div></article><article class="asc-step" id="asc-4" data-step="4" data-plan="La ligne descendante" style="--rung:rgb(124,78,81)" aria-labelledby="asc-t4"><span class="asc-num" aria-hidden="true">4</span><h3 class="asc-t" id="asc-t4" tabindex="-1"><span class="sr-only">Marche 4 : </span>La ligne descendante</h3><p class="asc-lieu">Chapitre III</p><p class="asc-pose">Dans la première révolution, chaque parti s’appuyait sur une fraction plus avancée que lui et se voyait écarté par elle : la révolution suivait une ligne ascendante. En 1848 le mouvement s’inverse, chacun attaquant par-derrière celui qui le dépasse et s’appuyant sur le front de celui qui recule.</p><div class="asc-see"><span class="asc-see-lab">Voir à l'œuvre</span><button type="button" class="asc-go" data-k="partie" data-t="4" data-q="Chaque parti attaque par derrière"><svg class="asc-ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Lire ce passage</span></button></div><div class="asc-knot asc-knot--one"><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Ce qu'elle force : </span>La révolution se défait donc par le haut, et dans l’ordre : le prolétariat en juin 1848, la petite bourgeoisie démocrate le 13 juin 1849, les républicains bourgeois ensuite. Chaque victoire de l’ordre rétrécit le cercle de ses maîtres et prépare la classe suivante à être écartée à son tour.</span></p></div></article><article class="asc-step" id="asc-5" data-step="5" data-plan="Elle détruit son propre règne" style="--rung:rgb(146,75,73)" aria-labelledby="asc-t5"><span class="asc-num" aria-hidden="true">5</span><h3 class="asc-t" id="asc-t5" tabindex="-1"><span class="sr-only">Marche 5 : </span>La bourgeoisie détruit les conditions de son propre règne</h3><p class="asc-lieu">Chapitre IV</p><p class="asc-pose">Pour gouverner contre les autres classes, elle doit accroître sans cesse la répression, donc les moyens d’action et le personnel du pouvoir exécutif, et mutiler les organes par lesquels la société se ferait entendre. Or ces organes sont les siens : la presse, la tribune, la discussion.</p><div class="asc-see"><span class="asc-see-lab">Voir à l'œuvre</span><button type="button" class="asc-go" data-k="partie" data-t="5" data-q="Ainsi la bourgeoisie française était forcée"><svg class="asc-ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Lire ce passage</span></button></div><div class="asc-knot asc-knot--one"><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Ce qu'elle force : </span>Elle en vient ainsi à condamner comme socialiste ce qu’elle avait célébré comme libéral, et jusqu’au régime parlementaire lui-même, qui ne vit que par la discussion. Sa situation de classe la force à anéantir les conditions de tout pouvoir parlementaire, donc du sien, et à donner à son adversaire une force irrésistible.</span></p></div></article><article class="asc-step" id="asc-6" data-step="6" data-plan="Sa bourse contre sa couronne" style="--rung:rgb(168,71,64)" aria-labelledby="asc-t6"><span class="asc-num" aria-hidden="true">6</span><h3 class="asc-t" id="asc-t6" tabindex="-1"><span class="sr-only">Marche 6 : </span>Pour lui sauver sa bourse, il faut lui arracher la couronne</h3><p class="asc-lieu">Chapitre IV</p><p class="asc-pose">La loi du 31 mai 1850 raye trois millions d’électeurs des listes : c’est la bourgeoisie elle-même qui supprime le suffrage universel, dix-huit mois avant le 2 décembre, et Marx l’appelle son coup d’État.</p><div class="asc-see"><span class="asc-see-lab">Voir à l'œuvre</span><button type="button" class="asc-go" data-k="partie" data-t="5" data-q="Pour lui sauver sa bourse"><svg class="asc-ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Lire ce passage</span></button></div><div class="asc-knot asc-knot--one"><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Ce qu'elle force : </span>La conclusion est alors dite en toutes lettres : pour que la classe conserve sa puissance sociale, sa puissance politique doit être brisée. Elle finira donc par applaudir celui qui la dépossède, parce qu’il la débarrasse à la fois des soucis et des dangers du pouvoir.</span></p></div></article><article class="asc-step" id="asc-7" data-step="7" data-plan="L’État se détache" style="--rung:rgb(191,68,56)" aria-labelledby="asc-t7"><span class="asc-num" aria-hidden="true">7</span><h3 class="asc-t" id="asc-t7" tabindex="-1"><span class="sr-only">Marche 7 : </span>L’État se détache de la société</h3><p class="asc-lieu">Chapitre VII</p><p class="asc-pose">L’appareil — une armée de fonctionnaires de plus d’un demi-million à côté d’une armée qui en compte autant — est né sous la monarchie absolue, achevé par la première révolution puis par Napoléon ; chaque parti a vu dans sa prise la proie principale du vainqueur, et tous les bouleversements l’ont perfectionné au lieu de le briser.</p><div class="asc-see"><span class="asc-see-lab">Voir à l'œuvre</span><button type="button" class="asc-go" data-k="qpq" data-t="dix"><svg class="asc-ic" viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="3" width="12" height="10" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M9.5 3v10" stroke="currentColor" stroke-width="1.4"/><path d="M11 6.5h1.6M11 9h1.6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg><span>Qui parle pour qui</span></button><button type="button" class="asc-go" data-k="partie" data-t="8" data-q="Tous les bouleversements n’ont fait"><svg class="asc-ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Lire ce passage</span></button></div><div class="asc-knot asc-knot--one"><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Ce qu'elle force : </span>Instrument de la classe dominante jusque-là, il paraît sous le second Bonaparte avoir acquis son indépendance : il suffit désormais du chef de la société du 10 décembre pour le conduire. C’est cette autonomie qu’il faut expliquer, et elle ne s’explique pas par elle-même.</span></p></div></article><article class="asc-step" id="asc-8" data-step="8" data-plan="Il repose sur la parcelle" style="--rung:rgb(213,64,47)" aria-labelledby="asc-t8"><span class="asc-num" aria-hidden="true">8</span><h3 class="asc-t" id="asc-t8" tabindex="-1"><span class="sr-only">Marche 8 : </span>Ce gouvernement ne plane pas dans les airs</h3><p class="asc-lieu">Chapitre VII</p><p class="asc-pose">L’État détaché repose sur la classe la plus nombreuse de la société : les paysans parcellaires, dont le mode de production isole les familles au lieu de les mettre en rapport, et que leur similitude additionne sans les unir, à peu près comme un sac de pommes de terre.</p><div class="asc-see"><span class="asc-see-lab">Voir à l'œuvre</span><button type="button" class="asc-go" data-k="qpq" data-t="paysans"><svg class="asc-ic" viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="3" width="12" height="10" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M9.5 3v10" stroke="currentColor" stroke-width="1.4"/><path d="M11 6.5h1.6M11 9h1.6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg><span>Qui parle pour qui</span></button><button type="button" class="asc-go" data-k="partie" data-t="8" data-q="Ce gouvernement cependant ne plane pas dans les airs"><svg class="asc-ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Lire ce passage</span></button></div><div class="asc-knot asc-knot--one"><p class="asc-f asc-pass"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span><span class="sr-only">Ce qu'elle force : </span>Vivant dans la même situation sans être liés par elle, ils ne peuvent faire prévaloir leur intérêt en leur propre nom : ils ne peuvent se représenter eux-mêmes, il faut les représenter, et leur représentant doit leur apparaître sous la forme d’un maître. L’autonomie de l’exécutif a ainsi sa base sociale, et la ruine de la parcelle fera s’écrouler l’État élevé sur elle.</span></p></div></article><p class="asc-close"><svg class="asc-mk" viewBox="0 0 24 24" aria-hidden="true"><g class="asc-mk-b"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g><g class="asc-mk-f"><path pathLength="1" d="M5 3.5v9.5a4 4 0 0 0 4 4h9.5"/><path pathLength="1" d="M14.5 13l4 4-4 4"/></g></svg><span>Il n’y a donc ni coup de tonnerre ni fatalité : une situation où chaque classe, l’une après l’autre, a renoncé à se gouverner, et un pouvoir qui a recueilli ce qu’elles avaient toutes abandonné.</span></p>
+      </div>
+      <nav class="asc-plan" aria-label="Les huit marches du cheminement"></nav>
+    </div>
+      <!--NOTIONS-BR:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main. -->
+    <p class="carte-sortie">Les notions du <i>XVIII brumaire</i> qui ont leur page : <a href="/glossaire/lutte-des-classes">Lutte des classes</a>, <a href="/glossaire/proletariat">Prolétariat</a>, <a href="/glossaire/bourgeoisie">Bourgeoisie</a> et <a href="/glossaire/pouvoir-politique">Pouvoir politique</a>.</p>
+    <!--NOTIONS-BR:FIN -->
+  </section>
+  <section class="panel active" id="labo">
+    <div class="panel-head">
+      <div class="panel-head-main">
+        <h2 class="sec">Qui parle pour qui</h2>
+        <p class="lead">Six forces politiques, et l’intérêt social que chacune exprime sans le dire.</p>
+      </div>
+    </div>
+    <p class="inst-cue">Choisissez une force politique.</p>
+    <div class="fiche" id="instr-qpq">
+      <div class="fiche-liste" role="group" aria-label="Les six forces politiques">
+        <button type="button" class="fiche-pick" data-qpq="ordre" aria-pressed="false"><span>Chapitre III</span>Le parti de l’ordre</button>
+        <button type="button" class="fiche-pick" data-qpq="national" aria-pressed="false"><span>Chapitre II</span>Les républicains du National</button>
+        <button type="button" class="fiche-pick" data-qpq="montagne" aria-pressed="false"><span>Chapitre III</span>La Montagne, ou social-démocratie</button>
+        <button type="button" class="fiche-pick" data-qpq="dix" aria-pressed="false"><span>Chapitre V</span>La société du 10 décembre</button>
+        <button type="button" class="fiche-pick" data-qpq="paysans" aria-pressed="false"><span>Chapitre VII</span>Les paysans parcellaires</button>
+        <button type="button" class="fiche-pick" data-qpq="proletariat" aria-pressed="false"><span>Chapitre I</span>Le prolétariat parisien</button>
+      </div>
+      <div class="fiche-detail">
+        <article class="fiche-node" id="qpq-ordre">
+          <blockquote class="fiche-cite">Sous les Bourbons, la grande propriété foncière avait régné avec ses prêtres et ses laquais. Sous les d’Orléans, c’était la grande finance, la grande industrie, le grand commerce, c’est-à-dire le capital avec sa suite d’avocats, de professeurs et de beaux parleurs.</blockquote>
+          <dl><dt>Ce qu’il dit de lui-même</dt><dd>Une coalition de royalistes que séparent deux dynasties, les Bourbons et les Orléans, et que réunit la défense de l’ordre, de la propriété, de la famille et de la religion.</dd><dt>Ce que Marx montre</dt><dd>Que ce ne sont pas des nuances de royalisme mais deux espèces de propriété : la terre d’un côté, le capital de l’autre — et que la rivalité des deux maisons ne fait que personnifier celle des deux intérêts. La fusion des dynasties échouera pour cette raison, et non par entêtement de famille.</dd><dt>Ce qu’il en résulte</dt><dd>La république parlementaire n’est pas subie faute de mieux : elle est la seule forme où les deux fractions puissent régner ensemble, au nom de la classe entière plutôt que d’une de ses parts. Ils insultent donc le régime qui les fait régner, et se disent républicains chaque fois qu’ils doivent le défendre contre le président.</dd></dl>
+          <p class="fiche-go"><button type="button" class="btn" data-lire="4" data-q="Sous les Bourbons, la grande propriété foncière">Voir dans le texte →</button></p>
+        </article>
+        <article class="fiche-node" id="qpq-national" hidden>
+          <blockquote class="fiche-cite">Ce n’était pas une fraction de la bourgeoisie que réunissait un puissant intérêt commun, que déterminaient des conditions de production particulières. C’était une coterie de bourgeois, d’écrivains, d’avocats et de fonctionnaires possédant des idées républicaines.</blockquote>
+          <dl><dt>Ce qu’il dit de lui-même</dt><dd>Le parti de la République, héritier légitime de la monarchie de Juillet, et l’adversaire de l’aristocratie financière.</dd><dt>Ce que Marx montre</dt><dd>Qu’aucun intérêt commun ni aucune condition de production particulière ne le constitue : c’est une coterie, dont l’influence tient à des antipathies personnelles contre Louis-Philippe, au souvenir de la première République et au nationalisme. Il veut que la domination bourgeoise prenne la forme républicaine, et d’abord qu’elle lui en laisse la part du lion.</dd><dt>Ce qu’il en résulte</dt><dd>Un parti sans base se conserve aussi longtemps qu’il sert, et disparaît dès qu’il cesse de servir. Sa suprématie dure six mois ; son œuvre tient dans une constitution et dans l’état de siège de Paris. Marx écrit qu’ils n’ont pas péri, mais disparu.</dd></dl>
+          <p class="fiche-go"><button type="button" class="btn" data-lire="3" data-q="Ce n’était pas une fraction de la bourgeoisie">Voir dans le texte →</button></p>
+        </article>
+        <article class="fiche-node" id="qpq-montagne" hidden>
+          <blockquote class="fiche-cite">on demande des institutions républicaines, démocratiques, non pour supprimer deux extrêmes, le capital et le salariat, mais pour atténuer leur antagonisme et le transformer en une harmonie.</blockquote>
+          <dl><dt>Ce qu’elle dit d’elle-même</dt><dd>La représentation du peuple contre une classe privilégiée, et la défense des droits éternels de l’homme.</dd><dt>Ce que Marx montre</dt><dd>Qu’elle est la coalition des petits bourgeois et des ouvriers, et que son contenu propre est de demander des institutions démocratiques non pour supprimer le capital et le salariat, mais pour atténuer leur antagonisme. Ses représentants peuvent être à cent lieues des boutiquiers par l’instruction et la fortune : ce qui en fait leurs représentants, c’est que leur pensée ne franchit pas les limites que ceux-ci ne franchissent pas dans leur vie.</dd><dt>Ce qu’il en résulte</dt><dd>C’est le passage le plus général du livre, et il vaut au-delà de son objet : tel est le rapport qui unit en général les représentants politiques et littéraires d’une classe à la classe qu’ils représentent. Se croyant au-dessus de l’antagonisme des classes, la démocratie n’examine pas ses forces avant d’appeler aux armes — d’où le 13 juin 1849.</dd></dl>
+          <p class="fiche-go"><button type="button" class="btn" data-lire="4" data-q="on demande des institutions républicaines">Voir dans le texte →</button></p>
+        </article>
+        <article class="fiche-node" id="qpq-dix" hidden>
+          <blockquote class="fiche-cite">bref toute cette masse indéterminée, décomposée, flottante que les Français appellent « la Bohême ».</blockquote>
+          <dl><dt>Ce qu’elle dit d’elle-même</dt><dd>Une société de bienfaisance, qui organise les nécessiteux de Paris.</dd><dt>Ce que Marx montre</dt><dd>Qu’elle enrôle en sections secrètes des roués ruinés, les déchets de la bourgeoisie, des vagabonds, des forçats libérés, des filous et des mendiants — et que son chef y trouve la seule masse dont les intérêts soient exactement les siens. C’est là le vrai Bonaparte, celui que Marx appelle le Bonaparte sans phrase.</dd><dt>Ce qu’il en résulte</dt><dd>Une classe qui n’est pas une classe, faite du rebut de toutes les autres, peut servir de base à un pouvoir — à condition qu’il l’entretienne. D’où la formule du livre sur l’imposture : vieux roué, il prend les affaires d’État pour une comédie, et devient la victime de sa propre vue du monde le jour où, Polichinelle sérieux, il prend sa comédie pour de l’histoire.</dd></dl>
+          <p class="fiche-go"><button type="button" class="btn" data-lire="6" data-q="bref toute cette masse indéterminée">Voir dans le texte →</button></p>
+        </article>
+        <article class="fiche-node" id="qpq-paysans" hidden>
+          <blockquote class="fiche-cite">Ils ne peuvent se représenter eux-mêmes, il faut les représenter. Leur représentant doit leur apparaître de plus sous la forme d’un maître, d’une autorité, d’un pouvoir illimité, capable de les protéger contre les autres classes et de faire en leur faveur la pluie et le beau temps.</blockquote>
+          <dl><dt>Ce qu’ils disent d’eux-mêmes</dt><dd>Rien, et c’est le point : ils n’ont ni journal, ni parti, ni congrès. Leur vote de décembre 1848 a parlé pour eux.</dd><dt>Ce que Marx montre</dt><dd>Que leur mode de production les isole au lieu de les mettre en rapport, si bien qu’ils vivent dans la même situation sans être liés par elle : une simple addition de grandeurs de même nom, à peu près comme un sac de pommes de terre. Ils forment donc une classe par leurs conditions d’existence, et n’en forment pas une par leur organisation.</dd><dt>Ce qu’il en résulte</dt><dd>L’énoncé le plus discuté du livre : ils ne peuvent se représenter eux-mêmes, il faut les représenter — et leur représentant doit leur apparaître comme un maître. La dynastie ne représente d’ailleurs pas le paysan révolutionnaire mais le paysan conservateur ; non son avenir, mais son passé.</dd></dl>
+          <p class="fiche-go"><button type="button" class="btn" data-lire="8" data-q="Ils ne peuvent se représenter eux-mêmes">Voir dans le texte →</button></p>
+        </article>
+        <article class="fiche-node" id="qpq-proletariat" hidden>
+          <blockquote class="fiche-cite">Le prolétariat parisien restait seul de son côté. Plus de trois mille insurgés furent massacrés après la victoire, quinze mille furent transportés sans jugement.</blockquote>
+          <dl><dt>Ce qu’il dit de lui-même</dt><dd>Il a conquis la République les armes à la main et lui a imprimé son sceau en la proclamant sociale.</dd><dt>Ce que Marx montre</dt><dd>Que l’objet ainsi indiqué se trouvait dans la plus étrange contradiction avec les matériaux existants et le degré de développement atteint par la masse. En juin 1848, toutes les autres classes lui font front : il reste seul de son côté, et succombe dans ce que Marx appelle l’événement le plus colossal de l’histoire des guerres civiles européennes.</dd><dt>Ce qu’il en résulte</dt><dd>Vaincu, il passe à l’arrière-plan, s’allie à chaque couche qui entre en fermentation et partage toutes leurs défaites ; il se jette dans les banques d’échange et les associations, c’est-à-dire cherche son affranchissement à l’insu de la société. Sa défaite est la condition de tout ce qui suit : c’est elle qui aplanit le terrain de la République bourgeoise.</dd></dl>
+          <p class="fiche-go"><button type="button" class="btn" data-lire="2" data-q="Le prolétariat parisien restait seul">Voir dans le texte →</button></p>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="panel active" id="apres">
+    <div class="panel-head">
+      <div class="panel-head-main">
+        <h2 class="sec">Ce que le livre a ouvert</h2>
+        <p class="lead">Trois acquis, trois contresens, et les endroits où l’argument se poursuit.</p>
+      </div>
+    </div>
+    <div class="relv">
+      <div class="relv-col">
+        <h3 class="relv-h">Ce que le livre établit</h3>
+        <p class="relv-s">Et qu’aucun autre texte de Marx n’établit ainsi.</p>
+        <ul>
+          <li><b>Une méthode.</b> Les hommes font leur histoire, mais dans des conditions trouvées toutes faites : ni la volonté d’un individu, ni la fatalité d’un processus.<span class="relv-n"><a href="/glossaire/lutte-des-classes">La lutte des classes →</a></span></li>
+          <li><b>Une règle de lecture.</b> Ce qu’un parti dit de lui-même et ce qu’il est se distinguent comme, chez un individu, ce qu’il pense de lui-même et ce qu’il fait. C’est ici, et non dans un texte de philosophie, que Marx emploie le mot de <i>superstructure</i>.</li>
+          <li><b>Une autonomie relative de l’État.</b> L’appareil, que toutes les révolutions ont perfectionné au lieu de le briser, paraît sous le second Bonaparte s’être affranchi de la société — sans cesser pour autant de reposer sur une classe.</li>
+          <li><b>Une classe qui ne peut se représenter.</b> La parcelle isole ce qu’elle rassemble : d’où un pouvoir personnel qui tient sa force de la dispersion même de sa base.</li>
+        </ul>
+      </div>
+      <div class="relv-col">
+        <h3 class="relv-h">Ce qu’on lui fait dire</h3>
+        <p class="relv-s">Quatre contresens, dont deux tiennent à une phrase.</p>
+        <ul>
+          <li><b>« L’histoire se répète. »</b> Marx dit l’inverse : la répétition est le signe que quelque chose ne se fait pas. La seconde fois est une farce parce qu’elle emprunte un costume au lieu d’avoir le sien.</li>
+          <li><b>« Les individus ne comptent pas. »</b> Le livre est tout entier occupé d’un individu, et le tient pour médiocre et grotesque. Ce qu’il refuse n’est pas l’individu, c’est d’en faire une cause première : Hugo, en ne voyant que lui, le grandit.</li>
+          <li><b>« L’État n’est qu’un instrument. »</b> C’est justement ce que ce texte complique : l’instrument y acquiert une apparence d’indépendance, et la question devient de savoir ce qui la soutient.</li>
+          <li><b>« Bonapartisme ».</b> Le mot n’est pas dans le livre — pas une occurrence — et Marx y refuse expressément celui de <i>césarisme</i>, dont l’analogie romaine fait oublier que la lutte antique se jouait entre riches et pauvres libres, la masse des producteurs esclaves ne servant que de piédestal. Le concept est de la postérité, non de l’auteur.</li>
+        </ul>
+      </div>
+      <div class="relv-col">
+        <h3 class="relv-h">Où l’argument se poursuit</h3>
+        <p class="relv-s">Dans Marx, et dans ce site.</p>
+        <ul>
+          <li><b>Le récit qui précède.</b> <i>La Lutte des classes en France</i> couvre 1848-1850 et s’arrête où celui-ci commence ; les deux ont paru dans le même volume en 1900, sous la même plume française.</li>
+          <li><b>La base économique.</b> Ce que ce livre suppose — l’accumulation, la rente, l’hypothèque qui ruine la parcelle — est établi quinze ans plus tard.<span class="relv-n"><a href="/oeuvres/capital-1">Le Capital, Livre I →</a></span></li>
+          <li><b>La préface de 1859.</b> La formule qui résume la méthode employée ici y est donnée pour elle-même, six ans après.<span class="relv-n"><a href="/oeuvres/contribution-1859#partie=1">La Contribution →</a></span></li>
+          <li><b>Le programme de février 1848.</b> Le Manifeste annonce ce que la révolution allait faire ; ce livre raconte ce qu’elle a fait.<span class="relv-n"><a href="/oeuvres/manifeste">Le Manifeste →</a></span></li>
+        </ul>
+      </div>
+    </div>
+    <p class="relv-note">Marx a écrit ces pages en six semaines, pour une revue d’émigrés allemands de New York qui n’a pas dépassé son deuxième numéro. Il le rappelle en tête : l’écrit est né sous la pression directe des événements, et sa matière ne dépasse pas février 1852. Dix-sept ans plus tard, rééditant sans y toucher, il se borne à corriger les fautes d’impression et à supprimer les allusions qu’on ne comprendrait plus — un remaniement, dit-il, lui aurait enlevé sa couleur propre.</p>
+  </section>
+
+  <section class="panel active" id="chrono">
+    <div class="panel-head">
+      <div class="panel-head-main">
+        <h2 class="sec">La chronologie</h2>
+        <p class="lead">Quarante-cinq mois de révolution, six semaines d’écriture, et quatre éditions.</p>
+      </div>
+    </div>
+    <div class="chr">
+      <figure class="chr-fig">
+        <img src="../assets/img/archive/dix-huit-brumaire-titre-1900.webp" alt="Page de titre : La Lutte des classes en France (1848-1850), Le XVIII brumaire de Louis Bonaparte, par Karl Marx, traduit de l’allemand par Léon Remy, Paris, Schleicher frères, 1900" loading="lazy" decoding="async" width="499" height="748">
+        <figcaption>Page de titre du volume servi, 1900 · numérisation Université de Bourgogne et BnF, domaine public</figcaption>
+      </figure>
+      <div class="chr-main">
+        <section class="chr-temps" aria-labelledby="chr-t1">
+          <h3 class="chr-h" id="chr-t1">Ce que le livre raconte</h3>
+          <p class="chr-intro">Marx périodise lui-même, à la fin du chapitre VI, les quarante-cinq mois qu’il vient de parcourir. Ce sont ses divisions.</p>
+          <ol class="chr-list">
+            <li class="chr-ev"><span class="chr-y">24 février 1848</span><div><h4>Le prologue</h4><p>Louis-Philippe s’enfuit, le gouvernement se déclare provisoire, et tout ce qui est proposé l’est de même. La République est conquise par le prolétariat les armes à la main, et chaque parti l’interprète dans son sens.</p></div></li>
+            <li class="chr-ev"><span class="chr-y">23-26 juin 1848</span><div><h4>Les journées de Juin</h4><p>Le prolétariat parisien reste seul contre toutes les autres classes : plus de trois mille insurgés massacrés, quinze mille transportés sans jugement. Sa défaite aplanit le terrain de la République bourgeoise.</p></div></li>
+            <li class="chr-ev"><span class="chr-y">10 décembre 1848</span><div><h4>L’élection du président</h4><p>Une réaction des paysans, qui avaient payé les frais de Février, contre les autres classes — de la campagne contre la ville. Le point vulnérable de la constitution est désormais occupé.</p></div></li>
+            <li class="chr-ev"><span class="chr-y">13 juin 1849</span><div><h4>La défaite de la Montagne</h4><p>Appelée aux armes puis conduite parlementairement dans la rue, la petite bourgeoisie démocrate se défait sans combattre. Sa garde nationale est dissoute, et l’armée découvre que l’uniforme était un chiffon de laine comme un autre.</p></div></li>
+            <li class="chr-ev"><span class="chr-y">31 mai 1850</span><div><h4>Le coup d’État de la bourgeoisie</h4><p>La loi électorale raye trois millions d’électeurs des listes. Le suffrage universel s’était déclaré contre la domination bourgeoise le 10 mars : elle répond en le proscrivant.</p></div></li>
+            <li class="chr-ev"><span class="chr-y">12 janvier 1851</span><div><h4>Changarnier destitué</h4><p>Le parti de l’ordre refuse l’armée qui s’offrait à lui dans la personne de son général, et perd le commandement militaire. Sans ministère, sans troupes, sans majorité, l’Assemblée n’est plus qu’un parlement de l’ancien régime.</p></div></li>
+            <li class="chr-ev"><span class="chr-y">19 juillet 1851</span><div><h4>La révision repoussée</h4><p>446 voix pour, 278 contre : la majorité se déclare contre la constitution, mais la constitution exige les trois quarts. Le Parlement a déclaré son propre pouvoir hors de la majorité.</p></div></li>
+            <li class="chr-ev"><span class="chr-y">2 décembre 1851</span><div><h4>Le coup d’État</h4><p>Les chefs parlementaires tirés de leur lit, les places garnies de troupes, la dissolution et le rétablissement du suffrage universel affichés au matin. L’événement était annoncé depuis trois ans ; il réussit malgré cela, parce qu’il était devenu nécessaire.</p></div></li>
+          </ol>
+        </section>
+        <section class="chr-temps" aria-labelledby="chr-t2">
+          <h3 class="chr-h" id="chr-t2">L’écriture</h3>
+          <ol class="chr-list">
+            <li class="chr-ev"><span class="chr-y">déc. 1851 – fév. 1852</span><div><h4>Des articles hebdomadaires</h4><p>Joseph Weydemeyer projette une revue politique à New York et invite Marx à y écrire l’histoire du coup d’État. Marx lui envoie des articles chaque semaine jusqu’à la mi-février : la matière historique du livre ne dépasse pas cette date.</p></div></li>
+            <li class="chr-ev"><span class="chr-y">printemps 1852</span><div><h4>Die Revolution</h4><p>Le plan primitif échoue ; Weydemeyer publie une revue mensuelle dont le deuxième numéro est rempli par le <i>XVIII brumaire</i>. Quelques centaines d’exemplaires gagnent l’Allemagne sans être à proprement parler mis en librairie — un libraire radical, à qui Marx en offre la vente, répond à cette prétention déplacée par un effroi vertueux.</p></div></li>
+          </ol>
+        </section>
+        <section class="chr-temps" aria-labelledby="chr-t3">
+          <h3 class="chr-h" id="chr-t3">Les éditions</h3>
+          <ol class="chr-list">
+            <li class="chr-ev"><span class="chr-y">réédition</span><div><h4>La préface de Marx</h4><p>C’est celle que porte le texte servi. Marx s’y explique sur Hugo et Proudhon, refuse le terme de césarisme, et note que sa dernière phrase s’est réalisée. Il n’a pas remanié le livre : un remaniement lui aurait enlevé sa couleur propre.</p></div></li>
+            <li class="chr-ev"><span class="chr-y">1885</span><div><h4>La troisième édition, préfacée par Engels</h4><p>Trente-trois ans après l’apparition de l’opuscule, dit-il en tête — ce qui date cette édition. Engels y donne le livre pour l’épreuve décisive de la loi que Marx a découverte, et tient qu’elle en est sortie brillamment.</p></div></li>
+            <li class="chr-ev"><span class="chr-y">1900</span><div><h4>La traduction servie ici</h4><p>Léon Remy traduit les deux récits de 1848-1851 dans un même volume de la Bibliothèque internationale des sciences sociologiques, chez Schleicher frères. C’est le texte de la liseuse. Remy est mort en 1910 : sa traduction est dans le domaine public.</p></div></li>
+          </ol>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel active" id="ressources">
+    <div class="panel-head">
+      <div class="panel-head-main">
+        <h2 class="sec">Ressources</h2>
+        <p class="lead">L’allemand d’origine, le volume numérisé, et le récit qui précède.</p>
+      </div>
+    </div>
+    <span class="rss-section-label">Le texte et ses éditions</span>
+    <div class="rss-grid">
+      <a class="rss-card" href="https://fr.wikisource.org/wiki/Le_XVIII_brumaire_de_Louis_Bonaparte" target="_blank" rel="noopener">
+        <div class="rss-card-top"><span class="rss-badge">Texte</span><span class="rss-ext"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12L12 2M12 2H7.5M12 2V6.5"/></svg></span></div>
+        <div class="rss-title">Le livre entier sur Wikisource</div>
+        <div class="rss-meta">Wikisource · traduction Léon Remy, 1900, domaine public — la source de la liseuse</div>
+      </a>
+      <a class="rss-card" href="https://www.projekt-gutenberg.org/marx/brumaire/brumaire.html" target="_blank" rel="noopener">
+        <div class="rss-card-top"><span class="rss-badge">Texte</span><span class="rss-ext"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12L12 2M12 2H7.5M12 2V6.5"/></svg></span></div>
+        <div class="rss-title">Der 18. Brumaire des Louis Bonaparte</div>
+        <div class="rss-meta">Projekt Gutenberg-DE · l’allemand d’origine, pour vérifier une formule</div>
+      </a>
+      <a class="rss-card" href="https://commons.wikimedia.org/wiki/File:Marx_-_La_Lutte_des_classes_en_France_-_Le_18_brumaire_de_Louis_Bonaparte,_1900.djvu" target="_blank" rel="noopener">
+        <div class="rss-card-top"><span class="rss-badge">Fac-similé</span><span class="rss-ext"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12L12 2M12 2H7.5M12 2V6.5"/></svg></span></div>
+        <div class="rss-title">Le volume de 1900, page à page</div>
+        <div class="rss-meta">Wikimedia Commons · numérisation Université de Bourgogne et BnF</div>
+      </a>
+      <a class="rss-card" href="https://www.marxists.org/archive/marx/works/1852/18th-brumaire/" target="_blank" rel="noopener">
+        <div class="rss-card-top"><span class="rss-badge">Texte</span><span class="rss-ext"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12L12 2M12 2H7.5M12 2V6.5"/></svg></span></div>
+        <div class="rss-title">The Eighteenth Brumaire of Louis Bonaparte</div>
+        <div class="rss-meta">Marxists Internet Archive · l’édition anglaise de référence, chapitre par chapitre</div>
+      </a>
+    </div>
+    <span class="rss-section-label">Le récit qui précède</span>
+    <div class="rss-grid">
+      <a class="rss-card" href="https://fr.wikisource.org/wiki/La_Lutte_des_classes_en_France_(1848-1850)" target="_blank" rel="noopener">
+        <div class="rss-card-top"><span class="rss-badge">Texte</span><span class="rss-ext"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12L12 2M12 2H7.5M12 2V6.5"/></svg></span></div>
+        <div class="rss-title">La Lutte des classes en France (1848-1850)</div>
+        <div class="rss-meta">Wikisource · même traducteur, même volume : février 1848 au coup d’État manqué</div>
+      </a>
+    </div>
+  </section>
+
+  </div>
+</main>
+<!-- PIED:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main -->
+<footer class="lm-foot wrap">
+  <div class="lm-foot-in">
+    <div class="lm-foot-id">
+      <p class="lm-foot-mark">Lire<span class="d">.</span>Marx</p>
+      <p class="lm-foot-lede">Marx en texte intégral, l&rsquo;appareil critique en marge du chapitre.</p>
+    </div>
+    <nav class="lm-foot-nav" aria-label="Pied de page">
+      <div class="lm-foot-col">
+        <p class="lm-foot-h">Le corpus</p>
+        <ul>
+        <li><a href="/oeuvres/capital-1">Le Capital — Livre I</a></li>
+        <li><a href="/oeuvres/contribution-1859">Contribution à la critique de l'économie politique</a></li>
+        <li><a href="/oeuvres/manuscrits-1844">Manuscrits de 1844</a></li>
+        <li><a href="/oeuvres/manifeste">Manifeste du parti communiste</a></li>
+        <li><a href="/oeuvres/18-brumaire">Le XVIII brumaire de Louis Bonaparte</a></li>
+        <li><a href="/oeuvres/salaire-prix-profit">Salaires, prix, profits</a></li>
+        <li><a href="/oeuvres/bibliotheque">Toute la bibliothèque</a></li>
+        </ul>
+      </div>
+      <div class="lm-foot-col">
+        <p class="lm-foot-h">Comprendre</p>
+        <ul>
+        <li><a href="/karl-marx">Qui était Karl Marx</a></li>
+        <li><a href="/glossaire/">L’abécédaire de Marx</a></li>
+        <li><a href="/jeu/">Le circuit du capital</a></li>
+        <li><a href="/agregation-2027">Marx à l’agrégation 2027</a></li>
+        </ul>
+      </div>
+      <div class="lm-foot-col">
+        <p class="lm-foot-h">Le site</p>
+        <ul>
+        <li><a href="/">Accueil</a></li>
+        <li><a href="/oeuvres/place-publique">Place publique</a></li>
+        <li><a href="/a-propos">À propos</a></li>
+        <li><a href="/mentions-legales">CGU &amp; confidentialité</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</footer>
+<!-- PIED:FIN -->
+
+<!-- NOTIONS:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main.
+     La table du titre de fiche vers sa page de notion : la résolution
+     (identité, suffixe de station, renvoi « voir ») se fait dans le
+     générateur, la page ne fait que lire. -->
+<script>window.NOTIONS_HREF={"Lutte des classes":{"h":"/glossaire/lutte-des-classes","n":"Lutte des classes"},"Prolétariat":{"h":"/glossaire/proletariat","n":"Prolétariat"},"Bourgeoisie":{"h":"/glossaire/bourgeoisie","n":"Bourgeoisie"},"Pouvoir politique":{"h":"/glossaire/pouvoir-politique","n":"Pouvoir politique"}};</script>
+<!-- NOTIONS:FIN -->
+<script>
+(function(){
+  var WORK='dix-huit-brumaire';
+  var WS_ROOT='Le XVIII brumaire de Louis Bonaparte';
+  var WS_PAGE='https://fr.wikisource.org/wiki/Le_XVIII_brumaire_de_Louis_Bonaparte';
+
+  /* ══════════════════════════════════════════════════════════════════
+     LE PLAN DU TEXTE — source unique des titres, des résumés et du
+     découpage, lue aussi par tools/gen-seo.mjs pour l'index de la
+     recherche (#partie=<g>).
+
+     HUIT ENTRÉES : la préface de l'auteur, puis les sept chapitres.
+     Chacune est une sous-page de Wikisource, donc une section
+     d'annotation à part (#s=<g>).
+
+     ⚠️ LES CHAPITRES NE PORTENT PAS DE TITRE DANS L'ORIGINAL. Marx les
+     numérote, et rien de plus : la source n'imprime qu'un chiffre romain.
+     Les intitulés de `t` sont donc ÉCRITS PAR CE SITE, et la notice de
+     source sous chaque chapitre le dit au lecteur — on ne fait jamais
+     passer ce que le site rédige pour ce que la source donne. Un sommaire
+     de « I, II, III… » n'aurait servi personne ; un titre qu'on attribue
+     à Marx aurait été un faux.
+
+     `p` : la sous-page Wikisource. `d` : le titre que la SOURCE imprime en
+     tête de cette page, sous forme normalisée — il sert à le retirer,
+     puisque nous posons le nôtre à sa place. `rn` : le chiffre romain.
+     `w` : la marche du cheminement. `qpq` : la fiche de l'instrument.
+     ══════════════════════════════════════════════════════════════════ */
+  var BR_STRUCT=[
+    {g:1, rn:'', t:'Préface de l’auteur', w:1,
+     p:[{page:'Préface de l’auteur', d:'preface de l auteur'}],
+     s:"Marx dit d’où vient le texte : des articles envoyés chaque semaine à Joseph Weydemeyer, qui projetait une revue à New York, et dont la matière ne dépasse pas février 1852 — l’écrit est né sous la pression directe des événements. Vient ensuite ce qui fait de cette préface un texte de méthode. Deux autres livres ont traité le même sujet, et Marx se sépare des deux : Victor Hugo ne voit dans le coup d’État que l’acte de violence d’un individu isolé, et grandit ainsi le personnage au lieu de le diminuer, en lui prêtant une force d’initiative sans exemple ; Proudhon le rapporte à un développement antérieur, et sa construction historique se change insensiblement en apologie. Lui montrera que la lutte des classes a créé des circonstances telles qu’un personnage médiocre et grotesque ait pu y jouer un rôle héroïque. La préface refuse enfin le terme de césarisme, dont l’analogie romaine fait oublier que la lutte antique se jouait entre riches et pauvres libres, la masse des producteurs esclaves ne servant que de piédestal passif. Le texte servi porte à la suite l’introduction d’Engels à la troisième édition, qui tient le livre pour l’épreuve décisive de la conception matérialiste de l’histoire."},
+
+    {g:2, rn:'I', t:'La tragédie et la farce', w:2, qpq:'proletariat',
+     p:[{page:'1', d:'i'}],
+     s:"Les pages les plus citées de Marx, et elles posent le problème du livre. Hegel a remarqué que les grands événements se produisent deux fois ; il a oublié d’ajouter que la première est une tragédie et la seconde une farce. Suit la proposition qui commande toute la méthode : les hommes font leur propre histoire, mais dans des conditions qu’ils ont trouvées toutes faites, et la tradition de toutes les générations défuntes pèse comme un cauchemar sur le cerveau des vivants. Marx distingue alors deux usages du costume emprunté — celui de 1789, qui haussait une tâche réelle en se drapant à la romaine, et celui de 1848, qui parodie pour fuir la sienne — et en tire que la révolution du XIXe siècle ne peut prendre sa poésie qu’à l’avenir, et doit laisser les morts enterrer leurs morts. La seconde moitié du chapitre ouvre le récit : les trois périodes de la révolution, le provisoire de Février, l’Assemblée constituante qui ramène les résultats à la mesure bourgeoise, et les journées de Juin, où le prolétariat parisien reste seul de son côté."},
+
+    {g:3, rn:'II', t:'La constitution et ses deux têtes', w:3, qpq:'national',
+     p:[{page:'2', d:'ii'}],
+     s:"L’histoire de la fraction républicaine de la bourgeoisie, celle du journal Le National : non pas une fraction que réunit un intérêt commun ou que déterminent des conditions de production particulières, mais une coterie de bourgeois, d’écrivains, d’avocats et de fonctionnaires. Portée au pouvoir par une insurrection qu’elle vient d’écraser, elle ne règne que du 24 juin au 10 décembre 1848, et son œuvre tient en deux choses : l’état de siège de Paris et une constitution. Marx montre que chaque liberté y est proclamée puis reprise par sa glose marginale — la phrase générale reconnaît la liberté, la note en marge la supprime — et surtout que le texte porte sa contradiction à la tête : l’Assemblée peut écarter le président par des voies constitutionnelles, le président ne peut se défaire d’elle qu’en supprimant la constitution, donc en la provoquant à son anéantissement violent. Les suffrages se dispersent sur sept cent cinquante députés et se concentrent sur un seul homme, qui devient l’élu de la nation. L’élection du 10 décembre — une réaction des paysans, de la campagne contre la ville — installe ce point vulnérable au sommet de l’État."},
+
+    {g:4, rn:'III', t:'La ligne descendante', w:4, qpq:'ordre',
+     p:[{page:'3', d:'iii'}],
+     s:"Le chapitre de la méthode, et le plus dense du livre. Dans la première révolution, chaque parti s’appuyait sur une fraction plus avancée que lui et se voyait écarté par elle : la révolution suivait une ligne ascendante. En 1848 le mouvement s’inverse, chacun attaquant par-derrière celui qui le dépasse et s’appuyant sur le front de celui qui recule. Marx y établit ce qui sépare son analyse des lectures purement politiques : légitimistes et orléanistes ne sont pas deux nuances de royalisme mais deux espèces de propriété, la terre et le capital, et sur ces conditions matérielles s’élève toute une superstructure de sensations, d’illusions et de manières de penser que l’individu reçoit de la tradition et prend pour les raisons propres de son action. De là le principe qui vaut pour tout l’ouvrage : dans les luttes historiques plus encore que dans la vie privée, il faut distinguer ce qu’un parti dit de lui-même et ce qu’il est réellement. Le même chapitre analyse la social-démocratie naissante, puis raconte le 13 juin 1849 : appelée aux armes dans le Parlement et conduite parlementairement dans la rue, la Montagne se défait sans combattre, et la garde nationale démocrate est dissoute."},
+
+    {g:5, rn:'IV', t:'Le coup d’État de la bourgeoisie', w:5,
+     p:[{page:'4', d:'iv'}],
+     s:"Le renvoi du ministère Barrot ôte au parti de l’ordre le pouvoir exécutif, qu’il ne reconquerra jamais, et Marx saisit l’occasion de décrire l’appareil d’État français : un corps parasite dont la centralisation enserre, contrôle et surveille la société civile jusque dans la vie privée des individus, où la bourgeoisie place ses membres superflus et complète en appointements ce qu’elle ne peut empocher en profits. D’où la contrainte qui pèse sur elle : pour régner contre les autres classes, elle doit accroître les moyens du pouvoir et mutiler les organes par lesquels la société se ferait entendre — or ces organes sont les siens. La seconde moitié du chapitre en tire la conséquence politique : tout ce qu’elle avait célébré comme libéral, elle le condamne désormais comme socialiste, jusqu’au régime parlementaire lui-même, qui ne vit que par la discussion. Pour lui sauver sa bourse, il faut lui arracher la couronne. La loi du 31 mai 1850, qui raye trois millions d’électeurs des listes, est le coup d’État de la bourgeoisie contre le suffrage universel — dix-huit mois avant celui qui l’emportera."},
+
+    {g:6, rn:'V', t:'La société du 10 décembre', w:6, qpq:'dix',
+     p:[{page:'5', d:'v'}],
+     s:"Le chapitre décrit ce sur quoi Bonaparte s’appuie en propre. Sous couvert de bienfaisance, la société du 10 décembre organise en sections secrètes ce que les Français appellent la Bohême — roués ruinés, déchets de la bourgeoisie, vagabonds, forçats libérés, filous et mendiants —, et son chef y reconnaît la seule masse dont les intérêts soient exactement les siens : c’est là, écrit Marx, le vrai Bonaparte, le Bonaparte sans phrase. Le passage donne au livre sa formule sur l’imposture : vieux roué, il prend la vie historique des peuples pour une comédie, et ne devient la victime de sa propre vue du monde que le jour où, Polichinelle sérieux, il prend sa comédie pour de l’histoire. Le reste du chapitre raconte la conquête de l’armée — les cigares et le champagne de l’Élysée, les revues de Saint-Maur et de Satory — puis la destitution de Changarnier : en refusant l’armée qui s’offrait à lui dans la personne de son général, le parti de l’ordre perd les armes et les soldats, et l’Assemblée devient un parlement sans yeux, sans oreilles, sans dents."},
+
+    {g:7, rn:'VI', t:'La décomposition du parti de l’ordre', w:6,
+     p:[{page:'6', d:'vi'}],
+     s:"La question de la révision de la constitution décompose le parti de l’ordre en ses éléments : la république parlementaire était le terrain neutre où les deux fractions régnaient ensemble, et une couronne ne peut coiffer qu’une tête. La fusion des deux dynasties échoue, la révision est repoussée le 19 juillet 1851, et le Parlement se trouve avoir déclaré son propre pouvoir hors de la majorité — il vote contre la constitution, et la constitution le tient en échec. Marx montre ensuite la rupture entre la bourgeoisie et ceux qui parlent pour elle : l’aristocratie financière tient le président pour la sentinelle de l’ordre, la bourgeoisie industrielle reproche à ses députés de troubler son commerce, et la crise de 1851, qu’elle explique par le conflit des pouvoirs, s’explique par la surproduction et par l’état du marché universel — le rapport d’une maison de Liverpool le dit mieux qu’elle. Elle déclare vouloir se débarrasser de son propre pouvoir politique, applaudit Bonaparte le 25 novembre, et le 2 décembre l’attentat s’exécute comme un vol de nuit. Le chapitre s’achève sur le calendrier des trois périodes."},
+
+    {g:8, rn:'VII', t:'La machine d’État et la parcelle', w:7, qpq:'paysans',
+     p:[{page:'7', d:'vii'}],
+     s:"Le chapitre théorique du livre. Marx commence par rendre à la bourgeoisie, une à une, les mesures qu’elle avait prises contre le peuple et qui se retournent contre elle : elle avait mis en état de siège, l’état de siège est prononcé contre elle. Puis vient la question du pouvoir exécutif : cette armée de fonctionnaires et cet effroyable parasite ont grandi sous la monarchie absolue, la première révolution et Napoléon les ont achevés, et tous les bouleversements ont rendu la machine plus parfaite au lieu de la briser. Ce n’est que sous le second des Bonapartes que l’État semble avoir acquis son indépendance complète. Mais ce gouvernement ne plane pas dans les airs : il représente les paysans parcellaires, dont le mode de production isole les familles au lieu de les mettre en rapport et les additionne comme un sac de pommes de terre — ils ne peuvent se représenter eux-mêmes, il faut les représenter. Suivent les idées napoléoniennes — la parcelle, l’impôt et la bureaucratie, le prêtre, l’armée —, devenues les hallucinations de l’agonie de la parcelle. Le livre se ferme sur la promesse que la ruine de la propriété parcellaire fera s’écrouler l’État élevé sur elle, et sur la statue précipitée du haut de la colonne Vendôme."}
+  ];
+
+  /* ══════════════════════════════════════════════════════════════════
+     LE GLOSSAIRE DE LA LISEUSE — et la CINQUIÈME source de l'abécédaire,
+     après CONCEPTS (Capital), CONCEPTS (Manuscrits), GLOSS_MF et GLOSS_SP.
+
+     `t` porte l'IDENTITÉ : écrit au titre exact d'une fiche existante, la
+     notion n'en crée pas une seconde — elle gagne une provenance, ce qui
+     est le cas de quatre des douze entrées. Les huit autres sont propres à
+     ce livre : elles sont d'analyse politique, et aucune autre œuvre du
+     corpus ne les pose.
+
+     `s` est la forme que la liseuse surligne (première occurrence), et elle
+     doit EXISTER dans le texte servi : c'est ce qui interdit une provenance
+     de complaisance. « Lumpenprolétariat » n'est donc PAS ici — le mot ne
+     paraît que dans une note du traducteur, et les notes ne sont pas
+     servies ; c'est « la Bohême » et « canaille » que le corps du texte
+     emploie. « Idées dominantes », qui a sa fiche par le Manifeste, n'y est
+     pas non plus : zéro occurrence.
+
+     `g` dit le CHAPITRE : c'est lui que la provenance affiche et vers
+     lequel elle mène.
+     ══════════════════════════════════════════════════════════════════ */
+  var GLOSS_BR=[
+    {t:"Lutte des classes", g:1, s:["lutte des classes"], de:"Klassenkampf",
+     def:"Le programme du livre tient en une phrase de sa préface : la lutte des classes a créé des circonstances et des situations telles qu’un personnage médiocre et grotesque a pu y jouer un rôle héroïque. Ni l’individu, ni la fatalité."},
+    {t:"Prolétariat", g:2, s:["prolétariat"], de:"Proletariat",
+     def:"En juin 1848 il reste seul de son côté contre toutes les autres classes. Sa défaite n’est pas un épisode : c’est elle qui aplanit le terrain sur lequel la République bourgeoise pourra s’établir."},
+    {t:"La superstructure", g:4, s:["superstructure"], de:"Überbau",
+     def:"Sur les formes de propriété et les conditions sociales d’existence s’élève tout un ensemble de sensations, d’illusions et de manières de penser qu’une classe forme de ses conditions matérielles — et que l’individu, les recevant de la tradition, prend pour les raisons propres de son action."},
+    {t:"Bourgeoisie", g:4, s:["bourgeoisie"], de:"Bourgeoisie",
+     def:"Elle se divise en deux fractions que séparent deux espèces de propriété, la terre et le capital, et qui ne peuvent régner ensemble que sous la forme républicaine — la seule où l’intérêt de la classe prime celui de ses parts."},
+    {t:"Le parti de l’ordre", g:4, s:["parti de l’ordre"],
+     def:"La coalition des légitimistes et des orléanistes. Ce ne sont pas deux nuances de royalisme : c’est la propriété foncière et le capital, dont la rivalité se personnifie dans deux dynasties. Ils font leur œuvre réelle comme classe, non comme royalistes."},
+    {t:"La ligne descendante", g:4, s:["ligne descendante"],
+     def:"Le mouvement propre à 1848. Dans la première révolution, chaque parti s’appuyait sur une fraction plus avancée et se voyait écarté par elle ; ici chacun attaque par-derrière celui qui le dépasse et s’appuie sur le front de celui qui recule."},
+    {t:"Pouvoir politique", g:5, s:["pouvoir politique"], de:"politische Macht",
+     def:"Ce que la bourgeoisie doit perdre pour garder le reste. Pour que sa puissance sociale demeure intacte, sa puissance politique doit être brisée : pour lui sauver sa bourse, il faut lui arracher la couronne."},
+    {t:"Le crétinisme parlementaire", g:6, s:["crétinisme parlementaire"], de:"parlamentarischer Kretinismus",
+     def:"La maladie qui relègue les malades en un monde imaginaire et leur ôte toute intelligence du monde extérieur : on croit atteindre le président en frappant ses ministres, quand on a détruit de ses propres mains les conditions de tout pouvoir parlementaire."},
+    {t:"La société du 10 décembre", g:6, s:["société du 10 décembre","la Bohême"],
+     def:"Sous couvert de bienfaisance, la canaille de Paris organisée en sections secrètes : roués ruinés, déchets de la bourgeoisie, vagabonds, forçats libérés, filous et mendiants. Bonaparte y reconnaît la seule masse dont les intérêts soient les siens."},
+    {t:"Le pouvoir exécutif", g:8, s:["pouvoir exécutif"], de:"Exekutivgewalt",
+     def:"Une armée de fonctionnaires de plus d’un demi-million à côté d’une armée qui en compte autant, et un parasite qui bouche tous les pores de la société. Né sous la monarchie absolue, il a été perfectionné par toutes les révolutions au lieu d’être brisé."},
+    {t:"Les paysans parcellaires", g:8, s:["paysans parcellaires","propriété parcellaire"], de:"Parzellenbauern",
+     def:"La classe la plus nombreuse de la société. Leur mode de production les isole au lieu de les mettre en rapport : ils vivent dans la même situation sans être unis par elle, et ne peuvent se représenter eux-mêmes — il faut les représenter."},
+    {t:"Les idées napoléoniennes", g:8, s:["idées napoléoniennes"], de:"napoleonische Ideen",
+     def:"La parcelle libre, le gouvernement fort, la bureaucratie, le prêtre et l’armée. Nécessaires à la parcelle naissante, elles sont absurdes appliquées à la parcelle endettée : les hallucinations de sa propre agonie."}
+  ];
+
+  function byId(id){return document.getElementById(id);}
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function norm(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .replace(/[^a-z0-9]+/g,' ').trim();}
+
+  function rm(){ return window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+
+  /* ══════════════════════════════════════════════════════════════════
+     DEUX DESTINATIONS, ET LE TEXTE EST LA PREMIÈRE.
+     Le dossier est un CONTENEUR : ses salles restent `panel active`,
+     c'est oeuvres/dossier.js qui n'en montre qu'une.
+     ══════════════════════════════════════════════════════════════════ */
+  var TABS=[{id:'lire',label:'Lire le texte'},{id:'dossier',label:'Le dossier',glose:'pour approfondir'}];
+  var DOSSIER=['deriv','labo','apres','chrono','ressources'];
+  var DOSSIER_LABELS={deriv:'Le cheminement',labo:'Qui parle pour qui',
+    apres:'Ce que le livre a ouvert',chrono:'La chronologie',ressources:'Les ressources'};
+  /* Ce qu'on FAIT dans chaque salle (vocabulaire clos, marque dessinée
+     dans dossier.js). */
+  var DOSSIER_NATURE={deriv:'à lire',labo:'à manipuler',apres:'à parcourir',
+    chrono:'à parcourir',ressources:'à consulter'};
+  var WALK_T=['Un fait que personne n’explique','Les hommes font leur histoire',
+    'Ce qu’un parti dit de lui-même','La ligne descendante',
+    'Elle détruit son propre règne','Sa bourse contre sa couronne',
+    'L’État se détache','Il repose sur la parcelle'];
+  var QPQ_T={ordre:'Le parti de l’ordre',national:'Les républicains du National',
+    montagne:'La Montagne, ou social-démocratie',dix:'La société du 10 décembre',
+    paysans:'Les paysans parcellaires',proletariat:'Le prolétariat parisien'};
+  var curTab='lire', a11yBooted=false;
+
+  /* La coquille collante vaut 88 (topbar + onglets), mais atelier.css la
+     ramène à 44 sous 600 px : on RELIT la variable au lieu de la figer. */
+  function atlTop(){
+    var v=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--atl-top'));
+    return isFinite(v)&&v>0?v:88;
+  }
+  function tabForHash(h){
+    if(h==='lire'||h==='dossier')return h;
+    return DOSSIER.indexOf(h)>=0?'dossier':null;
+  }
+  function buildTabs(){
+    var bar=byId('worktabs'); if(!bar)return;
+    bar.innerHTML=TABS.map(function(p){
+      return '<button type="button" class="tab" data-panel="'+p.id+'">'+p.label
+        +(p.glose?'<span class="tab-glose"> · '+p.glose+'</span>':'')+'</button>';}).join('');
+    bar.querySelectorAll('.tab').forEach(function(b){
+      b.addEventListener('click',function(){window.activateTab(b.dataset.panel);});});
+  }
+  function syncTabsA11y(pid){
+    var S=window.SHELL; if(!S)return;
+    if(S.tabs)S.tabs(byId('worktabs'),function(b){return b.dataset.panel;});
+    var deep=/^#(note=|s=|partie=|labo=|deriv=)/.test(location.hash||'');
+    if(a11yBooted&&!(deep&&!window.__deepBooted)){ try{history.replaceState(null,'','#'+pid);}catch(e){} }
+    if(pid!=='lire')document.body.classList.remove('at-reading');
+    if(a11yBooted&&S.announce)S.announce(pid==='dossier'?'Le dossier':'Lire le texte');
+    a11yBooted=true;
+  }
+  window.syncTabsA11y=syncTabsA11y;
+
+  function dosOffset(){ var nav=byId('dossierNav'); return atlTop()+(nav?nav.getBoundingClientRect().height:0)+10; }
+  /* Aller à une salle, c'est l'AFFICHER : il n'y a plus de couloir. */
+  function dosGo(id,smooth){ if(window.DossierAtelier) DossierAtelier.show(id,{smooth:!!smooth}); }
+  function buildDossier(){
+    var dn=byId('dossierNav'), box=byId('dossier');
+    if(!dn||!box||!window.DossierAtelier)return;
+    DossierAtelier.install({
+      box:box, nav:dn, offset:dosOffset,
+      ordre:DOSSIER.map(function(id){
+        return {id:id,label:DOSSIER_LABELS[id],nature:DOSSIER_NATURE[id]};})
+    });
+  }
+
+  window.activateTab=function(id,anchor){
+    if(id!=='dossier')id='lire';
+    curTab=id; window.curTabId=id;
+    document.querySelectorAll('#worktabs .tab').forEach(function(b){ b.classList.toggle('active',b.dataset.panel===id); });
+    byId('atl3').hidden=(id!=='lire');
+    byId('dossier').hidden=(id!=='dossier');
+    document.body.classList.toggle('at-dossier',id==='dossier');
+    if(anchor){ var boot=!a11yBooted; setTimeout(function(){dosGo(anchor,!boot);},boot?90:60); }
+    else if(a11yBooted) window.scrollTo({top:0,behavior:rm()?'auto':'smooth'});
+    syncTabsA11y(id);
+  };
+  window.curTabId='lire';
+
+  /* ══════════════════ LE NETTOYAGE DU HTML DE WIKISOURCE ══════════════════
+     Parsé dans un document INERTE (DOMParser) et non dans un <div> détaché :
+     un div appartient au document courant, donc lui poser un innerHTML lance
+     immédiatement le chargement de ses images — les retirer ensuite n'annule
+     rien, les requêtes sont parties. Règle déjà payée sur le Capital.
+
+     ⚠️ CE NETTOYAGE EST PLUS SIMPLE que celui de Salaires et de la
+     Contribution, et c'est la source qui le permet : Wikisource compose ici
+     de VRAIS titres — un <h2> pour la préface, un <h3> qui ne porte que le
+     chiffre romain pour chaque chapitre. On n'a donc RIEN à deviner parmi
+     les blocs centrés, et c'est heureux : le seul du livre, « Hic Rhodus,
+     hic salta ! », est en italique, et la règle de Salaires (« un titre est
+     composé en gras ou en italique ») en aurait fait un titre. Ne jamais
+     recopier une règle de nettoyage d'une page à l'autre sans avoir regardé
+     la source. */
+  function clean(raw, meta){
+    var doc=new DOMParser().parseFromString(raw,'text/html'), b=doc.body;
+    b.querySelectorAll('style,link,meta,script,img,.ws-noexport,.noprint,.mw-editsection,'
+      +'.pagenum,sup.reference,sup[class*="reference"],.mw-references-wrap,ol.references,'
+      +'.references,[class*="header"],#ws-data,#toc').forEach(function(e){e.remove();});
+    b.querySelectorAll('a').forEach(function(a){a.replaceWith(doc.createTextNode(a.textContent));});
+
+    /* LIRE UN TITRE À TRAVERS SON BALISAGE. textContent ne pose aucune espace
+       à la place d'un <br> : un titre composé sur deux lignes rendrait deux
+       mots collés et ne correspondrait plus à ce qu'on cherche. Même leçon
+       que headText() sur le Capital. */
+    function titreDe(e){
+      var c=e.cloneNode(true);
+      c.querySelectorAll('br').forEach(function(br){ br.replaceWith(doc.createTextNode(' ')); });
+      return c.textContent.replace(/\s+/g,' ').trim();
+    }
+    /* Le titre de la source s'en va — nous posons le nôtre. La comparaison
+       est une ÉGALITÉ et non une inclusion : `d` vaut « i » pour le premier
+       chapitre, et une inclusion aurait retiré n'importe quel titre
+       contenant cette lettre. */
+    var attendu=meta.d||'';
+    b.querySelectorAll('h1,h2,h3,h4,h5,h6').forEach(function(e){
+      var t=titreDe(e);
+      if(attendu && norm(t)===attendu){ e.remove(); return; }
+      var h=doc.createElement('h3'); h.className='br-sub'; h.textContent=t;
+      e.replaceWith(h);
+    });
+    /* Les blocs centrés sont du CONTENU — « Hic Rhodus, hic salta ! » au
+       chapitre premier, le « FIN » de l'imprimeur au bout du septième. */
+    b.querySelectorAll('div,center').forEach(function(e){
+      if(e.tagName==='CENTER' || /text-align:\s*center/.test(e.getAttribute('style')||'')){
+        if(e.textContent.trim()) e.className='br-centre';
+      }
+    });
+
+    /* Les cales de Wikisource et les enveloppes laissées vides. */
+    b.querySelectorAll('div').forEach(function(d){
+      if(!d.textContent.trim() && !d.querySelector('img,table,hr')) d.remove();
+    });
+    b.querySelectorAll('p').forEach(function(p){ if(!p.textContent.trim())p.remove(); });
+
+    /* UN DIV QUI NE PORTE QUE DU TEXTE DEVIENT UN PARAGRAPHE : la liseuse ne
+       donne de marge qu'aux paragraphes. On ne touche ni aux enveloppes
+       (elles portent des blocs) ni aux blocs centrés, qui ont leur classe. */
+    b.querySelectorAll('div').forEach(function(d){
+      if(d.className) return;
+      if(d.querySelector('div,p,table,ul,ol,hr,blockquote,h1,h2,h3,h4,h5,h6')) return;
+      if(!d.textContent.trim()) return;
+      var p=doc.createElement('p'); while(d.firstChild)p.appendChild(d.firstChild);
+      d.replaceWith(p);
+    });
+    /* Le filet qui SUIVAIT le titre de la source devient orphelin quand on
+       retire ce titre : posé sous le nôtre, qui porte déjà son trait, il en
+       ferait deux. Celui qui CLÔT un chapitre, lui, reste. */
+    var vus=document.createTreeWalker(b,NodeFilter.SHOW_ALL), n, texte=false;
+    while((n=vus.nextNode())){
+      if(n.nodeType===3 && n.nodeValue.trim()){ texte=true; break; }
+      if(n.nodeType===1 && n.tagName==='HR' && !texte){ n.remove(); vus.currentNode=b; }
+    }
+    b.querySelectorAll('[style]').forEach(function(e){e.removeAttribute('style');});
+    return b.innerHTML;
+  }
+
+  /* La sur-ligne SITUE : « Chapitre III » au-dessus du titre, jamais le
+     numéro collé — le sommaire porte déjà le chiffre en marge. La préface
+     n'est pas numérotée : elle n'en reçoit pas. */
+  function surDe(part){ return part.rn ? 'Chapitre '+part.rn : ''; }
+
+  function partHtml(part, morceaux){
+    var sur=surDe(part);
+    var h='<h2 class="br-part">'
+      + (sur ? '<span class="br-rn">'+esc(sur)+'</span>' : '')
+      + esc(part.t) + '</h2>';
+    morceaux.forEach(function(m){ h+=m; });
+    /* LA NOTICE DIT QUE LES TITRES SONT DE NOUS. Marx ne titre pas ses
+       chapitres : les intitulés du sommaire et du bandeau sont rédigés par
+       ce site, et le lecteur doit pouvoir le savoir sans aller chercher. */
+    h+='<p class="br-src">Texte : <i>Le XVIII brumaire de Louis Bonaparte</i>, '
+      +'traduction de Léon Remy, Paris, Schleicher frères, 1900. Domaine public. '
+      +(part.rn ? 'Marx ne donne pas de titre à ses chapitres : celui-ci est de <i>Lire Marx</i>. ' : '')
+      +'<a href="'+WS_PAGE+'" rel="noopener">Lire le livre sur Wikisource ›</a></p>';
+    return h;
+  }
+
+  /* ══════════════════ LE SOMMAIRE ══════════════════ */
+  var viewG=0, loaded=0, pendingG=0, CACHE={};
+  function cur(){ return BR_STRUCT[(viewG||1)-1]; }
+  function renderTocRail(){
+    /* Rendu par oeuvres/sommaire.js. Le livre a une préface et sept
+       chapitres, sans regroupement : chaque entrée est donc une section du
+       sommaire à ENTRÉE UNIQUE, que sommaire.js rend comme une ligne portant
+       le chiffre romain en marge, et non comme un dépliant. */
+    var root=byId('atl3Toc'); if(!root||!window.SommaireAtelier)return;
+    var pg=window.SHELL&&SHELL.progress, done=pg?pg.getSet():new Set();
+    var logged=!!(pg&&pg.isLoggedIn());
+    var sections=BR_STRUCT.map(function(e){
+      return {key:'g'+e.g, rn:e.rn, t:e.t,
+        items:[{g:e.g, n:'', t:e.t, done:done.has(e.g), text:e.t}]};
+    });
+    SommaireAtelier.render(root,{
+      label:'Le sommaire', cur:viewG||1, sections:sections,
+      progress:{logged:logged, n:BR_STRUCT.filter(function(e){return done.has(e.g);}).length,
+                total:BR_STRUCT.length, word:'chapitres lus'},
+      filter:null
+    },{
+      open:function(g){ openPart(g); },
+      login:function(){ if(window.SHELL&&SHELL.auth)SHELL.auth.openModal(); }
+    });
+  }
+
+  /* ══════════════════ LA MARGE ══════════════════ */
+  var margeNotes=[], annoUnsub=null;
+  function watchAnnos(){ var AN=window.SHELL&&SHELL.annotations; if(!AN||!AN.onChange||annoUnsub)return;
+    annoUnsub=AN.onChange(function(){renderMarge();}); }
+  function margeFade(){ if(window.MargeAtelier) MargeAtelier.fade(); }
+  function renderMarge(){
+    var el=byId('atl3Marge'); if(!el||!window.MargeAtelier)return;
+    var c=cur(), g=c.g;
+    margeNotes=[];
+    var AN=(window.SHELL&&SHELL.annotations)||null;
+    try{ if(AN&&AN.notesFor) margeNotes=AN.notesFor(WORK,g).sort(function(a,b){return (b.created||0)-(a.created||0);}); }catch(e){}
+    var pub=0;
+    try{ if(AN&&AN.context&&AN.publicCount){ var cx=AN.context(); if(cx.work===WORK&&+cx.section===g) pub=AN.publicCount()||0; } }catch(e){}
+    /* LES NOTIONS DE CE CHAPITRE. Elles ne sont PAS déclarées une seconde
+       fois dans BR_STRUCT : GLOSS_BR porte déjà le `g` de chacune, et c'est
+       lui qui fait foi — le générateur lit la même chose pour l'abécédaire.
+       Seules paraissent celles qui ont une page, dont l'adresse est dans
+       NOTIONS_HREF (bloc dérivé). */
+    var nts=[], vusH={};
+    GLOSS_BR.forEach(function(x){
+      if(x.g!==c.g) return;
+      var e=(window.NOTIONS_HREF||{})[x.t];
+      if(e && e.h && !vusH[e.h]){ vusH[e.h]=1; nts.push({h:e.h, n:e.n}); }
+    });
+    /* L'APPAREIL DE CE CHAPITRE, lu dans BR_STRUCT : la fiche de l'instrument
+       quand le chapitre analyse une force politique, et la marche du
+       cheminement où il se situe. Les deux s'ouvrent dans le tiroir — on ne
+       quitte pas le texte pour les consulter. */
+    var tools=[];
+    if(c.qpq) tools.push({kind:'qpq',target:c.qpq,k:'Qui parle pour qui',t:QPQ_T[c.qpq]||''});
+    if(c.w) tools.push({kind:'step',target:String(c.w),k:'Marche '+c.w+' sur '+WALK_T.length,t:WALK_T[c.w-1]||''});
+    MargeAtelier.render(el,{
+      label:'Dans ce chapitre', rn:c.rn||'', title:c.t,
+      sum:c.s?esc(c.s):'', notions:nts, tools:tools,
+      notes:{list:margeNotes, where:'Dans le XVIII brumaire', pub:pub}
+    },{
+      anno:function(a){
+        jumpToQuote(a.quote);
+        if(AN&&AN.flashAnchor)AN.flashAnchor(a);
+      },
+      drawer:function(kind,target){ openDrawer(kind,target); },
+      fab:function(id){ var f=byId(id); if(f)f.click();
+        else if(window.SHELL&&SHELL.announce)SHELL.announce('Le texte se charge encore.'); }
+    });
+  }
+
+  /* ══════════════════ QUI PARLE POUR QUI ══════════════════ */
+  function pickQpq(id){
+    var node=byId('qpq-'+id); if(!node)return;
+    document.querySelectorAll('.fiche-pick').forEach(function(b){
+      b.setAttribute('aria-pressed', b.dataset.qpq===id?'true':'false'); });
+    document.querySelectorAll('.fiche-node').forEach(function(n){ n.hidden=(n!==node); });
+  }
+  function wireQpq(){
+    document.querySelectorAll('.fiche-pick').forEach(function(b){
+      b.addEventListener('click',function(){
+        pickQpq(b.dataset.qpq);
+        /* Sous 820 px la fiche passe SOUS la liste : un choix pris en bas
+           de liste ne montrait rien. On va à la fiche. */
+        if(window.matchMedia&&window.matchMedia('(max-width:820px)').matches&&!b.closest('#atlDrawer')){
+          var n=byId('qpq-'+b.dataset.qpq);
+          if(n)window.scrollTo({top:Math.max(0,window.scrollY+n.getBoundingClientRect().top-dosOffset()-20),
+            behavior:rm()?'instant':'smooth'});
+        }
+      });
+    });
+    /* « Voir dans le texte » : on quitte le dossier pour le chapitre, et
+       l'on se pose sur la phrase — c'est tout l'objet de cette salle. */
+    document.querySelectorAll('.fiche-node [data-lire]').forEach(function(b){
+      b.addEventListener('click',function(){ goTexte(+b.dataset.lire, b.dataset.q); }); });
+  }
+
+  /* ══════════════════ L'ASCENSION — rendue par oeuvres/ascension.js ══════════════════ */
+  function wireWalk(){
+    var root=byId('asc'); if(!root||!window.AscensionAtelier)return;
+    var asc=AscensionAtelier.mount(root,{
+      offset:dosOffset,
+      /* CHAQUE MARCHE DÉPOSE SUR SA PHRASE. Deux des huit vivent dans le
+         chapitre III et deux dans le VII : sans la citation, ces renvois
+         mèneraient au même haut de page. */
+      onSee:function(k,t,label,data){
+        if(k==='partie') goTexte(+t,(data&&data.q)||'');
+        else if(k==='qpq') openDrawer('qpq',t);
+      }
+    });
+    window.ascGo=function(n,flash){ if(asc)asc.go(n,flash); };
+  }
+  /* On vient chercher CETTE marche : `activateTab` diffère son propre
+     défilement vers le haut de la salle (60 à 90 ms) — se poser plus tôt
+     que lui, c'est se faire écraser. D'où les 260 ms, comme sur les quatre
+     autres ateliers. Le saut est instantané : un défilement doux ignore
+     les deux barres collantes. */
+  function goDeriv(n){
+    window.activateTab('dossier','deriv');
+    setTimeout(function(){ if(window.ascGo)window.ascGo(n,true); },260);
+  }
+
+  /* ══════════════════ LE TIROIR ══════════════════ */
+  var drawerNode=null,drawerHome=null,drawerNext=null,drawerOpener=null;
+  function openDrawer(kind,target){
+    closeDrawer(true);
+    var node=null,title='';
+    if(kind==='qpq'){ node=byId('instr-qpq'); title='Qui parle pour qui — '+(QPQ_T[target]||''); pickQpq(target); }
+    else if(kind==='step'){
+      node=document.querySelector('.asc-step[data-step="'+target+'"]');
+      title='Marche '+target+' — '+(WALK_T[target-1]||'');
+    }
+    if(!node)return;
+    drawerNode=node; drawerHome=node.parentNode; drawerNext=node.nextSibling; drawerOpener=document.activeElement;
+    byId('atlDrawerBody').appendChild(node);
+    node.classList.add('atl-drawer-in');
+    byId('atlDrawerT').textContent=title;
+    var d=byId('atlDrawer'); d.hidden=false; d.setAttribute('aria-modal','true'); d.addEventListener('keydown',drawerTrap);
+    document.body.classList.add('atl-drawer-on');
+    var x=byId('atlDrawerX'); if(x)x.focus();
+    if(window.SHELL&&SHELL.announce)SHELL.announce('Ouvert : '+title);
+  }
+  function drawerTrap(e){
+    if(e.key!=='Tab')return;
+    var f=[].slice.call(byId('atlDrawer').querySelectorAll('a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])')).filter(function(el){return el.getClientRects().length;});
+    if(!f.length)return;
+    var first=f[0],last=f[f.length-1];
+    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+    else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+  }
+  function closeDrawer(silent){
+    var d=byId('atlDrawer');
+    if(d){ d.removeEventListener('keydown',drawerTrap); d.removeAttribute('aria-modal'); }
+    if(drawerNode&&drawerHome){
+      drawerNode.classList.remove('atl-drawer-in');
+      drawerHome.insertBefore(drawerNode,drawerNext);
+    }
+    var had=!!drawerNode;
+    drawerNode=drawerHome=drawerNext=null;
+    if(d)d.hidden=true;
+    document.body.classList.remove('atl-drawer-on');
+    if(!silent&&had&&drawerOpener&&drawerOpener.focus){ try{drawerOpener.focus();}catch(e){} }
+    drawerOpener=null;
+  }
+
+  /* ══════════════════ LE SUIVI ══════════════════ */
+  function stickyOffset(){ var tb=document.querySelector('#lire .rd-toolbar');
+    return atlTop()+(tb?tb.getBoundingClientRect().height:0)+16; }
+  /* Quitter le dossier pour un chapitre, et se poser sur la phrase. Le
+     texte est chargé par fetch : la citation attend dans pendingQuote et
+     load() la consomme une fois le HTML posé. */
+  var pendingQuote='';
+  function goTexte(g,q){
+    pendingQuote=q||'';
+    if(curTab!=='lire')window.activateTab('lire');
+    closeDrawer(true);
+    if(g===loaded){ pendingQuote=''; window.scrollTo({top:0,behavior:'instant'}); if(q)jumpToQuote(q); return; }
+    openPart(g,true);
+  }
+  function jumpToQuote(quote){
+    var box=byId('readerContent'); if(!box||!quote)return;
+    var probe=String(quote).replace(/\s+/g,' ').trim().slice(0,40); if(!probe)return;
+    var els=box.querySelectorAll('p,h2,h3,h4'),target=null;
+    for(var i=0;i<els.length;i++){ if(els[i].textContent.replace(/\s+/g,' ').indexOf(probe)>=0){target=els[i];break;} }
+    if(target) window.scrollTo({top:Math.max(0,window.scrollY+target.getBoundingClientRect().top-stickyOffset()-30),behavior:'instant'});
+  }
+  /* La progression se marque quand on atteint le BAS du chapitre, pas à
+     l'ouverture : on ne l'a pas lu parce qu'on l'a ouvert. */
+  var marked={};
+  function trackProgress(){
+    var pg=window.SHELL&&SHELL.progress; if(!pg||!pg.isLoggedIn()||!loaded)return;
+    var g=loaded, box=byId('readerContent');
+    if(!box||marked[g]||pg.getSet().has(g))return;
+    if(box.getBoundingClientRect().bottom<window.innerHeight*1.15){ marked[g]=true; pg.markDone(g); }
+  }
+  var followAt=0;
+  window.addEventListener('scroll',function(){ var now=Date.now(); if(now-followAt<160)return;
+    followAt=now; trackProgress(); },{passive:true});
+
+  /* ══════════════════ LE PLEIN ÉCRAN ══════════════════ */
+  /* Repris tel quel des quatre autres ateliers : le bouton porte `btn` ET
+     `atl3-full`. Sans `btn`, il n'a ni fond ni rayon — il retombe sur le
+     gris de l'agent utilisateur, et son or passe à 1,83:1. */
+  function pleinEcran(){ return document.body.classList.contains('at-plein'); }
+  function setPlein(on){
+    if(on===pleinEcran())return;
+    document.body.classList.toggle('at-plein',on);
+    var ex=byId('atlFullExit'); if(ex)ex.hidden=!on;
+    var b=byId('atlFullBtn'); if(b)b.setAttribute('aria-pressed',on?'true':'false');
+    if(on)closeDrawer(true);
+    try{
+      if(on&&!document.fullscreenElement&&document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(function(){});
+      if(!on&&document.fullscreenElement&&document.exitFullscreen) document.exitFullscreen().catch(function(){});
+    }catch(e){}
+    if(!on&&b)b.focus({preventScroll:true}); else if(on&&ex)ex.focus({preventScroll:true});
+    if(window.SHELL&&SHELL.announce) SHELL.announce(on?'Lecture plein écran. Échap pour revenir à l’atelier.':'Retour à l’atelier.');
+  }
+  /* Reconstruit à chaque montage de la liseuse, jamais déplacé, et APRÈS
+     Reading.mount — qui construit la barre : appelé plus haut, il ne
+     trouverait pas `.rd-row`. */
+  function installFullBtn(){
+    var old=byId('atlFullBtn'); if(old)old.remove();
+    var row=document.querySelector('#lire .rd-row'), bar=byId('atlMidbar'), host=row||bar;
+    if(!host)return;
+    if(bar)bar.hidden=!!row;
+    var b=document.createElement('button');
+    b.type='button'; b.id='atlFullBtn'; b.className='btn atl3-full';
+    b.setAttribute('aria-pressed',pleinEcran()?'true':'false');
+    b.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true" class="atl3-full-i"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span class="atl3-full-lbl"> Plein écran</span>';
+    b.addEventListener('click',function(){setPlein(!pleinEcran());});
+    if(!row){ host.appendChild(b); return; }
+    var wrap=document.createElement('div'); wrap.className='atl3-toolhead';
+    row.parentNode.insertBefore(wrap,row); wrap.appendChild(b); wrap.appendChild(row);
+  }
+
+  /* ══════════════════ LE CHARGEMENT ══════════════════ */
+  function wsUrl(page){
+    return 'https://fr.wikisource.org/w/api.php?action=parse&page='
+      + encodeURIComponent(WS_ROOT+'/'+page)
+      + '&prop=text&format=json&formatversion=2&redirects=1&origin=*';
+  }
+  function fetchPage(page){
+    if(CACHE[page])return Promise.resolve(CACHE[page]);
+    return fetch(wsUrl(page))
+      .then(function(r){ if(!r.ok)throw new Error('HTTP '+r.status); return r.json(); })
+      .then(function(j){
+        var raw=j&&j.parse&&j.parse.text; if(raw&&typeof raw==='object')raw=raw['*'];
+        if(!raw)throw new Error('réponse vide');
+        CACHE[page]=raw; return raw;
+      });
+  }
+  function showError(g){
+    var rc=byId('readerContent');
+    rc.innerHTML='<div class="reader-error" role="alert"><b>Texte momentanément indisponible.</b>'
+      +'<p>Le texte est lu sur Wikisource, qui n’a pas répondu. Vérifiez votre connexion, puis réessayez.</p>'
+      +'<p><button type="button" class="btn red" data-retry>Réessayer</button></p></div>';
+    rc.hidden=false; byId('readerPlaceholder').hidden=true;
+    rc.querySelector('[data-retry]').onclick=function(){ load(g); };
+    if(window.SHELL&&SHELL.announce)SHELL.announce('Le texte n’a pas pu être chargé.');
+  }
+  function attach(g){
+    if(window.SHELL&&SHELL.reader&&SHELL.reader.attach)
+      SHELL.reader.attach({workId:WORK, section:g, container:byId('readerContent'),
+        sectionLabel:BR_STRUCT[g-1].t});
+  }
+  var loading=0;
+  function load(g){
+    g=g||1; if(!BR_STRUCT[g-1])g=1;
+    var part=BR_STRUCT[g-1];
+    loading=g;
+    var rc=byId('readerContent');
+    byId('readerPlaceholder').hidden=true; rc.hidden=false;
+    rc.innerHTML='<div class="placeholder" role="status"><div><b>Chargement du texte…</b></div></div>';
+    if(window.SHELL&&SHELL.announce)SHELL.announce('Chargement du texte en cours…');
+    Promise.all(part.p.map(function(m){ return fetchPage(m.page).then(function(raw){ return clean(raw,m); }); }))
+      .then(function(morceaux){
+        if(loading!==g)return;                      /* un autre chapitre a été demandé */
+        rc.innerHTML=partHtml(part,morceaux);
+        loaded=g; viewG=g;
+        if(window.SHELL&&SHELL.resume)SHELL.resume.set(WORK,{g:g,title:part.t});
+        if(window.SHELL&&SHELL.announce)SHELL.announce('Texte chargé : '+part.t);
+        attach(g);
+        if(window.Reading){
+          window.Reading.mount(byId('lire'),{
+            ctx:{id:g, title:part.t}, textSel:'.reader-content',
+            summaryHtml:'<div class="rd-clear-body">'+esc(part.s)+'</div>',
+            nav:{
+              prev: g>1 ? function(){ openPart(g-1,true); } : null,
+              next: g<BR_STRUCT.length ? function(){ openPart(g+1,true); } : null
+            },
+            glossary:GLOSS_BR, xref:[]
+          });
+        }
+        setTimeout(function(){
+          installFullBtn(); renderTocRail(); renderMarge(); watchAnnos();
+          if(window.SommaireAtelier)SommaireAtelier.setCurrent(byId('atl3Toc'),g);
+          if(pendingQuote){ var q=pendingQuote; pendingQuote=''; jumpToQuote(q); }
+          trackProgress();
+        },0);
+      })
+      .catch(function(){ if(loading===g)showError(g); });
+  }
+
+  /* Ouvrir un chapitre, c'est en CHARGER le texte : chaque chapitre est une
+     sous-page de Wikisource à part, et une section d'annotation à part
+     (#s=<g>). Le hash reste `#partie=` : c'est le contrat déjà posé par la
+     recherche et par les quatre autres ateliers, on ne le renomme pas. */
+  function openPart(g,haut){
+    if(!BR_STRUCT[g-1])return;
+    if(g===loaded){
+      if(haut)window.scrollTo({top:0,behavior:'instant'});
+      return;
+    }
+    load(g);
+    window.scrollTo({top:0,behavior:'instant'});
+  }
+  window.openPart=openPart;
+
+  /* Contrat de deep-link : #partie=<g> (la recherche et le sommaire),
+     #labo=<force> et #deriv=<marche> (le dossier), les salles, et le
+     passage (#note=, #s=) que attach() résout. */
+  function applyHash(boot){
+    var raw=(location.hash||'').replace(/^#/,'');
+    var m=raw.match(/^partie=(\d+)$/);
+    /* ⚠️ ON REVIENT À LA LISEUSE. Un `#partie=` reçu alors que le dossier est
+       ouvert — ce qui arrive dès qu'on clique un résultat de recherche sans
+       quitter la page — chargeait bien le chapitre, mais derrière le dossier :
+       le lecteur ne voyait rien changer. Le hash désigne un chapitre, donc il
+       désigne la destination qui les montre. */
+    if(m){ var g=+m[1];
+      if(boot){ pendingG=g; }
+      else { if(curTab!=='lire')window.activateTab('lire'); openPart(g,true); }
+      return true; }
+    if(/^labo=/.test(raw)){
+      window.activateTab('dossier','labo');
+      var id=raw.split('=')[1]; if(QPQ_T[id])pickQpq(id);
+      return true;
+    }
+    m=raw.match(/^deriv=(\d+)$/);
+    if(m){ goDeriv(+m[1]); return true; }
+    var t=tabForHash(raw);
+    if(t){ window.activateTab(t,(t==='dossier'&&raw!=='dossier')?raw:null); return true; }
+    m=raw.match(/^s=(\d+)/);
+    if(m){ var s=+m[1]; if(BR_STRUCT[s-1]){ if(boot)pendingG=s; else if(s!==loaded)openPart(s,true); else attach(s); return true; } }
+    if(/^note=/.test(raw)){ if(!boot&&loaded)attach(loaded); return true; }
+    return false;
+  }
+
+  function init(){
+    buildTabs();
+    buildDossier();
+    wireQpq();
+    pickQpq('ordre');
+    wireWalk();
+    renderTocRail();
+    renderMarge();
+    watchAnnos();
+    byId('atlDrawerX').addEventListener('click',function(){closeDrawer();});
+    var mg=byId('atl3Marge');
+    if(mg){ mg.addEventListener('scroll',margeFade,{passive:true}); window.addEventListener('resize',margeFade); }
+    byId('atlFullExit').addEventListener('click',function(){setPlein(false);});
+    document.addEventListener('fullscreenchange',function(){ if(!document.fullscreenElement&&pleinEcran())setPlein(false); });
+    /* Échap : le tiroir d'abord (couche du dessus), le plein écran ensuite. */
+    document.addEventListener('keydown',function(e){
+      if(e.key!=='Escape')return;
+      if(!byId('atlDrawer').hidden){ closeDrawer(); return; }
+      if(pleinEcran())setPlein(false);
+    });
+    if(window.SHELL&&SHELL.progress) SHELL.progress.init(WORK,function(){ renderTocRail(); });
+
+    if(!applyHash(true)){
+      window.activateTab('lire');
+      var r=(window.SHELL&&SHELL.resume)?SHELL.resume.get(WORK):null;
+      if(r&&r.g)pendingG=+r.g;
+    }
+    window.__deepBooted=true;
+    load(pendingG||1);
+    window.addEventListener('hashchange',function(){ applyHash(false); });
+  }
+  window.renderTocRail=renderTocRail;
+  window.renderResume=function(){ renderTocRail(); };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+<script src="../config.js"></script>
+<script src="shell.js?v=19"></script>
+<script src="shell-social.js"></script>
+<script src="shell-annotations.js?v=2"></script>
+<script src="shell-progress.js"></script>
+<script src="reader-tools.js?v=6" defer></script>
+<script>
+installShell({
+  workId: 'dix-huit-brumaire',
+  workTitle: 'Le XVIII brumaire de Louis Bonaparte'
+});
+(function(){
+  if(typeof renderResume==='function')renderResume();
+})();
+</script>
+</body>
+</html>

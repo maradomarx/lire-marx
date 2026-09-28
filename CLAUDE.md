@@ -32,9 +32,10 @@ oeuvres/<id>/textes/           # textes locaux servis à la liseuse
 Les œuvres sont **de même niveau** dans l'arborescence. Aucune n'est « la »
 page principale. Actuellement disponibles : `capital-1`, `manuscrits-1844`,
 `manifeste-parti-communiste` (page `oeuvres/manifeste.html`),
-`contribution-critique-economie-politique` (page `oeuvres/contribution-1859.html`)
-et `salaire-prix-profit` — **le `path` de bibliotheque.json fait foi, pas
-l’id**, et les cinq ateliers le rappellent.
+`contribution-critique-economie-politique` (page `oeuvres/contribution-1859.html`),
+`salaire-prix-profit` et `dix-huit-brumaire` (page `oeuvres/18-brumaire.html`)
+— **le `path` de bibliotheque.json fait foi, pas l’id**, et les six ateliers
+le rappellent.
 
 L'accueil du site est `oeuvres/index.html` (la bibliothèque), pilotée par
 `oeuvres/bibliotheque.json` — **source centrale unique** de la liste des
@@ -10691,6 +10692,338 @@ mesuré **à commande identique dans les deux états** : aucun constat de plus,
 0 erreur, et **un advisory de moins** — deux tirets cadratins de mes
 définitions retirés, ce qui a fait retomber `index.html` sous le seuil de
 saturation. `gen-seo --check` à jour et **idempotent**.
+
+## Le XVIII brumaire entre au corpus (mission `dix-huit-brumaire`, sept. 2026)
+
+Sixième œuvre servie, et la première du groupe « interventions ». Elle apporte
+un registre que le corpus n’avait pas du tout : **l’analyse politique
+concrète** — l’État, les partis, les classes en action — là où les cinq autres
+sont d’économie ou de philosophie. Un lecteur qui sortait du *Capital* et
+voulait voir Marx analyser une situation réelle n’avait rien.
+
+- **Le texte** : traduction **Léon Remy**, telle que Wikisource la sert, parue
+  en 1900 chez **Schleicher frères** dans un volume qui contient aussi *La
+  Lutte des classes en France*. Domaine public : Léon Rémy est mort en **1910**
+  (Wikidata Q18197824, vérifié). La page de titre servie imprime « Traduit de
+  l’allemand par Léon REMY » — c’est cette graphie, sans accent, que le site
+  reprend.
+- **Huit sections** : la préface de l’auteur et les sept chapitres, chacun une
+  sous-page de Wikisource, donc une section d’annotation à part (`#s=<g>`).
+  40 000 mots.
+- Page `oeuvres/18-brumaire.html` → `/oeuvres/18-brumaire` (le `path` de
+  `bibliotheque.json` faisait déjà foi). Deux destinations d’emblée : le texte
+  ET le dossier.
+
+### ⚠️ MARX NE TITRE PAS SES CHAPITRES — et la page le dit
+
+La source n’imprime qu’un **chiffre romain** en tête de chaque chapitre. Les
+intitulés du sommaire, du bandeau et de la marge (« La tragédie et la farce »,
+« La ligne descendante », « La machine d’État et la parcelle »…) sont donc
+**écrits par ce site**, et la notice de source sous chaque chapitre l’écrit en
+toutes lettres : « Marx ne donne pas de titre à ses chapitres : celui-ci est de
+*Lire Marx*. » Un sommaire de « I, II, III… » n’aurait servi personne ; un
+titre attribué à Marx aurait été un faux. Le même scrupule vaut pour le
+manifeste de l’œuvre.
+
+### Le nettoyage est PLUS SIMPLE ici, et il ne faut pas recopier celui d’à côté
+
+Wikisource compose ici de **vrais titres** — un `<h2>` pour la préface, un
+`<h3>` qui ne porte que le chiffre romain pour chaque chapitre. Le `clean()` de
+cette page n’a donc rien à deviner parmi les blocs centrés, et compare une
+**égalité** de titres normalisés (`d`), non une inclusion : `d` vaut « i » pour
+le premier chapitre, et une inclusion aurait retiré n’importe quel titre
+contenant cette lettre.
+
+**C’est une chance, et elle se mesure** : le seul bloc centré du livre — « Hic
+Rhodus, hic salta ! », au chapitre premier — est **en italique**, et la règle de
+Salaires (« un titre de 1912 est composé en gras ou en italique ») en aurait
+fait un titre. Les blocs centrés sont ici du CONTENU (`.br-centre`), y compris
+le « FIN » de l’imprimeur au bout du chapitre VII. **Ne jamais recopier une
+règle de nettoyage d’une page à l’autre sans avoir regardé la source.**
+
+### Le dossier — cinq salles, et l’instrument est propre à ce livre
+
+| salle | nature | ce qu’elle fait |
+|---|---|---|
+| I `#deriv` — Le cheminement | à lire | huit marches, d’un fait que personne n’explique à un État qui repose sur un sac de pommes de terre |
+| II `#labo` — **Qui parle pour qui** | à manipuler | six forces politiques : ce qu’elle dit d’elle-même, ce que Marx montre, ce qu’il en résulte |
+| III `#apres` — Ce que le livre a ouvert | à parcourir | trois acquis, quatre contresens, où l’argument se poursuit |
+| IV `#chrono` — La chronologie | à parcourir | les dates que Marx retient lui-même, l’écriture, les éditions |
+| V `#ressources` | à consulter | cinq liens vérifiés par leur CONTENU |
+
+**L’instrument est l’apport propre de cette œuvre.** Le livre rapporte chaque
+parti à sa base sociale : le parti de l’ordre (deux espèces de propriété), les
+républicains du *National* (une coterie sans base), la Montagne, la société du
+10 décembre, les paysans parcellaires, le prolétariat parisien. C’est ce que
+personne d’autre du corpus ne permet de montrer, et c’est ce qu’un étudiant
+vient chercher. La salle III dit que **« bonapartisme » n’est pas un mot du
+livre** — zéro occurrence, mesuré — et que Marx y refuse expressément
+*césarisme*.
+
+**Les citations sont extraites PAR SCRIPT**, jamais recopiées : les six
+blockquotes de l’instrument et les quatorze `data-q` des renvois viennent de
+tranches relevées dans le texte servi.
+
+### Le glossaire : douze entrées, dont huit neuves
+
+`GLOSS_BR` est la **cinquième source de l’abécédaire**, après les deux
+`CONCEPTS`, `GLOSS_MF` et `GLOSS_SP`. Quatre entrées portent le titre d’une
+fiche existante et lui ajoutent une provenance (Lutte des classes, Prolétariat,
+Bourgeoisie, Pouvoir politique) ; **huit sont neuves et d’analyse politique** :
+le parti de l’ordre, la ligne descendante, la superstructure, le crétinisme
+parlementaire, la société du 10 décembre, le pouvoir exécutif, les paysans
+parcellaires, les idées napoléoniennes. L’abécédaire passe de **84 à 92
+notions**.
+
+Deux entrées ont été ÉCARTÉES faute de forme dans le texte servi, et c’est la
+règle qui interdit une provenance de complaisance : **« Lumpenprolétariat »**
+n’existe que dans une note du traducteur, et les notes ne sont pas servies (le
+corps du texte dit « la Bohême » et « canaille ») ; **« Idées dominantes »**
+n’y a aucune occurrence.
+
+### ⚠️ DEUX CHEMINS, DEUX RÈGLES DE COMPARAISON — et c’est ce qui a failli tromper
+
+Wikisource conserve les **retours à la ligne de la transcription page à
+page** : le texte servi dit « Ils ne peuvent\nse représenter eux-mêmes ».
+Deux mécanismes cherchent une citation, et ils ne comparent pas pareil :
+
+- **`jumpToQuote`** (les renvois du dossier) normalise les blancs des deux
+  côtés et travaille sur 40 caractères : un `data-q` écrit à plat fonctionne.
+- **`locate()`** (les annotations, `#s=&q=`) fait un `indexOf` **exact** : une
+  citation à plat n’y serait jamais trouvée. Ce n’est pas un défaut — une vraie
+  sélection de lecteur produit la tranche du DOM, retours à la ligne compris.
+
+Le contrôle du dépôt reproduit donc le chemin réel : `verif-citations.mjs`
+gagne `dumpBrumaire()` (huit sous-pages, blocs de texte seulement, comme le
+Manifeste) et vérifie les renvois de la page **après normalisation**, là où un
+`data-q` d’essai reste comparé à la lettre. Vérifié : 14 renvois, 0 introuvable.
+**Une sonde qui compare à plat un texte qui ne l’est pas rend des faux échecs
+(10 sur 14 au premier jet).**
+
+### Deux défauts ANTÉRIEURS trouvés par la mesure
+
+1. **`.carte-sortie` n’existait dans aucune feuille partagée**, et **Salaires,
+   prix, profits servait ses huit liens de notion en BLEU SOULIGNÉ, à 2,01:1**,
+   depuis sa mise en ligne. Le Manifeste et les Manuscrits avaient chacun leur
+   copie de la règle ; la page neuve, rien. C’est le défaut déjà payé sur
+   `.lk`, sur `.rd-chip` et sur les douze liens de l’abécédaire : **changer le
+   TYPE d’un élément change ce que l’agent utilisateur lui applique — vérifier
+   `color` ET `text-decoration`.** La règle est montée dans `atelier.css`, le
+   système de record, et la duplication du Manifeste a été retirée.
+2. **`#partie=` ne ramenait pas à la liseuse.** Reçu alors que le dossier est
+   ouvert — ce qui arrive dès qu’on clique un résultat de recherche sans
+   quitter la page —, le hash chargeait bien le chapitre, mais derrière le
+   dossier : le lecteur ne voyait rien changer. Corrigé sur cette page ; **les
+   quatre autres ateliers ont le même défaut**, et c’est une correction d’une
+   ligne à porter.
+
+### Vérifié
+
+Dans le **vrai Chrome**, contre un serveur qui imite Cloudflare (URL propres,
+fichier avant dossier, 308) — et le port a d’abord été pris par un serveur
+d’une autre session, dont les réponses passaient pour les miennes : le piège
+déjà documenté.
+
+Les **huit sections** chargées une à une : un seul `h2`, zéro résidu Wikisource,
+zéro `[style]`, comptes de mots conformes. Sommaire à huit entrées avec les
+chiffres romains, marge, reprise, progression, plein écran, tiroir sur les deux
+espèces de nœud (emprunt, `aria-modal`, Échap, retour à la place exacte).
+Deep-links `#partie=`, `#labo=`, `#deriv=`, les cinq salles. **Les douze formes
+du glossaire surlignées** au moins une fois, relevées chapitre par chapitre,
+réglage « Mots du glossaire » activé pour de vrai. **Le contrat d’annotation de
+bout en bout** : `notesFor`, `statsFor`, la marge, le surlignage posé
+(`mark.anno`), et le carnet qui montre le cahier, la citation, la note et son
+lien `#s=8&q=` sans `.html`.
+
+Contraste sur le rendu : **0 échec** sur sept états (114 à 155 mesures),
+minimum **5,12**, aucun texte sous 11 px, aucune cible sous 24 × 24, **zéro
+débordement horizontal** à 1380 comme à 375 px. Détecteur statique compté
+**avant et après en remisant** : les cinq fichiers existants **identiques**
+(atelier.css 41, manifeste 14, salaire 17, index 26, a-propos 5), la page neuve
+**17 constats, 0 erreur** — toutes familles documentées, dont
+l’`undersized-ui-text` à 7,04 px qui est le faux positif `clamp()` habituel
+(mesuré au rendu : **21,12 px** à 1380, 14,08 à 375) et les `cramped-padding`
+de `.relv` (conteneur à 0, colonnes à 26/18 px).
+
+Les **quinze pages** qui montent la coquille : console propre, pied de page à
+quatorze liens, zéro débordement. Recherche éprouvée de bout en bout —
+structure (« La ligne descendante » → chapitre III et notion), plein texte
+(« cauchemar », « Hégel remarque ») avec la sur-ligne « Chapitre I », et le
+clic qui dépose sur la phrase (`#s=2&q=cauchemar`, défilement à 687 px).
+L’entrelacement passe désormais sur **six** œuvres. Registre de la
+bibliothèque : **pré-rendu et rendu JS identiques** (15 844 caractères).
+Catalogue de l’accueil : six cartes, triées par année décroissante, images
+servies. `gen-seo --check` à jour et **idempotent** ; `verif-citations` complet :
+283 citations, **0 introuvable**. **`atelier.css?v=18`** (dix pages) et
+**`shell.js?v=18`** (99 pages + les gabarits) — la règle : un actif mis en cache
+qui change avec un balisage change d’URL.
+
+### Ce qui reste pour cette œuvre
+
+- **Le glossaire n’a pas de page-monde** : les huit notions neuves vivent dans
+  l’abécédaire. « Les paysans parcellaires » et « Le pouvoir exécutif » sont les
+  deux qui porteraient le mieux une page — la première a une figure évidente
+  (le sac de pommes de terre), la seconde est le concept le plus discuté du
+  livre.
+- **Le `#partie=` des quatre autres ateliers** : même correction d’une ligne.
+- *La Lutte des classes en France*, même traducteur et même volume de 1900,
+  est **libre et absente du corpus** : c’est le pendant direct de ce livre, et
+  elle s’ajouterait sans nouvelle mécanique.
+
+## La page-pilier sur l'homme : `/karl-marx` (mission `karl-marx`, sept. 2026)
+
+Question du propriétaire : « comment progresser sur les requêtes “marx” et
+“karl marx” ? ». Mesuré dans Search Console avant d'écrire une ligne : sur
+trois mois, **zéro impression** sur ces deux requêtes exactes — dix-sept
+variantes longues seulement, et « lire marx » seule apporte les clics. La SERP
+française de « karl marx » demande une **biographie**, des livres, des vidéos,
+et pose quatre questions (« quelle théorie », « idée principale », « pourquoi
+contre le capitalisme », « quelle philosophie »). Le site n'avait **pas une
+page sur l'homme** : aucune URL ne répondait à la requête.
+
+Consigne : « tout donner, la plus belle page du site (3D, animation, vidéos,
+effets au scroll, mouvement du fond) et la plus pertinente ». **Une première
+version** (un seul fond 3D sous des sections de texte) a été **refaite le
+lendemain** sur retour du propriétaire : « je pensais partir sur un modèle
+100 % original, aller chercher des images de Marx, animer le site par
+section, pas seulement un fond avec du texte » — référence : microsoft.ai.
+Arbitrage rendu sur trois partis : **« huit tableaux »**, avec les photos
+récentes des lieux (CC BY-SA, créditées).
+
+### La forme : des tableaux, portés par les archives
+
+`karl-marx.html` à la racine → `/karl-marx` (page-FICHIER, sans slash). CSS
+et JS **inline** (la page n'est jamais mise en cache : pas de piège `?v=`).
+
+- **Le héros : le visage qui vieillit.** Cinq portraits authentiques (dessin
+  vers 1836, Richard Beard mai 1861, Margate mars 1866, avec sa fille Jenny
+  1869, Mayall 1875), **recadrés carrés et alignés sur les yeux**
+  (`assets/img/marx/face-*.webp`, 800 px), fondus par la POSITION sur une
+  course de 320vh à scène collante ; l'année géante et le cartel suivent
+  l'image, la règle « 1818 ——— 1883 » avance, le texte s'efface en route.
+  Sur téléphone il n'y a pas de course : on montre le dernier portrait.
+- **Sa vie : huit tableaux** (`.tb`), chacun une **scène plein écran
+  épinglée** (`.tb-stage`, sticky) que l'archive occupe et que **le texte
+  traverse** (`.tb-copy`, un feuillet translucide en marge négative). Trois
+  espèces de scène : la **photographie** (cover, moitié droite, développée par
+  `clip-path` + échelle sur `--rev`), le **document** (page de titre entière,
+  posée comme une feuille, jamais rognée : `object-fit:contain`), la
+  **séquence** (plusieurs images fondues sur `--q`, cartel qui suit —
+  Londres, six images). Plus un tableau **typographique** (Cologne 1842 : la
+  phrase de la préface de 1859 s'encre mot à mot), et **la carte de l'exil**
+  (tableau 7, voir ci-dessous). Une seconde figure (`.tb-fig--b`, Engels 1845, le manuscrit de
+  1846) glisse au bord à `data-at`. L'année géante en contour (`.tb-year`)
+  glisse à l'entrée. Sous 900 px la scène est une bande collante de 52 vh et
+  le feuillet passe dessus, même geste.
+- **Les images** viennent de Wikimedia Commons (`assets/img/marx/`, WebP) :
+  domaine public pour les portraits, le Manifeste 1848, les *Annales*, le
+  numéro rouge de la NRZ du 19 mai 1849, le tableau de Perov ; **CC BY-SA
+  pour trois lieux** (maison de Trèves — Lutz Hartmann ; Dean Street —
+  Spudgun67 ; Highgate — P.-Y. Beaudouin), **créditées avec lien sous
+  l'image**. Chaque cartel porte la provenance et la licence. Ce qui n'existe
+  pas : aucune photo de Marx jeune (le portrait de 1836 est un dessin).
+- Le reste — six idées (feuillets qui se posent), l'œuvre dans l'ordre (fil
+  et lumière), trois vidéos `youtube-nocookie` posées au clic (rien ne charge
+  avant), les portes d'entrée, sept questions calées sur celles de Google, la
+  dernière page — est inchangé de la première version, et les sections de
+  lecture arrivent en glissant (`--up`).
+
+**Les citations mènent au passage** (« critique rongeuse des souris », « dire
+mon mot sur les soi-disant intérêts matériels » → préface de 1859,
+`#s=1&q=`), relevées dans le texte servi, insécable comprise.
+
+### La carte de l'exil (refaite le 28 sept. 2026, sur demande : « plus cohérente avec la DA, plus détaillée, plus belle, caméra repensée »)
+
+**La carte est DESSINÉE AU CANEVAS, et la 3D ne fait que la poser sous la
+bougie.** Une seule texture (3450 × 2400, `dessine()` dans la scène) dans la
+langue du site : parchemin brun-nuit vignetté et grainé, ondes de mer à peine
+là, graticule au degré avec ses longitudes et latitudes, **les côtes et les
+fleuves de Natural Earth** (1:10 M, domaine public) avec trois anneaux de
+hachures côtières côté mer, une ombre intérieure côté terre et un semis
+oblique sur le sol ; les fleuves par rang, nommés **une fois chacun, en
+Fraunces italique le long du cours** ; les mers en capitales espacées, les
+pays **de l'époque** (Royaume de Belgique, Prusse rhénane, États allemands…),
+l'itinéraire entier en pointillé rouge, les villes en cercle gravé, une rose
+des vents en mer du Nord, un cartouche dans l'Atlantique. Les polices sont
+attendues (`document.fonts.load`) avant de dessiner.
+
+- **`tools/carte-exil.mjs`** dérive `assets/img/marx/carte-exil.json` (86 Ko)
+  des GeoJSON de Natural Earth : découpe Sutherland-Hodgman sur l'emprise
+  (lon −7 → 16, lat 46,5 → 56,5), simplification Douglas-Peucker, fleuves
+  renommés en français (Rhein/Rhine → Rhin, Mosel → Moselle, Maas → Meuse,
+  Schelde → Escaut…). Pas une étape de build. ⚠️ **Douglas-Peucker sur un
+  anneau FERMÉ a une corde nulle** (premier et dernier points confondus) :
+  toute distance tombe à zéro et l'anneau entier se réduit à deux points —
+  la Grande-Bretagne avait disparu. On prend alors la distance au point.
+- **La route lumineuse est un TUBE** (`TubeGeometry`, rayon 0,011,
+  `setDrawRange` par segment) : une `Line` fait un pixel quoi qu'il arrive et
+  se perdait sous le pointillé. Les villes déjà parcourues (Trèves, Bonn,
+  Berlin, Cologne) restent allumées à demi.
+- **Les halos sont des sprites additifs SANS test de profondeur** : centrés à
+  ras du plan, leur moitié basse passait sous la carte et le test la coupait
+  net — un rectangle clair sous chaque lampe, vu au zoom seulement.
+- **La caméra est une plongée cartographique** (`poseAt`, 56° du plan,
+  jamais au ras du papier) : plan large sur toute la route, chaque station à
+  distance moyenne (on lit les côtes, les fleuves, les noms), de la hauteur
+  prise en vol, et **un recul final** sur tout l'exil, de Paris à Londres.
+  Le sujet vit à droite du feuillet : visée décalée de 30 % de la distance,
+  plafonnée à 2,2. La course du tableau vaut 3,2 scènes.
+- **Sur téléphone, le texte passe SOUS la bande épinglée** (z-index inversé,
+  comme sous un en-tête fixe) : la carte reste visible pendant qu'on lit.
+  Vaut pour les huit tableaux.
+- La légende dit la source : « côtes et fleuves d'après Natural Earth ».
+
+### Ce qui est DÉRIVÉ par `gen-seo.mjs`
+
+`KARL-MARX:LIVRES` (le catalogue par année, lien vers l'atelier si
+`available`), `KARL-MARX:PORTES` (les œuvres à `reading.entry`, avec leur
+rayon), `KARL-MARX:LD` (`ProfilePage` + **`Person`** Q9061 avec dates, lieux,
+portrait, Engels Q34787 + `BreadcrumbList`), **le FAQPage** (même balisage
+`#questions` que l'accueil — la dérivation est une boucle sur les deux
+fichiers), le pied de page (« Qui était Karl Marx »), le sitemap (0.9),
+l'index de la recherche. Sidebar : entrée « Karl Marx » sous l'accueil
+(`data-act="marx"`, `shell.js?v=19`) ; lien depuis la FAQ de l'accueil ;
+`og:image` d'À propos corrigé (il pointait un `.jpg` inexistant).
+
+### Pièges payés
+
+1. **Un tableau doit être PLUS HAUT que sa scène**, sinon la course
+   `r.height - stageH` est négative et `--q` s'inverse : l'exil, au texte
+   court, montrait Londres dès l'entrée. Le feuillet en marge négative ne
+   compte pas pour la hauteur → `min-height` sur `.tb` (1,7 scène, 2,6 pour
+   la carte).
+2. **`inset:auto` écrit APRÈS `top` remet `top` à `auto`** (la bande mobile
+   ne collait plus). L'ordre des déclarations compte.
+3. **Une `CanvasTexture` est lue comme LINÉAIRE** quand la sortie est en sRGB
+   (three r137) : la carte rendait presque noire → `texture.encoding`.
+4. **`figure` porte 40 px de marge d'agent utilisateur** : 14 px de
+   débordement à 390 px, trouvés par une sonde qui liste les éléments dont le
+   bord droit dépasse le viewport.
+5. Dans la première version : la scène fixe vivait dans `#vie`, donc APRÈS le
+   héros dans le document, et à `z-index:0` elle se peignait par-dessus lui
+   (titre et portrait invisibles) ; et le contexte de `main.wrap` passait
+   devant le pied de page (`.lm-foot{z-index:2}`). Les deux règles restent.
+6. **Le `sed` de bump `shell.js?v=` a touché CLAUDE.md** — exclure la
+   documentation du remplacement.
+7. **`?width=` de Commons est une demande, pas une garantie** (déjà noté),
+   et le crop des visages se juge à la planche-contact : deux recadrages ont
+   été refaits après l'avoir vue (1836 trop serré, 1869 décalé).
+
+### Vérifié
+
+Dans le **vrai Chrome** (la pane masquée gèle rAF, animations et scène) :
+chaque tableau photographié à 2, 35 et 70 % de sa course, à 1380 et 390 px ;
+contraste sur le rendu **0 échec** hors les années décoratives en
+`color:transparent` (faux positif de sonde, `aria-hidden`), aucune cible sous
+24 × 24, aucun texte sous 11 px, **zéro débordement** aux deux largeurs,
+console propre ; reduced-motion : pas de Three, tout à l'état fini ;
+`gen-seo --check` à jour et idempotent. Détecteur : familles documentées
+seulement (`clamp()` non résolu sur les mots du titre, scènes plein cadre).
+
+**Reste** : demander l'indexation dans Search Console après déploiement, et
+reconsulter dans quelques semaines les impressions sur « karl marx » et ses
+variantes. Le goulot reste l'autorité — cette page donne enfin une URL qui
+répond à la requête, elle ne crée pas de liens entrants.
 
 ## Conventions de travail
 

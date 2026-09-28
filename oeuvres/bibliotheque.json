@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-09-17",
+  "updated": "2026-09-21",
   "readingGroups": [
     {
       "id": "seuils",
@@ -222,30 +222,31 @@
     },
     {
       "id": "dix-huit-brumaire",
-      "title": "Le 18 Brumaire de Louis Bonaparte",
-      "shortTitle": "18 Brumaire",
+      "title": "Le XVIII brumaire de Louis Bonaparte",
+      "shortTitle": "XVIII brumaire",
       "author": "Karl Marx",
       "year": 1852,
-      "status": "planned",
+      "status": "available",
       "category": "histoire-politique",
       "path": "oeuvres/18-brumaire.html",
       "manifest": "oeuvres/18-brumaire/manifest.json",
-      "description": "Analyse du coup d'État de Louis Bonaparte, des classes sociales, de la représentation politique et des formes de l'État.",
+      "description": "Le récit du coup d’État du 2 décembre 1851, écrit six semaines après, et le texte où Marx montre comment un État peut se détacher de la société qu’il gouverne. On le trouve aussi sous le titre « Le 18 Brumaire de Louis Bonaparte ».",
       "concepts": [
-        "classe",
-        "État",
-        "bonapartisme",
-        "représentation",
-        "paysannerie",
-        "lutte politique"
+        "lutte des classes",
+        "pouvoir exécutif",
+        "parti de l’ordre",
+        "paysans parcellaires",
+        "représentation politique",
+        "coup d’État"
       ],
-      "readingGuide": "À lire avec une chronologie de la Deuxième République française pour suivre les alliances et renversements de classes.",
-      "sourceNote": "Texte du domaine public à intégrer depuis une édition fiable.",
+      "readingGuide": "Les vingt premières pages du chapitre premier se lisent seules : c’est là que se trouvent la tragédie et la farce, et la phrase sur les conditions que les hommes trouvent toutes faites. Le récit qui suit suppose de connaître un peu la Deuxième République — le dossier en donne le calendrier, avec les dates que Marx retient lui-même. Le chapitre VII, qui porte la thèse sur l’État et sur la paysannerie parcellaire, peut se lire directement après le premier.",
+      "sourceNote": "Écrit de décembre 1851 à février 1852 pour une revue d’émigrés allemands de New York, Die Revolution, dont le deuxième numéro le publia au printemps de 1852. Le texte servi ici est la traduction française de Léon Remy, parue en 1900 chez Schleicher frères dans un volume qui contient aussi La Lutte des classes en France, et chargée depuis Wikisource. Elle est dans le domaine public : son traducteur est mort en 1910.",
       "reading": {
         "group": "interventions",
         "primer": [
           "manifeste-parti-communiste"
-        ]
+        ],
+        "entry": "Voir une classe abandonner le pouvoir pour garder sa fortune"
       }
     },
     {

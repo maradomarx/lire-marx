@@ -199,6 +199,42 @@ const EDITION = {
     source: { name: 'Salaires, prix, profits sur Wikisource',
               url: 'https://fr.wikisource.org/wiki/Salaires,_prix,_profits' },
     colophon: 'traduction Charles Longuet (1912), domaine public, servie depuis Wikisource'
+  },
+
+  'dix-huit-brumaire': {
+    // « Karl Marx · écrit de décembre 1851 à février 1852, publié à New York
+    //   en 1852 · traduction Léon Remy (1900) · domaine public » —
+    //   <p class="work-meta"> de oeuvres/18-brumaire.html, et la notice de
+    //   source sous chaque chapitre.
+    // Les deux dates sont celles de la préface, que le texte servi imprime :
+    // Marx y dit avoir écrit chaque semaine jusqu'à la mi-février, et que le
+    // deuxième numéro de la revue de Weydemeyer parut au printemps de 1852.
+    datePublished: '1852',
+    dateCreated: '1852',
+    // Le titre sous lequel l'ouvrage circule aujourd'hui. Il est VISIBLE
+    // dans la page — le <title> le porte entre parenthèses, et la
+    // description du catalogue le nomme — donc le schéma peut l'affirmer.
+    alternateName: 'Le 18 Brumaire de Louis Bonaparte',
+    translator: 'Léon Remy',
+    // La page de titre servie imprime cette édition : « LA LUTTE DES CLASSES
+    // EN FRANCE (1848-1850) / LE XVIII BRUMAIRE DE LOUIS BONAPARTE / PAR
+    // KARL MARX / Traduit de l'allemand par Léon REMY / PARIS, LIBRAIRIE
+    // C. REINWALD, SCHLEICHER FRÈRES, ÉDITEURS / 1900 ».
+    bookEdition: "Traduction française de Léon Remy, 1900 (Schleicher frères), dans le volume « La Lutte des classes en France (1848-1850). Le XVIII brumaire de Louis Bonaparte »",
+    // Léon Rémy est mort en 1910 (Wikidata Q18197824, vérifié) : la
+    // traduction est dans le domaine public, on peut l'affirmer.
+    license: 'https://creativecommons.org/publicdomain/mark/1.0/',
+    translationOfWork: {
+      '@type': 'Book',
+      name: 'Der achtzehnte Brumaire des Louis Bonaparte',
+      inLanguage: 'de',
+      datePublished: '1852'
+    },
+    // load() de la page appelle l'API de Wikisource sur les sous-pages de ce
+    // livre-là — c'est la source réelle du texte affiché.
+    source: { name: 'Le XVIII brumaire de Louis Bonaparte sur Wikisource',
+              url: 'https://fr.wikisource.org/wiki/Le_XVIII_brumaire_de_Louis_Bonaparte' },
+    colophon: 'traduction Léon Remy (1900), domaine public, servie depuis Wikisource'
   }
 };
 
@@ -225,6 +261,8 @@ const SITE_PAGES = [
      C'est l'autre moitié de la règle du slash rappelée juste au-dessus :
      un dossier prend son slash, un fichier n'en prend pas. */
   { file: 'a-propos.html',             url: '/a-propos',               priority: '0.6', changefreq: 'yearly' },
+  /* /karl-marx — la page-pilier sur l'homme : page-FICHIER, sans slash. */
+  { file: 'karl-marx.html',            url: '/karl-marx',              priority: '0.9', changefreq: 'monthly' },
   /* /mentions-legales — page-FICHIER elle aussi. Priorité basse : ce n'est
      pas une page qu'on cherche, mais elle doit rester trouvable. */
   { file: 'mentions-legales.html',     url: '/mentions-legales',       priority: '0.3', changefreq: 'yearly' }
@@ -295,7 +333,7 @@ let INDEX_NOTIONS = [];
  * consommé par la section « maillage » : la résolution (identité, suffixe
  * de station, renvoi `voir`, `page.slug`) se fait une seule fois, ici, et
  * les ateliers n'ont plus qu'une table à lire. */
-let LIENS_FICHES = { 'Le Capital': {}, 'Manuscrits de 1844': {}, 'Manifeste du parti communiste': {}, 'Salaires, prix, profits': {} };
+let LIENS_FICHES = { 'Le Capital': {}, 'Manuscrits de 1844': {}, 'Manifeste du parti communiste': {}, 'Salaires, prix, profits': {}, 'Le XVIII brumaire': {} };
 
 function lastmod(file) {
   try {
@@ -387,6 +425,7 @@ const PIED_FIN = '<!-- PIED:FIN -->';
    doit pas dépendre de ce qu'on n'a pas réussi à servir. */
 const PIED_PAGES = [
   'index.html',
+  'karl-marx.html',
   'a-propos.html',
   'mentions-legales.html',
   'oeuvres/bibliotheque.html',
@@ -395,6 +434,7 @@ const PIED_PAGES = [
   'oeuvres/manifeste.html',
   'oeuvres/contribution-1859.html',
   'oeuvres/salaire-prix-profit.html',
+  'oeuvres/18-brumaire.html',
   'oeuvres/place-publique.html',
   'oeuvres/carnet.html',
   'oeuvres/messages.html',
@@ -426,6 +466,7 @@ ${lien('/oeuvres/bibliotheque', 'Toute la bibliothèque')}
       <div class="lm-foot-col">
         <p class="lm-foot-h">Comprendre</p>
         <ul>
+${lien('/karl-marx', 'Qui était Karl Marx')}
 ${lien('/glossaire/', 'L’abécédaire de Marx')}
 ${lien('/jeu/', 'Le circuit du capital')}
 ${lien('/agregation-2027', 'Marx à l’agrégation 2027')}
@@ -626,7 +667,7 @@ function texteNu(html) {
 
 function questionsDe(src) {
   const i = src.indexOf('id="questions"');
-  if (i < 0) throw new Error('Section #questions introuvable dans index.html.');
+  if (i < 0) throw new Error('Section #questions introuvable.');
   const fin = src.indexOf('</section>', i);
   const zone = src.slice(i, fin);
   const out = [];
@@ -643,8 +684,9 @@ function questionsDe(src) {
   return out;
 }
 
-{
-  const file = 'index.html';
+/* Le même balisage vit sur l'accueil ET sur /karl-marx : la dérivation
+ * vaut pour les deux, et `--check` surveille les deux. */
+for (const file of ['index.html', 'karl-marx.html']) {
   const src = readFileSync(file, 'utf8');
   const json = JSON.stringify(
     { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: questionsDe(src) },
@@ -654,7 +696,7 @@ function questionsDe(src) {
    * balise ouvrante par index — pas de motif qui puisse courir au-delà, le
    * piège qui avait mangé 779 lignes de capital-1.html. */
   const k = src.indexOf('"@type": "FAQPage"');
-  if (k < 0) throw new Error('Bloc FAQPage introuvable dans index.html.');
+  if (k < 0) throw new Error('Bloc FAQPage introuvable dans ' + file + '.');
   const deb = src.lastIndexOf(OPEN, k);
   const f   = src.indexOf(CLOSE, k);
   if (deb < 0 || f < 0) throw new Error('Bloc FAQPage mal délimité.');
@@ -818,6 +860,25 @@ function identite(nom) {
     brut.push({ nom: c.t, legende: c.def || '', formule: '', de: c.de || '',
                 oeuvre: 'Salaires, prix, profits', groupe: SP_SECTIONS.get(c.g), chaps: [],
                 url: `/oeuvres/salaire-prix-profit#partie=${c.g}` });
+  }
+
+  /* GLOSS_BR — la CINQUIEME source. Meme motif que GLOSS_MF et GLOSS_SP :
+     `g` dit le CHAPITRE, et c'est lui que la provenance affiche et vers
+     lequel elle mene. Quatre des douze entrees portent le titre d'une fiche
+     existante : elles n'en creent pas une seconde, elles lui ajoutent une
+     provenance. Les huit autres sont d'analyse politique, et aucune autre
+     oeuvre du corpus ne les pose. */
+  const brSrc = readFileSync('oeuvres/18-brumaire.html', 'utf8');
+  const BR_CHAPS = new Map();
+  for (const c of litteralJS(brSrc, 'BR_STRUCT=', '['))
+    BR_CHAPS.set(c.g, c.rn ? `chapitre ${c.rn}` : 'la pr\u00e9face');
+  for (const c of litteralJS(brSrc, 'GLOSS_BR=', '[')) {
+    if (!c.t) throw new Error(`18-brumaire.html : une entrée de GLOSS_BR n'a pas de titre (t) — ${JSON.stringify(c.s)}`);
+    if (!BR_CHAPS.has(c.g)) throw new Error(
+      `GLOSS_BR « ${c.t} » : g=${JSON.stringify(c.g)} ne correspond à aucun chapitre de BR_STRUCT.`);
+    brut.push({ nom: c.t, legende: c.def || '', formule: '', de: c.de || '',
+                oeuvre: 'Le XVIII brumaire', groupe: BR_CHAPS.get(c.g), chaps: [],
+                url: `/oeuvres/18-brumaire#partie=${c.g}` });
   }
 
   /* Une clé du lexique qui ne correspond à AUCUNE fiche est une erreur, pas
@@ -1329,7 +1390,7 @@ ${monde}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=17"></script>
+<script src="/oeuvres/shell.js?v=19"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 ${aScene ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-driver.js')}" defer></script>` : ''}
@@ -1490,7 +1551,7 @@ ${voisines.map((v) => `      <a href="${v.href}">${v.nom}</a>`).join('\n')}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=17"></script>
+<script src="/oeuvres/shell.js?v=19"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 </body>
@@ -1726,7 +1787,7 @@ ${marge}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=17"></script>
+<script src="/oeuvres/shell.js?v=19"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Le Capital', tabs: [] });</script>
 </body>
@@ -1791,7 +1852,7 @@ ${o.ld}
 </head>`;
   const piedCm = (workTitle) => `${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=17"></script>
+<script src="/oeuvres/shell.js?v=19"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: '${workTitle}', tabs: [] });</script>
 <script src="/commentaires/agregation.js?v=${hashV('commentaires/agregation.js')}" defer></script>
@@ -2084,7 +2145,8 @@ ${piedCm('Agrégation 2027')}`;
     if (!check) console.log(`  ressources : ${w.shortTitle} — ${cartes.length} cartes indexées`);
   }
   ['capital-1', 'manuscrits-1844', 'manifeste-parti-communiste',
-    'contribution-critique-economie-politique', 'salaire-prix-profit'].forEach(ressourcesDe);
+    'contribution-critique-economie-politique', 'salaire-prix-profit',
+    'dix-huit-brumaire'].forEach(ressourcesDe);
 
   /* L'index des essais — glossaire, chapitres expliqués, commentaires et
    * page-carrefour (mission `recherche-chapitres`) : un fichier à part, chargé à la demande par la
@@ -2137,7 +2199,8 @@ function ccHtml(x, ICONS, h) {
 for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
                               ['oeuvres/manuscrits-1844.html', 'Manuscrits de 1844'],
                               ['oeuvres/manifeste.html', 'Manifeste du parti communiste'],
-                              ['oeuvres/salaire-prix-profit.html', 'Salaires, prix, profits']]) {
+                              ['oeuvres/salaire-prix-profit.html', 'Salaires, prix, profits'],
+                              ['oeuvres/18-brumaire.html', 'Le XVIII brumaire']]) {
   let src = readFileSync(file, 'utf8');
   const liens = LIENS_FICHES[oeuvre];
 
@@ -2170,15 +2233,19 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
         : CONCEPTS[id].map((x) => ccHtml(x, ICONS, (liens[x.t] || {}).h || '')).join('');
       src = entreMarqueurs(src, deb, fin, html, file);
     }
-  } else if (oeuvre === 'Manifeste du parti communiste' || oeuvre === 'Salaires, prix, profits') {
+  } else if (oeuvre === 'Manifeste du parti communiste' || oeuvre === 'Salaires, prix, profits'
+             || oeuvre === 'Le XVIII brumaire') {
     /* Ni cartes ni carte de concepts : leurs notions vivent dans l'infobulle
        de la liseuse et dans la marge, toutes deux peuplées par le script. La
        ligne servie, au pied du cheminement, est ce qu'un crawler en voit. On
        nomme la NOTION et l'on dédoublonne par l'adresse. */
-    const mf = oeuvre === 'Manifeste du parti communiste';
-    const balise = mf ? 'NOTIONS-MF' : 'NOTIONS-SP';
+    const balise = { 'Manifeste du parti communiste': 'NOTIONS-MF',
+                     'Salaires, prix, profits': 'NOTIONS-SP',
+                     'Le XVIII brumaire': 'NOTIONS-BR' }[oeuvre];
     /* L'article vit dans la chaîne : « du Manifeste », « de Salaires ». */
-    const titre = mf ? 'du <i>Manifeste</i>' : 'de <i>Salaires, prix, profits</i>';
+    const titre = { 'Manifeste du parti communiste': 'du <i>Manifeste</i>',
+                    'Salaires, prix, profits': 'de <i>Salaires, prix, profits</i>',
+                    'Le XVIII brumaire': 'du <i>XVIII brumaire</i>' }[oeuvre];
     const vus = new Set(), items = [];
     for (const n of Object.keys(liens)) if (!vus.has(liens[n].h)) { vus.add(liens[n].h); items.push(liens[n]); }
     const lien = (e) => `<a href="${e.h}">${e.n}</a>`;
@@ -2283,6 +2350,21 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
   for (const [id, lab] of Object.entries(litteralJS(manSrc, 'EXPLO_LABELS=', '{')))
     items.push({ t: strip(lab), s: 'Les explorations · Manuscrits de 1844', cat: 'outil', url: `/oeuvres/manuscrits-1844#explore=${id}`, hay: 'exploration pièce' });
 
+  /* Le XVIII brumaire : la préface et les sept chapitres, lus dans BR_STRUCT.
+     ⚠️ Les intitulés sont ÉCRITS PAR LE SITE — Marx ne titre pas ses
+     chapitres, la source n'imprime qu'un chiffre romain. La sur-ligne dit
+     donc le numéro, qui est le seul repère de l'auteur. */
+  const brSearch = readFileSync('oeuvres/18-brumaire.html', 'utf8');
+  for (const p of litteralJS(brSearch, 'BR_STRUCT=', '['))
+    items.push({ t: strip(p.t), s: `Le XVIII brumaire${p.rn ? ' · chapitre ' + p.rn : ''}`,
+      cat: 'partie', url: `/oeuvres/18-brumaire#partie=${p.g}`, hay: court(p.s, 400) });
+  for (const [t, url, hay] of [
+    ['Le cheminement du XVIII brumaire', '/oeuvres/18-brumaire#deriv', 'marches méthode conditions données superstructure ligne descendante État parcelle'],
+    ['Qui parle pour qui', '/oeuvres/18-brumaire#labo', 'parti de l’ordre légitimistes orléanistes National Montagne société du 10 décembre paysans parcellaires prolétariat base sociale'],
+    ['Ce que le XVIII brumaire a ouvert', '/oeuvres/18-brumaire#apres', 'bonapartisme césarisme autonomie de l’État contresens histoire se répète tragédie farce'],
+    ['La chronologie du XVIII brumaire', '/oeuvres/18-brumaire#chrono', 'février 1848 journées de juin 10 décembre 13 juin 1849 31 mai 1850 2 décembre 1851 Die Revolution Weydemeyer 1885 Engels 1900 Remy']
+  ]) items.push({ t, s: 'Le dossier · Le XVIII brumaire', cat: 'outil', url, hay });
+
   /* Le Manifeste : ses parties, lues dans le plan de la page (MF_STRUCT),
      qui est aussi la source du sommaire et de la marge. `g` est le numéro
      que #partie= ouvre. */
@@ -2335,6 +2417,7 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
     ['Le circuit du capital', 'Le jeu de la plus-value', '/jeu/', 'jeu jouer simulation chariot'],
     ['Mon carnet', 'Vos passages et vos notes', '/oeuvres/carnet', 'surlignages annotations notes'],
     ['Messages', 'Vos conversations privées', '/oeuvres/messages', 'messagerie contacts'],
+    ['Karl Marx', 'Sa vie, ses idées, ses livres, par où le lire', '/karl-marx', 'biographie vie exil trèves londres idées principales théorie philosophie livres œuvres commencer'],
     ['À propos', 'Qui tient Lire Marx, et comment', '/a-propos', 'auteur sources méthode contact'],
     ['CGU & confidentialité', 'Mentions légales et règles du site', '/mentions-legales', 'cgu rgpd confidentialité règles'],
     ['Marx à l’agrégation 2027', 'Le programme, le commentaire, l’œuvre', '/agregation-2027', 'agrégation concours programme 2027 épreuve histoire de la philosophie commentaire de texte plotin'],
@@ -2411,7 +2494,11 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
     'salaire-prix-profit': wikiPages(
       'oeuvres/salaire-prix-profit.html', 'SP_STRUCT=',
       'Salaires, prix, profits', '/oeuvres/salaire-prix-profit', 15,
-      p => p.rn ? 'Section ' + p.rn : '')
+      p => p.rn ? 'Section ' + p.rn : ''),
+    'dix-huit-brumaire': wikiPages(
+      'oeuvres/18-brumaire.html', 'BR_STRUCT=',
+      'Le XVIII brumaire', '/oeuvres/18-brumaire', 8,
+      p => p.rn ? 'Chapitre ' + p.rn : '')
   };
   if (texte['capital-1'].sections.length !== 8)
     throw new Error(`ROY_STRUCT rend ${texte['capital-1'].sections.length} sections — le Livre I en a huit.`);
@@ -2492,6 +2579,83 @@ const entries = [
   writeIfNeeded(f, page, f + ' (sources + JSON-LD)');
 }
 
+/* ------------------------------ /karl-marx ------------------------------ *
+ * La page-pilier sur l'homme. Trois blocs y sont dérivés de bibliotheque.json
+ * — l'œuvre dans l'ordre, les portes d'entrée — et de la page elle-même (le
+ * Person en JSON-LD n'affirme que ce que le corps imprime : dates, lieux,
+ * les œuvres servies). Le FAQPage est dérivé plus haut, avec l'accueil.
+ * ---------------------------------------------------------------------- */
+{
+  const f = 'karl-marx.html';
+  const src = readFileSync(f, 'utf8');
+  const parAnnee = biblio.works.slice().sort((a, b) => (a.year - b.year) || String(a.title).localeCompare(String(b.title), 'fr'));
+  const livres = '\n' + parAnnee.map(w => {
+    const ok = w.status === 'available';
+    const t = ok ? `<a class="km-liv-t" href="${esc(hrefOf(w))}">${esc(w.title)}</a>` : `<span class="km-liv-t">${esc(w.title)}</span>`;
+    const st = ok ? `<span class="km-liv-s ok">Texte intégral et atelier</span>` : `<span class="km-liv-s">En préparation</span>`;
+    return `          <li class="km-liv"><span class="km-liv-y">${esc(String(w.year))}</span><div>${t}${st}</div></li>`;
+  }).join('\n') + '\n        ';
+  const grp = Object.fromEntries((biblio.readingGroups || []).map(g => [g.id, g]));
+  const portes = '\n' + available.filter(w => w.reading && w.reading.entry).map(w => {
+    const g = grp[w.reading.group] || {};
+    return `        <a class="km-porte" href="${esc(hrefOf(w))}">\n` +
+      `          <span class="km-porte-g">${esc(g.label || '')}</span>\n` +
+      `          <span class="km-porte-q">${esc(w.reading.entry)}</span>\n` +
+      `          <span class="km-porte-t"><i>${esc(w.title)}</i> · ${esc(String(w.year))}</span>\n` +
+      `        </a>`;
+  }).join('\n') + '\n      ';
+  const ld = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'ProfilePage',
+        '@id': `${ORIGIN}/karl-marx#page`,
+        url: `${ORIGIN}/karl-marx`,
+        name: 'Karl Marx (1818-1883) : sa vie, ses idées, ses livres, par où le lire',
+        inLanguage: 'fr',
+        isPartOf: { '@id': `${ORIGIN}/#site` },
+        publisher: { '@id': `${ORIGIN}/#organisation` },
+        mainEntity: { '@id': `${ORIGIN}/karl-marx#personne` }
+      },
+      {
+        '@type': 'Person',
+        '@id': `${ORIGIN}/karl-marx#personne`,
+        name: 'Karl Marx',
+        givenName: 'Karl',
+        familyName: 'Marx',
+        birthDate: '1818-05-05',
+        birthPlace: { '@type': 'Place', name: 'Trèves' },
+        deathDate: '1883-03-14',
+        deathPlace: { '@type': 'Place', name: 'Londres' },
+        description: 'Philosophe, journaliste, économiste et révolutionnaire allemand, auteur du Capital et, avec Friedrich Engels, du Manifeste du parti communiste.',
+        image: `${ORIGIN}/assets/img/archive/marx-portrait.png`,
+        sameAs: ['https://www.wikidata.org/wiki/Q9061', 'https://fr.wikipedia.org/wiki/Karl_Marx'],
+        spouse: { '@type': 'Person', name: 'Jenny von Westphalen' },
+        colleague: { '@type': 'Person', name: 'Friedrich Engels', sameAs: 'https://www.wikidata.org/wiki/Q34787' },
+        mainEntityOfPage: { '@id': `${ORIGIN}/karl-marx#page` }
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Lire Marx', item: `${ORIGIN}/` },
+          { '@type': 'ListItem', position: 2, name: 'Karl Marx', item: `${ORIGIN}/karl-marx` }
+        ]
+      }
+    ]
+  };
+  let page = entreMarqueurs(src,
+    '<!-- KARL-MARX:LIVRES:DÉBUT — DÉRIVÉ de bibliotheque.json par tools/gen-seo.mjs, ne pas éditer à la main -->',
+    '<!-- KARL-MARX:LIVRES:FIN -->', `\n        <ol class="km-livs" id="kmLivs">${livres}</ol>\n        `, f);
+  page = entreMarqueurs(page,
+    '<!-- KARL-MARX:PORTES:DÉBUT — DÉRIVÉ de bibliotheque.json par tools/gen-seo.mjs, ne pas éditer à la main -->',
+    '<!-- KARL-MARX:PORTES:FIN -->', `\n      <div class="km-portes" id="kmPortes">${portes}</div>\n      `, f);
+  page = entreMarqueurs(page,
+    '<!-- KARL-MARX:LD:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main -->',
+    '<!-- KARL-MARX:LD:FIN -->',
+    `\n${OPEN}\n${JSON.stringify(ld, null, 2)}\n${CLOSE}\n`, f);
+  writeIfNeeded(f, page, f + ' (livres + portes + JSON-LD)');
+}
+
 /* Le pied de page, écrit entre ses marqueurs dans les neuf pages tenues à la
    main. Les douze pages de notion le reçoivent par leur gabarit, plus bas —
    elles sont entièrement générées, elles n'ont pas besoin de marqueurs. */
@@ -2524,7 +2688,7 @@ if (check) {
     process.exit(1);
   }
   console.log('À jour : ' + [...available.map(w => w.path),
-    'oeuvres/bibliotheque.html (registre)', 'index.html (FAQPage)',
+    'oeuvres/bibliotheque.html (registre)', 'index.html (FAQPage)', 'karl-marx.html (FAQPage)',
     ...PIED_PAGES.map(f => f + ' (pied de page)'),
     'glossaire/index.html', ...PAGES_NOTIONS.map(p => p.file),
     'sitemap.xml'].join(', '));

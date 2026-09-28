@@ -1,46 +1,20 @@
 {
   "work": "dix-huit-brumaire",
-  "title": "Le 18 Brumaire de Louis Bonaparte",
+  "title": "Le XVIII brumaire de Louis Bonaparte",
   "author": "Karl Marx",
   "year": 1852,
-  "status": "planned",
+  "status": "available",
   "source": {
     "type": "public-domain",
-    "note": "Texte complet non integre pour l'instant. Edition francaise a confirmer."
+    "translator": "Léon Remy",
+    "edition": "Schleicher frères, Paris, 1900, dans le volume « La Lutte des classes en France (1848-1850). Le XVIII brumaire de Louis Bonaparte »",
+    "served": "https://fr.wikisource.org/wiki/Le_XVIII_brumaire_de_Louis_Bonaparte",
+    "note": "Le texte n'est pas servi localement : la liseuse charge chaque chapitre depuis Wikisource. Le plan fait foi dans BR_STRUCT (oeuvres/18-brumaire.html), pas ici."
   },
-  "chapters": [
-    {
-      "id": "chapitre-1",
-      "title": "Chapitre I"
-    },
-    {
-      "id": "chapitre-2",
-      "title": "Chapitre II"
-    },
-    {
-      "id": "chapitre-3",
-      "title": "Chapitre III"
-    },
-    {
-      "id": "chapitre-4",
-      "title": "Chapitre IV"
-    },
-    {
-      "id": "chapitre-5",
-      "title": "Chapitre V"
-    },
-    {
-      "id": "chapitre-6",
-      "title": "Chapitre VI"
-    },
-    {
-      "id": "chapitre-7",
-      "title": "Chapitre VII"
-    }
-  ],
   "notes": [
-    "Structure preparatoire uniquement.",
-    "Aucun texte complet n'est encore integre.",
-    "Le champ work reprend l'id utilise dans oeuvres/bibliotheque.json."
+    "Ce fichier n'est lu par aucun code : il documente l'oeuvre.",
+    "Le champ work reprend l'id utilise dans oeuvres/bibliotheque.json.",
+    "Marx ne titre pas ses chapitres : la source n'imprime qu'un chiffre romain, et les intitules du sommaire sont rediges par le site.",
+    "L'oeuvre est aussi connue sous le titre « Le 18 Brumaire de Louis Bonaparte » ; celui qui est ecrit ici est celui de l'edition servie."
   ]
 }

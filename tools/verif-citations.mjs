@@ -186,6 +186,52 @@ function manifeste() {
   return readFileSync(f, 'utf8');
 }
 
+/* ── Le texte du XVIII brumaire, par le chemin de sa liseuse ────────────
+   Huit sous-pages Wikisource (Remy, 1900), donc huit sections d'annotation.
+   Comme pour le Manifeste, on ne garde que les BLOCS DE TEXTE : le
+   nettoyage de la page retire le titre que la source imprime — un simple
+   chiffre romain — et pose le sien, de sorte qu'un `q=` relevé dans un
+   titre ne se retrouverait jamais. Les blocs centrés (« Hic Rhodus, hic
+   salta ! », le « FIN » de l'imprimeur) restent, eux, dans le texte servi. */
+async function dumpBrumaire() {
+  mkdirSync(CACHE, { recursive: true });
+  const require = createRequire(path.join(JEU, 'package.json'));
+  const puppeteer = require('puppeteer-core');
+  const navigateur = await puppeteer.launch({ executablePath: CHROME, headless: 'new', args: ['--no-sandbox', '--disable-dev-shm-usage'] });
+  const page = await navigateur.newPage();
+  await page.setRequestInterception(true);
+  page.on('request', (r) => {
+    if (r.url() === 'https://liremarx.test/') r.respond({ status: 200, contentType: 'text/html', body: '<!doctype html><title>x</title>' });
+    else r.continue();
+  });
+  await page.goto('https://liremarx.test/');
+  /* Les sous-pages, dans l'ordre de BR_STRUCT : la préface, puis 1 à 7. */
+  const pages = ['Préface de l’auteur', '1', '2', '3', '4', '5', '6', '7'];
+  for (let i = 0; i < pages.length; i++) {
+    const texte = await page.evaluate(async (nom) => {
+      const url = 'https://fr.wikisource.org/w/api.php?action=parse&page='
+        + encodeURIComponent('Le XVIII brumaire de Louis Bonaparte/' + nom)
+        + '&prop=text&format=json&formatversion=2&origin=*';
+      const r = await fetch(url);
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const j = await r.json();
+      const doc = new DOMParser().parseFromString(j.parse.text, 'text/html');
+      doc.querySelectorAll('style,sup.reference,.mw-references-wrap,ol.references,.ws-noexport,[class*="header"]').forEach((e) => e.remove());
+      return [...doc.body.querySelectorAll('p')].map((q) => q.textContent).join('\n');
+    }, pages[i]);
+    writeFileSync(path.join(CACHE, `br${i + 1}.txt`), texte);
+    process.stdout.write(`  ${i + 1 === 1 ? 'préface' : 'chapitre ' + i} : ${texte.length.toLocaleString('fr-FR')} car.\n`);
+  }
+  await navigateur.close();
+}
+const brums = {};
+function brumaire(n) {
+  if (brums[n]) return brums[n];
+  const f = path.join(CACHE, `br${n}.txt`);
+  if (!existsSync(f)) die(`XVIII brumaire, section ${n} absente du cache. Lancer : node tools/verif-citations.mjs --refresh`);
+  return (brums[n] = readFileSync(f, 'utf8'));
+}
+
 const sections = {};
 function section(n) {
   if (sections[n]) return sections[n];
@@ -225,6 +271,10 @@ if (refresh || !existsSync(path.join(CACHE, 's8.txt'))) {
   await dumpSections();
 }
 if (refresh || !existsSync(path.join(CACHE, 'manifeste.txt'))) await dumpManifeste();
+if (refresh || !existsSync(path.join(CACHE, 'br8.txt'))) {
+  console.log('\nLe texte du XVIII brumaire, par le chemin de la liseuse :');
+  await dumpBrumaire();
+}
 
 const dossiers = existsSync(CHAP_DIR) ? readdirSync(CHAP_DIR).filter((d) => !d.startsWith('.')) : [];
 if (!dossiers.length) die('Aucun chapitre sous oeuvres/capital-1/chapitres/.');
@@ -317,5 +367,40 @@ for (const d of comms.sort()) {
   for (const c of mal) console.log(`      section ${c.s} : « ${c.q} »`);
 }
 
-console.log(`\n${nChap} chapitre(s), ${nComm} commentaire(s), ${nCit} citations, ${nMal} introuvable(s), ${nDouble} partagée(s).\n`);
-process.exit(nMal ? 1 : 0);
+/* ── La page d'œuvre du XVIII brumaire ──────────────────────────────────
+   Son DOSSIER porte des `data-q` : les six fiches de « Qui parle pour qui »
+   (data-lire = le chapitre) et les renvois des marches du cheminement
+   (data-k="partie", data-t = le chapitre). Chacun promet que la liseuse
+   déposera sur cette phrase — c'est la même promesse qu'un data-q d'essai,
+   et elle se vérifie de la même façon. */
+const BR_PAGE = path.join(SITE, 'oeuvres/18-brumaire.html');
+let nBr = 0, nBrMal = 0;
+if (existsSync(BR_PAGE) && (!seuls.length || seuls.includes('BRUMAIRE'))) {
+  const html = readFileSync(BR_PAGE, 'utf8');
+  const cits = [];
+  for (const m of html.matchAll(/data-lire="(\d+)" data-q="([^"]+)"/g)) cits.push({ s: Number(m[1]), q: m[2], ou: 'fiche' });
+  for (const m of html.matchAll(/data-k="partie" data-t="(\d+)"[^>]*? data-q="([^"]+)"/g)) cits.push({ s: Number(m[1]), q: m[2], ou: 'marche' });
+  console.log('\nLes citations du dossier du XVIII brumaire :\n');
+  const mal = [];
+  for (const c of cits) {
+    nBr++;
+    const brut = c.q.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&lt;/g, '<');
+    /* ⚠️ ON NORMALISE LES BLANCS DES DEUX CÔTÉS, et c'est le chemin réel :
+       ces renvois passent par `jumpToQuote`, qui compare la citation et le
+       texte du paragraphe après `replace(/\s+/g,' ')`, sur les 40 premiers
+       caractères. Un `data-q` d'essai, lui, est cherché par `locate()` en
+       indexOf EXACT — d'où la règle stricte ailleurs dans cet outil. La
+       différence tient à la source : Wikisource conserve les retours à la
+       ligne de la transcription page à page, et une phrase servie en porte
+       presque toujours un. */
+    const plat = (t) => t.replace(/\s+/g, ' ');
+    if (plat(brumaire(c.s)).indexOf(plat(brut).trim().slice(0, 40)) < 0) { mal.push(c); nBrMal++; }
+  }
+  console.log(`  ${mal.length ? '✗' : '✓'} 18-brumaire.html          ${String(cits.length).padStart(2)} renvois vérifiés`
+    + (mal.length ? `  — ${mal.length} INTROUVABLE(S)` : ''));
+  for (const c of mal) console.log(`      ${c.ou}, section ${c.s} : « ${c.q} »`);
+}
+
+console.log(`\n${nChap} chapitre(s), ${nComm} commentaire(s), ${nCit} citations, ${nMal} introuvable(s), ${nDouble} partagée(s).`);
+console.log(`Le XVIII brumaire : ${nBr} renvois, ${nBrMal} introuvable(s).\n`);
+process.exit(nMal + nBrMal ? 1 : 0);

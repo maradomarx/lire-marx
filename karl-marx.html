@@ -1,0 +1,1840 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Karl Marx (1818-1883) : sa vie, ses idées, ses livres, par où le lire | Lire Marx</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="/assets/img/logo/icon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/logo/icon-192.png">
+<link rel="apple-touch-icon" href="/assets/img/logo/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#15100b">
+<meta name="apple-mobile-web-app-title" content="Lire Marx">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Karl Marx en une page : sa vie de Trèves à Londres en huit tableaux d'archives, ses idées principales expliquées, ses livres dans l'ordre, et par où commencer pour le lire en texte intégral.">
+<meta property="og:title" content="Karl Marx (1818-1883) : sa vie, ses idées, ses livres, par où le lire">
+<meta property="og:description" content="Une vie en exil en huit tableaux, six idées, l'œuvre dans l'ordre, et les portes d'entrée pour lire Marx en texte intégral.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Lire Marx">
+<meta property="og:url" content="https://liremarx.com/karl-marx">
+<meta property="og:image" content="https://liremarx.com/assets/img/archive/marx-portrait.png">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<!-- Page-FICHIER : canonique SANS extension et SANS slash final (règle du
+     projet — une page-fichier se désigne sans extension, une page-index de
+     dossier avec son slash). -->
+<link rel="canonical" href="https://liremarx.com/karl-marx">
+<link rel="preload" as="image" href="/assets/img/marx/face-1836.webp" fetchpriority="high">
+<link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2"></noscript>
+<link rel="stylesheet" href="/oeuvres/shell.css?v=12">
+<script>
+/* Décision de tête, AVANT le premier rendu : `no-motion` coupe toute
+   animation. Seul reduced-motion décide — la largeur ne coupe rien
+   (mission vivant-sur-mobile). Lue à la media query, jamais à innerWidth. */
+(function(){
+  if (matchMedia('(prefers-reduced-motion:reduce)').matches) document.documentElement.classList.add('no-motion');
+  document.documentElement.classList.add('js');
+})();
+</script>
+<style>
+/* ═══════════════════════════════════════════════════════════════════
+   /karl-marx — LA PAGE-PILIER : qui il était, ce qu'il a pensé, ce
+   qu'il a écrit, par où le lire.
+   -------------------------------------------------------------------
+   Page « de site » (pas d'atelier.css), tokens du shell redéclarés.
+
+   LA FORME : DES TABLEAUX. Une vie de Marx se raconte par ses archives —
+   le dessin de 1836, les plaques de Richard Beard en 1861, les pages du
+   Manifeste, le numéro rouge de la Neue Rheinische Zeitung, la carte de
+   Mayall en 1875. Chaque étape est donc une SCÈNE PLEIN ÉCRAN ÉPINGLÉE
+   (`.tb-stage`, sticky) que l'image occupe, et le texte passe DEVANT à
+   mesure qu'on descend ; l'image se développe comme un tirage, l'année
+   glisse, le texte s'encre. Le héros est le même geste sur le visage :
+   cinq portraits authentiques de 1836 à 1875, alignés sur les yeux, que le
+   défilement fait vieillir. Tout est piloté par la POSITION, donc
+   réversible ; sous reduced-motion, tout est posé.
+   ═══════════════════════════════════════════════════════════════════ */
+:root{
+  --bg:#15100b;--surface:#1e1710;--text:#f3e9d4;
+  --muted:#b7a888;--accent:#d5402f;--border:rgba(243,233,212,.13);
+  --paper:#15100b;--paper-2:#1e1710;--card:#221a12;
+  --ink:#f3e9d4;--ink-soft:#c7b599;
+  --red:#d5402f;--red-deep:#e5644f;--red-text:#e5644f;--bright:#e5644f;
+  --line-strong:rgba(243,233,212,.34);--hover:rgba(243,233,212,.05);
+  --gold:#d8ad4c;--gold-deep:#bd8f38;--blue:#5c8aa3;--const:#9a8b72;
+  --line:rgba(243,233,212,.13);--line-soft:rgba(243,233,212,.07);--ok:#7fa855;
+  --f-ui:'Inter',system-ui,sans-serif;--f-serif:'Spectral',Georgia,serif;--f-hand:'Caveat',cursive;
+  --candle:rgba(216,173,76,.18);
+  --emphase:linear-gradient(150deg,#2c2117,#211a12,#1b150e);
+  --km-top:44px;
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.95 0 0 0 0 0.9 0 0 0 0 0.8 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:auto;}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--f-ui);overflow-x:clip;}
+::selection{background:rgba(216,173,76,.32);color:var(--text);}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:3px;}
+main.wrap{position:relative;z-index:1;}
+.lm-foot{position:relative;z-index:2;}
+
+/* ── Grammaire commune (valeurs de l'accueil) */
+.km{max-width:1180px;margin:0 auto;}
+.km-sec{padding:clamp(56px,8vh,96px) clamp(24px,5vw,80px);position:relative;}
+.km-label{font-family:var(--f-ui);font-size:.72rem;font-weight:600;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--muted);margin:0 0 10px;}
+.km-h{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(1.7rem,3.4vw,2.5rem);
+  letter-spacing:-.03em;color:var(--text);line-height:1.06;margin:0 0 18px;text-wrap:balance;}
+.km-h em{font-style:italic;font-weight:500;color:var(--gold);}
+.km-lede{font-family:var(--f-serif);font-size:1.08rem;line-height:1.66;color:var(--muted);
+  margin:0 0 34px;max-width:62ch;}
+.km-lede a,.km-p a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(216,173,76,.35);}
+.km-lede a:hover,.km-p a:hover{border-bottom-color:var(--gold);}
+.km-p{font-family:var(--f-serif);font-size:1.02rem;line-height:1.74;color:var(--muted);margin:0 0 15px;max-width:66ch;}
+.km-p b{color:var(--ink);font-weight:600;}
+.km-btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-ui);font-size:.9rem;
+  font-weight:600;border-radius:100px;padding:12px 22px;text-decoration:none;
+  transition:transform .2s cubic-bezier(.16,1,.3,1),background .2s,border-color .2s,color .2s;}
+.km-btn.pri{background:var(--text);color:var(--bg);}
+.km-btn.pri:hover{transform:translateY(-1px);background:#fff8e8;}
+.km-btn.out{border:1px solid var(--line-strong);color:var(--text);}
+.km-btn.out:hover{border-color:var(--gold);color:var(--gold);}
+.km-cta{display:flex;flex-wrap:wrap;gap:12px;margin:0;}
+.km-fond{background:var(--bg);border-top:1px solid var(--line-soft);}
+/* les sections de lecture arrivent en glissant, comme les cartes de la
+   référence : posé par défaut (--up:0), levé tant que le scroll n'y est pas */
+.km-fond>.km{--up:0;transform:translateY(calc(var(--up) * 28px));opacity:calc(1 - var(--up) * .6);}
+
+/* ══ LE HÉROS — le visage qui vieillit ═══════════════════════════════
+   320vh de course ; la scène est collante et pleine hauteur. Cinq
+   portraits fondus par la POSITION de défilement (jamais par le temps) :
+   à l'arrivée le dessin de 1836, en bas de course Mayall 1875. */
+.hv{position:relative;height:320vh;}
+.hv-stage{position:sticky;top:var(--km-top);height:calc(100vh - var(--km-top));overflow:hidden;
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;
+  gap:clamp(24px,4vw,60px);padding:0 clamp(24px,5vw,80px);}
+.hv-txt{position:relative;z-index:2;max-width:560px;}
+.hv-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.72rem;font-weight:600;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--gold);margin:0 0 22px;}
+.hv-eyebrow::before{content:"";width:22px;height:1px;background:var(--gold);}
+.hv h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(3.2rem,7.6vw,6.6rem);
+  line-height:.94;letter-spacing:-.04em;color:var(--text);margin:0 0 24px;}
+.hv h1 .rw{display:inline-block;}
+.hv h1 em{font-style:italic;font-weight:500;color:var(--accent);display:block;
+  font-size:.42em;letter-spacing:-.02em;line-height:1.1;margin-top:14px;}
+.hv-lede{font-family:var(--f-serif);font-size:clamp(1.02rem,1.4vw,1.18rem);line-height:1.62;
+  color:var(--muted);max-width:50ch;margin:0 0 30px;}
+.hv-lede b{color:var(--ink);font-weight:600;}
+/* LES NOTICES : à chaque âge, son texte. La première est l'entrée de la
+   page (titre, chapô, boutons) ; les quatre autres sont empilées au même
+   endroit et fondues par la position, comme les portraits. */
+.hv-txt{display:grid;}
+.hv-note{grid-area:1/1;--k:0;opacity:var(--k);transform:translateY(calc((1 - var(--k)) * 16px));
+  pointer-events:none;}
+.hv-note.is-on{pointer-events:auto;}
+.hv-note:first-child{--k:1;}
+.hv-n-y{font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:1.05rem;color:var(--gold);margin:0 0 14px;letter-spacing:.01em;}
+.hv-n-y b{font-weight:900;font-style:normal;font-size:2.4rem;display:block;line-height:1;margin-bottom:6px;color:var(--text);letter-spacing:-.03em;}
+.hv-note h2{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(1.5rem,2.6vw,2.1rem);letter-spacing:-.025em;line-height:1.12;margin:0 0 16px;color:var(--text);text-wrap:balance;}
+.hv-note h2 em{font-style:italic;font-weight:500;color:var(--accent);}
+.hv-note p.hv-n-p{font-family:var(--f-serif);font-size:1.04rem;line-height:1.7;color:var(--muted);margin:0 0 12px;max-width:48ch;}
+.hv-note p.hv-n-p b{color:var(--ink);font-weight:600;}
+.hv-note p.hv-n-p a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(216,173,76,.35);}
+.hv-note p.hv-n-p a:hover{border-bottom-color:var(--gold);}
+.hv-n-src{font-family:var(--f-ui);font-size:.74rem;color:var(--const);margin:0;letter-spacing:.02em;}
+.hv-n-src a{color:var(--gold);text-decoration:none;}
+.hv-face{position:relative;justify-self:center;width:min(100%,56vh,500px);aspect-ratio:1;margin-top:6vh;
+  border-radius:18px;overflow:hidden;background:#0e0a07;
+  box-shadow:0 50px 90px -40px rgba(0,0,0,.95),0 0 0 1px rgba(216,173,76,.10);}
+.hv-face img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;
+  filter:grayscale(1) contrast(1.06) sepia(.28) brightness(.82);}
+.hv-face img:first-child{opacity:1;}
+.hv-face::after{content:"";position:absolute;inset:0;background:var(--grain);opacity:.16;mix-blend-mode:overlay;pointer-events:none;}
+/* LE COMPTEUR D'ANNÉES : il défile en continu avec le scroll (1836 → 1875)
+   et RALENTIT JUSQU'À S'ARRÊTER sur l'année de chaque photographie — c'est
+   le même rythme qui tient les portraits et les notices immobiles pendant
+   l'arrêt. Visible, en haut à droite, au-dessus du visage. */
+.hv-year{position:absolute;right:clamp(24px,5vw,80px);top:calc(2vh + 8px);z-index:3;margin:0;
+  font-family:'Fraunces',serif;font-weight:900;font-size:clamp(4.6rem,9.5vw,8.6rem);line-height:1;
+  letter-spacing:-.04em;color:var(--gold);font-variant-numeric:tabular-nums;
+  text-shadow:0 2px 24px rgba(216,173,76,.18);pointer-events:none;user-select:none;
+  transition:opacity .3s;}
+.hv-year small{display:block;font-family:var(--f-ui);font-weight:600;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--const);margin-top:6px;text-align:right;}
+.hv-year.is-still small{color:var(--gold);}
+.hv-cartel{position:absolute;left:0;right:0;bottom:0;padding:16px 18px;z-index:1;
+  background:linear-gradient(180deg,rgba(14,10,7,0),rgba(14,10,7,.92));
+  font-size:.72rem;letter-spacing:.04em;color:var(--ink-soft);line-height:1.45;}
+.hv-cartel b{display:block;font-weight:600;color:var(--text);letter-spacing:.06em;text-transform:uppercase;font-size:.72rem;margin-bottom:2px;}
+.hv-cartel span{display:none;}
+.hv-cartel span.on{display:block;}
+/* la règle des années sous le visage : de 1818 à 1883, la lumière avance */
+.hv-rule{position:absolute;left:clamp(24px,5vw,80px);right:clamp(24px,5vw,80px);bottom:26px;z-index:2;
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;
+  font-family:'Fraunces',serif;font-style:italic;font-size:.95rem;color:var(--const);}
+.hv-rule i{height:1px;background:var(--border);position:relative;}
+.hv-rule i::after{content:"";position:absolute;left:0;top:0;height:1px;width:calc(var(--p,0) * 100%);
+  background:linear-gradient(90deg,rgba(216,173,76,.2),var(--gold));box-shadow:0 0 8px rgba(216,173,76,.4);}
+.hv-hint{position:absolute;left:clamp(24px,5vw,80px);bottom:64px;z-index:2;display:flex;align-items:center;gap:12px;
+  font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+  opacity:calc(1 - var(--fade,0));}
+.hv-hint::before{content:"";width:1px;height:38px;background:linear-gradient(180deg,var(--gold),transparent);}
+/* l'entrée orchestrée, une fois : les mots se posent, le visage se développe */
+html.js:not(.no-motion) .hv .rw{opacity:0;transform:translateY(.35em) rotate(-1.2deg);}
+html.js:not(.no-motion) .hv.lit .rw{animation:km-word .9s cubic-bezier(.16,1,.3,1) forwards;animation-delay:calc(var(--i,0) * .11s + .12s);}
+html.js:not(.no-motion) .hv .hv-eyebrow,html.js:not(.no-motion) .hv .hv-lede,html.js:not(.no-motion) .hv .km-cta,
+html.js:not(.no-motion) .hv .hv-face,html.js:not(.no-motion) .hv .hv-rule{opacity:0;}
+html.js:not(.no-motion) .hv.lit .hv-eyebrow{animation:km-rise .8s ease forwards .05s;}
+html.js:not(.no-motion) .hv.lit .hv-lede{animation:km-rise .9s ease forwards .7s;}
+html.js:not(.no-motion) .hv.lit .km-cta{animation:km-rise .9s ease forwards .85s;}
+html.js:not(.no-motion) .hv.lit .hv-rule{animation:km-rise 1s ease forwards 1.1s;}
+html.js:not(.no-motion) .hv.lit .hv-face{animation:km-dev 1.6s cubic-bezier(.16,1,.3,1) forwards .35s;}
+@keyframes km-word{to{opacity:1;transform:none;}}
+@keyframes km-rise{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+@keyframes km-dev{from{opacity:0;clip-path:inset(0 100% 0 0);}40%{opacity:1;}to{opacity:1;clip-path:inset(0 0 0 0);}}
+
+/* ── LE SOMMAIRE COLLANT */
+.km-nav{position:sticky;top:var(--km-top);z-index:40;background:rgba(21,16,11,.84);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);}
+.km-nav ul{list-style:none;margin:0 auto;padding:0 clamp(24px,5vw,80px);max-width:1180px;
+  display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;}
+.km-nav ul::-webkit-scrollbar{display:none;}
+.km-nav a{display:inline-block;padding:13px 12px;font-size:.78rem;font-weight:600;letter-spacing:.02em;
+  color:var(--muted);text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;}
+.km-nav a:hover{color:var(--text);}
+.km-nav a.on{color:var(--gold);border-bottom-color:var(--gold);}
+
+/* ══ LES TABLEAUX ═════════════════════════════════════════════════════
+   `.tb` est la section (haute : la scène + le texte qui passe) ;
+   `.tb-stage` la scène collante, pleine hauteur ; `.tb-copy` le texte,
+   qui commence DANS la scène (marge négative) et la traverse. */
+.tb-intro{padding-bottom:clamp(24px,4vh,48px);}
+.tb-copy{margin-bottom:0;}
+/* Un tableau doit être PLUS HAUT que sa scène, sinon la course est
+   négative et `--q` s'inverse (vécu : l'exil, au texte court, montrait
+   Londres dès l'entrée). Le texte, en marge négative, ne compte pas pour
+   la hauteur : on impose une hauteur minimale, plus longue pour la carte. */
+/* pas d'espace entre les tableaux : la scène suivante commence là où la
+   précédente s'arrête, à la manière de la référence */
+.tb{position:relative;--q:0;--rev:1;padding-bottom:0;min-height:calc((100vh - var(--km-top)) * 1.7);}
+#vie-exil{min-height:calc((100vh - var(--km-top)) * 3.2);}
+.tb-stage{position:sticky;top:var(--km-top);height:calc(100vh - var(--km-top));overflow:hidden;
+  background:#100c08;}
+.tb-stage::after{content:"";position:absolute;inset:0;background:var(--grain);opacity:.10;mix-blend-mode:overlay;pointer-events:none;}
+.tb-fig{position:absolute;margin:0;}
+.tb-fig img{display:block;width:100%;height:100%;object-fit:cover;}
+/* la photographie : cover, dans la moitié droite, développée au scroll */
+.tb-fig--photo{right:0;top:0;bottom:0;width:62%;
+  clip-path:inset(0 0 calc((1 - var(--rev)) * 100%) 0);
+  transform:scale(calc(1.08 - var(--rev) * .08));transform-origin:50% 100%;}
+.tb-fig--photo img{filter:grayscale(1) contrast(1.05) sepia(.26) brightness(.78);}
+.tb-fig--photo::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,#100c08 0,rgba(16,12,8,.55) 18%,rgba(16,12,8,0) 45%),
+             linear-gradient(180deg,rgba(16,12,8,0) 60%,rgba(16,12,8,.75) 100%);}
+/* le document : contenu entier, posé comme une feuille, jamais rogné */
+.tb-fig--doc{right:clamp(24px,6vw,96px);top:46%;transform:translateY(-50%) scale(calc(.94 + var(--rev) * .06));
+  height:min(78%,calc((100vh - var(--km-top)) * .78));width:auto;aspect-ratio:var(--ar,.6);max-width:44%;
+  clip-path:inset(0 0 calc((1 - var(--rev)) * 100%) 0);
+  box-shadow:0 50px 90px -40px rgba(0,0,0,.95),0 0 0 1px rgba(216,173,76,.12);border-radius:3px;
+  background:#e9dcc2;}
+.tb-fig--doc img{object-fit:contain;filter:sepia(.25) contrast(1.02) brightness(.92);}
+/* la seconde figure : une carte qui glisse au bord, à mi-course */
+.tb-fig--b{right:clamp(24px,5vw,72px);bottom:80px;width:clamp(150px,18vw,240px);aspect-ratio:var(--ar,.7);
+  border-radius:10px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(0,0,0,.95),0 0 0 1px rgba(216,173,76,.14);
+  --b:0;opacity:var(--b);transform:translate(calc((1 - var(--b)) * 40px),0) rotate(calc((1 - var(--b)) * 3deg));}
+.tb-fig--b img{filter:grayscale(1) contrast(1.05) sepia(.26) brightness(.84);}
+.tb-fig--b figcaption{position:absolute;left:0;right:0;bottom:0;padding:8px 10px;
+  background:linear-gradient(180deg,rgba(14,10,7,0),rgba(14,10,7,.9));font-size:.72rem;color:var(--ink-soft);line-height:1.4;}
+.tb-cap{position:absolute;right:clamp(24px,5vw,72px);bottom:26px;z-index:3;max-width:min(46%,420px);text-align:right;
+  font-size:.72rem;letter-spacing:.03em;color:var(--ink-soft);line-height:1.45;
+  text-shadow:0 1px 3px rgba(0,0,0,.9);}
+.tb-cap b{display:block;font-weight:600;color:var(--text);letter-spacing:.06em;text-transform:uppercase;font-size:.72rem;margin-bottom:2px;}
+.tb-cap a{color:var(--ink-soft);}
+/* l'année, géante, derrière tout : elle glisse en entrant */
+/* le texte : un feuillet translucide qui traverse la scène */
+.tb-copy{position:relative;z-index:2;max-width:540px;
+  margin:calc(-100vh + var(--km-top) + 16vh) 0 0 clamp(24px,6vw,96px);
+  padding:30px 32px 32px;border-radius:18px;
+  background:rgba(21,16,11,.80);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid var(--border);box-shadow:0 30px 70px -40px rgba(0,0,0,.9);}
+.tb-copy>*{--n:1;opacity:var(--n);transform:translateY(calc((1 - var(--n)) * 10px));}
+/* L'ANNÉE VIT DANS LE FEUILLET, en tête, grande et or — posée sur la scène
+   elle recouvrait tôt ou tard l'image (la maison de Trèves, le Manifeste,
+   Highgate). Ici rien ne peut la recouvrir, et c'est l'habit du compteur du
+   héros. */
+.tb-y{display:flex;align-items:baseline;gap:10px;font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:1.05rem;color:var(--gold);letter-spacing:.01em;margin:0 0 10px;}
+.tb-y b{font-style:normal;font-weight:900;font-size:2.6rem;line-height:1;letter-spacing:-.03em;color:var(--gold);}
+.tb-copy h3{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(1.4rem,2.4vw,1.85rem);letter-spacing:-.025em;line-height:1.12;margin:0 0 14px;color:var(--text);}
+.tb-copy p{font-family:var(--f-serif);font-size:1.02rem;line-height:1.72;color:var(--muted);margin:0 0 14px;}
+.tb-copy p:last-child{margin-bottom:0;}
+.tb-copy p b{color:var(--ink);font-weight:600;}
+.tb-copy p a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(216,173,76,.35);}
+.tb-copy p a:hover{border-bottom-color:var(--gold);}
+/* le tableau typographique : la phrase géante s'encre mot à mot */
+.tb-quote{position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-end;padding:0 clamp(24px,5vw,72px) 0 57%;}
+.tb-quote p{margin:0;font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:clamp(1.5rem,3vw,2.7rem);line-height:1.18;letter-spacing:-.02em;color:var(--text);text-wrap:balance;}
+.tb-quote .rw{display:inline-block;--wp:1;color:color-mix(in srgb,var(--text) calc(var(--wp)*100%),rgba(243,233,212,.16));}
+@supports not (color:color-mix(in srgb,red,blue)){.tb-quote .rw{color:var(--text);}}
+.tb-quote cite{display:block;margin-top:18px;font-family:var(--f-ui);font-style:normal;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--const);}
+.tb-quote cite a{color:var(--gold);text-decoration:none;}
+/* la séquence : plusieurs images fondues par la position, cartel qui suit */
+.tb-seq{position:absolute;right:0;top:0;bottom:0;width:62%;}
+.tb-seq img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;
+  filter:grayscale(1) contrast(1.05) sepia(.26) brightness(.78);}
+.tb-seq img:first-child{opacity:1;}
+.tb-seq::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,#100c08 0,rgba(16,12,8,.55) 18%,rgba(16,12,8,0) 45%),
+             linear-gradient(180deg,rgba(16,12,8,0) 60%,rgba(16,12,8,.75) 100%);}
+.tb-cap span{display:none;}
+.tb-cap span.on{display:block;}
+/* la carte de l'exil : la scène 3D remplit la scène du tableau */
+.km-scene{position:absolute;inset:0;}
+.km-scene canvas{display:block;width:100%;height:100%;}
+.km-lbl{position:absolute;left:0;top:0;transform:translate(-50%,-100%);
+  font-family:'Fraunces',serif;font-weight:500;font-style:italic;font-size:.92rem;
+  color:var(--const);letter-spacing:.01em;white-space:nowrap;opacity:0;
+  text-shadow:0 1px 3px rgba(0,0,0,.9);transition:color .5s,opacity .5s;pointer-events:none;}
+.km-lbl.is-lit{opacity:1;color:var(--ink-soft);}
+.km-lbl.is-on{color:var(--gold);}
+.km-lbl small{display:block;font-family:var(--f-ui);font-style:normal;font-weight:500;
+  font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--const);margin-top:1px;}
+.km-vie-src{font-family:var(--f-ui);font-size:.74rem;color:var(--const);margin:0;max-width:640px;line-height:1.55;}
+.km-vie-src a{color:var(--const);}
+.km-vie-src a:hover{color:var(--gold);}
+
+/* ── SES IDÉES — les feuillets qui se posent */
+.km-idees{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.km-idee{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:16px;
+  padding:26px 24px 24px;display:flex;flex-direction:column;
+  --drop:0;--tilt:0deg;--ink:1;
+  transform:translateY(calc(var(--drop) * 30px)) rotate(var(--tilt));
+  opacity:calc(1 - var(--drop) * .55);
+  transition:border-color .25s,box-shadow .35s;}
+.km-idee:hover{border-color:rgba(216,173,76,.42);box-shadow:0 22px 44px -30px rgba(0,0,0,.9);}
+.km-idee .km-n{font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:1.3rem;
+  color:color-mix(in srgb,var(--gold) calc(var(--ink)*100%),var(--muted));margin:0 0 12px;}
+@supports not (color:color-mix(in srgb,red,blue)){.km-idee .km-n{color:var(--gold);}}
+.km-idee h3{font-family:'Fraunces',serif;font-weight:900;font-size:1.22rem;letter-spacing:-.02em;line-height:1.3;margin:0 0 10px;color:var(--text);}
+.km-idee p{font-family:var(--f-serif);font-size:.95rem;line-height:1.66;color:var(--muted);margin:0 0 16px;}
+.km-idee p:last-of-type{margin-bottom:auto;padding-bottom:16px;}
+.km-idee-go{font-family:var(--f-ui);font-size:.8rem;font-weight:600;color:var(--gold);text-decoration:none;
+  display:inline-flex;align-items:center;gap:6px;padding:4px 0;}
+.km-idee-go:hover{text-decoration:underline;text-underline-offset:3px;}
+.km-idee-go span{transition:transform .2s;}
+.km-idee-go:hover span{transform:translateX(3px);}
+.km-methode{margin-top:40px;padding:26px 28px;border-radius:16px;background:var(--emphase);
+  border:1px solid rgba(216,173,76,.20);box-shadow:0 18px 40px -26px rgba(0,0,0,.85);max-width:840px;}
+.km-methode .km-label{color:var(--gold);}
+.km-methode p{margin-bottom:0;}
+
+/* ── SES LIVRES — l'œuvre dans l'ordre : un fil, une lumière */
+.km-livres-in{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:start;}
+.km-livs{list-style:none;margin:0;padding:0 0 0 34px;position:relative;--draw:1;}
+.km-livs::before,.km-livs::after{content:"";position:absolute;left:0;top:14px;width:1px;}
+.km-livs::before{bottom:14px;background:var(--border);}
+.km-livs::after{height:calc(var(--draw) * (100% - 28px));
+  background:linear-gradient(180deg,rgba(216,173,76,.12),var(--gold));box-shadow:0 0 9px rgba(216,173,76,.34);}
+.km-liv{position:relative;display:grid;grid-template-columns:64px 1fr;gap:14px;align-items:baseline;
+  padding:12px 0;border-top:1px solid var(--line-soft);--lit:1;}
+.km-liv:first-child{border-top:0;}
+.km-liv::before,.km-liv::after{content:"";position:absolute;left:-38px;top:19px;width:9px;height:9px;border-radius:50%;box-sizing:border-box;}
+.km-liv::before{border:1px solid var(--border);background:var(--bg);}
+.km-liv::after{background:var(--gold);opacity:var(--lit);transform:scale(calc(.3 + var(--lit)*.7));}
+.km-liv-y{font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:1rem;
+  color:color-mix(in srgb,var(--gold) calc(var(--lit)*100%),var(--const));font-variant-numeric:tabular-nums;}
+@supports not (color:color-mix(in srgb,red,blue)){.km-liv-y{color:var(--gold);}}
+.km-liv-t{font-family:'Fraunces',serif;font-weight:600;font-size:1.06rem;letter-spacing:-.01em;color:var(--text);text-decoration:none;}
+a.km-liv-t{border-bottom:1px solid transparent;}
+a.km-liv-t:hover{color:var(--gold);border-bottom-color:rgba(216,173,76,.5);}
+.km-liv-s{display:block;font-family:var(--f-ui);font-size:.74rem;color:var(--const);margin-top:3px;letter-spacing:.02em;}
+.km-liv-s.ok{color:var(--gold);}
+.km-livres-note{position:sticky;top:calc(var(--km-top) + 70px);}
+.km-livres-note .km-p{font-size:.98rem;}
+
+/* ── REGARDER ET ÉCOUTER — rien ne se charge avant le clic */
+.km-vids{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:0 0 26px;}
+.km-vid{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:var(--surface);
+  border:1px solid var(--border);}
+.km-vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.km-vid-b{position:absolute;inset:0;width:100%;height:100%;display:flex;flex-direction:column;justify-content:flex-end;
+  align-items:flex-start;gap:6px;padding:18px;text-align:left;cursor:pointer;border:0;color:var(--text);
+  background:radial-gradient(120% 90% at 20% 100%,rgba(213,64,47,.22),transparent 55%),var(--emphase);
+  font-family:var(--f-ui);transition:filter .25s;}
+.km-vid-b:hover{filter:brightness(1.12);}
+.km-vid-play{position:absolute;right:18px;top:18px;width:44px;height:44px;border-radius:50%;
+  border:1px solid var(--line-strong);display:grid;place-items:center;background:rgba(21,16,11,.4);}
+.km-vid-play::before{content:"";width:0;height:0;border-left:13px solid var(--text);border-top:8px solid transparent;border-bottom:8px solid transparent;margin-left:3px;}
+.km-vid-t{font-family:'Fraunces',serif;font-weight:900;font-size:1.05rem;letter-spacing:-.02em;line-height:1.25;max-width:26ch;}
+.km-vid-m{font-size:.72rem;color:var(--ink-soft);letter-spacing:.02em;}
+.km-ecoute{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:0 32px;max-width:900px;}
+.km-ecoute li{border-top:1px solid var(--line-soft);padding:14px 0;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:baseline;}
+.km-ecoute a{font-family:'Fraunces',serif;font-weight:600;font-size:1rem;color:var(--text);text-decoration:none;}
+.km-ecoute a:hover{color:var(--gold);}
+.km-ecoute small{display:block;font-family:var(--f-ui);font-size:.74rem;color:var(--const);margin-top:3px;}
+.km-ecoute .tag{font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);white-space:nowrap;}
+.km-vid-note{font-family:var(--f-ui);font-size:.74rem;color:var(--const);margin:22px 0 0;}
+
+/* ── PAR OÙ COMMENCER — les portes */
+.km-portes{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+.km-porte{display:block;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px 24px 22px;
+  text-decoration:none;color:var(--text);transition:border-color .25s,transform .25s cubic-bezier(.16,1,.3,1),box-shadow .35s;}
+.km-porte:hover{border-color:rgba(216,173,76,.46);transform:translateY(-2px);box-shadow:0 22px 44px -30px rgba(0,0,0,.9);}
+.km-porte-g{display:block;font-size:.72rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--gold);margin:0 0 10px;}
+.km-porte-q{display:block;font-family:'Fraunces',serif;font-weight:900;font-size:1.28rem;letter-spacing:-.02em;line-height:1.3;margin:0 0 10px;}
+.km-porte-t{display:block;font-family:var(--f-serif);font-size:.96rem;color:var(--muted);}
+.km-porte-t i{color:var(--ink-soft);}
+
+/* ── QUESTIONS FRÉQUENTES — même balisage que l'accueil (le FAQPage en
+      est dérivé par gen-seo), même fil et même lumière. */
+.hs-faq-list{display:flex;flex-direction:column;gap:10px;max-width:840px;}
+.hs-faq-item{background:var(--surface);border:1px solid var(--border);border-radius:16px;transition:border-color .2s ease;}
+.hs-faq-item:hover{border-color:rgba(216,173,76,.42);}
+.hs-faq-item>summary{display:flex;align-items:flex-start;gap:18px;justify-content:space-between;padding:19px 22px;cursor:pointer;list-style:none;border-radius:16px;}
+.hs-faq-item>summary::-webkit-details-marker{display:none;}
+.hs-faq-item>summary:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+.hs-faq-q{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(1.02rem,1.6vw,1.2rem);letter-spacing:-.02em;line-height:1.34;color:var(--text);}
+.hs-faq-mk{position:relative;flex:0 0 auto;width:15px;height:15px;margin-top:4px;}
+.hs-faq-mk::before,.hs-faq-mk::after{content:"";position:absolute;background:var(--gold);border-radius:1px;}
+.hs-faq-mk::before{left:0;right:0;top:7px;height:1.5px;}
+.hs-faq-mk::after{top:0;bottom:0;left:6.75px;width:1.5px;transition:transform .22s cubic-bezier(.16,1,.3,1);}
+.hs-faq-item[open] .hs-faq-mk::after{transform:scaleY(0);}
+.hs-faq-a{padding:0 22px 20px;max-width:66ch;}
+.hs-faq-a p{font-size:.92rem;line-height:1.72;color:var(--muted);margin:0;}
+.hs-faq-a p+p{margin-top:9px;}
+.hs-faq-a a{color:var(--gold);text-underline-offset:3px;}
+html.js-faq .hs-faq-list{position:relative;padding-left:34px;--draw:1;}
+html.js-faq .hs-faq-list::before,html.js-faq .hs-faq-list::after{content:"";position:absolute;left:0;top:8px;width:1px;}
+html.js-faq .hs-faq-list::before{bottom:8px;background:var(--border);}
+html.js-faq .hs-faq-list::after{height:calc(var(--draw) * (100% - 16px));background:linear-gradient(180deg,rgba(216,173,76,.12),var(--gold));box-shadow:0 0 9px rgba(216,173,76,.34);}
+html.js-faq .hs-faq-item{--lit:1;--pass:0;position:relative;
+  border-color:color-mix(in srgb,rgba(216,173,76,.34) calc(var(--lit)*100%),var(--border));
+  box-shadow:0 0 0 1px rgba(216,173,76,calc(var(--pass)*.10)),0 12px 36px -20px rgba(216,173,76,calc(var(--pass)*.85));}
+html.js-faq .hs-faq-item::before,html.js-faq .hs-faq-item::after{content:"";position:absolute;left:-38px;top:25px;width:9px;height:9px;border-radius:50%;box-sizing:border-box;}
+html.js-faq .hs-faq-item::before{border:1px solid var(--border);background:var(--surface);}
+html.js-faq .hs-faq-item::after{background:var(--gold);opacity:var(--lit);transform:scale(calc(.3 + var(--lit)*.7));}
+html.js-faq .hs-faq-q{color:var(--muted);}
+@supports (color:color-mix(in srgb,red,blue)){html.js-faq .hs-faq-q{color:color-mix(in srgb,var(--text) calc(var(--lit)*100%),var(--muted));}}
+@media(max-width:560px){.hs-faq-item>summary{padding:16px 17px;gap:13px;}.hs-faq-a{padding:0 17px 17px;}}
+
+/* ── LA DERNIÈRE PAGE */
+.km-fin{position:relative;overflow:hidden;padding:clamp(72px,12vh,140px) clamp(24px,5vw,80px);
+  background:linear-gradient(180deg,rgba(21,16,11,.92),rgba(21,16,11,.98));}
+.km-fin::before{content:"";position:absolute;left:clamp(24px,5vw,80px);bottom:-160px;width:520px;height:420px;
+  background:radial-gradient(circle,rgba(216,173,76,calc(.22 * var(--lum,1))),transparent 62%);pointer-events:none;}
+.km-fin-in{max-width:1180px;margin:0 auto;position:relative;opacity:calc(.35 + .65 * var(--lum,1));}
+.km-fin-line{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(1.7rem,3.4vw,2.5rem);letter-spacing:-.03em;line-height:1.08;margin:0 0 26px;max-width:22ch;color:var(--text);}
+.km-fin-line em{font-style:italic;font-weight:500;color:var(--gold);}
+
+/* ── Sous 900 px : la scène du tableau devient une bande collante en
+      haut (52 vh), et le texte se lit dessous ; le héros s'empile. */
+@media(max-width:1100px){
+  .km-idees{grid-template-columns:repeat(2,1fr);}
+  .km-livres-in{grid-template-columns:1fr;}
+  .km-livres-note{position:static;}
+  .km-vids{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:900px){
+  .hv{height:auto;}
+  .hv-stage{position:relative;top:auto;height:auto;min-height:0;grid-template-columns:1fr;gap:26px;
+    padding:36px clamp(20px,5vw,40px) 90px;}
+  .hv-face{width:min(100%,360px);justify-self:start;}
+  .hv-note:not(:first-child){display:none;}
+  .hv-note:first-child{--k:1;transform:none;}
+  .hv-year{display:none;}
+  .hv-hint{display:none;}
+  .hv-rule{bottom:34px;}
+  .tb{padding-bottom:0;}
+  .tb-stage{height:min(52vh,460px);border-radius:0 0 16px 16px;}
+  .tb-fig--photo{width:100%;}
+  .tb-fig--photo::before{background:linear-gradient(180deg,rgba(16,12,8,0) 55%,rgba(16,12,8,.7) 100%);}
+  .tb-fig--doc{right:auto;left:50%;transform:translate(-50%,-50%) scale(calc(.94 + var(--rev) * .06));max-width:70%;}
+  .tb-fig--b{width:120px;bottom:52px;}
+  .tb-cap{max-width:70%;right:16px;bottom:12px;}
+  /* le texte passe SOUS la bande épinglée (z-index inversé), comme sous un
+     en-tête fixe : la scène reste visible pendant qu'on lit dessous. Un
+     dégradé au pied de la bande adoucit la ligne de coupe. */
+  .tb-stage{z-index:3;box-shadow:0 18px 30px -12px rgba(0,0,0,.85);}
+  .tb-copy{z-index:1;margin:18px clamp(16px,4vw,32px) 0;max-width:none;padding:22px 20px 24px;background:var(--surface);backdrop-filter:none;}
+  .tb-quote{padding:0 20px;align-items:center;justify-content:center;text-align:center;}
+  .tb-seq{width:100%;}
+}
+@media(max-width:680px){
+  .km-idees,.km-vids,.km-portes,.km-ecoute{grid-template-columns:1fr;}
+  .hv h1{font-size:clamp(3rem,15vw,4.4rem);}
+  .km-livs{padding-left:26px;}
+  .km-liv::before,.km-liv::after{left:-30px;}
+  .km-liv{grid-template-columns:52px 1fr;}
+  .km-methode{padding:20px;}
+}
+@media(max-height:600px) and (min-width:901px){.hv-hint{display:none;}}
+/* Sans mouvement (reduced-motion), tout est à l'état fini. */
+html.no-motion .hv .rw,html.no-motion .hv .hv-eyebrow,html.no-motion .hv .hv-lede,
+html.no-motion .hv .km-cta,html.no-motion .hv .hv-face,html.no-motion .hv .hv-rule{opacity:1;animation:none;transform:none;}
+html.no-motion .hv{height:auto;}
+html.no-motion .hv-stage{position:relative;height:auto;min-height:calc(100vh - var(--km-top));}
+html.no-motion .tb-fig--b{--b:1;}
+html.no-motion .hv-face img:last-child{opacity:1;}
+html.no-motion .hv-txt{display:block;}
+html.no-motion .hv-note{--k:1;transform:none;margin-bottom:34px;}
+html.no-motion .km-scene{display:none;}
+@media (pointer:coarse){
+  .km-nav a{padding:15px 12px;}
+  .km-idee-go,.km-ecoute a,.km-vie-src a{display:inline-block;padding:8px 0;margin:-8px 0;}
+}
+@media print{.km-nav,.hv-hint,.km-vids,.km-scene{display:none;}.tb-stage{position:relative;height:auto;}}
+</style>
+<!-- KARL-MARX:LD:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfilePage",
+      "@id": "https://liremarx.com/karl-marx#page",
+      "url": "https://liremarx.com/karl-marx",
+      "name": "Karl Marx (1818-1883) : sa vie, ses idées, ses livres, par où le lire",
+      "inLanguage": "fr",
+      "isPartOf": {
+        "@id": "https://liremarx.com/#site"
+      },
+      "publisher": {
+        "@id": "https://liremarx.com/#organisation"
+      },
+      "mainEntity": {
+        "@id": "https://liremarx.com/karl-marx#personne"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://liremarx.com/karl-marx#personne",
+      "name": "Karl Marx",
+      "givenName": "Karl",
+      "familyName": "Marx",
+      "birthDate": "1818-05-05",
+      "birthPlace": {
+        "@type": "Place",
+        "name": "Trèves"
+      },
+      "deathDate": "1883-03-14",
+      "deathPlace": {
+        "@type": "Place",
+        "name": "Londres"
+      },
+      "description": "Philosophe, journaliste, économiste et révolutionnaire allemand, auteur du Capital et, avec Friedrich Engels, du Manifeste du parti communiste.",
+      "image": "https://liremarx.com/assets/img/archive/marx-portrait.png",
+      "sameAs": [
+        "https://www.wikidata.org/wiki/Q9061",
+        "https://fr.wikipedia.org/wiki/Karl_Marx"
+      ],
+      "spouse": {
+        "@type": "Person",
+        "name": "Jenny von Westphalen"
+      },
+      "colleague": {
+        "@type": "Person",
+        "name": "Friedrich Engels",
+        "sameAs": "https://www.wikidata.org/wiki/Q34787"
+      },
+      "mainEntityOfPage": {
+        "@id": "https://liremarx.com/karl-marx#page"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Lire Marx",
+          "item": "https://liremarx.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Karl Marx",
+          "item": "https://liremarx.com/karl-marx"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<!-- KARL-MARX:LD:FIN -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quelle est la théorie de Karl Marx ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "On l'appelle le matérialisme historique. Les sociétés s'expliquent d'abord par la manière dont elles produisent leur vie matérielle : les rapports de production forment la base sur laquelle s'élèvent le droit, l'État et les idées. Quand les forces productives se développent, elles entrent en contradiction avec les rapports de propriété qui les enferment, et c'est de cette contradiction que naissent les révolutions. Appliquée au capitalisme, cette théorie devient une critique de l'économie politique : le profit vient du travail non payé, l'accumulation produit ses propres crises, et la classe qui n'a que sa force de travail à vendre est celle qui peut abolir le rapport. Marx l'a exposée en une page dans la préface de 1859, et démontrée dans Le Capital."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle est l'idée principale de Karl Marx ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "S'il fallait n'en garder qu'une : le rapport entre les classes est un rapport d'exploitation, et il se cache sous l'apparence d'un échange libre. L'ouvrier vend sa force de travail à sa valeur, personne ne le vole ; et pourtant la journée qu'il fournit vaut plus que le salaire qui la paie. C'est la plus-value, et tout Le Capital tient dans la démonstration de ce qui la rend possible. Le jeune Marx aurait dit autrement : le travail moderne est aliéné. Les deux formulations sont les deux âges d'une même idée."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pourquoi Karl Marx est-il contre le capitalisme ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pas par morale, et c'est ce qui le distingue des socialistes qu'il a lus à Paris. Marx reconnaît au capitalisme d'avoir développé les forces productives comme aucune société avant lui : le Manifeste est, sur ce point, un éloge. Ce qu'il lui reproche est structurel : il ne peut produire qu'en exploitant, il ne peut croître qu'en concentrant la richesse d'un côté et la dépendance de l'autre, et il ne peut éviter ses crises, parce qu'elles viennent de son mécanisme même. Sa critique est donc que le capitalisme n'est pas la fin de l'histoire mais une forme historique, née à une date qu'on peut fixer — c'est l'objet des chapitres sur l'accumulation primitive — et qui produit les conditions de son dépassement."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle est la philosophie de Karl Marx ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un matérialisme qui vient de Hegel. Marx garde de Hegel la dialectique, l'idée que les choses se développent par leurs contradictions, mais il la retourne : ce ne sont pas les idées qui font l'histoire, ce sont les hommes, dans des conditions qu'ils n'ont pas choisies. Il garde de Feuerbach la critique de la religion comme projection humaine, mais lui reproche d'en rester à la contemplation, là où il s'agit de transformer le monde. Cette philosophie n'a pas de livre à elle : elle se lit dans les Manuscrits de 1844, dans les Thèses sur Feuerbach, et dans la manière dont Le Capital est construit."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Karl Marx a-t-il inventé le communisme ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non : le mot et l'idée existaient avant lui, et le Manifeste consacre toute une partie à s'en démarquer. Ce que Marx apporte, c'est de faire du communisme non un idéal à réaliser mais le mouvement réel qui abolit l'état de choses existant, porté par une classe précise, le prolétariat, et rendu possible par le développement même du capitalisme. Il a très peu décrit la société future, et il s'en explique : on ne rédige pas de recettes pour les cuisines de l'avenir. Ce qu'il en dit tient dans le Manifeste, la page de la notion le développe, et les régimes qui se sont réclamés de lui au XXe siècle sont une autre histoire, qui ne se lit pas dans ses textes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels sont les livres les plus importants de Karl Marx, et par lequel commencer ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Trois livres suffisent à connaître l'essentiel : le Manifeste du parti communiste (1848), pour la lutte des classes en trente pages ; les Manuscrits de 1844, pour le jeune Marx et l'aliénation ; et le Livre premier du Capital (1867), pour la critique de l'économie politique. Pour commencer, le plus court et le plus clair est Salaires, prix, profits, une conférence de 1865 où Marx expose la plus-value devant des ouvriers, deux ans avant Le Capital. Les portes d'entrée ci-dessus partent chacune d'une question."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Karl Marx était-il économiste, philosophe ou révolutionnaire ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les trois, et c'est ce qui rend son œuvre difficile à ranger. Docteur en philosophie, il n'a jamais enseigné ; journaliste pendant vingt ans, c'est par les journaux qu'il a vécu ; économiste, il l'est devenu à Paris en 1844 et l'est resté jusqu'à sa mort, mais pour critiquer l'économie plutôt que pour la pratiquer ; révolutionnaire, il a fondé ou dirigé deux organisations, la Ligue des communistes et l'Internationale. Lui-même se définissait par son travail : la critique de l'économie politique, sous-titre du Capital. C'est sous ce nom que ce site le lit."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<main class="wrap" id="contenu" tabindex="-1">
+
+  <!-- ══ LE HÉROS — le visage qui vieillit ══ -->
+  <section class="hv" id="haut" aria-labelledby="km-h1">
+    <div class="hv-stage">
+      <p class="hv-year" aria-hidden="true"><span id="hvYear">1836</span><small id="hvYearAge">18 ans</small></p>
+      <div class="hv-txt" id="hvNotes">
+       <div class="hv-note is-on">
+        <p class="hv-eyebrow">1818 – 1883 · de Trèves à Londres</p>
+        <h1 id="km-h1"><span class="rw" style="--i:0">Karl</span> <span class="rw" style="--i:1">Marx</span><em><span class="rw" style="--i:2">Une</span> <span class="rw" style="--i:3">vie</span> <span class="rw" style="--i:4">en</span> <span class="rw" style="--i:5">exil,</span> <span class="rw" style="--i:6">une</span> <span class="rw" style="--i:7">œuvre</span> <span class="rw" style="--i:8">à</span> <span class="rw" style="--i:9">lire.</span></em></h1>
+        <p class="hv-lede">Philosophe de formation, journaliste par nécessité, révolutionnaire par
+        engagement, Karl Marx a passé la moitié de sa vie chassé d'un pays à l'autre et l'autre moitié
+        à Londres, à écrire une <b>critique de l'économie politique</b> dont un seul livre parut de son
+        vivant. Cette page le raconte par ses archives, puis mène au texte.</p>
+        <p class="km-cta">
+          <a class="km-btn pri" href="#commencer">Par où commencer</a>
+          <a class="km-btn out" href="#vie">Sa vie en tableaux</a>
+        </p>
+       </div>
+       <div class="hv-note">
+        <p class="hv-n-y">43 ans · Londres</p>
+        <h2>La première photographie, <em>douze ans après l'arrivée</em></h2>
+        <p class="hv-n-p">Prise en mai chez Richard Beard, c'est la plus ancienne photographie que l'on ait de lui. La misère de Dean Street est passée ; il vit des articles du <i>New York Daily Tribune</i> et travaille chaque jour au British Museum. La <b>Contribution</b> a paru en 1859 ; les cahiers qui deviendront <b>Le Capital</b> s'accumulent.</p>
+        <p class="hv-n-src">Richard Beard, Londres, mai 1861 · IISG, Amsterdam · domaine public</p>
+       </div>
+       <div class="hv-note">
+        <p class="hv-n-y">47 ans · Margate</p>
+        <h2>Malade, il achève <em>le Livre premier</em></h2>
+        <p class="hv-n-p">Criblé de furoncles, épuisé par le manuscrit, il est envoyé en cure à Margate en mars ; c'est là qu'il pose debout, la main sur un fauteuil. Depuis 1864 il siège au Conseil général de l'<b>Internationale</b>, devant lequel il vient d'exposer <a href="/oeuvres/salaire-prix-profit"><i>Salaires, prix, profits</i></a>. Le Livre premier sera chez l'éditeur l'année suivante.</p>
+        <p class="hv-n-src">The London Photographic Company, Margate, mars 1866 · domaine public</p>
+       </div>
+       <div class="hv-note">
+        <p class="hv-n-y">51 ans · Londres</p>
+        <h2><em>Le Capital</em> a paru, presque sans écho</h2>
+        <p class="hv-n-p">Mille exemplaires en 1867, chez Otto Meissner à Hambourg, et un silence que Marx et Engels s'emploient à rompre par des comptes rendus anonymes. Derrière lui, sa fille aînée <b>Jenny</b>, qui épousera Charles Longuet en 1872. Engels, retiré des affaires cette année-là, s'installe à Londres en 1870 et lui assure enfin une rente.</p>
+        <p class="hv-n-src">Avec sa fille Jenny, 1869 · domaine public</p>
+       </div>
+       <div class="hv-note">
+        <p class="hv-n-y">57 ans · Londres</p>
+        <h2>Le portrait que tout le monde connaît</h2>
+        <p class="hv-n-p">Chez Mayall, Regent Street. Il relit alors la <b>traduction française</b> de Joseph Roy, parue en livraisons depuis 1872 — celle que ce site sert —, et rédige au printemps la <i>Critique du programme de Gotha</i>. Les cures se succèdent, à Carlsbad ; les Livres II et III resteront des cahiers qu'Engels établira après sa mort.</p>
+        <p class="hv-n-src">John Jarvis Mayall, Londres, 1875 · Wien Museum · domaine public</p>
+       </div>
+      </div>
+      <figure class="hv-face" id="hvFace">
+        <img src="/assets/img/marx/face-1836.webp" width="800" height="800" alt="Karl Marx vers 1836, dessin : un jeune homme aux cheveux épais, le visage tourné vers la gauche." fetchpriority="high">
+        <img src="/assets/img/marx/face-1861.webp" width="800" height="800" alt="Karl Marx en mai 1861, photographie de Richard Beard : barbe noire, regard droit." loading="lazy">
+        <img src="/assets/img/marx/face-1866.webp" width="800" height="800" alt="Karl Marx en mars 1866, à Margate : cheveux et barbe grisonnants." loading="lazy">
+        <img src="/assets/img/marx/face-1869.webp" width="800" height="800" alt="Karl Marx en 1869, photographié avec sa fille Jenny : cheveux blancs." loading="lazy">
+        <img src="/assets/img/marx/face-1875.webp" width="800" height="800" alt="Karl Marx en 1875, portrait de John Jarvis Mayall : cheveux et barbe blancs, la main dans le gilet." loading="lazy">
+        <figcaption class="hv-cartel" id="hvCartel"><b>Karl Marx à <span class="on">18 ans</span><span>43 ans</span><span>47 ans</span><span>51 ans</span><span>57 ans</span></b><span class="on">Dessin, vers 1836 · domaine public</span><span>Photographie de Richard Beard, Londres, mai 1861 · IISG, Amsterdam · domaine public</span><span>The London Photographic Company, Margate, mars 1866 · domaine public</span><span>Avec sa fille Jenny, 1869 · domaine public</span><span>Photographie de John Jarvis Mayall, Londres, 1875 · Wien Museum · domaine public</span></figcaption>
+      </figure>
+      <p class="hv-hint" aria-hidden="true">Faire défiler</p>
+      <p class="hv-rule" aria-hidden="true"><span>1818</span><i></i><span>1883</span></p>
+    </div>
+  </section>
+
+  <!-- ══ LE SOMMAIRE COLLANT ══ -->
+  <nav class="km-nav" aria-label="Sommaire de la page">
+    <ul>
+      <li><a href="#vie">Sa vie</a></li>
+      <li><a href="#idees">Ses idées</a></li>
+      <li><a href="#livres">Ses livres</a></li>
+      <li><a href="#regarder">Regarder, écouter</a></li>
+      <li><a href="#commencer">Par où commencer</a></li>
+      <li><a href="#questions">Questions</a></li>
+    </ul>
+  </nav>
+
+  <!-- ══ SA VIE — HUIT TABLEAUX ══ -->
+  <section class="km-sec tb-intro" id="vie" aria-labelledby="vie-h">
+    <div class="km">
+      <p class="km-label">Sa vie</p>
+      <h2 class="km-h" id="vie-h">Huit tableaux, trois expulsions, <em>un seul livre achevé</em></h2>
+      <p class="km-lede">On ne comprend pas l'œuvre sans l'itinéraire, parce que c'est l'exil qui
+      l'a faite : chaque déplacement a changé ce que Marx lisait, ce qu'il écrivait et pour qui.
+      Chaque tableau est porté par une archive de l'époque, et le texte passe devant.</p>
+    </div>
+  </section>
+
+  <!-- 1 · Trèves -->
+  <section class="tb" id="vie-treves" aria-labelledby="h-treves">
+    <div class="tb-stage">
+      <figure class="tb-fig tb-fig--photo">
+        <img src="/assets/img/marx/treves-maison.webp" width="1600" height="1177" alt="La maison natale de Karl Marx à Trèves, Brückenstraße : une façade baroque à trois étages, volets clairs." loading="lazy">
+      </figure>
+      <p class="tb-cap"><b>La maison natale, Brückenstraße 10, Trèves</b>Photographie Lutz Hartmann, 2014 · <a href="https://commons.wikimedia.org/wiki/File:Trier_Marx_Haus.jpg" rel="noopener">CC BY-SA 3.0</a></p>
+    </div>
+    <div class="tb-copy">
+      <span class="tb-y"><b>1818</b> – 1835</span>
+      <h3 id="h-treves">Trèves, une enfance rhénane</h3>
+      <p>Karl Marx naît le 5 mai 1818 à Trèves, ville de la Moselle que le congrès de Vienne
+      vient de rendre à la Prusse après vingt ans d'administration française. Le détail compte
+      : il grandit dans une province où le Code civil est resté en vigueur et où la bourgeoisie
+      libérale se sent étrangère à Berlin. Son père, <b>Heinrich Marx</b>, avocat issu d'une
+      longue lignée de rabbins, s'est converti au protestantisme pour pouvoir continuer
+      d'exercer ; sa mère, Henriette Pressburg, vient de Nimègue.</p>
+      <p>Il suit le lycée de sa ville jusqu'au baccalauréat de 1835. C'est à Trèves aussi
+      qu'il rencontre <b>Jenny von Westphalen</b>, de quatre ans son aînée, dont le père,
+      conseiller du gouvernement et lettré, lui fait lire Homère, Shakespeare et Saint-Simon.
+      Ils se fianceront en 1836, en secret, et ne se marieront que sept ans plus tard.</p>
+    </div>
+  </section>
+
+  <!-- 2 · Bonn, Berlin -->
+  <section class="tb" id="vie-berlin" aria-labelledby="h-berlin">
+    <div class="tb-stage">
+      <figure class="tb-fig tb-fig--doc" style="--ar:.72">
+        <img src="/assets/img/archive/marx-jeune.jpg" width="500" height="696" alt="Portrait dessiné de Karl Marx étudiant, vers 1836 : cheveux épais, col d'uniforme d'étudiant." loading="lazy">
+      </figure>
+      <p class="tb-cap"><b>Marx étudiant, vers 1836</b>Dessin d'après nature · domaine public</p>
+    </div>
+    <div class="tb-copy">
+      <span class="tb-y"><b>1835</b> – 1841</span>
+      <h3 id="h-berlin">Bonn, puis Berlin : la philosophie contre le droit</h3>
+      <p>Il commence le droit à Bonn à l'automne 1835 ; son père, inquiet de ses dépenses et de
+      ses duels, le fait passer l'année suivante à Berlin, où le droit cède vite à la
+      philosophie. Hegel est mort en 1831 mais son système règne sur l'université, et le jeune
+      Marx entre dans le cercle des <b>Jeunes hégéliens</b> réunis autour de Bruno Bauer, qui
+      retournent la dialectique du maître contre la religion et l'État prussien.</p>
+      <p>Il soutient en avril 1841 une thèse sur la différence des philosophies de la nature
+      chez Démocrite et Épicure, envoyée à Iéna, où l'on n'exige pas d'épreuve orale. La
+      carrière universitaire à laquelle il se destinait se ferme aussitôt : Bauer est chassé
+      de sa chaire en 1842, et un hégélien de gauche n'a plus de place dans l'université de
+      Frédéric-Guillaume IV.</p>
+    </div>
+  </section>
+
+  <!-- 3 · Cologne, 1842 — le tableau typographique -->
+  <section class="tb" id="vie-cologne" aria-labelledby="h-cologne" data-quote>
+    <div class="tb-stage">
+      <blockquote class="tb-quote"><p id="tbQuote">je me trouvai, pour la première fois, dans l'obligation embarrassante de dire mon mot sur les soi-disant intérêts matériels.</p><cite>Marx, préface de 1859 · <a href="/oeuvres/contribution-1859#s=1&amp;q=dire%20mon%20mot%20sur%20les%20soi-disant%20int%C3%A9r%C3%AAts%20mat%C3%A9riels">lire le passage</a></cite></blockquote>
+    </div>
+    <div class="tb-copy">
+      <span class="tb-y"><b>1842</b> – 1843</span>
+      <h3 id="h-cologne">Cologne : le journal, et les « intérêts matériels »</h3>
+      <p>Reste le journalisme. Marx écrit dès le printemps 1842 dans la <i>Rheinische
+      Zeitung</i>, journal que la bourgeoisie industrielle rhénane vient de fonder à Cologne,
+      et en devient le rédacteur en chef en octobre. C'est là, dira-t-il lui-même dans la
+      préface de 1859, qu'il dut pour la première fois se prononcer sur ce qu'on appelle les
+      intérêts matériels : le vol de bois, que la Diète rhénane vient de criminaliser au
+      détriment des paysans, et la misère des vignerons de la Moselle.</p>
+      <p>La censure suspend le journal en janvier 1843 ; le dernier numéro paraît le 31 mars.
+      En juin, à Kreuznach, il épouse Jenny, et passe l'été à lire l'histoire de la Révolution
+      française et à annoter la philosophie du droit de Hegel. Il en tire une conviction qui
+      commande tout ce qui suit : <b>ce n'est pas l'État qui explique la société civile, c'est
+      l'inverse</b>.</p>
+    </div>
+  </section>
+
+  <!-- 4 · Paris -->
+  <section class="tb" id="vie-paris" aria-labelledby="h-paris">
+    <div class="tb-stage">
+      <figure class="tb-fig tb-fig--doc" style="--ar:.6">
+        <img src="/assets/img/marx/dfj-1844.webp" width="1100" height="1834" alt="Page de titre des Deutsch-Französische Jahrbücher, Paris, 1844, dirigées par Arnold Ruge et Karl Marx." loading="lazy">
+      </figure>
+      <figure class="tb-fig tb-fig--b" style="--ar:.67" data-at=".5">
+        <img src="/assets/img/marx/engels-1845.webp" width="900" height="1336" alt="Friedrich Engels vers 1845, jeune homme à favoris, portrait photographique." loading="lazy">
+        <figcaption>Friedrich Engels, vers 1845 · domaine public</figcaption>
+      </figure>
+      <p class="tb-cap"><b>Les Annales franco-allemandes, Paris, 1844</b>Page de titre de l'unique livraison · domaine public</p>
+    </div>
+    <div class="tb-copy">
+      <span class="tb-y"><b>1843</b> – 1845</span>
+      <h3 id="h-paris">Paris : le prolétariat, l'économie, Engels</h3>
+      <p>Fin octobre 1843, les Marx s'installent à Paris, où Arnold Ruge veut fonder une revue
+      qui unirait la philosophie allemande au socialisme français. Les <i>Annales
+      franco-allemandes</i> n'auront qu'une livraison, en février 1844, mais elle contient deux
+      textes de Marx où le <a href="/glossaire/proletariat">prolétariat</a> apparaît pour la
+      première fois comme la classe qui porte l'émancipation de tous.</p>
+      <p>Paris est alors la capitale du socialisme : Marx y lit Proudhon, fréquente les sociétés
+      ouvrières, et surtout se met à l'économie politique, Smith, Ricardo, Say, dans des cahiers
+      qu'on appellera les <a href="/oeuvres/manuscrits-1844"><i>Manuscrits de 1844</i></a> et
+      où naît le concept de <a href="/glossaire/travail-aliene">travail aliéné</a>. En août,
+      <b>Friedrich Engels</b>, de passage, lui apporte ce qu'il a vu des fabriques de Manchester
+      ; dix jours de conversation scellent une collaboration de quarante ans. À la demande de la
+      Prusse, le gouvernement Guizot l'expulse en janvier 1845.</p>
+    </div>
+  </section>
+
+  <!-- 5 · Bruxelles -->
+  <section class="tb" id="vie-bruxelles" aria-labelledby="h-bruxelles">
+    <div class="tb-stage">
+      <figure class="tb-fig tb-fig--doc" style="--ar:.563">
+        <img src="/assets/img/marx/manifest-1848.webp" width="1100" height="1954" alt="Page de titre du Manifest der Kommunistischen Partei, Londres, février 1848, en caractères gothiques." loading="lazy">
+      </figure>
+      <figure class="tb-fig tb-fig--b" style="--ar:.8" data-at=".45">
+        <img src="/assets/img/archive/manuscrit-ideologie-1846.webp" width="900" height="1125" alt="Page manuscrite de L'Idéologie allemande, 1845-1846 : l'écriture de Marx et des croquis d'Engels." loading="lazy">
+        <figcaption>L'Idéologie allemande, manuscrit, 1845-46 · IISG · domaine public</figcaption>
+      </figure>
+      <p class="tb-cap"><b>Le Manifeste, Londres, février 1848</b>Page de titre de la première édition, sans nom d'auteur · domaine public</p>
+    </div>
+    <div class="tb-copy">
+      <span class="tb-y"><b>1845</b> – 1848</span>
+      <h3 id="h-bruxelles">Bruxelles : la méthode, la Ligue, le Manifeste</h3>
+      <p>Bruxelles accueille l'exilé à condition qu'il ne publie rien sur la politique du jour.
+      Marx y renonce à la nationalité prussienne en décembre 1845 et n'en reprendra jamais
+      aucune. Ce sont les années où la méthode se fixe : les onze <i>Thèses sur Feuerbach</i>,
+      griffonnées au printemps 1845 ; <i>L'Idéologie allemande</i>, écrite avec Engels en
+      1845-1846, où la conception matérialiste de l'histoire prend sa forme, et qu'ils
+      abandonnent faute d'éditeur, selon le mot de Marx, <a href="/oeuvres/contribution-1859#s=1&amp;q=critique%20rongeuse%20des%20souris">à la critique rongeuse des souris</a> ;
+      <i>Misère de la philosophie</i>, rédigée en français en 1847 contre Proudhon.</p>
+      <p>En juin 1847, la Ligue des justes devient la Ligue des communistes ; son congrès de
+      Londres, à la fin de l'année, charge Marx et Engels d'en écrire le programme. Le
+      <a href="/oeuvres/manifeste"><i>Manifeste du parti communiste</i></a> paraît à Londres en
+      février 1848, quelques jours avant que Paris ne se soulève. Marx est arrêté et expulsé de
+      Belgique dans la nuit du 3 au 4 mars.</p>
+    </div>
+  </section>
+
+  <!-- 6 · Cologne, 1848 -->
+  <section class="tb" id="vie-cologne-1848" aria-labelledby="h-cologne-1848">
+    <div class="tb-stage">
+      <figure class="tb-fig tb-fig--photo" style="width:100%">
+        <img src="/assets/img/marx/perov-nrz.webp" width="1600" height="1122" alt="Marx à la rédaction de la Neue Rheinische Zeitung, tableau de Vassili Perov : Marx debout, un journal à la main, entouré de rédacteurs." loading="lazy">
+      </figure>
+      <figure class="tb-fig tb-fig--doc" style="--ar:.685">
+        <img src="/assets/img/marx/nrz-rouge-1849.webp" width="493" height="720" alt="Le dernier numéro de la Neue Rheinische Zeitung, 19 mai 1849, imprimé à l'encre rouge." loading="lazy">
+      </figure>
+      <p class="tb-cap"><b>Le numéro rouge, 19 mai 1849</b>Dernier numéro de la Neue Rheinische Zeitung · domaine public. Fond : Vassili Perov, <i>Marx à la rédaction</i>, avant 1882 · domaine public</p>
+    </div>
+    <div class="tb-copy">
+      <span class="tb-y"><b>1848</b> – 1849</span>
+      <h3 id="h-cologne-1848">Cologne encore : la révolution, à chaud</h3>
+      <p>Il repasse par Paris, où le gouvernement provisoire l'a invité, puis gagne Cologne en
+      avril 1848 pour y fonder la <i>Neue Rheinische Zeitung</i>, dont le premier numéro paraît
+      le 1<sup>er</sup> juin. Pendant un an, le journal suit la révolution allemande et européenne
+      jour après jour, soutient l'insurrection parisienne de juin quand toute la presse la
+      condamne, et Marx, traduit deux fois devant le jury de Cologne en février 1849, est
+      acquitté deux fois.</p>
+      <p>Quand la contre-révolution l'emporte, la Prusse l'expulse comme étranger : le dernier
+      numéro, <b>imprimé à l'encre rouge</b>, paraît le 19 mai 1849. À Paris, où il tente de
+      revenir, la police le relègue dans le Morbihan. Il choisit Londres.</p>
+    </div>
+  </section>
+
+  <!-- 7 · L'exil — la carte -->
+  <section class="tb" id="vie-exil" aria-labelledby="h-exil" data-exil>
+    <div class="tb-stage">
+      <div class="km-scene" id="kmScene" aria-hidden="true"><canvas id="kmBg"></canvas></div>
+      <p class="tb-cap"><b>La route de l'exil, 1843-1849</b>Carte dessinée pour cette page ; côtes et fleuves d'après <a href="https://www.naturalearthdata.com/" rel="noopener">Natural Earth</a> (domaine public). Elle se trace à mesure qu'on lit.</p>
+    </div>
+    <div class="tb-copy">
+      <span class="tb-y"><b>1845</b> · 1848 · 1849</span>
+      <h3 id="h-exil">Trois expulsions en quatre ans</h3>
+      <p>Chassé de Paris par Guizot en janvier 1845, de Bruxelles par la police belge en mars
+      1848, de Cologne par la Prusse en mai 1849, puis relégué hors de Paris à l'été : en quatre
+      ans, Marx a été mis dehors par tous les États d'Europe occidentale où il avait vécu. Il
+      n'a plus de nationalité depuis décembre 1845, et n'en aura plus jamais.</p>
+      <p>La carte suit la route, de Trèves à Londres. Ce qui la commande n'est pas le hasard
+      des polices mais le journal qu'il fonde à chaque étape, et qu'on ferme à chaque fois : la
+      <i>Rheinische Zeitung</i>, les <i>Annales</i>, la <i>Neue Rheinische Zeitung</i>.
+      Londres, où il arrive le 27 août 1849, sera la première ville dont on ne le chassera pas.</p>
+    </div>
+  </section>
+
+  <!-- 8 · Londres — la séquence -->
+  <section class="tb" id="vie-londres" aria-labelledby="h-londres" data-seq>
+    <div class="tb-stage">
+      <div class="tb-seq" id="tbSeq">
+        <img src="/assets/img/marx/marx-1861.webp" width="1000" height="1564" alt="Karl Marx en mai 1861, debout, la main sur une chaise, photographie de Richard Beard." loading="lazy">
+        <img src="/assets/img/marx/dean-street.webp" width="1100" height="1467" alt="Le 28 Dean Street, à Soho, où la famille Marx vécut de 1851 à 1856 ; une plaque le rappelle." loading="lazy">
+        <img src="/assets/img/marx/marx-1866.webp" width="1100" height="1785" alt="Karl Marx à Margate en mars 1866, debout, en redingote, la main sur un fauteuil." loading="lazy">
+        <img src="/assets/img/archive/das-kapital-titre-1867.jpg" width="1200" height="1700" alt="Page de titre de la première édition de Das Kapital, Hambourg, Otto Meissner, 1867." loading="lazy">
+        <img src="/assets/img/marx/marx-jenny-1869.webp" width="1100" height="1681" alt="Karl Marx assis, sa fille Jenny debout derrière lui, 1869." loading="lazy">
+        <img src="/assets/img/marx/highgate.webp" width="1600" height="1067" alt="La première tombe de Karl Marx, au cimetière de Highgate, sous les arbres." loading="lazy">
+      </div>
+      <p class="tb-cap" id="tbSeqCap"><span class="on"><b>Marx à 43 ans, mai 1861</b>Photographie de Richard Beard, Londres · domaine public</span><span><b>28 Dean Street, Soho</b>Deux pièces, de 1851 à 1856 · photographie Spudgun67, 2015 · <a href="https://commons.wikimedia.org/wiki/File:Karl_Marx_-_28_Dean_Street_Soho_London_W1D_3RY.jpg" rel="noopener">CC BY-SA 4.0</a></span><span><b>Marx à Margate, mars 1866</b>The London Photographic Company · domaine public</span><span><b>Das Kapital, Hambourg, 1867</b>Page de titre de la première édition · Zentralbibliothek Zürich · domaine public</span><span><b>Avec sa fille Jenny, 1869</b>Photographie · domaine public</span><span><b>La première tombe, Highgate</b>Photographie Pierre-Yves Beaudouin, 2016 · <a href="https://commons.wikimedia.org/wiki/File:Highgate_Cemetery_-_East_-_Marx_(first_grave)_01.jpg" rel="noopener">CC BY-SA 4.0</a></span></p>
+    </div>
+    <div class="tb-copy">
+      <span class="tb-y"><b>1849</b> – 1883</span>
+      <h3 id="h-londres">Londres : la misère, le British Museum, <i>Le Capital</i></h3>
+      <p>Marx arrive à Londres le 27 août 1849 ; il y restera trente-quatre ans, jusqu'à sa
+      mort. Les premières années sont celles de la misère : la famille loge à Soho, dans deux
+      pièces de Dean Street, et trois enfants meurent en bas âge, dont Edgar, en 1855. Engels,
+      entré dans l'entreprise familiale à Manchester, le soutient ; les articles pour le
+      <i>New York Daily Tribune</i>, de 1852 à 1862, font le reste.</p>
+      <p>C'est pourtant à Londres que l'œuvre se fait. La salle de lecture du British Museum,
+      où il travaille chaque jour, lui donne les rapports des inspecteurs de fabrique et les
+      enquêtes parlementaires qui font la matière du <i>Capital</i>. <a href="/oeuvres/18-brumaire">Le
+      <i>XVIII brumaire</i></a> est écrit en 1852, à chaud ; la
+      <a href="/oeuvres/contribution-1859"><i>Contribution</i></a> paraît en 1859 ; et en
+      septembre 1867 le Livre premier du <a href="/oeuvres/capital-1"><i>Capital</i></a> sort à
+      Hambourg, chez Otto Meissner — <b>le seul livre du système que Marx aura achevé</b>.</p>
+      <p>En 1864, il rédige l'adresse inaugurale de l'Association internationale des
+      travailleurs, fondée le 28 septembre à Saint Martin's Hall, et il en sera jusqu'en 1872
+      la tête pensante ; c'est devant son Conseil général qu'il expose, en juin 1865,
+      <a href="/oeuvres/salaire-prix-profit"><i>Salaires, prix, profits</i></a>. Les dernières
+      années sont celles de la maladie, des cures et des cahiers de notes ; les Livres II et III
+      restent des manuscrits qu'Engels établira en 1885 et 1894. Jenny meurt le 2 décembre 1881,
+      leur fille aînée en janvier 1883. Marx meurt dans son fauteuil le 14 mars 1883, à Maitland
+      Park Road ; on l'enterre trois jours plus tard au cimetière de Highgate, devant onze
+      personnes.</p>
+    </div>
+  </section>
+
+  <section class="km-sec" style="padding-top:0">
+    <div class="km">
+      <p class="km-vie-src">Les dates suivent la chronologie établie par la
+      <a href="https://www.marxists.org/francais/bios/marx.htm" rel="noopener">biographie du Marxists Internet Archive</a>
+      et les préfaces des œuvres servies ici ; Marx raconte lui-même son itinéraire intellectuel
+      jusqu'en 1859 dans la <a href="/oeuvres/contribution-1859#partie=1">préface de la
+      <i>Contribution</i></a>. Les images viennent de Wikimedia Commons ; chacune porte sa
+      provenance et sa licence.</p>
+    </div>
+  </section>
+
+  <!-- ══ SES IDÉES ══ -->
+  <section class="km-sec km-fond" id="idees" aria-labelledby="idees-h">
+    <div class="km">
+      <p class="km-label">Ses idées</p>
+      <h2 class="km-h" id="idees-h">Six idées, <em>et une méthode</em></h2>
+      <p class="km-lede">On réduit souvent Marx à une thèse. Il en a au moins six, qui se tiennent
+      : chacune est développée sur ce site à partir du texte, et chaque carte mène à sa page.</p>
+
+      <div class="km-idees" id="kmIdees">
+        <article class="km-idee">
+          <p class="km-n">I</p>
+          <h3>L'histoire est faite par la lutte des classes</h3>
+          <p>Ce n'est ni le hasard ni les grands hommes qui expliquent les sociétés, mais
+          l'antagonisme entre ceux qui possèdent les moyens de produire et ceux qui n'ont que
+          leur travail à vendre. Chaque époque simplifie cet antagonisme, et la nôtre l'a réduit
+          à deux camps.</p>
+          <a class="km-idee-go" href="/glossaire/lutte-des-classes">Lire la page <span>→</span></a>
+        </article>
+        <article class="km-idee">
+          <p class="km-n">II</p>
+          <h3>L'existence sociale détermine la conscience</h3>
+          <p>C'est le matérialisme historique : la manière dont les hommes produisent leur vie
+          conditionne leurs institutions, leurs lois et leurs idées, et non l'inverse. Marx l'a
+          résumé en une page, la préface de 1859, que l'on peut lire ici en entier.</p>
+          <a class="km-idee-go" href="/oeuvres/contribution-1859#partie=1">Lire la préface de 1859 <span>→</span></a>
+        </article>
+        <article class="km-idee">
+          <p class="km-n">III</p>
+          <h3>Le travail moderne est aliéné</h3>
+          <p>Dans les cahiers de 1844, le jeune Marx décrit ce que le travail salarié fait à celui
+          qui l'accomplit : son produit lui devient étranger, son activité aussi, et avec elle
+          ce qui fait de lui un être humain. C'est le concept que reprendront les
+          philosophes, plus que les économistes.</p>
+          <a class="km-idee-go" href="/glossaire/travail-aliene">Lire la page <span>→</span></a>
+        </article>
+        <article class="km-idee">
+          <p class="km-n">IV</p>
+          <h3>Le profit vient d'un travail non payé</h3>
+          <p>Le capitaliste achète la force de travail à sa valeur, puis la fait travailler plus
+          longtemps qu'il ne faut pour la payer. La différence est la plus-value, et elle ne naît
+          pas dans l'échange mais dans la production. C'est le cœur du <i>Capital</i>.</p>
+          <a class="km-idee-go" href="/glossaire/plus-value">Lire la page <span>→</span></a>
+        </article>
+        <article class="km-idee">
+          <p class="km-n">V</p>
+          <h3>Les choses cachent des rapports entre les hommes</h3>
+          <p>Une marchandise semble avoir une valeur comme elle a un poids. Marx montre que cette
+          valeur n'est qu'un rapport social qui prend la forme d'une propriété des choses : c'est
+          le fétichisme, et il tient jusqu'à nous.</p>
+          <a class="km-idee-go" href="/glossaire/fetichisme">Lire la page <span>→</span></a>
+        </article>
+        <article class="km-idee">
+          <p class="km-n">VI</p>
+          <h3>Le capital produit ses propres crises</h3>
+          <p>L'accumulation remplace les hommes par des machines, fabrique une armée de réserve de
+          chômeurs, et la concurrence pousse chaque capitaliste à faire ce qui, tous ensemble,
+          fait baisser le taux de profit. Les crises ne sont pas des accidents.</p>
+          <a class="km-idee-go" href="/glossaire/accumulation">Lire la page <span>→</span></a>
+        </article>
+      </div>
+
+      <div class="km-methode">
+        <p class="km-label">Et une méthode</p>
+        <p class="km-p">Ce qui tient ces idées ensemble n'est pas un système mais une manière de
+        procéder : la <b>critique</b>. Marx ne propose pas une économie meilleure, il prend celle
+        de Smith et de Ricardo au sérieux, la pousse jusqu'à ses contradictions, et montre que ses
+        catégories, la valeur, le salaire, le capital, décrivent des rapports historiques que
+        l'économie tient pour naturels. C'est pourquoi ses livres s'appellent des
+        <i>critiques</i>, et pourquoi il faut les lire dans l'ordre où les catégories
+        s'engendrent — ce que le <a href="/oeuvres/capital-1#dossier">dossier</a> de chaque œuvre
+        s'attache à montrer.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SES LIVRES ══ -->
+  <section class="km-sec km-fond" id="livres" aria-labelledby="livres-h">
+    <div class="km km-livres-in">
+      <div>
+        <p class="km-label">Ses livres</p>
+        <h2 class="km-h" id="livres-h">L'œuvre, <em>dans l'ordre</em></h2>
+        <p class="km-lede">Les œuvres du catalogue de ce site, par année d'écriture. Celles qui
+        portent un lien se lisent ici en texte intégral, avec leur appareil ; les autres sont en
+        préparation.</p>
+        <!-- KARL-MARX:LIVRES:DÉBUT — DÉRIVÉ de bibliotheque.json par tools/gen-seo.mjs, ne pas éditer à la main -->
+        <ol class="km-livs" id="kmLivs">
+          <li class="km-liv"><span class="km-liv-y">1844</span><div><a class="km-liv-t" href="/oeuvres/manuscrits-1844">Manuscrits de 1844</a><span class="km-liv-s ok">Texte intégral et atelier</span></div></li>
+          <li class="km-liv"><span class="km-liv-y">1846</span><div><span class="km-liv-t">L'Idéologie allemande</span><span class="km-liv-s">En préparation</span></div></li>
+          <li class="km-liv"><span class="km-liv-y">1848</span><div><a class="km-liv-t" href="/oeuvres/manifeste">Manifeste du parti communiste</a><span class="km-liv-s ok">Texte intégral et atelier</span></div></li>
+          <li class="km-liv"><span class="km-liv-y">1849</span><div><span class="km-liv-t">Travail salarié et capital</span><span class="km-liv-s">En préparation</span></div></li>
+          <li class="km-liv"><span class="km-liv-y">1852</span><div><a class="km-liv-t" href="/oeuvres/18-brumaire">Le XVIII brumaire de Louis Bonaparte</a><span class="km-liv-s ok">Texte intégral et atelier</span></div></li>
+          <li class="km-liv"><span class="km-liv-y">1857</span><div><span class="km-liv-t">Grundrisse</span><span class="km-liv-s">En préparation</span></div></li>
+          <li class="km-liv"><span class="km-liv-y">1859</span><div><a class="km-liv-t" href="/oeuvres/contribution-1859">Contribution à la critique de l'économie politique</a><span class="km-liv-s ok">Texte intégral et atelier</span></div></li>
+          <li class="km-liv"><span class="km-liv-y">1865</span><div><a class="km-liv-t" href="/oeuvres/salaire-prix-profit">Salaires, prix, profits</a><span class="km-liv-s ok">Texte intégral et atelier</span></div></li>
+          <li class="km-liv"><span class="km-liv-y">1867</span><div><a class="km-liv-t" href="/oeuvres/capital-1">Le Capital — Livre I</a><span class="km-liv-s ok">Texte intégral et atelier</span></div></li>
+          <li class="km-liv"><span class="km-liv-y">1875</span><div><span class="km-liv-t">Critique du programme de Gotha</span><span class="km-liv-s">En préparation</span></div></li>
+          <li class="km-liv"><span class="km-liv-y">1885</span><div><span class="km-liv-t">Le Capital — Livre II</span><span class="km-liv-s">En préparation</span></div></li>
+          <li class="km-liv"><span class="km-liv-y">1894</span><div><span class="km-liv-t">Le Capital — Livre III</span><span class="km-liv-s">En préparation</span></div></li>
+        </ol>
+        <!-- KARL-MARX:LIVRES:FIN -->
+      </div>
+      <aside class="km-livres-note">
+        <p class="km-label">Et aussi</p>
+        <p class="km-p">Hors de ce catalogue, on lira la thèse de 1841 sur Démocrite et Épicure, les
+        deux articles des <i>Annales franco-allemandes</i> (1844) dont <i>Sur la question juive</i>,
+        <i>La Sainte Famille</i> (1845) et les <i>Thèses sur Feuerbach</i> (1845), <i>Misère de la
+        philosophie</i> (1847), écrite en français, <i>Les Luttes de classes en France</i> (1850),
+        <i>La Guerre civile en France</i> (1871), et les milliers de pages de correspondance, de
+        cahiers et d'articles.</p>
+        <p class="km-p">Un repère pour s'y retrouver : <b>un seul livre du système fut achevé et
+        publié par Marx</b>, le Livre premier du <i>Capital</i>. Les Livres II et III sont des
+        manuscrits établis par Engels ; les <i>Manuscrits de 1844</i>, <i>L'Idéologie
+        allemande</i> et les <i>Grundrisse</i> n'ont paru qu'au XX<sup>e</sup> siècle.</p>
+        <p class="km-p"><a href="/oeuvres/bibliotheque">Voir la bibliothèque, rayon par rayon</a></p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ══ REGARDER, ÉCOUTER ══ -->
+  <section class="km-sec km-fond" id="regarder" aria-labelledby="regarder-h">
+    <div class="km">
+      <p class="km-label">Regarder, écouter</p>
+      <h2 class="km-h" id="regarder-h">Marx expliqué <em>à voix haute</em></h2>
+      <p class="km-lede">Trois vidéos et deux émissions pour entrer par l'oreille, choisies parmi
+      les ressources que les ateliers du site recommandent déjà.</p>
+      <div class="km-vids">
+        <div class="km-vid" data-yt="a6KMzq144xE">
+          <button class="km-vid-b" type="button" aria-label="Lire la vidéo : Marx, rencontre avec Karl Marx (épisode 1 sur 5)">
+            <span class="km-vid-play" aria-hidden="true"></span>
+            <span class="km-vid-t">Rencontre avec Karl Marx</span>
+            <span class="km-vid-m">Rien ne veut rien dire · série en cinq volets · YouTube</span>
+          </button>
+        </div>
+        <div class="km-vid" data-yt="vbOomtzHQJA">
+          <button class="km-vid-b" type="button" aria-label="Lire la vidéo : Le Capital de Marx, avec Antoine Vatan (1 sur 5)">
+            <span class="km-vid-play" aria-hidden="true"></span>
+            <span class="km-vid-t">« Le Capital de Marx », avec Antoine Vatan</span>
+            <span class="km-vid-m">Café marxiste · série en cinq volets · YouTube</span>
+          </button>
+        </div>
+        <div class="km-vid" data-yt="GUIhf5oIvsM">
+          <button class="km-vid-b" type="button" aria-label="Lire la vidéo : Karl Marx et le vampire capitaliste, entretien avec Alain Bihr">
+            <span class="km-vid-play" aria-hidden="true"></span>
+            <span class="km-vid-t">« Karl Marx et le vampire capitaliste »</span>
+            <span class="km-vid-m">Alain Bihr et Julien Théry · Le Média · YouTube</span>
+          </button>
+        </div>
+      </div>
+      <ul class="km-ecoute">
+        <li><div><a href="https://www.franceculture.fr/emissions/les-chemins-de-la-philosophie/le-capital-de-karl-marx-14-la-fabrique-de-la-plus-value" rel="noopener">« Le Capital de Karl Marx »</a><small>Les Chemins de la philosophie · France Culture · série de quatre émissions, 2017</small></div><span class="tag">Radio</span></li>
+        <li><div><a href="https://www.youtube.com/watch?v=vrc31nIeNYU" rel="noopener">« Marx et l'aliénation »</a><small>France Culture, 2012 · 59 min · réécoute sur YouTube</small></div><span class="tag">Radio</span></li>
+      </ul>
+      <p class="km-vid-note">Les vidéos sont hébergées par YouTube : rien n'est chargé depuis ses serveurs
+      avant que vous ne cliquiez sur l'une d'elles.</p>
+    </div>
+  </section>
+
+  <!-- ══ PAR OÙ COMMENCER ══ -->
+  <section class="km-sec km-fond" id="commencer" aria-labelledby="commencer-h">
+    <div class="km">
+      <p class="km-label">Par où commencer</p>
+      <h2 class="km-h" id="commencer-h">Une question, <em>et le livre qui y répond</em></h2>
+      <p class="km-lede">Marx ne se lit pas dans l'ordre des dates. Chaque porte ci-dessous part
+      d'une question, et mène à l'œuvre qui la traite — ouverte ici en texte intégral, avec son
+      résumé, son cheminement et ses notions en marge.</p>
+      <!-- KARL-MARX:PORTES:DÉBUT — DÉRIVÉ de bibliotheque.json par tools/gen-seo.mjs, ne pas éditer à la main -->
+      <div class="km-portes" id="kmPortes">
+        <a class="km-porte" href="/oeuvres/capital-1">
+          <span class="km-porte-g">La critique de l'économie politique</span>
+          <span class="km-porte-q">Comprendre comment marche le capitalisme</span>
+          <span class="km-porte-t"><i>Le Capital — Livre I</i> · 1867</span>
+        </a>
+        <a class="km-porte" href="/oeuvres/contribution-1859">
+          <span class="km-porte-g">La critique de l'économie politique</span>
+          <span class="km-porte-q">Comprendre la méthode matérialiste</span>
+          <span class="km-porte-t"><i>Contribution à la critique de l'économie politique</i> · 1859</span>
+        </a>
+        <a class="km-porte" href="/oeuvres/manuscrits-1844">
+          <span class="km-porte-g">Le jeune Marx</span>
+          <span class="km-porte-q">Comprendre ce que le travail fait à l'homme</span>
+          <span class="km-porte-t"><i>Manuscrits de 1844</i> · 1844</span>
+        </a>
+        <a class="km-porte" href="/oeuvres/manifeste">
+          <span class="km-porte-g">Les seuils</span>
+          <span class="km-porte-q">Comprendre les classes et la politique</span>
+          <span class="km-porte-t"><i>Manifeste du parti communiste</i> · 1848</span>
+        </a>
+        <a class="km-porte" href="/oeuvres/18-brumaire">
+          <span class="km-porte-g">Les interventions politiques</span>
+          <span class="km-porte-q">Voir une classe abandonner le pouvoir pour garder sa fortune</span>
+          <span class="km-porte-t"><i>Le XVIII brumaire de Louis Bonaparte</i> · 1852</span>
+        </a>
+        <a class="km-porte" href="/oeuvres/salaire-prix-profit">
+          <span class="km-porte-g">Les seuils</span>
+          <span class="km-porte-q">Comprendre d’où vient le profit</span>
+          <span class="km-porte-t"><i>Salaires, prix, profits</i> · 1865</span>
+        </a>
+      </div>
+      <!-- KARL-MARX:PORTES:FIN -->
+    </div>
+  </section>
+
+  <!-- ══ QUESTIONS FRÉQUENTES ══ -->
+  <section class="km-sec km-fond" id="questions" aria-labelledby="faq-h">
+    <div class="km">
+      <p class="km-label">Questions fréquentes</p>
+      <h2 class="km-h" id="faq-h">Ce qu'on demande <em>sur Karl Marx</em></h2>
+      <div class="hs-faq-list">
+      <details class="hs-faq-item" open>
+        <summary><span class="hs-faq-q">Quelle est la théorie de Karl Marx&nbsp;?</span><span class="hs-faq-mk" aria-hidden="true"></span></summary>
+        <div class="hs-faq-a"><p>On l'appelle le matérialisme historique. Les sociétés s'expliquent d'abord par la manière dont elles produisent leur vie matérielle&nbsp;: les rapports de production forment la base sur laquelle s'élèvent le droit, l'État et les idées. Quand les forces productives se développent, elles entrent en contradiction avec les rapports de propriété qui les enferment, et c'est de cette contradiction que naissent les révolutions.</p><p>Appliquée au capitalisme, cette théorie devient une critique de l'économie politique&nbsp;: le profit vient du travail non payé, l'accumulation produit ses propres crises, et la classe qui n'a que sa force de travail à vendre est celle qui peut abolir le rapport. Marx l'a exposée en une page dans <a href="/oeuvres/contribution-1859#partie=1">la préface de 1859</a>, et démontrée dans <a href="/oeuvres/capital-1">Le Capital</a>.</p></div>
+      </details>
+      <details class="hs-faq-item">
+        <summary><span class="hs-faq-q">Quelle est l'idée principale de Karl Marx&nbsp;?</span><span class="hs-faq-mk" aria-hidden="true"></span></summary>
+        <div class="hs-faq-a"><p>S'il fallait n'en garder qu'une&nbsp;: <b>le rapport entre les classes est un rapport d'exploitation, et il se cache sous l'apparence d'un échange libre</b>. L'ouvrier vend sa force de travail à sa valeur, personne ne le vole&nbsp;; et pourtant la journée qu'il fournit vaut plus que le salaire qui la paie. C'est la <a href="/glossaire/plus-value">plus-value</a>, et tout Le Capital tient dans la démonstration de ce qui la rend possible.</p><p>Le jeune Marx aurait dit autrement&nbsp;: le travail moderne est <a href="/glossaire/travail-aliene">aliéné</a>. Les deux formulations sont les deux âges d'une même idée.</p></div>
+      </details>
+      <details class="hs-faq-item">
+        <summary><span class="hs-faq-q">Pourquoi Karl Marx est-il contre le capitalisme&nbsp;?</span><span class="hs-faq-mk" aria-hidden="true"></span></summary>
+        <div class="hs-faq-a"><p>Pas par morale, et c'est ce qui le distingue des socialistes qu'il a lus à Paris. Marx reconnaît au capitalisme d'avoir développé les forces productives comme aucune société avant lui&nbsp;: le <a href="/oeuvres/manifeste">Manifeste</a> est, sur ce point, un éloge. Ce qu'il lui reproche est structurel&nbsp;: il ne peut produire qu'en exploitant, il ne peut croître qu'en concentrant la richesse d'un côté et la dépendance de l'autre, et il ne peut éviter ses crises, parce qu'elles viennent de son mécanisme même.</p><p>Sa critique est donc que le capitalisme n'est pas la fin de l'histoire mais une forme historique, née à une date qu'on peut fixer — c'est l'objet des chapitres sur <a href="/glossaire/accumulation-primitive">l'accumulation primitive</a> — et qui produit les conditions de son dépassement.</p></div>
+      </details>
+      <details class="hs-faq-item">
+        <summary><span class="hs-faq-q">Quelle est la philosophie de Karl Marx&nbsp;?</span><span class="hs-faq-mk" aria-hidden="true"></span></summary>
+        <div class="hs-faq-a"><p>Un matérialisme qui vient de Hegel. Marx garde de Hegel la dialectique, l'idée que les choses se développent par leurs contradictions, mais il la retourne&nbsp;: ce ne sont pas les idées qui font l'histoire, ce sont les hommes, dans des conditions qu'ils n'ont pas choisies. Il garde de Feuerbach la critique de la religion comme projection humaine, mais lui reproche d'en rester à la contemplation, là où il s'agit de transformer le monde.</p><p>Cette philosophie n'a pas de livre à elle&nbsp;: elle se lit dans les <a href="/oeuvres/manuscrits-1844">Manuscrits de 1844</a>, dans les Thèses sur Feuerbach, et dans la manière dont Le Capital est construit.</p></div>
+      </details>
+      <details class="hs-faq-item">
+        <summary><span class="hs-faq-q">Karl Marx a-t-il inventé le communisme&nbsp;?</span><span class="hs-faq-mk" aria-hidden="true"></span></summary>
+        <div class="hs-faq-a"><p>Non&nbsp;: le mot et l'idée existaient avant lui, et le Manifeste consacre toute une partie à s'en démarquer. Ce que Marx apporte, c'est de faire du communisme non un idéal à réaliser mais le mouvement réel qui abolit l'état de choses existant, porté par une classe précise, le prolétariat, et rendu possible par le développement même du capitalisme.</p><p>Il a très peu décrit la société future, et il s'en explique&nbsp;: on ne rédige pas de recettes pour les cuisines de l'avenir. Ce qu'il en dit tient dans le Manifeste, la <a href="/glossaire/communisme">page de la notion</a> le développe, et les régimes qui se sont réclamés de lui au XX<sup>e</sup> siècle sont une autre histoire, qui ne se lit pas dans ses textes.</p></div>
+      </details>
+      <details class="hs-faq-item">
+        <summary><span class="hs-faq-q">Quels sont les livres les plus importants de Karl Marx, et par lequel commencer&nbsp;?</span><span class="hs-faq-mk" aria-hidden="true"></span></summary>
+        <div class="hs-faq-a"><p>Trois livres suffisent à connaître l'essentiel&nbsp;: le <a href="/oeuvres/manifeste">Manifeste du parti communiste</a> (1848), pour la lutte des classes en trente pages&nbsp;; les <a href="/oeuvres/manuscrits-1844">Manuscrits de 1844</a>, pour le jeune Marx et l'aliénation&nbsp;; et le Livre premier du <a href="/oeuvres/capital-1">Capital</a> (1867), pour la critique de l'économie politique.</p><p>Pour commencer, le plus court et le plus clair est <a href="/oeuvres/salaire-prix-profit">Salaires, prix, profits</a>, une conférence de 1865 où Marx expose la plus-value devant des ouvriers, deux ans avant Le Capital. Les <a href="#commencer">portes d'entrée</a> ci-dessus partent chacune d'une question.</p></div>
+      </details>
+      <details class="hs-faq-item">
+        <summary><span class="hs-faq-q">Karl Marx était-il économiste, philosophe ou révolutionnaire&nbsp;?</span><span class="hs-faq-mk" aria-hidden="true"></span></summary>
+        <div class="hs-faq-a"><p>Les trois, et c'est ce qui rend son œuvre difficile à ranger. Docteur en philosophie, il n'a jamais enseigné&nbsp;; journaliste pendant vingt ans, c'est par les journaux qu'il a vécu&nbsp;; économiste, il l'est devenu à Paris en 1844 et l'est resté jusqu'à sa mort, mais pour critiquer l'économie plutôt que pour la pratiquer&nbsp;; révolutionnaire, il a fondé ou dirigé deux organisations, la Ligue des communistes et l'Internationale.</p><p>Lui-même se définissait par son travail&nbsp;: la critique de l'économie politique, sous-titre du Capital. C'est sous ce nom que ce site le lit.</p></div>
+      </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ LA DERNIÈRE PAGE ══ -->
+  <section class="km-fin" id="ouvrir" aria-labelledby="fin-h">
+    <div class="km-fin-in">
+      <p class="km-label">Pour continuer</p>
+      <h2 class="km-fin-line" id="fin-h">Le mieux, avec Marx, est encore de <em>le lire</em>.</h2>
+      <p class="km-cta">
+        <a class="km-btn pri" href="/oeuvres/bibliotheque">Entrer dans la bibliothèque</a>
+        <a class="km-btn out" href="/glossaire/">Ouvrir l'abécédaire</a>
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<!-- PIED:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main -->
+<footer class="lm-foot wrap">
+  <div class="lm-foot-in">
+    <div class="lm-foot-id">
+      <p class="lm-foot-mark">Lire<span class="d">.</span>Marx</p>
+      <p class="lm-foot-lede">Marx en texte intégral, l&rsquo;appareil critique en marge du chapitre.</p>
+    </div>
+    <nav class="lm-foot-nav" aria-label="Pied de page">
+      <div class="lm-foot-col">
+        <p class="lm-foot-h">Le corpus</p>
+        <ul>
+        <li><a href="/oeuvres/capital-1">Le Capital — Livre I</a></li>
+        <li><a href="/oeuvres/contribution-1859">Contribution à la critique de l'économie politique</a></li>
+        <li><a href="/oeuvres/manuscrits-1844">Manuscrits de 1844</a></li>
+        <li><a href="/oeuvres/manifeste">Manifeste du parti communiste</a></li>
+        <li><a href="/oeuvres/18-brumaire">Le XVIII brumaire de Louis Bonaparte</a></li>
+        <li><a href="/oeuvres/salaire-prix-profit">Salaires, prix, profits</a></li>
+        <li><a href="/oeuvres/bibliotheque">Toute la bibliothèque</a></li>
+        </ul>
+      </div>
+      <div class="lm-foot-col">
+        <p class="lm-foot-h">Comprendre</p>
+        <ul>
+        <li><a href="/karl-marx">Qui était Karl Marx</a></li>
+        <li><a href="/glossaire/">L’abécédaire de Marx</a></li>
+        <li><a href="/jeu/">Le circuit du capital</a></li>
+        <li><a href="/agregation-2027">Marx à l’agrégation 2027</a></li>
+        </ul>
+      </div>
+      <div class="lm-foot-col">
+        <p class="lm-foot-h">Le site</p>
+        <ul>
+        <li><a href="/">Accueil</a></li>
+        <li><a href="/oeuvres/place-publique">Place publique</a></li>
+        <li><a href="/a-propos">À propos</a></li>
+        <li><a href="/mentions-legales">CGU &amp; confidentialité</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</footer>
+<!-- PIED:FIN -->
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   LE MOUVEMENT DE LA PAGE
+   -------------------------------------------------------------------
+   Vocabulaire de la maison (assets/home.js), DUPLIQUÉ et non partagé :
+   un pilote de défilement par POSITION (réversible), des défauts CSS
+   posés, une sonde rAF. Rien ne s'arme sous `no-motion`.
+   ═══════════════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+  var doc = document, root = doc.documentElement;
+  var MOTION = !root.classList.contains('no-motion');
+  var WIDE = matchMedia('(min-width:901px)');
+  function cl01(v) { return v < 0 ? 0 : (v > 1 ? 1 : v); }
+  function ease(v) { return v * v * (3 - 2 * v); }
+  function setv(el, k, v) { v = (+v).toFixed(4); if (el.__v === undefined) el.__v = {}; if (el.__v[k] !== v) { el.__v[k] = v; el.style.setProperty(k, v); } }
+  function topH() { return parseFloat(getComputedStyle(root).getPropertyValue('--km-top')) || 44; }
+
+  /* ── Le pilote de défilement */
+  var subs = [], queued = false;
+  function runSubs() {
+    queued = false;
+    var y = window.scrollY || 0, vh = window.innerHeight || 0;
+    if (!vh) return;
+    for (var i = subs.length - 1; i >= 0; i--) { try { if (subs[i](y, vh) === false) subs.splice(i, 1); } catch (e) {} }
+  }
+  function driver() { if (!queued) { queued = true; requestAnimationFrame(runSubs); } }
+  function sub(fn) { subs.push(fn); }
+  doc.addEventListener('scroll', driver, { passive: true, capture: true });
+  window.addEventListener('resize', driver, { passive: true });
+  function remesure() { runSubs(); requestAnimationFrame(runSubs); setTimeout(runSubs, 400); setTimeout(runSubs, 1200); }
+  if (doc.readyState !== 'complete') window.addEventListener('load', runSubs, { once: true });
+  if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(runSubs);
+  window.addEventListener('hashchange', function () { setTimeout(runSubs, 60); });
+
+  /* ── La hauteur réelle de la barre du haut (121 px sur téléphone) */
+  function topbar() {
+    var tb = doc.querySelector('.topbar');
+    var h = tb ? Math.round(tb.getBoundingClientRect().height) : 44;
+    if (h > 0) root.style.setProperty('--km-top', h + 'px');
+  }
+  topbar(); setTimeout(topbar, 300); setTimeout(topbar, 1000);
+  if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(topbar);
+  window.addEventListener('resize', topbar, { passive: true });
+
+  /* ── Le héros : entrée orchestrée, puis LE VISAGE QUI VIEILLIT.
+        Cinq portraits fondus par la position sur la course du héros ;
+        l'année et le cartel suivent l'image ; le texte s'efface en route. */
+  var hero = doc.querySelector('.hv');
+  if (hero) { if (MOTION) requestAnimationFrame(function () { hero.classList.add('lit'); }); else hero.classList.add('lit'); }
+  var face = doc.getElementById('hvFace');
+  var frames = face ? [].slice.call(face.querySelectorAll('img')) : [];
+  var years = ['1836', '1861', '1866', '1869', '1875'];
+  var hvYear = doc.getElementById('hvYear'), cartel = doc.getElementById('hvCartel');
+  var cartelAge = cartel ? [].slice.call(cartel.querySelectorAll('b > span')) : [];
+  var cartelSrc = cartel ? [].slice.call(cartel.querySelectorAll(':scope > span')) : [];
+  var rule = doc.querySelector('.hv-rule');
+  var notes = [].slice.call(doc.querySelectorAll('.hv-note'));
+  function seqOpacity(imgs, t) {           /* t ∈ [0, n-1] : fondu entre deux voisines */
+    for (var i = 0; i < imgs.length; i++) setv(imgs[i], 'opacity', cl01(1 - Math.abs(t - i)));
+    return Math.round(t);
+  }
+  var AGES = ['18 ans', '43 ans', '47 ans', '51 ans', '57 ans'];
+  var hvAge = doc.getElementById('hvYearAge'), hvYearBox = hvYear ? hvYear.parentElement : null;
+  /* LE RYTHME À ARRÊTS. Sur chaque segment entre deux photographies, la
+     première et la dernière tranche (HOLD) sont immobiles : le compteur
+     tient l'année de la photo, le portrait et la notice sont posés. Entre
+     les deux, tout roule ensemble — les années défilent une à une. */
+  var HOLD = 0.30;
+  function rythme(p) {
+    var segs = frames.length - 1, x = p * segs, i = Math.min(segs - 1, Math.floor(x)), f = x - i;
+    var m = ease(cl01((f - HOLD) / (1 - 2 * HOLD)));
+    if (p >= 1) { i = segs - 1; m = 1; }
+    return { i: i, m: m, t: i + m, still: (f < HOLD || f > 1 - HOLD) ? 1 : 0 };
+  }
+  if (hero && frames.length && MOTION && WIDE.matches) sub(function (y, vh) {
+    if (!hero.classList.contains('lit')) return true;
+    var r = hero.getBoundingClientRect(), stageH = vh - topH();
+    var p = cl01((-r.top) / (r.height - stageH));
+    var R = rythme(p), t = R.t;
+    var k = seqOpacity(frames, t);
+    /* le compteur : l'année interpolée, arrondie — elle défile une à une */
+    var y0 = +years[R.i], y1 = +years[R.i + 1];
+    var yr = String(Math.round(y0 + (y1 - y0) * R.m));
+    if (hvYear && hvYear.textContent !== yr) hvYear.textContent = yr;
+    if (hvAge && hvAge.textContent !== AGES[k]) hvAge.textContent = AGES[k];
+    if (hvYearBox) hvYearBox.classList.toggle('is-still', !!R.still);
+    cartelAge.forEach(function (s, i) { s.classList.toggle('on', i === k); });
+    cartelSrc.forEach(function (s, i) { s.classList.toggle('on', i === k); });
+    if (rule) setv(rule, '--p', (+yr - 1818) / (1883 - 1818));
+    notes.forEach(function (n, i) { setv(n, '--k', cl01(1 - Math.abs(t - i) * 1.6)); n.classList.toggle('is-on', i === k); });
+    setv(hero, '--fade', ease(cl01(t * 1.6)));
+    return true;
+  });
+  /* sur téléphone (pas de course), le dernier portrait est celui qu'on voit */
+  if (hero && frames.length && (!MOTION || !WIDE.matches)) {
+    seqOpacity(frames, frames.length - 1);
+    if (hvYear) hvYear.textContent = years[4];
+    if (hvAge) hvAge.textContent = AGES[4];
+    cartelAge.forEach(function (s, i) { s.classList.toggle('on', i === 4); });
+    cartelSrc.forEach(function (s, i) { s.classList.toggle('on', i === 4); });
+    if (rule) setv(rule, '--p', 1);
+  }
+
+  /* ── Le sommaire collant marque la section qu'on lit */
+  var nav = doc.querySelector('.km-nav');
+  if (nav) {
+    var links = [].slice.call(nav.querySelectorAll('a[href^="#"]'));
+    var secs = links.map(function (a) { return doc.getElementById(a.getAttribute('href').slice(1)); });
+    sub(function (y, vh) {
+      var line = vh * 0.38, cur = -1;
+      for (var i = 0; i < secs.length; i++) { if (secs[i] && secs[i].getBoundingClientRect().top <= line) cur = i; }
+      for (var j = 0; j < links.length; j++) {
+        var on = j === cur;
+        if (links[j].classList.contains('on') !== on) { links[j].classList.toggle('on', on); if (on) links[j].setAttribute('aria-current', 'location'); else links[j].removeAttribute('aria-current'); }
+      }
+      return true;
+    });
+    nav.addEventListener('click', function (e) {
+      var a = e.target.closest('a[href^="#"]'); if (!a) return;
+      var t = doc.getElementById(a.getAttribute('href').slice(1)); if (!t) return;
+      e.preventDefault();
+      var off = topH() + nav.getBoundingClientRect().height + 8;
+      window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - off, behavior: 'instant' });
+      history.replaceState(null, '', a.getAttribute('href'));
+      t.setAttribute('tabindex', '-1'); t.focus({ preventScroll: true });
+    });
+  }
+
+  /* ── LES TABLEAUX : `--q` est la position dans la scène épinglée (0 à
+        l'épinglage, 1 quand le texte a fini de passer), `--rev` le
+        développement de l'image à l'arrivée. Le texte s'inscrit paragraphe
+        par paragraphe ; la seconde figure glisse à `data-at` ; la séquence
+        fond ses images sur q ; la citation s'encre mot à mot. */
+  var tbs = [].slice.call(doc.querySelectorAll('.tb'));
+  var exil = { q: -1 };
+  tbs.forEach(function (sec) {
+    var q = sec.querySelector('#tbQuote');
+    if (q) {                                            /* les mots, pour l'encre */
+      var words = q.textContent.trim().split(/\s+/);
+      q.innerHTML = words.map(function (w, i) { return '<span class="rw" style="--k:' + i + '">' + w + '</span>'; }).join(' ');
+    }
+  });
+  if (tbs.length && MOTION) sub(function (y, vh) {
+    var stageH = vh - topH();
+    tbs.forEach(function (sec) {
+      var r = sec.getBoundingClientRect();
+      if (r.bottom < -vh || r.top > vh * 2) return;
+      var run = Math.max(1, r.height - stageH);
+      var q = cl01((topH() - r.top) / run);
+      var rev = ease(cl01((vh * 0.92 - r.top) / (vh * 0.75)));
+      setv(sec, '--q', q); setv(sec, '--rev', rev);
+      /* le texte s'inscrit : chaque enfant sur ses derniers 18 % de montée */
+      [].forEach.call(sec.querySelectorAll('.tb-copy > *'), function (el) {
+        var er = el.getBoundingClientRect();
+        setv(el, '--n', cl01((vh * 0.96 - er.top) / (vh * 0.18)));
+      });
+      var b = sec.querySelector('.tb-fig--b');
+      if (b) { var at = parseFloat(b.dataset.at || '.5'); setv(b, '--b', ease(cl01((q - at) / 0.22))); }
+      var seq = sec.querySelector('.tb-seq');
+      if (seq) {
+        var imgs = [].slice.call(seq.querySelectorAll('img'));
+        var k = seqOpacity(imgs, ease(q) * (imgs.length - 1));
+        var caps = [].slice.call(sec.querySelectorAll('.tb-cap > span'));
+        caps.forEach(function (s, i) { s.classList.toggle('on', i === k); });
+      }
+      if (sec.hasAttribute('data-quote')) {
+        var ws = sec.querySelectorAll('.tb-quote .rw'), n = ws.length;
+        for (var i = 0; i < n; i++) setv(ws[i], '--wp', cl01((rev * 1.15 * n - i) / 2.2));
+      }
+      if (sec.hasAttribute('data-exil')) exil.q = (r.top > vh) ? -1 : q;
+    });
+    return true;
+  });
+
+  /* ── Les sections de lecture arrivent en glissant */
+  var blocs = [].slice.call(doc.querySelectorAll('.km-fond > .km'));
+  if (blocs.length && MOTION) sub(function (y, vh) {
+    blocs.forEach(function (el) { var r = el.getBoundingClientRect(); setv(el, '--up', 1 - ease(cl01((vh * 0.96 - r.top) / (vh * 0.3)))); });
+    return true;
+  });
+
+  /* ── Les vidéos : rien ne se charge avant le clic (youtube-nocookie) */
+  [].forEach.call(doc.querySelectorAll('.km-vid[data-yt]'), function (box) {
+    var b = box.querySelector('.km-vid-b'); if (!b) return;
+    b.addEventListener('click', function () {
+      var f = doc.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + box.dataset.yt + '?autoplay=1&rel=0';
+      f.title = b.getAttribute('aria-label') || 'Vidéo';
+      f.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+      f.setAttribute('allowfullscreen', '');
+      box.appendChild(f); b.remove(); f.focus();
+    });
+  });
+
+  /* ── SES IDÉES : les feuillets se posent, le numéro prend l'encre */
+  var idees = [].slice.call(doc.querySelectorAll('.km-idee'));
+  var TILT = [-2.6, 1.9, -1.5, 2.2, -1.8, 1.4];
+  if (idees.length && MOTION) sub(function (y, vh) {
+    for (var i = 0; i < idees.length; i++) {
+      var r = idees[i].getBoundingClientRect();
+      var p = ease(cl01((vh * 0.92 - r.top) / (vh * 0.28)));
+      setv(idees[i], '--drop', 1 - p);
+      idees[i].style.setProperty('--tilt', ((1 - p) * TILT[i % TILT.length]).toFixed(3) + 'deg');
+      setv(idees[i], '--ink', ease(cl01((vh * 0.92 - r.top - vh * 0.16) / (vh * 0.18))));
+    }
+    return true;
+  });
+
+  /* ── SES LIVRES : le fil et la lumière (la liste est dérivée, peuplée
+        dans le HTML : rien à attendre) */
+  var livs = doc.getElementById('kmLivs');
+  var livItems = livs ? [].slice.call(livs.querySelectorAll('.km-liv')) : [];
+  if (livItems.length && MOTION) sub(function (y, vh) {
+    var lr = livs.getBoundingClientRect(), rl = vh * 0.78;
+    setv(livs, '--draw', cl01((rl - lr.top) / lr.height));
+    for (var i = 0; i < livItems.length; i++) {
+      var r = livItems[i].getBoundingClientRect();
+      setv(livItems[i], '--lit', ease(cl01((rl - (r.top + 19) + 40) / 80)));
+    }
+    return true;
+  });
+
+  /* ── QUESTIONS : le fil et la lumière de l'accueil */
+  var faq = doc.querySelector('.hs-faq-list');
+  var faqItems = faq ? [].slice.call(faq.querySelectorAll('.hs-faq-item')) : [];
+  if (faqItems.length > 1 && MOTION) {
+    root.classList.add('js-faq');
+    sub(function (y, vh) {
+      var lr = faq.getBoundingClientRect(), rl = vh * 0.80;
+      setv(faq, '--draw', cl01((rl - lr.top) / lr.height));
+      for (var i = 0; i < faqItems.length; i++) {
+        var ir = faqItems[i].getBoundingClientRect();
+        var lit = ease(cl01((rl - (ir.top + 25) + 46) / 92));
+        setv(faqItems[i], '--lit', lit);
+        setv(faqItems[i], '--pass', 4 * lit * (1 - lit));
+      }
+      return true;
+    });
+    faq.addEventListener('toggle', driver, true);
+  }
+
+  /* ── LA DERNIÈRE PAGE s'allume sur SA PROPRE HAUTEUR (règle de la
+        dernière section : son bas ne remonte jamais au-dessus du pli) */
+  var fin = doc.querySelector('.km-fin');
+  if (fin && MOTION) sub(function (y, vh) {
+    var r = fin.getBoundingClientRect();
+    setv(fin, '--lum', ease(cl01((vh - r.top) / r.height)));
+    return true;
+  });
+
+  remesure();
+
+  /* ═══════════════════════════════════════════════════════════════════
+     LA CARTE DE L'EXIL — Three.js, chargé à la demande, dans la scène du
+     septième tableau. Une carte de l'Europe du Nord-Ouest à la bougie :
+     côtes en relief, papier hachuré, villes-lampes, et LA ROUTE de Marx
+     qui se trace sur la course du tableau (Paris → Bruxelles → Cologne →
+     Paris → Londres, le reste de la route déjà là, en retrait). Tout est
+     fonction de `q`, donc réversible.
+     ═══════════════════════════════════════════════════════════════════ */
+  var host = doc.getElementById('kmScene'), canvas = doc.getElementById('kmBg');
+  if (!MOTION || !host || !canvas) return;
+  var armed = false;
+  function arm() {
+    if (armed) return; armed = true;
+    try { var c = doc.createElement('canvas'); if (!(c.getContext('webgl2') || c.getContext('webgl'))) { host.remove(); return; } } catch (e) { host.remove(); return; }
+    var s = doc.createElement('script'); s.src = '/vendor/three.min.js';
+    s.onload = scene; s.onerror = function () { host.remove(); };
+    doc.head.appendChild(s);
+  }
+  /* on ne charge Three.js qu'à l'approche du tableau (deux écrans avant) */
+  sub(function (y, vh) { var r = host.getBoundingClientRect(); if (r.top < vh * 2.5) { arm(); return false; } return true; });
+
+  function scene() {
+    if (typeof THREE === 'undefined') { host.remove(); return; }
+    var T = THREE;
+    /* (lon, lat) → monde : x suit la longitude, z la latitude (×1,6 : à
+       51° nord un degré de latitude vaut environ 1,6 degré de longitude) */
+    function W(lon, lat) { return new T.Vector3((lon - 4), 0, -(lat - 51) * 1.6); }
+    var VILLES = {
+      treves:    { n: 'Trèves',     lon: 6.64,  lat: 49.75, s: '1818' },
+      bonn:      { n: 'Bonn',       lon: 7.10,  lat: 50.73, s: '1835' },
+      berlin:    { n: 'Berlin',     lon: 13.40, lat: 52.52, s: '1836' },
+      cologne:   { n: 'Cologne',    lon: 6.96,  lat: 50.94, s: '1842 · 1848' },
+      paris:     { n: 'Paris',      lon: 2.35,  lat: 48.86, s: '1843 · 1849' },
+      bruxelles: { n: 'Bruxelles',  lon: 4.35,  lat: 50.85, s: '1845' },
+      londres:   { n: 'Londres',    lon: -0.12, lat: 51.51, s: '1849 – 1883' },
+      manchester:{ n: 'Manchester', lon: -2.24, lat: 53.48, s: 'Engels' }
+    };
+    var ROUTE = ['treves','bonn','berlin','cologne','paris','bruxelles','cologne','paris','londres'];
+    var ids = ['paris', 'bruxelles', 'cologne2', 'londres'];
+    var STATION_NODE = { paris: 4, bruxelles: 5, cologne2: 6, londres: 8 };
+
+    var renderer;
+    try { renderer = new T.WebGLRenderer({ canvas: canvas, antialias: true, alpha: false, powerPreference: 'low-power' }); }
+    catch (e) { host.remove(); return; }
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+    renderer.setClearColor(0x100c08, 1);
+    renderer.outputEncoding = T.sRGBEncoding;
+    var sc = new T.Scene();
+    sc.fog = new T.Fog(0x100c08, 14, 40);
+    var cam = new T.PerspectiveCamera(38, 1, 0.1, 120);
+    sc.add(cam);
+
+    /* ═══ LA CARTE, DESSINÉE AU CANEVAS ═══
+       Une seule texture, dans la langue du site : parchemin brun-nuit, les
+       côtes et les fleuves de Natural Earth (assets/img/marx/carte-exil.json,
+       dérivé par tools/carte-exil.mjs), les hachures côtières des cartes
+       anciennes, un graticule, les noms de mers et de fleuves en Fraunces,
+       un cartouche et une rose des vents. Le relief et la lumière viennent
+       de la scène ; le dessin vient d'ici. */
+    var BB = { x0: -7, y0: 46.5, x1: 16, y1: 56.5 };
+    var PPU = 150;                                   /* pixels par unité monde */
+    var MW = (BB.x1 - BB.x0), MH = (BB.y1 - BB.y0) * 1.6;   /* 23 × 16 unités */
+    var CW = Math.round(MW * PPU), CH = Math.round(MH * PPU);
+    var mapCanvas = doc.createElement('canvas'); mapCanvas.width = CW; mapCanvas.height = CH;
+    var mapTex = new T.CanvasTexture(mapCanvas); mapTex.encoding = T.sRGBEncoding; mapTex.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+    var px = function (lon) { return (lon - BB.x0) * PPU; }, py = function (lat) { return (BB.y1 - lat) * 1.6 * PPU; };
+
+    function dessine(data) {
+      var x = mapCanvas.getContext('2d');
+      var GOLD = '216,173,76', CREME = '243,233,212', BLEU = '120,165,190';
+      /* le parchemin : brun-nuit, un peu plus chaud au centre, vignetté */
+      var g0 = x.createRadialGradient(CW * .5, CH * .5, CH * .2, CW * .5, CH * .5, CW * .7);
+      g0.addColorStop(0, '#221a12'); g0.addColorStop(.6, '#1a1410'); g0.addColorStop(1, '#0f0b08');
+      x.fillStyle = g0; x.fillRect(0, 0, CW, CH);
+      /* le grain */
+      var gr = doc.createElement('canvas'); gr.width = gr.height = 256; var gx = gr.getContext('2d');
+      var im = gx.createImageData(256, 256), d = im.data;
+      for (var i = 0; i < d.length; i += 4) { var v = 128 + (Math.random() - .5) * 70; d[i] = v; d[i+1] = v * .92; d[i+2] = v * .8; d[i+3] = 255; }
+      gx.putImageData(im, 0, 0);
+      x.globalAlpha = .10; x.globalCompositeOperation = 'overlay'; x.fillStyle = x.createPattern(gr, 'repeat'); x.fillRect(0, 0, CW, CH);
+      x.globalAlpha = 1; x.globalCompositeOperation = 'source-over';
+      /* les ondes de la mer : de fines lignes horizontales, à peine là */
+      x.strokeStyle = 'rgba(' + CREME + ',.045)'; x.lineWidth = 1;
+      for (var yy = 0; yy < CH; yy += 9) { x.beginPath(); x.moveTo(0, yy); x.lineTo(CW, yy); x.stroke(); }
+      /* le graticule, tous les degrés */
+      x.strokeStyle = 'rgba(' + GOLD + ',.09)'; x.lineWidth = 1.2;
+      for (var lo = Math.ceil(BB.x0); lo <= BB.x1; lo++) { x.beginPath(); x.moveTo(px(lo), 0); x.lineTo(px(lo), CH); x.stroke(); }
+      for (var la = Math.ceil(BB.y0); la <= BB.y1; la++) { x.beginPath(); x.moveTo(0, py(la)); x.lineTo(CW, py(la)); x.stroke(); }
+      x.fillStyle = 'rgba(' + GOLD + ',.35)'; x.font = '500 22px Inter, system-ui, sans-serif'; x.textAlign = 'center';
+      for (lo = Math.ceil(BB.x0); lo <= BB.x1; lo += 2) { x.fillText((lo < 0 ? -lo + '° O' : lo + '° E'), px(lo), 30); x.fillText((lo < 0 ? -lo + '° O' : lo + '° E'), px(lo), CH - 14); }
+      x.textAlign = 'left';
+      for (la = Math.ceil(BB.y0); la <= BB.y1; la += 2) { x.fillText(la + '° N', 12, py(la) - 6); x.textAlign = 'right'; x.fillText(la + '° N', CW - 12, py(la) - 6); x.textAlign = 'left'; }
+      /* les terres : le tracé, puis les hachures côtières (le tracé
+         répété en s'élargissant côté mer), puis le remplissage, puis le
+         trait de côte. */
+      function traceTerres() {
+        x.beginPath();
+        data.terres.forEach(function (poly) { poly.forEach(function (ring) { ring.forEach(function (p, k) { var X = px(p[0]), Y = py(p[1]); k ? x.lineTo(X, Y) : x.moveTo(X, Y); }); x.closePath(); }); });
+      }
+      x.lineJoin = 'round'; x.lineCap = 'round';
+      /* les hachures côtières : trois anneaux ténus côté mer, jamais un néon */
+      [[30, .028], [17, .045], [7, .08]].forEach(function (w) { traceTerres(); x.lineWidth = w[0]; x.strokeStyle = 'rgba(' + GOLD + ',' + w[1] + ')'; x.stroke(); });
+      traceTerres();
+      var g1 = x.createLinearGradient(0, 0, CW, CH); g1.addColorStop(0, '#3a2d1f'); g1.addColorStop(1, '#2c2218');
+      x.fillStyle = g1; x.fill('evenodd');
+      /* les hachures du sol : un semis de traits obliques, retenu par la terre */
+      x.save(); traceTerres(); x.clip('evenodd');
+      x.strokeStyle = 'rgba(' + CREME + ',.05)'; x.lineWidth = 1;
+      for (var k = -CH; k < CW; k += 7) { x.beginPath(); x.moveTo(k, 0); x.lineTo(k + CH, CH); x.stroke(); }
+      /* l'ombre intérieure de la côte : la terre s'assombrit vers l'eau */
+      traceTerres(); x.lineWidth = 26; x.strokeStyle = 'rgba(0,0,0,.28)'; x.stroke();
+      traceTerres(); x.lineWidth = 9; x.strokeStyle = 'rgba(0,0,0,.30)'; x.stroke();
+      x.restore();
+      traceTerres(); x.lineWidth = 1.7; x.strokeStyle = 'rgba(' + GOLD + ',.8)'; x.stroke();
+      /* les lacs */
+      x.fillStyle = '#17120d';
+      data.lacs.forEach(function (ring) { x.beginPath(); ring.forEach(function (p, k) { k ? x.lineTo(px(p[0]), py(p[1])) : x.moveTo(px(p[0]), py(p[1])); }); x.closePath(); x.fill(); x.lineWidth = 1.2; x.strokeStyle = 'rgba(' + GOLD + ',.5)'; x.stroke(); });
+      /* les fleuves : le rang fait l'épaisseur ; un liseré sombre dessous */
+      data.fleuves.forEach(function (f) {
+        var w = f.r <= 4 ? 3.2 : f.r <= 6 ? 2.2 : 1.4;
+        x.beginPath(); f.p.forEach(function (p, k) { k ? x.lineTo(px(p[0]), py(p[1])) : x.moveTo(px(p[0]), py(p[1])); });
+        x.lineWidth = w + 2; x.strokeStyle = 'rgba(0,0,0,.35)'; x.stroke();
+        x.lineWidth = w; x.strokeStyle = 'rgba(' + BLEU + ',' + (f.r <= 6 ? .8 : .6) + ')'; x.stroke();
+      });
+      /* les noms de fleuves : UNE fois chacun, sur le plus long tronçon,
+         en italique le long du cours */
+      var best = {};
+      data.fleuves.forEach(function (f) { if (!f.n) return; var L = 0; for (var i = 1; i < f.p.length; i++) L += Math.hypot(f.p[i][0] - f.p[i-1][0], f.p[i][1] - f.p[i-1][1]); if (!best[f.n] || L > best[f.n].L) best[f.n] = { L: L, f: f }; });
+      x.font = 'italic 500 26px Fraunces, Georgia, serif'; x.fillStyle = 'rgba(' + BLEU + ',.95)'; x.textAlign = 'center';
+      Object.keys(best).forEach(function (n) {
+        var pts = best[n].f.p, m = Math.floor(pts.length / 2), a = pts[Math.max(0, m - 2)], b = pts[Math.min(pts.length - 1, m + 2)];
+        var X = px(pts[m][0]), Y = py(pts[m][1]), ang = Math.atan2(py(b[1]) - py(a[1]), px(b[0]) - px(a[0]));
+        if (ang > Math.PI / 2 || ang < -Math.PI / 2) ang += Math.PI;
+        x.save(); x.translate(X, Y); x.rotate(ang); x.fillText(n, 0, -8); x.restore();
+      });
+      /* les noms : mers en capitales espacées, pays de l'époque en petites capitales */
+      function cap(txt, lon, lat, size, alpha, rot) {
+        x.save(); x.translate(px(lon), py(lat)); x.rotate(rot || 0);
+        x.font = '600 ' + size + 'px Inter, system-ui, sans-serif'; x.fillStyle = 'rgba(' + GOLD + ',' + alpha + ')'; x.textAlign = 'center';
+        var t = txt.toUpperCase().split('').join(' ');  /* l'espacement, à la main */
+        x.fillText(t, 0, 0); x.restore();
+      }
+      cap('Mer du Nord', 3.2, 55.2, 44, .38, -.12); cap('La Manche', -1.6, 49.9, 34, .38, -.14); cap('Mer Baltique', 13.3, 55.6, 30, .34, 0);
+      cap('Océan Atlantique', -5.2, 47.6, 30, .30, -1.2);
+      [['Angleterre', -1.6, 52.6], ['France', 1.6, 47.9], ['Royaume de Belgique', 4.2, 50.2], ['Pays-Bas', 5.4, 52.55], ['Prusse rhénane', 7.9, 50.05], ['Royaume de Prusse', 12.2, 52.9], ['États allemands', 9.8, 51.4], ['Danemark', 9.4, 56.05]].forEach(function (c) { cap(c[0], c[1], c[2], 26, .45); });
+      /* la route entière, en pointillé rouge : l'itinéraire tel qu'on le
+         porte sur une carte, avant que la lumière ne le parcoure */
+      x.setLineDash([12, 10]); x.lineWidth = 3; x.strokeStyle = 'rgba(213,64,47,.55)'; x.beginPath();
+      ROUTE.forEach(function (id, k) { var v = VILLES[id]; k ? x.lineTo(px(v.lon), py(v.lat)) : x.moveTo(px(v.lon), py(v.lat)); });
+      x.stroke(); x.setLineDash([]);
+      /* les villes : un cercle et un point, comme sur une carte gravée */
+      Object.keys(VILLES).forEach(function (id) { var v = VILLES[id]; x.beginPath(); x.arc(px(v.lon), py(v.lat), 9, 0, 7); x.lineWidth = 2; x.strokeStyle = 'rgba(' + GOLD + ',.9)'; x.stroke(); x.beginPath(); x.arc(px(v.lon), py(v.lat), 3.5, 0, 7); x.fillStyle = 'rgba(' + GOLD + ',1)'; x.fill(); });
+      /* la rose des vents, en mer du Nord */
+      (function rose(lon, lat, R) {
+        var X = px(lon), Y = py(lat); x.save(); x.translate(X, Y);
+        x.strokeStyle = 'rgba(' + GOLD + ',.55)'; x.lineWidth = 1.5;
+        x.beginPath(); x.arc(0, 0, R, 0, 7); x.stroke(); x.beginPath(); x.arc(0, 0, R * .78, 0, 7); x.stroke();
+        for (var i = 0; i < 16; i++) { var a = i * Math.PI / 8, r = i % 4 === 0 ? R * 1.15 : i % 2 === 0 ? R * .7 : R * .45;
+          x.beginPath(); x.moveTo(0, 0); x.lineTo(Math.sin(a) * r, -Math.cos(a) * r); x.lineWidth = i % 4 === 0 ? 2.5 : 1; x.stroke(); }
+        x.fillStyle = 'rgba(' + GOLD + ',.85)'; x.font = '900 34px Fraunces, Georgia, serif'; x.textAlign = 'center';
+        x.fillText('N', 0, -R * 1.25); x.font = '500 24px Fraunces, Georgia, serif'; x.fillText('S', 0, R * 1.5); x.fillText('E', R * 1.4, 9); x.fillText('O', -R * 1.4, 9);
+        x.restore();
+      })(1.2, 54.4, 120);
+      /* le cartouche, dans l'Atlantique */
+      (function cartouche(lon, lat) {
+        var X = px(lon), Y = py(lat), w = 560, h = 190; x.save(); x.translate(X, Y);
+        x.fillStyle = 'rgba(21,16,11,.55)'; x.strokeStyle = 'rgba(' + GOLD + ',.7)'; x.lineWidth = 2;
+        x.beginPath(); x.rect(-w / 2, -h / 2, w, h); x.fill(); x.stroke();
+        x.beginPath(); x.rect(-w / 2 + 10, -h / 2 + 10, w - 20, h - 20); x.lineWidth = 1; x.stroke();
+        x.textAlign = 'center'; x.fillStyle = 'rgba(' + CREME + ',.92)';
+        x.font = '600 20px Inter, system-ui, sans-serif'; x.fillText('L A   R O U T E   D E   L ’ E X I L', 0, -46);
+        x.font = '900 46px Fraunces, Georgia, serif'; x.fillText('Karl Marx, 1843 – 1849', 0, 6);
+        x.font = 'italic 500 24px Fraunces, Georgia, serif'; x.fillStyle = 'rgba(' + GOLD + ',.9)'; x.fillText('de Trèves à Londres, par Paris, Bruxelles et Cologne', 0, 44);
+        x.font = '500 16px Inter, system-ui, sans-serif'; x.fillStyle = 'rgba(' + CREME + ',.55)'; x.fillText('Côtes et fleuves : Natural Earth · dessiné pour liremarx.com', 0, 76);
+        x.restore();
+      })(-4.2, 47.55);
+      mapTex.needsUpdate = true;
+    }
+
+    /* le plan de la carte, dans le monde */
+    var plan = new T.Mesh(new T.PlaneGeometry(MW, MH), new T.MeshStandardMaterial({ map: mapTex, roughness: .92, metalness: 0 }));
+    plan.rotation.x = -Math.PI / 2; plan.position.set((BB.x0 + BB.x1) / 2 - 4, 0, -((BB.y0 + BB.y1) / 2 - 51) * 1.6); sc.add(plan);
+    /* le sol au-delà de la carte : la table sombre */
+    var table = new T.Mesh(new T.PlaneGeometry(200, 200), new T.MeshStandardMaterial({ color: 0x0b0806, roughness: 1 }));
+    table.rotation.x = -Math.PI / 2; table.position.y = -0.01; sc.add(table);
+    /* la carte se charge, les polices d'abord (les noms sont en Fraunces) */
+    var dataP = fetch('/assets/img/marx/carte-exil.json').then(function (r) { return r.json(); });
+    var fontsP = (doc.fonts && doc.fonts.load) ? Promise.all([doc.fonts.load('900 40px Fraunces'), doc.fonts.load('italic 500 26px Fraunces'), doc.fonts.load('600 20px Inter')]).catch(function () {}) : Promise.resolve();
+    Promise.all([dataP, fontsP]).then(function (r) { dessine(r[0]); }).catch(function () { host.remove(); });
+
+    /* la lumière : le ciel d'une pièce à la bougie, et la bougie elle-même,
+       qui suit ce qu'on regarde et vacille */
+    sc.add(new T.AmbientLight(0xffe0b8, .42));
+    sc.add(new T.HemisphereLight(0xffd7a0, 0x1a120b, .55));
+    var bougie = new T.PointLight(0xffb36b, .75, 16, 1.6); bougie.position.set(2, 3.4, 0); sc.add(bougie);
+    var lune = new T.DirectionalLight(0x6f8fb0, .14); lune.position.set(-6, 8, -4); sc.add(lune);
+
+    /* les villes-lampes et leurs étiquettes. Les halos sont des sprites
+       ADDITIFS SANS TEST DE PROFONDEUR : centrés à ras du plan, leur moitié
+       basse passait sous la carte et le test la coupait net — un rectangle
+       clair sous chaque lampe (vécu, vu au zoom). */
+    var lampes = {}, labels = {};
+    var haloTex = (function () {
+      var c = doc.createElement('canvas'); c.width = c.height = 64; var x = c.getContext('2d');
+      var g = x.createRadialGradient(32, 32, 0, 32, 32, 32); g.addColorStop(0, 'rgba(255,200,130,.95)'); g.addColorStop(.18, 'rgba(255,170,80,.45)'); g.addColorStop(.5, 'rgba(255,150,60,.10)'); g.addColorStop(1, 'rgba(255,140,50,0)');
+      x.fillStyle = g; x.fillRect(0, 0, 64, 64); return new T.CanvasTexture(c);
+    })();
+    Object.keys(VILLES).forEach(function (id) {
+      var v = VILLES[id], p = W(v.lon, v.lat); p.y = 0.08;
+      var m = new T.Mesh(new T.SphereGeometry(0.035, 14, 10), new T.MeshStandardMaterial({ color: 0x3a2a18, emissive: 0xff9a3c, emissiveIntensity: 0, roughness: .6 }));
+      m.position.copy(p); sc.add(m);
+      var sp = new T.Sprite(new T.SpriteMaterial({ map: haloTex, transparent: true, opacity: 0, blending: T.AdditiveBlending, depthWrite: false, depthTest: false, fog: false }));
+      sp.scale.set(.9, .9, 1); sp.position.copy(p); sp.position.y = 0.14; sc.add(sp);
+      lampes[id] = { m: m, sp: sp, p: p, lit: 0, target: id === 'manchester' ? .3 : 0 };
+      var lb = doc.createElement('div'); lb.className = 'km-lbl'; lb.innerHTML = v.n + '<small>' + v.s + '</small>';
+      host.appendChild(lb); labels[id] = lb;
+    });
+
+    /* la route lumineuse : la courbe par les villes, tracée par drawRange */
+    var nodes = ROUTE.map(function (id) { var p = lampes[id].p.clone(); p.y = 0.012; return p; });   /* au RAS du papier : plus haut, la plongée le déporte du pointillé */
+    /* des SEGMENTS DROITS de ville à ville, ALIGNÉS sur le pointillé rouge du
+       dessin — une courbe lissée s'en écartait, et l'on voyait deux routes */
+    var courbe = new T.CurvePath();
+    for (var ni = 1; ni < nodes.length; ni++) courbe.add(new T.LineCurve3(nodes[ni - 1], nodes[ni]));
+    var N = 720, pts = courbe.getSpacedPoints(N);
+    /* la longueur cumulée à chaque ville : le tube est échantillonné à
+       LONGUEUR D'ARC égale, un index de ville ne s'y reporte pas
+       directement (vécu : la lumière s'arrêtait avant Bruxelles) */
+    var cum = [0]; for (var ci = 1; ci < nodes.length; ci++) cum.push(cum[ci - 1] + nodes[ci].distanceTo(nodes[ci - 1]));
+    var LTOT = cum[cum.length - 1];
+    function arcOf(tn) { var i = Math.min(nodes.length - 2, Math.floor(tn)), f = tn - i; return (cum[i] + (cum[i + 1] - cum[i]) * f) / LTOT; }
+    /* un TUBE et non une Line : une Line fait un pixel quoi qu'il arrive,
+       et la route lumineuse disparaissait sous le pointillé rouge du dessin */
+    var SEG = 400, routeGeo = new T.TubeGeometry(courbe, SEG, 0.008, 6, false);
+    var IDX_PER_SEG = routeGeo.index.count / SEG;
+    var route = new T.Mesh(routeGeo, new T.MeshBasicMaterial({ color: 0xffd27a, transparent: true, opacity: .95 }));
+    route.frustumCulled = false; sc.add(route);
+    var comete = new T.Sprite(new T.SpriteMaterial({ map: haloTex, transparent: true, opacity: 0, blending: T.AdditiveBlending, depthWrite: false, depthTest: false, fog: false }));
+    comete.scale.set(.5, .5, 1); sc.add(comete);
+    var pous = (function () {
+      var n = 260, arr = new Float32Array(n * 3);
+      for (var i = 0; i < n; i++) { arr[i*3] = -10 + Math.random() * 22; arr[i*3+1] = .1 + Math.random() * 3; arr[i*3+2] = -9 + Math.random() * 16; }
+      var g = new T.BufferGeometry(); g.setAttribute('position', new T.BufferAttribute(arr, 3));
+      var p = new T.Points(g, new T.PointsMaterial({ color: 0xffd08a, size: .035, transparent: true, opacity: .5, depthWrite: false }));
+      sc.add(p); return p;
+    })();
+
+    /* ═══ LA CAMÉRA : une plongée cartographique ═══
+       On regarde la carte comme une carte, à 56° du plan, jamais au ras du
+       papier. Chaque plan est un point visé + une distance : le plan large
+       cadre toute la route, chaque station se cadre à distance moyenne
+       (on lit les côtes, les fleuves, les noms), et la fin se recule sur
+       l'exil entier, de Paris à Londres. Le sujet vit à DROITE du feuillet
+       de texte : la visée est décalée d'une part de la distance, plafonnée. */
+    var TILT = 56 * Math.PI / 180;
+    var aim = new T.Vector3(), pos = new T.Vector3(), tAim = new T.Vector3(), tPos = new T.Vector3();
+    function poseAt(cx, cz, dist, outAim, outPos) {
+      var dx = WIDE.matches ? -Math.min(0.30 * dist, 2.2) : 0;
+      outAim.set(cx + dx, 0, cz);
+      outPos.set(cx + dx, Math.sin(TILT) * dist, cz + Math.cos(TILT) * dist);
+    }
+    var a1 = new T.Vector3(), p1 = new T.Vector3(), a2 = new T.Vector3(), p2 = new T.Vector3();
+    function stationPose(id, oa, op) { var c = lampes[id === 'cologne2' ? 'cologne' : id].p; poseAt(c.x, c.z - 0.2, 4.6, oa, op); }
+    var ctrWide = W(4.2, 51.3), ctrFin = W(2.2, 50.6);
+    function gOf(q) { if (q < 0) return -1; if (q < 0.10) return -1 + q / 0.10; return Math.min(ids.length, (q - 0.10) / 0.90 * (ids.length + 0.0)); }
+    function poseFor(g) {
+      if (g <= 0) { var k0 = ease(cl01(1 + g)); poseAt(ctrWide.x, ctrWide.z, 13.5, a1, p1); stationPose(ids[0], a2, p2); tAim.lerpVectors(a1, a2, k0); tPos.lerpVectors(p1, p2, k0); return; }
+      var i = Math.floor(g), f = g - i;
+      if (i >= ids.length - 1) {                        /* Londres, puis le recul sur tout l'exil */
+        stationPose(ids[ids.length - 1], a1, p1); poseAt(ctrFin.x, ctrFin.z, 9.5, a2, p2);
+        var kf = ease(cl01((g - (ids.length - 1) - 0.45) / 0.55));
+        tAim.lerpVectors(a1, a2, kf); tPos.lerpVectors(p1, p2, kf); return;
+      }
+      stationPose(ids[i], a1, p1); stationPose(ids[i + 1], a2, p2);
+      var k = ease(cl01((f - 0.5) / 0.5));
+      tAim.lerpVectors(a1, a2, k); tPos.lerpVectors(p1, p2, k);
+      tPos.y += Math.sin(k * Math.PI) * 1.8;           /* on prend de la hauteur en vol */
+    }
+    function routeFor(g) {
+      var tn;
+      if (g <= 0) tn = 4;
+      else { var i = Math.min(ids.length - 1, Math.floor(g)), f = g - i; var n1 = STATION_NODE[ids[i]], n2 = i + 1 < ids.length ? STATION_NODE[ids[i + 1]] : n1; tn = n1 + (n2 - n1) * ease(cl01((f - 0.5) / 0.5)); }
+      var u = arcOf(tn);
+      routeGeo.setDrawRange(0, Math.max(1, Math.round(u * SEG)) * IDX_PER_SEG);
+      var head = pts[Math.min(N, Math.round(u * N))];
+      comete.position.copy(head); comete.position.y += 0.03;
+      var moving = tn > 4 && tn < nodes.length - 1 && Math.abs(tn - Math.round(tn)) > 0.02;
+      comete.material.opacity += ((moving ? .9 : 0) - comete.material.opacity) * .15;
+      Object.keys(lampes).forEach(function (id) { if (id === 'manchester') return; lampes[id].target = tn + 0.02 >= ROUTE.indexOf(id) ? 1 : (ROUTE.indexOf(id) < 4 ? .45 : 0); });
+    }
+    function resize() {
+      var w = host.clientWidth, h = host.clientHeight;
+      if (!w || !h) return;
+      renderer.setSize(w, h, false);
+      cam.aspect = w / h; cam.fov = WIDE.matches ? 38 : 46; cam.updateProjectionMatrix();
+    }
+    window.addEventListener('resize', resize, { passive: true }); resize(); setTimeout(resize, 300);
+
+    var last = performance.now(), running = false;
+    poseAt(ctrWide.x, ctrWide.z, 13.5, aim, pos);
+    var tmp = new T.Vector3();
+    function frame(now) {
+      running = false;
+      if (doc.hidden) return;
+      var dt = Math.min(0.05, (now - last) / 1000); last = now;
+      var hr = host.getBoundingClientRect();
+      var onScreen = hr.bottom > 0 && hr.top < (window.innerHeight || 0);
+      if (onScreen) {
+        var g = gOf(exil.q);
+        poseFor(g); routeFor(g);
+        var k = 1 - Math.exp(-dt * 2.4);
+        pos.lerp(tPos, k); aim.lerp(tAim, k);
+        cam.position.copy(pos); cam.lookAt(aim);
+        var fl = 1 + Math.sin(now * 0.0031) * .06 + Math.sin(now * 0.0117) * .035 + Math.sin(now * 0.0233) * .02;
+        bougie.position.set(aim.x + 0.8, 3.2 + (pos.y - 3) * .35, aim.z + 1.2); bougie.intensity = .75 * fl;
+        var w = host.clientWidth, h = host.clientHeight;
+        var onId = (g >= 0 && g < ids.length) ? ids[Math.floor(g)] : (g >= ids.length ? 'londres' : null); if (onId === 'cologne2') onId = 'cologne';
+        Object.keys(lampes).forEach(function (id) {
+          var L = lampes[id];
+          L.lit += (L.target - L.lit) * (1 - Math.exp(-dt * 3));
+          var lf = L.lit * (id === 'manchester' ? 1 : fl);
+          L.m.material.emissiveIntensity = 1.4 * lf;
+          L.sp.material.opacity = .5 * lf;
+          L.sp.scale.set(.7 + .4 * lf, .7 + .4 * lf, 1);
+          tmp.copy(L.p); tmp.y = 0.3; tmp.project(cam);
+          var lb = labels[id];
+          if (tmp.z > 1 || tmp.z < -1) { lb.style.opacity = '0'; return; }
+          lb.style.left = ((tmp.x + 1) / 2 * w).toFixed(1) + 'px';
+          lb.style.top = ((1 - tmp.y) / 2 * h).toFixed(1) + 'px';
+          var lit = (L.lit > 0.25 || id === 'manchester') && g > -0.15;
+          lb.classList.toggle('is-lit', lit); lb.classList.toggle('is-on', id === onId);
+          lb.style.opacity = lit ? '' : '0';
+        });
+        var arr = pous.geometry.attributes.position.array;
+        for (var i = 1; i < arr.length; i += 3) { arr[i] += dt * 0.06; if (arr[i] > 3.2) arr[i] = 0.1; }
+        pous.geometry.attributes.position.needsUpdate = true;
+        renderer.render(sc, cam);
+      }
+      start();
+    }
+    function start() { if (!running && !doc.hidden) { running = true; requestAnimationFrame(frame); } }
+    doc.addEventListener('visibilitychange', function () { last = performance.now(); start(); });
+    renderer.compile(sc, cam);
+    start();
+  }
+})();
+</script>
+<script src="/config.js"></script>
+<script src="/oeuvres/shell.js?v=19"></script>
+<script src="/oeuvres/shell-social.js"></script>
+<script>installShell({ workTitle: 'Karl Marx', tabs: [] });</script>
+</body>
+</html>

@@ -100,6 +100,10 @@
          que la classe. Mission `atelier-a11y-2`. */
       '<nav class="sidebar" id="sidebar" aria-label="Navigation du site">' +
         '<a class="sb-item" href="/" data-act="home"><span class="sb-dot" style="background:var(--gold)"></span>Accueil</a>' +
+        /* « Karl Marx » — la page-pilier sur l'homme (mission karl-marx) :
+           qui il était, ce qu'il a pensé, ce qu'il a écrit, par où le lire.
+           Juste sous l'accueil : c'est la première question qu'on pose. */
+        '<a class="sb-item" href="/karl-marx" data-act="marx"><span class="sb-dot" style="background:var(--red)"></span>Karl Marx</a>' +
         '<a class="sb-item" href="/oeuvres/bibliotheque" data-act="biblio"><span class="sb-dot" style="background:var(--ink-soft)"></span>Bibliothèque</a>' +
                 /* Le glossaire suit la Bibliothèque : ce sont les deux outils du
            CORPUS, l'un qui dit quelles œuvres existent, l'autre les mots
@@ -282,6 +286,8 @@
     /* La page-carrefour ET les commentaires guidés, qui en dépendent. */
     var agBtn = sb.querySelector('[data-act="agregation"]');
     if(/^\/agregation-2027$/.test(here) || /^\/commentaires\//.test(here)) mark(agBtn);
+    var marxBtn = sb.querySelector('[data-act="marx"]');
+    if(/^\/karl-marx$/.test(here)) mark(marxBtn);
     var aproposBtn = sb.querySelector('[data-act="apropos"]');
     if(/^\/a-propos$/.test(here)) mark(aproposBtn);
     var cguBtn = sb.querySelector('[data-act="cgu"]');
@@ -969,7 +975,8 @@
         var re = motif(nq);
         Promise.all([chercheCapital(q, nq, re), chercheManuscrits(q, nq, re), chercheEssais(q, nq, re), chercheManifeste(q, nq, re), chercheRessources(q, nq, re),
           chercheSousPages('contribution-critique-economie-politique', q, nq, re),
-          chercheSousPages('salaire-prix-profit', q, nq, re)])
+          chercheSousPages('salaire-prix-profit', q, nq, re),
+          chercheSousPages('dix-huit-brumaire', q, nq, re)])
           .then(function(r){
             if(renderSeq !== seq) return;
             /* ON ENTRELACE LES ŒUVRES. Mises bout à bout, les sections du
@@ -977,8 +984,8 @@
                les Manuscrits n'apparaissaient jamais : « aliénation » rendait
                quatre passages du Capital et pas un des cahiers de 1844, où le
                mot est le sujet. Le tour passe d'une œuvre à l'autre — les
-               CINQ, depuis que Salaires, prix, profits y entre. */
-            var src = [r[0], r[1], r[3], r[5], r[6]], texte = [], i = 0;
+               SIX, depuis que le XVIII brumaire y entre. */
+            var src = [r[0], r[1], r[3], r[5], r[6], r[7]], texte = [], i = 0;
             while(texte.length < TXT_MAX && src.some(function(s){ return i < s.length; })){
               src.forEach(function(s){ if(i < s.length && texte.length < TXT_MAX) texte.push(s[i]); });
               i++;
