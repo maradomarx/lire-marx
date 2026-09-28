@@ -117,7 +117,7 @@
            atteignable que par le pied de page. Elle suit les deux outils du
            corpus parce qu'elle en est un usage : lire l'œuvre pour l'épreuve. */
         '<a class="sb-item" href="/agregation-2027" data-act="agregation"><span class="sb-dot" style="background:var(--red)"></span>Agrégation 2027</a>' +
-'<a class="sb-item" href="/oeuvres/place-publique" data-act="commune"><span class="sb-dot" style="background:var(--red)"></span>Forum</a>' +
+'<a class="sb-item" href="/oeuvres/forum" data-act="forum"><span class="sb-dot" style="background:var(--red)"></span>Forum</a>' +
         /* le carnet est le pendant PRIVÉ du forum : là-bas
            les notes partagées, ici les vôtres — d'où sa place juste en
            dessous. */
@@ -267,8 +267,8 @@
     if(here === '/' || here === '/index') mark(home);
     if(/\/bibliotheque$/.test(here)) mark(bib);
     // Forum : marquer l'entrée quand on est sur sa page dédiée.
-    var communeBtn = sb.querySelector('[data-act="commune"]');
-    if(/\/place-publique$/.test(here)) mark(communeBtn);
+    var forumBtn = sb.querySelector('[data-act="forum"]');
+    if(/\/forum$/.test(here)) mark(forumBtn);
     var carnetBtn = sb.querySelector('[data-act="carnet"]');
     if(/\/carnet$/.test(here)) mark(carnetBtn);
     var msgBtnSb = sb.querySelector('[data-act="messages"]');
@@ -2479,7 +2479,7 @@
    Flux agrégé des notes publiques (`public_notes`), monté dans
    n'importe quel conteneur DOM via SHELL.commune.mount(el, opts).
    Deux surfaces :
-   - page dédiée oeuvres/place-publique.html (mount sans limite) ;
+   - page dédiée oeuvres/forum.html (mount sans limite) ;
    - aperçu colonne droite de la bibliothèque (mount avec
      {limit:6, compact:true} → ajoute un lien « Voir toutes les
      notes → » qui mène à la page dédiée).
@@ -2649,7 +2649,7 @@
   // opts.limit   : nombre max de cartes affichées (sinon : tout ce qui
   //                est revenu de fetchData, jusqu'à 200) ;
   // opts.compact : ajoute un lien « Voir toutes les notes → » vers
-  //                place-publique.html si fetchData a renvoyé plus de
+  //                forum.html si fetchData a renvoyé plus de
   //                cartes que la limite.
   async function mount(container, opts){
     if(!container) return;
@@ -2678,7 +2678,7 @@
     var tops = opts.limit ? data.tops.slice(0, opts.limit) : data.tops;
     var html = tops.map(function(n){ return cardHtml(n, data.counts, biblio); }).join('');
     if(opts.compact && data.tops.length > tops.length){
-      html += '<a class="cm-all" href="/oeuvres/place-publique">Voir toutes les notes →</a>';
+      html += '<a class="cm-all" href="/oeuvres/forum">Voir toutes les notes →</a>';
     }
     container.innerHTML = html;
     wireCards(container);

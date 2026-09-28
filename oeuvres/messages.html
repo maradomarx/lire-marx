@@ -353,7 +353,7 @@
         <p class="lm-foot-h">Le site</p>
         <ul>
         <li><a href="/">Accueil</a></li>
-        <li><a href="/oeuvres/place-publique">Forum</a></li>
+        <li><a href="/oeuvres/forum">Forum</a></li>
         <li><a href="/a-propos">À propos</a></li>
         <li><a href="/mentions-legales">CGU &amp; confidentialité</a></li>
         </ul>
@@ -364,7 +364,7 @@
 <!-- PIED:FIN -->
 
 <script src="../config.js"></script>
-<script src="shell.js?v=20"></script>
+<script src="shell.js?v=21"></script>
 <script src="shell-social.js"></script>
 <script>
 installShell({
@@ -577,7 +577,7 @@ installShell({
     convSub.textContent = 'Conversation privée';
     /* le profil vit sur le forum (contrat #u=<id>, mission
        `profil-membre`) — cette page ne fait que pointer vers lui */
-    if(profileLink) profileLink.href = '/oeuvres/place-publique#u=' + encodeURIComponent(cur.id);
+    if(profileLink) profileLink.href = '/oeuvres/forum#u=' + encodeURIComponent(cur.id);
   }
 
   // ── rendu global ─────────────────────────────────────────────────────

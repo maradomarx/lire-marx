@@ -48,13 +48,13 @@ L'accueil du site est `oeuvres/index.html` (la bibliothèque), pilotée par
 - `oeuvres/bibliotheque.html` — la page dédiée du corpus (cible du clic
   sidebar « Bibliothèque »). Voir « La page Bibliothèque » plus bas.
 
-- `oeuvres/place-publique.html` — LE FORUM des lecteurs (clic sidebar
+- `oeuvres/forum.html` (jadis `place-publique.html`) — LE FORUM des lecteurs (clic sidebar
   « Place publique » sur toutes les pages) : discussions, réponses en
   fil, soutiens — voir « La page Place publique » plus bas. L'aperçu
   des 6 dernières notes est aussi monté dans la colonne droite de
   `oeuvres/index.html` (`SHELL.commune.mount(#placeCommuneFlux,
   {limit:6, compact:true})`) — avec un lien « Voir toutes les notes → »
-  qui pointe vers `place-publique.html`.
+  qui pointe vers `/oeuvres/forum`.
 
 ## Direction artistique — bascule « sombre-chaude » (août 2026)
 
@@ -3352,10 +3352,16 @@ tout fil) sont documentés dans l'historique git de la version précédente.
 Demande du propriétaire : partout où le lecteur le lit (sidebar, pied de page,
 titre et `<h1>` de la page, accueil, messagerie, compte, mentions légales,
 recherche), le libellé est **« Forum »** (« le forum », « du forum », « sur le
-forum » dans les phrases). **L'URL reste `/oeuvres/place-publique`**, et les
-noms internes aussi (`data-act="commune"`, `SHELL.commune`, classes `.pf-*`) :
-changer l'adresse demanderait une 301, et rien ne l'exige. Les sections
-historiques ci-dessous gardent l'ancien nom. `shell.js?v=20`.
+forum » dans les phrases) — **et l'adresse aussi** : la page est
+`oeuvres/forum.html`, servie à **`/oeuvres/forum`**, entrée de sidebar
+`data-act="forum"`. `_redirects` porte deux 301 depuis
+`/oeuvres/place-publique` (et sa forme `.html`) : les liens déjà publiés et
+leurs `#d=` / `#u=` (le navigateur garde le fragment à travers la
+redirection) mènent au forum. Seuls restent les noms de code que personne ne
+voit (`SHELL.commune`, classes `.pf-*` / `.cm-*`). Les sections historiques
+de ce fichier gardent l'ancien nom et l'ancienne adresse. `shell.js?v=21`.
+⏳ Après déploiement : vérifier les deux 301 sur liremarx.com et demander
+l'indexation de `/oeuvres/forum` dans Search Console.
 
 ## La page Place publique — LE FORUM (refonte août 2026, 3e passe, mission `place-forum`)
 
