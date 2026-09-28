@@ -1722,6 +1722,12 @@ html.no-motion .km-scene{display:none;}
     var courbe = new T.CurvePath();
     for (var ni = 1; ni < nodes.length; ni++) courbe.add(new T.LineCurve3(nodes[ni - 1], nodes[ni]));
     var N = 720, pts = courbe.getSpacedPoints(N);
+    /* la longueur cumulée à chaque ville : le tube est échantillonné à
+       LONGUEUR D'ARC égale, un index de ville ne s'y reporte pas
+       directement (vécu : la lumière s'arrêtait avant Bruxelles) */
+    var cum = [0]; for (var ci = 1; ci < nodes.length; ci++) cum.push(cum[ci - 1] + nodes[ci].distanceTo(nodes[ci - 1]));
+    var LTOT = cum[cum.length - 1];
+    function arcOf(tn) { var i = Math.min(nodes.length - 2, Math.floor(tn)), f = tn - i; return (cum[i] + (cum[i + 1] - cum[i]) * f) / LTOT; }
     /* un TUBE et non une Line : une Line fait un pixel quoi qu'il arrive,
        et la route lumineuse disparaissait sous le pointillé rouge du dessin */
     var SEG = 400, routeGeo = new T.TubeGeometry(courbe, SEG, 0.008, 6, false);
@@ -1773,9 +1779,9 @@ html.no-motion .km-scene{display:none;}
       var tn;
       if (g <= 0) tn = 4;
       else { var i = Math.min(ids.length - 1, Math.floor(g)), f = g - i; var n1 = STATION_NODE[ids[i]], n2 = i + 1 < ids.length ? STATION_NODE[ids[i + 1]] : n1; tn = n1 + (n2 - n1) * ease(cl01((f - 0.5) / 0.5)); }
-      var count = Math.round(tn / (nodes.length - 1) * N) + 1;
-      routeGeo.setDrawRange(0, Math.max(1, Math.round(tn / (nodes.length - 1) * SEG)) * IDX_PER_SEG);
-      var head = pts[Math.min(N, count - 1)];
+      var u = arcOf(tn);
+      routeGeo.setDrawRange(0, Math.max(1, Math.round(u * SEG)) * IDX_PER_SEG);
+      var head = pts[Math.min(N, Math.round(u * N))];
       comete.position.copy(head); comete.position.y += 0.03;
       var moving = tn > 4 && tn < nodes.length - 1 && Math.abs(tn - Math.round(tn)) > 0.02;
       comete.material.opacity += ((moving ? .9 : 0) - comete.material.opacity) * .15;
