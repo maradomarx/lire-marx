@@ -144,17 +144,25 @@ main.wrap{position:relative;z-index:1;}
 .hv-note p.hv-n-p a:hover{border-bottom-color:var(--gold);}
 .hv-n-src{font-family:var(--f-ui);font-size:.74rem;color:var(--const);margin:0;letter-spacing:.02em;}
 .hv-n-src a{color:var(--gold);text-decoration:none;}
-.hv-face{position:relative;justify-self:center;width:min(100%,62vh,540px);aspect-ratio:1;
+.hv-face{position:relative;justify-self:center;width:min(100%,56vh,500px);aspect-ratio:1;margin-top:6vh;
   border-radius:18px;overflow:hidden;background:#0e0a07;
   box-shadow:0 50px 90px -40px rgba(0,0,0,.95),0 0 0 1px rgba(216,173,76,.10);}
 .hv-face img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;
   filter:grayscale(1) contrast(1.06) sepia(.28) brightness(.82);}
 .hv-face img:first-child{opacity:1;}
 .hv-face::after{content:"";position:absolute;inset:0;background:var(--grain);opacity:.16;mix-blend-mode:overlay;pointer-events:none;}
-.hv-year{position:absolute;right:clamp(24px,5vw,80px);top:50%;transform:translateY(-50%);z-index:0;
-  font-family:'Fraunces',serif;font-weight:900;font-size:clamp(6rem,22vw,20rem);line-height:1;
-  letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1px rgba(216,173,76,.22);
-  pointer-events:none;user-select:none;}
+/* LE COMPTEUR D'ANNÉES : il défile en continu avec le scroll (1836 → 1875)
+   et RALENTIT JUSQU'À S'ARRÊTER sur l'année de chaque photographie — c'est
+   le même rythme qui tient les portraits et les notices immobiles pendant
+   l'arrêt. Visible, en haut à droite, au-dessus du visage. */
+.hv-year{position:absolute;right:clamp(24px,5vw,80px);top:calc(2vh + 8px);z-index:3;margin:0;
+  font-family:'Fraunces',serif;font-weight:900;font-size:clamp(4.6rem,9.5vw,8.6rem);line-height:1;
+  letter-spacing:-.04em;color:var(--gold);font-variant-numeric:tabular-nums;
+  text-shadow:0 2px 24px rgba(216,173,76,.18);pointer-events:none;user-select:none;
+  transition:opacity .3s;}
+.hv-year small{display:block;font-family:var(--f-ui);font-weight:600;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--const);margin-top:6px;text-align:right;}
+.hv-year.is-still small{color:var(--gold);}
 .hv-cartel{position:absolute;left:0;right:0;bottom:0;padding:16px 18px;z-index:1;
   background:linear-gradient(180deg,rgba(14,10,7,0),rgba(14,10,7,.92));
   font-size:.72rem;letter-spacing:.04em;color:var(--ink-soft);line-height:1.45;}
@@ -618,7 +626,7 @@ html.no-motion .km-scene{display:none;}
   <!-- ══ LE HÉROS — le visage qui vieillit ══ -->
   <section class="hv" id="haut" aria-labelledby="km-h1">
     <div class="hv-stage">
-      <p class="hv-year" aria-hidden="true" id="hvYear">1836</p>
+      <p class="hv-year" aria-hidden="true"><span id="hvYear">1836</span><small id="hvYearAge">18 ans</small></p>
       <div class="hv-txt" id="hvNotes">
        <div class="hv-note is-on">
         <p class="hv-eyebrow">1818 – 1883 · de Trèves à Londres</p>
@@ -633,25 +641,25 @@ html.no-motion .km-scene{display:none;}
         </p>
        </div>
        <div class="hv-note">
-        <p class="hv-n-y"><b>1861</b>43 ans · Londres</p>
+        <p class="hv-n-y">43 ans · Londres</p>
         <h2>La première photographie, <em>douze ans après l'arrivée</em></h2>
         <p class="hv-n-p">Prise en mai chez Richard Beard, c'est la plus ancienne photographie que l'on ait de lui. La misère de Dean Street est passée ; il vit des articles du <i>New York Daily Tribune</i> et travaille chaque jour au British Museum. La <b>Contribution</b> a paru en 1859 ; les cahiers qui deviendront <b>Le Capital</b> s'accumulent.</p>
         <p class="hv-n-src">Richard Beard, Londres, mai 1861 · IISG, Amsterdam · domaine public</p>
        </div>
        <div class="hv-note">
-        <p class="hv-n-y"><b>1866</b>47 ans · Margate</p>
+        <p class="hv-n-y">47 ans · Margate</p>
         <h2>Malade, il achève <em>le Livre premier</em></h2>
         <p class="hv-n-p">Criblé de furoncles, épuisé par le manuscrit, il est envoyé en cure à Margate en mars ; c'est là qu'il pose debout, la main sur un fauteuil. Depuis 1864 il siège au Conseil général de l'<b>Internationale</b>, devant lequel il vient d'exposer <a href="/oeuvres/salaire-prix-profit"><i>Salaires, prix, profits</i></a>. Le Livre premier sera chez l'éditeur l'année suivante.</p>
         <p class="hv-n-src">The London Photographic Company, Margate, mars 1866 · domaine public</p>
        </div>
        <div class="hv-note">
-        <p class="hv-n-y"><b>1869</b>51 ans · Londres</p>
+        <p class="hv-n-y">51 ans · Londres</p>
         <h2><em>Le Capital</em> a paru, presque sans écho</h2>
         <p class="hv-n-p">Mille exemplaires en 1867, chez Otto Meissner à Hambourg, et un silence que Marx et Engels s'emploient à rompre par des comptes rendus anonymes. Derrière lui, sa fille aînée <b>Jenny</b>, qui épousera Charles Longuet en 1872. Engels, retiré des affaires cette année-là, s'installe à Londres en 1870 et lui assure enfin une rente.</p>
         <p class="hv-n-src">Avec sa fille Jenny, 1869 · domaine public</p>
        </div>
        <div class="hv-note">
-        <p class="hv-n-y"><b>1875</b>57 ans · Londres</p>
+        <p class="hv-n-y">57 ans · Londres</p>
         <h2>Le portrait que tout le monde connaît</h2>
         <p class="hv-n-p">Chez Mayall, Regent Street. Il relit alors la <b>traduction française</b> de Joseph Roy, parue en livraisons depuis 1872 — celle que ce site sert —, et rédige au printemps la <i>Critique du programme de Gotha</i>. Les cures se succèdent, à Carlsbad ; les Livres II et III resteront des cahiers qu'Engels établira après sa mort.</p>
         <p class="hv-n-src">John Jarvis Mayall, Londres, 1875 · Wien Museum · domaine public</p>
@@ -1286,16 +1294,34 @@ html.no-motion .km-scene{display:none;}
     for (var i = 0; i < imgs.length; i++) setv(imgs[i], 'opacity', cl01(1 - Math.abs(t - i)));
     return Math.round(t);
   }
+  var AGES = ['18 ans', '43 ans', '47 ans', '51 ans', '57 ans'];
+  var hvAge = doc.getElementById('hvYearAge'), hvYearBox = hvYear ? hvYear.parentElement : null;
+  /* LE RYTHME À ARRÊTS. Sur chaque segment entre deux photographies, la
+     première et la dernière tranche (HOLD) sont immobiles : le compteur
+     tient l'année de la photo, le portrait et la notice sont posés. Entre
+     les deux, tout roule ensemble — les années défilent une à une. */
+  var HOLD = 0.30;
+  function rythme(p) {
+    var segs = frames.length - 1, x = p * segs, i = Math.min(segs - 1, Math.floor(x)), f = x - i;
+    var m = ease(cl01((f - HOLD) / (1 - 2 * HOLD)));
+    if (p >= 1) { i = segs - 1; m = 1; }
+    return { i: i, m: m, t: i + m, still: (f < HOLD || f > 1 - HOLD) ? 1 : 0 };
+  }
   if (hero && frames.length && MOTION && WIDE.matches) sub(function (y, vh) {
     if (!hero.classList.contains('lit')) return true;
     var r = hero.getBoundingClientRect(), stageH = vh - topH();
     var p = cl01((-r.top) / (r.height - stageH));
-    var k = seqOpacity(frames, p * (frames.length - 1));
-    if (hvYear && hvYear.textContent !== years[k]) hvYear.textContent = years[k];
+    var R = rythme(p), t = R.t;
+    var k = seqOpacity(frames, t);
+    /* le compteur : l'année interpolée, arrondie — elle défile une à une */
+    var y0 = +years[R.i], y1 = +years[R.i + 1];
+    var yr = String(Math.round(y0 + (y1 - y0) * R.m));
+    if (hvYear && hvYear.textContent !== yr) hvYear.textContent = yr;
+    if (hvAge && hvAge.textContent !== AGES[k]) hvAge.textContent = AGES[k];
+    if (hvYearBox) hvYearBox.classList.toggle('is-still', !!R.still);
     cartelAge.forEach(function (s, i) { s.classList.toggle('on', i === k); });
     cartelSrc.forEach(function (s, i) { s.classList.toggle('on', i === k); });
-    if (rule) setv(rule, '--p', p);
-    var t = p * (frames.length - 1);
+    if (rule) setv(rule, '--p', (+yr - 1818) / (1883 - 1818));
     notes.forEach(function (n, i) { setv(n, '--k', cl01(1 - Math.abs(t - i) * 1.6)); n.classList.toggle('is-on', i === k); });
     setv(hero, '--fade', ease(cl01(t * 1.6)));
     return true;
@@ -1304,6 +1330,7 @@ html.no-motion .km-scene{display:none;}
   if (hero && frames.length && (!MOTION || !WIDE.matches)) {
     seqOpacity(frames, frames.length - 1);
     if (hvYear) hvYear.textContent = years[4];
+    if (hvAge) hvAge.textContent = AGES[4];
     cartelAge.forEach(function (s, i) { s.classList.toggle('on', i === 4); });
     cartelSrc.forEach(function (s, i) { s.classList.toggle('on', i === 4); });
     if (rule) setv(rule, '--p', 1);
