@@ -12,9 +12,9 @@
 <meta name="apple-mobile-web-app-title" content="Lire Marx">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Karl Marx en une page : sa vie de Trèves à Londres, ses idées principales expliquées, ses livres dans l'ordre, et par où commencer pour le lire en texte intégral.">
+<meta name="description" content="Karl Marx en une page : sa vie de Trèves à Londres en huit tableaux d'archives, ses idées principales expliquées, ses livres dans l'ordre, et par où commencer pour le lire en texte intégral.">
 <meta property="og:title" content="Karl Marx (1818-1883) : sa vie, ses idées, ses livres, par où le lire">
-<meta property="og:description" content="Une vie en exil, six idées, l'œuvre dans l'ordre, et les portes d'entrée pour lire Marx en texte intégral.">
+<meta property="og:description" content="Une vie en exil en huit tableaux, six idées, l'œuvre dans l'ordre, et les portes d'entrée pour lire Marx en texte intégral.">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Lire Marx">
 <meta property="og:url" content="https://liremarx.com/karl-marx">
@@ -25,13 +25,13 @@
      projet — une page-fichier se désigne sans extension, une page-index de
      dossier avec son slash). -->
 <link rel="canonical" href="https://liremarx.com/karl-marx">
-<link rel="preload" as="image" href="/assets/img/archive/marx-portrait.webp" fetchpriority="high">
+<link rel="preload" as="image" href="/assets/img/marx/face-1836.webp" fetchpriority="high">
 <link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2"></noscript>
 <link rel="stylesheet" href="/oeuvres/shell.css?v=12">
 <script>
 /* Décision de tête, AVANT le premier rendu : `no-motion` coupe toute
-   animation. Seul reduced-motion décide — la largeur ne coupe plus rien
+   animation. Seul reduced-motion décide — la largeur ne coupe rien
    (mission vivant-sur-mobile). Lue à la media query, jamais à innerWidth. */
 (function(){
   if (matchMedia('(prefers-reduced-motion:reduce)').matches) document.documentElement.classList.add('no-motion');
@@ -43,13 +43,18 @@
    /karl-marx — LA PAGE-PILIER : qui il était, ce qu'il a pensé, ce
    qu'il a écrit, par où le lire.
    -------------------------------------------------------------------
-   Page « de site » (pas d'atelier.css), tokens du shell redéclarés avec le
-   jeu corrigé. La figure propre de la page est LA CARTE DE L'EXIL : une
-   vie de Marx est une suite d'expulsions (Paris 1845, Bruxelles 1848,
-   Cologne 1849), et la scène en fond — une carte à la bougie, en trois
-   dimensions — trace cette route à mesure qu'on lit sa vie. Sous
-   1100 px elle devient une bande collante au-dessus du récit ; sous
-   reduced-motion elle n'existe pas et le récit se suffit.
+   Page « de site » (pas d'atelier.css), tokens du shell redéclarés.
+
+   LA FORME : DES TABLEAUX. Une vie de Marx se raconte par ses archives —
+   le dessin de 1836, les plaques de Richard Beard en 1861, les pages du
+   Manifeste, le numéro rouge de la Neue Rheinische Zeitung, la carte de
+   Mayall en 1875. Chaque étape est donc une SCÈNE PLEIN ÉCRAN ÉPINGLÉE
+   (`.tb-stage`, sticky) que l'image occupe, et le texte passe DEVANT à
+   mesure qu'on descend ; l'image se développe comme un tirage, l'année
+   glisse, le texte s'encre. Le héros est le même geste sur le visage :
+   cinq portraits authentiques de 1836 à 1875, alignés sur les yeux, que le
+   défilement fait vieillir. Tout est piloté par la POSITION, donc
+   réversible ; sous reduced-motion, tout est posé.
    ═══════════════════════════════════════════════════════════════════ */
 :root{
   --bg:#15100b;--surface:#1e1710;--text:#f3e9d4;
@@ -64,6 +69,7 @@
   --candle:rgba(216,173,76,.18);
   --emphase:linear-gradient(150deg,#2c2117,#211a12,#1b150e);
   --km-top:44px;
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.95 0 0 0 0 0.9 0 0 0 0 0.8 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 *{box-sizing:border-box;}
 html{scroll-behavior:auto;}
@@ -71,30 +77,7 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:var(--f-ui);ove
 ::selection{background:rgba(216,173,76,.32);color:var(--text);}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:3px;}
 main.wrap{position:relative;z-index:1;}
-/* Le pied de page est un FRÈRE de main : le contexte d'empilement de main
-   (z-index 1) passerait devant lui, scène comprise — vécu, la route se
-   voyait à travers ses colonnes. Il prend son propre rang. */
 .lm-foot{position:relative;z-index:2;}
-
-/* ── La scène : fixe, plein écran, DERRIÈRE tout. Le contenu passe
-      devant sur ses propres surfaces translucides : c'est le fond qui vit.
-      z-index NÉGATIF, et c'est nécessaire : la scène vit dans #vie, donc
-      APRÈS le héros dans le document — à z-index 0 elle se peignait
-      par-dessus lui (vécu : le titre et le portrait invisibles). Dans le
-      contexte d'empilement de main.wrap, -1 la met sous tout le contenu
-      et au-dessus du fond de page. */
-.km-scene{position:fixed;inset:0;z-index:-1;pointer-events:none;
-  opacity:var(--km-dim,1);transition:opacity .6s ease;}
-.km-scene canvas{display:block;width:100%;height:100%;}
-.km-lbl{position:absolute;left:0;top:0;transform:translate(-50%,-100%);
-  font-family:'Fraunces',serif;font-weight:500;font-style:italic;font-size:.92rem;
-  color:var(--const);letter-spacing:.01em;white-space:nowrap;opacity:0;
-  text-shadow:0 1px 3px rgba(0,0,0,.9);transition:color .5s,opacity .5s;pointer-events:none;}
-.km-lbl.is-lit{opacity:1;color:var(--ink-soft);}
-.km-lbl.is-on{color:var(--gold);}
-.km-lbl small{display:block;font-family:var(--f-ui);font-style:normal;font-weight:500;
-  font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--const);margin-top:1px;}
-html.no-motion .km-scene{display:none;}
 
 /* ── Grammaire commune (valeurs de l'accueil) */
 .km{max-width:1180px;margin:0 auto;}
@@ -117,60 +100,77 @@ html.no-motion .km-scene{display:none;}
 .km-btn.pri:hover{transform:translateY(-1px);background:#fff8e8;}
 .km-btn.out{border:1px solid var(--line-strong);color:var(--text);}
 .km-btn.out:hover{border-color:var(--gold);color:var(--gold);}
-/* Le voile : la surface sur laquelle le texte passe devant la carte.
-   Opaque à gauche, il s'éteint vers la droite pour laisser la scène. */
-/* Les arrêts sont en px DEPUIS LE BORD DE LA SECTION (donc après la
-   sidebar) : la colonne finit à 640 px, le voile tient jusque-là et
-   s'éteint sur 200 px. */
-.km-voile{background:linear-gradient(90deg,rgba(21,16,11,.97) 0,rgba(21,16,11,.95) 660px,rgba(21,16,11,.5) 760px,rgba(21,16,11,0) 860px);}
-.km-fond{background:rgba(21,16,11,.90);border-top:1px solid var(--line-soft);}
-
-/* ── LE HÉROS */
-.km-hero{min-height:calc(100vh - var(--km-top));display:grid;grid-template-columns:1.05fr .95fr;
-  gap:clamp(28px,5vw,72px);align-items:center;padding-top:clamp(40px,7vh,80px);padding-bottom:clamp(40px,7vh,80px);}
-.km-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.72rem;font-weight:600;
-  letter-spacing:.11em;text-transform:uppercase;color:var(--gold);margin:0 0 22px;}
-.km-eyebrow::before{content:"";width:22px;height:1px;background:var(--gold);}
-.km-hero h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(3.3rem,8.4vw,7.2rem);
-  line-height:.94;letter-spacing:-.04em;color:var(--text);margin:0 0 26px;}
-.km-hero h1 .rw{display:inline-block;}
-.km-hero h1 em{font-style:italic;font-weight:500;color:var(--accent);display:block;
-  font-size:.42em;letter-spacing:-.02em;line-height:1.1;margin-top:14px;}
-.km-hero-lede{font-family:var(--f-serif);font-size:clamp(1.05rem,1.5vw,1.22rem);line-height:1.62;
-  color:var(--muted);max-width:52ch;margin:0 0 32px;}
-.km-hero-lede b{color:var(--ink);font-weight:600;}
 .km-cta{display:flex;flex-wrap:wrap;gap:12px;margin:0;}
-.km-portrait{position:relative;justify-self:end;width:min(100%,400px);aspect-ratio:4/5;margin:0;
-  border-radius:18px;overflow:hidden;border:1px solid var(--border);background:var(--surface);
-  box-shadow:0 40px 80px -40px rgba(0,0,0,.9),0 0 0 1px rgba(216,173,76,.08);}
-.km-portrait img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 12%;
-  filter:grayscale(1) contrast(1.08) sepia(.32) brightness(.74);}
-.km-portrait::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(213,64,47,.10),rgba(21,16,11,0) 40%,rgba(21,16,11,.72) 100%);mix-blend-mode:multiply;}
-.km-portrait figcaption{position:absolute;left:0;right:0;bottom:0;padding:14px 16px;z-index:1;
-  font-size:.7rem;letter-spacing:.04em;color:var(--ink-soft);line-height:1.45;}
-.km-portrait figcaption b{display:block;font-weight:600;color:var(--text);letter-spacing:.06em;text-transform:uppercase;font-size:.72rem;margin-bottom:2px;}
-/* L'invite à descendre — celle de l'accueil. */
-.km-hint{position:absolute;left:clamp(24px,5vw,80px);bottom:22px;display:flex;align-items:center;gap:12px;
+.km-fond{background:var(--bg);border-top:1px solid var(--line-soft);}
+/* les sections de lecture arrivent en glissant, comme les cartes de la
+   référence : posé par défaut (--up:0), levé tant que le scroll n'y est pas */
+.km-fond>.km{--up:0;transform:translateY(calc(var(--up) * 28px));opacity:calc(1 - var(--up) * .6);}
+
+/* ══ LE HÉROS — le visage qui vieillit ═══════════════════════════════
+   320vh de course ; la scène est collante et pleine hauteur. Cinq
+   portraits fondus par la POSITION de défilement (jamais par le temps) :
+   à l'arrivée le dessin de 1836, en bas de course Mayall 1875. */
+.hv{position:relative;height:320vh;}
+.hv-stage{position:sticky;top:var(--km-top);height:calc(100vh - var(--km-top));overflow:hidden;
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;
+  gap:clamp(24px,4vw,60px);padding:0 clamp(24px,5vw,80px);}
+.hv-txt{position:relative;z-index:2;max-width:560px;}
+.hv-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.72rem;font-weight:600;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--gold);margin:0 0 22px;}
+.hv-eyebrow::before{content:"";width:22px;height:1px;background:var(--gold);}
+.hv h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(3.2rem,7.6vw,6.6rem);
+  line-height:.94;letter-spacing:-.04em;color:var(--text);margin:0 0 24px;}
+.hv h1 .rw{display:inline-block;}
+.hv h1 em{font-style:italic;font-weight:500;color:var(--accent);display:block;
+  font-size:.42em;letter-spacing:-.02em;line-height:1.1;margin-top:14px;}
+.hv-lede{font-family:var(--f-serif);font-size:clamp(1.02rem,1.4vw,1.18rem);line-height:1.62;
+  color:var(--muted);max-width:50ch;margin:0 0 30px;}
+.hv-lede b{color:var(--ink);font-weight:600;}
+/* le texte s'efface pendant que le visage vieillit, puis le cartel prend sa place */
+.hv-txt>*{opacity:calc(1 - var(--fade,0));transform:translateY(calc(var(--fade,0) * -14px));}
+.hv-face{position:relative;justify-self:center;width:min(100%,62vh,540px);aspect-ratio:1;
+  border-radius:18px;overflow:hidden;background:#0e0a07;
+  box-shadow:0 50px 90px -40px rgba(0,0,0,.95),0 0 0 1px rgba(216,173,76,.10);}
+.hv-face img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;
+  filter:grayscale(1) contrast(1.06) sepia(.28) brightness(.82);}
+.hv-face img:first-child{opacity:1;}
+.hv-face::after{content:"";position:absolute;inset:0;background:var(--grain);opacity:.16;mix-blend-mode:overlay;pointer-events:none;}
+.hv-year{position:absolute;right:clamp(24px,5vw,80px);top:50%;transform:translateY(-50%);z-index:0;
+  font-family:'Fraunces',serif;font-weight:900;font-size:clamp(6rem,22vw,20rem);line-height:1;
+  letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1px rgba(216,173,76,.22);
+  pointer-events:none;user-select:none;}
+.hv-cartel{position:absolute;left:0;right:0;bottom:0;padding:16px 18px;z-index:1;
+  background:linear-gradient(180deg,rgba(14,10,7,0),rgba(14,10,7,.92));
+  font-size:.72rem;letter-spacing:.04em;color:var(--ink-soft);line-height:1.45;}
+.hv-cartel b{display:block;font-weight:600;color:var(--text);letter-spacing:.06em;text-transform:uppercase;font-size:.72rem;margin-bottom:2px;}
+.hv-cartel span{display:none;}
+.hv-cartel span.on{display:block;}
+/* la règle des années sous le visage : de 1818 à 1883, la lumière avance */
+.hv-rule{position:absolute;left:clamp(24px,5vw,80px);right:clamp(24px,5vw,80px);bottom:26px;z-index:2;
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;
+  font-family:'Fraunces',serif;font-style:italic;font-size:.95rem;color:var(--const);}
+.hv-rule i{height:1px;background:var(--border);position:relative;}
+.hv-rule i::after{content:"";position:absolute;left:0;top:0;height:1px;width:calc(var(--p,0) * 100%);
+  background:linear-gradient(90deg,rgba(216,173,76,.2),var(--gold));box-shadow:0 0 8px rgba(216,173,76,.4);}
+.hv-hint{position:absolute;left:clamp(24px,5vw,80px);bottom:64px;z-index:2;display:flex;align-items:center;gap:12px;
   font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
-  opacity:var(--hint,1);transition:opacity .3s;}
-.km-hint::before{content:"";width:1px;height:38px;background:linear-gradient(180deg,var(--gold),transparent);}
-@media(max-height:720px){.km-hint{display:none;}}
-/* L'entrée orchestrée du héros : chaque mot du titre se pose, puis la
-   colonne. Animation (et non transition) accrochée à `.lit` seule. */
-html.js:not(.no-motion) .km-hero .rw{opacity:0;transform:translateY(.35em) rotate(-1.2deg);}
-html.js:not(.no-motion) .km-hero.lit .rw{animation:km-word .9s cubic-bezier(.16,1,.3,1) forwards;animation-delay:calc(var(--i,0) * .11s + .12s);}
-html.js:not(.no-motion) .km-hero .km-eyebrow,html.js:not(.no-motion) .km-hero .km-hero-lede,
-html.js:not(.no-motion) .km-hero .km-cta,html.js:not(.no-motion) .km-hero .km-portrait{opacity:0;}
-html.js:not(.no-motion) .km-hero.lit .km-eyebrow{animation:km-rise .8s ease forwards .05s;}
-html.js:not(.no-motion) .km-hero.lit .km-hero-lede{animation:km-rise .9s ease forwards .7s;}
-html.js:not(.no-motion) .km-hero.lit .km-cta{animation:km-rise .9s ease forwards .85s;}
-html.js:not(.no-motion) .km-hero.lit .km-portrait{animation:km-dev 1.6s cubic-bezier(.16,1,.3,1) forwards .35s;}
+  opacity:calc(1 - var(--fade,0));}
+.hv-hint::before{content:"";width:1px;height:38px;background:linear-gradient(180deg,var(--gold),transparent);}
+/* l'entrée orchestrée, une fois : les mots se posent, le visage se développe */
+html.js:not(.no-motion) .hv .rw{opacity:0;transform:translateY(.35em) rotate(-1.2deg);}
+html.js:not(.no-motion) .hv.lit .rw{animation:km-word .9s cubic-bezier(.16,1,.3,1) forwards;animation-delay:calc(var(--i,0) * .11s + .12s);}
+html.js:not(.no-motion) .hv .hv-eyebrow,html.js:not(.no-motion) .hv .hv-lede,html.js:not(.no-motion) .hv .km-cta,
+html.js:not(.no-motion) .hv .hv-face,html.js:not(.no-motion) .hv .hv-rule{opacity:0;}
+html.js:not(.no-motion) .hv.lit .hv-eyebrow{animation:km-rise .8s ease forwards .05s;}
+html.js:not(.no-motion) .hv.lit .hv-lede{animation:km-rise .9s ease forwards .7s;}
+html.js:not(.no-motion) .hv.lit .km-cta{animation:km-rise .9s ease forwards .85s;}
+html.js:not(.no-motion) .hv.lit .hv-rule{animation:km-rise 1s ease forwards 1.1s;}
+html.js:not(.no-motion) .hv.lit .hv-face{animation:km-dev 1.6s cubic-bezier(.16,1,.3,1) forwards .35s;}
 @keyframes km-word{to{opacity:1;transform:none;}}
 @keyframes km-rise{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
 @keyframes km-dev{from{opacity:0;clip-path:inset(0 100% 0 0);}40%{opacity:1;}to{opacity:1;clip-path:inset(0 0 0 0);}}
 
-/* ── LE SOMMAIRE COLLANT (six entrées, une ligne) */
+/* ── LE SOMMAIRE COLLANT */
 .km-nav{position:sticky;top:var(--km-top);z-index:40;background:rgba(21,16,11,.84);
   backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);}
 .km-nav ul{list-style:none;margin:0 auto;padding:0 clamp(24px,5vw,80px);max-width:1180px;
@@ -181,36 +181,97 @@ html.js:not(.no-motion) .km-hero.lit .km-portrait{animation:km-dev 1.6s cubic-be
 .km-nav a:hover{color:var(--text);}
 .km-nav a.on{color:var(--gold);border-bottom-color:var(--gold);}
 
-/* ── SA VIE — la carte de l'exil */
-.km-vie{padding-top:clamp(64px,9vh,110px);}
-.km-vie-col{max-width:560px;margin:0;}   /* à GAUCHE, pas centrée : le voile et la carte comptent dessus */
-.km-etapes{list-style:none;margin:0;padding:0 0 0 34px;position:relative;--draw:1;}
-.km-etapes::before,.km-etapes::after{content:"";position:absolute;left:0;top:10px;width:1px;}
-.km-etapes::before{bottom:10px;background:var(--border);}
-.km-etapes::after{height:calc(var(--draw) * (100% - 20px));
-  background:linear-gradient(180deg,rgba(216,173,76,.12),var(--gold));box-shadow:0 0 9px rgba(216,173,76,.34);}
-.km-etape{position:relative;padding:0 0 clamp(64px,10vh,120px);--lit:1;}
-.km-etape:last-child{padding-bottom:20px;}
-.km-etape::before,.km-etape::after{content:"";position:absolute;left:-38px;top:12px;width:9px;height:9px;border-radius:50%;box-sizing:border-box;}
-.km-etape::before{border:1px solid var(--border);background:var(--bg);}
-.km-etape::after{background:var(--gold);opacity:var(--lit);transform:scale(calc(.3 + var(--lit)*.7));}
-.km-etape-y{display:block;font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:1.02rem;
-  color:var(--gold);letter-spacing:.01em;margin:0 0 6px;}
-.km-etape h3{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(1.4rem,2.4vw,1.85rem);
-  letter-spacing:-.025em;line-height:1.1;margin:0 0 14px;
-  color:color-mix(in srgb,var(--text) calc(var(--lit)*100%),var(--muted));}
-@supports not (color:color-mix(in srgb,red,blue)){.km-etape h3{color:var(--text);}}
-.km-etape p{font-family:var(--f-serif);font-size:1.02rem;line-height:1.74;color:var(--muted);margin:0 0 14px;}
-.km-etape p:last-child{margin-bottom:0;}
-.km-etape p b{color:var(--ink);font-weight:600;}
-.km-etape p a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(216,173,76,.35);}
-.km-etape p a:hover{border-bottom-color:var(--gold);}
-.km-etape blockquote{margin:16px 0 18px;padding:0 0 0 16px;border-left:2px solid var(--accent);
-  font-family:var(--f-serif);font-style:italic;font-size:1.02rem;line-height:1.66;color:var(--ink-soft);}
-.km-etape blockquote a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(243,233,212,.25);}
-.km-etape blockquote a:hover{color:var(--gold);border-bottom-color:var(--gold);}
-.km-etape blockquote cite{display:block;font-family:var(--f-ui);font-style:normal;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--const);margin-top:8px;}
-.km-vie-src{font-family:var(--f-ui);font-size:.74rem;color:var(--const);margin:22px 0 0;max-width:560px;line-height:1.55;}
+/* ══ LES TABLEAUX ═════════════════════════════════════════════════════
+   `.tb` est la section (haute : la scène + le texte qui passe) ;
+   `.tb-stage` la scène collante, pleine hauteur ; `.tb-copy` le texte,
+   qui commence DANS la scène (marge négative) et la traverse. */
+.tb-intro{padding-bottom:clamp(24px,4vh,48px);}
+/* Un tableau doit être PLUS HAUT que sa scène, sinon la course est
+   négative et `--q` s'inverse (vécu : l'exil, au texte court, montrait
+   Londres dès l'entrée). Le texte, en marge négative, ne compte pas pour
+   la hauteur : on impose une hauteur minimale, plus longue pour la carte. */
+.tb{position:relative;--q:0;--rev:1;padding-bottom:clamp(16vh,22vh,240px);min-height:calc((100vh - var(--km-top)) * 1.7);}
+#vie-exil{min-height:calc((100vh - var(--km-top)) * 2.6);}
+.tb-stage{position:sticky;top:var(--km-top);height:calc(100vh - var(--km-top));overflow:hidden;
+  background:#100c08;}
+.tb-stage::after{content:"";position:absolute;inset:0;background:var(--grain);opacity:.10;mix-blend-mode:overlay;pointer-events:none;}
+.tb-fig{position:absolute;margin:0;}
+.tb-fig img{display:block;width:100%;height:100%;object-fit:cover;}
+/* la photographie : cover, dans la moitié droite, développée au scroll */
+.tb-fig--photo{right:0;top:0;bottom:0;width:62%;
+  clip-path:inset(0 0 calc((1 - var(--rev)) * 100%) 0);
+  transform:scale(calc(1.08 - var(--rev) * .08));transform-origin:50% 100%;}
+.tb-fig--photo img{filter:grayscale(1) contrast(1.05) sepia(.26) brightness(.78);}
+.tb-fig--photo::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,#100c08 0,rgba(16,12,8,.55) 18%,rgba(16,12,8,0) 45%),
+             linear-gradient(180deg,rgba(16,12,8,0) 60%,rgba(16,12,8,.75) 100%);}
+/* le document : contenu entier, posé comme une feuille, jamais rogné */
+.tb-fig--doc{right:clamp(24px,6vw,96px);top:46%;transform:translateY(-50%) scale(calc(.94 + var(--rev) * .06));
+  height:min(78%,calc((100vh - var(--km-top)) * .78));width:auto;aspect-ratio:var(--ar,.6);max-width:44%;
+  clip-path:inset(0 0 calc((1 - var(--rev)) * 100%) 0);
+  box-shadow:0 50px 90px -40px rgba(0,0,0,.95),0 0 0 1px rgba(216,173,76,.12);border-radius:3px;
+  background:#e9dcc2;}
+.tb-fig--doc img{object-fit:contain;filter:sepia(.25) contrast(1.02) brightness(.92);}
+/* la seconde figure : une carte qui glisse au bord, à mi-course */
+.tb-fig--b{right:clamp(24px,5vw,72px);bottom:80px;width:clamp(150px,18vw,240px);aspect-ratio:var(--ar,.7);
+  border-radius:10px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(0,0,0,.95),0 0 0 1px rgba(216,173,76,.14);
+  --b:0;opacity:var(--b);transform:translate(calc((1 - var(--b)) * 40px),0) rotate(calc((1 - var(--b)) * 3deg));}
+.tb-fig--b img{filter:grayscale(1) contrast(1.05) sepia(.26) brightness(.84);}
+.tb-fig--b figcaption{position:absolute;left:0;right:0;bottom:0;padding:8px 10px;
+  background:linear-gradient(180deg,rgba(14,10,7,0),rgba(14,10,7,.9));font-size:.72rem;color:var(--ink-soft);line-height:1.4;}
+.tb-cap{position:absolute;right:clamp(24px,5vw,72px);bottom:26px;z-index:3;max-width:min(46%,420px);text-align:right;
+  font-size:.72rem;letter-spacing:.03em;color:var(--ink-soft);line-height:1.45;
+  text-shadow:0 1px 3px rgba(0,0,0,.9);}
+.tb-cap b{display:block;font-weight:600;color:var(--text);letter-spacing:.06em;text-transform:uppercase;font-size:.72rem;margin-bottom:2px;}
+.tb-cap a{color:var(--ink-soft);}
+/* l'année, géante, derrière tout : elle glisse en entrant */
+.tb-year{position:absolute;left:clamp(16px,3vw,48px);bottom:-.08em;z-index:0;margin:0;
+  font-family:'Fraunces',serif;font-weight:900;font-size:clamp(7rem,24vw,22rem);line-height:1;letter-spacing:-.06em;
+  color:transparent;-webkit-text-stroke:1px rgba(216,173,76,.20);pointer-events:none;user-select:none;
+  transform:translateX(calc((1 - var(--rev)) * -12vw));opacity:var(--rev);}
+/* le texte : un feuillet translucide qui traverse la scène */
+.tb-copy{position:relative;z-index:2;max-width:540px;
+  margin:calc(-100vh + var(--km-top) + 16vh) 0 0 clamp(24px,6vw,96px);
+  padding:30px 32px 32px;border-radius:18px;
+  background:rgba(21,16,11,.80);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid var(--border);box-shadow:0 30px 70px -40px rgba(0,0,0,.9);}
+.tb-copy>*{--n:1;opacity:var(--n);transform:translateY(calc((1 - var(--n)) * 10px));}
+.tb-y{display:block;font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:1.02rem;color:var(--gold);letter-spacing:.01em;margin:0 0 6px;}
+.tb-copy h3{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(1.4rem,2.4vw,1.85rem);letter-spacing:-.025em;line-height:1.12;margin:0 0 14px;color:var(--text);}
+.tb-copy p{font-family:var(--f-serif);font-size:1.02rem;line-height:1.72;color:var(--muted);margin:0 0 14px;}
+.tb-copy p:last-child{margin-bottom:0;}
+.tb-copy p b{color:var(--ink);font-weight:600;}
+.tb-copy p a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(216,173,76,.35);}
+.tb-copy p a:hover{border-bottom-color:var(--gold);}
+/* le tableau typographique : la phrase géante s'encre mot à mot */
+.tb-quote{position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-end;padding:0 clamp(24px,5vw,72px) 0 57%;}
+.tb-quote p{margin:0;font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:clamp(1.5rem,3vw,2.7rem);line-height:1.18;letter-spacing:-.02em;color:var(--text);text-wrap:balance;}
+.tb-quote .rw{display:inline-block;--wp:1;color:color-mix(in srgb,var(--text) calc(var(--wp)*100%),rgba(243,233,212,.16));}
+@supports not (color:color-mix(in srgb,red,blue)){.tb-quote .rw{color:var(--text);}}
+.tb-quote cite{display:block;margin-top:18px;font-family:var(--f-ui);font-style:normal;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--const);}
+.tb-quote cite a{color:var(--gold);text-decoration:none;}
+/* la séquence : plusieurs images fondues par la position, cartel qui suit */
+.tb-seq{position:absolute;right:0;top:0;bottom:0;width:62%;}
+.tb-seq img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;
+  filter:grayscale(1) contrast(1.05) sepia(.26) brightness(.78);}
+.tb-seq img:first-child{opacity:1;}
+.tb-seq::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,#100c08 0,rgba(16,12,8,.55) 18%,rgba(16,12,8,0) 45%),
+             linear-gradient(180deg,rgba(16,12,8,0) 60%,rgba(16,12,8,.75) 100%);}
+.tb-cap span{display:none;}
+.tb-cap span.on{display:block;}
+/* la carte de l'exil : la scène 3D remplit la scène du tableau */
+.km-scene{position:absolute;inset:0;}
+.km-scene canvas{display:block;width:100%;height:100%;}
+.km-lbl{position:absolute;left:0;top:0;transform:translate(-50%,-100%);
+  font-family:'Fraunces',serif;font-weight:500;font-style:italic;font-size:.92rem;
+  color:var(--const);letter-spacing:.01em;white-space:nowrap;opacity:0;
+  text-shadow:0 1px 3px rgba(0,0,0,.9);transition:color .5s,opacity .5s;pointer-events:none;}
+.km-lbl.is-lit{opacity:1;color:var(--ink-soft);}
+.km-lbl.is-on{color:var(--gold);}
+.km-lbl small{display:block;font-family:var(--f-ui);font-style:normal;font-weight:500;
+  font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--const);margin-top:1px;}
+.km-vie-src{font-family:var(--f-ui);font-size:.74rem;color:var(--const);margin:0;max-width:640px;line-height:1.55;}
 .km-vie-src a{color:var(--const);}
 .km-vie-src a:hover{color:var(--gold);}
 
@@ -337,42 +398,57 @@ html.js-faq .hs-faq-q{color:var(--muted);}
 .km-fin-line{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(1.7rem,3.4vw,2.5rem);letter-spacing:-.03em;line-height:1.08;margin:0 0 26px;max-width:22ch;color:var(--text);}
 .km-fin-line em{font-style:italic;font-weight:500;color:var(--gold);}
 
-/* ── Sous 1100 px : la carte devient une BANDE COLLANTE dans le récit
-      (le motif des pages-monde), le héros s'empile, tout tient sur une
-      colonne. Sous le texte elle serait hors de vue au moment où elle sert. */
+/* ── Sous 900 px : la scène du tableau devient une bande collante en
+      haut (52 vh), et le texte se lit dessous ; le héros s'empile. */
 @media(max-width:1100px){
-  /* `inset:auto` AVANT `top` : écrit après, il remettait top à auto et la
-     bande ne collait plus (vécu). */
-  .km-scene{position:sticky;inset:auto;top:calc(var(--km-top) + 8px);height:min(42vh,380px);
-    border-radius:16px;overflow:hidden;border:1px solid var(--border);margin:0 0 28px;z-index:1;background:var(--bg);}
-  .km-voile{background:none;}
-  .km-vie-col{max-width:none;}
-  .km-hero{grid-template-columns:1fr;min-height:0;}
-  .km-portrait{justify-self:start;width:min(100%,340px);}
   .km-idees{grid-template-columns:repeat(2,1fr);}
   .km-livres-in{grid-template-columns:1fr;}
   .km-livres-note{position:static;}
   .km-vids{grid-template-columns:1fr 1fr;}
-  .km-hint{display:none;}
+}
+@media(max-width:900px){
+  .hv{height:auto;}
+  .hv-stage{position:relative;top:auto;height:auto;min-height:0;grid-template-columns:1fr;gap:26px;
+    padding:36px clamp(20px,5vw,40px) 90px;}
+  .hv-face{width:min(100%,360px);justify-self:start;}
+  .hv-txt>*{opacity:1;transform:none;}
+  .hv-year{display:none;}
+  .hv-hint{display:none;}
+  .hv-rule{bottom:34px;}
+  .tb{padding-bottom:40px;}
+  .tb-stage{height:min(52vh,460px);border-radius:0 0 16px 16px;}
+  .tb-fig--photo{width:100%;}
+  .tb-fig--photo::before{background:linear-gradient(180deg,rgba(16,12,8,0) 55%,rgba(16,12,8,.7) 100%);}
+  .tb-fig--doc{right:auto;left:50%;transform:translate(-50%,-50%) scale(calc(.94 + var(--rev) * .06));max-width:70%;}
+  .tb-fig--b{width:120px;bottom:52px;}
+  .tb-cap{max-width:70%;right:16px;bottom:12px;}
+  .tb-year{font-size:clamp(5rem,26vw,9rem);left:12px;}
+  .tb-copy{margin:18px clamp(16px,4vw,32px) 0;max-width:none;padding:22px 20px 24px;background:var(--surface);backdrop-filter:none;}
+  .tb-quote{padding:0 20px;align-items:center;justify-content:center;text-align:center;}
+  .tb-seq{width:100%;}
 }
 @media(max-width:680px){
   .km-idees,.km-vids,.km-portes,.km-ecoute{grid-template-columns:1fr;}
-  .km-hero h1{font-size:clamp(3rem,15vw,4.4rem);}
-  .km-etapes,.km-livs{padding-left:26px;}
-  .km-etape::before,.km-etape::after,.km-liv::before,.km-liv::after{left:-30px;}
+  .hv h1{font-size:clamp(3rem,15vw,4.4rem);}
+  .km-livs{padding-left:26px;}
+  .km-liv::before,.km-liv::after{left:-30px;}
   .km-liv{grid-template-columns:52px 1fr;}
   .km-methode{padding:20px;}
 }
-/* Sans mouvement (reduced-motion), tout est à l'état fini : la CSS le
-   garantit par ses défauts (--draw, --lit, --ink à 1, --drop à 0). */
-html.no-motion .km-hero .rw,html.no-motion .km-hero .km-eyebrow,html.no-motion .km-hero .km-hero-lede,
-html.no-motion .km-hero .km-cta,html.no-motion .km-hero .km-portrait{opacity:1;animation:none;transform:none;}
+@media(max-height:600px) and (min-width:901px){.hv-hint{display:none;}}
+/* Sans mouvement (reduced-motion), tout est à l'état fini. */
+html.no-motion .hv .rw,html.no-motion .hv .hv-eyebrow,html.no-motion .hv .hv-lede,
+html.no-motion .hv .km-cta,html.no-motion .hv .hv-face,html.no-motion .hv .hv-rule{opacity:1;animation:none;transform:none;}
+html.no-motion .hv{height:auto;}
+html.no-motion .hv-stage{position:relative;height:auto;min-height:calc(100vh - var(--km-top));}
+html.no-motion .tb-fig--b{--b:1;}
+html.no-motion .hv-face img:last-child{opacity:1;}
+html.no-motion .km-scene{display:none;}
 @media (pointer:coarse){
   .km-nav a{padding:15px 12px;}
   .km-idee-go,.km-ecoute a,.km-vie-src a{display:inline-block;padding:8px 0;margin:-8px 0;}
-  .km-etape p a,.km-p a,.km-lede a,.hs-faq-a a{/* liens dans une phrase : exemptés par WCAG 2.5.8 */}
 }
-@media print{.km-scene,.km-nav,.km-hint,.km-vids{display:none;}}
+@media print{.km-nav,.hv-hint,.km-vids,.km-scene{display:none;}.tb-stage{position:relative;height:auto;}}
 </style>
 <!-- KARL-MARX:LD:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main -->
 <script type="application/ld+json">
@@ -520,26 +596,33 @@ html.no-motion .km-hero .km-cta,html.no-motion .km-hero .km-portrait{opacity:1;a
 
 <main class="wrap" id="contenu" tabindex="-1">
 
-  <!-- ══ LE HÉROS ══ -->
-  <section class="km-sec km-hero km" id="haut" aria-labelledby="km-h1">
-    <div class="km-hero-txt">
-      <p class="km-eyebrow">1818 – 1883 · de Trèves à Londres</p>
-      <h1 id="km-h1"><span class="rw" style="--i:0">Karl</span> <span class="rw" style="--i:1">Marx</span><em><span class="rw" style="--i:2">Une</span> <span class="rw" style="--i:3">vie</span> <span class="rw" style="--i:4">en</span> <span class="rw" style="--i:5">exil,</span> <span class="rw" style="--i:6">une</span> <span class="rw" style="--i:7">œuvre</span> <span class="rw" style="--i:8">à</span> <span class="rw" style="--i:9">lire.</span></em></h1>
-      <p class="km-hero-lede">Philosophe de formation, journaliste par nécessité, révolutionnaire par
-      engagement, Karl Marx a passé la moitié de sa vie chassé d'un pays à l'autre et l'autre moitié
-      à Londres, à écrire une <b>critique de l'économie politique</b> dont un seul livre parut de son
-      vivant. Cette page dit qui il était, ce qu'il a pensé, ce qu'il a écrit — et par où le lire,
-      ici, en texte intégral.</p>
-      <p class="km-cta">
-        <a class="km-btn pri" href="#commencer">Par où commencer</a>
-        <a class="km-btn out" href="#vie">Sa vie, sur la carte</a>
-      </p>
+  <!-- ══ LE HÉROS — le visage qui vieillit ══ -->
+  <section class="hv" id="haut" aria-labelledby="km-h1">
+    <div class="hv-stage">
+      <p class="hv-year" aria-hidden="true" id="hvYear">1836</p>
+      <div class="hv-txt">
+        <p class="hv-eyebrow">1818 – 1883 · de Trèves à Londres</p>
+        <h1 id="km-h1"><span class="rw" style="--i:0">Karl</span> <span class="rw" style="--i:1">Marx</span><em><span class="rw" style="--i:2">Une</span> <span class="rw" style="--i:3">vie</span> <span class="rw" style="--i:4">en</span> <span class="rw" style="--i:5">exil,</span> <span class="rw" style="--i:6">une</span> <span class="rw" style="--i:7">œuvre</span> <span class="rw" style="--i:8">à</span> <span class="rw" style="--i:9">lire.</span></em></h1>
+        <p class="hv-lede">Philosophe de formation, journaliste par nécessité, révolutionnaire par
+        engagement, Karl Marx a passé la moitié de sa vie chassé d'un pays à l'autre et l'autre moitié
+        à Londres, à écrire une <b>critique de l'économie politique</b> dont un seul livre parut de son
+        vivant. Cette page le raconte par ses archives, puis mène au texte.</p>
+        <p class="km-cta">
+          <a class="km-btn pri" href="#commencer">Par où commencer</a>
+          <a class="km-btn out" href="#vie">Sa vie en tableaux</a>
+        </p>
+      </div>
+      <figure class="hv-face" id="hvFace">
+        <img src="/assets/img/marx/face-1836.webp" width="800" height="800" alt="Karl Marx vers 1836, dessin : un jeune homme aux cheveux épais, le visage tourné vers la gauche." fetchpriority="high">
+        <img src="/assets/img/marx/face-1861.webp" width="800" height="800" alt="Karl Marx en mai 1861, photographie de Richard Beard : barbe noire, regard droit." loading="lazy">
+        <img src="/assets/img/marx/face-1866.webp" width="800" height="800" alt="Karl Marx en mars 1866, à Margate : cheveux et barbe grisonnants." loading="lazy">
+        <img src="/assets/img/marx/face-1869.webp" width="800" height="800" alt="Karl Marx en 1869, photographié avec sa fille Jenny : cheveux blancs." loading="lazy">
+        <img src="/assets/img/marx/face-1875.webp" width="800" height="800" alt="Karl Marx en 1875, portrait de John Jarvis Mayall : cheveux et barbe blancs, la main dans le gilet." loading="lazy">
+        <figcaption class="hv-cartel" id="hvCartel"><b>Karl Marx à <span class="on">18 ans</span><span>43 ans</span><span>47 ans</span><span>51 ans</span><span>57 ans</span></b><span class="on">Dessin, vers 1836 · domaine public</span><span>Photographie de Richard Beard, Londres, mai 1861 · IISG, Amsterdam · domaine public</span><span>The London Photographic Company, Margate, mars 1866 · domaine public</span><span>Avec sa fille Jenny, 1869 · domaine public</span><span>Photographie de John Jarvis Mayall, Londres, 1875 · Wien Museum · domaine public</span></figcaption>
+      </figure>
+      <p class="hv-hint" aria-hidden="true">Faire défiler</p>
+      <p class="hv-rule" aria-hidden="true"><span>1818</span><i></i><span>1883</span></p>
     </div>
-    <figure class="km-portrait">
-      <img src="/assets/img/archive/marx-portrait.webp" width="800" height="1185" alt="Portrait photographique de Karl Marx, assis, la main dans le gilet, par John Jarvis Mayall, Londres, 1875." fetchpriority="high">
-      <figcaption><b>Karl Marx à 57 ans</b>Photographie de John Jarvis Mayall, Londres, 1875 · domaine public</figcaption>
-    </figure>
-    <p class="km-hint" aria-hidden="true">Faire défiler</p>
   </section>
 
   <!-- ══ LE SOMMAIRE COLLANT ══ -->
@@ -554,147 +637,248 @@ html.no-motion .km-hero .km-cta,html.no-motion .km-hero .km-portrait{opacity:1;a
     </ul>
   </nav>
 
-  <!-- ══ SA VIE — LA CARTE DE L'EXIL ══ -->
-  <section class="km-sec km-vie km-voile" id="vie" aria-labelledby="vie-h">
-    <!-- La scène vit ICI dans le document : fixe et plein écran au-dessus
-         de 1100 px (derrière toute la page), bande collante en dessous. -->
-    <div class="km-scene" id="kmScene" aria-hidden="true"><canvas id="kmBg"></canvas></div>
-    <div class="km km-vie-col">
+  <!-- ══ SA VIE — HUIT TABLEAUX ══ -->
+  <section class="km-sec tb-intro" id="vie" aria-labelledby="vie-h">
+    <div class="km">
       <p class="km-label">Sa vie</p>
-      <h2 class="km-h" id="vie-h">Sept villes, trois expulsions, <em>un seul livre achevé</em></h2>
+      <h2 class="km-h" id="vie-h">Huit tableaux, trois expulsions, <em>un seul livre achevé</em></h2>
       <p class="km-lede">On ne comprend pas l'œuvre sans l'itinéraire, parce que c'est l'exil qui
       l'a faite : chaque déplacement a changé ce que Marx lisait, ce qu'il écrivait et pour qui.
-      La carte, à droite, suit le récit à mesure qu'on le descend.</p>
+      Chaque tableau est porté par une archive de l'époque, et le texte passe devant.</p>
+    </div>
+  </section>
 
-      <ol class="km-etapes" id="kmEtapes">
+  <!-- 1 · Trèves -->
+  <section class="tb" id="vie-treves" aria-labelledby="h-treves">
+    <div class="tb-stage">
+      <p class="tb-year" aria-hidden="true">1818</p>
+      <figure class="tb-fig tb-fig--photo">
+        <img src="/assets/img/marx/treves-maison.webp" width="1600" height="1177" alt="La maison natale de Karl Marx à Trèves, Brückenstraße : une façade baroque à trois étages, volets clairs." loading="lazy">
+      </figure>
+      <p class="tb-cap"><b>La maison natale, Brückenstraße 10, Trèves</b>Photographie Lutz Hartmann, 2014 · <a href="https://commons.wikimedia.org/wiki/File:Trier_Marx_Haus.jpg" rel="noopener">CC BY-SA 3.0</a></p>
+    </div>
+    <div class="tb-copy">
+      <span class="tb-y">1818 – 1835</span>
+      <h3 id="h-treves">Trèves, une enfance rhénane</h3>
+      <p>Karl Marx naît le 5 mai 1818 à Trèves, ville de la Moselle que le congrès de Vienne
+      vient de rendre à la Prusse après vingt ans d'administration française. Le détail compte
+      : il grandit dans une province où le Code civil est resté en vigueur et où la bourgeoisie
+      libérale se sent étrangère à Berlin. Son père, <b>Heinrich Marx</b>, avocat issu d'une
+      longue lignée de rabbins, s'est converti au protestantisme pour pouvoir continuer
+      d'exercer ; sa mère, Henriette Pressburg, vient de Nimègue.</p>
+      <p>Il suit le lycée de sa ville jusqu'au baccalauréat de 1835. C'est à Trèves aussi
+      qu'il rencontre <b>Jenny von Westphalen</b>, de quatre ans son aînée, dont le père,
+      conseiller du gouvernement et lettré, lui fait lire Homère, Shakespeare et Saint-Simon.
+      Ils se fianceront en 1836, en secret, et ne se marieront que sept ans plus tard.</p>
+    </div>
+  </section>
 
-        <li class="km-etape" data-ville="treves" id="vie-treves">
-          <span class="km-etape-y">1818 – 1835</span>
-          <h3>Trèves, une enfance rhénane</h3>
-          <p>Karl Marx naît le 5 mai 1818 à Trèves, ville de la Moselle que le congrès de Vienne
-          vient de rendre à la Prusse après vingt ans d'administration française. Le détail compte
-          : il grandit dans une province où le Code civil est resté en vigueur et où la bourgeoisie
-          libérale se sent étrangère à Berlin. Son père, <b>Heinrich Marx</b>, avocat issu d'une
-          longue lignée de rabbins, s'est converti au protestantisme pour pouvoir continuer
-          d'exercer ; sa mère, Henriette Pressburg, vient de Nimègue.</p>
-          <p>Il suit le lycée de sa ville jusqu'au baccalauréat de 1835. C'est à Trèves aussi
-          qu'il rencontre <b>Jenny von Westphalen</b>, de quatre ans son aînée, dont le père,
-          conseiller du gouvernement et lettré, lui fait lire Homère, Shakespeare et Saint-Simon.
-          Ils se fianceront en 1836, en secret, et ne se marieront que sept ans plus tard.</p>
-        </li>
+  <!-- 2 · Bonn, Berlin -->
+  <section class="tb" id="vie-berlin" aria-labelledby="h-berlin">
+    <div class="tb-stage">
+      <p class="tb-year" aria-hidden="true">1836</p>
+      <figure class="tb-fig tb-fig--doc" style="--ar:.72">
+        <img src="/assets/img/archive/marx-jeune.jpg" width="500" height="696" alt="Portrait dessiné de Karl Marx étudiant, vers 1836 : cheveux épais, col d'uniforme d'étudiant." loading="lazy">
+      </figure>
+      <p class="tb-cap"><b>Marx étudiant, vers 1836</b>Dessin d'après nature · domaine public</p>
+    </div>
+    <div class="tb-copy">
+      <span class="tb-y">1835 – 1841</span>
+      <h3 id="h-berlin">Bonn, puis Berlin : la philosophie contre le droit</h3>
+      <p>Il commence le droit à Bonn à l'automne 1835 ; son père, inquiet de ses dépenses et de
+      ses duels, le fait passer l'année suivante à Berlin, où le droit cède vite à la
+      philosophie. Hegel est mort en 1831 mais son système règne sur l'université, et le jeune
+      Marx entre dans le cercle des <b>Jeunes hégéliens</b> réunis autour de Bruno Bauer, qui
+      retournent la dialectique du maître contre la religion et l'État prussien.</p>
+      <p>Il soutient en avril 1841 une thèse sur la différence des philosophies de la nature
+      chez Démocrite et Épicure, envoyée à Iéna, où l'on n'exige pas d'épreuve orale. La
+      carrière universitaire à laquelle il se destinait se ferme aussitôt : Bauer est chassé
+      de sa chaire en 1842, et un hégélien de gauche n'a plus de place dans l'université de
+      Frédéric-Guillaume IV.</p>
+    </div>
+  </section>
 
-        <li class="km-etape" data-ville="berlin" id="vie-berlin">
-          <span class="km-etape-y">1835 – 1841</span>
-          <h3>Bonn, puis Berlin : la philosophie contre le droit</h3>
-          <p>Il commence le droit à Bonn à l'automne 1835 ; son père, inquiet de ses dépenses et de
-          ses duels, le fait passer l'année suivante à Berlin, où le droit cède vite à la
-          philosophie. Hegel est mort en 1831 mais son système règne sur l'université, et le jeune
-          Marx entre dans le cercle des <b>Jeunes hégéliens</b> réunis autour de Bruno Bauer, qui
-          retournent la dialectique du maître contre la religion et l'État prussien.</p>
-          <p>Il soutient en avril 1841 une thèse sur la différence des philosophies de la nature
-          chez Démocrite et Épicure, envoyée à Iéna, où l'on n'exige pas d'épreuve orale. La
-          carrière universitaire à laquelle il se destinait se ferme aussitôt : Bauer est chassé
-          de sa chaire en 1842, et un hégélien de gauche n'a plus de place dans l'université de
-          Frédéric-Guillaume IV.</p>
-        </li>
+  <!-- 3 · Cologne, 1842 — le tableau typographique -->
+  <section class="tb" id="vie-cologne" aria-labelledby="h-cologne" data-quote>
+    <div class="tb-stage">
+      <p class="tb-year" aria-hidden="true">1842</p>
+      <blockquote class="tb-quote"><p id="tbQuote">je me trouvai, pour la première fois, dans l'obligation embarrassante de dire mon mot sur les soi-disant intérêts matériels.</p><cite>Marx, préface de 1859 · <a href="/oeuvres/contribution-1859#s=1&amp;q=dire%20mon%20mot%20sur%20les%20soi-disant%20int%C3%A9r%C3%AAts%20mat%C3%A9riels">lire le passage</a></cite></blockquote>
+    </div>
+    <div class="tb-copy">
+      <span class="tb-y">1842 – 1843</span>
+      <h3 id="h-cologne">Cologne : le journal, et les « intérêts matériels »</h3>
+      <p>Reste le journalisme. Marx écrit dès le printemps 1842 dans la <i>Rheinische
+      Zeitung</i>, journal que la bourgeoisie industrielle rhénane vient de fonder à Cologne,
+      et en devient le rédacteur en chef en octobre. C'est là, dira-t-il lui-même dans la
+      préface de 1859, qu'il dut pour la première fois se prononcer sur ce qu'on appelle les
+      intérêts matériels : le vol de bois, que la Diète rhénane vient de criminaliser au
+      détriment des paysans, et la misère des vignerons de la Moselle.</p>
+      <p>La censure suspend le journal en janvier 1843 ; le dernier numéro paraît le 31 mars.
+      En juin, à Kreuznach, il épouse Jenny, et passe l'été à lire l'histoire de la Révolution
+      française et à annoter la philosophie du droit de Hegel. Il en tire une conviction qui
+      commande tout ce qui suit : <b>ce n'est pas l'État qui explique la société civile, c'est
+      l'inverse</b>.</p>
+    </div>
+  </section>
 
-        <li class="km-etape" data-ville="cologne" id="vie-cologne">
-          <span class="km-etape-y">1842 – 1843</span>
-          <h3>Cologne : le journal, et les « intérêts matériels »</h3>
-          <p>Reste le journalisme. Marx écrit dès le printemps 1842 dans la <i>Rheinische
-          Zeitung</i>, journal que la bourgeoisie industrielle rhénane vient de fonder à Cologne,
-          et en devient le rédacteur en chef en octobre. C'est là, dira-t-il lui-même dans la
-          préface de 1859, qu'il se trouva pour la première fois dans l'obligation embarrassante de
-          <a href="/oeuvres/contribution-1859#s=1&amp;q=dire%20mon%20mot%20sur%20les%20soi-disant%20int%C3%A9r%C3%AAts%20mat%C3%A9riels">dire son mot sur ce qu'on appelle les intérêts matériels</a> : le vol
-          de bois, que la Diète rhénane vient de criminaliser au détriment des paysans, et la
-          misère des vignerons de la Moselle.</p>
-          <p>La censure suspend le journal en janvier 1843 ; le dernier numéro paraît le 31 mars.
-          En juin, à Kreuznach, il épouse Jenny, et passe l'été à lire l'histoire de la Révolution
-          française et à annoter la philosophie du droit de Hegel. Il en tire une conviction qui
-          commande tout ce qui suit : <b>ce n'est pas l'État qui explique la société civile, c'est
-          l'inverse</b>.</p>
-        </li>
+  <!-- 4 · Paris -->
+  <section class="tb" id="vie-paris" aria-labelledby="h-paris">
+    <div class="tb-stage">
+      <p class="tb-year" aria-hidden="true">1844</p>
+      <figure class="tb-fig tb-fig--doc" style="--ar:.6">
+        <img src="/assets/img/marx/dfj-1844.webp" width="1100" height="1834" alt="Page de titre des Deutsch-Französische Jahrbücher, Paris, 1844, dirigées par Arnold Ruge et Karl Marx." loading="lazy">
+      </figure>
+      <figure class="tb-fig tb-fig--b" style="--ar:.67" data-at=".5">
+        <img src="/assets/img/marx/engels-1845.webp" width="900" height="1336" alt="Friedrich Engels vers 1845, jeune homme à favoris, portrait photographique." loading="lazy">
+        <figcaption>Friedrich Engels, vers 1845 · domaine public</figcaption>
+      </figure>
+      <p class="tb-cap"><b>Les Annales franco-allemandes, Paris, 1844</b>Page de titre de l'unique livraison · domaine public</p>
+    </div>
+    <div class="tb-copy">
+      <span class="tb-y">1843 – 1845</span>
+      <h3 id="h-paris">Paris : le prolétariat, l'économie, Engels</h3>
+      <p>Fin octobre 1843, les Marx s'installent à Paris, où Arnold Ruge veut fonder une revue
+      qui unirait la philosophie allemande au socialisme français. Les <i>Annales
+      franco-allemandes</i> n'auront qu'une livraison, en février 1844, mais elle contient deux
+      textes de Marx où le <a href="/glossaire/proletariat">prolétariat</a> apparaît pour la
+      première fois comme la classe qui porte l'émancipation de tous.</p>
+      <p>Paris est alors la capitale du socialisme : Marx y lit Proudhon, fréquente les sociétés
+      ouvrières, et surtout se met à l'économie politique, Smith, Ricardo, Say, dans des cahiers
+      qu'on appellera les <a href="/oeuvres/manuscrits-1844"><i>Manuscrits de 1844</i></a> et
+      où naît le concept de <a href="/glossaire/travail-aliene">travail aliéné</a>. En août,
+      <b>Friedrich Engels</b>, de passage, lui apporte ce qu'il a vu des fabriques de Manchester
+      ; dix jours de conversation scellent une collaboration de quarante ans. À la demande de la
+      Prusse, le gouvernement Guizot l'expulse en janvier 1845.</p>
+    </div>
+  </section>
 
-        <li class="km-etape" data-ville="paris" id="vie-paris">
-          <span class="km-etape-y">1843 – 1845</span>
-          <h3>Paris : le prolétariat, l'économie, Engels</h3>
-          <p>Fin octobre 1843, les Marx s'installent à Paris, où Arnold Ruge veut fonder une revue
-          qui unirait la philosophie allemande au socialisme français. Les <i>Annales
-          franco-allemandes</i> n'auront qu'une livraison, en février 1844, mais elle contient deux
-          textes de Marx où le <a href="/glossaire/proletariat">prolétariat</a> apparaît pour la
-          première fois comme la classe qui porte l'émancipation de tous.</p>
-          <p>Paris est alors la capitale du socialisme : Marx y lit Proudhon, fréquente les sociétés
-          ouvrières, et surtout se met à l'économie politique, Smith, Ricardo, Say, dans des cahiers
-          qu'on appellera les <a href="/oeuvres/manuscrits-1844"><i>Manuscrits de 1844</i></a> et
-          où naît le concept de <a href="/glossaire/travail-aliene">travail aliéné</a>. En août,
-          <b>Friedrich Engels</b>, de passage, lui apporte ce qu'il a vu des fabriques de Manchester
-          ; dix jours de conversation scellent une collaboration de quarante ans. À la demande de la
-          Prusse, le gouvernement Guizot l'expulse en janvier 1845.</p>
-        </li>
+  <!-- 5 · Bruxelles -->
+  <section class="tb" id="vie-bruxelles" aria-labelledby="h-bruxelles">
+    <div class="tb-stage">
+      <p class="tb-year" aria-hidden="true">1848</p>
+      <figure class="tb-fig tb-fig--doc" style="--ar:.563">
+        <img src="/assets/img/marx/manifest-1848.webp" width="1100" height="1954" alt="Page de titre du Manifest der Kommunistischen Partei, Londres, février 1848, en caractères gothiques." loading="lazy">
+      </figure>
+      <figure class="tb-fig tb-fig--b" style="--ar:.8" data-at=".45">
+        <img src="/assets/img/archive/manuscrit-ideologie-1846.webp" width="900" height="1125" alt="Page manuscrite de L'Idéologie allemande, 1845-1846 : l'écriture de Marx et des croquis d'Engels." loading="lazy">
+        <figcaption>L'Idéologie allemande, manuscrit, 1845-46 · IISG · domaine public</figcaption>
+      </figure>
+      <p class="tb-cap"><b>Le Manifeste, Londres, février 1848</b>Page de titre de la première édition, sans nom d'auteur · domaine public</p>
+    </div>
+    <div class="tb-copy">
+      <span class="tb-y">1845 – 1848</span>
+      <h3 id="h-bruxelles">Bruxelles : la méthode, la Ligue, le Manifeste</h3>
+      <p>Bruxelles accueille l'exilé à condition qu'il ne publie rien sur la politique du jour.
+      Marx y renonce à la nationalité prussienne en décembre 1845 et n'en reprendra jamais
+      aucune. Ce sont les années où la méthode se fixe : les onze <i>Thèses sur Feuerbach</i>,
+      griffonnées au printemps 1845 ; <i>L'Idéologie allemande</i>, écrite avec Engels en
+      1845-1846, où la conception matérialiste de l'histoire prend sa forme, et qu'ils
+      abandonnent faute d'éditeur, selon le mot de Marx, <a href="/oeuvres/contribution-1859#s=1&amp;q=critique%20rongeuse%20des%20souris">à la critique rongeuse des souris</a> ;
+      <i>Misère de la philosophie</i>, rédigée en français en 1847 contre Proudhon.</p>
+      <p>En juin 1847, la Ligue des justes devient la Ligue des communistes ; son congrès de
+      Londres, à la fin de l'année, charge Marx et Engels d'en écrire le programme. Le
+      <a href="/oeuvres/manifeste"><i>Manifeste du parti communiste</i></a> paraît à Londres en
+      février 1848, quelques jours avant que Paris ne se soulève. Marx est arrêté et expulsé de
+      Belgique dans la nuit du 3 au 4 mars.</p>
+    </div>
+  </section>
 
-        <li class="km-etape" data-ville="bruxelles" id="vie-bruxelles">
-          <span class="km-etape-y">1845 – 1848</span>
-          <h3>Bruxelles : la méthode, la Ligue, le Manifeste</h3>
-          <p>Bruxelles accueille l'exilé à condition qu'il ne publie rien sur la politique du jour.
-          Marx y renonce à la nationalité prussienne en décembre 1845 et n'en reprendra jamais
-          aucune. Ce sont les années où la méthode se fixe : les onze <i>Thèses sur Feuerbach</i>,
-          griffonnées au printemps 1845 ; <i>L'Idéologie allemande</i>, écrite avec Engels en
-          1845-1846, où la conception matérialiste de l'histoire prend sa forme, et qu'ils
-          abandonnent faute d'éditeur, selon le mot de Marx, <a href="/oeuvres/contribution-1859#s=1&amp;q=critique%20rongeuse%20des%20souris">à la critique rongeuse des souris</a> ;
-          <i>Misère de la philosophie</i>, rédigée en français en 1847 contre Proudhon.</p>
-          <p>En juin 1847, la Ligue des justes devient la Ligue des communistes ; son congrès de
-          Londres, à la fin de l'année, charge Marx et Engels d'en écrire le programme. Le
-          <a href="/oeuvres/manifeste"><i>Manifeste du parti communiste</i></a> paraît à Londres en
-          février 1848, quelques jours avant que Paris ne se soulève. Marx est arrêté et expulsé de
-          Belgique dans la nuit du 3 au 4 mars.</p>
-        </li>
+  <!-- 6 · Cologne, 1848 -->
+  <section class="tb" id="vie-cologne-1848" aria-labelledby="h-cologne-1848">
+    <div class="tb-stage">
+      <p class="tb-year" aria-hidden="true">1849</p>
+      <figure class="tb-fig tb-fig--photo" style="width:100%">
+        <img src="/assets/img/marx/perov-nrz.webp" width="1600" height="1122" alt="Marx à la rédaction de la Neue Rheinische Zeitung, tableau de Vassili Perov : Marx debout, un journal à la main, entouré de rédacteurs." loading="lazy">
+      </figure>
+      <figure class="tb-fig tb-fig--doc" style="--ar:.685">
+        <img src="/assets/img/marx/nrz-rouge-1849.webp" width="493" height="720" alt="Le dernier numéro de la Neue Rheinische Zeitung, 19 mai 1849, imprimé à l'encre rouge." loading="lazy">
+      </figure>
+      <p class="tb-cap"><b>Le numéro rouge, 19 mai 1849</b>Dernier numéro de la Neue Rheinische Zeitung · domaine public. Fond : Vassili Perov, <i>Marx à la rédaction</i>, avant 1882 · domaine public</p>
+    </div>
+    <div class="tb-copy">
+      <span class="tb-y">1848 – 1849</span>
+      <h3 id="h-cologne-1848">Cologne encore : la révolution, à chaud</h3>
+      <p>Il repasse par Paris, où le gouvernement provisoire l'a invité, puis gagne Cologne en
+      avril 1848 pour y fonder la <i>Neue Rheinische Zeitung</i>, dont le premier numéro paraît
+      le 1<sup>er</sup> juin. Pendant un an, le journal suit la révolution allemande et européenne
+      jour après jour, soutient l'insurrection parisienne de juin quand toute la presse la
+      condamne, et Marx, traduit deux fois devant le jury de Cologne en février 1849, est
+      acquitté deux fois.</p>
+      <p>Quand la contre-révolution l'emporte, la Prusse l'expulse comme étranger : le dernier
+      numéro, <b>imprimé à l'encre rouge</b>, paraît le 19 mai 1849. À Paris, où il tente de
+      revenir, la police le relègue dans le Morbihan. Il choisit Londres.</p>
+    </div>
+  </section>
 
-        <li class="km-etape" data-ville="cologne2" id="vie-cologne-1848">
-          <span class="km-etape-y">1848 – 1849</span>
-          <h3>Cologne encore : la révolution, à chaud</h3>
-          <p>Il repasse par Paris, où le gouvernement provisoire l'a invité, puis gagne Cologne en
-          avril 1848 pour y fonder la <i>Neue Rheinische Zeitung</i>, dont le premier numéro paraît
-          le 1<sup>er</sup> juin. Pendant un an, le journal suit la révolution allemande et européenne
-          jour après jour, soutient l'insurrection parisienne de juin quand toute la presse la
-          condamne, et Marx, traduit deux fois devant le jury de Cologne en février 1849, est
-          acquitté deux fois.</p>
-          <p>Quand la contre-révolution l'emporte, la Prusse l'expulse comme étranger : le dernier
-          numéro, imprimé à l'encre rouge, paraît le 19 mai 1849. À Paris, où il tente de revenir,
-          la police le relègue dans le Morbihan. Il choisit Londres.</p>
-        </li>
+  <!-- 7 · L'exil — la carte -->
+  <section class="tb" id="vie-exil" aria-labelledby="h-exil" data-exil>
+    <div class="tb-stage">
+      <div class="km-scene" id="kmScene" aria-hidden="true"><canvas id="kmBg"></canvas></div>
+      <p class="tb-cap"><b>La route de l'exil, 1843-1849</b>Carte dessinée pour cette page ; elle se trace à mesure qu'on lit</p>
+    </div>
+    <div class="tb-copy">
+      <span class="tb-y">1845 · 1848 · 1849</span>
+      <h3 id="h-exil">Trois expulsions en quatre ans</h3>
+      <p>Chassé de Paris par Guizot en janvier 1845, de Bruxelles par la police belge en mars
+      1848, de Cologne par la Prusse en mai 1849, puis relégué hors de Paris à l'été : en quatre
+      ans, Marx a été mis dehors par tous les États d'Europe occidentale où il avait vécu. Il
+      n'a plus de nationalité depuis décembre 1845, et n'en aura plus jamais.</p>
+      <p>La carte suit la route, de Trèves à Londres. Ce qui la commande n'est pas le hasard
+      des polices mais le journal qu'il fonde à chaque étape, et qu'on ferme à chaque fois : la
+      <i>Rheinische Zeitung</i>, les <i>Annales</i>, la <i>Neue Rheinische Zeitung</i>.
+      Londres, où il arrive le 27 août 1849, sera la première ville dont on ne le chassera pas.</p>
+    </div>
+  </section>
 
-        <li class="km-etape" data-ville="londres" id="vie-londres">
-          <span class="km-etape-y">1849 – 1883</span>
-          <h3>Londres : la misère, le British Museum, <i>Le Capital</i></h3>
-          <p>Marx arrive à Londres le 27 août 1849 ; il y restera trente-quatre ans, jusqu'à sa
-          mort. Les premières années sont celles de la misère : la famille loge à Soho, dans deux
-          pièces de Dean Street, et trois enfants meurent en bas âge, dont Edgar, en 1855. Engels,
-          entré dans l'entreprise familiale à Manchester, le soutient ; les articles pour le
-          <i>New York Daily Tribune</i>, de 1852 à 1862, font le reste.</p>
-          <p>C'est pourtant à Londres que l'œuvre se fait. La salle de lecture du British Museum,
-          où il travaille chaque jour, lui donne les rapports des inspecteurs de fabrique et les
-          enquêtes parlementaires qui font la matière du <i>Capital</i>. <a href="/oeuvres/18-brumaire">Le
-          <i>XVIII brumaire</i></a> est écrit en 1852, à chaud ; la
-          <a href="/oeuvres/contribution-1859"><i>Contribution</i></a> paraît en 1859 ; et en
-          septembre 1867 le Livre premier du <a href="/oeuvres/capital-1"><i>Capital</i></a> sort à
-          Hambourg, chez Otto Meissner — <b>le seul livre du système que Marx aura achevé</b>.</p>
-          <p>En 1864, il rédige l'adresse inaugurale de l'Association internationale des
-          travailleurs, fondée le 28 septembre à Saint Martin's Hall, et il en sera jusqu'en 1872
-          la tête pensante ; c'est devant son Conseil général qu'il expose, en juin 1865,
-          <a href="/oeuvres/salaire-prix-profit"><i>Salaires, prix, profits</i></a>. Les dernières
-          années sont celles de la maladie, des cures et des cahiers de notes ; les Livres II et III
-          restent des manuscrits qu'Engels établira en 1885 et 1894. Jenny meurt le 2 décembre 1881,
-          leur fille aînée en janvier 1883. Marx meurt dans son fauteuil le 14 mars 1883, à Maitland
-          Park Road ; on l'enterre trois jours plus tard au cimetière de Highgate, devant onze
-          personnes.</p>
-        </li>
+  <!-- 8 · Londres — la séquence -->
+  <section class="tb" id="vie-londres" aria-labelledby="h-londres" data-seq>
+    <div class="tb-stage">
+      <p class="tb-year" aria-hidden="true">1867</p>
+      <div class="tb-seq" id="tbSeq">
+        <img src="/assets/img/marx/marx-1861.webp" width="1000" height="1564" alt="Karl Marx en mai 1861, debout, la main sur une chaise, photographie de Richard Beard." loading="lazy">
+        <img src="/assets/img/marx/dean-street.webp" width="1100" height="1467" alt="Le 28 Dean Street, à Soho, où la famille Marx vécut de 1851 à 1856 ; une plaque le rappelle." loading="lazy">
+        <img src="/assets/img/marx/marx-1866.webp" width="1100" height="1785" alt="Karl Marx à Margate en mars 1866, debout, en redingote, la main sur un fauteuil." loading="lazy">
+        <img src="/assets/img/archive/das-kapital-titre-1867.jpg" width="1200" height="1700" alt="Page de titre de la première édition de Das Kapital, Hambourg, Otto Meissner, 1867." loading="lazy">
+        <img src="/assets/img/marx/marx-jenny-1869.webp" width="1100" height="1681" alt="Karl Marx assis, sa fille Jenny debout derrière lui, 1869." loading="lazy">
+        <img src="/assets/img/marx/highgate.webp" width="1600" height="1067" alt="La première tombe de Karl Marx, au cimetière de Highgate, sous les arbres." loading="lazy">
+      </div>
+      <p class="tb-cap" id="tbSeqCap"><span class="on"><b>Marx à 43 ans, mai 1861</b>Photographie de Richard Beard, Londres · domaine public</span><span><b>28 Dean Street, Soho</b>Deux pièces, de 1851 à 1856 · photographie Spudgun67, 2015 · <a href="https://commons.wikimedia.org/wiki/File:Karl_Marx_-_28_Dean_Street_Soho_London_W1D_3RY.jpg" rel="noopener">CC BY-SA 4.0</a></span><span><b>Marx à Margate, mars 1866</b>The London Photographic Company · domaine public</span><span><b>Das Kapital, Hambourg, 1867</b>Page de titre de la première édition · Zentralbibliothek Zürich · domaine public</span><span><b>Avec sa fille Jenny, 1869</b>Photographie · domaine public</span><span><b>La première tombe, Highgate</b>Photographie Pierre-Yves Beaudouin, 2016 · <a href="https://commons.wikimedia.org/wiki/File:Highgate_Cemetery_-_East_-_Marx_(first_grave)_01.jpg" rel="noopener">CC BY-SA 4.0</a></span></p>
+    </div>
+    <div class="tb-copy">
+      <span class="tb-y">1849 – 1883</span>
+      <h3 id="h-londres">Londres : la misère, le British Museum, <i>Le Capital</i></h3>
+      <p>Marx arrive à Londres le 27 août 1849 ; il y restera trente-quatre ans, jusqu'à sa
+      mort. Les premières années sont celles de la misère : la famille loge à Soho, dans deux
+      pièces de Dean Street, et trois enfants meurent en bas âge, dont Edgar, en 1855. Engels,
+      entré dans l'entreprise familiale à Manchester, le soutient ; les articles pour le
+      <i>New York Daily Tribune</i>, de 1852 à 1862, font le reste.</p>
+      <p>C'est pourtant à Londres que l'œuvre se fait. La salle de lecture du British Museum,
+      où il travaille chaque jour, lui donne les rapports des inspecteurs de fabrique et les
+      enquêtes parlementaires qui font la matière du <i>Capital</i>. <a href="/oeuvres/18-brumaire">Le
+      <i>XVIII brumaire</i></a> est écrit en 1852, à chaud ; la
+      <a href="/oeuvres/contribution-1859"><i>Contribution</i></a> paraît en 1859 ; et en
+      septembre 1867 le Livre premier du <a href="/oeuvres/capital-1"><i>Capital</i></a> sort à
+      Hambourg, chez Otto Meissner — <b>le seul livre du système que Marx aura achevé</b>.</p>
+      <p>En 1864, il rédige l'adresse inaugurale de l'Association internationale des
+      travailleurs, fondée le 28 septembre à Saint Martin's Hall, et il en sera jusqu'en 1872
+      la tête pensante ; c'est devant son Conseil général qu'il expose, en juin 1865,
+      <a href="/oeuvres/salaire-prix-profit"><i>Salaires, prix, profits</i></a>. Les dernières
+      années sont celles de la maladie, des cures et des cahiers de notes ; les Livres II et III
+      restent des manuscrits qu'Engels établira en 1885 et 1894. Jenny meurt le 2 décembre 1881,
+      leur fille aînée en janvier 1883. Marx meurt dans son fauteuil le 14 mars 1883, à Maitland
+      Park Road ; on l'enterre trois jours plus tard au cimetière de Highgate, devant onze
+      personnes.</p>
+    </div>
+  </section>
 
-      </ol>
+  <section class="km-sec" style="padding-top:0">
+    <div class="km">
       <p class="km-vie-src">Les dates suivent la chronologie établie par la
       <a href="https://www.marxists.org/francais/bios/marx.htm" rel="noopener">biographie du Marxists Internet Archive</a>
       et les préfaces des œuvres servies ici ; Marx raconte lui-même son itinéraire intellectuel
       jusqu'en 1859 dans la <a href="/oeuvres/contribution-1859#partie=1">préface de la
-      <i>Contribution</i></a>.</p>
+      <i>Contribution</i></a>. Les images viennent de Wikimedia Commons ; chacune porte sa
+      provenance et sa licence.</p>
     </div>
   </section>
 
@@ -1001,33 +1185,30 @@ html.no-motion .km-hero .km-cta,html.no-motion .km-hero .km-portrait{opacity:1;a
    -------------------------------------------------------------------
    Vocabulaire de la maison (assets/home.js), DUPLIQUÉ et non partagé :
    un pilote de défilement par POSITION (réversible), des défauts CSS
-   posés, une sonde rAF, et la règle « un style inline bat le gating ».
-   Rien ne s'arme sous `no-motion` ; la page est alors déjà finie.
+   posés, une sonde rAF. Rien ne s'arme sous `no-motion`.
    ═══════════════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
   var doc = document, root = doc.documentElement;
   var MOTION = !root.classList.contains('no-motion');
-  var WIDE = matchMedia('(min-width:1101px)');
+  var WIDE = matchMedia('(min-width:901px)');
   function cl01(v) { return v < 0 ? 0 : (v > 1 ? 1 : v); }
   function ease(v) { return v * v * (3 - 2 * v); }
   function setv(el, k, v) { v = (+v).toFixed(4); if (el.__v === undefined) el.__v = {}; if (el.__v[k] !== v) { el.__v[k] = v; el.style.setProperty(k, v); } }
+  function topH() { return parseFloat(getComputedStyle(root).getPropertyValue('--km-top')) || 44; }
 
   /* ── Le pilote de défilement */
   var subs = [], queued = false;
   function runSubs() {
     queued = false;
     var y = window.scrollY || 0, vh = window.innerHeight || 0;
-    if (!vh) return;                                       /* pane masquée */
+    if (!vh) return;
     for (var i = subs.length - 1; i >= 0; i--) { try { if (subs[i](y, vh) === false) subs.splice(i, 1); } catch (e) {} }
   }
   function driver() { if (!queued) { queued = true; requestAnimationFrame(runSubs); } }
   function sub(fn) { subs.push(fn); }
   doc.addEventListener('scroll', driver, { passive: true, capture: true });
   window.addEventListener('resize', driver, { passive: true });
-  /* Le piège de la mesure unique : shell.js monte la coquille APRÈS ce
-     script, les polices arrivent plus tard, le navigateur a pu sauter à une
-     ancre. On remesure — en appelant runSubs directement, pas le rAF. */
   function remesure() { runSubs(); requestAnimationFrame(runSubs); setTimeout(runSubs, 400); setTimeout(runSubs, 1200); }
   if (doc.readyState !== 'complete') window.addEventListener('load', runSubs, { once: true });
   if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(runSubs);
@@ -1043,17 +1224,42 @@ html.no-motion .km-hero .km-cta,html.no-motion .km-hero .km-portrait{opacity:1;a
   if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(topbar);
   window.addEventListener('resize', topbar, { passive: true });
 
-  /* ── Le héros s'allume : entrée orchestrée, une fois */
-  var hero = doc.querySelector('.km-hero');
+  /* ── Le héros : entrée orchestrée, puis LE VISAGE QUI VIEILLIT.
+        Cinq portraits fondus par la position sur la course du héros ;
+        l'année et le cartel suivent l'image ; le texte s'efface en route. */
+  var hero = doc.querySelector('.hv');
   if (hero) { if (MOTION) requestAnimationFrame(function () { hero.classList.add('lit'); }); else hero.classList.add('lit'); }
-  /* L'invite à descendre s'éteint sur le premier dixième d'écran, et
-     revient si l'on remonte. Rien n'est écrit tant que le héros n'est pas
-     allumé (un style inline battrait l'entrée). */
-  if (hero && MOTION) sub(function (y, vh) {
+  var face = doc.getElementById('hvFace');
+  var frames = face ? [].slice.call(face.querySelectorAll('img')) : [];
+  var years = ['1836', '1861', '1866', '1869', '1875'];
+  var hvYear = doc.getElementById('hvYear'), cartel = doc.getElementById('hvCartel');
+  var cartelAge = cartel ? [].slice.call(cartel.querySelectorAll('b > span')) : [];
+  var cartelSrc = cartel ? [].slice.call(cartel.querySelectorAll(':scope > span')) : [];
+  var rule = doc.querySelector('.hv-rule');
+  function seqOpacity(imgs, t) {           /* t ∈ [0, n-1] : fondu entre deux voisines */
+    for (var i = 0; i < imgs.length; i++) setv(imgs[i], 'opacity', cl01(1 - Math.abs(t - i)));
+    return Math.round(t);
+  }
+  if (hero && frames.length && MOTION && WIDE.matches) sub(function (y, vh) {
     if (!hero.classList.contains('lit')) return true;
-    setv(hero, '--hint', 1 - cl01(y / (vh * 0.1)));
+    var r = hero.getBoundingClientRect(), stageH = vh - topH();
+    var p = cl01((-r.top) / (r.height - stageH));
+    var k = seqOpacity(frames, p * (frames.length - 1));
+    if (hvYear && hvYear.textContent !== years[k]) hvYear.textContent = years[k];
+    cartelAge.forEach(function (s, i) { s.classList.toggle('on', i === k); });
+    cartelSrc.forEach(function (s, i) { s.classList.toggle('on', i === k); });
+    if (rule) setv(rule, '--p', p);
+    setv(hero, '--fade', ease(cl01((p - 0.12) / 0.3)));
     return true;
   });
+  /* sur téléphone (pas de course), le dernier portrait est celui qu'on voit */
+  if (hero && frames.length && (!MOTION || !WIDE.matches)) {
+    seqOpacity(frames, frames.length - 1);
+    if (hvYear) hvYear.textContent = years[4];
+    cartelAge.forEach(function (s, i) { s.classList.toggle('on', i === 4); });
+    cartelSrc.forEach(function (s, i) { s.classList.toggle('on', i === 4); });
+    if (rule) setv(rule, '--p', 1);
+  }
 
   /* ── Le sommaire collant marque la section qu'on lit */
   var nav = doc.querySelector('.km-nav');
@@ -1069,17 +1275,72 @@ html.no-motion .km-hero .km-cta,html.no-motion .km-hero .km-portrait{opacity:1;a
       }
       return true;
     });
-    /* le clic dépose sous les deux barres collantes, en instantané */
     nav.addEventListener('click', function (e) {
       var a = e.target.closest('a[href^="#"]'); if (!a) return;
       var t = doc.getElementById(a.getAttribute('href').slice(1)); if (!t) return;
       e.preventDefault();
-      var off = parseInt(getComputedStyle(root).getPropertyValue('--km-top')) + nav.getBoundingClientRect().height + 8;
+      var off = topH() + nav.getBoundingClientRect().height + 8;
       window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - off, behavior: 'instant' });
       history.replaceState(null, '', a.getAttribute('href'));
       t.setAttribute('tabindex', '-1'); t.focus({ preventScroll: true });
     });
   }
+
+  /* ── LES TABLEAUX : `--q` est la position dans la scène épinglée (0 à
+        l'épinglage, 1 quand le texte a fini de passer), `--rev` le
+        développement de l'image à l'arrivée. Le texte s'inscrit paragraphe
+        par paragraphe ; la seconde figure glisse à `data-at` ; la séquence
+        fond ses images sur q ; la citation s'encre mot à mot. */
+  var tbs = [].slice.call(doc.querySelectorAll('.tb'));
+  var exil = { q: -1 };
+  tbs.forEach(function (sec) {
+    var q = sec.querySelector('#tbQuote');
+    if (q) {                                            /* les mots, pour l'encre */
+      var words = q.textContent.trim().split(/\s+/);
+      q.innerHTML = words.map(function (w, i) { return '<span class="rw" style="--k:' + i + '">' + w + '</span>'; }).join(' ');
+    }
+  });
+  if (tbs.length && MOTION) sub(function (y, vh) {
+    var stageH = vh - topH();
+    tbs.forEach(function (sec) {
+      var r = sec.getBoundingClientRect();
+      if (r.bottom < -vh || r.top > vh * 2) return;
+      var run = Math.max(1, r.height - stageH);
+      var q = cl01((topH() - r.top) / run);
+      var rev = ease(cl01((vh * 0.92 - r.top) / (vh * 0.75)));
+      setv(sec, '--q', q); setv(sec, '--rev', rev);
+      /* le texte s'inscrit : chaque enfant sur ses derniers 18 % de montée */
+      [].forEach.call(sec.querySelectorAll('.tb-copy > *'), function (el) {
+        var er = el.getBoundingClientRect();
+        setv(el, '--n', cl01((vh * 0.96 - er.top) / (vh * 0.18)));
+      });
+      var b = sec.querySelector('.tb-fig--b');
+      if (b) { var at = parseFloat(b.dataset.at || '.5'); setv(b, '--b', ease(cl01((q - at) / 0.22))); }
+      var seq = sec.querySelector('.tb-seq');
+      if (seq) {
+        var imgs = [].slice.call(seq.querySelectorAll('img'));
+        var k = seqOpacity(imgs, ease(q) * (imgs.length - 1));
+        var caps = [].slice.call(sec.querySelectorAll('.tb-cap > span'));
+        caps.forEach(function (s, i) { s.classList.toggle('on', i === k); });
+        var yr = sec.querySelector('.tb-year');
+        var yrs = ['1861', '1851', '1866', '1867', '1869', '1883'];
+        if (yr && yr.textContent !== yrs[k]) yr.textContent = yrs[k];
+      }
+      if (sec.hasAttribute('data-quote')) {
+        var ws = sec.querySelectorAll('.tb-quote .rw'), n = ws.length;
+        for (var i = 0; i < n; i++) setv(ws[i], '--wp', cl01((rev * 1.15 * n - i) / 2.2));
+      }
+      if (sec.hasAttribute('data-exil')) exil.q = (r.top > vh) ? -1 : q;
+    });
+    return true;
+  });
+
+  /* ── Les sections de lecture arrivent en glissant */
+  var blocs = [].slice.call(doc.querySelectorAll('.km-fond > .km'));
+  if (blocs.length && MOTION) sub(function (y, vh) {
+    blocs.forEach(function (el) { var r = el.getBoundingClientRect(); setv(el, '--up', 1 - ease(cl01((vh * 0.96 - r.top) / (vh * 0.3)))); });
+    return true;
+  });
 
   /* ── Les vidéos : rien ne se charge avant le clic (youtube-nocookie) */
   [].forEach.call(doc.querySelectorAll('.km-vid[data-yt]'), function (box) {
@@ -1092,33 +1353,6 @@ html.no-motion .km-hero .km-cta,html.no-motion .km-hero .km-portrait{opacity:1;a
       f.setAttribute('allowfullscreen', '');
       box.appendChild(f); b.remove(); f.focus();
     });
-  });
-
-  /* ── SA VIE : la position de lecture dans le récit → `g` (station +
-        fraction), le fil qui se trace, la station qui s'allume, et la
-        caméra de la scène (voir plus bas). La ligne de lecture est à 46 %. */
-  var etapes = [].slice.call(doc.querySelectorAll('.km-etape'));
-  var list = doc.getElementById('kmEtapes');
-  var gState = { g: -1 };
-  var READ = 0.46;
-  if (etapes.length && MOTION) sub(function (y, vh) {
-    var lr = list.getBoundingClientRect(), rl = vh * READ;
-    setv(list, '--draw', cl01((rl - lr.top) / lr.height));
-    var g = -1;
-    for (var i = 0; i < etapes.length; i++) {
-      var r = etapes[i].getBoundingClientRect();
-      var lit = ease(cl01((rl - (r.top + 12) + 46) / 92));
-      setv(etapes[i], '--lit', lit);
-      if (r.top <= rl) g = i + cl01((rl - r.top) / r.height);
-      etapes[i].classList.toggle('is-on', r.top <= rl && r.bottom > rl);
-    }
-    /* avant la première station : négatif proportionnel à la distance
-       (le plan large) ; après la dernière : au-delà de N */
-    if (g < 0) g = -cl01((etapes[0].getBoundingClientRect().top - rl) / vh);
-    var last = etapes[etapes.length - 1].getBoundingClientRect();
-    if (last.bottom <= rl) g = etapes.length + cl01((rl - last.bottom) / vh);
-    gState.g = g;
-    return true;
   });
 
   /* ── SES IDÉES : les feuillets se posent, le numéro prend l'encre */
@@ -1180,29 +1414,29 @@ html.no-motion .km-hero .km-cta,html.no-motion .km-hero .km-portrait{opacity:1;a
   remesure();
 
   /* ═══════════════════════════════════════════════════════════════════
-     LA CARTE DE L'EXIL — Three.js, chargé à la demande.
-     Une carte de l'Europe du Nord-Ouest à la bougie : côtes en relief,
-     mer sombre, huit villes-lampes, et LA ROUTE de Marx qui se trace à
-     mesure qu'on lit sa vie (Trèves → Bonn → Berlin → Cologne → Paris →
-     Bruxelles → Cologne → Paris → Londres). La caméra suit la station
-     lue ; tout est fonction de `g`, donc réversible. Avant le récit, le
-     plan large ; après, un lent survol qui fait vivre le fond du reste de
-     la page.
+     LA CARTE DE L'EXIL — Three.js, chargé à la demande, dans la scène du
+     septième tableau. Une carte de l'Europe du Nord-Ouest à la bougie :
+     côtes en relief, papier hachuré, villes-lampes, et LA ROUTE de Marx
+     qui se trace sur la course du tableau (Paris → Bruxelles → Cologne →
+     Paris → Londres, le reste de la route déjà là, en retrait). Tout est
+     fonction de `q`, donc réversible.
      ═══════════════════════════════════════════════════════════════════ */
   var host = doc.getElementById('kmScene'), canvas = doc.getElementById('kmBg');
   if (!MOTION || !host || !canvas) return;
-  (function hasGL() {
+  var armed = false;
+  function arm() {
+    if (armed) return; armed = true;
     try { var c = doc.createElement('canvas'); if (!(c.getContext('webgl2') || c.getContext('webgl'))) { host.remove(); return; } } catch (e) { host.remove(); return; }
     var s = doc.createElement('script'); s.src = '/vendor/three.min.js';
     s.onload = scene; s.onerror = function () { host.remove(); };
     doc.head.appendChild(s);
-  })();
+  }
+  /* on ne charge Three.js qu'à l'approche du tableau (deux écrans avant) */
+  sub(function (y, vh) { var r = host.getBoundingClientRect(); if (r.top < vh * 2.5) { arm(); return false; } return true; });
 
   function scene() {
     if (typeof THREE === 'undefined') { host.remove(); return; }
     var T = THREE;
-    /* (lon, lat) → monde : x suit la longitude, z la latitude (×1,6 : à
-       51° nord un degré de latitude vaut environ 1,6 degré de longitude) */
     function W(lon, lat) { return new T.Vector3((lon - 4), 0, -(lat - 51) * 1.6); }
     var COTES = {
       bretagne: [[1.35,51.13],[0.6,50.85],[-0.15,50.82],[-1.1,50.8],[-2.45,50.6],[-3.5,50.45],[-4.15,50.35],[-5.2,49.95],[-5.7,50.05],[-5.05,50.42],[-4.5,51.0],[-3.0,51.4],[-3.95,51.6],[-5.1,51.65],[-5.3,51.9],[-4.4,52.4],[-4.7,52.85],[-4.6,53.3],[-3.0,53.4],[-3.05,53.85],[-2.9,54.1],[-3.2,54.15],[-3.5,54.85],[-4.9,54.65],[-4.65,55.45],[-4.8,55.9],[-5.7,55.3],[-6.2,56.4],[-6.5,57.3],[-5.0,58.6],[-3.5,58.6],[-3.1,58.45],[-4.2,57.5],[-2.1,57.15],[-2.9,56.45],[-3.2,55.95],[-2.0,55.75],[-1.4,55.0],[-1.1,54.6],[-0.1,54.1],[0.1,53.6],[0.3,52.85],[1.7,52.75],[1.75,52.5],[1.3,51.95],[0.7,51.5]],
@@ -1220,26 +1454,23 @@ html.no-motion .km-hero .km-cta,html.no-motion .km-hero .km-portrait{opacity:1;a
       manchester:{ n: 'Manchester', lon: -2.24, lat: 53.48, s: 'Engels' }
     };
     var ROUTE = ['treves','bonn','berlin','cologne','paris','bruxelles','cologne','paris','londres'];
-    /* la station i du récit ↔ le nœud de la route qu'elle atteint */
-    var STATION_NODE = { treves: 0, berlin: 2, cologne: 3, paris: 4, bruxelles: 5, cologne2: 6, londres: 8 };
+    /* les stations du tableau ↔ le nœud de la route qu'elles atteignent */
+    var ids = ['paris', 'bruxelles', 'cologne2', 'londres'];
+    var STATION_NODE = { paris: 4, bruxelles: 5, cologne2: 6, londres: 8 };
 
     var renderer;
     try { renderer = new T.WebGLRenderer({ canvas: canvas, antialias: true, alpha: false, powerPreference: 'low-power' }); }
     catch (e) { host.remove(); return; }
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
-    renderer.setClearColor(0x15100b, 1);
+    renderer.setClearColor(0x100c08, 1);
     renderer.outputEncoding = T.sRGBEncoding;
     var sc = new T.Scene();
-    sc.fog = new T.Fog(0x15100b, 9, 30);
+    sc.fog = new T.Fog(0x100c08, 9, 30);
     var cam = new T.PerspectiveCamera(40, 1, 0.1, 80);
     sc.add(cam);
 
-    /* la mer, et la terre en relief */
     var mer = new T.Mesh(new T.PlaneGeometry(90, 90), new T.MeshStandardMaterial({ color: 0x0c0906, roughness: .92, metalness: 0 }));
     mer.rotation.x = -Math.PI / 2; mer.position.y = -0.02; sc.add(mer);
-    /* la terre : un papier hachuré, dessiné au canevas (grain + hachures
-       fines), répété ; c'est ce qui fait la carte ancienne plutôt qu'un
-       aplat de couleur */
     var papier = (function () {
       var c = doc.createElement('canvas'); c.width = c.height = 256; var x = c.getContext('2d');
       x.fillStyle = '#4a3a28'; x.fillRect(0, 0, 256, 256);
@@ -1249,7 +1480,7 @@ html.no-motion .km-hero .km-cta,html.no-motion .km-hero .km-portrait{opacity:1;a
       x.strokeStyle = 'rgba(216,173,76,.14)'; x.lineWidth = 1;
       for (var k = -256; k < 512; k += 9) { x.beginPath(); x.moveTo(k, 0); x.lineTo(k + 256, 256); x.stroke(); }
       var t = new T.CanvasTexture(c); t.wrapS = t.wrapT = T.RepeatWrapping; t.repeat.set(1.6, 1.6);
-      t.encoding = T.sRGBEncoding;   /* la sortie est en sRGB : sans ça la texture est lue comme linéaire, donc rendue bien plus sombre */
+      t.encoding = T.sRGBEncoding;   /* la sortie est en sRGB : sans ça la texture est lue comme linéaire, donc bien plus sombre */
       return t;
     })();
     var terreMat = new T.MeshStandardMaterial({ map: papier, color: 0xd9c8a6, roughness: .95, metalness: 0 });
@@ -1260,7 +1491,6 @@ html.no-motion .km-hero .km-cta,html.no-motion .km-hero .km-portrait{opacity:1;a
       var m = new T.Mesh(g, terreMat); m.rotation.x = -Math.PI / 2; sc.add(m);
       var e = new T.LineSegments(new T.EdgesGeometry(g, 20), bordMat); e.rotation.x = -Math.PI / 2; e.position.y = 0.002; sc.add(e);
     });
-    /* le quadrillage du carnet, très discret, sur la mer */
     (function grille() {
       var pts = [], i;
       for (i = -20; i <= 24; i += 2) { pts.push(new T.Vector3(i, 0.0, -26), new T.Vector3(i, 0.0, 26)); }
@@ -1268,15 +1498,11 @@ html.no-motion .km-hero .km-cta,html.no-motion .km-hero .km-portrait{opacity:1;a
       var g = new T.BufferGeometry().setFromPoints(pts);
       sc.add(new T.LineSegments(g, new T.LineBasicMaterial({ color: 0xf3e9d4, transparent: true, opacity: .05 })));
     })();
-
-    /* la lumière : une ambiante chaude, un ciel de nuit, et LA BOUGIE, qui
-       suit la station lue et vacille (somme de sinus, jamais un battement) */
     sc.add(new T.AmbientLight(0xffe0b8, .34));
     sc.add(new T.HemisphereLight(0xffd7a0, 0x1a120b, .7));
     var bougie = new T.PointLight(0xffb36b, 1.25, 11, 1.7); bougie.position.set(2, 3.0, 0); sc.add(bougie);
     var lune = new T.DirectionalLight(0x6f8fb0, .18); lune.position.set(-6, 8, -4); sc.add(lune);
 
-    /* les villes : une lampe (sphère émissive + halo additif) et une étiquette DOM */
     var lampes = {}, labels = {};
     var haloTex = (function () {
       var c = doc.createElement('canvas'); c.width = c.height = 64; var x = c.getContext('2d');
@@ -1289,7 +1515,6 @@ html.no-motion .km-hero .km-cta,html.no-motion .km-hero .km-portrait{opacity:1;a
       m.position.copy(p); sc.add(m);
       var sp = new T.Sprite(new T.SpriteMaterial({ map: haloTex, transparent: true, opacity: 0, blending: T.AdditiveBlending, depthWrite: false, fog: false }));
       sp.scale.set(.7, .7, 1); sp.position.copy(p); sp.position.y = 0.16; sc.add(sp);
-      /* le pied : un petit cylindre de laiton */
       var pin = new T.Mesh(new T.CylinderGeometry(0.02, 0.03, 0.12, 8), new T.MeshStandardMaterial({ color: 0x9a7b30, roughness: .4, metalness: .5 }));
       pin.position.copy(p); pin.position.y = 0.06; sc.add(pin);
       lampes[id] = { m: m, sp: sp, p: p, lit: 0, target: id === 'manchester' ? .35 : 0 };
@@ -1297,24 +1522,18 @@ html.no-motion .km-hero .km-cta,html.no-motion .km-hero .km-portrait{opacity:1;a
       host.appendChild(lb); labels[id] = lb;
     });
 
-    /* la route : une courbe qui passe par les villes, à peine levée sur la
-       mer, tracée par drawRange ; une comète à sa tête */
     var nodes = ROUTE.map(function (id) { var p = lampes[id].p.clone(); p.y = 0.14; return p; });
     var courbe = new T.CatmullRomCurve3(nodes, false, 'catmullrom', .35);
     var N = 720, pts = courbe.getPoints(N);
-    for (var k = 0; k <= N; k++) { /* un arc léger sur chaque segment */
-      var t = k / N * (nodes.length - 1), f = t - Math.floor(t);
-      pts[k].y += Math.sin(f * Math.PI) * 0.10;
-    }
+    for (var k = 0; k <= N; k++) { var t = k / N * (nodes.length - 1), f = t - Math.floor(t); pts[k].y += Math.sin(f * Math.PI) * 0.10; }
     var routeGeo = new T.BufferGeometry().setFromPoints(pts);
     var route = new T.Line(routeGeo, new T.LineBasicMaterial({ color: 0xd8ad4c, transparent: true, opacity: .95 }));
     route.frustumCulled = false; sc.add(route);
-    var routeOmbre = new T.Line(routeGeo, new T.LineBasicMaterial({ color: 0xd8ad4c, transparent: true, opacity: .12 }));
+    /* toute la route, en retrait : ce qui précède Paris est déjà parcouru */
+    var routeOmbre = new T.Line(routeGeo, new T.LineBasicMaterial({ color: 0xd8ad4c, transparent: true, opacity: .22 }));
     routeOmbre.frustumCulled = false; sc.add(routeOmbre);
     var comete = new T.Sprite(new T.SpriteMaterial({ map: haloTex, transparent: true, opacity: 0, blending: T.AdditiveBlending, depthWrite: false, fog: false }));
     comete.scale.set(.6, .6, 1); sc.add(comete);
-
-    /* la poussière d'or qui dérive dans la lumière */
     var pous = (function () {
       var n = 220, arr = new Float32Array(n * 3);
       for (var i = 0; i < n; i++) { arr[i*3] = -8 + Math.random() * 20; arr[i*3+1] = .1 + Math.random() * 2.2; arr[i*3+2] = -12 + Math.random() * 20; }
@@ -1323,119 +1542,90 @@ html.no-motion .km-hero .km-cta,html.no-motion .km-hero .km-portrait{opacity:1;a
       sc.add(p); return p;
     })();
 
-    /* ── la caméra : un plan clé par station, interpolés en douceur */
-    var aim = new T.Vector3(), pos = new T.Vector3();
-    var tAim = new T.Vector3(), tPos = new T.Vector3();
-    var WIDE_AIM = new T.Vector3(1.6, 0, -1.2), WIDE_POS = new T.Vector3(1.2, 9.2, 8.6);
+    var aim = new T.Vector3(), pos = new T.Vector3(), tAim = new T.Vector3(), tPos = new T.Vector3();
+    var WIDE_AIM = new T.Vector3(1.2, 0, -0.6), WIDE_POS = new T.Vector3(0.9, 8.6, 8.0);
     function stationPose(id, outAim, outPos) {
-      var key = id === 'cologne2' ? 'cologne' : id;
-      var c = lampes[key].p;
-      /* le sujet vit dans la MOITIÉ DROITE : la colonne de texte couvre la
-         gauche. Sur la bande mobile, pas de décalage. */
+      var key = id === 'cologne2' ? 'cologne' : id, c = lampes[key].p;
+      /* le sujet vit dans la MOITIÉ DROITE : le feuillet de texte couvre la gauche */
       var dx = WIDE.matches ? -1.2 : 0;
       outAim.set(c.x + dx, 0, c.z - 0.1);
-      outPos.set(c.x + dx + 0.35, 2.15, c.z + 2.5);
+      outPos.set(c.x + dx + 0.35, 2.7, c.z + 3.1);
     }
-    var ids = etapes.map(function (e) { return e.dataset.ville; });
     var a1 = new T.Vector3(), p1 = new T.Vector3(), a2 = new T.Vector3(), p2 = new T.Vector3();
-    var drift = 0;
-    function poseFor(g, dt) {
-      if (g <= 0) {                                        /* le plan large, et l'approche */
-        var k = ease(cl01(1 + g));                         /* g de -1 à 0 */
-        stationPose(ids[0], a1, p1);
-        tAim.lerpVectors(WIDE_AIM, a1, k); tPos.lerpVectors(WIDE_POS, p1, k);
-        return;
-      }
-      if (g >= ids.length) {                               /* le survol lent, après le récit */
-        drift += dt * 0.045;
-        var r = 7.5, c = lampes.londres.p;
-        tAim.set(c.x + 1.5, 0, c.z + 1.0);
-        tPos.set(tAim.x + Math.cos(drift) * r, 6.4, tAim.z + 4 + Math.sin(drift) * r * 0.55);
-        return;
-      }
+    /* q ∈ [0,1] sur le tableau → g : plan large jusqu'à 0,08, puis les quatre stations */
+    function gOf(q) { if (q < 0) return -1; if (q < 0.08) return -1 + q / 0.08; return Math.min(ids.length - 0.001, (q - 0.08) / 0.92 * ids.length); }
+    function poseFor(g) {
+      if (g <= 0) { var k0 = ease(cl01(1 + g)); stationPose(ids[0], a1, p1); tAim.lerpVectors(WIDE_AIM, a1, k0); tPos.lerpVectors(WIDE_POS, p1, k0); return; }
       var i = Math.floor(g), f = g - i;
       stationPose(ids[i], a1, p1);
-      if (i + 1 < ids.length) { stationPose(ids[i + 1], a2, p2); } else { a2.copy(a1); p2.copy(p1); }
-      /* on tient la ville pendant la lecture, on voyage sur la fin */
-      var k = ease(cl01((f - 0.58) / 0.42));
+      if (i + 1 < ids.length) stationPose(ids[i + 1], a2, p2); else { a2.copy(a1); p2.copy(p1); }
+      var k = ease(cl01((f - 0.5) / 0.5));
       tAim.lerpVectors(a1, a2, k); tPos.lerpVectors(p1, p2, k);
-      /* en vol, la caméra prend un peu de hauteur */
       tPos.y += Math.sin(k * Math.PI) * 1.4;
     }
-
-    /* ── la route, tracée par la position de lecture */
     function routeFor(g) {
-      var tn;                                              /* nœud atteint (fractionnaire) */
-      if (g <= 0) tn = 0;
-      else if (g >= ids.length) tn = nodes.length - 1;
-      else { var i = Math.floor(g), f = g - i; var n1 = STATION_NODE[ids[i]], n2 = i + 1 < ids.length ? STATION_NODE[ids[i + 1]] : n1; tn = n1 + (n2 - n1) * ease(cl01((f - 0.58) / 0.42)); }
+      var tn;
+      if (g <= 0) tn = 4;
+      else { var i = Math.floor(g), f = g - i; var n1 = STATION_NODE[ids[i]], n2 = i + 1 < ids.length ? STATION_NODE[ids[i + 1]] : n1; tn = n1 + (n2 - n1) * ease(cl01((f - 0.5) / 0.5)); }
       var count = Math.round(tn / (nodes.length - 1) * N) + 1;
       routeGeo.setDrawRange(0, Math.max(2, count));
       var head = pts[Math.min(N, count - 1)];
       comete.position.copy(head); comete.position.y += 0.06;
-      var moving = tn > 0 && tn < nodes.length - 1 && Math.abs(tn - Math.round(tn)) > 0.02;
+      var moving = tn > 4 && tn < nodes.length - 1 && Math.abs(tn - Math.round(tn)) > 0.02;
       comete.material.opacity += ((moving ? .9 : 0) - comete.material.opacity) * .15;
-      /* les lampes s'allument quand la route les atteint */
       Object.keys(lampes).forEach(function (id) {
         if (id === 'manchester') return;
-        var first = ROUTE.indexOf(id);
-        lampes[id].target = tn + 0.02 >= first ? 1 : 0;
+        lampes[id].target = tn + 0.02 >= ROUTE.indexOf(id) ? 1 : 0;
       });
     }
-
-    /* ── redimensionnement : les tailles nulles sont ignorées */
     function resize() {
       var w = host.clientWidth, h = host.clientHeight;
       if (!w || !h) return;
       renderer.setSize(w, h, false);
       cam.aspect = w / h; cam.fov = WIDE.matches ? 40 : 46; cam.updateProjectionMatrix();
     }
-    window.addEventListener('resize', resize, { passive: true }); resize();
-    setTimeout(resize, 300);
+    window.addEventListener('resize', resize, { passive: true }); resize(); setTimeout(resize, 300);
 
-    /* ── la boucle : ne tourne que si le document est visible */
-    var last = performance.now(), running = false, curId = null;
+    var last = performance.now(), running = false;
     aim.copy(WIDE_AIM); pos.copy(WIDE_POS);
     var tmp = new T.Vector3();
     function frame(now) {
       running = false;
       if (doc.hidden) return;
       var dt = Math.min(0.05, (now - last) / 1000); last = now;
-      var g = gState.g;
-      poseFor(g, dt); routeFor(g);
-      var k = 1 - Math.exp(-dt * 2.6);
-      pos.lerp(tPos, k); aim.lerp(tAim, k);
-      cam.position.copy(pos); cam.lookAt(aim);
-      /* la bougie suit ce qu'on regarde, et vacille */
-      var fl = 1 + Math.sin(now * 0.0031) * .06 + Math.sin(now * 0.0117) * .035 + Math.sin(now * 0.0233) * .02;
-      bougie.position.set(aim.x + 0.9, 3.0, aim.z + 1.0); bougie.intensity = 1.25 * fl;
-      /* lampes et étiquettes */
-      var w = host.clientWidth, h = host.clientHeight;
-      var onId = (g >= 0 && g < ids.length) ? ids[Math.floor(g)] : null;
-      if (onId === 'cologne2') onId = 'cologne';
-      Object.keys(lampes).forEach(function (id) {
-        var L = lampes[id];
-        L.lit += (L.target - L.lit) * (1 - Math.exp(-dt * 3));
-        var lf = L.lit * (id === 'manchester' ? 1 : fl);
-        L.m.material.emissiveIntensity = 1.6 * lf;
-        L.sp.material.opacity = .85 * lf;
-        L.sp.scale.set(.7 + .5 * lf, .7 + .5 * lf, 1);
-        tmp.copy(L.p); tmp.y = 0.36; tmp.project(cam);
-        var lb = labels[id];
-        if (tmp.z > 1 || tmp.z < -1) { lb.style.opacity = '0'; return; }
-        lb.style.left = ((tmp.x + 1) / 2 * w).toFixed(1) + 'px';
-        lb.style.top = ((1 - tmp.y) / 2 * h).toFixed(1) + 'px';
-        var lit = (L.lit > 0.35 || id === 'manchester') && g < ids.length && g > -0.12;
-        lb.classList.toggle('is-lit', lit); lb.classList.toggle('is-on', id === onId);
-        lb.style.opacity = lit ? '' : '0';
-      });
-      /* la poussière monte et dérive */
-      var arr = pous.geometry.attributes.position.array;
-      for (var i = 1; i < arr.length; i += 3) { arr[i] += dt * 0.06; if (arr[i] > 2.4) arr[i] = 0.1; }
-      pous.geometry.attributes.position.needsUpdate = true;
-      /* le fond s'assombrit un peu sous les sections de lecture */
-      host.style.setProperty('--km-dim', (g >= ids.length ? 0.5 : 1).toFixed(2));
-      renderer.render(sc, cam);
+      var hr = host.getBoundingClientRect();
+      var onScreen = hr.bottom > 0 && hr.top < (window.innerHeight || 0);
+      if (onScreen) {
+        var g = gOf(exil.q);
+        poseFor(g); routeFor(g);
+        var k = 1 - Math.exp(-dt * 2.6);
+        pos.lerp(tPos, k); aim.lerp(tAim, k);
+        cam.position.copy(pos); cam.lookAt(aim);
+        var fl = 1 + Math.sin(now * 0.0031) * .06 + Math.sin(now * 0.0117) * .035 + Math.sin(now * 0.0233) * .02;
+        bougie.position.set(aim.x + 0.9, 3.0, aim.z + 1.0); bougie.intensity = 1.25 * fl;
+        var w = host.clientWidth, h = host.clientHeight;
+        var onId = (g >= 0) ? ids[Math.floor(g)] : null; if (onId === 'cologne2') onId = 'cologne';
+        Object.keys(lampes).forEach(function (id) {
+          var L = lampes[id];
+          L.lit += (L.target - L.lit) * (1 - Math.exp(-dt * 3));
+          var lf = L.lit * (id === 'manchester' ? 1 : fl);
+          L.m.material.emissiveIntensity = 1.6 * lf;
+          L.sp.material.opacity = .85 * lf;
+          L.sp.scale.set(.7 + .5 * lf, .7 + .5 * lf, 1);
+          tmp.copy(L.p); tmp.y = 0.36; tmp.project(cam);
+          var lb = labels[id];
+          if (tmp.z > 1 || tmp.z < -1) { lb.style.opacity = '0'; return; }
+          lb.style.left = ((tmp.x + 1) / 2 * w).toFixed(1) + 'px';
+          lb.style.top = ((1 - tmp.y) / 2 * h).toFixed(1) + 'px';
+          var lit = (L.lit > 0.35 || id === 'manchester') && g > -0.12;
+          lb.classList.toggle('is-lit', lit); lb.classList.toggle('is-on', id === onId);
+          lb.style.opacity = lit ? '' : '0';
+        });
+        var arr = pous.geometry.attributes.position.array;
+        for (var i = 1; i < arr.length; i += 3) { arr[i] += dt * 0.06; if (arr[i] > 2.4) arr[i] = 0.1; }
+        pous.geometry.attributes.position.needsUpdate = true;
+        renderer.render(sc, cam);
+      }
       start();
     }
     function start() { if (!running && !doc.hidden) { running = true; requestAnimationFrame(frame); } }

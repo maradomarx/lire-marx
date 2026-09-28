@@ -10875,115 +10875,115 @@ qui change avec un balisage change d’URL.
 Question du propriétaire : « comment progresser sur les requêtes “marx” et
 “karl marx” ? ». Mesuré dans Search Console avant d'écrire une ligne : sur
 trois mois, **zéro impression** sur ces deux requêtes exactes — dix-sept
-variantes longues (« aliénation marx », « marx communisme »…), et « lire
-marx » seule apporte les clics. Et la SERP française de « karl marx » dit
-l'intention : une **biographie** (Wikipédia, Larousse, Lumni, Maitron), le
-carrousel « Livres », des vidéos, et quatre questions (« Quelle est la
-théorie… », « l'idée principale… », « pourquoi contre le capitalisme »,
-« quelle philosophie »). Le site avait quarante-cinq pages de notion,
-trente-trois chapitres expliqués, six œuvres — et **pas une page sur
-l'homme**. Pour Google, aucune URL ne répondait à « karl marx ».
+variantes longues seulement, et « lire marx » seule apporte les clics. La SERP
+française de « karl marx » demande une **biographie**, des livres, des vidéos,
+et pose quatre questions (« quelle théorie », « idée principale », « pourquoi
+contre le capitalisme », « quelle philosophie »). Le site n'avait **pas une
+page sur l'homme** : aucune URL ne répondait à la requête.
 
-Consigne du propriétaire : « tout donner sur cette page, la plus belle du
-site (3D, animation, vidéos, effets au scroll, mouvement du fond) et la plus
-pertinente ».
+Consigne : « tout donner, la plus belle page du site (3D, animation, vidéos,
+effets au scroll, mouvement du fond) et la plus pertinente ». **Une première
+version** (un seul fond 3D sous des sections de texte) a été **refaite le
+lendemain** sur retour du propriétaire : « je pensais partir sur un modèle
+100 % original, aller chercher des images de Marx, animer le site par
+section, pas seulement un fond avec du texte » — référence : microsoft.ai.
+Arbitrage rendu sur trois partis : **« huit tableaux »**, avec les photos
+récentes des lieux (CC BY-SA, créditées).
 
-### La forme
+### La forme : des tableaux, portés par les archives
 
-`karl-marx.html` à la racine → `/karl-marx` (page-FICHIER, sans slash).
-Page « de site » (pas d'atelier.css, tokens du shell redéclarés), CSS et JS
-**inline** — la page n'est jamais mise en cache, ce qui évite d'emblée le
-piège du `?v=`. Sept temps : le héros (portrait Mayall en duotone, entrée
-orchestrée mot à mot), un sommaire collant à six entrées, **sa vie** (sept
-stations, de Trèves à Londres), **ses idées** (six feuillets qui se posent,
-chacun vers sa page de notion, plus « une méthode »), **ses livres** (le
-catalogue dans l'ordre, fil et lumière), **regarder et écouter** (trois
-vidéos, deux émissions), **par où commencer** (les portes d'entrée),
-**questions fréquentes** (sept, calées sur les questions associées de
-Google), la dernière page.
+`karl-marx.html` à la racine → `/karl-marx` (page-FICHIER, sans slash). CSS
+et JS **inline** (la page n'est jamais mise en cache : pas de piège `?v=`).
 
-**LA FIGURE PROPRE DE LA PAGE EST LA CARTE DE L'EXIL.** Une vie de Marx est
-une suite d'expulsions (Paris 1845, Bruxelles 1848, Cologne 1849). En fond,
-fixe et plein écran derrière toute la page, une **carte de l'Europe du
-Nord-Ouest à la bougie** en Three.js : côtes en relief (tracé simplifié,
-authored à la main en lon/lat, vérifié à plat avant d'être monté), papier
-hachuré dessiné au canevas, mer sombre, huit villes-lampes, et **la route
-de Marx qui se trace à mesure qu'on lit sa vie** (Trèves → Bonn → Berlin →
-Cologne → Paris → Bruxelles → Cologne → Paris → Londres). La caméra tient
-la ville pendant qu'on lit sa station et voyage sur la fin ; tout est
-fonction de `g` (station + fraction, ligne de lecture à 46 %), donc
-**réversible**. Avant le récit, le plan large sous le héros ; après, un lent
-survol qui fait vivre le fond des sections suivantes (assombri à 50 %).
-Sous 1100 px, la scène devient une **bande collante** au-dessus du récit
-(le motif des pages-monde) ; sous reduced-motion elle n'existe pas et le
-récit se suffit. Three.js est chargé à la demande, jamais sans WebGL.
+- **Le héros : le visage qui vieillit.** Cinq portraits authentiques (dessin
+  vers 1836, Richard Beard mai 1861, Margate mars 1866, avec sa fille Jenny
+  1869, Mayall 1875), **recadrés carrés et alignés sur les yeux**
+  (`assets/img/marx/face-*.webp`, 800 px), fondus par la POSITION sur une
+  course de 320vh à scène collante ; l'année géante et le cartel suivent
+  l'image, la règle « 1818 ——— 1883 » avance, le texte s'efface en route.
+  Sur téléphone il n'y a pas de course : on montre le dernier portrait.
+- **Sa vie : huit tableaux** (`.tb`), chacun une **scène plein écran
+  épinglée** (`.tb-stage`, sticky) que l'archive occupe et que **le texte
+  traverse** (`.tb-copy`, un feuillet translucide en marge négative). Trois
+  espèces de scène : la **photographie** (cover, moitié droite, développée par
+  `clip-path` + échelle sur `--rev`), le **document** (page de titre entière,
+  posée comme une feuille, jamais rognée : `object-fit:contain`), la
+  **séquence** (plusieurs images fondues sur `--q`, cartel qui suit —
+  Londres, six images). Plus un tableau **typographique** (Cologne 1842 : la
+  phrase de la préface de 1859 s'encre mot à mot), et **la carte de l'exil**
+  en Three.js (tableau 7 : la route Paris → Bruxelles → Cologne → Paris →
+  Londres se trace sur la course du tableau, le reste de la route déjà là en
+  retrait). Une seconde figure (`.tb-fig--b`, Engels 1845, le manuscrit de
+  1846) glisse au bord à `data-at`. L'année géante en contour (`.tb-year`)
+  glisse à l'entrée. Sous 900 px la scène est une bande collante de 52 vh et
+  le feuillet passe dessus, même geste.
+- **Les images** viennent de Wikimedia Commons (`assets/img/marx/`, WebP) :
+  domaine public pour les portraits, le Manifeste 1848, les *Annales*, le
+  numéro rouge de la NRZ du 19 mai 1849, le tableau de Perov ; **CC BY-SA
+  pour trois lieux** (maison de Trèves — Lutz Hartmann ; Dean Street —
+  Spudgun67 ; Highgate — P.-Y. Beaudouin), **créditées avec lien sous
+  l'image**. Chaque cartel porte la provenance et la licence. Ce qui n'existe
+  pas : aucune photo de Marx jeune (le portrait de 1836 est un dessin).
+- Le reste — six idées (feuillets qui se posent), l'œuvre dans l'ordre (fil
+  et lumière), trois vidéos `youtube-nocookie` posées au clic (rien ne charge
+  avant), les portes d'entrée, sept questions calées sur celles de Google, la
+  dernière page — est inchangé de la première version, et les sections de
+  lecture arrivent en glissant (`--up`).
 
-**Les citations mènent au passage** : « la critique rongeuse des souris »,
-« dire son mot sur les soi-disant intérêts matériels » → préface de 1859
-(`/oeuvres/contribution-1859#s=1&q=`), relevées dans le texte servi,
-insécable comprise. Les faits biographiques sont ceux de la chronologie du
-MIA et des préfaces des œuvres servies, et la page le dit.
-
-**Les vidéos ne chargent rien avant le clic** : trois lecteurs
-`youtube-nocookie` posés au clic, avec un poster maison (aucune requête vers
-YouTube avant), choisis parmi les ressources déjà vérifiées des ateliers
-(IDs revérifiés à l'oEmbed le jour de l'écriture).
+**Les citations mènent au passage** (« critique rongeuse des souris », « dire
+mon mot sur les soi-disant intérêts matériels » → préface de 1859,
+`#s=1&q=`), relevées dans le texte servi, insécable comprise.
 
 ### Ce qui est DÉRIVÉ par `gen-seo.mjs`
 
-- `KARL-MARX:LIVRES` — le catalogue par année croissante, lien vers l'atelier
-  pour les œuvres `available`, « En préparation » sinon.
-- `KARL-MARX:PORTES` — les œuvres disponibles qui portent `reading.entry`,
-  avec le libellé de leur rayon.
-- `KARL-MARX:LD` — `ProfilePage` + **`Person`** (Q9061, dates et lieux
-  affichés, portrait, Engels en Q34787) + `BreadcrumbList`. Le schéma
-  n'affirme que ce que la page imprime.
-- **Le FAQPage** — même balisage `#questions` / `.hs-faq-q` / `.hs-faq-a` que
-  l'accueil ; la dérivation est devenue une boucle sur les deux fichiers.
-- Le pied de page (colonne Comprendre : « Qui était Karl Marx »), le
-  sitemap (priorité 0.9), l'index de la recherche.
-
-Entrée de sidebar **« Karl Marx »** juste sous l'accueil (`data-act="marx"`,
-`shell.js?v=19`), lien depuis la première réponse de la FAQ de l'accueil,
-et le `og:image` d'À propos corrigé au passage (il pointait un `.jpg` qui
-n'existe pas).
+`KARL-MARX:LIVRES` (le catalogue par année, lien vers l'atelier si
+`available`), `KARL-MARX:PORTES` (les œuvres à `reading.entry`, avec leur
+rayon), `KARL-MARX:LD` (`ProfilePage` + **`Person`** Q9061 avec dates, lieux,
+portrait, Engels Q34787 + `BreadcrumbList`), **le FAQPage** (même balisage
+`#questions` que l'accueil — la dérivation est une boucle sur les deux
+fichiers), le pied de page (« Qui était Karl Marx »), le sitemap (0.9),
+l'index de la recherche. Sidebar : entrée « Karl Marx » sous l'accueil
+(`data-act="marx"`, `shell.js?v=19`) ; lien depuis la FAQ de l'accueil ;
+`og:image` d'À propos corrigé (il pointait un `.jpg` inexistant).
 
 ### Pièges payés
 
-1. **La scène vit dans `#vie`, donc APRÈS le héros dans le document : à
-   `z-index:0` elle se peignait par-dessus lui** — titre et portrait
-   invisibles. `z-index:-1` dans le contexte de `main.wrap`. Et comme ce
-   contexte passe devant le pied de page (un frère de `main`), la route se
-   voyait à travers ses colonnes : `.lm-foot{position:relative;z-index:2}`.
-2. **`inset:auto` écrit APRÈS `top` remet `top` à `auto`** : la bande mobile
-   ne collait plus. L'ordre des déclarations compte.
+1. **Un tableau doit être PLUS HAUT que sa scène**, sinon la course
+   `r.height - stageH` est négative et `--q` s'inverse : l'exil, au texte
+   court, montrait Londres dès l'entrée. Le feuillet en marge négative ne
+   compte pas pour la hauteur → `min-height` sur `.tb` (1,7 scène, 2,6 pour
+   la carte).
+2. **`inset:auto` écrit APRÈS `top` remet `top` à `auto`** (la bande mobile
+   ne collait plus). L'ordre des déclarations compte.
 3. **Une `CanvasTexture` est lue comme LINÉAIRE** quand la sortie est en sRGB
-   (three r137) : la carte rendait presque noire. `texture.encoding =
-   sRGBEncoding`.
-4. **Le voile se calcule depuis le bord de la SECTION, après la sidebar** —
-   et la colonne de texte était CENTRÉE par `.km{margin:0 auto}` : le voile
-   couvrait presque tout l'écran et la carte n'apparaissait que dans une
-   bande noire à droite. Colonne calée à gauche (`margin:0`), arrêts recalés.
-5. **`figure` porte 40 px de marge d'agent utilisateur** : 14 px de
-   débordement horizontal à 390 px, trouvés par une sonde qui liste les
-   éléments dont le bord droit dépasse le viewport.
-6. **Le `sed` de bump `shell.js?v=` a touché CLAUDE.md** (mention en
-   prose). Toujours exclure la documentation du remplacement.
+   (three r137) : la carte rendait presque noire → `texture.encoding`.
+4. **`figure` porte 40 px de marge d'agent utilisateur** : 14 px de
+   débordement à 390 px, trouvés par une sonde qui liste les éléments dont le
+   bord droit dépasse le viewport.
+5. Dans la première version : la scène fixe vivait dans `#vie`, donc APRÈS le
+   héros dans le document, et à `z-index:0` elle se peignait par-dessus lui
+   (titre et portrait invisibles) ; et le contexte de `main.wrap` passait
+   devant le pied de page (`.lm-foot{z-index:2}`). Les deux règles restent.
+6. **Le `sed` de bump `shell.js?v=` a touché CLAUDE.md** — exclure la
+   documentation du remplacement.
+7. **`?width=` de Commons est une demande, pas une garantie** (déjà noté),
+   et le crop des visages se juge à la planche-contact : deux recadrages ont
+   été refaits après l'avoir vue (1836 trop serré, 1869 décalé).
 
 ### Vérifié
 
 Dans le **vrai Chrome** (la pane masquée gèle rAF, animations et scène) :
-quinze positions à 1380 px et à 390 px, photographiées ; contraste sur le
-rendu **0 échec** (295 mesures, minimum 4,14 — le faux positif documenté),
-aucune cible sous 24 × 24, aucun texte sous 11 px après correction, **zéro
-débordement** aux deux largeurs, console propre ; reduced-motion : pas de
-Three, tout à l'état fini ; `gen-seo --check` à jour et idempotent.
-Détecteur : 0 erreur, les familles de DA documentées.
+chaque tableau photographié à 2, 35 et 70 % de sa course, à 1380 et 390 px ;
+contraste sur le rendu **0 échec** hors les années décoratives en
+`color:transparent` (faux positif de sonde, `aria-hidden`), aucune cible sous
+24 × 24, aucun texte sous 11 px, **zéro débordement** aux deux largeurs,
+console propre ; reduced-motion : pas de Three, tout à l'état fini ;
+`gen-seo --check` à jour et idempotent. Détecteur : familles documentées
+seulement (`clamp()` non résolu sur les mots du titre, scènes plein cadre).
 
 **Reste** : demander l'indexation dans Search Console après déploiement, et
 reconsulter dans quelques semaines les impressions sur « karl marx » et ses
-variantes (« marx biographie », « marx idées principales », « qui est karl
-marx »). Le goulot reste l'autorité — cette page donne enfin une URL qui
+variantes. Le goulot reste l'autorité — cette page donne enfin une URL qui
 répond à la requête, elle ne crée pas de liens entrants.
 
 ## Conventions de travail
