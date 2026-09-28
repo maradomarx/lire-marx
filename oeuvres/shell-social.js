@@ -131,7 +131,7 @@
   }
 
   // ----- bibliothèque (résolution work → page d'œuvre) -----
-  // Variante locale du loader de SHELL.commune. On duplique plutôt
+  // Variante locale du loader de SHELL.forum. On duplique plutôt
   // que d'introduire un couplage public_API entre modules ; la taille
   // est triviale et la sémantique est exactement la même (alias
   // hérité 'capital' → 'capital-1', strip du préfixe 'oeuvres/').
@@ -327,7 +327,7 @@
   /* Découverte des lecteurs. Sans elle on ne peut joindre quelqu'un qu'en
      tapant son pseudo au caractère près, ce qui rend la messagerie
      inutilisable pour un nouveau venu. Les lecteurs proposés sont ceux qui
-     ont ÉCRIT SUR LA PLACE PUBLIQUE : rien de plus que ce que le forum
+     ont ÉCRIT SUR LE FORUM : rien de plus que ce que le forum
      montre déjà, et aucune table ni policy nouvelle à rejouer.
      Le brut est mis en cache, le filtrage se refait à chaque appel — sinon
      un contact ajouté après le fetch resterait proposé. */

@@ -27,7 +27,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="fonts/fonts.css?v=2">
 <link rel="stylesheet" href="atelier.css?v=18">
-<link rel="stylesheet" href="shell.css?v=12">
+<link rel="stylesheet" href="shell.css?v=13">
 <link rel="stylesheet" href="reader-tools.css">
 <style>
 /* Aucun :root ici. La palette sombre-chaude est le système de record
@@ -776,7 +776,7 @@ nav.tabs.worktabs{position:sticky;top:44px;z-index:62;
 
 </style>
 <script src="../config.js"></script>
-<script src="shell.js?v=21"></script>
+<script src="shell.js?v=22"></script>
 <script src="shell-social.js"></script>
 <script src="shell-annotations.js?v=3"></script>
 <script src="shell-progress.js"></script>
@@ -3505,7 +3505,7 @@ else bootAtelier();
   const WORK='capital';
   const KEY='liremarx.anno.v1';
   const COLORS=[['gold','Or'],['red','Rouge'],['blue','Bleu'],['green','Vert']];
-  // box + curN sont conservés : utilisés par les modules sociaux/PLACE COMMUNE
+  // box + curN sont conservés : utilisés par les modules sociaux/FORUM
   // (filtrage realtime par section, etc.). Tout le reste (store, bar, pop,
   // pendingJump, panel, toggle, notesPanel/notesToggle DOM) est désormais
   // géré par SHELL.annotations / SHELL.reader.
@@ -3725,7 +3725,7 @@ else bootAtelier();
   // Forum (flux des notes partagées) : la vue riche inlinée
   // — pcRender, pcCard, pcJump, showCommons, renderCommonsPage, etc. —
   // a été retirée en 6d. La page partagée oeuvres/forum.html
-  // sert désormais la vue dédiée, et SHELL.commune.mount peut être
+  // sert désormais la vue dédiée, et SHELL.forum.mount peut être
   // monté dans n'importe quel conteneur d'aperçu (cf. accueil du site).
   // Capital n'a plus d'onglet #home — son sidebar « Forum »
   // navigue maintenant vers forum.html comme partout.

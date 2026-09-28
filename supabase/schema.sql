@@ -180,7 +180,7 @@ end $$;
 
 -- ═══════════════════════════════════════════════════════════════════
 -- Soutiens (mission place-forum, août 2026) — le vote d'appui du forum
--- de la Place publique. UN vote par lecteur et par note (racine ou
+-- du forum. UN vote par lecteur et par note (racine ou
 -- réponse), pas de vote négatif : on appuie une lecture, on n'enterre
 -- personne. Style maison : note_id = id client de public_notes,
 -- created en millisecondes, voter_id posé par DÉFAUT à auth.uid() —

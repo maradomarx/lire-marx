@@ -52,7 +52,7 @@ L'accueil du site est `oeuvres/index.html` (la bibliothèque), pilotée par
   « Place publique » sur toutes les pages) : discussions, réponses en
   fil, soutiens — voir « La page Place publique » plus bas. L'aperçu
   des 6 dernières notes est aussi monté dans la colonne droite de
-  `oeuvres/index.html` (`SHELL.commune.mount(#placeCommuneFlux,
+  `oeuvres/index.html` (`SHELL.forum.mount(#placeForumFlux,
   {limit:6, compact:true})`) — avec un lien « Voir toutes les notes → »
   qui pointe vers `/oeuvres/forum`.
 
@@ -153,7 +153,7 @@ site s'ouvre plus carré ainsi.
 La page porte donc le contenu réel dans `.hw` — héros deux
 colonnes, marquee de concepts, « Ce que vous pouvez faire », bande
 « circuit du capital » animée (A–M–P–M′–A′), **catalogue**, aperçu Place
-publique (`SHELL.commune.mount(#homeCommune,{limit:4})`), chiffres clés,
+publique (`SHELL.forum.mount(#homeForum,{limit:4})`), chiffres clés,
 bande CTA finale. **Thème sombre-chaud** (voir « Direction artistique »).
 Le bouton plein du héros dit **« Entrer dans la bibliothèque »** et mène à
 `oeuvres/bibliotheque.html`, plus à `capital-1.html` : on entre dans le site
@@ -179,7 +179,7 @@ mobile étroit ou reduced-motion. CSS de l'accueil = **inline**
 (critique LCP) ; JS = **externe + `defer`**. `vendor/three.min.js` reste
 chargé, non plus pour l'intro mais pour les décors WebGL de home.js (la
 liasse, le chariot). Ne pas réintroduire de Three.js bloquant.
-`SHELL.commune` vient de `shell.js` (déjà chargé).
+`SHELL.forum` vient de `shell.js` (déjà chargé).
 
 **La largeur ne se teste PAS à `innerWidth` dans un script de tête.** Au
 moment où il s'exécute, la fenêtre peut encore annoncer 0 (onglet ouvert en
@@ -969,7 +969,7 @@ lisant.
    descend en dessous.
 
 L'alias hérité `'capital'` → `'capital-1'` est redit ici (comme dans
-place-publique) plutôt que de coupler la page à `SHELL.commune`.
+place-publique) plutôt que de coupler la page à `SHELL.forum`.
 
 ### L'entrée du carnet (mission `intro-vers-carnet`, septembre 2026)
 
@@ -3357,9 +3357,14 @@ forum » dans les phrases) — **et l'adresse aussi** : la page est
 `data-act="forum"`. `_redirects` porte deux 301 depuis
 `/oeuvres/place-publique` (et sa forme `.html`) : les liens déjà publiés et
 leurs `#d=` / `#u=` (le navigateur garde le fragment à travers la
-redirection) mènent au forum. Seuls restent les noms de code que personne ne
-voit (`SHELL.commune`, classes `.pf-*` / `.cm-*`). Les sections historiques
-de ce fichier gardent l'ancien nom et l'ancienne adresse. `shell.js?v=21`.
+redirection) mènent au forum. **Les noms internes ont suivi** : `SHELL.forum` (jadis `SHELL.commune`),
+`#homeForum`, `.hs-forum*`, `forumScrub()` et `html.js-forum` sur l'accueil, et
+les cartes d'aperçu du shell en **`.fm-*`** (jadis `.cm-*`, préfixe qui
+entrait en collision avec les `.cm-*` des commentaires d'agrégation — ceux-là
+restent `.cm-*`). Les règles mortes `.pp-*` / `#placeFull` sont retirées.
+`.pf-*` (la page du forum) ne bouge pas. Plus AUCUN « commune » ni « place
+publique » dans le code : un nom neuf s'écrit « forum ». Les sections historiques
+de ce fichier gardent l'ancien nom et l'ancienne adresse. `shell.js?v=22`, `shell.css?v=13`, `home.js?v=9`.
 ⏳ Après déploiement : vérifier les deux 301 sur liremarx.com et demander
 l'indexation de `/oeuvres/forum` dans Search Console.
 
@@ -3400,7 +3405,7 @@ passage »). Clic sur la carte = la **vue de fil** ; le rail porte
 - **Le « titre » n'est PAS une colonne** : c'est la première ligne du
   `body` quand elle fait ≤ 160 caractères (`partsOf()`), dérivée à
   l'affichage. Zéro migration, et les notes nées en lisant restent
-  telles quelles partout ailleurs (SHELL.commune, panneau de liseuse).
+  telles quelles partout ailleurs (SHELL.forum, panneau de liseuse).
   Le composeur écrit `titre + '\n\n' + texte` — le contrat boucle.
 - **Les soutiens** : un vote d'appui par lecteur et par note, PAS de
   vote négatif (« on appuie une lecture, on n'enterre personne » —
@@ -3454,7 +3459,7 @@ ignoré.
 3. `atelier.css` pose `scroll-behavior:smooth` : tout `scrollTo`
    programmatique passe `behavior:'instant'` (piège déjà documenté).
 
-**SHELL.commune n'est PAS modifié** (aperçus compacts de l'accueil et
+**SHELL.forum n'est PAS modifié** (aperçus compacts de l'accueil et
 de la bibliothèque, lecture seule, filtrés `hidden=false`). Les
 conventions partagées tiennent : `public_notes.work` = id de
 bibliotheque.json, alias `'capital'` → `'capital-1'` à l'affichage ET à
@@ -3676,7 +3681,7 @@ profil comme il peut lire le forum.
 `DM.convo()` EST le `profiles.id`/`author_id`, le même contrat des deux
 côtés. Dupliquer la vue de profil sur Messages aurait recopié ~250 lignes
 pour un gain nul ; un lien suffit, exactement le calcul déjà fait pour ne
-pas équiper `SHELL.commune`. Icône ronde 34×34 (taille de `.mg-back`, son
+pas équiper `SHELL.forum`. Icône ronde 34×34 (taille de `.mg-back`, son
 symétrique) sous 560 px — le label texte disparaît, l'`aria-label` reste.
 
 **Vérifié** (production, données réelles via `SHELL.auth.getClient()`) :
@@ -3716,8 +3721,8 @@ Toutes les pages (bibliothèque comme livres) partagent :
   livre l'appelle avec ses onglets ; shell.js câble alors le sb-work pour
   qu'un clic dispatche vers `window.activateTab(id)` que la page définit.
   Embarque `SHELL.auth` (singleton Supabase + Mon compte) et
-  `SHELL.commune` (flux Place publique, lecture seule, monté dans
-  n'importe quel conteneur via `SHELL.commune.mount(el, {limit, compact})`).
+  `SHELL.forum` (flux Place publique, lecture seule, monté dans
+  n'importe quel conteneur via `SHELL.forum.mount(el, {limit, compact})`).
 - `oeuvres/shell-social.js` (optionnel) — module `SHELL.social` :
   messagerie privée (contacts + DM + popover msgBtn + modale
   `#contactsModal` + realtime des `direct_messages`) ET notifications
@@ -3791,7 +3796,7 @@ alors qu'il marche sur Capital, c'est une policy à revoir, pas un
 contournement à coder.
 
 **Contrat de deep-link au passage.** Place publique
-(`SHELL.commune`) et notifications (`SHELL.social`) ouvrent une
+(`SHELL.forum`) et notifications (`SHELL.social`) ouvrent une
 page d'œuvre avec un fragment `#note=<id>` (id `public_notes`).
 `SHELL.reader.parseDeepLink()` lit la cible au chargement du module,
 `SHELL.reader.resolveDeepLink(workId)` fetch la ligne pour
@@ -3853,7 +3858,7 @@ mesuré avant de toucher au code :
 - **Deux tokens manquaient** au `:root` d'`index.html` et de
   `bibliotheque.html` (`--red-text`, `--line-strong`, `--hover`), et
   `--red-deep` y valait encore `#b5372a`, soit **2,9:1** — les composants
-  du shell qui l'emploient (`.cm-go`, `.cm-all`, `.pub-author`,
+  du shell qui l'emploient (`.fm-go`, `.fm-all`, `.pub-author`,
   `.msg-poplink`, `.ac-err`) y étaient illisibles.
 
 ### La forme
@@ -4016,7 +4021,7 @@ montre. Et une ressource tierce sans `Timing-Allow-Origin` rend toujours
 Depuis la sous-mission `retrait-shell-host` (6f), Capital est **un livre
 comme un autre** côté UX *et* côté coquille : il consomme `installShell`
 + `SHELL.auth` + `SHELL.reader.attach` + `SHELL.annotations` +
-`SHELL.social` + `SHELL.commune` exactement comme `manuscrits-1844.html`.
+`SHELL.social` + `SHELL.forum` exactement comme `manuscrits-1844.html`.
 La recherche partagée (basée sur `bibliotheque.json`) et le bouton
 « Nous soutenir » vivent désormais entièrement dans `shell.js`.
 
@@ -4069,7 +4074,7 @@ chapitre par chapitre. C'est le rôle attendu d'une page de livre.
   comme le statut arrive en différé, chaque surface s'abonne à
   `SHELL.mod.onChange` pour recharger. (Les crochets 3D `onNoteHidden` /
   `hitMeshes` ont disparu avec la salle.)
-- `SHELL.commune` (aperçus lecture seule) reste filtré `hidden=false` et
+- `SHELL.forum` (aperçus lecture seule) reste filtré `hidden=false` et
   sans actions — ne pas l'équiper.
 - **Validé en production par le propriétaire** (août 2026, sur la
   2e passe) : SQL rejoué, sa ligne insérée dans `moderators`, puis
@@ -11086,11 +11091,11 @@ répond à la requête, elle ne crée pas de liens entrants.
   insérée dans la table `public_notes` doit utiliser comme `work`
   l'id défini dans `oeuvres/bibliotheque.json` (ex.
   `manuscrits-1844`, `capital-1`). C'est ce qui permet à la Place
-  publique partagée (`SHELL.commune`, modale ouverte depuis n'importe
+  publique partagée (`SHELL.forum`, modale ouverte depuis n'importe
   quelle page) de résoudre le titre, le statut et le chemin de la
   page d'atelier sans dépendre d'un mapping ad-hoc.
 - **Alias hérité `'capital'` → `'capital-1'`.** Les premières lignes
   écrites par `capital-1.html` portaient `work='capital'`. Cet alias
-  est codé en dur dans `SHELL.commune` (et seulement là) pour couvrir
+  est codé en dur dans `SHELL.forum` (et seulement là) pour couvrir
   ces lignes historiques. Toute autre œuvre doit s'aligner sur son id
   de bibliothèque dès le premier `INSERT`.
