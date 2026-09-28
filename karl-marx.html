@@ -215,7 +215,7 @@ html.js:not(.no-motion) .hv.lit .hv-face{animation:km-dev 1.6s cubic-bezier(.16,
    Londres dès l'entrée). Le texte, en marge négative, ne compte pas pour
    la hauteur : on impose une hauteur minimale, plus longue pour la carte. */
 .tb{position:relative;--q:0;--rev:1;padding-bottom:clamp(16vh,22vh,240px);min-height:calc((100vh - var(--km-top)) * 1.7);}
-#vie-exil{min-height:calc((100vh - var(--km-top)) * 2.6);}
+#vie-exil{min-height:calc((100vh - var(--km-top)) * 3.2);}
 .tb-stage{position:sticky;top:var(--km-top);height:calc(100vh - var(--km-top));overflow:hidden;
   background:#100c08;}
 .tb-stage::after{content:"";position:absolute;inset:0;background:var(--grain);opacity:.10;mix-blend-mode:overlay;pointer-events:none;}
@@ -453,7 +453,11 @@ html.js-faq .hs-faq-q{color:var(--muted);}
   .tb-fig--b{width:120px;bottom:52px;}
   .tb-cap{max-width:70%;right:16px;bottom:12px;}
   .tb-year{font-size:clamp(2.6rem,12vw,4rem);right:14px;top:56px;}
-  .tb-copy{margin:18px clamp(16px,4vw,32px) 0;max-width:none;padding:22px 20px 24px;background:var(--surface);backdrop-filter:none;}
+  /* le texte passe SOUS la bande épinglée (z-index inversé), comme sous un
+     en-tête fixe : la scène reste visible pendant qu'on lit dessous. Un
+     dégradé au pied de la bande adoucit la ligne de coupe. */
+  .tb-stage{z-index:3;box-shadow:0 18px 30px -12px rgba(0,0,0,.85);}
+  .tb-copy{z-index:1;margin:18px clamp(16px,4vw,32px) 0;max-width:none;padding:22px 20px 24px;background:var(--surface);backdrop-filter:none;}
   .tb-quote{padding:0 20px;align-items:center;justify-content:center;text-align:center;}
   .tb-seq{width:100%;}
 }
@@ -872,7 +876,7 @@ html.no-motion .km-scene{display:none;}
   <section class="tb" id="vie-exil" aria-labelledby="h-exil" data-exil>
     <div class="tb-stage">
       <div class="km-scene" id="kmScene" aria-hidden="true"><canvas id="kmBg"></canvas></div>
-      <p class="tb-cap"><b>La route de l'exil, 1843-1849</b>Carte dessinée pour cette page ; elle se trace à mesure qu'on lit</p>
+      <p class="tb-cap"><b>La route de l'exil, 1843-1849</b>Carte dessinée pour cette page ; côtes et fleuves d'après <a href="https://www.naturalearthdata.com/" rel="noopener">Natural Earth</a> (domaine public). Elle se trace à mesure qu'on lit.</p>
     </div>
     <div class="tb-copy">
       <span class="tb-y">1845 · 1848 · 1849</span>
@@ -1517,12 +1521,9 @@ html.no-motion .km-scene{display:none;}
   function scene() {
     if (typeof THREE === 'undefined') { host.remove(); return; }
     var T = THREE;
+    /* (lon, lat) → monde : x suit la longitude, z la latitude (×1,6 : à
+       51° nord un degré de latitude vaut environ 1,6 degré de longitude) */
     function W(lon, lat) { return new T.Vector3((lon - 4), 0, -(lat - 51) * 1.6); }
-    var COTES = {
-      bretagne: [[1.35,51.13],[0.6,50.85],[-0.15,50.82],[-1.1,50.8],[-2.45,50.6],[-3.5,50.45],[-4.15,50.35],[-5.2,49.95],[-5.7,50.05],[-5.05,50.42],[-4.5,51.0],[-3.0,51.4],[-3.95,51.6],[-5.1,51.65],[-5.3,51.9],[-4.4,52.4],[-4.7,52.85],[-4.6,53.3],[-3.0,53.4],[-3.05,53.85],[-2.9,54.1],[-3.2,54.15],[-3.5,54.85],[-4.9,54.65],[-4.65,55.45],[-4.8,55.9],[-5.7,55.3],[-6.2,56.4],[-6.5,57.3],[-5.0,58.6],[-3.5,58.6],[-3.1,58.45],[-4.2,57.5],[-2.1,57.15],[-2.9,56.45],[-3.2,55.95],[-2.0,55.75],[-1.4,55.0],[-1.1,54.6],[-0.1,54.1],[0.1,53.6],[0.3,52.85],[1.7,52.75],[1.75,52.5],[1.3,51.95],[0.7,51.5]],
-      irlande: [[-6.25,53.35],[-6.4,52.3],[-8.3,51.85],[-10.3,51.9],[-9.6,53.3],[-10.0,54.1],[-8.5,55.2],[-6.0,55.2],[-5.9,54.6]],
-      continent: [[10.6,57.75],[9.95,57.6],[8.15,55.5],[8.35,54.9],[8.6,53.9],[8.5,53.55],[6.9,53.35],[6.5,53.4],[4.75,52.95],[4.05,52.0],[3.5,51.5],[2.9,51.25],[1.85,50.95],[1.6,50.7],[1.5,50.2],[1.05,49.93],[0.1,49.5],[-1.6,49.65],[-1.5,48.65],[-2.0,48.65],[-4.5,48.4],[-4.75,48.05],[-3.35,47.75],[-2.2,47.25],[-1.15,46.15],[-1.2,45.6],[-1.55,43.45],[-2.0,43.3],[-3.8,43.45],[-5.65,43.55],[-8.4,43.35],[-9.3,42.9],[-8.7,42.2],[-8.7,40.5],[19,40.5],[19,54.4],[13.4,54.6],[10.8,54.0],[10.1,54.4],[9.6,54.8],[10.2,56.15]]
-    };
     var VILLES = {
       treves:    { n: 'Trèves',     lon: 6.64,  lat: 49.75, s: '1818' },
       bonn:      { n: 'Bonn',       lon: 7.10,  lat: 50.73, s: '1835' },
@@ -1534,7 +1535,6 @@ html.no-motion .km-scene{display:none;}
       manchester:{ n: 'Manchester', lon: -2.24, lat: 53.48, s: 'Engels' }
     };
     var ROUTE = ['treves','bonn','berlin','cologne','paris','bruxelles','cologne','paris','londres'];
-    /* les stations du tableau ↔ le nœud de la route qu'elles atteignent */
     var ids = ['paris', 'bruxelles', 'cologne2', 'londres'];
     var STATION_NODE = { paris: 4, bruxelles: 5, cologne2: 6, londres: 8 };
 
@@ -1545,44 +1545,159 @@ html.no-motion .km-scene{display:none;}
     renderer.setClearColor(0x100c08, 1);
     renderer.outputEncoding = T.sRGBEncoding;
     var sc = new T.Scene();
-    sc.fog = new T.Fog(0x100c08, 9, 30);
-    var cam = new T.PerspectiveCamera(40, 1, 0.1, 80);
+    sc.fog = new T.Fog(0x100c08, 14, 40);
+    var cam = new T.PerspectiveCamera(38, 1, 0.1, 120);
     sc.add(cam);
 
-    var mer = new T.Mesh(new T.PlaneGeometry(90, 90), new T.MeshStandardMaterial({ color: 0x0c0906, roughness: .92, metalness: 0 }));
-    mer.rotation.x = -Math.PI / 2; mer.position.y = -0.02; sc.add(mer);
-    var papier = (function () {
-      var c = doc.createElement('canvas'); c.width = c.height = 256; var x = c.getContext('2d');
-      x.fillStyle = '#4a3a28'; x.fillRect(0, 0, 256, 256);
-      var img = x.getImageData(0, 0, 256, 256), d = img.data;
-      for (var i = 0; i < d.length; i += 4) { var n = (Math.random() - .5) * 14; d[i] += n; d[i+1] += n; d[i+2] += n; }
-      x.putImageData(img, 0, 0);
-      x.strokeStyle = 'rgba(216,173,76,.14)'; x.lineWidth = 1;
-      for (var k = -256; k < 512; k += 9) { x.beginPath(); x.moveTo(k, 0); x.lineTo(k + 256, 256); x.stroke(); }
-      var t = new T.CanvasTexture(c); t.wrapS = t.wrapT = T.RepeatWrapping; t.repeat.set(1.6, 1.6);
-      t.encoding = T.sRGBEncoding;   /* la sortie est en sRGB : sans ça la texture est lue comme linéaire, donc bien plus sombre */
-      return t;
-    })();
-    var terreMat = new T.MeshStandardMaterial({ map: papier, color: 0xd9c8a6, roughness: .95, metalness: 0 });
-    var bordMat = new T.LineBasicMaterial({ color: 0xd8ad4c, transparent: true, opacity: .28 });
-    Object.keys(COTES).forEach(function (k) {
-      var sh = new T.Shape(COTES[k].map(function (p) { return new T.Vector2(p[0] - 4, (p[1] - 51) * 1.6); }));
-      var g = new T.ExtrudeGeometry(sh, { depth: 0.10, bevelEnabled: false });
-      var m = new T.Mesh(g, terreMat); m.rotation.x = -Math.PI / 2; sc.add(m);
-      var e = new T.LineSegments(new T.EdgesGeometry(g, 20), bordMat); e.rotation.x = -Math.PI / 2; e.position.y = 0.002; sc.add(e);
-    });
-    (function grille() {
-      var pts = [], i;
-      for (i = -20; i <= 24; i += 2) { pts.push(new T.Vector3(i, 0.0, -26), new T.Vector3(i, 0.0, 26)); }
-      for (i = -26; i <= 26; i += 2) { pts.push(new T.Vector3(-20, 0.0, i), new T.Vector3(24, 0.0, i)); }
-      var g = new T.BufferGeometry().setFromPoints(pts);
-      sc.add(new T.LineSegments(g, new T.LineBasicMaterial({ color: 0xf3e9d4, transparent: true, opacity: .05 })));
-    })();
-    sc.add(new T.AmbientLight(0xffe0b8, .34));
-    sc.add(new T.HemisphereLight(0xffd7a0, 0x1a120b, .7));
-    var bougie = new T.PointLight(0xffb36b, 1.25, 11, 1.7); bougie.position.set(2, 3.0, 0); sc.add(bougie);
-    var lune = new T.DirectionalLight(0x6f8fb0, .18); lune.position.set(-6, 8, -4); sc.add(lune);
+    /* ═══ LA CARTE, DESSINÉE AU CANEVAS ═══
+       Une seule texture, dans la langue du site : parchemin brun-nuit, les
+       côtes et les fleuves de Natural Earth (assets/img/marx/carte-exil.json,
+       dérivé par tools/carte-exil.mjs), les hachures côtières des cartes
+       anciennes, un graticule, les noms de mers et de fleuves en Fraunces,
+       un cartouche et une rose des vents. Le relief et la lumière viennent
+       de la scène ; le dessin vient d'ici. */
+    var BB = { x0: -7, y0: 46.5, x1: 16, y1: 56.5 };
+    var PPU = 150;                                   /* pixels par unité monde */
+    var MW = (BB.x1 - BB.x0), MH = (BB.y1 - BB.y0) * 1.6;   /* 23 × 16 unités */
+    var CW = Math.round(MW * PPU), CH = Math.round(MH * PPU);
+    var mapCanvas = doc.createElement('canvas'); mapCanvas.width = CW; mapCanvas.height = CH;
+    var mapTex = new T.CanvasTexture(mapCanvas); mapTex.encoding = T.sRGBEncoding; mapTex.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+    var px = function (lon) { return (lon - BB.x0) * PPU; }, py = function (lat) { return (BB.y1 - lat) * 1.6 * PPU; };
 
+    function dessine(data) {
+      var x = mapCanvas.getContext('2d');
+      var GOLD = '216,173,76', CREME = '243,233,212', BLEU = '120,165,190';
+      /* le parchemin : brun-nuit, un peu plus chaud au centre, vignetté */
+      var g0 = x.createRadialGradient(CW * .5, CH * .5, CH * .2, CW * .5, CH * .5, CW * .7);
+      g0.addColorStop(0, '#221a12'); g0.addColorStop(.6, '#1a1410'); g0.addColorStop(1, '#0f0b08');
+      x.fillStyle = g0; x.fillRect(0, 0, CW, CH);
+      /* le grain */
+      var gr = doc.createElement('canvas'); gr.width = gr.height = 256; var gx = gr.getContext('2d');
+      var im = gx.createImageData(256, 256), d = im.data;
+      for (var i = 0; i < d.length; i += 4) { var v = 128 + (Math.random() - .5) * 70; d[i] = v; d[i+1] = v * .92; d[i+2] = v * .8; d[i+3] = 255; }
+      gx.putImageData(im, 0, 0);
+      x.globalAlpha = .10; x.globalCompositeOperation = 'overlay'; x.fillStyle = x.createPattern(gr, 'repeat'); x.fillRect(0, 0, CW, CH);
+      x.globalAlpha = 1; x.globalCompositeOperation = 'source-over';
+      /* les ondes de la mer : de fines lignes horizontales, à peine là */
+      x.strokeStyle = 'rgba(' + CREME + ',.045)'; x.lineWidth = 1;
+      for (var yy = 0; yy < CH; yy += 9) { x.beginPath(); x.moveTo(0, yy); x.lineTo(CW, yy); x.stroke(); }
+      /* le graticule, tous les degrés */
+      x.strokeStyle = 'rgba(' + GOLD + ',.09)'; x.lineWidth = 1.2;
+      for (var lo = Math.ceil(BB.x0); lo <= BB.x1; lo++) { x.beginPath(); x.moveTo(px(lo), 0); x.lineTo(px(lo), CH); x.stroke(); }
+      for (var la = Math.ceil(BB.y0); la <= BB.y1; la++) { x.beginPath(); x.moveTo(0, py(la)); x.lineTo(CW, py(la)); x.stroke(); }
+      x.fillStyle = 'rgba(' + GOLD + ',.35)'; x.font = '500 22px Inter, system-ui, sans-serif'; x.textAlign = 'center';
+      for (lo = Math.ceil(BB.x0); lo <= BB.x1; lo += 2) { x.fillText((lo < 0 ? -lo + '° O' : lo + '° E'), px(lo), 30); x.fillText((lo < 0 ? -lo + '° O' : lo + '° E'), px(lo), CH - 14); }
+      x.textAlign = 'left';
+      for (la = Math.ceil(BB.y0); la <= BB.y1; la += 2) { x.fillText(la + '° N', 12, py(la) - 6); x.textAlign = 'right'; x.fillText(la + '° N', CW - 12, py(la) - 6); x.textAlign = 'left'; }
+      /* les terres : le tracé, puis les hachures côtières (le tracé
+         répété en s'élargissant côté mer), puis le remplissage, puis le
+         trait de côte. */
+      function traceTerres() {
+        x.beginPath();
+        data.terres.forEach(function (poly) { poly.forEach(function (ring) { ring.forEach(function (p, k) { var X = px(p[0]), Y = py(p[1]); k ? x.lineTo(X, Y) : x.moveTo(X, Y); }); x.closePath(); }); });
+      }
+      x.lineJoin = 'round'; x.lineCap = 'round';
+      /* les hachures côtières : trois anneaux ténus côté mer, jamais un néon */
+      [[30, .028], [17, .045], [7, .08]].forEach(function (w) { traceTerres(); x.lineWidth = w[0]; x.strokeStyle = 'rgba(' + GOLD + ',' + w[1] + ')'; x.stroke(); });
+      traceTerres();
+      var g1 = x.createLinearGradient(0, 0, CW, CH); g1.addColorStop(0, '#3a2d1f'); g1.addColorStop(1, '#2c2218');
+      x.fillStyle = g1; x.fill('evenodd');
+      /* les hachures du sol : un semis de traits obliques, retenu par la terre */
+      x.save(); traceTerres(); x.clip('evenodd');
+      x.strokeStyle = 'rgba(' + CREME + ',.05)'; x.lineWidth = 1;
+      for (var k = -CH; k < CW; k += 7) { x.beginPath(); x.moveTo(k, 0); x.lineTo(k + CH, CH); x.stroke(); }
+      /* l'ombre intérieure de la côte : la terre s'assombrit vers l'eau */
+      traceTerres(); x.lineWidth = 26; x.strokeStyle = 'rgba(0,0,0,.28)'; x.stroke();
+      traceTerres(); x.lineWidth = 9; x.strokeStyle = 'rgba(0,0,0,.30)'; x.stroke();
+      x.restore();
+      traceTerres(); x.lineWidth = 1.7; x.strokeStyle = 'rgba(' + GOLD + ',.8)'; x.stroke();
+      /* les lacs */
+      x.fillStyle = '#17120d';
+      data.lacs.forEach(function (ring) { x.beginPath(); ring.forEach(function (p, k) { k ? x.lineTo(px(p[0]), py(p[1])) : x.moveTo(px(p[0]), py(p[1])); }); x.closePath(); x.fill(); x.lineWidth = 1.2; x.strokeStyle = 'rgba(' + GOLD + ',.5)'; x.stroke(); });
+      /* les fleuves : le rang fait l'épaisseur ; un liseré sombre dessous */
+      data.fleuves.forEach(function (f) {
+        var w = f.r <= 4 ? 3.2 : f.r <= 6 ? 2.2 : 1.4;
+        x.beginPath(); f.p.forEach(function (p, k) { k ? x.lineTo(px(p[0]), py(p[1])) : x.moveTo(px(p[0]), py(p[1])); });
+        x.lineWidth = w + 2; x.strokeStyle = 'rgba(0,0,0,.35)'; x.stroke();
+        x.lineWidth = w; x.strokeStyle = 'rgba(' + BLEU + ',' + (f.r <= 6 ? .8 : .6) + ')'; x.stroke();
+      });
+      /* les noms de fleuves : UNE fois chacun, sur le plus long tronçon,
+         en italique le long du cours */
+      var best = {};
+      data.fleuves.forEach(function (f) { if (!f.n) return; var L = 0; for (var i = 1; i < f.p.length; i++) L += Math.hypot(f.p[i][0] - f.p[i-1][0], f.p[i][1] - f.p[i-1][1]); if (!best[f.n] || L > best[f.n].L) best[f.n] = { L: L, f: f }; });
+      x.font = 'italic 500 26px Fraunces, Georgia, serif'; x.fillStyle = 'rgba(' + BLEU + ',.95)'; x.textAlign = 'center';
+      Object.keys(best).forEach(function (n) {
+        var pts = best[n].f.p, m = Math.floor(pts.length / 2), a = pts[Math.max(0, m - 2)], b = pts[Math.min(pts.length - 1, m + 2)];
+        var X = px(pts[m][0]), Y = py(pts[m][1]), ang = Math.atan2(py(b[1]) - py(a[1]), px(b[0]) - px(a[0]));
+        if (ang > Math.PI / 2 || ang < -Math.PI / 2) ang += Math.PI;
+        x.save(); x.translate(X, Y); x.rotate(ang); x.fillText(n, 0, -8); x.restore();
+      });
+      /* les noms : mers en capitales espacées, pays de l'époque en petites capitales */
+      function cap(txt, lon, lat, size, alpha, rot) {
+        x.save(); x.translate(px(lon), py(lat)); x.rotate(rot || 0);
+        x.font = '600 ' + size + 'px Inter, system-ui, sans-serif'; x.fillStyle = 'rgba(' + GOLD + ',' + alpha + ')'; x.textAlign = 'center';
+        var t = txt.toUpperCase().split('').join(' ');  /* l'espacement, à la main */
+        x.fillText(t, 0, 0); x.restore();
+      }
+      cap('Mer du Nord', 3.2, 55.2, 44, .38, -.12); cap('La Manche', -1.6, 49.9, 34, .38, -.14); cap('Mer Baltique', 13.3, 55.6, 30, .34, 0);
+      cap('Océan Atlantique', -5.2, 47.6, 30, .30, -1.2);
+      [['Angleterre', -1.6, 52.6], ['France', 1.6, 47.9], ['Royaume de Belgique', 4.2, 50.2], ['Pays-Bas', 5.4, 52.55], ['Prusse rhénane', 7.9, 50.05], ['Royaume de Prusse', 12.2, 52.9], ['États allemands', 9.8, 51.4], ['Danemark', 9.4, 56.05]].forEach(function (c) { cap(c[0], c[1], c[2], 26, .45); });
+      /* la route entière, en pointillé rouge : l'itinéraire tel qu'on le
+         porte sur une carte, avant que la lumière ne le parcoure */
+      x.setLineDash([12, 10]); x.lineWidth = 3; x.strokeStyle = 'rgba(213,64,47,.55)'; x.beginPath();
+      ROUTE.forEach(function (id, k) { var v = VILLES[id]; k ? x.lineTo(px(v.lon), py(v.lat)) : x.moveTo(px(v.lon), py(v.lat)); });
+      x.stroke(); x.setLineDash([]);
+      /* les villes : un cercle et un point, comme sur une carte gravée */
+      Object.keys(VILLES).forEach(function (id) { var v = VILLES[id]; x.beginPath(); x.arc(px(v.lon), py(v.lat), 9, 0, 7); x.lineWidth = 2; x.strokeStyle = 'rgba(' + GOLD + ',.9)'; x.stroke(); x.beginPath(); x.arc(px(v.lon), py(v.lat), 3.5, 0, 7); x.fillStyle = 'rgba(' + GOLD + ',1)'; x.fill(); });
+      /* la rose des vents, en mer du Nord */
+      (function rose(lon, lat, R) {
+        var X = px(lon), Y = py(lat); x.save(); x.translate(X, Y);
+        x.strokeStyle = 'rgba(' + GOLD + ',.55)'; x.lineWidth = 1.5;
+        x.beginPath(); x.arc(0, 0, R, 0, 7); x.stroke(); x.beginPath(); x.arc(0, 0, R * .78, 0, 7); x.stroke();
+        for (var i = 0; i < 16; i++) { var a = i * Math.PI / 8, r = i % 4 === 0 ? R * 1.15 : i % 2 === 0 ? R * .7 : R * .45;
+          x.beginPath(); x.moveTo(0, 0); x.lineTo(Math.sin(a) * r, -Math.cos(a) * r); x.lineWidth = i % 4 === 0 ? 2.5 : 1; x.stroke(); }
+        x.fillStyle = 'rgba(' + GOLD + ',.85)'; x.font = '900 34px Fraunces, Georgia, serif'; x.textAlign = 'center';
+        x.fillText('N', 0, -R * 1.25); x.font = '500 24px Fraunces, Georgia, serif'; x.fillText('S', 0, R * 1.5); x.fillText('E', R * 1.4, 9); x.fillText('O', -R * 1.4, 9);
+        x.restore();
+      })(1.2, 54.4, 120);
+      /* le cartouche, dans l'Atlantique */
+      (function cartouche(lon, lat) {
+        var X = px(lon), Y = py(lat), w = 560, h = 190; x.save(); x.translate(X, Y);
+        x.fillStyle = 'rgba(21,16,11,.55)'; x.strokeStyle = 'rgba(' + GOLD + ',.7)'; x.lineWidth = 2;
+        x.beginPath(); x.rect(-w / 2, -h / 2, w, h); x.fill(); x.stroke();
+        x.beginPath(); x.rect(-w / 2 + 10, -h / 2 + 10, w - 20, h - 20); x.lineWidth = 1; x.stroke();
+        x.textAlign = 'center'; x.fillStyle = 'rgba(' + CREME + ',.92)';
+        x.font = '600 20px Inter, system-ui, sans-serif'; x.fillText('L A   R O U T E   D E   L ’ E X I L', 0, -46);
+        x.font = '900 46px Fraunces, Georgia, serif'; x.fillText('Karl Marx, 1843 – 1849', 0, 6);
+        x.font = 'italic 500 24px Fraunces, Georgia, serif'; x.fillStyle = 'rgba(' + GOLD + ',.9)'; x.fillText('de Trèves à Londres, par Paris, Bruxelles et Cologne', 0, 44);
+        x.font = '500 16px Inter, system-ui, sans-serif'; x.fillStyle = 'rgba(' + CREME + ',.55)'; x.fillText('Côtes et fleuves : Natural Earth · dessiné pour liremarx.com', 0, 76);
+        x.restore();
+      })(-4.2, 47.55);
+      mapTex.needsUpdate = true;
+    }
+
+    /* le plan de la carte, dans le monde */
+    var plan = new T.Mesh(new T.PlaneGeometry(MW, MH), new T.MeshStandardMaterial({ map: mapTex, roughness: .92, metalness: 0 }));
+    plan.rotation.x = -Math.PI / 2; plan.position.set((BB.x0 + BB.x1) / 2 - 4, 0, -((BB.y0 + BB.y1) / 2 - 51) * 1.6); sc.add(plan);
+    /* le sol au-delà de la carte : la table sombre */
+    var table = new T.Mesh(new T.PlaneGeometry(200, 200), new T.MeshStandardMaterial({ color: 0x0b0806, roughness: 1 }));
+    table.rotation.x = -Math.PI / 2; table.position.y = -0.01; sc.add(table);
+    /* la carte se charge, les polices d'abord (les noms sont en Fraunces) */
+    var dataP = fetch('/assets/img/marx/carte-exil.json').then(function (r) { return r.json(); });
+    var fontsP = (doc.fonts && doc.fonts.load) ? Promise.all([doc.fonts.load('900 40px Fraunces'), doc.fonts.load('italic 500 26px Fraunces'), doc.fonts.load('600 20px Inter')]).catch(function () {}) : Promise.resolve();
+    Promise.all([dataP, fontsP]).then(function (r) { dessine(r[0]); }).catch(function () { host.remove(); });
+
+    /* la lumière : le ciel d'une pièce à la bougie, et la bougie elle-même,
+       qui suit ce qu'on regarde et vacille */
+    sc.add(new T.AmbientLight(0xffe0b8, .42));
+    sc.add(new T.HemisphereLight(0xffd7a0, 0x1a120b, .55));
+    var bougie = new T.PointLight(0xffb36b, 1.4, 16, 1.6); bougie.position.set(2, 3.4, 0); sc.add(bougie);
+    var lune = new T.DirectionalLight(0x6f8fb0, .14); lune.position.set(-6, 8, -4); sc.add(lune);
+
+    /* les villes-lampes et leurs étiquettes. Les halos sont des sprites
+       ADDITIFS SANS TEST DE PROFONDEUR : centrés à ras du plan, leur moitié
+       basse passait sous la carte et le test la coupait net — un rectangle
+       clair sous chaque lampe (vécu, vu au zoom). */
     var lampes = {}, labels = {};
     var haloTex = (function () {
       var c = doc.createElement('canvas'); c.width = c.height = 64; var x = c.getContext('2d');
@@ -1590,84 +1705,90 @@ html.no-motion .km-scene{display:none;}
       x.fillStyle = g; x.fillRect(0, 0, 64, 64); return new T.CanvasTexture(c);
     })();
     Object.keys(VILLES).forEach(function (id) {
-      var v = VILLES[id], p = W(v.lon, v.lat); p.y = 0.12;
-      var m = new T.Mesh(new T.SphereGeometry(0.03, 14, 10), new T.MeshStandardMaterial({ color: 0x3a2a18, emissive: 0xff9a3c, emissiveIntensity: 0, roughness: .6 }));
+      var v = VILLES[id], p = W(v.lon, v.lat); p.y = 0.08;
+      var m = new T.Mesh(new T.SphereGeometry(0.035, 14, 10), new T.MeshStandardMaterial({ color: 0x3a2a18, emissive: 0xff9a3c, emissiveIntensity: 0, roughness: .6 }));
       m.position.copy(p); sc.add(m);
-      var sp = new T.Sprite(new T.SpriteMaterial({ map: haloTex, transparent: true, opacity: 0, blending: T.AdditiveBlending, depthWrite: false, fog: false }));
-      sp.scale.set(.7, .7, 1); sp.position.copy(p); sp.position.y = 0.16; sc.add(sp);
-      var pin = new T.Mesh(new T.CylinderGeometry(0.02, 0.03, 0.12, 8), new T.MeshStandardMaterial({ color: 0x9a7b30, roughness: .4, metalness: .5 }));
-      pin.position.copy(p); pin.position.y = 0.06; sc.add(pin);
-      lampes[id] = { m: m, sp: sp, p: p, lit: 0, target: id === 'manchester' ? .35 : 0 };
+      var sp = new T.Sprite(new T.SpriteMaterial({ map: haloTex, transparent: true, opacity: 0, blending: T.AdditiveBlending, depthWrite: false, depthTest: false, fog: false }));
+      sp.scale.set(.9, .9, 1); sp.position.copy(p); sp.position.y = 0.14; sc.add(sp);
+      lampes[id] = { m: m, sp: sp, p: p, lit: 0, target: id === 'manchester' ? .3 : 0 };
       var lb = doc.createElement('div'); lb.className = 'km-lbl'; lb.innerHTML = v.n + '<small>' + v.s + '</small>';
       host.appendChild(lb); labels[id] = lb;
     });
 
-    var nodes = ROUTE.map(function (id) { var p = lampes[id].p.clone(); p.y = 0.14; return p; });
+    /* la route lumineuse : la courbe par les villes, tracée par drawRange */
+    var nodes = ROUTE.map(function (id) { var p = lampes[id].p.clone(); p.y = 0.10; return p; });
     var courbe = new T.CatmullRomCurve3(nodes, false, 'catmullrom', .35);
     var N = 720, pts = courbe.getPoints(N);
-    for (var k = 0; k <= N; k++) { var t = k / N * (nodes.length - 1), f = t - Math.floor(t); pts[k].y += Math.sin(f * Math.PI) * 0.10; }
-    var routeGeo = new T.BufferGeometry().setFromPoints(pts);
-    var route = new T.Line(routeGeo, new T.LineBasicMaterial({ color: 0xd8ad4c, transparent: true, opacity: .95 }));
-    route.frustumCulled = false; sc.add(route);
-    /* toute la route, en retrait : ce qui précède Paris est déjà parcouru */
-    var routeOmbre = new T.Line(routeGeo, new T.LineBasicMaterial({ color: 0xd8ad4c, transparent: true, opacity: .22 }));
-    routeOmbre.frustumCulled = false; sc.add(routeOmbre);
-    var comete = new T.Sprite(new T.SpriteMaterial({ map: haloTex, transparent: true, opacity: 0, blending: T.AdditiveBlending, depthWrite: false, fog: false }));
-    comete.scale.set(.6, .6, 1); sc.add(comete);
+    for (var k = 0; k <= N; k++) { var t = k / N * (nodes.length - 1), f = t - Math.floor(t); pts[k].y += Math.sin(f * Math.PI) * 0.06; }
+    /* un TUBE et non une Line : une Line fait un pixel quoi qu'il arrive,
+       et la route lumineuse disparaissait sous le pointillé rouge du dessin */
+    var SEG = 400, routeGeo = new T.TubeGeometry(courbe, SEG, 0.011, 6, false);
+    var IDX_PER_SEG = routeGeo.index.count / SEG;
+    var route = new T.Mesh(routeGeo, new T.MeshBasicMaterial({ color: 0xffd27a, transparent: true, opacity: .95 }));
+    route.frustumCulled = false; route.position.y = 0.06; sc.add(route);
+    var comete = new T.Sprite(new T.SpriteMaterial({ map: haloTex, transparent: true, opacity: 0, blending: T.AdditiveBlending, depthWrite: false, depthTest: false, fog: false }));
+    comete.scale.set(.7, .7, 1); sc.add(comete);
     var pous = (function () {
-      var n = 220, arr = new Float32Array(n * 3);
-      for (var i = 0; i < n; i++) { arr[i*3] = -8 + Math.random() * 20; arr[i*3+1] = .1 + Math.random() * 2.2; arr[i*3+2] = -12 + Math.random() * 20; }
+      var n = 260, arr = new Float32Array(n * 3);
+      for (var i = 0; i < n; i++) { arr[i*3] = -10 + Math.random() * 22; arr[i*3+1] = .1 + Math.random() * 3; arr[i*3+2] = -9 + Math.random() * 16; }
       var g = new T.BufferGeometry(); g.setAttribute('position', new T.BufferAttribute(arr, 3));
-      var p = new T.Points(g, new T.PointsMaterial({ color: 0xffd08a, size: .03, transparent: true, opacity: .55, depthWrite: false }));
+      var p = new T.Points(g, new T.PointsMaterial({ color: 0xffd08a, size: .035, transparent: true, opacity: .5, depthWrite: false }));
       sc.add(p); return p;
     })();
 
+    /* ═══ LA CAMÉRA : une plongée cartographique ═══
+       On regarde la carte comme une carte, à 56° du plan, jamais au ras du
+       papier. Chaque plan est un point visé + une distance : le plan large
+       cadre toute la route, chaque station se cadre à distance moyenne
+       (on lit les côtes, les fleuves, les noms), et la fin se recule sur
+       l'exil entier, de Paris à Londres. Le sujet vit à DROITE du feuillet
+       de texte : la visée est décalée d'une part de la distance, plafonnée. */
+    var TILT = 56 * Math.PI / 180;
     var aim = new T.Vector3(), pos = new T.Vector3(), tAim = new T.Vector3(), tPos = new T.Vector3();
-    var WIDE_AIM = new T.Vector3(1.2, 0, -0.6), WIDE_POS = new T.Vector3(0.9, 8.6, 8.0);
-    function stationPose(id, outAim, outPos) {
-      var key = id === 'cologne2' ? 'cologne' : id, c = lampes[key].p;
-      /* le sujet vit dans la MOITIÉ DROITE : le feuillet de texte couvre la gauche */
-      var dx = WIDE.matches ? -1.2 : 0;
-      outAim.set(c.x + dx, 0, c.z - 0.1);
-      outPos.set(c.x + dx + 0.35, 2.7, c.z + 3.1);
+    function poseAt(cx, cz, dist, outAim, outPos) {
+      var dx = WIDE.matches ? -Math.min(0.30 * dist, 2.2) : 0;
+      outAim.set(cx + dx, 0, cz);
+      outPos.set(cx + dx, Math.sin(TILT) * dist, cz + Math.cos(TILT) * dist);
     }
     var a1 = new T.Vector3(), p1 = new T.Vector3(), a2 = new T.Vector3(), p2 = new T.Vector3();
-    /* q ∈ [0,1] sur le tableau → g : plan large jusqu'à 0,08, puis les quatre stations */
-    function gOf(q) { if (q < 0) return -1; if (q < 0.08) return -1 + q / 0.08; return Math.min(ids.length - 0.001, (q - 0.08) / 0.92 * ids.length); }
+    function stationPose(id, oa, op) { var c = lampes[id === 'cologne2' ? 'cologne' : id].p; poseAt(c.x, c.z - 0.2, 4.6, oa, op); }
+    var ctrWide = W(4.2, 51.3), ctrFin = W(2.2, 50.6);
+    function gOf(q) { if (q < 0) return -1; if (q < 0.10) return -1 + q / 0.10; return Math.min(ids.length, (q - 0.10) / 0.90 * (ids.length + 0.0)); }
     function poseFor(g) {
-      if (g <= 0) { var k0 = ease(cl01(1 + g)); stationPose(ids[0], a1, p1); tAim.lerpVectors(WIDE_AIM, a1, k0); tPos.lerpVectors(WIDE_POS, p1, k0); return; }
+      if (g <= 0) { var k0 = ease(cl01(1 + g)); poseAt(ctrWide.x, ctrWide.z, 13.5, a1, p1); stationPose(ids[0], a2, p2); tAim.lerpVectors(a1, a2, k0); tPos.lerpVectors(p1, p2, k0); return; }
       var i = Math.floor(g), f = g - i;
-      stationPose(ids[i], a1, p1);
-      if (i + 1 < ids.length) stationPose(ids[i + 1], a2, p2); else { a2.copy(a1); p2.copy(p1); }
+      if (i >= ids.length - 1) {                        /* Londres, puis le recul sur tout l'exil */
+        stationPose(ids[ids.length - 1], a1, p1); poseAt(ctrFin.x, ctrFin.z, 9.5, a2, p2);
+        var kf = ease(cl01((g - (ids.length - 1) - 0.45) / 0.55));
+        tAim.lerpVectors(a1, a2, kf); tPos.lerpVectors(p1, p2, kf); return;
+      }
+      stationPose(ids[i], a1, p1); stationPose(ids[i + 1], a2, p2);
       var k = ease(cl01((f - 0.5) / 0.5));
       tAim.lerpVectors(a1, a2, k); tPos.lerpVectors(p1, p2, k);
-      tPos.y += Math.sin(k * Math.PI) * 1.4;
+      tPos.y += Math.sin(k * Math.PI) * 1.8;           /* on prend de la hauteur en vol */
     }
     function routeFor(g) {
       var tn;
       if (g <= 0) tn = 4;
-      else { var i = Math.floor(g), f = g - i; var n1 = STATION_NODE[ids[i]], n2 = i + 1 < ids.length ? STATION_NODE[ids[i + 1]] : n1; tn = n1 + (n2 - n1) * ease(cl01((f - 0.5) / 0.5)); }
+      else { var i = Math.min(ids.length - 1, Math.floor(g)), f = g - i; var n1 = STATION_NODE[ids[i]], n2 = i + 1 < ids.length ? STATION_NODE[ids[i + 1]] : n1; tn = n1 + (n2 - n1) * ease(cl01((f - 0.5) / 0.5)); }
       var count = Math.round(tn / (nodes.length - 1) * N) + 1;
-      routeGeo.setDrawRange(0, Math.max(2, count));
+      routeGeo.setDrawRange(0, Math.max(1, Math.round(tn / (nodes.length - 1) * SEG)) * IDX_PER_SEG);
       var head = pts[Math.min(N, count - 1)];
-      comete.position.copy(head); comete.position.y += 0.06;
+      comete.position.copy(head); comete.position.y += 0.05;
       var moving = tn > 4 && tn < nodes.length - 1 && Math.abs(tn - Math.round(tn)) > 0.02;
       comete.material.opacity += ((moving ? .9 : 0) - comete.material.opacity) * .15;
-      Object.keys(lampes).forEach(function (id) {
-        if (id === 'manchester') return;
-        lampes[id].target = tn + 0.02 >= ROUTE.indexOf(id) ? 1 : 0;
-      });
+      Object.keys(lampes).forEach(function (id) { if (id === 'manchester') return; lampes[id].target = tn + 0.02 >= ROUTE.indexOf(id) ? 1 : (ROUTE.indexOf(id) < 4 ? .45 : 0); });
     }
     function resize() {
       var w = host.clientWidth, h = host.clientHeight;
       if (!w || !h) return;
       renderer.setSize(w, h, false);
-      cam.aspect = w / h; cam.fov = WIDE.matches ? 40 : 46; cam.updateProjectionMatrix();
+      cam.aspect = w / h; cam.fov = WIDE.matches ? 38 : 46; cam.updateProjectionMatrix();
     }
     window.addEventListener('resize', resize, { passive: true }); resize(); setTimeout(resize, 300);
 
     var last = performance.now(), running = false;
-    aim.copy(WIDE_AIM); pos.copy(WIDE_POS);
+    poseAt(ctrWide.x, ctrWide.z, 13.5, aim, pos);
     var tmp = new T.Vector3();
     function frame(now) {
       running = false;
@@ -1678,31 +1799,31 @@ html.no-motion .km-scene{display:none;}
       if (onScreen) {
         var g = gOf(exil.q);
         poseFor(g); routeFor(g);
-        var k = 1 - Math.exp(-dt * 2.6);
+        var k = 1 - Math.exp(-dt * 2.4);
         pos.lerp(tPos, k); aim.lerp(tAim, k);
         cam.position.copy(pos); cam.lookAt(aim);
         var fl = 1 + Math.sin(now * 0.0031) * .06 + Math.sin(now * 0.0117) * .035 + Math.sin(now * 0.0233) * .02;
-        bougie.position.set(aim.x + 0.9, 3.0, aim.z + 1.0); bougie.intensity = 1.25 * fl;
+        bougie.position.set(aim.x + 0.8, 3.2 + (pos.y - 3) * .35, aim.z + 1.2); bougie.intensity = 1.4 * fl;
         var w = host.clientWidth, h = host.clientHeight;
-        var onId = (g >= 0) ? ids[Math.floor(g)] : null; if (onId === 'cologne2') onId = 'cologne';
+        var onId = (g >= 0 && g < ids.length) ? ids[Math.floor(g)] : (g >= ids.length ? 'londres' : null); if (onId === 'cologne2') onId = 'cologne';
         Object.keys(lampes).forEach(function (id) {
           var L = lampes[id];
           L.lit += (L.target - L.lit) * (1 - Math.exp(-dt * 3));
           var lf = L.lit * (id === 'manchester' ? 1 : fl);
-          L.m.material.emissiveIntensity = 1.6 * lf;
-          L.sp.material.opacity = .85 * lf;
-          L.sp.scale.set(.7 + .5 * lf, .7 + .5 * lf, 1);
-          tmp.copy(L.p); tmp.y = 0.36; tmp.project(cam);
+          L.m.material.emissiveIntensity = 1.8 * lf;
+          L.sp.material.opacity = .8 * lf;
+          L.sp.scale.set(.9 + .6 * lf, .9 + .6 * lf, 1);
+          tmp.copy(L.p); tmp.y = 0.3; tmp.project(cam);
           var lb = labels[id];
           if (tmp.z > 1 || tmp.z < -1) { lb.style.opacity = '0'; return; }
           lb.style.left = ((tmp.x + 1) / 2 * w).toFixed(1) + 'px';
           lb.style.top = ((1 - tmp.y) / 2 * h).toFixed(1) + 'px';
-          var lit = (L.lit > 0.35 || id === 'manchester') && g > -0.12;
+          var lit = (L.lit > 0.25 || id === 'manchester') && g > -0.15;
           lb.classList.toggle('is-lit', lit); lb.classList.toggle('is-on', id === onId);
           lb.style.opacity = lit ? '' : '0';
         });
         var arr = pous.geometry.attributes.position.array;
-        for (var i = 1; i < arr.length; i += 3) { arr[i] += dt * 0.06; if (arr[i] > 2.4) arr[i] = 0.1; }
+        for (var i = 1; i < arr.length; i += 3) { arr[i] += dt * 0.06; if (arr[i] > 3.2) arr[i] = 0.1; }
         pous.geometry.attributes.position.needsUpdate = true;
         renderer.render(sc, cam);
       }

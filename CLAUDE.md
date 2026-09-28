@@ -10911,9 +10911,7 @@ et JS **inline** (la page n'est jamais mise en cache : pas de piège `?v=`).
   **séquence** (plusieurs images fondues sur `--q`, cartel qui suit —
   Londres, six images). Plus un tableau **typographique** (Cologne 1842 : la
   phrase de la préface de 1859 s'encre mot à mot), et **la carte de l'exil**
-  en Three.js (tableau 7 : la route Paris → Bruxelles → Cologne → Paris →
-  Londres se trace sur la course du tableau, le reste de la route déjà là en
-  retrait). Une seconde figure (`.tb-fig--b`, Engels 1845, le manuscrit de
+  (tableau 7, voir ci-dessous). Une seconde figure (`.tb-fig--b`, Engels 1845, le manuscrit de
   1846) glisse au bord à `data-at`. L'année géante en contour (`.tb-year`)
   glisse à l'entrée. Sous 900 px la scène est une bande collante de 52 vh et
   le feuillet passe dessus, même geste.
@@ -10933,6 +10931,47 @@ et JS **inline** (la page n'est jamais mise en cache : pas de piège `?v=`).
 **Les citations mènent au passage** (« critique rongeuse des souris », « dire
 mon mot sur les soi-disant intérêts matériels » → préface de 1859,
 `#s=1&q=`), relevées dans le texte servi, insécable comprise.
+
+### La carte de l'exil (refaite le 28 sept. 2026, sur demande : « plus cohérente avec la DA, plus détaillée, plus belle, caméra repensée »)
+
+**La carte est DESSINÉE AU CANEVAS, et la 3D ne fait que la poser sous la
+bougie.** Une seule texture (3450 × 2400, `dessine()` dans la scène) dans la
+langue du site : parchemin brun-nuit vignetté et grainé, ondes de mer à peine
+là, graticule au degré avec ses longitudes et latitudes, **les côtes et les
+fleuves de Natural Earth** (1:10 M, domaine public) avec trois anneaux de
+hachures côtières côté mer, une ombre intérieure côté terre et un semis
+oblique sur le sol ; les fleuves par rang, nommés **une fois chacun, en
+Fraunces italique le long du cours** ; les mers en capitales espacées, les
+pays **de l'époque** (Royaume de Belgique, Prusse rhénane, États allemands…),
+l'itinéraire entier en pointillé rouge, les villes en cercle gravé, une rose
+des vents en mer du Nord, un cartouche dans l'Atlantique. Les polices sont
+attendues (`document.fonts.load`) avant de dessiner.
+
+- **`tools/carte-exil.mjs`** dérive `assets/img/marx/carte-exil.json` (86 Ko)
+  des GeoJSON de Natural Earth : découpe Sutherland-Hodgman sur l'emprise
+  (lon −7 → 16, lat 46,5 → 56,5), simplification Douglas-Peucker, fleuves
+  renommés en français (Rhein/Rhine → Rhin, Mosel → Moselle, Maas → Meuse,
+  Schelde → Escaut…). Pas une étape de build. ⚠️ **Douglas-Peucker sur un
+  anneau FERMÉ a une corde nulle** (premier et dernier points confondus) :
+  toute distance tombe à zéro et l'anneau entier se réduit à deux points —
+  la Grande-Bretagne avait disparu. On prend alors la distance au point.
+- **La route lumineuse est un TUBE** (`TubeGeometry`, rayon 0,011,
+  `setDrawRange` par segment) : une `Line` fait un pixel quoi qu'il arrive et
+  se perdait sous le pointillé. Les villes déjà parcourues (Trèves, Bonn,
+  Berlin, Cologne) restent allumées à demi.
+- **Les halos sont des sprites additifs SANS test de profondeur** : centrés à
+  ras du plan, leur moitié basse passait sous la carte et le test la coupait
+  net — un rectangle clair sous chaque lampe, vu au zoom seulement.
+- **La caméra est une plongée cartographique** (`poseAt`, 56° du plan,
+  jamais au ras du papier) : plan large sur toute la route, chaque station à
+  distance moyenne (on lit les côtes, les fleuves, les noms), de la hauteur
+  prise en vol, et **un recul final** sur tout l'exil, de Paris à Londres.
+  Le sujet vit à droite du feuillet : visée décalée de 30 % de la distance,
+  plafonnée à 2,2. La course du tableau vaut 3,2 scènes.
+- **Sur téléphone, le texte passe SOUS la bande épinglée** (z-index inversé,
+  comme sous un en-tête fixe) : la carte reste visible pendant qu'on lit.
+  Vaut pour les huit tableaux.
+- La légende dit la source : « côtes et fleuves d'après Natural Earth ».
 
 ### Ce qui est DÉRIVÉ par `gen-seo.mjs`
 
