@@ -249,10 +249,15 @@ html.js:not(.no-motion) .hv.lit .hv-face{animation:km-dev 1.6s cubic-bezier(.16,
 .tb-cap b{display:block;font-weight:600;color:var(--text);letter-spacing:.06em;text-transform:uppercase;font-size:.72rem;margin-bottom:2px;}
 .tb-cap a{color:var(--ink-soft);}
 /* l'année, géante, derrière tout : elle glisse en entrant */
-.tb-year{position:absolute;left:clamp(16px,3vw,48px);bottom:-.08em;z-index:0;margin:0;
-  font-family:'Fraunces',serif;font-weight:900;font-size:clamp(7rem,24vw,22rem);line-height:1;letter-spacing:-.06em;
-  color:transparent;-webkit-text-stroke:1px rgba(216,173,76,.20);pointer-events:none;user-select:none;
-  transform:translateX(calc((1 - var(--rev)) * -12vw));opacity:var(--rev);}
+/* l'année : en haut à droite, AU-DESSUS de l'image, entière — dans le
+   même habit que le compteur du héros (en bas à gauche, en contour, elle
+   passait sous le feuillet et sous le bord de la scène : on n'en voyait
+   que le début). Elle glisse à l'entrée. */
+/* le sommaire collant (44 px) recouvre le haut de la scène : l'année se pose dessous */
+.tb-year{position:absolute;right:clamp(24px,5vw,72px);top:calc(2vh + 54px);z-index:2;margin:0;
+  font-family:'Fraunces',serif;font-weight:900;font-size:clamp(3.6rem,8vw,7.2rem);line-height:1;letter-spacing:-.04em;
+  color:var(--gold);text-shadow:0 2px 24px rgba(0,0,0,.55),0 2px 24px rgba(216,173,76,.18);pointer-events:none;user-select:none;
+  transform:translateX(calc((1 - var(--rev)) * 6vw));opacity:var(--rev);}
 /* le texte : un feuillet translucide qui traverse la scène */
 .tb-copy{position:relative;z-index:2;max-width:540px;
   margin:calc(-100vh + var(--km-top) + 16vh) 0 0 clamp(24px,6vw,96px);
@@ -447,7 +452,7 @@ html.js-faq .hs-faq-q{color:var(--muted);}
   .tb-fig--doc{right:auto;left:50%;transform:translate(-50%,-50%) scale(calc(.94 + var(--rev) * .06));max-width:70%;}
   .tb-fig--b{width:120px;bottom:52px;}
   .tb-cap{max-width:70%;right:16px;bottom:12px;}
-  .tb-year{font-size:clamp(5rem,26vw,9rem);left:12px;}
+  .tb-year{font-size:clamp(2.6rem,12vw,4rem);right:14px;top:56px;}
   .tb-copy{margin:18px clamp(16px,4vw,32px) 0;max-width:none;padding:22px 20px 24px;background:var(--surface);backdrop-filter:none;}
   .tb-quote{padding:0 20px;align-items:center;justify-content:center;text-align:center;}
   .tb-seq{width:100%;}
