@@ -126,8 +126,24 @@ main.wrap{position:relative;z-index:1;}
 .hv-lede{font-family:var(--f-serif);font-size:clamp(1.02rem,1.4vw,1.18rem);line-height:1.62;
   color:var(--muted);max-width:50ch;margin:0 0 30px;}
 .hv-lede b{color:var(--ink);font-weight:600;}
-/* le texte s'efface pendant que le visage vieillit, puis le cartel prend sa place */
-.hv-txt>*{opacity:calc(1 - var(--fade,0));transform:translateY(calc(var(--fade,0) * -14px));}
+/* LES NOTICES : à chaque âge, son texte. La première est l'entrée de la
+   page (titre, chapô, boutons) ; les quatre autres sont empilées au même
+   endroit et fondues par la position, comme les portraits. */
+.hv-txt{display:grid;}
+.hv-note{grid-area:1/1;--k:0;opacity:var(--k);transform:translateY(calc((1 - var(--k)) * 16px));
+  pointer-events:none;}
+.hv-note.is-on{pointer-events:auto;}
+.hv-note:first-child{--k:1;}
+.hv-n-y{font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:1.05rem;color:var(--gold);margin:0 0 14px;letter-spacing:.01em;}
+.hv-n-y b{font-weight:900;font-style:normal;font-size:2.4rem;display:block;line-height:1;margin-bottom:6px;color:var(--text);letter-spacing:-.03em;}
+.hv-note h2{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(1.5rem,2.6vw,2.1rem);letter-spacing:-.025em;line-height:1.12;margin:0 0 16px;color:var(--text);text-wrap:balance;}
+.hv-note h2 em{font-style:italic;font-weight:500;color:var(--accent);}
+.hv-note p.hv-n-p{font-family:var(--f-serif);font-size:1.04rem;line-height:1.7;color:var(--muted);margin:0 0 12px;max-width:48ch;}
+.hv-note p.hv-n-p b{color:var(--ink);font-weight:600;}
+.hv-note p.hv-n-p a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(216,173,76,.35);}
+.hv-note p.hv-n-p a:hover{border-bottom-color:var(--gold);}
+.hv-n-src{font-family:var(--f-ui);font-size:.74rem;color:var(--const);margin:0;letter-spacing:.02em;}
+.hv-n-src a{color:var(--gold);text-decoration:none;}
 .hv-face{position:relative;justify-self:center;width:min(100%,62vh,540px);aspect-ratio:1;
   border-radius:18px;overflow:hidden;background:#0e0a07;
   box-shadow:0 50px 90px -40px rgba(0,0,0,.95),0 0 0 1px rgba(216,173,76,.10);}
@@ -411,7 +427,8 @@ html.js-faq .hs-faq-q{color:var(--muted);}
   .hv-stage{position:relative;top:auto;height:auto;min-height:0;grid-template-columns:1fr;gap:26px;
     padding:36px clamp(20px,5vw,40px) 90px;}
   .hv-face{width:min(100%,360px);justify-self:start;}
-  .hv-txt>*{opacity:1;transform:none;}
+  .hv-note:not(:first-child){display:none;}
+  .hv-note:first-child{--k:1;transform:none;}
   .hv-year{display:none;}
   .hv-hint{display:none;}
   .hv-rule{bottom:34px;}
@@ -443,6 +460,8 @@ html.no-motion .hv{height:auto;}
 html.no-motion .hv-stage{position:relative;height:auto;min-height:calc(100vh - var(--km-top));}
 html.no-motion .tb-fig--b{--b:1;}
 html.no-motion .hv-face img:last-child{opacity:1;}
+html.no-motion .hv-txt{display:block;}
+html.no-motion .hv-note{--k:1;transform:none;margin-bottom:34px;}
 html.no-motion .km-scene{display:none;}
 @media (pointer:coarse){
   .km-nav a{padding:15px 12px;}
@@ -600,7 +619,8 @@ html.no-motion .km-scene{display:none;}
   <section class="hv" id="haut" aria-labelledby="km-h1">
     <div class="hv-stage">
       <p class="hv-year" aria-hidden="true" id="hvYear">1836</p>
-      <div class="hv-txt">
+      <div class="hv-txt" id="hvNotes">
+       <div class="hv-note is-on">
         <p class="hv-eyebrow">1818 – 1883 · de Trèves à Londres</p>
         <h1 id="km-h1"><span class="rw" style="--i:0">Karl</span> <span class="rw" style="--i:1">Marx</span><em><span class="rw" style="--i:2">Une</span> <span class="rw" style="--i:3">vie</span> <span class="rw" style="--i:4">en</span> <span class="rw" style="--i:5">exil,</span> <span class="rw" style="--i:6">une</span> <span class="rw" style="--i:7">œuvre</span> <span class="rw" style="--i:8">à</span> <span class="rw" style="--i:9">lire.</span></em></h1>
         <p class="hv-lede">Philosophe de formation, journaliste par nécessité, révolutionnaire par
@@ -611,6 +631,31 @@ html.no-motion .km-scene{display:none;}
           <a class="km-btn pri" href="#commencer">Par où commencer</a>
           <a class="km-btn out" href="#vie">Sa vie en tableaux</a>
         </p>
+       </div>
+       <div class="hv-note">
+        <p class="hv-n-y"><b>1861</b>43 ans · Londres</p>
+        <h2>La première photographie, <em>douze ans après l'arrivée</em></h2>
+        <p class="hv-n-p">Prise en mai chez Richard Beard, c'est la plus ancienne photographie que l'on ait de lui. La misère de Dean Street est passée ; il vit des articles du <i>New York Daily Tribune</i> et travaille chaque jour au British Museum. La <b>Contribution</b> a paru en 1859 ; les cahiers qui deviendront <b>Le Capital</b> s'accumulent.</p>
+        <p class="hv-n-src">Richard Beard, Londres, mai 1861 · IISG, Amsterdam · domaine public</p>
+       </div>
+       <div class="hv-note">
+        <p class="hv-n-y"><b>1866</b>47 ans · Margate</p>
+        <h2>Malade, il achève <em>le Livre premier</em></h2>
+        <p class="hv-n-p">Criblé de furoncles, épuisé par le manuscrit, il est envoyé en cure à Margate en mars ; c'est là qu'il pose debout, la main sur un fauteuil. Depuis 1864 il siège au Conseil général de l'<b>Internationale</b>, devant lequel il vient d'exposer <a href="/oeuvres/salaire-prix-profit"><i>Salaires, prix, profits</i></a>. Le Livre premier sera chez l'éditeur l'année suivante.</p>
+        <p class="hv-n-src">The London Photographic Company, Margate, mars 1866 · domaine public</p>
+       </div>
+       <div class="hv-note">
+        <p class="hv-n-y"><b>1869</b>51 ans · Londres</p>
+        <h2><em>Le Capital</em> a paru, presque sans écho</h2>
+        <p class="hv-n-p">Mille exemplaires en 1867, chez Otto Meissner à Hambourg, et un silence que Marx et Engels s'emploient à rompre par des comptes rendus anonymes. Derrière lui, sa fille aînée <b>Jenny</b>, qui épousera Charles Longuet en 1872. Engels, retiré des affaires cette année-là, s'installe à Londres en 1870 et lui assure enfin une rente.</p>
+        <p class="hv-n-src">Avec sa fille Jenny, 1869 · domaine public</p>
+       </div>
+       <div class="hv-note">
+        <p class="hv-n-y"><b>1875</b>57 ans · Londres</p>
+        <h2>Le portrait que tout le monde connaît</h2>
+        <p class="hv-n-p">Chez Mayall, Regent Street. Il relit alors la <b>traduction française</b> de Joseph Roy, parue en livraisons depuis 1872 — celle que ce site sert —, et rédige au printemps la <i>Critique du programme de Gotha</i>. Les cures se succèdent, à Carlsbad ; les Livres II et III resteront des cahiers qu'Engels établira après sa mort.</p>
+        <p class="hv-n-src">John Jarvis Mayall, Londres, 1875 · Wien Museum · domaine public</p>
+       </div>
       </div>
       <figure class="hv-face" id="hvFace">
         <img src="/assets/img/marx/face-1836.webp" width="800" height="800" alt="Karl Marx vers 1836, dessin : un jeune homme aux cheveux épais, le visage tourné vers la gauche." fetchpriority="high">
@@ -1236,6 +1281,7 @@ html.no-motion .km-scene{display:none;}
   var cartelAge = cartel ? [].slice.call(cartel.querySelectorAll('b > span')) : [];
   var cartelSrc = cartel ? [].slice.call(cartel.querySelectorAll(':scope > span')) : [];
   var rule = doc.querySelector('.hv-rule');
+  var notes = [].slice.call(doc.querySelectorAll('.hv-note'));
   function seqOpacity(imgs, t) {           /* t ∈ [0, n-1] : fondu entre deux voisines */
     for (var i = 0; i < imgs.length; i++) setv(imgs[i], 'opacity', cl01(1 - Math.abs(t - i)));
     return Math.round(t);
@@ -1249,7 +1295,9 @@ html.no-motion .km-scene{display:none;}
     cartelAge.forEach(function (s, i) { s.classList.toggle('on', i === k); });
     cartelSrc.forEach(function (s, i) { s.classList.toggle('on', i === k); });
     if (rule) setv(rule, '--p', p);
-    setv(hero, '--fade', ease(cl01((p - 0.12) / 0.3)));
+    var t = p * (frames.length - 1);
+    notes.forEach(function (n, i) { setv(n, '--k', cl01(1 - Math.abs(t - i) * 1.6)); n.classList.toggle('is-on', i === k); });
+    setv(hero, '--fade', ease(cl01(t * 1.6)));
     return true;
   });
   /* sur téléphone (pas de course), le dernier portrait est celui qu'on voit */
