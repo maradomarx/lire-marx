@@ -32,7 +32,7 @@
 
   /* Le mouvement ne s'arme pas sur mobile étroit ni sous reduced-motion.
      `innerWidth` NUL veut dire « inconnu » (onglet en arrière-plan), pas
-     « étroit » — piège déjà rencontré sur la Place publique. */
+     « étroit » — piège déjà rencontré sur le forum. */
   function tooNarrow() {
     var w = window.innerWidth || 0;
     return w > 0 && w < 768;

@@ -29,7 +29,7 @@
    - libraryScrub()   : la bibliothèque se constitue — les photos d'archive
                         se développent au scroll, la frise « en préparation »
                         s'écrit année après année
-   - communeScrub()   : Place publique — les notes se déposent une à une,
+   - communeScrub()   : Forum — les notes se déposent une à une,
                         leur filet de citation se trace derrière elles
    - closerCandle()   : bande finale — la bougie prend au défilement,
                         puis vacille tant que la bande est à l'écran
@@ -1608,7 +1608,7 @@
     }
   }
 
-  /* — 2 bis. Place publique : les notes se déposent —
+  /* — 2 bis. Forum : les notes se déposent —
        La seule partie vivante de la page (données réelles, gens réels).
        Chacune arrive décalée, poussée de quelques pixels, et le filet rouge
        de sa citation se trace de haut en bas juste après, comme un trait de

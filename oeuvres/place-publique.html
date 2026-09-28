@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<title>Place publique — Le forum des lecteurs | Lire Marx</title>
+<title>Forum — Les discussions des lecteurs | Lire Marx</title>
 <!-- Le logo du site : le M de Fraunces et le point rouge du brandmark
      « Lire.Marx », sur le brun-nuit de la maison. Chemins ABSOLUS — ces
      balises servent aussi 404.html, rendue à n'importe quelle profondeur. -->
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Le forum des lecteurs de Marx : des discussions par œuvre, des réponses en fil, des soutiens — et chaque fil né d'une lecture ramène à son passage dans le texte.">
-<meta property="og:title" content="Place publique — Le forum des lecteurs">
+<meta property="og:title" content="Forum — Les discussions des lecteurs">
 <meta property="og:description" content="Le forum des lecteurs de Marx : discussions par œuvre, réponses en fil, soutiens — chaque fil né d'une lecture ramène à son passage.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Lire Marx">
@@ -30,7 +30,7 @@
 <link rel="stylesheet" href="shell.css?v=12">
 <style>
 /* ═══════════════════════════════════════════════════════════════════
-   Place publique — LE FORUM (refonte août 2026, 3e passe)
+   Forum — LE FORUM (refonte août 2026, 3e passe)
    -------------------------------------------------------------------
    Anatomie d'un Reddit, habillée dans la DA sombre-chaude : un fil de
    discussions dense (colonne de soutien à gauche, méta, titre, extrait,
@@ -248,7 +248,7 @@
   font-family:var(--f-ui);font-weight:700;font-size:1.15rem;color:#f6ecd8;}
 .pf-profile-seal img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
 .pf-profile-main{min-width:0;flex:1;}
-/* la signature de la Place publique, en grand — le même motif que
+/* la signature du forum, en grand — le même motif que
    l'aperçu de Mon compte (cachet + Caveat or) */
 .pf-profile-name{font-family:var(--f-hand);font-weight:700;
   font-size:clamp(1.5rem,4vw,1.9rem);line-height:1.05;color:var(--gold);
@@ -310,7 +310,7 @@
 
     <header class="pf-head">
       <div class="pf-label">Lire Marx</div>
-      <h1 class="pf-h1">Place publique</h1>
+      <h1 class="pf-h1">Forum</h1>
       <p class="pf-lede">Le forum des lecteurs&nbsp;: ouvrez une discussion, répondez en fil, soutenez ce qui éclaire — et chaque fil né d'une lecture ramène à son passage.</p>
     </header>
 
@@ -319,9 +319,9 @@
         <div class="pf-state">La place s'ouvre…</div>
       </div>
 
-      <aside class="pf-rail" aria-label="À propos de la Place publique">
+      <aside class="pf-rail" aria-label="À propos du forum">
         <div class="pf-rail-card">
-          <h2 class="pf-rail-h">La place commune</h2>
+          <h2 class="pf-rail-h">Le forum</h2>
           <p>Ici se discute ce qui se lit dans les ateliers. Une discussion s'attache à une œuvre&nbsp;; celles nées d'un passage surligné y ramènent d'un clic.</p>
           <div class="pf-stats" id="pfStats"></div>
         </div>
@@ -371,7 +371,7 @@
         <p class="lm-foot-h">Le site</p>
         <ul>
         <li><a href="/">Accueil</a></li>
-        <li><a href="/oeuvres/place-publique">Place publique</a></li>
+        <li><a href="/oeuvres/place-publique">Forum</a></li>
         <li><a href="/a-propos">À propos</a></li>
         <li><a href="/mentions-legales">CGU &amp; confidentialité</a></li>
         </ul>
@@ -382,11 +382,11 @@
 <!-- PIED:FIN -->
 
 <script src="../config.js"></script>
-<script src="shell.js?v=19"></script>
+<script src="shell.js?v=20"></script>
 <script src="shell-social.js"></script>
 <script>
 installShell({
-  workTitle: 'Place publique',
+  workTitle: 'Forum',
   tabs: []
 });
 
@@ -914,7 +914,7 @@ installShell({
       var conf = !!(window.SHELL && SHELL.auth && SHELL.auth.isConfigured && SHELL.auth.isConfigured());
       h += '<div class="pf-state">' + (conf
         ? 'La place est encore silencieuse. Ouvrez la première discussion, ou surlignez un passage en lisant — il deviendra un fil.'
-        : 'La Place publique s\'anime en ligne, une fois la synchronisation des comptes activée.') + '</div>';
+        : 'Le forum s\'anime en ligne, une fois la synchronisation des comptes activée.') + '</div>';
     } else if(!list.length){
       h += '<div class="pf-state">Aucune discussion pour cette œuvre.</div>';
     } else {

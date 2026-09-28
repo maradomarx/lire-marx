@@ -87,7 +87,7 @@ par `oeuvres/bibliotheque.json`, source centrale de la liste des œuvres
 
 > **Note sur l'état actuel — Capital est un livre comme un autre.**
 > Depuis la sous-mission `retrait-shell-host` (juin 2026), Capital n'est
-> plus l'hôte technique de la coquille : compte, Place publique, CGU,
+> plus l'hôte technique de la coquille : compte, Forum, CGU,
 > messagerie, notifications, contacts, recherche et bouton « Nous
 > soutenir » vivent entièrement dans le shell partagé
 > (`shell.js` + `shell-social.js` + `shell-annotations.js`) et
@@ -223,7 +223,7 @@ Le site reste statique et compatible Cloudflare Pages (aucune compilation).
 - **Système visuel et coquille partagés (en cours)**
   Le système visuel commun aux ateliers vit dans `oeuvres/atelier.css`. La
   coquille (barre supérieure 44 px avec brandmark/recherche/compte, sidebar
-  208 px avec Bibliothèque/Place publique/Contacts/CGU/sb-work, modales
+  208 px avec Bibliothèque/Forum/Contacts/CGU/sb-work, modales
   compte et RGPD) vit dans `oeuvres/shell.css` côté style et dans
   `oeuvres/shell.js` côté markup+comportement (la page appelle
   `installShell({workId, workTitle, tabs:[...]})` qui injecte tout le shell).

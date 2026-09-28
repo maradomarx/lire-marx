@@ -173,7 +173,7 @@
 #acctView .ac-ava-edit{width:62px;height:62px;font-size:1.6rem;flex:0 0 auto;
   border:1px solid rgba(216,173,76,.30);}
 #acctView .ac-avabtns{display:flex;flex-wrap:wrap;align-items:center;gap:9px;}
-/* Ce que les autres verront : la signature de la Place publique, en vrai. */
+/* Ce que les autres verront : la signature du forum, en vrai. */
 #acctView .ac-preview{display:flex;align-items:center;gap:11px;background:var(--paper);
   border:1px dashed var(--line-strong,rgba(243,233,212,.34));
   border-radius:14px;padding:12px 14px;}
@@ -274,7 +274,7 @@
    absente : un <button> retombait sur le noir de l'agent utilisateur. */
 .lk{font-family:var(--f-ui);font-size:.78rem;font-weight:600;padding:5px 12px;border-radius:5px;cursor:pointer;border:1px solid;background:none;color:var(--ink);transition:all .16s;}
 
-/* ----- Place publique (.cm-* / #placeFull / .pp-*) — flux agrégé en lecture seule ----- */
+/* ----- Forum (.cm-* / #placeFull / .pp-*) — flux agrégé en lecture seule ----- */
 /* Page dédiée : oeuvres/place-publique.html (colonne centrée, lisible). */
 .pp-head{max-width:680px;margin:36px auto 18px;text-align:center;padding:0 16px;}
 .pp-head h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(1.8rem,4.5vw,2.6rem);line-height:1.05;letter-spacing:-.02em;margin:8px 0 6px;}

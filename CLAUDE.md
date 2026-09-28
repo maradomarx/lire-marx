@@ -3347,6 +3347,16 @@ d'origine (Livre II après le I, etc.) et les arbitrages éditoriaux validés
 (Grundrisse après Capital I, les trois primer, la Contribution hors de
 tout fil) sont documentés dans l'historique git de la version précédente.
 
+## « Place publique » s'appelle désormais « Forum » (sept. 2026)
+
+Demande du propriétaire : partout où le lecteur le lit (sidebar, pied de page,
+titre et `<h1>` de la page, accueil, messagerie, compte, mentions légales,
+recherche), le libellé est **« Forum »** (« le forum », « du forum », « sur le
+forum » dans les phrases). **L'URL reste `/oeuvres/place-publique`**, et les
+noms internes aussi (`data-act="commune"`, `SHELL.commune`, classes `.pf-*`) :
+changer l'adresse demanderait une 301, et rien ne l'exige. Les sections
+historiques ci-dessous gardent l'ancien nom. `shell.js?v=20`.
+
 ## La page Place publique — LE FORUM (refonte août 2026, 3e passe, mission `place-forum`)
 
 `oeuvres/place-publique.html` (CSS et JS inlinés, motif de la page).
