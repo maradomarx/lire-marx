@@ -93,6 +93,16 @@ body{background:var(--bg);color:var(--text);font-family:var(--f-ui);
   text-decoration:none;text-underline-offset:3px;}
 .nt-liens a:hover{text-decoration:underline;}
 
+/* ── Chez Debord : le renvoi au site frère ──
+   Pleine largeur dans l'appareil (c'est un autre livre, pas une pièce de
+   l'atelier), une thèse par ligne, sa glose dessous. Le lien du texte
+   courant est en ligne dans une phrase : WCAG 2.5.8 l'exempte. */
+.nt-appareil .nt-bloc--debord{grid-column:1/-1;}
+.nt-bloc--debord>p a{color:var(--gold);text-underline-offset:3px;}
+.nt-debord{margin-top:12px;gap:10px;}
+.nt-debord li{display:flex;flex-direction:column;gap:1px;}
+.nt-debord span{font-size:.86rem;line-height:1.55;color:var(--muted);}
+
 /* ── les voisines ── */
 .nt-voisines{margin-top:clamp(34px,5vh,50px);padding-top:26px;
   border-top:1px solid var(--border);}

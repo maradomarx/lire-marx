@@ -11099,3 +11099,29 @@ répond à la requête, elle ne crée pas de liens entrants.
   est codé en dur dans `SHELL.forum` (et seulement là) pour couvrir
   ces lignes historiques. Toute autre œuvre doit s'aligner sur son id
   de bibliothèque dès le premier `INSERT`.
+
+## Les renvois vers Lire Debord (mission `renvois-debord`, sept. 2026)
+
+Le site frère `liredebord.com` renvoyait déjà à Lire Marx (son pied de page) ;
+l'inverse n'existait nulle part. Les renvois sont posés là où ils servent la
+lecture, et seulement là :
+
+- **Bloc « Chez Debord »** dans l'appareil des pages de notion (pleine largeur)
+  et dans la marge des pages de chapitre. Table **ÉDITORIALE** `DEBORD_NOTIONS`
+  / `DEBORD_CHAPITRES` dans `tools/gen-seo.mjs` (Lire Debord est un autre
+  dépôt, rien n'est dérivé). **Une thèse n'y entre que si SA page (« D'où elle
+  vient ») dit elle-même reprendre ce passage de Marx** — vérifié thèse par
+  thèse : fétichisme (35, 36, 67), travail aliéné (10, 30, 31), propriété
+  privée (17), prolétariat (26), idées dominantes (24), valeur d'usage (46,
+  47), loi tendancielle (47), travail mort (2), accumulation (34) ; chapitre I
+  (1, 35, 36), chapitre XXXIII (4). La glose paraphrase le commentaire de
+  Lire Debord — Debord est protégé jusqu'en 2065, on ne le cite pas. Une clé
+  sans page fait échouer la génération.
+- **Pied de page** : « Lire Debord, le site frère » dans la colonne « Le site ».
+- **À propos** : un paragraphe dans « Qui le tient », qui dit pourquoi les
+  deux sites se répondent (le Spectacle s'ouvre en détournant l'incipit du
+  *Capital*).
+
+Pas de `nofollow` : c'est un site frère, le lien est voulu. Toutes les URL de
+thèse vérifiées en 200. Pour en ajouter une, relire d'abord la section « D'où
+elle vient » de la thèse sur liredebord.com.

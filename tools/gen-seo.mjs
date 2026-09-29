@@ -298,6 +298,76 @@ function romainVersArabe(rn) {
   for (let i = 0; i < rn.length; i++) { const a = v[rn[i]], b = v[rn[i + 1]] || 0; n += a < b ? -a : a; }
   return n;
 }
+/* ── LIRE DEBORD, le site frère ─────────────────────────────────────────
+   Renvois ÉDITORIAUX et non dérivés : Lire Debord est un autre dépôt. On ne
+   pose une thèse que là où SA PROPRE page (« D'où elle vient ») dit qu'elle
+   reprend ou détourne ce passage de Marx — vérifié thèse par thèse. La glose
+   paraphrase ce commentaire ; Debord est protégé jusqu'en 2065, on ne le
+   cite pas ici. Clé : identifiant de page de notion, ou chiffre romain du
+   chapitre du Capital. Une clé inconnue fait échouer la génération. */
+const DEBORD = 'https://liredebord.com';
+const DEBORD_THESE = (n) => `${DEBORD}/oeuvres/societe-du-spectacle/these-${n}`;
+const DEBORD_NOTIONS = {
+  'fetichisme': [
+    [35, 'Le premier chapitre du <i>Capital</i> détourné presque mot pour mot : la marchandise banale, pleine d’arguties théologiques.'],
+    [36, 'Le principe est nommé : ce que Marx décrivait comme une illusion de l’échange est devenu le monde entier.'],
+    [67, 'La pointe extrême du fétichisme : l’analogie religieuse de Marx prise à la lettre.'],
+  ],
+  'travail-aliene': [
+    [10, 'L’aliénation des <i>Manuscrits</i> condensée : la vie passe dans l’objet et revient comme une puissance étrangère.'],
+    [30, 'La construction « plus… moins » des <i>Manuscrits</i>, transposée du travail à la contemplation.'],
+    [31, 'Le travail aliéné : l’objet produit se dresse devant le producteur comme une puissance autonome.'],
+  ],
+  'propriete-privee': [
+    [17, 'L’être et l’avoir des <i>Manuscrits</i>, et le troisième terme que Debord y ajoute : le paraître.'],
+  ],
+  'proletariat': [
+    [26, 'Le pronostic du <i>Manifeste</i> retourné : c’est la réussite de la bourgeoisie qui fait de presque tous des dépossédés.'],
+  ],
+  'idees-dominantes': [
+    [24, 'Les idées dominantes déplacées : ce discours n’est plus porté par des idéologues, il est diffusé par les choses mêmes.'],
+  ],
+  'valeur-d-usage-et-valeur': [
+    [46, 'Le couple du premier chapitre du <i>Capital</i>, et pourquoi les besoins sont désormais fabriqués.'],
+    [47, 'La « baisse tendancielle de la valeur d’usage », qui détourne une loi du Livre III.'],
+  ],
+  'loi-tendancielle': [
+    [47, 'La loi du Livre III détournée : là où Marx décrit un mouvement de l’économie, Debord décrit un mouvement de la vie.'],
+  ],
+  'travail-mort-et-vivant': [
+    [2, 'Le non-vivant qui se meut de lui-même : le travail mort qui commande au vivant, étendu à la vie entière.'],
+  ],
+  'accumulation': [
+    [34, 'Le point d’arrivée du détournement : quand le capital a tout accumulé, il ne lui reste plus qu’à se contempler.'],
+  ],
+};
+const DEBORD_CHAPITRES = {
+  'I': [
+    [1, 'La première phrase du <i>Capital</i>, détournée : une immense accumulation, non plus de marchandises, mais de spectacles.'],
+    [35, 'La marchandise « pleine de subtilités métaphysiques », reprise presque mot pour mot.'],
+    [36, 'Le fétichisme de la marchandise, qui s’accomplit absolument dans le spectacle.'],
+  ],
+  'XXXIII': [
+    [4, 'Le capital, rapport social entre des personnes médiatisé par des choses : Debord garde la structure et fait des choses des images.'],
+  ],
+};
+for (const k of Object.keys(DEBORD_NOTIONS))
+  if (!existsSync(`glossaire/mondes`) || !existsSync(`glossaire/${k}.html`))
+    throw new Error(`DEBORD_NOTIONS : aucune page de notion « ${k} »`);
+for (const k of Object.keys(DEBORD_CHAPITRES))
+  if (!existsSync(`oeuvres/capital-1/chapitres/${k}`))
+    throw new Error(`DEBORD_CHAPITRES : aucun chapitre expliqué « ${k} »`);
+function blocDebord(liste, cls = '') {
+  if (!liste || !liste.length) return '';
+  return `    <div class="nt-bloc nt-bloc--debord${cls}">
+      <p class="nt-bloc-t">Chez Debord</p>
+      <p>Guy Debord reprend ce passage dans <i>La Société du spectacle</i> (1967). Le site frère, <a href="${DEBORD}/">Lire Debord</a>, l’explique thèse par thèse.</p>
+      <ul class="nt-liens nt-debord">
+${liste.map(([n, d]) => `        <li><a href="${DEBORD_THESE(n)}">Thèse ${n} →</a><span>${d}</span></li>`).join('\n')}
+      </ul>
+    </div>`;
+}
+
 const CHAP_META = existsSync(CHAP_DIR)
   ? readdirSync(CHAP_DIR).filter((d) => existsSync(`${CHAP_DIR}/${d}/meta.json`)).map((d) => {
       const m = JSON.parse(readFileSync(`${CHAP_DIR}/${d}/meta.json`, 'utf8'));
@@ -478,6 +548,7 @@ ${lien('/agregation-2027', 'Marx à l’agrégation 2027')}
 ${lien('/', 'Accueil')}
 ${lien('/oeuvres/forum', 'Forum')}
 ${lien('/a-propos', 'À propos')}
+${lien(DEBORD + '/', 'Lire Debord, le site frère')}
 ${lien('/mentions-legales', 'CGU & confidentialité')}
         </ul>
       </div>
@@ -1370,6 +1441,7 @@ ${(() => {
 ${outils.map((o) => `        <li><a href="${o.url}">${o.label}</a></li>`).join('\n')}
       </ul>
     </div>
+${blocDebord(DEBORD_NOTIONS[t.id])}
   </div>
 
 ${voisines.length ? `  <div class="nt-voisines">
@@ -1705,6 +1777,7 @@ ${PIED}
         notions.length ? bloc('Les notions qu’il établit', `      <ul class="nt-liens">\n${notions.map((x) => `        <li><a href="${x.href}">${decode(x.affiche || x.nom)}</a></li>`).join('\n')}\n      </ul>`) : '',
         dates.length ? bloc('Ce qu’il raconte', `      <ol class="ch-dates">\n${dates.map((e) => `        <li><span class="y">${e.year}</span><span>${nu(e.title)}</span></li>`).join('\n')}\n      </ol>`) : '',
         (labo || marche) ? bloc('Le voir fonctionner', `      <ul class="nt-liens">\n${labo ? `        <li><a href="${labo.url}">${labo.label} — le laboratoire</a></li>\n` : ''}${marche ? `        <li><a href="${marche.url}">Marche ${marche.n} du cheminement : ${marche.label}</a></li>\n` : ''}      </ul>`) : '',
+        blocDebord(DEBORD_CHAPITRES[c.rn]),
       ].filter(Boolean).join('\n');
 
       const html = `<!doctype html>
