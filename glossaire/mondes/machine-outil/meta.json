@@ -3,7 +3,8 @@
   "titre": "Machine-outil",
   "de": "Werkzeugmaschine",
   "chapo": "La révolution industrielle n'a pas commencé au moteur. Elle a commencé à la partie du mécanisme qui s'est emparée de l'outil : celle qui met en jeu, d'une seule impulsion, un grand nombre d'outils identiques — ce qu'aucun corps ne peut faire. De là le renversement qui donne son concept à la fabrique : dans le métier, l'ouvrier se sert de son outil ; dans la fabrique, il sert la machine.",
-  "description": "La machine-outil chez Marx : pourquoi le moteur n'est pas le lieu de la révolution industrielle, comment le système de machines devient un automate, et pourquoi une loi qui raccourcit la journée fait passer l'exploitation de la durée à l'intensité.",
+  "seo": "Machine-outil et machinisme : définition (Marx)",
+  "description": "Machine-outil : la machine qui prend l'outil des mains de l'ouvrier. Pour Marx c'est elle, et non le moteur, qui ouvre la révolution industrielle (Le Capital, chapitre XV).",
   "source": {
     "work": "capital-1",
     "s": 4,

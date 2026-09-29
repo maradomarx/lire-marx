@@ -1264,6 +1264,9 @@ function identite(nom) {
     const url = `${ORIGIN}/glossaire/${t.id}`;
     const titre = nu(meta.titre || t.nom);
     const desc = nu(meta.description || meta.chapo);
+    // Le titre de résultat peut dire le mot tel qu'on le cherche (« définition »,
+    // la forme courante) : meta.seo, choisi d'après Search Console.
+    const titreSeo = meta.seo || `${titre} — Marx, définition et explication`;
     const src = meta.source || {};
     /* L'adresse de l'œuvre se lit dans bibliotheque.json (le `path` fait foi,
        pas l'id) : le Manifeste a pour id manifeste-parti-communiste et vit à
@@ -1347,7 +1350,7 @@ ${credit}  </aside>`;
         ...(meta.de || t.de ? { alternateName: nu(meta.de || t.de) } : {}),
         inDefinedTermSet: { '@id': `${ORIGIN}/glossaire/#glossaire` } },
       { '@context': 'https://schema.org', '@type': 'Article',
-        headline: `${titre} — Marx, définition et explication`,
+        headline: titreSeo,
         description: desc, url, inLanguage: 'fr', wordCount: mots,
         about: { '@id': url },
         isPartOf: { '@id': `${ORIGIN}/glossaire/#glossaire` },
@@ -1366,7 +1369,7 @@ ${credit}  </aside>`;
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<title>${echap(titre)} — Marx, définition et explication | Lire Marx</title>
+<title>${echap(titreSeo)} | Lire Marx</title>
 <!-- PAGE GÉNÉRÉE par tools/gen-seo.mjs depuis ${dossier}/ (essai.html,
      meta.json, monde.js). Ne pas éditer à la main : tout changement serait
      écrasé. Le texte se modifie dans l'essai, la scène dans monde.js, la
@@ -1381,7 +1384,7 @@ ${credit}  </aside>`;
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="${echap(desc)}">
-<meta property="og:title" content="${echap(titre)} — Marx, définition et explication">
+<meta property="og:title" content="${echap(titreSeo)}">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Lire Marx">
 <meta property="og:description" content="${echap(desc)}">
