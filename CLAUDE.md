@@ -12,6 +12,13 @@ cohérent d'une session à l'autre.
 - **Hébergement : Cloudflare Pages**, branchement direct sur la branche
   `main` du dépôt GitHub. *Framework preset = None ; Build command = vide ;
   Build output directory = `/`*. Tout commit sur `main` redéploie.
+- **Une Pages Function : `functions/_middleware.js`** (oct. 2026, ajoutée par
+  le propriétaire). Suivi des robots d'IA par GEO Invader : la réponse est
+  servie telle quelle, et si l'agent utilisateur est un robot connu, un
+  `POST` part vers `geoinvader.com` (agent, IP, chemin, statut). Inactif tant
+  que le secret `GEO_INVADER_KEY` n'est pas posé dans Cloudflare (Production).
+  Aucune clé dans le dépôt. Ce n'est pas une étape de build : le site reste
+  statique, la fonction s'exécute à la requête.
 - **Backend (optionnel) : Supabase** — Auth (e-mail + mot de passe),
   annotations privées, forum public (`public_notes`), modération
   (`moderators`, `reports`), RGPD. Schéma idempotent dans
