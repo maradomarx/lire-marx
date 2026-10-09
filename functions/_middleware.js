@@ -6,11 +6,12 @@ const AI_BOTS = /ChatGPT-User|OAI-SearchBot|GPTBot|Claude-User|Claude-SearchBot|
 export async function onRequest(context) {
   const response = await context.next();
   const ua = context.request.headers.get('user-agent') || '';
-  if (context.env.GEO_INVADER_KEY && AI_BOTS.test(ua)) {
+  // Without a key only GEO Invader test visits are forwarded, so the app can report a missing secret.
+  if ((context.env.GEO_INVADER_KEY || ua.includes('GEO-Invader-test/')) && AI_BOTS.test(ua)) {
     const hit = { ua, ip: context.request.headers.get('cf-connecting-ip'), path: new URL(context.request.url).pathname, status: response.status, ts: Date.now() };
     context.waitUntil(fetch(ENDPOINT, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + context.env.GEO_INVADER_KEY },
+      headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + (context.env.GEO_INVADER_KEY || '') },
       body: JSON.stringify({ hits: [hit] }),
     }).catch(() => {}));
   }

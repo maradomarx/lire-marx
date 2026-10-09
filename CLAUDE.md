@@ -15,8 +15,9 @@ cohérent d'une session à l'autre.
 - **Une Pages Function : `functions/_middleware.js`** (oct. 2026, ajoutée par
   le propriétaire). Suivi des robots d'IA par GEO Invader : la réponse est
   servie telle quelle, et si l'agent utilisateur est un robot connu, un
-  `POST` part vers `geoinvader.com` (agent, IP, chemin, statut). Inactif tant
-  que le secret `GEO_INVADER_KEY` n'est pas posé dans Cloudflare (Production).
+  `POST` part vers `geoinvader.com` (agent, IP, chemin, statut). Sans le secret
+  `GEO_INVADER_KEY` (Cloudflare, Production), seules les visites de test de GEO Invader
+  partent, pour que l'application signale le secret manquant.
   Aucune clé dans le dépôt. Ce n'est pas une étape de build : le site reste
   statique, la fonction s'exécute à la requête.
 - **Backend (optionnel) : Supabase** — Auth (e-mail + mot de passe),
