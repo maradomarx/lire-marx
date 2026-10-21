@@ -1,22 +1,43 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/bourgeoisie (mission manifeste-notions, sept. 2026). Porte aussi les renvois de « Marché mondial » et de « Surproduction ».",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/bourgeoisie (mission manifeste-notions, sept. 2026), réécrite en octobre 2026 selon glossaire/mondes/CHARTE.md (enbref, retenir, questions, direction artistique « la ville éventrée »). Porte aussi les renvois de « Marché mondial » et de « Surproduction ».",
   "titre": "Bourgeoisie",
   "de": "Bourgeoisie",
-  "chapo": "Dans le <i>Manifeste</i>, la bourgeoisie n’est ni un mode de vie ni une richesse : c’est la classe des propriétaires des moyens de production sociale, qui emploient du travail salarié — et la seule classe dominante de l’histoire qui ne puisse subsister qu’à la condition de bouleverser sans cesse la production. D’où l’éloge qui ouvre le texte, et la crise qui le retourne : le magicien ne domine plus les puissances qu’il a évoquées.",
-  "description": "La bourgeoisie chez Marx et Engels : pourquoi le Manifeste en fait l'éloge, ce que veut dire une classe qui doit révolutionner sans cesse la production, le marché mondial, les crises de surproduction et les contresens sur le mot.",
+  "enbref": "La bourgeoisie désigne, chez Marx et Engels, la classe qui possède les moyens de production modernes (ateliers, machines, capitaux) et qui emploie des salariés. Le <i>Manifeste du parti communiste</i> (1848) la décrit dans sa première partie&nbsp;: une classe née au sein de la société féodale, et la première classe dominante qui ne puisse subsister qu'en bouleversant sans cesse la production. La notion surprend parce que le texte, écrit contre elle, commence par en faire l'éloge.",
+  "retenir": [
+    "Le <i>Manifeste</i> fait l'éloge de la bourgeoisie&nbsp;: elle a montré ce que peut l'activité humaine. Le même mouvement a réduit tous les rapports humains au rapport d'argent.",
+    "La bourgeoisie est née de la société féodale, au fil de révolutions dans la production et le commerce. La définition par la propriété des moyens de production vient d'une note d'Engels de 1888.",
+    "Les classes dominantes d'avant conservaient le mode de production. La bourgeoisie ne peut exister qu'en le transformant sans cesse, parce que la concurrence l'y oblige.",
+    "Une production qui ne peut pas s'arrêter doit trouver de nouveaux acheteurs. La bourgeoisie crée donc le marché mondial et impose partout sa manière de produire.",
+    "Ses forces productives finissent par déborder le cadre de la propriété bourgeoise. Les crises de surproduction le montrent, et elles annoncent la classe qui la remplacera."
+  ],
+  "questions": [
+    {
+      "q": "Dans l'exemple des deux filateurs, pourquoi le second achète-t-il la machine alors qu'il n'en avait pas envie&nbsp;?",
+      "r": "Parce que le premier, qui produit plus vite, peut vendre moins cher et lui prendre ses clients. S'il ne suit pas, il ferme. C'est la concurrence qui contraint les bourgeois à transformer la production, quels que soient leurs goûts."
+    },
+    {
+      "q": "Qu'est-ce qui distingue la bourgeoisie des classes dominantes qui l'ont précédée&nbsp;?",
+      "r": "Le seigneur ou le maître de jurande tenaient leur position de la stabilité du mode de production&nbsp;: le conserver était leur première condition d'existence. La bourgeoisie, au contraire, n'existe qu'à la condition de le révolutionner sans cesse, et avec lui tous les rapports sociaux. D'où l'agitation perpétuelle qui marque l'époque bourgeoise."
+    },
+    {
+      "q": "Pourquoi une crise de surproduction aurait-elle semblé un paradoxe à toute autre époque&nbsp;?",
+      "r": "Parce que les sociétés anciennes souffraient de manquer de biens, jamais d'en avoir trop. Dans la société bourgeoise, l'abondance même ruine les producteurs, et une partie des produits et des forces productives est détruite. Le <i>Manifeste</i> y voit le signe que le système bourgeois est devenu trop étroit pour les richesses qu'il crée."
+    }
+  ],
+  "description": "La bourgeoisie chez Marx et Engels, expliquée simplement : pourquoi le Manifeste fait l'éloge de la classe qu'il combat, et ce qui la rend révolutionnaire.",
   "source": {
     "work": "manifeste-parti-communiste",
     "s": 1,
-    "cite": "Karl Marx et Friedrich Engels, <i>Manifeste du parti communiste</i> (1848) — traduction Laura Lafargue (1897)"
+    "cite": "Karl Marx et Friedrich Engels, <i>Manifeste du parti communiste</i> (1848), traduction Laura Lafargue (1897)"
   },
-  "ou": "<i>Manifeste du parti communiste</i>, partie&nbsp;I, « Bourgeois et prolétaires » — la genèse de la bourgeoisie, son rôle révolutionnaire, le marché mondial, puis les crises de surproduction. La définition explicite de la classe n’est pas dans le texte de 1848 : elle vient d’une note d’Engels à l’édition anglaise de 1888.",
+  "ou": "<i>Manifeste du parti communiste</i>, partie&nbsp;I, « Bourgeois et prolétaires »&nbsp;: la genèse de la bourgeoisie, son rôle révolutionnaire, le marché mondial, puis les crises de surproduction. La définition explicite de la classe n’est pas dans le texte de 1848&nbsp;: elle vient d’une note d’Engels à l’édition anglaise de 1888.",
   "outils": [
     {
-      "label": "Lire « Bourgeois et prolétaires » — la liseuse du Manifeste",
+      "label": "Lire « Bourgeois et prolétaires » dans la liseuse du Manifeste",
       "url": "/oeuvres/manifeste#partie=2"
     },
     {
-      "label": "Le cheminement du Manifeste — la bourgeoisie révolutionnaire",
+      "label": "Le cheminement du Manifeste : la bourgeoisie révolutionnaire",
       "url": "/oeuvres/manifeste#deriv"
     }
   ],
@@ -30,24 +51,96 @@
     "Accumulation primitive"
   ],
   "monde": {
-    "_": "LA SCÈNE : CE QUI ÉTAIT SOLIDE ET STABLE. La figure est prise au § 24 de la partie I : « Tout ce qui était solide et stable est ébranlé, tout ce qui était sacré est profané », puis au magicien du § 33. Une enceinte de pierre, fermée et immobile — l'ordre qui se conservait. Des marchandises y paraissent ; puis les murs se défont en poussière qui monte, et les marchandises gagnent le sol en anneaux de plus en plus larges (le marché mondial, « il lui faut pénétrer partout »). Puis elles refluent vers le centre et s'entassent en un monceau qui monte plus haut que tout — et s'écroule : la moitié est détruite sous une lueur rouge, l'épidémie de la surproduction. Au dernier temps, ce qui reste se remet à rayonner : la crise n'est pas une fin, c'est un temps du cycle. Tout est fonction de la position de lecture g, donc réversible.",
+    "_": "LA SCÈNE : CE QUI ÉTAIT SOLIDE ET STABLE. La figure est prise au § 24 de la partie I : « Tout ce qui était solide et stable est ébranlé, tout ce qui était sacré est profané », puis au magicien du § 33. Une enceinte de pierre, fermée et immobile : l'ordre qui se conservait. Des marchandises y paraissent ; puis les murs se défont en poussière qui monte, et les marchandises gagnent le sol en anneaux de plus en plus larges (le marché mondial). Puis elles refluent vers le centre et s'entassent en un monceau qui monte plus haut que tout, et s'écroule sous une lueur rouge : l'épidémie de la surproduction. Au dernier temps, ce qui reste se remet à rayonner. Tout est fonction de la position g, donc réversible. Depuis oct. 2026 la scène est une figure en bas de page : la caméra vise le sujet lui-même.",
     "layout": "plein",
+    "titre": "L'enceinte qui se défait, en six temps",
     "alt": "Une enceinte carrée de pierres, fermée ; ailleurs, ses murs se défont en poussière tandis que de petites marchandises rayonnent sur le sol en anneaux, puis s'entassent en un monceau qui s'écroule.",
     "source": {
-      "texte": "D'après le texte — Manifeste, partie I",
+      "texte": "D'après le texte : Manifeste, partie I",
       "q": "Tout ce qui était solide et stable est ébranlé, tout ce qui était sacré est profané"
     },
     "etapes": {
       "eloge": "Une enceinte de pierre, fermée, immobile. Toutes les classes dominantes d'avant avaient pour condition de conserver le mode de production : c'est ce monde-là qu'on regarde.",
-      "genese": "Dans l'enceinte, des marchandises paraissent. La bourgeoisie n'arrive pas du dehors : elle naît dans le sein de l'ordre féodal, d'une série de révolutions dans la production et les échanges.",
+      "genese": "Dans l'enceinte, des marchandises paraissent. La bourgeoisie ne vient pas du dehors : elle naît dans l'ordre féodal, d'une série de révolutions dans la production et les échanges.",
       "revolutionner": "Les murs se défont en poussière qui monte. La bourgeoisie n'existe qu'à la condition de révolutionner sans cesse la production : ce qui était solide et stable est ébranlé.",
-      "marche": "Plus d'enceinte : les marchandises rayonnent en anneaux toujours plus larges. Il lui faut pénétrer partout, s'établir partout — le bon marché est la grosse artillerie qui bat en brèche les murailles.",
-      "magicien": "Tout reflue au centre et monte en un monceau trop haut, qui s'écroule. Trop de civilisation, trop d'industrie : l'épidémie de la surproduction détruit ce qui a été produit.",
-      "lectures": "Ce qui reste recommence à rayonner. La crise n'est pas la fin de la bourgeoisie mais un temps de son cycle — et chaque reprise prépare une crise plus générale."
+      "marche": "Plus d'enceinte : les marchandises rayonnent en anneaux toujours plus larges. Il faut à la bourgeoisie pénétrer partout, et le bon marché de ses produits bat en brèche les murailles.",
+      "magicien": "Tout reflue au centre et monte en un monceau trop haut, qui s'écroule sous une lueur rouge. Trop d'industrie, trop de commerce : la crise de surproduction détruit ce qui a été produit.",
+      "lectures": "Ce qui reste recommence à rayonner. La crise est un temps du cycle, et chaque reprise, en conquérant de nouveaux marchés, prépare une crise plus générale."
     },
     "fixe": {
       "g": 2.55,
       "legende": "Les murs de l'enceinte se défont en poussière, et les marchandises qu'ils gardaient commencent à gagner le dehors : tout ce qui était solide et stable est ébranlé."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : la ville éventrée. Le Manifeste dit d'une même voix les merveilles de la bourgeoisie et ce qu'elle défait. La page s'ouvre donc sur un chantier de Marville où les deux tiennent dans le même cadre : un quartier de Paris démoli pour percer une avenue, des hommes en chapeau haut-de-forme au milieu des gravats, et l'Opéra au fond. Plus bas, les comptoirs européens de Canton, là où les marchandises d'Occident attendent d'entrer en Chine. La lumière passe au froid quand l'essai arrive à la crise, où la puissance se retourne. Le fond fait monter ce que la bourgeoisie célèbre (chaude), puis ce que l'analyse fait voir (aube).",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 928,
+      "alt": "Un chantier de démolition à Paris : à gauche un immeuble aux fenêtres arrachées, au sol des gravats, des tuyaux et des piles de matériaux, des hommes en chapeau haut-de-forme qui se tiennent au milieu ; au fond, dans la brume, la façade de l'Opéra.",
+      "legende": "Un quartier démoli pour percer l'avenue de l'Opéra : des immeubles éventrés, des hommes en chapeau haut-de-forme au milieu des gravats, et au fond l'Opéra neuf. La construction et la démolition tiennent dans le même cadre, comme l'éloge et le procès dans le <i>Manifeste</i>.",
+      "credit": "Charles Marville, percement de l'avenue de l'Opéra entre la rue Louis-le-Grand et la rue d'Antin, Paris, décembre 1876 à février 1877. Musée Carnavalet, Paris Musées, CC0.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Percement_de_l%27avenue_de_l%27Op%C3%A9ra,_entre_la_rue_Louis-le-Grand_et_la_rue_d%27Antin,_vers_l%27Op%C3%A9ra,_2%C3%A8me_arrondissement,_Pari,_PH940.jpg"
+    },
+    "planches": {
+      "canton": {
+        "img": "planche-canton.webp",
+        "w": 1400,
+        "h": 902,
+        "alt": "Gravure : sur une rivière couverte de jonques et de barques chargées de marchandises, les façades des comptoirs européens de Canton, leurs drapeaux au vent.",
+        "legende": "Les comptoirs européens de Canton, sur la rivière des Perles : c'est par là que les marchandises d'Occident entraient en Chine. Le <i>Manifeste</i> dit que leur bon marché bat en brèche les murailles.",
+        "credit": "Thomas Allom d'après Auguste Borget, « The European Factories, Canton », dans G. N. Wright, <i>China, in a Series of Views</i>, vol. 1, Londres, Fisher, 1843. Domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:The_European_factories_Canton.jpg"
+      }
+    },
+    "lumieres": {
+      "magicien": "aube",
+      "lectures": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : le monde que la bourgeoisie a fait, dessiné en points (la fabrique, la locomotive, le navire, la pièce, le ballot, et le rouet de l'ancien métier). L'un s'allume et ce qu'elle célèbre monte au-dessus de lui (chaude) ; à la section de la crise, c'est ce que l'analyse fait voir qui monte (aube). Les mots viennent du texte, ce ne sont pas des citations.",
+      "dessins": {
+        "fabrique": [
+          ".11.........",
+          ".11.........",
+          ".11.........",
+          ".11...1...1.",
+          ".11..11..11.",
+          ".11.111.111.",
+          "111111111111",
+          "1.11.11.11.1",
+          "111111111111"
+        ],
+        "locomotive": [
+          ".11.........",
+          ".11....1111.",
+          ".11....1..1.",
+          "111111111111",
+          "111111111111",
+          "111111111111",
+          ".11..11..11.",
+          ".11..11..11."
+        ],
+        "navire": [
+          ".....1.....",
+          "....11.....",
+          "...111..1..",
+          "..1111.11..",
+          ".11111.111.",
+          "11111111111",
+          ".111111111.",
+          "..1111111.."
+        ]
+      },
+      "motifs": [
+        { "m": "fabrique", "chaude": ["grande industrie", "forces productives"], "aube": ["surproduction", "trop d'industrie"] },
+        { "m": "locomotive", "chaude": ["chemins de fer", "la vapeur"], "aube": ["agitation perpétuelle", "insécurité"] },
+        { "m": "navire", "chaude": ["marché mondial", "débouchés nouveaux"], "aube": ["murailles de Chine", "industries détruites"] },
+        { "m": "piece", "chaude": ["le capital", "valeur d'échange"], "aube": ["froid intérêt", "argent comptant"] },
+        { "m": "sac", "chaude": ["matières premières", "régions éloignées"], "aube": ["la crise", "produits détruits"] },
+        { "m": "rouet", "chaude": ["l'ancien métier", "la jurande"], "aube": ["ébranlé", "profané"] }
+      ]
     }
   }
 }
