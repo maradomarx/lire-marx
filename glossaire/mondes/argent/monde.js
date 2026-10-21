@@ -79,7 +79,12 @@ window.LM_MONDE = function (canvas) {
     /* LA FIGURE VIT DANS LA MOITIÉ DROITE : la colonne de texte occupe les
        quarante-trois premiers pour cent, et un mot qui passe dessous ne
        traverse rien du tout. */
-    var XA = cw * 0.475, XR = cw * 0.715, XB = cw * 0.955;
+    /* Octobre 2026 : la scène est une figure en bas de page que rien ne
+       recouvre. Le décalage à droite ne joue plus que sur un canevas d'au
+       moins 1100 px qui ne serait pas une figure ; sinon la composition est
+       centrée. */
+    var large = cw >= 1100 && !(canvas.closest && canvas.closest('.nt-fig'));
+    var XA = large ? cw * 0.475 : cw * 0.14, XR = large ? cw * 0.715 : cw * 0.5, XB = large ? cw * 0.955 : cw * 0.86;
     var Y0 = ch * 0.245, Y1 = ch * 0.775, PAS = (Y1 - Y0) / (LIGNES.length - 1);
     var taille = Math.max(15, Math.round(ch * 0.036));
 

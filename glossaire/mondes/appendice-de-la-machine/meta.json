@@ -1,18 +1,39 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/appendice-de-la-machine.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/appendice-de-la-machine. L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrite en octobre 2026 selon glossaire/mondes/CHARTE.md (enbref, retenir, questions).",
   "titre": "Appendice de la machine",
   "de": "Zubehör der Maschine",
-  "chapo": "Dans le métier, l'ouvrier se sert de son outil ; dans la fabrique, il sert la machine. Le critère du chapitre XV n'est pas la pénibilité mais l'origine du mouvement : là il en est la source, ici il ne fait que le suivre. C'est ce renversement, devenu une réalité technique et non plus seulement juridique, que la notion d'appendice nomme.",
-  "description": "L'appendice de la machine chez Marx : pourquoi la virtuosité passe de l'ouvrier au mécanisme, comment un travail allégé devient plus dur, et ce qui distingue la machine de son emploi capitaliste.",
+  "enbref": "L'appendice de la machine désigne, chez Marx, la position de l'ouvrier dans la fabrique mécanique&nbsp;: il suit un mouvement qui vient de la machine au lieu de le produire. L'habileté passe de l'ouvrier au mécanisme, si bien qu'un enfant peut tenir le poste. Marx l'analyse au chapitre XV du Livre&nbsp;I du <i>Capital</i> (1867), «&nbsp;Machinisme et grande industrie&nbsp;». La difficulté tient à ceci&nbsp;: la machine allège l'effort, et c'est pourtant elle qui rend le travail plus pénible.",
+  "retenir": [
+    "La machine allège l'effort, et le travail de fabrique use pourtant davantage. Marx l'explique par la place que l'ouvrier occupe dans le mouvement de la machine.",
+    "Le critère est l'origine du mouvement. L'artisan meut son outil et règle sa cadence&nbsp;; dans la fabrique, le mouvement vient d'une force motrice centrale et l'ouvrier le suit.",
+    "L'habileté passe du corps de l'ouvrier au mécanisme. Les spécialités s'égalisent, femmes et enfants remplacent les hommes de métier, et les personnes deviennent interchangeables.",
+    "L'ouvrier perd jusqu'à sa spécialité et se trouve soumis à une discipline de caserne. La domination des conditions de travail, jusque-là juridique, devient technique.",
+    "Marx distingue la machine de son emploi capitaliste. L'appendice décrit une manière d'employer les machines&nbsp;; il ne condamne pas la technique."
+  ],
+  "questions": [
+    {
+      "q": "Que prouve, selon Marx, le système des relais pratiqué par les filateurs anglais entre 1848 et 1850&nbsp;?",
+      "r": "Les fabricants déplaçaient sans cesse enfants et adolescents d'une salle ou d'une fabrique à l'autre, et la production ne s'arrêtait pas. Cela montre que le mouvement d'ensemble vient de la machine et non de l'ouvrier&nbsp;: chacun peut être remplacé par n'importe qui sans interrompre le travail."
+    },
+    {
+      "q": "À quoi reconnaît-on qu'un ouvrier sert une machine au lieu de se servir d'un outil&nbsp;?",
+      "r": "À l'origine du mouvement. Si l'outil ne bouge que parce que l'ouvrier le meut, il s'en sert. Si le mouvement est déjà réglé en vitesse et en amplitude par une force motrice extérieure, et que le geste doit s'y accorder, il sert la machine."
+    },
+    {
+      "q": "Pourquoi Marx peut-il critiquer la fabrique sans être hostile aux machines&nbsp;?",
+      "r": "Parce qu'il distingue deux définitions de la fabrique&nbsp;: dans l'une, les travailleurs associés sont le sujet et l'automate leur objet&nbsp;; dans l'autre, l'automate est le sujet. Seule la seconde caractérise l'emploi capitaliste des machines. La première reste possible."
+    }
+  ],
+  "description": "L'appendice de la machine chez Marx, expliqué simplement : pourquoi l'ouvrier de fabrique suit un mouvement qu'il ne commande plus.",
   "source": {
     "work": "capital-1",
     "s": 4,
-    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XV — traduction Joseph Roy (1872)"
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitres X et XV, traduction Joseph Roy (1872)"
   },
-  "ou": "Livre&nbsp;I, quatrième section, chapitre XV, « Machinisme et grande industrie », principalement la section IV, « La fabrique ». Le chapitre suppose acquis le travailleur collectif du chapitre XIV, dont il renverse la position.",
+  "ou": "Livre&nbsp;I, chapitre XV, «&nbsp;Machinisme et grande industrie&nbsp;», surtout sa quatrième partie, «&nbsp;La fabrique&nbsp;». Le chapitre suppose acquis le travailleur collectif du chapitre XIV, dont il renverse la position. Le système des relais, que Marx donne comme preuve, est décrit au chapitre X.",
   "outils": [
     {
-      "label": "Coopération, manufacture, grande industrie — les explorations",
+      "label": "Coopération, manufacture, grande industrie&nbsp;: les explorations",
       "url": "/oeuvres/capital-1#explore=x-coop"
     }
   ],
@@ -25,23 +46,155 @@
     "Travail aliéné"
   ],
   "monde": {
-    "_": "LA SCÈNE : LE POSTE. Le chapitre donne un critère vérifiable — le mouvement part de lui, ou bien il le suit — et la figure devait montrer l'ORIGINE DU MOUVEMENT changer de côté, non pas une cadence qui s'accélère. Un outil libre en l'air : un manche et une lame. La machine s'en saisit, la lame monte s'encastrer dans le coulisseau, et il ne reste que le manche, qu'un montant vient planter au sol à une hauteur qu'on n'a pas choisie. Le bouton de bois du volant tombe : ce n'est plus une manivelle, c'est une poulie, et elle tourne d'elle-même ; dès lors le levier suit le coulisseau, avec le retard de ce qui est entraîné. L'usure du plancher, large comme les pas d'un homme, se resserre en un rectangle de la taille d'un marchepied. Puis le poste se répète en profondeur, identique, et l'un d'eux porte un billot : le corps n'a pas été mesuré à la machine, c'est le corps qu'on hausse.",
+    "_": "LA SCÈNE : LE POSTE. Le chapitre donne un critère vérifiable (le mouvement part de lui, ou bien il le suit), et la figure montre l'ORIGINE DU MOUVEMENT changer de côté. Un outil libre en l'air : un manche et une lame. La machine s'en saisit, la lame monte s'encastrer dans le coulisseau, et il ne reste que le manche, qu'un montant vient planter au sol à une hauteur qu'on n'a pas choisie. Le bouton de bois du volant tombe : c'est une poulie, et elle tourne d'elle-même ; le levier suit le coulisseau. L'usure du plancher se resserre en un marchepied. Puis le poste se répète en profondeur, et l'un d'eux porte un billot. Depuis octobre 2026, figure à la demande en bas de page, cadrée centrée.",
+    "titre": "Le poste de fabrique, en six temps",
     "alt": "Un bâti de fonte avec son volant et son coulisseau, et devant lui un marchepied surmonté d'un levier planté sur un montant ; au fond, deux postes identiques, dont l'un est monté sur un billot.",
     "source": {
-      "texte": "D'après le texte — Livre I, chapitre XV",
+      "texte": "D'après le texte : Livre I, chapitre XV",
       "q": "dans la fabrique il sert la machine"
     },
     "etapes": {
-      "fait": "Un outil d'artisan, libre en l'air : un manche et une lame. Rien ne bouge encore, et le volant porte son bouton de bois — c'est une manivelle, le mouvement partirait d'une main.",
+      "fait": "Un outil d'artisan, libre en l'air&nbsp;: un manche et une lame. Le volant porte encore son bouton de bois, c'est une manivelle&nbsp;: le mouvement partirait d'une main.",
       "distinction": "La machine saisit la lame, qui monte s'encastrer dans le coulisseau. Il ne reste dans la main que le manche, qu'un montant vient planter au sol. Le tabouret s'en va.",
-      "mecanisme": "Le bouton tombe : ce n'est plus une manivelle mais une poulie, et elle tourne d'elle-même. Le levier suit désormais le coulisseau, avec le retard de ce qui est entraîné.",
-      "portee": "La cadence monte ; l'amplitude du levier, elle, ne change pas d'un degré. L'usure du plancher, large comme les pas d'un homme, se resserre en un rectangle de la taille d'un marchepied.",
-      "ouvre": "Le poste se répète en profondeur, identique. L'un d'eux porte un billot : le corps n'a pas été mesuré à la machine, c'est la machine qui donne la hauteur et le corps qu'on hausse.",
-      "lectures": "La salle s'éclaire jusqu'au fond. Le tabouret est couché hors de la lumière, et la machine, elle, n'a rien fait d'autre que fonctionner."
+      "mecanisme": "Le bouton tombe&nbsp;: le volant devient une poulie, qui tourne d'elle-même. Le levier suit désormais le coulisseau, avec le retard de ce qui est entraîné.",
+      "portee": "La cadence monte, l'amplitude du levier ne change pas d'un degré. L'usure du plancher, large comme les pas d'un homme, se resserre en un rectangle de la taille d'un marchepied.",
+      "ouvre": "Le poste se répète en profondeur, identique. L'un d'eux porte un billot&nbsp;: c'est la machine qui donne la hauteur, et le corps qu'on hausse.",
+      "lectures": "La salle s'éclaire jusqu'au fond. Le tabouret est couché hors de la lumière, et la machine n'a rien fait d'autre que fonctionner."
     },
     "fixe": {
       "g": 4.7,
-      "legende": "Le poste : un marchepied, un levier à une hauteur qu'on n'a pas choisie, et la même place répétée jusqu'au fond de la salle — l'une d'elles montée sur un billot pour qu'un corps plus petit atteigne le même levier."
+      "legende": "Le poste&nbsp;: un marchepied, un levier à une hauteur qu'on n'a pas choisie, et la même place répétée jusqu'au fond de la salle, l'une d'elles montée sur un billot pour qu'un corps plus petit atteigne le même levier."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : la hauteur de la machine. La notion dit que le mouvement vient de la machine et que le corps s'y ajuste. La vitrine le montre littéralement (Hine, 1909 : des enfants montés sur le bâti du métier à filer pour l'atteindre) ; la planche montre d'où vient le mouvement (Allom, 1835 : des rangées de métiers identiques entraînés par des courroies qui descendent d'un arbre au plafond). Le fond : les objets du métier et de la fabrique ; en lumière chaude ce qui se voit, à l'aube (section V) ce que l'analyse fait voir, qui commande le geste.",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 1144,
+      "alt": "Dans une filature, deux garçons, l'un pieds nus, sont montés sur le bâti d'un métier à filer pour atteindre les bobines du haut ; une courroie descend vers la poulie de la machine.",
+      "legende": "Trop petits pour atteindre les bobines, des garçons montent sur le bâti du métier à filer. La machine fixe la hauteur du geste, et c'est le corps qui s'y hausse.",
+      "credit": "Lewis W. Hine, Bibb Mill n° 1, Macon (Géorgie), 19 janvier 1909, pour le National Child Labor Committee. Library of Congress, domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:488_Macon,_Ga._Lewis_W._Hine_1-19-1909._Bibb_Mill_No._1_Many_youngsters_here._Some_boys_were_so_small_they_had_to_climb_up_on_the_spinning_frame_to_mend_the_broken_threads_and_put_back_the_LOC_cph.3a01131.jpg"
+    },
+    "planches": {
+      "salle": {
+        "img": "planche-salle.webp",
+        "w": 1300,
+        "h": 836,
+        "alt": "Une salle de tissage mécanique en 1835 : de longues rangées de métiers identiques, des tisseuses à chacun d'eux, et au plafond un arbre de transmission d'où descendent les courroies.",
+        "legende": "Le mouvement vient d'en haut&nbsp;: un arbre court sous le plafond et ses courroies descendent vers chaque métier. Les tisseuses, rangées comme les machines, n'ont qu'à le suivre.",
+        "credit": "«&nbsp;Power loom weaving&nbsp;», dessin de Thomas Allom gravé par J. Tingle, 1835, pour l'<i>History of the Cotton Manufacture in Great Britain</i> d'Edward Baines. Domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Powerloom_weaving_in_1835.jpg"
+      }
+    },
+    "lumieres": {
+      "ouvre": "aube",
+      "lectures": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les objets du métier (le rouet, le marteau) et de la fabrique (la poulie, la bobine, la cloche). En lumière chaude monte ce qui se voit ; à l'aube, à la section V, ce que l'analyse fait voir : qui commande le geste.",
+      "dessins": {
+        "poulie": [
+          "..1.....1..",
+          "..1.....1..",
+          "..1.....1..",
+          "..1.....1..",
+          ".111111111.",
+          "1.........1",
+          "1....1....1",
+          "1...111...1",
+          "1....1....1",
+          ".111111111."
+        ],
+        "marteau": [
+          "1111111",
+          "1111111",
+          "...1...",
+          "...1...",
+          "...1...",
+          "...1...",
+          "...1...",
+          "..111.."
+        ],
+        "bobine": [
+          "1111111",
+          ".1...1.",
+          ".11111.",
+          ".11111.",
+          ".11111.",
+          ".11111.",
+          ".1...1.",
+          "1111111"
+        ],
+        "cloche": [
+          "....1....",
+          "...111...",
+          "..11111..",
+          "..11111..",
+          ".1111111.",
+          ".1111111.",
+          "111111111",
+          "....1...."
+        ]
+      },
+      "motifs": [
+        {
+          "m": "rouet",
+          "chaude": [
+            "le rouet",
+            "le pied le meut"
+          ],
+          "aube": [
+            "il se sert",
+            "de son outil"
+          ]
+        },
+        {
+          "m": "marteau",
+          "chaude": [
+            "l'adresse",
+            "des années"
+          ],
+          "aube": [
+            "passée",
+            "dans le mécanisme"
+          ]
+        },
+        {
+          "m": "poulie",
+          "chaude": [
+            "la courroie",
+            "la force motrice"
+          ],
+          "aube": [
+            "il la suit",
+            "il sert la machine"
+          ]
+        },
+        {
+          "m": "bobine",
+          "chaude": [
+            "dix heures",
+            "un poste"
+          ],
+          "aube": [
+            "un enfant suffit",
+            "interchangeable"
+          ]
+        },
+        {
+          "m": "cloche",
+          "chaude": [
+            "le règlement",
+            "l'amende"
+          ],
+          "aube": [
+            "discipline de caserne",
+            "le contremaître"
+          ]
+        }
+      ]
     }
   }
 }

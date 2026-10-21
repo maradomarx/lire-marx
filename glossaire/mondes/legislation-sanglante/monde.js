@@ -270,10 +270,13 @@ window.LM_MONDE = function (canvas) {
        haut : en PAYSAGE la hauteur vue vaut 0,69 fois la distance, en
        PORTRAIT la largeur en vaut 0,82, et c'est la première qui commande —
        il faut 1,70. La caméra recule un peu quand le mur se vide, pour que
-       le rectangle pâle et le clou soient dans le cadre avec le râtelier. */
+       le rectangle pâle et le clou soient dans le cadre avec le râtelier.
+       Octobre 2026 : la scène est une figure 16/10 en bas de page ; la visée
+       passe 0,10 plus à droite pour centrer l'ensemble (râtelier à gauche,
+       enclume à droite), qui penchait vers la droite du cadre. */
     var q = ss(0, 1, Math.min(1, G / 2.6));
     var d = lerp(1.50, 1.58, q) + st.decroche * 0.08;
-    var camA = V3(lerp(-0.10, -0.05, q), lerp(0.10, 0.18, q), -0.06);
+    var camA = V3(lerp(0.0, 0.05, q), lerp(0.10, 0.18, q), -0.06);
     camera.position.set(camA.x + 0.008 * Math.sin(T * 0.25), camA.y + 0.10 + 0.006 * Math.sin(T * 0.31), camA.z + d);
     camera.lookAt(camA);
     render();

@@ -49,9 +49,11 @@ window.LM_MONDE = function (canvas) {
     for (var gx = 0; gx < cw; gx += 200) for (var gy = 0; gy < ch; gy += 200) ctx.drawImage(grain, gx, gy);
     ctx.restore();
 
-    /* LA PLANCHE VIT DANS LA MOITIÉ DROITE — la colonne de texte prend les
-       quarante-trois premiers pour cent. */
-    var CXc = cw * 0.715, CYc = ch * 0.52, R = Math.min(cw * 0.185, ch * 0.30);
+    /* LA PLANCHE EST CENTRÉE DANS LA FIGURE. Elle vivait dans la moitié
+       droite tant que la colonne de texte passait devant (architecture
+       « plein ») ; depuis octobre 2026 la scène est une figure en bas de
+       page, et l'image fixe se photographie à 1200 px : plus de décalage. */
+    var CXc = cw * 0.5, CYc = ch * 0.52, R = Math.min(cw * 0.185, ch * 0.30);
     var taille = Math.max(14, Math.round(ch * 0.024));
     ctx.lineCap = 'round'; ctx.lineJoin = 'round';
 
@@ -104,8 +106,9 @@ window.LM_MONDE = function (canvas) {
       ctx.fillStyle = OR; ctx.beginPath(); ctx.arc(P0x, P0y, 6.5, 0, 6.3); ctx.fill();
       ctx.strokeStyle = 'rgba(216,173,76,.45)'; ctx.lineWidth = 1.4;
       ctx.beginPath(); ctx.arc(P0x, P0y, 13, 0, 6.3); ctx.stroke();
-      ctx.fillStyle = SOURD; ctx.font = 'italic ' + taille + 'px Georgia, serif'; ctx.textAlign = 'center';
-      ctx.fillText('le point de départ', P0x, P0y - ch * 0.048);
+      /* à gauche du point : à droite, il tombait sur la mention de l'écart */
+      ctx.fillStyle = SOURD; ctx.font = 'italic ' + taille + 'px Georgia, serif'; ctx.textAlign = 'right';
+      ctx.fillText('le point de départ', P0x - 18, P0y - ch * 0.032);
       ctx.globalAlpha = 1;
     }
 

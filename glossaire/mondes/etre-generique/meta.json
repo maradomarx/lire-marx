@@ -1,18 +1,39 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/etre-generique.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/etre-generique. L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrit en octobre 2026 selon glossaire/mondes/CHARTE.md. AUCUNE CITATION LIÉE : la traduction Bottigelli est protégée jusqu'en 2046, le premier manuscrit est paraphrasé et situé.",
   "titre": "Être générique",
   "de": "Gattungswesen",
-  "chapo": "L'être générique est celui dont le rapport à sa propre espèce fait partie de ce qu'il est. Chez Marx, ce rapport passe par le travail : l'animal produit d'une seule manière, sous l'empire du besoin immédiat ; l'homme produit selon la mesure de toute espèce, et même selon aucune — d'après les lois de la beauté.",
-  "description": "L'être générique (Gattungswesen) chez le jeune Marx : ce que le mot veut dire, en quoi la production humaine est universelle, et pourquoi le travail aliéné constitue une mutilation précisément située.",
+  "enbref": "L'être générique désigne, chez le jeune Marx, l'homme en tant qu'il se rapporte, en produisant, à ce que peut son espèce entière, au-delà de ses besoins du moment. L'animal produit d'une seule manière, celle de son espèce&nbsp;; l'homme peut produire selon la mesure de toutes, et même sans besoin, d'après les lois de la beauté. Marx l'expose en 1844, dans le premier des <i>Manuscrits</i>. La notion sert à dire avec exactitude ce que le travail aliéné retire à l'homme.",
+  "retenir": [
+    "Le mot traduit l'allemand Gattungswesen&nbsp;: un être pour qui l'espèce, la sienne et celle des autres choses, est un objet. Marx le reprend à Feuerbach, qui en faisait une affaire de conscience et de religion.",
+    "Marx en fait une affaire de production. L'animal produit ce dont il a besoin, d'une seule manière&nbsp;; l'homme produit selon la mesure de chaque chose, et même libre du besoin.",
+    "Cette différence tient à ce que l'homme fait de son activité un objet&nbsp;: il peut la considérer, la juger, la changer. C'est en ce sens qu'il est un être libre.",
+    "Le travail aliéné renverse le rapport&nbsp;: produire n'est plus qu'un moyen de subsister, et ce qui distinguait l'homme de l'animal tourne à son désavantage.",
+    "Marx cesse ensuite d'employer le mot, mais la mesure demeure&nbsp;: c'est elle qui juge, dans <i>Le Capital</i>, l'ouvrier réduit à une seule opération."
+  ],
+  "questions": [
+    {
+      "q": "Une abeille bâtit des alvéoles parfaites. Pourquoi Marx dit-il pourtant qu'elle ne produit pas comme l'homme&nbsp;?",
+      "r": "Parce qu'elle ne bâtit que selon la mesure de son espèce, toujours la même, et pour un besoin immédiat. L'homme peut appliquer à chaque objet la mesure qui lui convient, y compris la mesure d'une autre espèce, et produire ce qui ne répond à aucun besoin. La différence porte sur l'étendue de la mesure, pas sur l'habileté."
+    },
+    {
+      "q": "Pourquoi le fait de faire de son activité un objet rend-il l'homme libre&nbsp;?",
+      "r": "Parce qu'une activité qu'on peut considérer, on peut aussi la modifier. L'animal se confond avec ce qu'il fait&nbsp;; l'homme prend du recul sur ce qu'il fait, et c'est ce recul qui lui ouvre d'autres manières de produire."
+    },
+    {
+      "q": "Selon Marx, que perd l'ouvrier dont le travail est aliéné, au-delà de son produit&nbsp;?",
+      "r": "Il perd le rapport à son espèce que la production devait lui donner. Travailler n'est plus pour lui qu'un moyen de rester en vie, si bien qu'il ne se sent libre que dans ses fonctions animales, manger, boire, procréer, et se sent animal dans la seule activité qui le faisait homme."
+    }
+  ],
+  "description": "L'être générique chez le jeune Marx expliqué simplement : produire selon la mesure de toute espèce, et ce que le travail aliéné en retire.",
   "source": {
     "work": "manuscrits-1844",
     "s": 3,
-    "cite": "Karl Marx, <i>Manuscrits de 1844</i>, premier manuscrit, « Le travail aliéné » — traduction Émile Bottigelli, Éditions sociales (1962)"
+    "cite": "Karl Marx, <i>Manuscrits de 1844</i>, premier manuscrit, «&nbsp;Le travail aliéné&nbsp;», traduction Émile Bottigelli, Éditions sociales (1962)"
   },
-  "ou": "<i>Manuscrits de 1844</i>, premier manuscrit, troisième détermination du travail aliéné. ⚠️ La traduction que ce site sert est protégée : le texte est PARAPHRASÉ et situé, jamais cité entre guillemets.",
+  "ou": "<i>Manuscrits de 1844</i>, premier manuscrit, «&nbsp;Le travail aliéné&nbsp;», troisième des déterminations du travail aliéné. La traduction que sert ce site est protégée&nbsp;: on la résume et on la situe, sans la citer.",
   "outils": [
     {
-      "label": "La carte des concepts — l'atelier des Manuscrits",
+      "label": "La carte des concepts, dans l'atelier des Manuscrits",
       "url": "/oeuvres/manuscrits-1844#labo=carte"
     }
   ],
@@ -25,20 +46,111 @@
     "Argent"
   ],
   "monde": {
-    "_": "LA SCÈNE : UNE MESURE, OU TOUTES. Le concept se démontre par une comparaison, la figure en est donc une : à gauche de l'établi, des cellules hexagonales identiques qui se répètent sans jamais varier — l'animal produit d'une seule manière, celle de son espèce ; à droite, des formes qui arrivent une à une et dont aucune ne ressemble à la précédente, la dernière ne répondant à aucun besoin, et c'est elle que la lumière prend. Au dernier temps tout retombe à la mesure unique : c'est ce que le travail aliéné fait du rapport générique.",
+    "_": "LA SCÈNE : UNE MESURE, OU TOUTES. Le concept se démontre par une comparaison, la figure en est donc une : à gauche de l'établi, des cellules hexagonales identiques qui se répètent sans jamais varier (l'animal produit d'une seule manière, celle de son espèce) ; à droite, des formes qui arrivent une à une et dont aucune ne ressemble à la précédente, la dernière ne répondant à aucun besoin, et c'est elle que la lumière prend. Au dernier temps tout retombe à la mesure unique : c'est ce que le travail aliéné fait du rapport générique. Depuis octobre 2026 la scène est une figure en bas de page : la visée décalée de l'architecture « plein » est retirée, la caméra vise l'établi.",
     "layout": "plein",
+    "titre": "Une mesure, ou toutes, en six temps",
     "alt": "Un établi partagé par un filet gravé : à gauche des cellules hexagonales identiques, à droite cinq formes toutes différentes, dont la dernière est éclairée à part.",
     "etapes": {
-      "mot": "Des cellules hexagonales, toutes pareilles. L'animal produit lui aussi — mais d'une seule manière, celle de son espèce, et seulement ce dont il a immédiatement besoin.",
-      "distinction": "De l'autre côté du filet, une forme paraît, puis une autre, et aucune ne ressemble à la précédente. Produire selon la mesure de toute espèce, et non selon une seule.",
-      "conscience": "Les formes s'accumulent, chacune avec sa mesure propre. Ce qui les rend possibles n'est pas l'habileté : c'est qu'on puisse considérer son activité au lieu de l'être.",
-      "mutilation": "Une dernière forme, qui ne répond à aucun besoin, et que la lumière prend à part. Produire même libre du besoin physique — c'est là seulement qu'on produit vraiment.",
-      "ouvre": "Le côté humain s'éteint, une à une. Le travail aliéné ne rend pas le travail pénible : il retire à la production ce qui la distinguait de celle de l'animal.",
-      "lectures": "Il ne reste que la mesure unique. Ce qui est mutilé n'est pas une nature originelle — c'est une capacité, dont l'étendue dépend des rapports où elle s'exerce."
+      "mot": "Des cellules hexagonales, toutes pareilles. L'animal produit lui aussi, mais d'une seule manière, celle de son espèce, et seulement ce dont il a besoin.",
+      "distinction": "De l'autre côté du filet, une forme paraît, puis une autre, et aucune ne ressemble à la précédente&nbsp;: produire selon la mesure de chaque chose.",
+      "conscience": "Les formes s'accumulent, chacune avec sa mesure. Elles supposent qu'on puisse considérer son activité au lieu de se confondre avec elle.",
+      "mutilation": "Une dernière forme, qui ne répond à aucun besoin, et que la lumière prend à part. Pour Marx, on ne produit vraiment que libre du besoin.",
+      "ouvre": "Le côté humain s'éteint. Le travail aliéné ramène la production humaine à ce qu'elle est chez l'animal&nbsp;: un moyen de subsister.",
+      "lectures": "Il ne reste que la mesure unique. Ce qui est perdu est une capacité, dont l'étendue dépend des rapports où elle s'exerce."
     },
     "fixe": {
       "g": 4.2,
-      "legende": "Cinq formes, cinq mesures, et la dernière ne répond à aucun besoin : c'est elle que la lumière prend. En face, la cellule que l'espèce répète sans varier."
+      "legende": "Cinq formes, cinq mesures, et la dernière ne répond à aucun besoin&nbsp;: c'est elle que la lumière prend. En face, la cellule que l'espèce répète sans varier."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : le cadre et l'alvéole. La notion se voit sur un seul objet, un cadre de ruche : le bois est de main d'homme, taillé à la mesure d'une autre espèce que la sienne, et les alvéoles sont des abeilles, qui ne connaissent que la leur. Deux planches : une planche de Haeckel (la nature devenue objet de science et d'art, chaque espèce rendue selon sa forme), et la manufacture d'épingles de l'Encyclopédie (la production humaine ramenée à une opération par ouvrier, que Le Capital jugera avec la même mesure). Le fond : des choses produites ; chaude, la chose ; aube, la mesure selon laquelle elle a été faite (une seule chez l'animal, choisie chez l'homme). La lumière passe à l'aube quand l'essai décrit la production humaine et son recul sur elle-même.",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 986,
+      "alt": "Un cadre de ruche en bois clair, vu de face sur fond noir : la barre du haut dépasse en oreille, et l'intérieur est rempli d'alvéoles de cire hexagonales, toutes de la même taille.",
+      "legende": "Le cadre est de main d'homme, taillé à la mesure d'une autre espèce que la sienne. Les alvéoles sont des abeilles, qui n'en connaissent qu'une&nbsp;: la leur.",
+      "credit": "Jamain, cadre de ruche, Belgique, 2014. Wikimedia Commons, CC BY-SA 3.0, image recadrée, fond assombri.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Frame_from_a_hive_J1.jpg"
+    },
+    "planches": {
+      "haeckel": {
+        "img": "planche-haeckel.webp",
+        "w": 1000,
+        "h": 1434,
+        "couleur": true,
+        "alt": "Planche en couleurs de méduses : quatre espèces dessinées avec leurs ombrelles bleues, orangées et jaunes et leurs longs filaments rouges, numérotées de 1 à 4.",
+        "legende": "Quatre méduses, chacune rendue selon sa forme propre. La nature est ici objet de science et d'art à la fois&nbsp;: c'est ce que Marx tient pour le propre d'un être générique.",
+        "credit": "Ernst Haeckel, <i>Kunstformen der Natur</i>, planche 8, Discomedusae, 1904. Domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Haeckel_Discomedusae_8.jpg"
+      },
+      "epinglier": {
+        "img": "planche-epinglier.webp",
+        "w": 1200,
+        "h": 922,
+        "alt": "Gravure d'un atelier d'épingles : dans une salle aux grandes fenêtres, une dizaine d'ouvriers, chacun à son poste, dressent le fil ou l'appointent sur des meules&nbsp;; en dessous, les outils et les machines dessinés à part.",
+        "legende": "Une manufacture d'épingles en 1762&nbsp;: chaque ouvrier n'y fait qu'une opération. C'est la mesure de l'être générique, retournée&nbsp;: une seule forme de travail, toute une vie.",
+        "credit": "Goussier (dessin) et Defehrt (gravure), «&nbsp;Épinglier&nbsp;», planche II, <i>Encyclopédie</i> de Diderot et d'Alembert, 1762. Domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Defehrt_epinglier_pl2.jpg"
+      }
+    },
+    "lumieres": {
+      "distinction": "aube",
+      "conscience": "aube"
+    },
+    "fond": {
+      "_": "Le fond : des choses produites, par l'animal et par l'homme, dessinées en points. L'une s'allume et l'on voit d'abord la chose (chaude) ; aux sections où l'essai décrit la production humaine, et au survol, c'est la mesure selon laquelle elle a été faite qui monte (aube) : une seule chez l'animal, choisie chez l'homme.",
+      "dessins": {
+        "alveole": [
+          "...11111...",
+          "..1.....1..",
+          ".1..111..1.",
+          "1..1...1..1",
+          "1..1...1..1",
+          ".1..111..1.",
+          "..1.....1..",
+          "...11111..."
+        ],
+        "nid": [
+          "...11.11...",
+          "..1111111..",
+          "11.......11",
+          "1.1.1.1.1.1",
+          ".1.1.1.1.1.",
+          "..1111111..",
+          "...11111..."
+        ],
+        "araignee": [
+          "1...1...1",
+          ".1..1..1.",
+          "..11111..",
+          "1111.1111",
+          "..11111..",
+          ".1..1..1.",
+          "1...1...1"
+        ],
+        "violon": [
+          "....1....",
+          "...111...",
+          "....1....",
+          "..11111..",
+          ".1111111.",
+          "..11111..",
+          ".1111111.",
+          "111111111",
+          ".1111111.",
+          "..11111.."
+        ]
+      },
+      "motifs": [
+        { "m": "alveole", "chaude": ["une alvéole", "de la cire"], "aube": ["une seule mesure", "celle de l'abeille"] },
+        { "m": "nid", "chaude": ["un nid", "pour les petits"], "aube": ["le besoin immédiat", "toujours le même"] },
+        { "m": "araignee", "chaude": ["une toile tendue", "un piège"], "aube": ["une seule mesure", "celle de l'araignée"] },
+        { "m": "violon", "chaude": ["un violon", "aucun besoin"], "aube": ["la beauté", "libre du besoin"] },
+        { "m": "table", "chaude": ["une table", "un plateau"], "aube": ["une mesure choisie", "pensée d'abord"] },
+        { "m": "rouet", "chaude": ["un rouet", "du fil"], "aube": ["mesure du lin", "choisie, changée"] }
+      ]
     }
   }
 }

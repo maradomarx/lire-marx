@@ -9,7 +9,7 @@
    À gauche, une rangée de cellules hexagonales identiques qui se répète,
    toujours la même, sans jamais varier. À droite, sur le même établi, des
    formes qui arrivent une à une et dont aucune ne ressemble à la
-   précédente — et la dernière ne répond à aucun besoin : c'est une forme
+   précédente, et la dernière ne répond à aucun besoin : c'est une forme
    pure, et c'est elle que la lumière prend.
 
    Le dernier temps ÉTEINT le côté humain sauf une cellule : quand le
@@ -126,22 +126,19 @@ window.LM_MONDE = function (canvas) {
     beaute.intensity = 3.2 * st.pure * (1 - 0.6 * st.retombe);
     lampe.intensity = 3.0 * (1 - 0.2 * st.retombe) * (1 + 0.03 * Math.sin(T * 7.7));
 
-    /* la caméra. L'ensemble fait deux unités et quart ; à 38° et en paysage
-       la largeur vue vaut 1,07 fois la distance, et la colonne de texte prend
-       43 % — d'où une distance de trois et demie, et un décalage de 0,80. */
+    /* la caméra : serrée sur les cellules, puis l'établi entier.
+       La scène est maintenant une FIGURE en bas de page (oct. 2026) : plus
+       de colonne de texte à côté d'elle, donc plus de visée décalée à
+       gauche du sujet (elle rejetait l'établi au bord droit du cadre). La
+       caméra vise le milieu de l'établi ; à 38° et en 16/10, la largeur vue
+       vaut environ 1,07 fois la distance, d'où 2,2 pour que les cinq formes
+       et la ruche tiennent. */
     var q = ss(0, 1, Math.min(1, G / 1.9));
-    /* l'ensemble fait deux unités : à 38° la largeur vue vaut 1,07 fois la
-       distance, il en faut donc trois et demie pour qu'il tienne ENTIER
-       dans les 57 % que la colonne de texte laisse — et le décalage vaut
-       alors 0,78. Plus près, la cinquième forme sortait du cadre. */
-    var cx = lerp(0.30, 0.00, q), cy = lerp(0.62, 1.06, q), cz = lerp(1.45, 3.40, q);
-    cz = lerp(cz, 3.65, st.recul); cy = lerp(cy, 1.16, st.recul);
-    var camA = V3(lerp(-0.48, 0.00, q), lerp(0.10, 0.06, q), 0.0);
+    var cx = lerp(-0.30, 0.00, q), cy = lerp(0.58, 0.80, q), cz = lerp(1.25, 2.20, q);
+    cz = lerp(cz, 2.50, st.recul); cy = lerp(cy, 0.88, st.recul);
+    var camA = V3(lerp(-0.68, 0.01, q), lerp(0.06, 0.24, q), 0.0);
     camera.position.set(cx + 0.012 * Math.sin(T * 0.27), cy + 0.008 * Math.sin(T * 0.35), cz);
-    var dist = camera.position.distanceTo(camA);
-    var fwd = new THREE.Vector3().subVectors(camA, camera.position).normalize();
-    var right = new THREE.Vector3().crossVectors(fwd, V3(0, 1, 0)).normalize();
-    aim.copy(camA).addScaledVector(right, -Math.min(0.26 * dist, 0.78));
+    aim.copy(camA);
     camera.lookAt(aim);
     render();
   }

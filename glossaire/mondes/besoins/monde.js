@@ -153,11 +153,10 @@ window.LM_MONDE = function (canvas) {
     cz = lerp(cz, 2.35, st.recul);
     var camA = V3(lerp(0.55, 0.42, q), lerp(1.30, 1.16, q), WZ);
     camera.position.set(cx + 0.012 * Math.sin(T * 0.25), cy + 0.009 * Math.sin(T * 0.33), cz);
-    /* la colonne de texte occupe la gauche : la fenêtre doit vivre à droite */
-    var dist = camera.position.distanceTo(camA);
-    var fwd = new THREE.Vector3().subVectors(camA, camera.position).normalize();
-    var right = new THREE.Vector3().crossVectors(fwd, V3(0, 1, 0)).normalize();
-    aim.copy(camA).addScaledVector(right, -Math.min(0.24 * dist, 0.62));
+    /* la scène est une figure en bas de page (octobre 2026) : la fenêtre
+       est visée au centre du cadre. La visée décalée de l'architecture
+       « plein », qui laissait la gauche à la colonne de texte, est retirée. */
+    aim.copy(camA);
     camera.lookAt(aim);
     render();
   }

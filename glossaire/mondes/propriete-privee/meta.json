@@ -1,18 +1,39 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/propriete-privee.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/propriete-privee. L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrit en octobre 2026 selon glossaire/mondes/CHARTE.md. AUCUNE CITATION LIÉE : la traduction Bottigelli est protégée jusqu'en 2046, le texte est paraphrasé et situé.",
   "titre": "Propriété privée",
   "de": "Privateigentum",
-  "chapo": "Dans les Manuscrits de 1844, la propriété privée n'est pas la cause du travail aliéné mais son produit — quoiqu'elle agisse ensuite sur lui en retour. Marx en tire une conséquence sur les hommes eux-mêmes : elle réduit tous les rapports au monde à un seul, le sens de l'avoir, et les autres s'atrophient faute d'être exercés.",
-  "description": "La propriété privée chez le jeune Marx : pourquoi elle est le produit du travail aliéné et non sa cause, ce qu'est le « sens de l'avoir », et pourquoi son dépassement se définit comme une émancipation des sens.",
+  "enbref": "La propriété privée désigne, dans les <i>Manuscrits de 1844</i>, la forme sous laquelle le travail aliéné se fixe&nbsp;: le produit du travail appartient à un autre que celui qui l'a fait. Marx soutient qu'elle est d'abord la conséquence de ce travail aliéné, avant d'en devenir le moyen. Au troisième manuscrit, il en tire un effet sur les hommes&nbsp;: elle réduit tous leurs rapports au monde à un seul, le sens de l'avoir.",
+  "retenir": [
+    "L'économie politique part de la propriété privée comme d'un fait. Elle en décrit les lois sans dire d'où elle vient, et Marx lui reproche de ne pas la comprendre.",
+    "La propriété privée est d'abord le produit du travail aliéné, comme les dieux sont celui de l'égarement humain. Une fois posée, elle devient le moyen de cette aliénation.",
+    "Sous son règne, un objet ne semble nôtre que si nous le possédons ou en usons. Tous les sens cèdent la place à un seul, le sens de l'avoir.",
+    "Les sens se forment au contact de leurs objets, au fil de l'histoire. Le marchand de minéraux, qui ne voit qu'une valeur marchande, perçoit moins.",
+    "Marx définit le dépassement de la propriété privée comme l'émancipation de tous les sens. Mettre les biens en commun sans changer ce rapport, c'est le communisme grossier."
+  ],
+  "questions": [
+    {
+      "q": "Que voit le marchand de minéraux, et que ne voit-il pas&nbsp;?",
+      "r": "Il voit la valeur marchande de la pierre, c'est-à-dire ce qu'il peut en tirer en la vendant. Il ne voit ni sa beauté ni sa nature propre, ce que Marx appelle le sens minéralogique. Il a un œil pour la pierre, mais cet œil ne perçoit d'elle qu'une grandeur."
+    },
+    {
+      "q": "Pourquoi Marx dit-il que la propriété privée est le produit du travail aliéné, et pas l'inverse&nbsp;?",
+      "r": "Parce que l'analyse remonte du résultat au rapport qui le produit&nbsp;: un ouvrier dont le produit appartient à un autre crée par son travail la richesse de cet autre. La propriété privée apparaît ensuite comme une cause, puisqu'elle reproduit ce rapport&nbsp;; mais elle en est d'abord l'effet, comme les dieux sont l'effet de l'égarement de l'esprit humain."
+    },
+    {
+      "q": "Pourquoi le communisme grossier n'est-il pas, pour Marx, un dépassement de la propriété privée&nbsp;?",
+      "r": "Parce qu'il se contente de généraliser la possession et de niveler les fortunes à partir d'un minimum. Le rapport d'avoir demeure&nbsp;; il change seulement de titulaire. Marx y voit la propriété privée qui se fait passer pour une communauté."
+    }
+  ],
+  "description": "La propriété privée chez le jeune Marx, expliquée simplement : pourquoi elle naît du travail aliéné, et ce qu'est le « sens de l'avoir ».",
   "source": {
     "work": "manuscrits-1844",
     "s": 4,
-    "cite": "Karl Marx, <i>Manuscrits de 1844</i>, premier et troisième manuscrits — traduction Émile Bottigelli, Éditions sociales (1962)"
+    "cite": "Karl Marx, <i>Manuscrits de 1844</i>, premier et troisième manuscrits, traduction Émile Bottigelli, Éditions sociales (1962)"
   },
-  "ou": "<i>Manuscrits de 1844</i> : le renversement est établi à la fin du premier manuscrit, dans « Le travail aliéné » ; le « sens de l'avoir » et l'émancipation des sens sont au troisième. ⚠️ La traduction que ce site sert est protégée : le texte est PARAPHRASÉ et situé, jamais cité entre guillemets.",
+  "ou": "<i>Manuscrits de 1844</i>&nbsp;: le renversement est établi à la fin du premier manuscrit, dans «&nbsp;Le travail aliéné&nbsp;»&nbsp;; le sens de l'avoir, la formation des sens et le communisme grossier sont au troisième, dans «&nbsp;Propriété privée et communisme&nbsp;». La traduction que sert ce site est protégée&nbsp;: on la résume et on la situe, sans la citer.",
   "outils": [
     {
-      "label": "La carte des concepts — l'atelier des Manuscrits",
+      "label": "La carte des concepts, l'atelier des Manuscrits",
       "url": "/oeuvres/manuscrits-1844#labo=carte"
     }
   ],
@@ -22,23 +43,171 @@
     "Besoins",
     "Communisme",
     "Objectivation",
+    "Propriété bourgeoise",
     "Accumulation primitive"
   ],
   "monde": {
-    "_": "LA SCÈNE : UN SEUL OBJET, VU DEUX FOIS. Marx donne la figure au troisième manuscrit — le marchand de minéraux ne voit pas la beauté ni la nature propre du minéral, il en voit la valeur marchande. Un cristal facetté tourne sous une lampe et ses facettes accrochent la lumière ; on approche la balance, on lui noue une étiquette, un nombre paraît — et il S'ÉTEINT : le matériau devient mat, les éclats meurent, il ne reste lisible que le chiffre. Au dernier temps l'étiquette tombe et il reprend la lumière en jetant des couleurs sur le bois. Rien n'a changé dans la pierre : c'est le regard qui a changé, et c'est exactement ce que dit le concept.",
+    "_": "LA SCÈNE : UN SEUL OBJET, VU DEUX FOIS. Marx donne la figure au troisième manuscrit : le marchand de minéraux ne voit pas la beauté ni la nature propre du minéral, il en voit la valeur marchande. Un cristal facetté tourne sous une lampe ; la balance approche, une étiquette se noue, un prix paraît, et il S'ÉTEINT ; au dernier temps l'étiquette tombe et il reprend la lumière. Rien n'a changé dans la pierre : c'est le regard qui a changé. Depuis octobre 2026 la scène est une figure en bas de page : la caméra vise le milieu de l'ensemble balance, pierre, étiquette (la visée décalée de l'architecture « plein » est retirée).",
     "layout": "plein",
+    "titre": "Le minéral et l'étiquette, en six temps",
     "alt": "Un cristal facetté sur une étoffe, sous une lampe, avec une balance de laiton à côté et une étiquette portant un prix nouée à un fil.",
     "etapes": {
-      "fait": "Un minéral tourne sous la lampe, et ses facettes accrochent la lumière. C'est ce qu'il est : une forme, une matière, une manière de renvoyer le jour.",
-      "renversement": "La balance approche. L'économie politique mesure la propriété privée sans jamais l'expliquer — elle la pose comme un fait, comme on pose une donnée de la nature.",
-      "avoir": "L'étiquette se noue, le nombre paraît. Un objet ne nous semble plus nôtre que lorsque nous l'avons : tous les sens ont été remplacés par un seul, le sens de l'avoir.",
-      "sens": "La pierre s'éteint. Rien n'a changé en elle — c'est l'œil qui n'a plus qu'une grandeur à percevoir. Un sens qui ne s'exerce pas s'atrophie, parce qu'un sens est un produit de l'histoire.",
-      "ouvre": "L'étiquette tombe, et la pierre reprend la lumière en jetant des couleurs sur le bois. La suppression positive de la propriété privée est l'émancipation de tous les sens humains.",
-      "lectures": "Elle tourne, la balance vide derrière elle. Ce n'est pas une utopie esthétique : c'est un critère, et il ne juge pas en faveur d'une société qui produit beaucoup et ne forme rien."
+      "fait": "Un minéral tourne sous la lampe, et ses facettes accrochent la lumière. On le regarde pour ce qu'il est&nbsp;: une forme, une matière, une manière de renvoyer le jour.",
+      "renversement": "La balance approche. Elle pèse sans demander d'où vient ce qu'elle pèse, et c'est le reproche que Marx adresse à l'économie politique.",
+      "avoir": "L'étiquette se noue et un prix paraît. On ne voit plus de la pierre que ce qu'elle vaut pour qui la possède&nbsp;: c'est le sens de l'avoir.",
+      "sens": "La pierre s'éteint. Rien n'a changé en elle&nbsp;; c'est le regard qui n'a plus qu'une grandeur à percevoir, comme celui du marchand de minéraux.",
+      "ouvre": "L'étiquette tombe, et la pierre reprend la lumière en jetant des couleurs sur le bois. Marx définit le dépassement de la propriété privée comme l'émancipation de tous les sens.",
+      "lectures": "La pierre tourne, la balance vide derrière elle. L'émancipation des sens sert de critère&nbsp;: une société se juge à ce que ses membres peuvent percevoir et faire."
     },
     "fixe": {
       "g": 4.0,
-      "legende": "L'étiquette est nouée, le prix est lisible, et la pierre s'est éteinte. Rien n'a changé en elle : c'est le regard qui n'a plus qu'une grandeur à percevoir."
+      "legende": "L'étiquette est nouée, le prix est lisible, et la pierre s'est éteinte. Rien n'a changé en elle&nbsp;: c'est le regard qui n'a plus qu'une grandeur à percevoir."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : le mont-de-piété. Ce que dit la notion, des choses qui ne valent plus que par le fait qu'on les a, se voit dans un magasin du Mont-de-Piété de Paris en 1901 : des instruments de musique, des parapluies, une bassinoire pendus au même râtelier, chacun avec son étiquette de gage. Une planche de minéralogie de 1859, en couleur, montre ce que le marchand de minéraux ne voit pas : la forme propre de chaque pierre. Le fond : des objets d'usage ; chaude, ce qu'en voit l'avoir (un prix, un titre) ; aube, ce qu'un sens formé y trouve. La lumière passe à l'aube à la section du dépassement, l'émancipation des sens.",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 950,
+      "alt": "Un magasin du Mont-de-Piété de Paris en 1901 : à un râtelier pendent des cornets, des trompes, une mandoline, des parapluies et une bassinoire, chacun avec une étiquette ; au sol, une bouilloire et des récipients de cuivre.",
+      "legende": "Au Mont-de-Piété de Paris, une mandoline, des cuivres, des parapluies et une bassinoire pendent au même râtelier, chacun avec son étiquette. Ce que l'objet était pour son propriétaire ne compte plus ici&nbsp;: seul compte ce qu'il vaut en gage.",
+      "credit": "Photographie anonyme, gravée par la Société générale d'applications photographiques, «&nbsp;Un magasin d'objets divers&nbsp;», Mont-de-Piété de Paris, <i>Le Monde illustré</i>, 1901. Paris Musées, musée Carnavalet, CC0, image recadrée.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Le_Mont-de-Pi%C3%A9t%C3%A9,_G.37213.jpg"
+    },
+    "planches": {
+      "mineraux": {
+        "img": "planche-mineraux.webp",
+        "w": 1000,
+        "h": 1500,
+        "couleur": true,
+        "alt": "Planche coloriée de minéraux : topazes, grenats, pierres vertes, un lapis-lazuli et des pierres taillées, chacun accompagné du schéma au trait de son cristal.",
+        "legende": "Chaque pierre est dessinée à côté de la forme cristalline qui la gouverne. C'est ce que Marx appelle le sens minéralogique, et ce que le marchand ne voit pas.",
+        "credit": "Johann Gottlob Kurr, <i>The Mineral Kingdom</i>, planche II (topaze, grenat, idocrase, épidote, lazulite), 1859. Science History Institute, domaine public, image recadrée.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Plate_II-_Topaz,_Garnet,_Vesuvian,_Idocrase,_Chrysolite,_Olivine,_Pistacite,_Epidote,_Turquoise,_Johnite,_Calamite,_Lazulite,_Lapis_Lazuli_-_DPLA_-_415604fa3a078b721e4f08807dc73042.jpg"
+      }
+    },
+    "lumieres": {
+      "ouvre": "aube",
+      "lectures": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : des objets d'usage, dessinés en points. L'un s'allume et l'on voit ce qu'en retient l'avoir, un prix ou un titre (chaude) ; à la section du dépassement, et au survol, c'est ce qu'un sens formé y trouve qui monte (aube). Les prix sont des exemples, pas des citations.",
+      "dessins": {
+        "cristal": [
+          "....1....",
+          "...111...",
+          "..11.11..",
+          ".11...11.",
+          "1111.1111",
+          ".1.1.1.1.",
+          "..1.1.1..",
+          "...111...",
+          "....1...."
+        ],
+        "mandoline": [
+          "....11...",
+          "....11...",
+          "....1....",
+          "....1....",
+          "...111...",
+          "..11111..",
+          ".1111111.",
+          ".111.111.",
+          ".1111111.",
+          "..11111.."
+        ],
+        "maison": [
+          ".....1.....",
+          "....111....",
+          "...11111...",
+          "..1111111..",
+          ".111111111.",
+          "..1.....1..",
+          "..1.11..1..",
+          "..1.11..1..",
+          "..1111111.."
+        ],
+        "cadenas": [
+          "..11111..",
+          ".1.....1.",
+          ".1.....1.",
+          "111111111",
+          "111111111",
+          "1111.1111",
+          "1111.1111",
+          "111111111",
+          "111111111"
+        ]
+      },
+      "motifs": [
+        {
+          "m": "cristal",
+          "chaude": [
+            "42 fr.",
+            "un lot"
+          ],
+          "aube": [
+            "l'éclat",
+            "le clivage"
+          ]
+        },
+        {
+          "m": "mandoline",
+          "chaude": [
+            "un gage",
+            "8 fr. prêtés"
+          ],
+          "aube": [
+            "une musique",
+            "l'oreille"
+          ]
+        },
+        {
+          "m": "maison",
+          "chaude": [
+            "un titre",
+            "un loyer"
+          ],
+          "aube": [
+            "un abri",
+            "habiter"
+          ]
+        },
+        {
+          "m": "cadenas",
+          "chaude": [
+            "à moi",
+            "défense d'entrer"
+          ],
+          "aube": [
+            "l'usage",
+            "les autres"
+          ]
+        },
+        {
+          "m": "table",
+          "chaude": [
+            "un meuble",
+            "un bien"
+          ],
+          "aube": [
+            "le repas",
+            "la forme"
+          ]
+        },
+        {
+          "m": "piece",
+          "chaude": [
+            "tout acheter",
+            "mon avoir"
+          ],
+          "aube": [
+            "sans qualité",
+            "un rapport"
+          ]
+        }
+      ]
     }
   }
 }

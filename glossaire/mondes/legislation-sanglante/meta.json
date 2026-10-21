@@ -1,15 +1,37 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/legislation-sanglante.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/legislation-sanglante. L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrite en octobre 2026 selon glossaire/mondes/CHARTE.md.",
   "titre": "Législation sanglante",
   "de": "Blutgesetzgebung",
-  "chapo": "L'expropriation jeta sur les routes plus d'hommes que les manufactures n'en pouvaient absorber, et la loi les traita en criminels volontaires. Deux siècles de fouet, de marque au fer et d'esclavage de paroisse ont rompu cette population à la discipline du salariat — jusqu'au jour où la sourde pression des rapports économiques a suffi, et où l'arsenal a pu être remisé sans être détruit.",
-  "description": "La législation sanguinaire contre les expropriés chez Marx : pourquoi la loi punit le vagabondage qu'elle a produit, comment elle fixe un maximum de salaire sans jamais de minimum, et par quoi elle finit par être remplacée.",
+  "enbref": "La législation sanglante désigne, chez Marx, les lois par lesquelles les États d'Europe occidentale ont puni du fouet, de la marque au fer et de l'esclavage les paysans chassés de leurs terres et devenus vagabonds, de la fin du quinzième siècle au dix-huitième. Marx l'analyse au chapitre XXVIII du Livre&nbsp;I du <i>Capital</i> (1867), avec les lois qui plafonnaient les salaires. Ces lois ont dressé les expropriés au travail salarié, jusqu'à ce que la pression économique suffise à les y tenir.",
+  "retenir": [
+    "L'expropriation des campagnes a jeté sur les routes plus d'hommes que les manufactures ne pouvaient en employer. La loi a puni comme une faute ce qui était un effet.",
+    "Les statuts anglais frappent l'homme valide qui n'a pas de maître. La peine tombe si personne ne l'emploie et cesse s'il trouve une place : ces lois dressent au salariat.",
+    "Les lois sur les salaires, à partir de 1349, fixent un maximum et jamais de minimum. Elles font des coalitions ouvrières un crime jusqu'en 1824.",
+    "Le capital naissant a besoin de l'État parce que les bras manquent encore. Tant que l'économie ne produit pas la dépendance du travailleur, la loi la produit.",
+    "Une fois le capitalisme installé, l'habitude et la réserve de chômeurs font le même travail sans bourreau. La contrainte change d'organe et devient invisible."
+  ],
+  "questions": [
+    {
+      "q": "Que fait le statut d'Édouard&nbsp;VI, en 1547, de l'homme dénoncé comme réfractaire au travail&nbsp;?",
+      "r": "Il l'adjuge pour esclave à celui qui l'a dénoncé. La sanction consiste donc à lui donner un maître, et le dénonciateur obtient son travail pour rien. On voit sur cet exemple que la peine et la mise au travail sont une seule opération."
+    },
+    {
+      "q": "Pourquoi les lois sur les salaires fixent-elles un maximum sans minimum&nbsp;?",
+      "r": "Parce qu'elles sont faites à la demande des acheteurs de travail, dont la Chambre des communes porte la voix en 1349. À cette époque, la demande de travail croît plus vite que l'offre et pousse les salaires vers le haut. La loi bloque cette hausse et ne protège de rien contre la baisse."
+    },
+    {
+      "q": "Pourquoi ces lois ont-elles pu être abolies sans que la dépendance du travailleur diminue&nbsp;?",
+      "r": "Parce que le mécanisme de la production a pris le relais. Une population de chômeurs pèse en permanence sur les salaires, et les travailleurs, formés par l'habitude, acceptent les exigences du régime comme un fait naturel. La contrainte n'a plus besoin d'exécuteur."
+    }
+  ],
+  "description": "La législation sanglante chez Marx, expliquée : pourquoi la loi a puni les expropriés devenus vagabonds, plafonné les salaires, et ce qui l'a remplacée.",
   "source": {
+    "_": "La source des citations : work = id de bibliotheque.json, s = section Wikisource (huitième section de Roy, chapitres XXVI à XXXIII), cite = ce qu'on imprime sous chaque citation.",
     "work": "capital-1",
     "s": 8,
-    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XXVIII — traduction Joseph Roy (1872)"
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XXVIII, traduction Joseph Roy (1872)"
   },
-  "ou": "Livre&nbsp;I, huitième section, chapitre XXVIII, « Législation sanguinaire contre les expropriés à partir de la fin du quinzième siècle — Lois sur les salaires ». C'est le second volet de l'accumulation primitive : le chapitre XXVII prend la terre, celui-ci dresse ceux à qui on l'a prise.",
+  "ou": "Livre&nbsp;I, huitième section, chapitre XXVIII, que Roy intitule « Législation sanguinaire contre les expropriés à partir de la fin du quinzième siècle. Lois sur les salaires ». C'est le second volet de l'accumulation primitive&nbsp;: le chapitre XXVII montre comment on prend la terre aux paysans, celui-ci comment on dresse ceux à qui on l'a prise.",
   "outils": [
     {
       "label": "La chronologie du Capital",
@@ -25,23 +47,180 @@
     "Force de travail"
   ],
   "monde": {
-    "_": "LA SCÈNE : LA FORGE QUI S'ÉTEINT. Le chapitre ne s'achève pas sur les statuts mais sur leur RELÈVE — « la sourde pression des rapports économiques achève le despotisme du capitaliste sur le travailleur » — et le fer rouge devient une pièce d'arsenal qu'on garde sans s'en servir. La figure montre donc un appareil de contrainte qu'on MONTE, puis qu'on démonte, et le fait que rien ne le remplace visiblement. Un coin de forge : le brasier allumé, un fer qui chauffe, la planche d'essai vierge ; puis les fers se multiplient et la planche prend, une à une, les trois lettres que Marx nomme, S, V, R, tandis que l'anneau de fer paraît à son crochet ; puis un tableau se cloue au mur — le tarif des salaires, avec son trait de plafond en haut et rien en dessous. Alors le brasier tombe, les fers rouillent, le tableau est décroché et il ne reste qu'un rectangle pâle sur la suie et un clou vide. Un seul fer reste pendu au râtelier. LA LUMIÈRE CHANGE DE SOURCE : au premier temps la scène est éclairée d'en bas par les braises, au dernier par la seule lampe de l'atelier.",
+    "_": "LA SCÈNE : LA FORGE QUI S'ÉTEINT. Le chapitre s'achève sur la RELÈVE des statuts par la sourde pression des rapports économiques, et le fer rouge devient une pièce d'arsenal qu'on garde sans s'en servir. La figure montre un appareil de contrainte qu'on MONTE, puis qu'on démonte, et le fait que rien ne le remplace visiblement. Un coin de forge : le brasier, un fer qui chauffe, la planche d'essai vierge ; puis les fers au râtelier, les trois lettres S, V, R sur la planche, l'anneau de fer ; puis le tableau du tarif, trait de plafond en haut et rien en dessous, et un cadenas ; puis le brasier tombe, les fers rouillent, le tableau est décroché et il reste un rectangle pâle et un clou vide. LA LUMIÈRE CHANGE DE SOURCE : les braises d'abord, la seule lampe à la fin.",
     "alt": "Un coin de forge : un brasier sur trois pieds, une enclume sur son billot, un râtelier de fers à marquer, une planche d'essai portant trois lettres brûlées, et au mur un tableau de tarif dont seul le trait supérieur est tracé.",
     "source": {
-      "texte": "D'après le texte — Livre I, chapitre XXVIII",
+      "texte": "D'après le texte : Livre I, chapitre XXVIII",
       "q": "la sourde pression des rapports économiques"
     },
     "etapes": {
-      "fait": "Le brasier est allumé et un fer chauffe dedans. La planche d'essai est encore vierge : rien n'a été marqué, et la loi n'a pas encore décidé que le vagabondage était un choix.",
-      "distinction": "Les fers se rangent au râtelier et la planche prend ses lettres, une par statut — S, V, R. L'anneau de fer paraît à son crochet. La peine ne tombe que si personne ne veut prendre l'homme à son service.",
-      "mecanisme": "Un tableau se cloue au mur : le tarif des salaires. Son trait de plafond est tracé en haut, et il n'y a rien en dessous — la loi fixe un maximum et se garde de prescrire un minimum. Un cadenas dit les coalitions interdites.",
-      "portee": "Le brasier tombe. Les fers se refroidissent et prennent la rouille, l'enclume avec eux. L'État n'est indispensable que tant que le rapport de forces économique joue contre l'acheteur de travail.",
-      "ouvre": "Le tableau est décroché : il ne reste qu'un rectangle pâle sur la suie et un clou vide. Rien ne vient à la place, et rien n'en a besoin — la sourde pression des rapports économiques fait le même travail.",
-      "lectures": "La forge est froide, la lampe seule éclaire, et un fer reste pendu au râtelier. On fut bien aise d'avoir sous la main, pour des cas imprévus, le vieil arsenal d'oukases."
+      "fait": "Le brasier est allumé et un fer chauffe dedans. La planche d'essai est encore vierge : la loi n'a pas encore décidé que le vagabondage était un choix.",
+      "distinction": "Les fers se rangent au râtelier et la planche prend les trois lettres des statuts : S pour l'esclave, V pour le vagabond, R pour le coureur de pays. L'anneau de fer paraît à son crochet.",
+      "mecanisme": "Un tableau se cloue au mur : le tarif des salaires. Son trait de plafond est tracé en haut, et il n'y a rien en dessous, car la loi fixe un maximum et pas de minimum. Un cadenas dit les coalitions interdites.",
+      "portee": "Le brasier tombe. Les fers refroidissent et prennent la rouille, l'enclume avec eux. L'État n'était indispensable que tant que les bras manquaient à l'acheteur de travail.",
+      "ouvre": "Le tableau est décroché : il reste un rectangle pâle sur la suie et un clou vide. Rien ne vient à la place, parce que la pression des rapports économiques fait le même travail.",
+      "lectures": "La forge est froide, la lampe seule éclaire, et un fer reste pendu au râtelier : l'arsenal est rangé, il n'est pas détruit."
     },
     "fixe": {
       "g": 4.8,
       "legende": "La forge est froide, les fers ont pris la rouille, et le tableau du tarif est décroché : il n'en reste qu'un rectangle pâle sur la suie et un clou vide. Rien n'est venu à la place, et rien n'en avait besoin."
+    },
+    "titre": "La forge qui s'éteint, en six temps"
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : la charrette et le tarif. La notion se voit dans deux documents qui ont servi la loi elle-même. En tête, la page de titre du livre de Thomas Harman (1567), un inventaire des vagabonds d'Angleterre, où deux hommes sont attachés à l'arrière d'une charrette sous la verge : la peine du statut de 1530. Dans l'essai, la loi Le Chapelier (1791), qui interdit aux ouvriers de se concerter. Le fond : les instruments de la contrainte (le fer à marquer, le fouet, l'anneau, le tarif, le cadenas, la pièce) ; en lumière chaude, ce que dit la loi ; à l'aube, à partir de la section de la relève, ce que l'analyse fait voir : le dressage au salariat.",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 1100,
+      "alt": "Gravure sur bois de la page de titre d'un livre imprimé à Londres en 1567 : un cheval attelé à une charrette, deux hommes attachés à l'arrière, et un troisième qui lève une verge derrière eux.",
+      "legende": "Deux hommes attachés à l'arrière d'une charrette, un troisième derrière eux, la verge levée : c'est la peine que le statut de 1530 réserve aux vagabonds valides.",
+      "credit": "Gravure de la page de titre de <i>A Caveat or Warening for Commen Cursetors vulgarely called Vagabones</i>, Thomas Harman, Londres, William Griffith, 1567. British Library, domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:A_Caveat_or_Warning_for_Common_Cursitors_(1567).png"
+    },
+    "planches": {
+      "chapelier": {
+        "img": "planche-chapelier.webp",
+        "w": 1100,
+        "h": 1220,
+        "alt": "Première page imprimée d'une loi française : sous un bandeau orné d'une couronne, « Loi relative aux assemblées d'ouvriers et artisans de même état et profession, donnée à Paris le 17 juin 1791 », puis le décret de l'Assemblée nationale du 14 juin 1791 et son article premier.",
+        "legende": "Le décret du 14 juin 1791, promulgué le 17. Son premier article interdit de rétablir les corporations ; les suivants défendent aux ouvriers d'un même métier de s'entendre sur le prix de leur travail.",
+        "credit": "<i>Loi relative aux assemblées d'ouvriers et artisans de même état et profession</i>, Paris, Imprimerie royale, 17 juin 1791. Newberry Library, Chicago, via Internet Archive, domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Loi_relative_aux_assembl%C3%A9es_d%27ouvriers_%26_artisans_de_m%C3%AAme_%C3%A9tat_%26_profession,_titre,_Paris,_17_juin_1791.png"
+      }
+    },
+    "lumieres": {
+      "ouvre": "aube",
+      "lectures": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les instruments de la contrainte, dessinés en points. En lumière chaude monte ce que dit la loi (la peine, la date, le tarif) ; à l'aube, à partir de la section de la relève, ce que l'analyse fait voir (le dressage au salariat).",
+      "dessins": {
+        "fer": [
+          "...111...",
+          "...111...",
+          "....1....",
+          "....1....",
+          "1...1...1",
+          "1.......1",
+          ".1.....1.",
+          "..1...1..",
+          "...1.1...",
+          "....1...."
+        ],
+        "fouet": [
+          "11.........",
+          ".11........",
+          "..11.......",
+          "...11......",
+          "....1..111.",
+          ".....111..1",
+          "..........1",
+          ".......1..1",
+          "........11."
+        ],
+        "anneau": [
+          "...111...",
+          "..1...1..",
+          ".1.....1.",
+          ".1.....1.",
+          ".1.....1.",
+          "..1...1..",
+          "...111...",
+          "....1....",
+          "...1.1...",
+          "....1...."
+        ],
+        "tarif": [
+          ".....1.....",
+          "11111111111",
+          "1.........1",
+          "1.1111111.1",
+          "1.........1",
+          "1.........1",
+          "1.........1",
+          "1.........1",
+          "11111111111"
+        ],
+        "cadenas": [
+          "..111..",
+          ".1...1.",
+          ".1...1.",
+          "1111111",
+          "1111111",
+          "111.111",
+          "111.111",
+          "1111111"
+        ]
+      },
+      "motifs": [
+        {
+          "m": "fer",
+          "chaude": [
+            "la lettre V",
+            "vagabond, 1547"
+          ],
+          "aube": [
+            "sans maître",
+            "à embaucher"
+          ]
+        },
+        {
+          "m": "fouet",
+          "chaude": [
+            "Henri VIII, 1530",
+            "jusqu'au sang"
+          ],
+          "aube": [
+            "renvoyé au travail",
+            "la discipline"
+          ]
+        },
+        {
+          "m": "anneau",
+          "chaude": [
+            "l'anneau de fer",
+            "esclave du dénonciateur"
+          ],
+          "aube": [
+            "un maître donné",
+            "travail pour rien"
+          ]
+        },
+        {
+          "m": "tarif",
+          "chaude": [
+            "maximum légal",
+            "Statute, 1349"
+          ],
+          "aube": [
+            "pas de minimum",
+            "l'acheteur décide"
+          ]
+        },
+        {
+          "m": "cadenas",
+          "chaude": [
+            "coalition interdite",
+            "crime jusqu'en 1824"
+          ],
+          "aube": [
+            "seul devant l'acheteur",
+            "sans les autres"
+          ]
+        },
+        {
+          "m": "piece",
+          "chaude": [
+            "le salaire",
+            "au tarif"
+          ],
+          "aube": [
+            "la sourde pression",
+            "l'armée de réserve"
+          ]
+        }
+      ]
     }
   }
 }

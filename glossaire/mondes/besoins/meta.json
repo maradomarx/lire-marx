@@ -1,18 +1,39 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/besoins.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/besoins. L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrit en octobre 2026 selon glossaire/mondes/CHARTE.md. AUCUNE CITATION LIÉE : la traduction Bottigelli est protégée jusqu'en 2046, le troisième manuscrit est paraphrasé et situé.",
   "titre": "Besoins",
   "de": "Bedürfnisse",
-  "chapo": "Dans le troisième manuscrit de 1844, le besoin n'est pas une donnée naturelle mais un objet de production : chacun spécule sur la création d'un besoin nouveau chez l'autre pour le placer dans une dépendance nouvelle. Le même mouvement multiplie les jouissances d'un côté et abaisse de l'autre le seuil de ce qui compte comme besoin — jusqu'à la lumière et l'air.",
-  "description": "Les besoins chez le jeune Marx : pourquoi l'économie politique est à la fois la science de la richesse et celle du renoncement, ce qui distingue l'extension des besoins de leur richesse, et ce que serait un besoin non aliéné.",
+  "enbref": "Les besoins sont, pour le jeune Marx, un produit de la société et de son histoire. Dans le troisième des <i>Manuscrits de 1844</i>, il montre que la propriété privée s'en sert comme d'une prise&nbsp;: on invente chez l'autre un besoin nouveau pour le rendre dépendant, pendant qu'on réduit l'ouvrier au strict entretien de sa vie, jusqu'à lui retirer le besoin de lumière et d'air. La difficulté est de voir que ces deux mouvements n'en font qu'un.",
+  "retenir": [
+    "L'économie politique se présente comme la science de la richesse, et elle prêche pourtant l'épargne et le renoncement. Marx part de ce paradoxe pour montrer que les besoins sont produits.",
+    "Sous la propriété privée, chacun cherche à créer chez l'autre un besoin nouveau, qui l'oblige à un sacrifice et le place dans une dépendance nouvelle. Tout produit devient un appât.",
+    "Le même mouvement abaisse ailleurs le seuil de ce qui compte comme besoin. Pour l'ouvrier, l'air, la lumière et la propreté la plus simple cessent d'en être.",
+    "Les deux versants n'en font qu'un&nbsp;: l'industrie spécule sur la grossièreté des besoins autant que sur leur raffinement. Le seul besoin que l'économie produise vraiment est celui d'argent.",
+    "Un besoin humain riche suppose des sens formés et relie aux autres. Marx en voit un exemple chez les ouvriers socialistes, pour qui la réunion elle-même devient un besoin."
+  ],
+  "questions": [
+    {
+      "q": "Pourquoi Marx remarque-t-il que les caves de Londres rapportent davantage à leurs propriétaires que les palais&nbsp;?",
+      "r": "Parce que l'exemple montre que le besoin grossier du pauvre est une source de profit plus grande que le besoin raffiné du riche. On ne gagne pas seulement en flattant les goûts de ceux qui peuvent payer&nbsp;; on gagne aussi en louant un abri tout juste supportable à ceux qui n'ont pas le choix."
+    },
+    {
+      "q": "Comment l'augmentation des besoins peut-elle produire leur absence&nbsp;?",
+      "r": "La même économie qui multiplie les jouissances pour ceux qui achètent réduit le besoin de l'ouvrier à l'entretien physique le plus misérable, et fait de cette vie la plus pauvre une norme. Tout ce qui dépasse ce minimum lui paraît un luxe condamnable. Les deux mouvements obéissent à la même règle&nbsp;: le gain."
+    },
+    {
+      "q": "Faut-il conclure du fragment que Marx recommande d'avoir moins de besoins&nbsp;?",
+      "r": "Non. C'est l'économie politique qui recommande l'épargne et le renoncement, et Marx le lui reproche. Ce qu'il oppose au besoin fabriqué est un besoin plus riche, qui suppose des sens et des capacités formés, et dont l'objet peut être un autre homme."
+    }
+  ],
+  "description": "Les besoins chez le jeune Marx, expliqués simplement : la propriété privée invente des besoins chez les uns et retire aux autres l'air et la lumière.",
   "source": {
     "work": "manuscrits-1844",
-    "s": 4,
-    "cite": "Karl Marx, <i>Manuscrits de 1844</i>, troisième manuscrit — traduction Émile Bottigelli, Éditions sociales (1962)"
+    "s": 5,
+    "cite": "Karl Marx, <i>Manuscrits de 1844</i>, troisième manuscrit, traduction Émile Bottigelli, Éditions sociales (1962)"
   },
-  "ou": "<i>Manuscrits de 1844</i>, troisième manuscrit — après les pages sur la propriété privée et le communisme, avant celles sur l'argent qui closent le cahier. ⚠️ La traduction que ce site sert est protégée : le texte est PARAPHRASÉ et situé, jamais cité entre guillemets.",
+  "ou": "<i>Manuscrits de 1844</i>, troisième manuscrit, dans le fragment sur la signification des besoins humains, entre les pages sur la propriété privée et le communisme et le passage sur l'argent. La traduction que sert ce site est protégée&nbsp;: on la résume et on la situe, sans la citer.",
   "outils": [
     {
-      "label": "La carte des concepts — l'atelier des Manuscrits",
+      "label": "La carte des concepts, l'atelier des Manuscrits",
       "url": "/oeuvres/manuscrits-1844#labo=carte"
     }
   ],
@@ -25,20 +46,124 @@
     "Objectivation"
   ],
   "monde": {
-    "_": "LA SCÈNE : UNE FENÊTRE QUI SE RESSERRE, UN REBORD QUI SE CHARGE. Le fragment dit deux mouvements et affirme qu'ils n'en font qu'un — on invente des jouissances d'un côté, on abaisse de l'autre le seuil de ce qui compte comme besoin, la lumière et l'air cessant d'en être. La scène les montre EN MÊME TEMPS, dans une seule image. ET LE DERNIER TEMPS NE VIDE PAS LE REBORD : ce serait le contresens que l'essai écarte, puisque c'est l'économie politique qui prêche le renoncement, non Marx. La fenêtre se rouvre plus grande qu'au départ, et les mêmes objets, espacés et éclairés, redeviennent distincts — ce qui sépare un besoin d'un autre n'est pas son objet mais son rapport. L'ouverture est un VRAI TROU : quatre panneaux mobiles, jamais un faux trou noir devant un mur plein.",
+    "_": "LA SCÈNE : UNE FENÊTRE QUI SE RESSERRE, UN REBORD QUI SE CHARGE. Le fragment dit deux mouvements et affirme qu'ils n'en font qu'un : on invente des jouissances d'un côté, on abaisse de l'autre le seuil de ce qui compte comme besoin, la lumière et l'air cessant d'en être. La scène les montre en même temps. Le dernier temps ne vide pas le rebord (ce serait le contresens que l'essai écarte) : la fenêtre se rouvre plus grande qu'au départ, et les mêmes objets, espacés et éclairés, redeviennent distincts. L'ouverture est un vrai trou : quatre panneaux mobiles. Depuis octobre 2026 la scène est une figure en bas de page : la visée décalée de l'architecture « plein » ne joue plus qu'au-delà de 1100 px de canevas.",
     "layout": "plein",
+    "titre": "La fenêtre et le rebord, en six temps",
     "alt": "L'intérieur d'une pièce au plâtre sale : une fenêtre dont l'ouverture se resserre, et sur son rebord une rangée de petits objets serrés les uns contre les autres.",
     "etapes": {
-      "paradoxe": "Une pièce, une fenêtre, le jour. Rien encore — sinon la question : comment la science de la richesse peut-elle être en même temps celle du renoncement ?",
-      "ou": "Un premier objet sur le rebord. Le besoin n'est pas une donnée qu'on satisfait : c'est une chose qu'on produit, comme on produit ce qui la comble.",
-      "distinction": "Le rebord se charge, et l'ouverture commence à se refermer. Les deux vont ensemble : l'extension des besoins d'un côté, l'abaissement du seuil de l'autre.",
-      "mecanisme": "La fenêtre s'est resserrée, le jour a baissé. La lumière, l'air, la propreté la plus élémentaire ont cessé d'être des besoins — pendant qu'on en inventait d'autres, ailleurs.",
-      "ouvre": "Elle se rouvre, et plus grande qu'au départ. L'homme riche n'est pas celui qui possède le plus, mais celui qui a besoin de la totalité des manifestations humaines de la vie.",
-      "lectures": "Les objets sont toujours là, mais espacés et éclairés, chacun distinct. Ce qui sépare un besoin d'un autre n'est pas son objet : c'est son rapport — Marx ne prêche pas la frugalité, c'est l'adversaire qui la prêche."
+      "paradoxe": "Une pièce, une fenêtre, le jour. La question est posée&nbsp;: comment la science de la richesse peut-elle prêcher le renoncement&nbsp;?",
+      "ou": "Un premier objet se pose sur le rebord. Le besoin est produit, comme on produit la chose qui le comble.",
+      "distinction": "Le rebord se charge et l'ouverture commence à se refermer. À mesure que les objets s'ajoutent, le jour recule.",
+      "mecanisme": "La fenêtre s'est resserrée et le jour a baissé. La lumière et l'air ont cessé d'être des besoins pendant qu'on en inventait d'autres.",
+      "ouvre": "La fenêtre se rouvre, plus grande qu'au départ. L'homme riche, selon Marx, est celui qui a besoin de toutes les manifestations de la vie humaine.",
+      "lectures": "Les objets sont toujours là, espacés et éclairés, chacun distinct. Ce qui sépare un besoin d'un autre tient à son rapport, et la fenêtre reste ouverte."
     },
     "fixe": {
-      "g": 3.4,
-      "legende": "La fenêtre s'est resserrée et le jour a baissé, pendant que le rebord se chargeait. Les deux mouvements n'en font qu'un : le même impératif étend les besoins d'un côté et les comprime de l'autre."
+      "g": 3.8,
+      "legende": "La fenêtre s'est resserrée et le jour a baissé pendant que le rebord se chargeait. Les deux mouvements obéissent à la même règle."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : la cour sans jour. La page se lit depuis le Londres que le fragment nomme : les arrière-cours de Doré, où l'air et la lumière manquent, en vitrine ; puis, dans l'essai, les deux versants du même mouvement, l'arcade de luxe où l'on raffine les besoins (et le petit balayeur à sa porte) et le débit de gin où l'on spécule sur leur grossièreté, un piège ouvert sur le plancher. Le fond : les objets du rebord et de la cour ; chaude, ce qu'on offre ; aube, ce que l'analyse fait voir (la dépendance, le prix). La lumière passe à l'aube quand l'essai montre que les deux mouvements n'en font qu'un.",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 1046,
+      "alt": "Vue plongeante depuis un viaduc de chemin de fer sur des rangées de maisons ouvrières de Londres : cheminées serrées, arrière-cours minuscules cloisonnées de palissades, où des familles se tiennent dans une lumière grise.",
+      "legende": "Depuis le viaduc, des arrière-cours où l'on vit les uns sur les autres, sous la fumée. C'est le versant que Marx décrit en 1844&nbsp;: la lumière et l'air ont cessé d'être des besoins, et le logement se paie.",
+      "credit": "Adolphe François Pannemaker d'après Gustave Doré, «&nbsp;Over London by Rail&nbsp;», <i>London: A Pilgrimage</i>, Londres, 1872. Yale Center for British Art, domaine public, image recadrée.",
+      "lien": "https://commons.wikimedia.org/wiki/File:YCBA_London_a_Pilgrimage_06.jpg"
+    },
+    "planches": {
+      "arcade": {
+        "img": "planche-arcade.webp",
+        "w": 1300,
+        "h": 828,
+        "alt": "L'entrée de la Burlington Arcade, à Londres : trois arcs à colonnes, des vitrines, des promeneurs élégants en robes et chapeaux, et au premier plan un enfant balayeur qui tend son chapeau.",
+        "legende": "Une galerie de boutiques de luxe, et à sa porte un enfant qui balaie la chaussée en tendant son chapeau. Les deux versants du même mouvement tiennent dans une seule image.",
+        "credit": "Thomas Hosmer Shepherd, la Burlington Arcade, Piccadilly, <i>Metropolitan Improvements</i>, Londres, 1828. British Library, domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Burlington_Arcade,_Piccadilly_-_Shepherd,_Metropolitan_Improvements_(1828),_p283_(cropped).jpg"
+      },
+      "gin": {
+        "img": "planche-gin.webp",
+        "w": 1200,
+        "h": 898,
+        "couleur": true,
+        "alt": "Caricature coloriée d'un débit de gin : des tonneaux en forme de cercueils, des clients qui boivent au comptoir, une mère qui fait boire son enfant, et sur le plancher un grand piège à loups refermé autour d'eux.",
+        "legende": "Le débit de gin, avec son piège ouvert sur le plancher. Marx voit dans ces établissements anglais l'emblème d'une industrie qui spécule sur la grossièreté des besoins.",
+        "credit": "George Cruikshank, <i>The Gin Shop</i>, <i>Scraps and Sketches</i>, Londres, 1829. British Library, CC0, image recadrée.",
+        "lien": "https://commons.wikimedia.org/wiki/File:The_Gin_shop_-_Cruikshank,_Scraps_and_sketches_(1829),_f.9_-_BL.jpg"
+      }
+    },
+    "lumieres": {
+      "mecanisme": "aube",
+      "ouvre": "aube",
+      "lectures": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les objets du rebord et de la cour, dessinés en points. L'un s'allume et l'on voit ce qu'on offre (chaude) ; à la section où les deux mouvements se rejoignent, et au survol, c'est ce que l'analyse fait voir (aube) : la dépendance, le prix, ce qui est retiré.",
+      "dessins": {
+        "fenetre": [
+          "111111111",
+          "1...1...1",
+          "1...1...1",
+          "1...1...1",
+          "111111111",
+          "1...1...1",
+          "1...1...1",
+          "1...1...1",
+          "111111111"
+        ],
+        "bouteille": [
+          "..111..",
+          "..1.1..",
+          "..1.1..",
+          ".11.11.",
+          "1.....1",
+          "1.111.1",
+          "1.111.1",
+          "1.....1",
+          "1.....1",
+          "1111111"
+        ],
+        "eventail": [
+          "1....1....1",
+          ".1...1...1.",
+          "..1..1..1..",
+          "...1.1.1...",
+          "....111....",
+          ".....1.....",
+          ".....1.....",
+          "....111...."
+        ],
+        "pomme": [
+          "...111...",
+          ".1111111.",
+          "11.111111",
+          "111111.11",
+          "111111111",
+          ".1111111.",
+          "...111..."
+        ],
+        "livre": [
+          "11111.11111",
+          "1...1.1...1",
+          "1.111.111.1",
+          "1...1.1...1",
+          "1.111.111.1",
+          "1...1.1...1",
+          "11111.11111",
+          "....111...."
+        ]
+      },
+      "motifs": [
+        { "m": "fenetre", "chaude": ["la lumière", "l'air"], "aube": ["un loyer", "plus un besoin"] },
+        { "m": "eventail", "chaude": ["la dernière mode", "un raffinement"], "aube": ["une dépendance", "un sacrifice"] },
+        { "m": "bouteille", "chaude": ["un verre", "deux pence"], "aube": ["un appât", "la glu"] },
+        { "m": "pomme", "chaude": ["de quoi manger", "une ration"], "aube": ["le strict minimum", "devenu la norme"] },
+        { "m": "livre", "chaude": ["un livre", "le théâtre"], "aube": ["épargné", "sur soi-même"] },
+        { "m": "piece", "chaude": ["l'épargne", "un capital"], "aube": ["le besoin d'argent", "le seul produit"] }
+      ]
     }
   }
 }
