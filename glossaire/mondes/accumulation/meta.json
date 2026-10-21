@@ -1,18 +1,40 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/accumulation.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/accumulation. L'essai est dans essai.html, la planche dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrit en octobre 2026 selon glossaire/mondes/CHARTE.md (enbref, retenir, questions).",
   "titre": "Accumulation",
   "de": "Akkumulation",
-  "chapo": "Accumuler n'est pas épargner : c'est reconvertir la plus-value en capital, la remettre dans le mouvement. Or le capital additionnel ne contient pas un atome de valeur qui ne vienne du travail d'autrui non payé — de sorte que le capital primitif, quelle qu'ait été son origine, se perd comme une goutte dans le fleuve toujours grossissant de l'accumulation.",
-  "description": "L'accumulation chez Marx : pourquoi le capital additionnel est de la plus-value capitalisée, comment le droit de propriété marchande devient droit d'appropriation, et ce que valent la théorie de l'abstinence et le prétendu fonds de travail.",
+  "enbref": "L'accumulation du capital désigne, chez Marx, la transformation de la plus-value en capital. La plus-value est la valeur que les ouvriers produisent au-delà de leur salaire&nbsp;; au lieu de la dépenser entière, le capitaliste en réinvestit une partie pour produire davantage. Marx l'étudie au chapitre XXIV du Livre&nbsp;I du <i>Capital</i> (1867). La conséquence est gênante&nbsp;: le capital ajouté vient tout entier du travail non payé, et celui du départ, quelle que soit son origine, n'en devient qu'une part infime.",
+  "retenir": [
+    "Accumuler, pour Marx, c'est reconvertir la plus-value en capital&nbsp;: acheter de nouveaux moyens de production et de nouvelles forces de travail. Une somme gardée pour soi n'est pas du capital.",
+    "La reproduction simple montrait déjà qu'au bout de quelques années le capital avancé est remplacé par de la valeur produite par les ouvriers. L'accumulation étend ce résultat.",
+    "Le capital additionnel a une origine connue&nbsp;: la plus-value, donc le travail non payé des ouvriers. Plus un capitaliste a accumulé, plus il peut accumuler.",
+    "Chaque échange respecte les lois de la propriété marchande. C'est en les appliquant, transaction après transaction, que l'on passe à l'appropriation régulière du travail d'autrui.",
+    "Le capital d'origine ne disparaît pas, mais sa part dans le capital en fonction devient négligeable. L'abstinence dont parle l'économie politique n'est que la fonction du capitaliste&nbsp;: capitaliser."
+  ],
+  "questions": [
+    {
+      "q": "Dans l'exemple du filateur de Marx, d'où viennent les 50&nbsp;000 francs du nouveau capital&nbsp;?",
+      "r": "De la plus-value produite par les fileurs que les 250&nbsp;000 francs ont mis au travail. Le filateur les avance dans les mêmes proportions que son premier capital, quatre cinquièmes en coton et en machines, un cinquième en salaires de fileurs supplémentaires. Rien, dans cette somme, ne vient de son propre travail."
+    },
+    {
+      "q": "Comment le capitaliste peut-il s'approprier le travail d'autrui sans violer les lois de l'échange&nbsp;?",
+      "r": "Chaque ouvrier vend sa force de travail à sa valeur, et l'usage de cette force produit plus de valeur qu'elle n'en coûte. Le droit marchand juge chaque contrat à part. Dans l'enchaînement des contrats, le capitaliste paie les nouveaux ouvriers avec la valeur que les anciens ont produite sans être payés."
+    },
+    {
+      "q": "Pourquoi l'origine honnête d'une fortune ne suffit-elle pas à justifier le capital qu'elle est devenue&nbsp;?",
+      "r": "Parce que cette origine ne pèse presque plus rien au bout de quelques années. Le capital d'origine reste ce qu'il était, tandis que la plus-value capitalisée s'ajoute à chaque tour&nbsp;: sa part décroît sans cesse. Marx accorde l'hypothèse de l'origine honnête pour montrer qu'elle devient sans effet."
+    }
+  ],
+  "description": "L'accumulation du capital chez Marx, expliquée simplement : comment la plus-value redevient capital, et pourquoi le capital d'origine s'y perd comme une goutte.",
   "source": {
+    "_": "work = id de bibliotheque.json ; s = 7, septième section de Roy (chapitres XXIII à XXV) ; cite = ce qu'on imprime sous chaque citation. Deux citations viennent du chapitre XXIII, d'où les deux chapitres.",
     "work": "capital-1",
     "s": 7,
-    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XXIV — traduction Joseph Roy (1872)"
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, septième section, chapitres XXIII et XXIV, traduction Joseph Roy (1872)"
   },
-  "ou": "Livre&nbsp;I, septième section, chapitre XXIV, « Transformation de la plus-value en capital ». Aussitôt après la reproduction simple, qui avait déjà montré que le capital primitif se trouve remplacé, au bout de quelques années, par de la valeur produite entre-temps.",
+  "ou": "Livre&nbsp;I, septième section, chapitre XXIV, « Transformation de la plus-value en capital ». Il suit le chapitre XXIII sur la reproduction simple, qui montrait déjà que le capital avancé se trouve remplacé, au bout de quelques années, par de la valeur produite par les ouvriers.",
   "outils": [
     {
-      "label": "Accumulation et armée de réserve — le laboratoire",
+      "label": "Le laboratoire&nbsp;: accumulation et armée de réserve",
       "url": "/oeuvres/capital-1#labo=s-accum"
     }
   ],
@@ -25,24 +47,170 @@
     "Composition organique"
   ],
   "monde": {
-    "_": "LA PLANCHE : LA GOUTTE ET LE FLEUVE. L'image est de Marx, et elle vaut une démonstration : « tout capital avancé se perd comme une goutte dans le fleuve toujours grossissant de l'accumulation. » Une goutte en haut, puis un filet qui descend ; des affluents entrent l'un après l'autre — chacun une plus-value capitalisée — et le fleuve s'élargit à chaque fois. Le fil d'origine, lui, GARDE LA MÊME ÉPAISSEUR : c'est de son rapport au fleuve, et non de sa disparition, que se lit l'argument. Moteur 2d : le fleuve est un tracé, pas un objet, et la page ne charge ni WebGL ni la bibliothèque. La course est DIAGONALE parce que la scène doit tenir dans une colonne haute comme dans une image large.",
+    "_": "LA PLANCHE : LA GOUTTE ET LE FLEUVE. L'image est de Marx : « tout capital avancé se perd comme une goutte dans le fleuve toujours grossissant de l'accumulation. » Une goutte en haut, puis un filet qui descend ; des affluents entrent l'un après l'autre, chacun une plus-value capitalisée, et le fleuve s'élargit à chaque fois. Le fil d'origine, lui, GARDE LA MÊME ÉPAISSEUR : c'est de son rapport au fleuve, et non de sa disparition, que se lit l'argument. Moteur 2d : le fleuve est un tracé, pas un objet, et la page ne charge ni WebGL ni la bibliothèque. La course est DIAGONALE parce que la planche doit tenir dans une colonne haute comme dans une image large.",
     "moteur": "2d",
+    "titre": "La goutte et le fleuve, en six temps",
     "alt": "Une planche sombre : une goutte en haut à gauche, un fleuve qui descend en s'élargissant à chaque affluent, et à l'intérieur un fil d'or resté de la même épaisseur.",
     "source": {
-      "texte": "D'après le texte — Livre I, chapitre XXIV",
+      "texte": "D'après le texte : Livre I, chapitre XXIV",
       "q": "tout capital avancé se perd comme une goutte dans le fleuve toujours grossissant de l’accumulation"
     },
     "etapes": {
-      "fait": "Une goutte, et rien d'autre. Le capital avancé, dont on veut croire qu'il vient du travail de son possesseur.",
-      "ou": "Le filet part. Ce n'est pas l'épargne qui fait le capital : c'est la reconversion, la remise dans le mouvement.",
-      "distinction": "Le premier affluent entre, et il est d'une autre teinte. Le capital additionnel ne contient pas un atome de valeur qui ne vienne du travail d'autrui non payé.",
-      "mecanisme": "Le fleuve s'élargit à chaque tour, et le fil d'origine garde la même épaisseur. Sa part décroît par construction, non par accident.",
-      "ouvre": "Le fil est un cheveu. L'abstinence n'est pas la cause de l'accumulation : elle en est la forme, et se priver est ici une fonction.",
-      "lectures": "La goutte est réelle, et c'est sa part qui tend vers rien. Se réclamer d'une origine dont vingt ans d'accumulation ont annulé le poids n'est pas un argument."
+      "fait": "Une goutte, seule : le capital avancé au départ, dont l'économie politique assure qu'il vient du travail de son possesseur ou de celui de ses aïeux.",
+      "ou": "Le filet part : la plus-value, au lieu d'être dépensée, est remise dans la production. C'est cela, accumuler.",
+      "distinction": "Le premier affluent entre, d'une autre teinte. Le capital additionnel vient tout entier de la plus-value, c'est-à-dire du travail non payé des ouvriers.",
+      "mecanisme": "À chaque tour un affluent s'ajoute et le fleuve s'élargit. Le fil d'or du capital d'origine garde la même épaisseur : sa part ne cesse de décroître.",
+      "ouvre": "Le fil d'origine n'est plus qu'un cheveu. Ce que l'économie politique appelle abstinence est la fonction du capitaliste : capitaliser.",
+      "lectures": "La goutte est toujours là. Sa part, elle, tend vers rien : une origine honnête ne pèse presque plus dans le capital accumulé."
     },
     "fixe": {
       "g": 5.1,
-      "legende": "Le fleuve s'élargit à chaque affluent, et le fil d'origine garde la même épaisseur. Ce n'est pas la goutte qui disparaît : c'est sa part."
+      "legende": "Le fleuve s'élargit à chaque affluent, et le fil d'or du capital d'origine garde la même épaisseur. La goutte demeure ; c'est sa part qui tend vers rien."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : la maison des débuts. L'accumulation se voit le mieux là où une entreprise a gardé sa première maison au milieu de l'usine que les années ont bâtie autour d'elle : la goutte dans le fleuve, en briques et en colombages. La vitrine est cette photographie d'Essen en 1908. Le fond : les objets du chapitre (la maison des débuts, la pièce, le sac, le registre, la cheminée, la goutte, le rouet du filateur) ; en lumière chaude, ce que l'économie politique fait voir (les sommes, l'épargne, le travail des aïeux) ; à l'aube, à partir de la généalogie du capital additionnel, ce que l'analyse fait voir (la plus-value capitalisée, le travail non payé, la part d'origine qui décroît). Pas de planche : aucune image d'archive libre ne montrait mieux l'argument que la vitrine.",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 1092,
+      "alt": "L'aciérie Krupp à Essen en 1908 : à gauche, une petite maison à colombages au toit de tuiles ; derrière et autour d'elle, de grandes halles, cinq hautes cheminées et une file de wagonnets ; au premier plan, un chantier jonché de planches.",
+      "legende": "La petite maison des débuts de l'entreprise se tient encore au pied des halles et des cheminées. C'est l'image de Marx : le capital d'origine n'a pas disparu, il s'est perdu dans ce qui a grandi autour de lui.",
+      "credit": "Photographe inconnu, maison d'origine (Stammhaus) et halle de fusion de l'aciérie Krupp, Essen, 1908 ; au premier plan, le chantier ouvert sur l'emplacement du premier atelier. Historisches Archiv Krupp, domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Krupp_Stammhaus_und_Schmelzbau_1908.JPG"
+    },
+    "lumieres": {
+      "distinction": "aube",
+      "mecanisme": "aube",
+      "ouvre": "aube",
+      "lectures": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les objets du chapitre XXIV, dessinés en points. En lumière chaude monte ce que l'économie politique fait voir ; à l'aube, ce que l'analyse fait voir. Les sommes sont celles de l'exemple du filateur de Marx.",
+      "dessins": {
+        "maison": [
+          "....1....",
+          "...1.1...",
+          "..1...1..",
+          ".1.....1.",
+          "111111111",
+          ".1.....1.",
+          ".1.1.1.1.",
+          ".1.1.1.1.",
+          ".1111111."
+        ],
+        "goutte": [
+          "...1...",
+          "...1...",
+          "..1.1..",
+          "..1.1..",
+          ".1...1.",
+          "1.....1",
+          "1.....1",
+          ".1...1.",
+          "..111.."
+        ],
+        "registre": [
+          "111111111",
+          "1...1...1",
+          "1.1.1.1.1",
+          "1...1...1",
+          "1.1.1.1.1",
+          "1...1...1",
+          "1.1.1.1.1",
+          "111111111"
+        ],
+        "cheminee": [
+          "........11.",
+          "........11.",
+          "........11.",
+          "..1.....11.",
+          ".1.1...1111",
+          "1...1.1...1",
+          "1...1.1...1",
+          "1.1.1.1.1.1",
+          "11111111111"
+        ]
+      },
+      "motifs": [
+        {
+          "m": "maison",
+          "chaude": [
+            "son travail",
+            "ses aïeux"
+          ],
+          "aube": [
+            "une goutte",
+            "le capital primitif"
+          ]
+        },
+        {
+          "m": "piece",
+          "chaude": [
+            "250 000 francs",
+            "le capital avancé"
+          ],
+          "aube": [
+            "sa part décroît",
+            "travail non payé"
+          ]
+        },
+        {
+          "m": "sac",
+          "chaude": [
+            "50 000 francs",
+            "l'épargne"
+          ],
+          "aube": [
+            "plus-value capitalisée",
+            "le tribut"
+          ]
+        },
+        {
+          "m": "registre",
+          "chaude": [
+            "dépense privée",
+            "l'abstinence"
+          ],
+          "aube": [
+            "dû au capital",
+            "une fonction"
+          ]
+        },
+        {
+          "m": "cheminee",
+          "chaude": [
+            "l'usine s'agrandit",
+            "créer du capital"
+          ],
+          "aube": [
+            "le surtravail",
+            "d'autres ouvriers"
+          ]
+        },
+        {
+          "m": "goutte",
+          "chaude": [
+            "Abraham",
+            "Isaac, Jacob"
+          ],
+          "aube": [
+            "la goutte",
+            "le fleuve"
+          ]
+        },
+        {
+          "m": "rouet",
+          "chaude": [
+            "le filateur",
+            "300 000 francs"
+          ],
+          "aube": [
+            "fileurs additionnels",
+            "un cinquième"
+          ]
+        }
+      ]
     }
   }
 }
