@@ -91,15 +91,25 @@
   }
 
   /* la colonne de texte : on ne lit pas à travers un mouvement */
-  var zones = [];
+  var zones = [], gauche = 0;
   function mesurerZones(){
     zones = [];
+    /* la barre latérale couvre le bord gauche : un mot qui y monterait serait coupé */
+    var sb = document.querySelector('.sidebar'), rs = sb && sb.getBoundingClientRect();
+    gauche = rs && rs.right > 0 && rs.width ? rs.right : 0;
     ['.nt-col', '.nt-tete', '.nt-som'].forEach(function(s){
       var e = document.querySelector(s); if (!e) return;
       var r = e.getBoundingClientRect(); if (r.width) zones.push([r.left - 44, r.right + 44]);
     });
   }
   function dansZone(x){ for (var k = 0; k < zones.length; k++) if (x > zones[k][0] && x < zones[k][1]) return true; return false; }
+  /* un objet ne s'allume que si son mot (environ 140 px) tient entier dans la marge */
+  var DEMI = 72;
+  function libre(x){
+    if (x - DEMI < gauche + 8 || x + DEMI > W - 8) return false;
+    for (var k = 0; k < zones.length; k++) if (x + DEMI > zones[k][0] && x - DEMI < zones[k][1]) return false;
+    return true;
+  }
 
   function resize(){
     var w = window.innerWidth, h = window.innerHeight;
@@ -120,7 +130,7 @@
       var it = items[k];
       if (it.lit > 0) continue;
       var sy = ((it.y - off * it.z) % BANDE + BANDE) % BANDE - (BANDE - H) / 2;
-      if (sy < 60 || sy > H - 40 || dansZone(it.x) || it.x < 20 || it.x > W - 20) continue;
+      if (sy < 60 || sy > H - 40 || !libre(it.x)) continue;
       cand.push(it);
     }
     if (!cand.length) return;
@@ -177,7 +187,7 @@
       if (souris && !zone) {
         var dx = x - mx, dy = y - my, dist = Math.sqrt(dx * dx + dy * dy);
         base += Math.max(0, 1 - dist / R_HALO) * 0.26;
-        if (dist < dProche) { dProche = dist; proche = it; }
+        if (dist < dProche && libre(it.x)) { dProche = dist; proche = it; }
       }
       var cibleH = it === cible ? 1 : 0;
       it.h = (it.h || 0) + (cibleH - (it.h || 0)) * (REDUCE ? 1 : 0.16);
