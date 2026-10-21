@@ -9,8 +9,137 @@
    l'image fixe reste : la page est finie sans une ligne de script.
    Les seuils se lisent à matchMedia, jamais à innerWidth (au moment où le
    script s'exécute, la fenêtre peut encore annoncer 0). */
+/* ═══ LE GABARIT DE LECTURE (oct. 2026) : LA FIGURE À LA DEMANDE ═══
+   Sur une page réécrite selon glossaire/mondes/CHARTE.md, la scène ne suit
+   plus le défilement : elle est une figure, immobile par défaut (l'image
+   fixe), que le lecteur fait jouer. « Voir la scène » charge Three.js et la
+   scène, puis parcourt toutes les étapes d'un trait (g de 0 à N, la même
+   chorégraphie qu'au défilement) ; les boutons d'étape y vont directement.
+   Lecture interrompue par n'importe quel geste sur les étapes ; un bouton
+   met en pause (WCAG 2.2.2). Sous reduced-motion, pas de glissement : on
+   saute d'étape en étape. Et le sommaire marque la section qu'on lit. */
 (function(){
   'use strict';
+  var fig = document.querySelector('.nt-fig');
+  if (!fig) return;
+
+  /* ── le sommaire suit la lecture (orientation : vaut partout) ── */
+  var liens = [].slice.call(document.querySelectorAll('.nt-som a[href^="#"]'));
+  var cibles = liens.map(function(a){ return document.getElementById(a.getAttribute('href').slice(1)); });
+  var courant = -1, attente = false;
+  function suivre(){
+    attente = false;
+    var ligne = (window.innerHeight || 800) * 0.3, i = -1;
+    for (var k = 0; k < cibles.length; k++) if (cibles[k] && cibles[k].getBoundingClientRect().top <= ligne) i = k;
+    if (i === courant) return;
+    /* la lumière d'ambiance suit la section qu'on lit (meta.da.lumieres) */
+    var lum = i >= 0 && cibles[i] && cibles[i].dataset.lumiere;
+    if (lum) document.body.dataset.lumiere = lum; else delete document.body.dataset.lumiere;
+    if (courant >= 0) liens[courant].removeAttribute('aria-current');
+    if (i >= 0) liens[i].setAttribute('aria-current', 'location');
+    courant = i;
+  }
+  document.addEventListener('scroll', function(){ if (!attente) { attente = true; requestAnimationFrame(suivre); } }, { passive: true, capture: true });
+  window.addEventListener('load', suivre); setTimeout(suivre, 400); suivre();
+
+  if (!fig.dataset.scene) return;
+  var canvas = fig.querySelector('canvas'), still = fig.querySelector('.nt-monde-still');
+  var go = fig.querySelector('.nt-fig-go'), barre = fig.querySelector('.nt-fig-barre');
+  var lire = fig.querySelector('.nt-fig-lire'), cap = fig.querySelector('.nt-fig-cap');
+  var pas = [].slice.call(fig.querySelectorAll('.nt-fig-pas button'));
+  var N = pas.length;
+  var REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var NEED3D = !!fig.dataset.three;
+  function hasGL(){
+    try { var c = document.createElement('canvas'); return !!(c.getContext('webgl') || c.getContext('experimental-webgl')); }
+    catch (e) { return false; }
+  }
+  if (!canvas || !N || (NEED3D && !hasGL())) return;
+  go.hidden = false; barre.hidden = false; lire.hidden = true;   /* un seul bouton de lecture avant le chargement */
+
+  function load(src){
+    return new Promise(function(res, rej){
+      var s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = rej;
+      document.head.appendChild(s);
+    });
+  }
+  var monde = null, charge = null;
+  function charger(){
+    if (charge) return charge;
+    go.disabled = true;
+    var p = (NEED3D && typeof THREE === 'undefined') ? load(fig.dataset.three) : Promise.resolve();
+    charge = p.then(function(){ return load(fig.dataset.scene); }).then(function(){
+      monde = window.LM_MONDE(canvas);
+      return monde.ready || null;
+    }).then(function(){
+      var avaitFocus = document.activeElement === go;
+      canvas.hidden = false; if (still) still.hidden = true; go.hidden = true; lire.hidden = false;
+      if (avaitFocus) lire.focus();   /* le bouton qu'on vient d'activer disparaît : le focus ne doit pas tomber sur <body> */
+      monde.resize(); boucle();
+      window.__ntMonde = { monde: monde, set: function(v){ arreter(); poser(v); }, free: function(){}, get: function(){ return g; } };
+    }).catch(function(){ go.disabled = false; charge = null; });
+    return charge;
+  }
+
+  var g = Number(fig.dataset.g0) || 0, cible = g, depart = g, t0 = 0, duree = 0, lecture = false, legI = -1;
+  function legende(){
+    var i = Math.min(N - 1, Math.max(0, Math.floor(g)));
+    if (i === legI) return;
+    legI = i;
+    pas.forEach(function(b, k){ b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
+    var txt = pas[i].dataset.leg || '';
+    cap.classList.add('swap');
+    setTimeout(function(){ cap.textContent = txt; cap.classList.remove('swap'); }, REDUCE ? 0 : 160);
+  }
+  function poser(v){ g = v; if (monde) monde.set(g); legende(); }
+  function aller(v, ms){ depart = g; cible = v; t0 = performance.now(); duree = REDUCE ? 0 : ms; if (!duree) poser(v); }
+  function arreter(){ lecture = false; fig.classList.remove('is-playing'); lire.setAttribute('aria-label', 'Lire la scène'); clearTimeout(saut); }
+  var saut = null;
+  function jouer(){
+    lecture = true; fig.classList.add('is-playing'); lire.setAttribute('aria-label', 'Mettre la scène en pause');
+    var debut = g >= N - 0.05 ? 0 : g;
+    if (REDUCE) {   /* étape par étape, sans glissement */
+      var i = Math.floor(debut);
+      (function suivant(){ if (!lecture) return; poser(i + 0.6); i++; if (i < N) saut = setTimeout(suivant, 4200); else arreter(); })();
+    } else { poser(debut); aller(N - 0.02, (N - debut) * 3600); }
+  }
+  /* la boucle : la scène vit (flamme, étiquette) tant qu'elle est à l'écran */
+  var raf = null, last = 0, visible = true;
+  function frame(now){
+    raf = null;
+    var dt = last ? Math.min(0.05, (now - last) / 1000) : 0.016; last = now;
+    if (duree) {
+      var k = Math.min(1, (now - t0) / duree);
+      var e = lecture ? k : (k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2);
+      poser(depart + (cible - depart) * e);
+      if (k >= 1) { duree = 0; if (lecture) arreter(); }
+    }
+    monde.frame(dt);
+    if (visible && !document.hidden) raf = requestAnimationFrame(frame);
+  }
+  function boucle(){ if (monde && !raf && visible && !document.hidden) { last = 0; raf = requestAnimationFrame(frame); } }
+  if ('IntersectionObserver' in window) new IntersectionObserver(function(es){ visible = es[0].isIntersecting; boucle(); }).observe(fig);
+  document.addEventListener('visibilitychange', boucle);
+  window.addEventListener('resize', function(){ if (monde) monde.resize(); });
+
+  /* « Voir la scène » la montre depuis le début ; le bouton de lecture reprend où l'on en est */
+  go.addEventListener('click', function(){ charger().then(function(){ if (monde) { poser(0); jouer(); } }); });
+  lire.addEventListener('click', function(){
+    charger().then(function(){ if (!monde) return; if (lecture) { arreter(); duree = 0; } else jouer(); });
+  });
+  pas.forEach(function(b, i){
+    b.addEventListener('click', function(){
+      arreter();
+      charger().then(function(){ if (monde) aller(i + 0.6, 1300); });
+    });
+  });
+  /* pour capture-monde.mjs : charger la scène sans geste */
+  window.__ntFig = { charger: charger };
+})();
+
+(function(){
+  'use strict';
+  if (document.querySelector('.nt-fig')) return;
   var aside = document.querySelector('.nt-monde');
   if (!aside) return;
   var canvas = aside.querySelector('canvas');

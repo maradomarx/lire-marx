@@ -10899,6 +10899,203 @@ qui change avec un balisage change d’URL.
   est **libre et absente du corpus** : c’est le pendant direct de ce livre, et
   elle s’ajouterait sans nouvelle mécanique.
 
+## Le glossaire se lit à trois profondeurs (mission `glossaire-pilote`, oct. 2026)
+
+Demande du propriétaire : reprendre toutes les pages du glossaire pour
+qu'elles servent d'abord le lecteur qui cherche une définition, et que
+l'écriture « fasse moins IA » : claire et pédagogique, comme un cours de
+philosophie, un peu de style et pas davantage. Mesuré avant : 45 pages,
+82 000 mots, **393 tirets cadratins**, **53 tournures « n'est pas… mais »**,
+et la première phrase de la page la plus lue en était une (« n'est ni une
+croyance ni une erreur : c'est… »). Ordre arbitré : **une page pilote (le
+fétichisme), puis les autres par vagues d'agents**.
+
+**`glossaire/mondes/CHARTE.md` est la règle d'écriture de toutes ces
+pages** (noindex, comme tout le dossier). Elle fixe l'ordre de la page, le
+ton (« on », un « nous » seulement pour prendre position, phrases de
+longueur variée, une idée par paragraphe, définir avant d'employer), la
+liste des tics interdits (tiret cadratin, fausse opposition, clôture qui
+répète, triades par habitude, vocabulaire de remplissage, gras), et la
+liste de contrôle avant de rendre une page. **Elle remplace, pour ces
+pages, le registre « mémoire » de Fabio** (phrases longues, un connecteur
+par phrase) : appliqué par un modèle à 45 pages, ce registre produisait
+précisément l'impression de texte généré.
+
+### Le gabarit (`pageMonde` dans gen-seo.mjs, classe `nt--tete`)
+
+Une page qui porte `meta.enbref` passe au nouveau gabarit ; les autres
+gardent l'ancien **au pixel près** (vérifié : seul le `?v=` de notion.css
+change dans leur HTML). Le nouveau :
+
+- **« En bref »** (`enbref`, 50 à 85 mots, remplace `chapo`) en tête, sur la
+  surface d'emphase de la maison ; sa première phrase commence par le nom
+  de la notion et la définit (c'est la phrase qu'un moteur peut reprendre) ;
+- **« Ce qu'il faut retenir »** (`retenir`, 4 ou 5 phrases complètes) ;
+- un sommaire « L'essai, en six questions » avec **le temps de lecture de
+  chaque section** (230 mots/min) ;
+- dans l'essai : **titres en question**, `p.nt-lead` qui y répond en une ou
+  deux phrases (titres + réponses = l'argument), `div.nt-ex` pour
+  l'exemple développé, `div.nt-cs` pour un contresens (« On lit souvent » /
+  « Ce que dit le texte ») ;
+- **« Vérifier sa compréhension »** (`questions`, `<details>`), avant
+  l'appareil.
+
+**La tête sort de la colonne** (`header.nt-tete`, premier enfant de
+`.nt-grid`) pour passer AVANT la scène sur téléphone ; au-dessus de 1100 px
+une grille à zones (`"tete monde" "col monde"`) la garde en haut à gauche,
+la scène tenant la colonne de droite. Le générateur **refuse** une page
+réécrite qui garde un tiret cadratin (prose, `source.cite`, légendes),
+une citation liée dans `meta.json` (invérifiable), ou qui n'a pas ses
+`retenir` et `questions`.
+
+Pièges payés :
+1. **`align-self:start` réduit un élément en position FIXE à la hauteur de
+   son contenu** : posé pour la grille, il faisait tomber la scène plein
+   écran (le travail aliéné) à 0 px. Neutralisé sous `.nt--plein`. Testé en
+   convertissant temporairement cette page, puis restaurée.
+2. **Avec la tête dehors, le voile de l'architecture « plein » passe de la
+   colonne à la tête** : la colonne, peinte après, l'aurait posé par-dessus
+   le titre.
+3. **Sous 1100 px, la bande collante couvrait les ancres du sommaire**, sur
+   TOUTES les pages-monde depuis `vivant-sur-mobile` : la marge d'ancrage
+   compte maintenant la bande, et une ombre pleine bouche l'interstice de
+   8 px où le texte apparaissait au-dessus d'elle.
+
+### La scène devient une figure à la demande (même mission, 2e passe)
+
+Retour du propriétaire sur le pilote : « il faut repenser l'animation, voire
+la faire disparaître, l'UI UX doit être la priorité ». Trois options
+posées (figure à la demande, image fixe seule, scène gardée en marge) ;
+**arbitré : la figure à la demande**. Sur une page réécrite :
+
+- **plus de scène collée qui bouge pendant qu'on lit**, ni colonne collante
+  au bureau ni bande collante sur téléphone. La scène est une
+  `figure.nt-fig` posée après « Ce qu'il faut retenir », immobile (l'image
+  fixe) ;
+- **« Voir la scène »** charge Three.js et la scène AU PREMIER GESTE
+  (rien avant : 148 Ko de moins au chargement) et la joue d'un trait,
+  g de 0 à N, environ 3,6 s par étape — la même chorégraphie qu'au
+  défilement ; une barre d'étapes (I à VI, comme les sections) y va
+  directement, un bouton met en pause (WCAG 2.2.2). Sous reduced-motion,
+  on saute d'étape en étape. La légende de l'étape s'écrit sous la figure ;
+- **le sommaire passe en colonne collante à droite au-dessus de 1180 px**
+  et marque la section qu'on lit (`aria-current="location"`) ; en dessous
+  il reste dans le flux, après la figure ;
+- `capture-monde.mjs` charge la scène par `window.__ntFig.charger()`.
+
+**La règle « la colonne de texte ne bouge jamais » devient, sur ces pages :
+rien ne bouge sans qu'on l'ait demandé.** Les pages non réécrites gardent
+l'ancien comportement (scène pilotée au défilement) jusqu'à leur tour.
+
+Pièges : la grille hérite d'un `gap` de 1100 px (`clamp(28px,4vw,64px)`)
+qui posait 57 px entre la figure et l'essai — `gap:0 56px` ; et le bouton
+« Voir la scène » disparaît au chargement : le focus passe au bouton de
+lecture, sinon il tombe sur `<body>`.
+
+**Reste par page** : les 23 scènes « plein » visaient à gauche du sujet
+pour laisser la place au texte ; dans une figure le sujet peut être
+décentré. À vérifier à la réécriture de chacune (CHARTE.md, « La
+figure »).
+
+### Une direction artistique par page (même mission, 3e passe)
+
+Demande du propriétaire : « une véritable DA à la page, fond animé,
+correspondant au propos, des photos au besoin ». Le système est générique
+(`meta.da`, CHARTE.md « La direction artistique de la page ») ; le
+fétichisme reçoit **la vitrine** :
+
+- **en tête, une vitrine de tailleur d'Eugène Atget**, avenue des Gobelins,
+  1925 (Metropolitan Museum, domaine public, notice Commons vérifiée) : des
+  costumes sans tête portent leur prix épinglé sur la poitrine (« 225 »,
+  « 32 F »), la rue se reflète dans la vitre. Photo dans la moitié droite,
+  fondue à gauche sous le titre ; **un reflet traverse la vitre une fois à
+  l'arrivée** (le seul moment écrit de la page, coupé sous reduced-motion) ;
+- **deux planches** dans l'essai : la nef de l'Exposition universelle de
+  Londres, 1851 (calotype, exemplaire de W. H. Fox Talbot), à la fin de la
+  section sur « la région nuageuse du monde religieux » ; le mois de mars
+  des *Très Riches Heures* (musée Condé, domaine public), en couleur, à la
+  fin de la section des sociétés sans fétiche ;
+- **la lumière d'ambiance** (`.nt-ambiance`, fixe, derrière tout) : chaude
+  (la vitrine) par défaut, elle passe à **l'aube** quand le lecteur entre
+  dans la section V, celle des sociétés où l'on voit pour qui l'on
+  travaille, en écho à la lumière froide de la scène. `monde-driver.js`
+  pose `body[data-lumiere]` depuis la section courante ; fondu de 1,8 s.
+
+Pièges : **mesurer le contraste d'un texte posé sur une photo** demande de
+masquer le texte, de photographier et de lire le pixel le plus clair sous
+lui (la sonde ordinaire compare au premier fond opaque, c'est-à-dire au
+noir du bandeau) ; le fil d'Ariane, sur le haut clair du cliché, prend une
+pastille sombre sur téléphone. Et une **pastille arrondie fausse la
+mesure** : ses coins laissent voir la photo dans le rectangle mesuré.
+Le détecteur relève deux « side-tab » sur l'icône de pause, dessinée avec
+deux bordures : faux positif.
+
+### Le fond s'anime, la scène descend (même mission, 4e passe)
+
+Deux retours du propriétaire : la scène « plutôt tout en bas de la page »,
+et « il faut toujours réfléchir à un fond pertinent ; un dégradé noir, je
+n'aime pas ; fais une animation dans le fond », en partant au besoin du
+fond étoilé de GEO Invader (`~/Desktop/atum-geo/src/marketing/InvaderField.tsx` :
+des sprites en points, certains s'allument et un mot monte).
+
+- **La figure est en bas** : après « Vérifier sa compréhension », sous un
+  titre propre (`meta.monde.titre`). La grille n'a plus de zone `fig`.
+- **`glossaire/fond.js`, le fond animé** : un canevas fixe dans
+  `.nt-ambiance`, sous les teintes de lumière. Un champ clairsemé d'objets
+  en points (« constellation ») qui défile à 0,22 de la page (profondeur)
+  et danse en sinusoïdes lentes. Toutes les 1,5 à 2,8 s, un objet HORS de
+  la colonne de texte s'allume et son mot monte. **Pour le fétichisme : les
+  marchandises, et leur prix ; à la section V, le travail** (la même
+  bascule que la lumière, lue sur `body[data-lumiere]`). La danse vient du
+  texte : la table « se livre à des caprices plus bizarres que si elle se
+  mettait à danser ».
+- Lecture d'abord : derrière la colonne (et le sommaire, et la tête, à
+  44 px près), le champ tombe à 5 % d'opacité et rien ne s'y allume ; sur
+  téléphone, où la colonne prend toute la largeur, il n'est presque plus
+  qu'une texture. Sous reduced-motion, une image fixe. Boucle arrêtée si
+  l'onglet est masqué ; canevas plafonné à DPR 1,5 ; mesuré à 61 images/s.
+- Les motifs sont une bibliothèque (`MOTIFS`) que les pages enrichissent.
+- **Le survol (souris seulement) : le regard lève le voile.** Le curseur
+  porte une faible lanterne qui éclaire les objets voisins ; l'objet le plus
+  proche (92 px) prend la lumière froide et montre le travail qui l'a fait
+  (ses mots `aube`) à la place de son prix. Rien sur la colonne de texte,
+  rien au doigt. ⚠️ Effet codé et sans erreur, mais PAS ENCORE VÉRIFIÉ À
+  L'IMAGE (le clip de capture de puppeteer prend des coordonnées de
+  document : la sonde a photographié le haut de page).
+
+### `verif-citations.mjs` vérifie enfin le glossaire
+
+Le contrôle « 0 introuvable » ne couvrait que les chapitres et les
+commentaires : **les 45 pages du glossaire n'étaient vérifiées par aucun
+outil**. Chaque page se vérifie maintenant contre le texte de SON œuvre
+(`meta.source.work` : Capital ou Manifeste ; les Manuscrits, sans texte en
+cache, sont signalés « non vérifiés »). `node tools/verif-citations.mjs
+FETICHISME` pour une page, `--corriger` pour réécrire à la lettre. **Au
+premier passage, neuf citations étaient introuvables sur six pages en
+ligne** (appendice de la machine 1, fétichisme 1, force de travail 1,
+forme-valeur 2, législation sanglante 3, valeur d'usage 1) : la liseuse ne
+retrouvait pas ces passages. Celle du fétichisme est réparée ; les autres
+le seront par la réécriture de leur page.
+
+### Vérifié (pilote)
+
+25 citations, 0 introuvable. Contraste sur le rendu 0 échec à 1440 et
+390 px (140 mesures, minimum 5,68, plus petit texte 11,52 px), aucune
+cible sous 24 px, zéro débordement, console propre, scène qui joue aux deux
+largeurs, ancre du sommaire posée sous la bande sur téléphone. Détecteur :
+0 constat sur la page ; notion.css +2 `overused-font` (Fraunces des numéros,
+DA documentée). `gen-seo --check` à jour.
+
+### Ce qui reste
+
+- Après validation de la figure, les 44 autres pages par
+  vagues d'agents, chacun avec la charte, `verif-citations` et une
+  relecture par un second agent qui chasse les tics.
+- Les vidéos explicatives : idée discutée, pas commencée. Faisables par
+  programme (scène + titres + ffmpeg), mais la voix est le vrai problème
+  (les voix du Mac sonnent robotiques), et Cloudflare Pages limite un
+  fichier à 25 Mo : YouTube serait l'hébergement.
+
 ## La page-pilier sur l'homme : `/karl-marx` (mission `karl-marx`, sept. 2026)
 
 Question du propriétaire : « comment progresser sur les requêtes “marx” et

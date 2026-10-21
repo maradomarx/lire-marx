@@ -367,6 +367,45 @@ for (const d of comms.sort()) {
   for (const c of mal) console.log(`      section ${c.s} : « ${c.q} »`);
 }
 
+/* ── Les pages-monde du glossaire ──────────────────────────────────────
+   (mission glossaire-pilote, oct. 2026) Elles n'étaient vérifiées par
+   AUCUN outil : le contrôle « 0 introuvable » ne couvrait que les chapitres
+   et les commentaires. Or la réécriture des quarante-cinq pages selon
+   glossaire/mondes/CHARTE.md déplace et retouche leurs citations. Chaque
+   page se vérifie contre le texte de SON œuvre (meta.source.work). Les
+   Manuscrits (Bottigelli, sous droits) n'ont pas de texte en cache : leurs
+   citations sont signalées, non vérifiées. */
+let nMonde = 0, nMondeNv = 0;
+if (existsSync(MONDES)) {
+  const mondes = readdirSync(MONDES).filter((d) => existsSync(path.join(MONDES, d, 'essai.html')));
+  const vises = mondes.filter((d) => !seuls.length || seuls.includes(d.toUpperCase()));
+  if (vises.length) console.log('\nLes citations des pages du glossaire :\n');
+  for (const d of vises.sort()) {
+    nMonde++;
+    const fEssai = path.join(MONDES, d, 'essai.html');
+    const work = (JSON.parse(readFileSync(path.join(MONDES, d, 'meta.json'), 'utf8')).source || {}).work;
+    const texteDe = work === 'capital-1' ? section
+      : work === 'manifeste-parti-communiste' ? (() => manifeste()) : null;
+    let essai = readFileSync(fEssai, 'utf8');
+    let cits = citations(essai);
+    if (!texteDe) {
+      nMondeNv += cits.length;
+      console.log(`  · ${d.padEnd(30)} ${String(cits.length).padStart(2)} citations — ${work} : pas de texte de contrôle, NON vérifiées`);
+      continue;
+    }
+    if (corriger) {
+      const faits = reparer(fEssai, cits.filter((c) => texteDe(c.s).indexOf(c.q) < 0), texteDe);
+      for (const q of faits) console.log(`  ⟳ ${d} : citation réécrite à la lettre — « ${q.slice(0, 52)} »`);
+      if (faits.length) { essai = readFileSync(fEssai, 'utf8'); cits = citations(essai); }
+    }
+    const mal = cits.filter((c) => texteDe(c.s).indexOf(c.q) < 0);
+    nCit += cits.length; nMal += mal.length;
+    console.log(`  ${mal.length ? '✗' : '✓'} ${d.padEnd(30)} ${String(cits.length).padStart(2)} citations`
+      + (mal.length ? `  — ${mal.length} INTROUVABLE(S)` : ''));
+    for (const c of mal) console.log(`      section ${c.s} : « ${c.q} »`);
+  }
+}
+
 /* ── La page d'œuvre du XVIII brumaire ──────────────────────────────────
    Son DOSSIER porte des `data-q` : les six fiches de « Qui parle pour qui »
    (data-lire = le chapitre) et les renvois des marches du cheminement
@@ -401,6 +440,7 @@ if (existsSync(BR_PAGE) && (!seuls.length || seuls.includes('BRUMAIRE'))) {
   for (const c of mal) console.log(`      ${c.ou}, section ${c.s} : « ${c.q} »`);
 }
 
-console.log(`\n${nChap} chapitre(s), ${nComm} commentaire(s), ${nCit} citations, ${nMal} introuvable(s), ${nDouble} partagée(s).`);
+console.log(`\n${nChap} chapitre(s), ${nComm} commentaire(s), ${nMonde} page(s) du glossaire, ${nCit} citations, ${nMal} introuvable(s), ${nDouble} partagée(s).`);
+if (nMondeNv) console.log(`Glossaire : ${nMondeNv} citation(s) des Manuscrits non vérifiable(s) ici (pas de texte en cache).`);
 console.log(`Le XVIII brumaire : ${nBr} renvois, ${nBrMal} introuvable(s).\n`);
 process.exit(nMal + nBrMal ? 1 : 0);

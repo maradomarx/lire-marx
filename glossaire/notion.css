@@ -361,3 +361,250 @@ html.js-monde .nt--plein .nt-monde-credit{display:block;}
   .nt-puces a{min-height:44px;}
   .nt-som a{padding:10px 0;}
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   LE GABARIT DE LECTURE (mission glossaire-pilote, oct. 2026)
+   -------------------------------------------------------------------
+   Une page réécrite selon glossaire/mondes/CHARTE.md se lit à trois
+   profondeurs : « En bref » (30 secondes), « Ce qu'il faut retenir »
+   (2 minutes), l'essai (10 minutes). La tête sort de la colonne
+   (.nt-tete) pour passer AVANT la scène sur téléphone ; au-dessus de
+   1100 px elle reste en haut à gauche, la scène tenant la colonne de
+   droite sur toute la hauteur. Tout est scopé sous .nt--tete : une page
+   non réécrite ne bouge pas d'un pixel.
+   ═══════════════════════════════════════════════════════════════════ */
+/* Une colonne de lecture ; au-dessus de 1180 px, le sommaire passe dans
+   une colonne étroite à droite, collante, et marque la section qu'on lit. */
+.nt--tete{max-width:1080px;}
+.nt--tete .nt-grid{display:flex;flex-direction:column;}
+.nt--tete .nt-tete,.nt--tete .nt-fig,.nt--tete .nt-som,.nt--tete .nt-col{width:100%;max-width:700px;min-width:0;}
+@media(min-width:1180px){
+  .nt--tete .nt-grid{display:grid;grid-template-columns:minmax(0,700px) 236px;gap:0 56px;
+    justify-content:center;grid-template-areas:"vit vit" "tete som" "col som";}
+  .nt--tete .nt-vitrine{grid-area:vit;}
+  .nt--vitrine .nt-som{margin-top:34px;}
+  .nt--tete .nt-tete{grid-area:tete;}
+  .nt--tete .nt-col{grid-area:col;}
+  .nt--tete .nt-som{grid-area:som;align-self:start;position:sticky;top:68px;margin-top:96px;
+    max-height:calc(100vh - 92px);overflow:auto;padding:0;border:0;background:none;}
+  .nt--tete .nt-grid{grid-template-columns:minmax(0,700px) 256px;}
+  .nt--tete .nt-som-t{padding-left:10px;}
+  .nt--tete .nt-som a{font-size:.9rem;line-height:1.35;padding:6px 8px 6px 10px;border-radius:8px;}
+}
+
+/* « En bref » : la surface d'emphase de la maison, la seule de la page */
+.nt-bref{position:relative;margin-top:24px;padding:20px 24px 22px;border-radius:16px;
+  background:var(--emphase);box-shadow:inset 0 0 0 1px rgba(216,173,76,.22);}
+.nt-bref::after{content:'';position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+  background:radial-gradient(ellipse at 50% 120%,var(--candle) 0%,transparent 62%);}
+.nt-bref>*{position:relative;z-index:1;}
+.nt-bref-t{font-family:var(--f-ui);font-size:.72rem;font-weight:600;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--gold);margin:0 0 10px;}
+.nt-bref p{font-family:var(--f-serif);font-size:1.16rem;line-height:1.66;color:var(--text);}
+.nt-bref p i{color:var(--ink-soft);}
+
+/* « Ce qu'il faut retenir » : une liste réglée, numérotée à la Fraunces */
+.nt-retenir{margin-top:28px;}
+.nt-retenir h2{margin-bottom:6px;}
+.nt-retenir ol{list-style:none;counter-reset:ret;}
+.nt-retenir li{counter-increment:ret;display:grid;grid-template-columns:1.9em minmax(0,1fr);
+  gap:6px;padding:11px 0;border-top:1px solid var(--line);
+  font-family:var(--f-serif);font-size:1rem;line-height:1.6;color:var(--ink-soft);}
+.nt-retenir li::before{content:counter(ret);font-family:'Fraunces',serif;font-style:italic;
+  font-weight:500;color:var(--gold);font-size:1.05rem;line-height:1.5;}
+.nt-duree{margin-top:10px;font-family:var(--f-ui);font-size:.8rem;color:var(--muted);}
+
+/* le sommaire dit le temps de chaque section, et la section qu'on lit */
+.nt--tete .nt-som{margin-top:30px;}
+.nt--tete .nt-corps{margin-top:0;}
+.nt--tete .nt-essai>.nt-sec:first-child{margin-top:44px;}
+.nt-som-txt{flex:1;min-width:0;}
+.nt--tete .nt-som a[aria-current="location"]{color:var(--text);background:var(--hover);}
+.nt--tete .nt-som a[aria-current="location"]::before{color:var(--gold);}
+.nt-som-min{margin-left:auto;padding-left:12px;flex:none;font-family:var(--f-ui);
+  font-size:.72rem;color:var(--muted);font-variant-numeric:tabular-nums;}
+
+/* la réponse en tête de section : on peut lire titres + réponses seuls */
+.nt-corps p.nt-lead{font-size:1.16rem;line-height:1.62;color:var(--text);margin-bottom:18px;}
+
+/* l'exemple développé */
+.nt-ex{margin:26px 0;padding:18px 22px 2px;border:1px solid var(--border);border-radius:14px;
+  background:var(--surface);}
+.nt-corps .nt-ex p{font-size:1rem;line-height:1.7;color:var(--ink-soft);margin-bottom:16px;}
+.nt-corps .nt-ex p.nt-ex-t{font-family:var(--f-ui);font-size:.72rem;font-weight:600;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+
+/* un contresens : l'erreur, puis ce que dit le texte */
+.nt-cs{margin:16px 0;border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+.nt-corps .nt-cs p{margin:0;padding:14px 18px;font-size:1rem;line-height:1.66;}
+.nt-corps .nt-cs p:first-child{background:var(--surface);color:var(--ink-soft);}
+.nt-corps .nt-cs p+p{border-top:1px solid var(--border);color:var(--text);}
+.nt-cs-k{display:block;margin-bottom:4px;font-family:var(--f-ui);font-size:.72rem;font-weight:600;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-style:normal;}
+.nt-cs p+p .nt-cs-k{color:var(--gold);}
+
+/* vérifier sa compréhension */
+.nt-quiz{margin-top:clamp(44px,6vh,62px);padding-top:6px;}
+.nt-quiz h2{font-family:'Fraunces',serif;font-weight:900;letter-spacing:-.02em;
+  font-size:clamp(1.36rem,2.4vw,1.62rem);line-height:1.18;margin:0 0 12px;}
+.nt-quiz details{border-top:1px solid var(--line);}
+.nt-quiz details:last-of-type{border-bottom:1px solid var(--line);}
+.nt-quiz summary{list-style:none;cursor:pointer;position:relative;padding:15px 34px 15px 0;
+  font-family:var(--f-serif);font-size:1.04rem;line-height:1.5;color:var(--text);}
+.nt-quiz summary::-webkit-details-marker{display:none;}
+.nt-quiz summary::after{content:'';position:absolute;right:6px;top:22px;width:9px;height:9px;
+  border-right:1.6px solid var(--gold);border-bottom:1.6px solid var(--gold);
+  transform:rotate(45deg);transition:transform .2s;}
+.nt-quiz details[open] summary::after{transform:rotate(-135deg);top:26px;}
+.nt-quiz summary:hover{color:var(--gold);}
+.nt-quiz-r{padding:0 0 18px;}
+.nt-corps .nt-quiz-r p,.nt-quiz-r p{font-family:var(--f-serif);font-size:1rem;line-height:1.7;
+  color:var(--ink-soft);margin:0;}
+
+.nt-quiz+.nt-colophon{border-top:0;}
+@media(max-width:560px){.nt-bref p{font-size:1.06rem;}.nt-bref{padding:18px 20px 20px;}}
+/* SOUS 1100 px, LA BANDE COLLANTE COUVRE LE HAUT DE L'ÉCRAN : une ancre du
+   sommaire déposait le titre de section dessous (vrai sur toutes les pages-
+   monde depuis vivant-sur-mobile). La marge d'ancrage compte la bande. Et
+   l'interstice de 8 px entre la topbar et la bande laissait voir le texte
+   qui défile : une ombre pleine à la couleur du fond le bouche. */
+@media(max-width:1099px){
+  .nt--monde:not(.nt--tete) .nt-sec{scroll-margin-top:calc(var(--nt-top,44px) + min(44vh,380px) + 26px);}
+  .nt--monde .nt-monde{box-shadow:0 -9px 0 1px var(--bg);}
+}
+@media(max-width:760px){
+  .nt--monde:not(.nt--tete) .nt-sec{scroll-margin-top:calc(var(--nt-top,44px) + clamp(170px,28vh,240px) + 24px);}
+}
+
+/* ── LA FIGURE À LA DEMANDE (gabarit de lecture) ──
+   Immobile par défaut : l'image fixe et sa légende. Le script révèle le
+   bouton « Voir la scène » et la barre d'étapes s'il y a de quoi jouer. */
+.nt-fig{margin:clamp(44px,6vh,62px) 0 0;}
+.nt-fig-t{font-family:'Fraunces',serif;font-weight:900;letter-spacing:-.02em;
+  font-size:clamp(1.36rem,2.4vw,1.62rem);line-height:1.18;margin:0 0 14px;}
+.nt-fig-cadre{position:relative;aspect-ratio:16/10;border-radius:16px;overflow:hidden;
+  background:#0d0a07;border:1px solid var(--border);}
+.nt-fig-cadre canvas,.nt-fig-cadre .nt-monde-still{position:absolute;inset:0;width:100%;height:100%;display:block;}
+.nt-fig-cadre .nt-monde-still{object-fit:cover;}
+.nt-fig-cadre canvas[hidden],.nt-fig-cadre .nt-monde-still[hidden]{display:none;}
+.nt-fig-go{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);display:inline-flex;
+  align-items:center;gap:10px;padding:11px 20px 11px 16px;border-radius:999px;cursor:pointer;
+  background:rgba(13,10,7,.78);border:1px solid rgba(216,173,76,.5);color:var(--text);
+  font-family:var(--f-ui);font-size:.9rem;font-weight:600;backdrop-filter:blur(4px);
+  transition:background .18s,border-color .18s;}
+.nt-fig-go:hover{background:rgba(13,10,7,.92);border-color:var(--gold);}
+.nt-fig-go[hidden]{display:none;}
+/* l'icône de lecture et de pause, dessinée */
+.nt-fig-ic{display:inline-block;width:0;height:0;border-style:solid;border-width:6px 0 6px 10px;
+  border-color:transparent transparent transparent var(--gold);}
+.nt-fig.is-playing .nt-fig-lire .nt-fig-ic{width:10px;height:12px;border:0;
+  border-left:3px solid var(--gold);border-right:3px solid var(--gold);}
+.nt-fig-barre{display:flex;align-items:center;gap:10px;margin-top:10px;}
+.nt-fig-barre[hidden]{display:none;}
+.nt-fig-lire{flex:none;width:36px;height:36px;border-radius:999px;display:grid;place-items:center;
+  cursor:pointer;background:var(--surface);border:1px solid var(--line-strong);color:var(--text);}
+.nt-fig-lire:hover{border-color:var(--gold);}
+.nt-fig-lire[hidden]{display:none;}
+.nt-fig-pas{display:flex;flex-wrap:wrap;gap:6px;}
+.nt-fig-pas button{min-width:36px;height:36px;padding:0 10px;border-radius:999px;cursor:pointer;
+  background:none;border:1px solid var(--border);color:var(--muted);
+  font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:.95rem;
+  transition:border-color .18s,color .18s,background .18s;}
+.nt-fig-pas button:hover{border-color:var(--gold);color:var(--text);}
+.nt-fig-pas button[aria-pressed="true"]{background:var(--emphase);border-color:rgba(216,173,76,.55);color:var(--gold);}
+.nt-fig figcaption{margin-top:10px;display:flex;flex-direction:column;gap:6px;}
+.nt-fig-cap{font-family:var(--f-serif);font-style:italic;font-size:.98rem;line-height:1.55;color:var(--ink-soft);
+  transition:opacity .25s;}
+.nt-fig-cap.swap{opacity:0;}
+.nt-fig-src{display:flex;flex-wrap:wrap;gap:4px 14px;font-family:var(--f-ui);font-size:.78rem;color:var(--muted);}
+.nt-fig-src a{display:inline-block;padding:5px 0;color:var(--gold);text-decoration:none;}
+.nt-fig-src a:hover{text-decoration:underline;}
+@media (pointer:coarse){.nt-fig-src a{padding:12px 0;margin:-9px 0;}.nt-fig-pas button,.nt-fig-lire{min-width:40px;height:40px;}}
+
+/* ═══════════════════════════════════════════════════════════════════
+   LA DIRECTION ARTISTIQUE PAR PAGE (mission glossaire-da, oct. 2026)
+   -------------------------------------------------------------------
+   Chaque notion a son monde visuel, tiré de ce qu'elle dit (meta.da) :
+   - LA VITRINE : une photographie d'archive sous le titre, traitée dans la
+     pénombre de la maison, avec sa légende et sa source. Un reflet passe
+     UNE fois sur la vitre à l'arrivée : c'est le seul moment écrit de la
+     page, et il ne touche pas au texte ;
+   - LES PLANCHES : des images placées dans l'essai là où elles montrent
+     ce que la phrase dit ;
+   - LA LUMIÈRE D'AMBIANCE : un fond fixe dont la teinte suit la section
+     qu'on lit (monde-driver.js pose body[data-lumiere]). Rien ne bouge :
+     la lumière change, en fondu, quand on change de section.
+   ═══════════════════════════════════════════════════════════════════ */
+.nt-da ::selection{background:rgba(216,173,76,.32);color:var(--text);}
+.nt-da main,.nt-da .lm-foot{position:relative;z-index:1;}
+.nt-ambiance{position:fixed;inset:0;z-index:0;pointer-events:none;}
+.nt-amb{position:absolute;inset:0;transition:opacity 1.8s ease;}
+.nt-amb--chaude{background:
+  radial-gradient(ellipse 58% 46% at 80% -4%,rgba(222,150,62,.11),transparent 70%),
+  radial-gradient(ellipse 42% 34% at 12% 104%,rgba(213,64,47,.06),transparent 70%);}
+.nt-amb--aube{opacity:0;background:
+  radial-gradient(ellipse 66% 56% at 82% -6%,rgba(150,182,214,.19),transparent 72%),
+  linear-gradient(180deg,rgba(120,150,180,.07),transparent 50%);}
+body[data-lumiere="aube"] .nt-amb--aube{opacity:1;}
+body[data-lumiere="aube"] .nt-amb--chaude{opacity:0;}
+
+/* la vitrine */
+.nt-vitrine{position:relative;margin:0 0 6px;min-height:clamp(420px,58vh,560px);
+  display:flex;flex-direction:column;justify-content:flex-end;border-radius:18px;overflow:hidden;
+  background:#0d0a07;isolation:isolate;}
+.nt-vitrine-photo{position:absolute;top:0;right:0;bottom:0;width:64%;z-index:-1;}
+.nt-vitrine-photo img{width:100%;height:100%;object-fit:cover;object-position:52% 34%;display:block;
+  filter:grayscale(1) sepia(.34) contrast(1.12) brightness(.76);
+  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 46%);mask-image:linear-gradient(to right,transparent 0,#000 46%);}
+.nt-vitrine-photo::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(to top,#0d0a07 0,rgba(13,10,7,.55) 30%,rgba(13,10,7,0) 62%);}
+/* le reflet : une bande de lumière qui traverse la vitre, une fois */
+.nt-vitrine-reflet{position:absolute;inset:0;overflow:hidden;pointer-events:none;mix-blend-mode:screen;}
+.nt-vitrine-reflet::before{content:'';position:absolute;top:-20%;bottom:-20%;left:-45%;width:34%;
+  background:linear-gradient(100deg,transparent 0,rgba(255,236,204,.05) 30%,rgba(255,236,204,.2) 50%,rgba(255,236,204,.05) 70%,transparent 100%);
+  transform:translateX(0) skewX(-16deg);animation:nt-reflet 3.2s cubic-bezier(.16,1,.3,1) .45s both;}
+@keyframes nt-reflet{from{transform:translateX(0) skewX(-16deg);}to{transform:translateX(560%) skewX(-16deg);}}
+.nt-vitrine-txt{position:relative;padding:28px clamp(24px,4vw,44px) 0;max-width:620px;}
+.nt-vitrine .nt-fil{margin-bottom:auto;width:max-content;max-width:100%;}
+.nt-vitrine .nt-h1{font-size:clamp(2.3rem,5.4vw,3.7rem);margin:0;text-shadow:0 2px 24px rgba(13,10,7,.7);}
+.nt-vitrine-leg{position:relative;margin:22px clamp(24px,4vw,44px) 24px auto;max-width:400px;text-align:right;
+  font-family:var(--f-serif);font-style:italic;font-size:.9rem;line-height:1.5;color:var(--ink-soft);}
+.nt-vitrine-leg a{display:block;margin-top:6px;padding:3px 0;font-family:var(--f-ui);font-style:normal;font-size:.74rem;
+  line-height:1.45;color:var(--muted);text-decoration:none;}
+.nt-vitrine-leg a:hover{color:var(--gold);text-decoration:underline;text-underline-offset:3px;}
+.nt--vitrine .nt-bref{margin-top:28px;}
+@media(min-width:900px){
+  .nt-vitrine{justify-content:space-between;}
+  .nt-vitrine-txt{display:flex;flex-direction:column;flex:1;padding-bottom:0;}
+  .nt-vitrine .nt-h1{margin-top:auto;}
+}
+@media(max-width:899px){
+  /* la photographie en haut, le titre posé sur son pied, la légende dessous */
+  .nt-vitrine{display:grid;min-height:0;border-radius:16px;}
+  .nt-vitrine-photo{position:relative;grid-area:1/1;width:100%;height:min(48vh,380px);z-index:0;}
+  .nt-vitrine-photo::after{background:linear-gradient(to bottom,rgba(13,10,7,.82) 0,rgba(13,10,7,0) 24%),
+    linear-gradient(to top,#0d0a07 0,rgba(13,10,7,.55) 34%,rgba(13,10,7,0) 66%);}
+  .nt-vitrine .nt-h1{font-size:clamp(2rem,9vw,2.6rem);}
+  /* sur la photo, le fil d'Ariane prend un fond : le haut du cliché est clair */
+  .nt-vitrine .nt-fil{padding:2px 12px;border-radius:999px;background:rgba(13,10,7,.78);margin-left:-6px;}
+  .nt-vitrine-photo img{-webkit-mask-image:none;mask-image:none;}
+  .nt-vitrine-txt{grid-area:1/1;z-index:1;display:flex;flex-direction:column;justify-content:space-between;
+    padding:16px 20px 18px;max-width:none;}
+  .nt-vitrine-leg{grid-row:2;margin:12px 20px 18px;text-align:left;max-width:none;font-size:.86rem;}
+}
+@media(prefers-reduced-motion:reduce){.nt-vitrine-reflet{display:none;}}
+
+/* les planches */
+.nt-planche{margin:34px 0 36px;}
+.nt-planche img{display:block;width:100%;height:auto;border-radius:12px;border:1px solid var(--border);
+  filter:grayscale(1) sepia(.32) contrast(1.06) brightness(.62);}
+.nt-planche--couleur{max-width:540px;}
+.nt-planche--couleur img{filter:saturate(.8) brightness(.76) contrast(1.04);}
+.nt-planche figcaption{margin-top:11px;display:flex;flex-direction:column;gap:4px;}
+.nt-planche-leg{font-family:var(--f-serif);font-style:italic;font-size:.96rem;line-height:1.55;color:var(--ink-soft);}
+.nt-corps .nt-planche a.nt-planche-src,.nt-planche-src{display:inline-block;padding:4px 0;font-family:var(--f-ui);font-size:.76rem;
+  line-height:1.45;color:var(--muted);text-decoration:none;border:0;}
+.nt-planche-src:hover{color:var(--gold);text-decoration:underline;text-underline-offset:3px;}
+@media (pointer:coarse){.nt-vitrine-leg a,.nt-planche-src{padding:10px 0;margin:-6px 0;}}
+/* le fond animé (glossaire/fond.js) : sous les teintes de lumière, plein écran */
+.nt-fond{position:absolute;inset:0;width:100%;height:100%;display:block;}

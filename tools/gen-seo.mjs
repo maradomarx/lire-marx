@@ -1263,7 +1263,23 @@ function identite(nom) {
     let essai = readFileSync(`${dossier}/essai.html`, 'utf8').replace(/<!--[^]*?-->/g, '').trim();
     const url = `${ORIGIN}/glossaire/${t.id}`;
     const titre = nu(meta.titre || t.nom);
-    const desc = nu(meta.description || meta.chapo);
+    /* LE GABARIT DE LECTURE (mission glossaire-pilote, oct. 2026) : une page
+       réécrite selon glossaire/mondes/CHARTE.md porte `enbref` (qui remplace
+       le chapô), `retenir` et `questions`. Sa tête sort de la colonne pour
+       passer AVANT la scène sur téléphone (classe nt--tete). Une page non
+       réécrite garde l'ancien gabarit, au pixel près. */
+    const neuf = !!meta.enbref;
+    if (neuf) {
+      if (!Array.isArray(meta.retenir) || meta.retenir.length < 3)
+        throw new Error(`« ${t.nom} » : enbref sans « retenir » (3 points au moins).`);
+      if (!Array.isArray(meta.questions) || meta.questions.length < 2)
+        throw new Error(`« ${t.nom} » : enbref sans « questions » (2 au moins).`);
+      if (/data-q=/.test(JSON.stringify([meta.enbref, meta.retenir, meta.questions])))
+        throw new Error(`« ${t.nom} » : une citation liée dans meta.json serait invérifiable — paraphraser.`);
+    }
+    const numFrF = (n) => ['zéro', 'une', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit'][n] || String(n);
+    const tete = neuf ? meta.enbref : meta.chapo;
+    const desc = nu(meta.description || tete);
     // Le titre de résultat peut dire le mot tel qu'on le cherche (« définition »,
     // la forme courante) : meta.seo, choisi d'après Search Console.
     const titreSeo = meta.seo || `${titre} — Marx, définition et explication`;
@@ -1275,6 +1291,32 @@ function identite(nom) {
     if (!oeuvreSrc) throw new Error(`« ${t.nom} » : source.work « ${src.work} » n'est pas une œuvre de bibliotheque.json.`);
     const lien = (sEl, q) => `${hrefOf(oeuvreSrc)}#s=${sEl || src.s}&q=${encodeURIComponent(q)}`;
 
+    /* LA DIRECTION ARTISTIQUE DE LA PAGE (meta.da, mission glossaire-da, oct.
+       2026) : chaque notion a son monde visuel, tiré de ce qu'elle dit. La
+       vitrine (une photographie d'archive en tête, sous le titre), des
+       planches placées dans l'essai par <div data-planche="id"></div>, et la
+       lumière d'ambiance de chaque section (meta.da.lumieres, étape → teinte),
+       que monde-driver.js fait suivre à la lecture. Réservé au gabarit de
+       lecture : une page sans enbref n'a pas de DA. */
+    const da = neuf && meta.da ? meta.da : null;
+    const daDir = `/${dossier}/`;
+    const planchesVues = new Set();
+    if (da && da.planches) {
+      essai = essai.replace(/<div data-planche="([^"]+)"><\/div>/g, (m, id) => {
+        const pl = da.planches[id];
+        if (!pl) throw new Error(`« ${t.nom} » : planche « ${id} » absente de meta.da.planches.`);
+        planchesVues.add(id);
+        return `<figure class="nt-planche${pl.couleur ? ' nt-planche--couleur' : ''}">
+<img src="${daDir}${pl.img}" alt="${echap(nu(pl.alt))}" width="${pl.w}" height="${pl.h}" loading="lazy" decoding="async">
+<figcaption><span class="nt-planche-leg">${pl.legende}</span> <a class="nt-planche-src" href="${pl.lien}">${pl.credit}</a></figcaption>
+</figure>`;
+      });
+      const orphelines = Object.keys(da.planches).filter((k) => !k.startsWith('_') && !planchesVues.has(k));
+      if (orphelines.length) throw new Error(`« ${t.nom} » : planche(s) jamais placée(s) dans l'essai : ${orphelines.join(', ')}`);
+    }
+    if (/data-planche=/.test(essai)) throw new Error(`« ${t.nom} » : une planche est appelée dans l'essai sans meta.da.planches.`);
+    const lumieres = (da && da.lumieres) || {};
+
     /* Les sections : numéro romain, légende du monde, sommaire. */
     const sections = [];
     essai = essai.replace(/<section class="nt-sec" data-etape="([^"]+)" id="([^"]+)">\s*<h2>([^]*?)<\/h2>/g,
@@ -1282,7 +1324,7 @@ function identite(nom) {
         const n = sections.length;
         sections.push({ etape, id, h2 });
         const leg = (meta.monde && meta.monde.etapes && meta.monde.etapes[etape]) || '';
-        return `<section class="nt-sec" data-etape="${etape}" id="${id}" data-legende="${echap(nu(leg))}">\n<h2><span class="nt-sec-n" aria-hidden="true">${ROMAINS[n]}</span>${h2}</h2>`;
+        return `<section class="nt-sec" data-etape="${etape}" id="${id}" data-legende="${echap(nu(leg))}"${lumieres[etape] ? ` data-lumiere="${lumieres[etape]}"` : ''}>\n<h2><span class="nt-sec-n" aria-hidden="true">${ROMAINS[n]}</span>${h2}</h2>`;
       });
     if (sections.length < 3) throw new Error(`« ${titre} » : l'essai n'a que ${sections.length} section(s).`);
     if (meta.monde && meta.monde.etapes) {
@@ -1302,6 +1344,15 @@ function identite(nom) {
     if (/data-q=/.test(essai)) throw new Error(`« ${titre} » : une citation n'a pas été reconnue (data-q resté dans l'essai).`);
     const mots = nu(essai).split(/\s+/).filter(Boolean).length;
     if (mots < 1200) throw new Error(`« ${titre} » : ${mots} mots — une page-monde en veut au moins 1 200.`);
+    /* Temps de lecture, section par section (230 mots par minute, la vitesse
+       courante d'une lecture attentive en français). */
+    const minutes = (n) => Math.max(1, Math.round(n / 230));
+    for (const m of essai.matchAll(/<section class="nt-sec"[^>]*id="([^"]+)"[^>]*>([^]*?)<\/section>/g)) {
+      const sec = sections.find((x) => x.id === m[1]);
+      if (sec) sec.min = minutes(nu(m[2]).split(/\s+/).filter(Boolean).length);
+    }
+    if (neuf && /—|–/.test(nu(essai) + JSON.stringify([meta.enbref, meta.retenir, meta.questions])))
+      throw new Error(`« ${titre} » : un tiret cadratin reste dans la prose (CHARTE.md, §4).`);
 
     /* Les instruments viennent des provenances ; un outil du dossier qui
        vise le MÊME endroit en plus précis (#explore=x-feti contre #explore)
@@ -1309,7 +1360,7 @@ function identite(nom) {
     const precis = (meta.outils || []).map((o) => o.url);
     const outils = [
       ...t.sources.filter((sc) => !precis.some((u) => u.startsWith(sc.url)))
-        .map((sc) => ({ label: `${nu(sc.groupe)} — ${sc.oeuvre}`, url: sc.url })),
+        .map((sc) => ({ label: `${nu(sc.groupe)}${neuf ? ', ' : ' — '}${sc.oeuvre}`, url: sc.url })),
       ...(meta.outils || []),
     ];
     const voisines = (meta.voisins || [])
@@ -1365,6 +1416,99 @@ ${credit}  </aside>`;
         ] },
     ].map((o) => `${OPEN}\n${JSON.stringify(o, null, 2)}\n${CLOSE}`).join('\n');
 
+    /* La tête du gabarit de lecture : « En bref » (30 secondes), « Ce qu'il
+       faut retenir » (2 minutes), LA FIGURE, puis l'essai. Le sommaire est un
+       enfant de la grille : sur grand écran il devient une colonne collante
+       qui suit la lecture (monde-driver.js marque la section courante).
+
+       LA FIGURE À LA DEMANDE (arbitrage du propriétaire, oct. 2026 : « l'UI
+       UX doit être la priorité ») : la scène ne bouge plus pendant qu'on lit.
+       Elle est posée, immobile (l'image fixe), après le résumé ; un bouton la
+       fait jouer, des étapes numérotées comme les sections de l'essai la
+       placent où l'on veut. Three.js ne se charge qu'au premier geste. Sans
+       script, sans WebGL : l'image et sa légende, la page est finie. */
+    function figureNeuve() {
+      const legs = sections.map((s) => echap(nu((meta.monde && meta.monde.etapes && meta.monde.etapes[s.etape]) || '')));
+      const credit = meta.monde && meta.monde.credit ? `<span class="nt-fig-credit">${meta.monde.credit}</span>` : '';
+      const srcLien = meta.monde && meta.monde.source
+        ? `<a href="${lien(src.s, meta.monde.source.q)}">${meta.monde.source.texte} →</a>` : '';
+      const g0 = meta.monde && meta.monde.fixe && typeof meta.monde.fixe.g === 'number' ? meta.monde.fixe.g : 0;
+      return `<figure class="nt-fig" aria-labelledby="nt-fig-t"${aScene
+        ? `${meta.monde && meta.monde.moteur === '2d' ? '' : ` data-three="/vendor/three.min.js?v=${hashV('vendor/three.min.js')}"`} data-scene="/${dossier}/monde.js?v=${hashV(`${dossier}/monde.js`)}" data-g0="${g0}"` : ''}>
+  <h2 class="nt-fig-t" id="nt-fig-t">${(meta.monde && meta.monde.titre) || 'La scène'}</h2>
+  <div class="nt-fig-cadre">
+    <canvas hidden role="img" aria-label="${alt}"></canvas>
+${still ? `    <img class="nt-monde-still" src="/${still}" alt="${alt}" width="1200" height="750" decoding="async">` : `    <div class="nt-monde-still" role="img" aria-label="${alt}"></div>`}
+    <button type="button" class="nt-fig-go" hidden><span class="nt-fig-ic" aria-hidden="true"></span>Voir la scène</button>
+  </div>
+  <div class="nt-fig-barre" hidden>
+    <button type="button" class="nt-fig-lire" aria-label="Lire la scène"><span class="nt-fig-ic" aria-hidden="true"></span></button>
+    <div class="nt-fig-pas" role="group" aria-label="Les étapes de la scène, une par section de l'essai">
+${sections.map((sec, i) => `      <button type="button" data-i="${i}" data-leg="${legs[i]}" aria-pressed="false" aria-label="Étape ${i + 1} : ${echap(nu(sec.h2))}" title="${echap(nu(sec.h2))}">${ROMAINS[i]}</button>`).join('\n')}
+    </div>
+  </div>
+  <figcaption>
+    <span class="nt-fig-cap" aria-live="polite">${legende0}</span>
+    <span class="nt-fig-src">${srcLien}${credit}</span>
+  </figcaption>
+</figure>
+`;
+    }
+    function teteNeuve() {
+      const tot = sections.reduce((a, s) => a + (s.min || 0), 0);
+      const fil = `  <nav class="nt-fil" aria-label="Fil d'Ariane">
+    <a href="/">Lire Marx</a><span aria-hidden="true">›</span><a href="/glossaire/">Glossaire</a><span aria-hidden="true">›</span>${t.nom}
+  </nav>`;
+      const h1 = `  <h1 class="nt-h1">${meta.titre || t.nom}${(meta.de || t.de) ? `<span class="nt-de" lang="de">${meta.de || t.de}</span>` : ''}</h1>`;
+      const v = da && da.vitrine;
+      return `${v ? `<div class="nt-vitrine">
+  <div class="nt-vitrine-photo">
+    <img src="${daDir}${v.img}" alt="${echap(nu(v.alt))}" width="${v.w}" height="${v.h}" fetchpriority="high" decoding="async">
+    <span class="nt-vitrine-reflet" aria-hidden="true"></span>
+  </div>
+  <div class="nt-vitrine-txt">
+${fil}
+${h1}
+  </div>
+  <p class="nt-vitrine-leg"><span>${v.legende}</span> <a href="${v.lien}">${v.credit}</a></p>
+</div>
+` : ''}<header class="nt-tete">
+${v ? '' : `\n${fil}\n\n${h1}\n`}
+  <section class="nt-bref" aria-labelledby="nt-bref-t">
+    <h2 class="nt-bref-t" id="nt-bref-t">En bref</h2>
+    <p>${meta.enbref}</p>
+  </section>
+
+  <section class="nt-retenir" aria-labelledby="nt-retenir-t">
+    <h2 class="nt-bloc-t" id="nt-retenir-t">Ce qu'il faut retenir</h2>
+    <ol>
+${meta.retenir.map((r) => `      <li>${r}</li>`).join('\n')}
+    </ol>
+    <p class="nt-duree">Pour aller plus loin, l'essai se lit en ${tot} minutes.</p>
+  </section>
+
+</header>
+  <nav class="nt-som" aria-label="Sommaire">
+    <p class="nt-som-t">L'essai, en ${numFrF(sections.length)} questions</p>
+    <ol>
+${sections.map((s) => `      <li><a href="#${s.id}"><span class="nt-som-txt">${s.h2}</span><span class="nt-som-min">${s.min} min</span></a></li>`).join('\n')}
+    </ol>
+  </nav>
+<div class="nt-col">
+`;
+    }
+    function quizNeuf() {
+      return `
+  <section class="nt-quiz" aria-labelledby="nt-quiz-t">
+    <h2 id="nt-quiz-t">Vérifier sa compréhension</h2>
+${meta.questions.map((x) => `    <details>
+      <summary>${x.q}</summary>
+      <div class="nt-quiz-r"><p>${x.r}</p></div>
+    </details>`).join('\n')}
+  </section>
+`;
+    }
+
     const html = `<!doctype html>
 <html lang="fr">
 <head>
@@ -1400,11 +1544,11 @@ ${credit}  </aside>`;
 <noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=13"></noscript>
 ${ld}
 </head>
-<body>
-<main class="wrap" id="contenu" tabindex="-1">
-<article class="nt nt--monde${plein ? ' nt--plein' : ''}">
+<body${da ? ' class="nt-da"' : ''}>
+${da ? `<div class="nt-ambiance" aria-hidden="true"><span class="nt-amb nt-amb--chaude"></span><span class="nt-amb nt-amb--aube"></span>${da.fond ? '<canvas class="nt-fond"></canvas>' : ''}</div>\n` : ''}${da && da.fond ? `<script type="application/json" id="nt-fond-data">${JSON.stringify(da.fond).replace(/</g, '\\u003c')}</script>\n` : ''}<main class="wrap" id="contenu" tabindex="-1">
+<article class="nt nt--monde${plein && !neuf ? ' nt--plein' : ''}${neuf ? ' nt--tete' : ''}${da && da.vitrine ? ' nt--vitrine' : ''}">
 <div class="nt-grid">
-<div class="nt-col">
+${neuf ? teteNeuve() : `<div class="nt-col">
 
   <nav class="nt-fil" aria-label="Fil d'Ariane">
     <a href="/">Lire Marx</a><span aria-hidden="true">›</span><a href="/glossaire/">Glossaire</a><span aria-hidden="true">›</span>${t.nom}
@@ -1420,12 +1564,14 @@ ${ld}
 ${sections.map((s) => `      <li><a href="#${s.id}">${s.h2}</a></li>`).join('\n')}
     </ol>
   </nav>
-
+`}
   <div class="nt-corps nt-essai">
 ${essai}
   </div>
-
-  <p class="nt-colophon">Les citations sont relevées dans le texte que ce site sert — ${src.cite || ''} — et chacune mène au passage dans la liseuse.</p>
+${neuf ? quizNeuf() : ''}${neuf ? figureNeuve() : ''}
+  <p class="nt-colophon">${neuf
+    ? `Les citations viennent du texte que ce site sert&nbsp;: ${src.cite || ''}. Chacune mène au passage dans la liseuse.`
+    : `Les citations sont relevées dans le texte que ce site sert — ${src.cite || ''} — et chacune mène au passage dans la liseuse.`}</p>
 
   <div class="nt-appareil">
     <div class="nt-bloc nt-bloc--source">
@@ -1459,7 +1605,7 @@ ${voisines.map((v) => `      <a href="${v.href}">${v.nom}</a>`).join('\n')}
   </div>
 
 </div>
-${monde}
+${neuf ? '' : monde}
 </div>
 </article>
 </main>
@@ -1468,7 +1614,7 @@ ${PIED}
 <script src="/oeuvres/shell.js?v=22"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
-${aScene ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-driver.js')}" defer></script>` : ''}
+${da && da.fond ? `<script src="/glossaire/fond.js?v=${hashV('glossaire/fond.js')}" defer></script>\n` : ''}${aScene || neuf ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-driver.js')}" defer></script>` : ''}
 </body>
 </html>
 `;
@@ -1487,7 +1633,8 @@ ${aScene ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-d
      * notice à une entrée qui mène en haut de page. */
     const legendes = (meta.monde && meta.monde.etapes) || {};
     ESSAIS.push({ id: t.id, t: titre,
-      s: [{ a: '', h: 'Présentation', x: [nu(meta.chapo), nu(meta.ou)].join(' ').replace(/\s+/g, ' ').trim() }]
+      s: [{ a: '', h: neuf ? 'En bref' : 'Présentation',
+            x: [nu(tete), ...(neuf ? meta.retenir.map(nu) : []), nu(meta.ou)].join(' ').replace(/\s+/g, ' ').trim() }]
         .concat(sections.map((sec) => ({
           a: sec.id, h: nu(sec.h2),
           x: [corps[sec.id] || '', nu(legendes[sec.etape] || '')].join(' ').replace(/\s+/g, ' ').trim()
