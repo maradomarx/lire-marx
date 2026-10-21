@@ -91,25 +91,37 @@
   }
 
   /* la colonne de texte : on ne lit pas à travers un mouvement */
-  var zones = [], gauche = 0;
+  var zones = [], bords = [], gauche = 0;
   function mesurerZones(){
-    zones = [];
+    zones = []; bords = [];
     /* la barre latérale couvre le bord gauche : un mot qui y monterait serait coupé */
     var sb = document.querySelector('.sidebar'), rs = sb && sb.getBoundingClientRect();
     gauche = rs && rs.right > 0 && rs.width ? rs.right : 0;
     ['.nt-col', '.nt-tete', '.nt-som'].forEach(function(s){
       var e = document.querySelector(s); if (!e) return;
-      var r = e.getBoundingClientRect(); if (r.width) zones.push([r.left - 44, r.right + 44]);
+      var r = e.getBoundingClientRect(); if (r.width) { zones.push([r.left - 44, r.right + 44]); bords.push([r.left - 12, r.right + 12]); }
     });
   }
   function dansZone(x){ for (var k = 0; k < zones.length; k++) if (x > zones[k][0] && x < zones[k][1]) return true; return false; }
-  /* un objet ne s'allume que si son mot (environ 140 px) tient entier dans la marge */
-  var DEMI = 72;
-  function libre(x){
-    if (x - DEMI < gauche + 8 || x + DEMI > W - 8) return false;
-    for (var k = 0; k < zones.length; k++) if (x + DEMI > zones[k][0] && x - DEMI < zones[k][1]) return false;
-    return true;
+  /* La marge libre autour de x : de la barre latérale (ou du bord) jusqu'au
+     texte. Un mot ne monte que s'il y tient ENTIER ; on le décale dedans au
+     besoin (le centrer sur l'objet le coupait contre la barre latérale). */
+  function marge(x){
+    var a = gauche + 8, b = W - 8;
+    for (var k = 0; k < bords.length; k++) {
+      if (x > bords[k][0] && x < bords[k][1]) return null;
+      if (bords[k][1] <= x) a = Math.max(a, bords[k][1]);
+      if (bords[k][0] >= x) b = Math.min(b, bords[k][0]);
+    }
+    return x > a && x < b ? [a, b] : null;
   }
+  function placer(x, mot){
+    var m = marge(x); if (!m) return null;
+    var w = ctx.measureText(mot).width + 6;
+    if (m[1] - m[0] < w) return null;
+    return Math.min(Math.max(x, m[0] + w / 2), m[1] - w / 2);
+  }
+  function libre(x){ return !!marge(x); }
 
   function resize(){
     var w = window.innerWidth, h = window.innerHeight;
@@ -134,10 +146,24 @@
       cand.push(it);
     }
     if (!cand.length) return;
-    var it2 = cand[Math.floor(Math.random() * cand.length)];
-    var lum = lumiere(), mots = it2.d[lum] || it2.d.chaude || [];
-    it2.lum = lum; it2.t = now; it2.lit = 0.001;
-    it2.label = mots.length ? mots[Math.floor(Math.random() * mots.length)] : '';
+    ctx.font = 'italic 500 14px Fraunces, Georgia, serif';
+    var lum = lumiere();
+    for (var essai = 0; essai < 6 && cand.length; essai++) {
+      var i2 = Math.floor(Math.random() * cand.length), it2 = cand[i2];
+      var mots = it2.d[lum] || it2.d.chaude || [];
+      var mot = mots.length ? mots[Math.floor(Math.random() * mots.length)] : '';
+      var lx = mot ? placer(it2.x, mot) : it2.x;
+      /* jamais deux mots l'un sur l'autre */
+      var sy2 = ((it2.y - off * it2.z) % BANDE + BANDE) % BANDE - (BANDE - H) / 2, gene = false;
+      for (var q = 0; q < items.length && lx !== null; q++) {
+        var o2 = items[q]; if (!(o2.lit > 0) || !o2.label) continue;
+        var sy3 = ((o2.y - off * o2.z) % BANDE + BANDE) % BANDE - (BANDE - H) / 2;
+        if (Math.abs(sy3 - sy2) < 64 && Math.abs((o2.lx || o2.x) - lx) < 150) { gene = true; break; }
+      }
+      if (lx === null || gene) { cand.splice(i2, 1); continue; }
+      it2.lum = lum; it2.t = now; it2.lit = 0.001; it2.label = mot; it2.lx = lx;
+      return;
+    }
   }
 
   /* ── LE REGARD LÈVE LE VOILE (survol, souris seulement) ──
@@ -219,19 +245,24 @@
         var rgb = TEINTES[it.lum], monte = (now - it.t) / VIE;
         ctx.globalAlpha = l * 0.82 * (1 - h);
         ctx.fillStyle = 'rgb(' + rgb.join(',') + ')';
-        ctx.fillText(it.label, x, haut - monte * 16);
+        ctx.fillText(it.label, x + (it.lx - it.x), haut - monte * 16);
       }
       if (h > 0 && it.travail) {
         ctx.globalAlpha = h * 0.92;
         ctx.fillStyle = 'rgb(' + TEINTES.aube.join(',') + ')';
-        ctx.fillText(it.travail, x, haut - 2);
+        ctx.fillText(it.travail, it.tx === null ? x : x + (it.tx - it.x), haut - 2);
       }
     }
     ctx.globalAlpha = 1;
     /* la cible du prochain dessin ; son mot est choisi une fois, à l'arrivée */
     if (proche !== cible) {
       cible = proche;
-      if (cible) { var mots = cible.d.aube || []; cible.travail = mots.length ? mots[Math.floor(Math.random() * mots.length)] : ''; }
+      if (cible) {
+        var mots = cible.d.aube || [];
+        cible.travail = mots.length ? mots[Math.floor(Math.random() * mots.length)] : '';
+        cible.tx = cible.travail ? placer(cible.x, cible.travail) : cible.x;
+        if (cible.tx === null) cible.travail = '';   /* le mot ne tient pas : l'objet s'éclaire sans parler */
+      }
       if (REDUCE) redessiner();
     }
   }
