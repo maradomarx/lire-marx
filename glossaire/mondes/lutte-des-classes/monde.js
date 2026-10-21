@@ -216,16 +216,10 @@ window.LM_MONDE = function (canvas) {
     var az = lerp(lerp(-0.30, 0.22, ss(0.3, 1.9, G)), 0.08, st.simpl);
     var cible = new THREE.Vector3(0, cy, 0);
     camera.position.set(Math.sin(az) * dist + 0.03 * Math.sin(TT * 0.23), cy + lerp(1.15, 2.9, st.assoc) + 0.02 * Math.sin(TT * 0.31), Math.cos(az) * dist);
-    /* au large, la colonne de texte couvre la gauche du cadre : on vise à
-       GAUCHE du sujet pour le poser dans la moitié droite — plus fort pour
-       l'échelle, haute et étroite, que pour le rang et le pavement, larges,
-       qu'un décalage fixe sortait du cadre par la droite (au-delà de 75 %
-       de la largeur le voile est levé). Sous 1100 px, la scène est une bande
-       au-dessus du texte : rien à dégager. */
-    var large = (canvas.clientWidth || 0) >= 1100;
-    var fwd = new THREE.Vector3().subVectors(cible, camera.position).normalize();
-    var right = new THREE.Vector3().crossVectors(fwd, new THREE.Vector3(0, 1, 0)).normalize();
-    aim.copy(cible).addScaledVector(right, large ? -lerp(0.31, 0.16, st.simpl) * camera.position.distanceTo(cible) : 0);
+    /* la scène est une figure posée en bas de page (oct. 2026) : plus de
+       colonne de texte à dégager, on vise le sujet lui-même, à toutes les
+       largeurs (l'image fixe, photographiée à 1200 px, aussi). */
+    aim.copy(cible);
     camera.lookAt(aim);
     render();
   }

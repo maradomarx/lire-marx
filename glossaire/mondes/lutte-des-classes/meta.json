@@ -1,23 +1,44 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/lutte-des-classes — première notion du Manifeste à avoir sa page (mission manifeste-glossaire, sept. 2026).",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/lutte-des-classes : première notion du Manifeste à avoir sa page (mission manifeste-glossaire, sept. 2026), réécrite en octobre 2026 selon glossaire/mondes/CHARTE.md (enbref, retenir, questions, direction artistique « l'immeuble en coupe »).",
   "titre": "Lutte des classes",
   "de": "Klassenkampf",
-  "chapo": "« L’histoire de toute société jusqu’à nos jours n’a été que l’histoire de luttes de classes » : la première phrase du <i>Manifeste</i> est aussi la plus citée de Marx et d’Engels, et la plus mal lue. Elle ne dit ni que l’histoire serait une querelle de riches et de pauvres, ni qu’elle aurait toujours opposé deux camps, mais que toute société divisée repose sur un antagonisme — que l’époque bourgeoise simplifie, et que le prolétariat ne peut dénouer sans supprimer les classes elles-mêmes.",
-  "description": "La lutte des classes chez Marx et Engels : ce que dit vraiment la première phrase du Manifeste, pourquoi l'époque bourgeoise simplifie l'antagonisme, comment une lutte devient lutte de classe, et les contresens qu'elle appelle.",
+  "enbref": "La lutte des classes désigne, chez Marx et Engels, l'opposition entre une classe qui possède les moyens de production et une classe qui en est privée et travaille pour la première. Le <i>Manifeste du parti communiste</i> (1848) en fait le moteur de l'histoire. Une classe s'y définit par son rapport à une autre classe, dont elle ne peut être séparée. La notion est difficile parce que le même texte décrit les sociétés comme une échelle de rangs et cherche dessous une opposition.",
+  "retenir": [
+    "La première phrase du <i>Manifeste</i> affirme que l'histoire des sociétés divisées est faite de luttes de classes. Le paragraphe suivant décrit pourtant ces sociétés comme une échelle de rangs.",
+    "Un rang est une place sur une échelle. Une classe se définit par son rapport à une autre classe, dont elle est inséparable : seigneur et serf, bourgeois et prolétaire.",
+    "Selon le <i>Manifeste</i>, l'époque bourgeoise simplifie l'antagonisme : les couches intermédiaires tombent, et la société tend à se diviser en deux camps, la bourgeoisie et le prolétariat.",
+    "Des révoltes isolées deviennent une lutte de classe quand elles se relient et visent les conditions communes que garantit l'État. Toute lutte de classe est donc politique.",
+    "Le prolétariat, la couche la plus basse, ne peut se libérer sans abolir toute appropriation de classe. Sa victoire mettrait fin aux classes au lieu d'installer une domination de plus."
+  ],
+  "questions": [
+    {
+      "q": "Pourquoi une grève dans une seule filature n'est-elle pas encore, pour le <i>Manifeste</i>, une lutte de classe&nbsp;?",
+      "r": "Parce qu'elle oppose un patron à ses ouvriers et se règle entre eux. Elle le devient quand des luttes locales se relient et portent sur une condition commune à toute la classe, comme la durée légale du travail. La revendication s'adresse alors à l'État, et c'est pourquoi le texte dit que toute lutte de classe est politique."
+    },
+    {
+      "q": "Quelle différence le <i>Manifeste</i> fait-il entre une échelle de positions sociales et un antagonisme de classes&nbsp;?",
+      "r": "L'échelle range les gens par degrés, du plus haut au plus bas, et chacun y a des voisins au-dessus et au-dessous. L'antagonisme est un rapport où la condition de l'un fait celle de l'autre. L'époque bourgeoise, selon le texte, fait tomber les degrés intermédiaires et laisse paraître l'antagonisme sous la forme de deux camps."
+    },
+    {
+      "q": "Pourquoi la victoire du prolétariat ne serait-elle pas le remplacement d'une classe dominante par une autre&nbsp;?",
+      "r": "Parce que les prolétaires ne possèdent rien qu'ils pourraient imposer comme mode d'appropriation au reste de la société. Pour s'emparer des moyens de production, ils doivent abolir toute appropriation de classe. Leur domination supprimerait les conditions de l'antagonisme, et donc les classes elles-mêmes."
+    }
+  ],
+  "description": "La lutte des classes chez Marx et Engels, expliquée simplement : ce que dit la première phrase du Manifeste, et ce qui distingue une classe d'un rang.",
   "source": {
     "_": "La source des citations : work = id de bibliotheque.json (le générateur en lit le path : /oeuvres/manifeste). Le texte du Manifeste tient en une seule page Wikisource, donc une seule section de liseuse : s = 1 partout.",
     "work": "manifeste-parti-communiste",
     "s": 1,
-    "cite": "Karl Marx et Friedrich Engels, <i>Manifeste du parti communiste</i> (1848) — traduction Laura Lafargue (1897)"
+    "cite": "Karl Marx et Friedrich Engels, <i>Manifeste du parti communiste</i> (1848), traduction Laura Lafargue (1897)"
   },
-  "ou": "<i>Manifeste du parti communiste</i>, partie&nbsp;I, « Bourgeois et prolétaires » — la première phrase, puis la formation du prolétariat en classe ; repris en partie&nbsp;II, où l’antagonisme des classes explique la conscience sociale de tous les âges et où le pouvoir politique est défini comme le pouvoir organisé d’une classe pour l’oppression d’une autre.",
+  "ou": "<i>Manifeste du parti communiste</i>, partie&nbsp;I, « Bourgeois et prolétaires » : la première phrase, puis la formation du prolétariat en classe. La notion revient dans la partie&nbsp;II, où l’antagonisme des classes explique la conscience sociale de tous les âges et où le pouvoir politique est défini comme le pouvoir organisé d’une classe pour l’oppression d’une autre.",
   "outils": [
     {
-      "label": "Lire « Bourgeois et prolétaires » — la liseuse du Manifeste",
+      "label": "Lire « Bourgeois et prolétaires » dans la liseuse du Manifeste",
       "url": "/oeuvres/manifeste#partie=2"
     },
     {
-      "label": "Le cheminement du Manifeste — l'histoire comme lutte de classes",
+      "label": "Le cheminement du Manifeste : l'histoire comme lutte de classes",
       "url": "/oeuvres/manifeste#deriv"
     }
   ],
@@ -31,24 +52,110 @@
     "Force productive"
   ],
   "monde": {
-    "_": "LES COUCHES SUPERPOSÉES. La figure est prise au § 56 de la partie I : le prolétariat, « la dernière couche de la société actuelle, ne peut se redresser sans faire sauter toutes les couches superposées ». Une stèle de strates de pierre, en coupe. Au départ l'« échelle graduée de positions sociales » : des strates nombreuses, étagées, de plus en plus larges vers le bas. Puis la SIMPLIFICATION : les strates intermédiaires glissent et tombent en fragments au pied, la masse du haut se referme en un seul bloc, une fissure rougeoie entre le haut et le bas. Puis l'ORGANISATION : les fragments épars s'alignent en une assise — elle se fend (la concurrence des ouvriers entre eux), elle se ressoude plus épaisse. Puis LE REDRESSEMENT : l'assise du bas se lève et fait sauter les couches qui pesaient sur elle. Au dernier temps, les pierres retombent CÔTE À CÔTE, au même niveau : l'association remplace la superposition — le vertical devient horizontal. Tout est fonction de la position de lecture g, donc réversible.",
+    "_": "LES COUCHES SUPERPOSÉES. La figure est prise au § 56 de la partie I : le prolétariat, « la dernière couche de la société actuelle, ne peut se redresser sans faire sauter toutes les couches superposées ». Une stèle de strates de pierre, en coupe. Au départ l'« échelle graduée de positions sociales » : des strates nombreuses, étagées, de plus en plus larges vers le bas. Puis la SIMPLIFICATION : les strates intermédiaires glissent et tombent en fragments au pied, la masse du haut se referme en un seul bloc, une fissure rougeoie entre le haut et le bas. Puis l'ORGANISATION : les fragments épars s'alignent en une assise ; elle se fend (la concurrence des ouvriers entre eux), elle se ressoude plus épaisse. Puis LE REDRESSEMENT : l'assise du bas se lève et fait sauter les couches qui pesaient sur elle. Au dernier temps, les pierres retombent CÔTE À CÔTE, au même niveau : l'association remplace la superposition. Tout est fonction de la position g, donc réversible.",
     "layout": "plein",
+    "titre": "Les couches superposées, en six temps",
     "alt": "Une stèle de strates de pierre en coupe, étagées de la plus étroite en haut à la plus large en bas ; plus loin, un bloc supérieur posé sur une assise d'où monte une fissure rougeoyante, puis les pierres retombées côte à côte au même niveau.",
     "source": {
-      "texte": "D'après le texte — Manifeste, partie I",
+      "texte": "D'après le texte : Manifeste, partie I",
       "q": "ne peut se redresser sans faire sauter toutes les couches superposées"
     },
     "etapes": {
-      "phrase": "Une échelle graduée de positions sociales : patriciens, chevaliers, plébéiens, esclaves ; seigneurs, vassaux, maîtres, compagnons, serfs — et dans chacune, des gradations. Ce n'est pas encore deux camps.",
-      "ou": "Les strates se tiennent, chacune posée sur celle d'en dessous. Le Manifeste ne définit pas la notion : il la met au travail dès sa première phrase, pour lire la société moderne comme un moment de l'histoire, non comme son terme.",
-      "simplification": "Les strates intermédiaires glissent et tombent au pied ; le haut se referme en un seul bloc. L'époque bourgeoise n'a pas aboli les antagonismes, elle les a simplifiés : deux vastes camps opposés.",
-      "organisation": "Au pied, des fragments épars — des luttes locales, isolées. Ils s'alignent en une assise, qui se fend sous la concurrence et se ressoude plus épaisse : c'est ainsi que des luttes deviennent une lutte de classe.",
-      "couches": "L'assise du bas se redresse, et tout ce qui était superposé saute. La dernière couche ne peut se lever sans soulever toutes les autres : son émancipation ne peut pas être celle d'une classe de plus.",
-      "lectures": "Les pierres retombent côte à côte, au même niveau. Ce qui remplace la superposition n'est pas une nouvelle hiérarchie, mais une association — et le texte n'exclut pas l'autre issue : la destruction des deux classes en lutte."
+      "phrase": "L'échelle graduée de positions sociales : à Rome, patriciens, chevaliers, plébéiens, esclaves ; au Moyen Âge, seigneurs, vassaux, maîtres, compagnons, serfs. Chaque strate repose sur celle d'en dessous.",
+      "ou": "Les strates se tiennent l'une sur l'autre. Le Manifeste ne définit pas la notion : il s'en sert pour lire la société moderne comme un moment de l'histoire.",
+      "simplification": "Les strates du milieu glissent et tombent au pied ; le haut se referme en un seul bloc. L'époque bourgeoise simplifie l'antagonisme en deux camps opposés.",
+      "organisation": "Au pied, des fragments épars, comme des luttes locales et isolées. Ils s'alignent en une assise, qui se fend sous la concurrence des ouvriers et se ressoude plus épaisse.",
+      "couches": "L'assise du bas se redresse, et tout ce qui était superposé saute. La dernière couche ne peut se lever sans soulever toutes les autres.",
+      "lectures": "Les pierres retombent côte à côte, au même niveau : l'association prend la place de la superposition. Le texte envisage aussi l'autre issue, la destruction des deux classes en lutte."
     },
     "fixe": {
       "g": 2.6,
-      "legende": "Le haut s'est refermé en un seul bloc, les strates du milieu sont tombées au pied : l'époque bourgeoise simplifie l'antagonisme des classes en deux vastes camps opposés."
+      "legende": "Le haut s'est refermé en un seul bloc, et les strates du milieu sont tombées au pied : l'époque bourgeoise simplifie l'antagonisme des classes en deux vastes camps opposés."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : l'immeuble en coupe. Le Manifeste part d'une « échelle graduée de positions sociales » et cherche dessous un antagonisme. La page s'ouvre donc sur une échelle visible, la coupe d'une maison parisienne de 1845 où chaque étage est un rang (Bertall), et montre plus bas la classe qui se rassemble pour une revendication politique (Kennington Common, 10 avril 1848). Le fond fait monter les noms des rangs (chaude), puis, à partir de la section où l'échelle se simplifie, les couples de l'antagonisme (aube).",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 2162,
+      "alt": "Coupe d'un immeuble parisien en 1845, étage par étage : au rez-de-chaussée la loge du concierge et la cuisine, au premier un salon cossu, au deuxième une famille bourgeoise, plus haut des chambres modestes, et sous les toits des mansardes pauvres.",
+      "legende": "Un immeuble de Paris en coupe : chaque étage est un rang, du salon du premier aux mansardes sous le toit. C'est l'échelle graduée que décrit le <i>Manifeste</i>, et sous laquelle il cherche une opposition.",
+      "credit": "Bertall et Lavielle, « Cinq étages du monde parisien », <i>Le Diable à Paris</i>, Hetzel, 1845. Domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Bertall_-_Cinq_%C3%A9tages_du_monde_parisien.jpg"
+    },
+    "planches": {
+      "kennington": {
+        "img": "planche-kennington.webp",
+        "w": 1400,
+        "h": 996,
+        "alt": "Une foule immense, en chapeaux, rassemblée sur un terrain découvert autour d'une estrade et de drapeaux ; au fond, des bâtiments bas et une haute cheminée d'usine.",
+        "legende": "Le meeting chartiste de Kennington Common, à Londres, le 10 avril 1848 : des luttes locales devenues un mouvement national, qui réclame le suffrage, donc une part du pouvoir politique.",
+        "credit": "William Edward Kilburn, daguerréotype, 10 avril 1848. Royal Collection, Londres (acquis par le prince Albert en 1848). Domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:William_Edward_Kilburn_-_View_of_the_Great_Chartist_Meeting_on_Kennington_Common_-_Google_Art_Project.jpg"
+      }
+    },
+    "lumieres": {
+      "simplification": "aube",
+      "organisation": "aube",
+      "couches": "aube"
+    },
+    "fond": {
+      "_": "Le fond : les époques de la première phrase, dessinées en points (la colonne de Rome, le château, le rouet des jurandes, la fabrique, l'engrenage, la pièce). L'une s'allume et le nom d'un rang monte au-dessus d'elle (chaude : l'échelle) ; à partir de la section où l'échelle se simplifie, ce sont les couples de l'antagonisme qui montent (aube). Les mots viennent du texte, ce ne sont pas des citations.",
+      "dessins": {
+        "colonne": [
+          "111111111",
+          ".1111111.",
+          "..1.1.1..",
+          "..1.1.1..",
+          "..1.1.1..",
+          "..1.1.1..",
+          "..1.1.1..",
+          ".1111111.",
+          "111111111"
+        ],
+        "chateau": [
+          "1.1.1.1.1.1",
+          "11111111111",
+          "11111111111",
+          "111.111.111",
+          "111.111.111",
+          "11111111111",
+          "1111...1111",
+          "1111...1111",
+          "1111...1111"
+        ],
+        "fabrique": [
+          ".11.........",
+          ".11.........",
+          ".11.........",
+          ".11...1...1.",
+          ".11..11..11.",
+          ".11.111.111.",
+          "111111111111",
+          "1.11.11.11.1",
+          "111111111111"
+        ],
+        "engrenage": [
+          "...1.1...",
+          ".1.111.1.",
+          "..11111..",
+          "1111.1111",
+          ".11...11.",
+          "1111.1111",
+          "..11111..",
+          ".1.111.1.",
+          "...1.1..."
+        ]
+      },
+      "motifs": [
+        { "m": "colonne", "chaude": ["patricien", "chevalier"], "aube": ["libres et esclaves", "patriciens, plébéiens"] },
+        { "m": "chateau", "chaude": ["seigneur", "vassal"], "aube": ["barons et serfs", "oppresseurs, opprimés"] },
+        { "m": "rouet", "chaude": ["maître", "compagnon"], "aube": ["maîtres de jurandes", "guerre dissimulée"] },
+        { "m": "fabrique", "chaude": ["officier", "sous-officier"], "aube": ["bourgeois", "prolétaire"] },
+        { "m": "engrenage", "chaude": ["petit industriel", "artisan"], "aube": ["deux camps", "deux classes ennemies"] },
+        { "m": "piece", "chaude": ["rentier", "marchand"], "aube": ["le capital", "le salaire"] }
+      ]
     }
   }
 }
