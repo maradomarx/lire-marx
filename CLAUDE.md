@@ -11055,6 +11055,13 @@ des sprites en points, certains s'allument et un mot monte).
   qu'une texture. Sous reduced-motion, une image fixe. Boucle arrêtée si
   l'onglet est masqué ; canevas plafonné à DPR 1,5 ; mesuré à 61 images/s.
 - Les motifs sont une bibliothèque (`MOTIFS`) que les pages enrichissent.
+- **Le survol (souris seulement) : le regard lève le voile.** Le curseur
+  porte une faible lanterne qui éclaire les objets voisins ; l'objet le plus
+  proche (92 px) prend la lumière froide et montre le travail qui l'a fait
+  (ses mots `aube`) à la place de son prix. Rien sur la colonne de texte,
+  rien au doigt. ⚠️ Effet codé et sans erreur, mais PAS ENCORE VÉRIFIÉ À
+  L'IMAGE (le clip de capture de puppeteer prend des coordonnées de
+  document : la sonde a photographié le haut de page).
 
 ### `verif-citations.mjs` vérifie enfin le glossaire
 

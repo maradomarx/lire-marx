@@ -127,10 +127,39 @@
     it2.label = mots.length ? mots[Math.floor(Math.random() * mots.length)] : '';
   }
 
+  /* ── LE REGARD LÈVE LE VOILE (survol, souris seulement) ──
+     Le curseur porte une faible lumière qui éclaire les objets voisins.
+     Celui qu'on approche prend la lumière froide et montre, au lieu de son
+     prix, le travail qui l'a fait (ses mots « aube ») : ce que l'analyse
+     de Marx fait voir derrière l'apparence. Rien ne se passe quand le
+     curseur est sur la colonne de texte. Pas d'effet au doigt : il n'y a
+     pas de survol, et un toucher sert à faire défiler. */
+  var SURVOL = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var mx = -1e4, my = -1e4, souris = false, cible = null, R_HALO = 170, R_CIBLE = 92;
+  function eteindre(){ souris = false; cible = null; if (REDUCE) redessiner(); }
+  var attente = false;
+  function redessiner(){ if (attente) return; attente = true; requestAnimationFrame(function(){ attente = false; dessiner(performance.now()); }); }
+  if (SURVOL) {
+    window.addEventListener('pointermove', function(e){
+      if (e.pointerType && e.pointerType !== 'mouse') return;
+      mx = e.clientX; my = e.clientY; souris = !dansZone(mx);
+      if (REDUCE) redessiner();
+    }, { passive: true });
+    document.documentElement.addEventListener('mouseleave', eteindre);
+    window.addEventListener('blur', eteindre);
+  }
+
   var VIE = 4200;
   function dessiner(now){
     ctx.clearRect(0, 0, W, H);
     var off = REDUCE ? 0 : scrollY * 0.22, sec = now / 1000;
+    /* la lanterne du regard, sous les objets */
+    if (souris) {
+      var halo = ctx.createRadialGradient(mx, my, 0, mx, my, R_HALO);
+      halo.addColorStop(0, 'rgba(216,173,76,.075)'); halo.addColorStop(1, 'rgba(216,173,76,0)');
+      ctx.fillStyle = halo; ctx.fillRect(mx - R_HALO, my - R_HALO, R_HALO * 2, R_HALO * 2);
+    }
+    var proche = null, dProche = R_CIBLE;
     ctx.font = 'italic 500 14px Fraunces, Georgia, serif'; ctx.textAlign = 'center';
     for (var k = 0; k < items.length; k++) {
       var it = items[k], s = spr[it.d.m];
@@ -141,6 +170,16 @@
       var x = it.x + (REDUCE ? 0 : danse * 3), y = sy + (REDUCE ? 0 : Math.cos(sec * 6.2832 / (it.per * 1.3) + it.ph) * 4);
       var rot = it.rot * 0.25 + danse * 0.06;
       var base = (zone ? 0.055 : 0.2) * it.z;
+      /* le regard : éclaire les voisins, et le plus proche montre son travail */
+      if (souris && !zone) {
+        var dx = x - mx, dy = y - my, dist = Math.sqrt(dx * dx + dy * dy);
+        base += Math.max(0, 1 - dist / R_HALO) * 0.26;
+        if (dist < dProche) { dProche = dist; proche = it; }
+      }
+      var cibleH = it === cible ? 1 : 0;
+      it.h = (it.h || 0) + (cibleH - (it.h || 0)) * (REDUCE ? 1 : 0.16);
+      if (it.h < 0.01) it.h = 0;
+      var h = it.h;
       /* l'allumage : monte en 600 ms, tient, s'éteint */
       var l = 0;
       if (it.lit > 0) {
@@ -148,23 +187,40 @@
         l = a < 600 ? a / 600 : a < VIE - 1300 ? 1 : Math.max(0, (VIE - a) / 1300);
         if (a > VIE) { it.lit = 0; l = 0; }
       }
-      ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.scale(it.z, it.z);
-      ctx.globalAlpha = base * (1 - l * 0.6);
+      var sc = it.z * (1 + h * 0.1);
+      ctx.save(); ctx.translate(x, y); ctx.rotate(rot * (1 - h)); ctx.scale(sc, sc);
+      ctx.globalAlpha = base * (1 - Math.max(l * 0.6, h * 0.8));
       ctx.drawImage(s.dim.c, -s.dim.w / 2, -s.dim.h / 2, s.dim.w, s.dim.h);
-      if (l > 0) {
+      if (l > 0 && h < 1) {
         var sl = s[it.lum];
-        ctx.globalAlpha = l * 0.75;
+        ctx.globalAlpha = l * 0.75 * (1 - h);
         ctx.drawImage(sl.c, -sl.w / 2, -sl.h / 2, sl.w, sl.h);
       }
+      if (h > 0) {
+        ctx.globalAlpha = h * 0.9;
+        ctx.drawImage(s.aube.c, -s.aube.w / 2, -s.aube.h / 2, s.aube.w, s.aube.h);
+      }
       ctx.restore();
-      if (l > 0 && it.label) {
+      var haut = y - s.dim.h * sc / 2 - 8;
+      if (l > 0 && it.label && h < 1) {
         var rgb = TEINTES[it.lum], monte = (now - it.t) / VIE;
-        ctx.globalAlpha = l * 0.82;
+        ctx.globalAlpha = l * 0.82 * (1 - h);
         ctx.fillStyle = 'rgb(' + rgb.join(',') + ')';
-        ctx.fillText(it.label, x, y - s.dim.h * it.z / 2 - 8 - monte * 16);
+        ctx.fillText(it.label, x, haut - monte * 16);
+      }
+      if (h > 0 && it.travail) {
+        ctx.globalAlpha = h * 0.92;
+        ctx.fillStyle = 'rgb(' + TEINTES.aube.join(',') + ')';
+        ctx.fillText(it.travail, x, haut - 2);
       }
     }
     ctx.globalAlpha = 1;
+    /* la cible du prochain dessin ; son mot est choisi une fois, à l'arrivée */
+    if (proche !== cible) {
+      cible = proche;
+      if (cible) { var mots = cible.d.aube || []; cible.travail = mots.length ? mots[Math.floor(Math.random() * mots.length)] : ''; }
+      if (REDUCE) redessiner();
+    }
   }
 
   var raf = null, encours = false;
