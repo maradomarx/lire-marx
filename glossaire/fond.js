@@ -42,6 +42,9 @@
     sac:    ['..1...1..','...111...','..11111..','.1111111.','111111111','111111111','111111111','.1111111.'],
     rouet:  ['...11111...','..1.....1..','.1...1...1.','.1..111..1.','.1...1...1.','..1.....1..','...11111...','.....1.....','....111....','...11111...']
   };
+  /* une page peut apporter ses propres dessins (meta.da.fond.dessins :
+     { nom: [lignes de '1' et '.'] }) sans toucher à ce fichier */
+  if (cfg.dessins) for (var nom in cfg.dessins) if (Array.isArray(cfg.dessins[nom])) MOTIFS[nom] = cfg.dessins[nom];
   var CELL = 4.4;                       /* pas de la grille, en px CSS, à profondeur 1 */
   var TEINTES = { chaude: [216, 173, 76], aube: [169, 196, 222] };
 

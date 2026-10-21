@@ -132,8 +132,10 @@ reflète dans la vitre). Trois outils, tous facultatifs :
   prix (`chaude`) puis, à la section V, le travail qui les a faites
   (`aube`). Les motifs disponibles sont dans `MOTIFS` de `fond.js` (table,
   habit, botte, toile, sucre, piece, sac, rouet) : **une notion qui a
-  besoin d'autres objets ajoute ses motifs**, une grille de points de 7 à
-  10 lignes. Rien ne s'allume derrière la colonne de texte, et le champ y
+  besoin d'autres objets les dessine dans ses propres données** :
+  `"dessins": { "machine": ["..11..", ...] }` dans `meta.da.fond`, une
+  grille de `1` et de `.` de 7 à 10 lignes et de 7 à 13 colonnes. On ne
+  modifie pas `fond.js`. Rien ne s'allume derrière la colonne de texte, et le champ y
   tombe presque à rien.
 - **`lumieres`** : `{ "etape": "aube" }` fait passer la lumière
   d'ambiance du chaud au froid quand le lecteur arrive à cette section
