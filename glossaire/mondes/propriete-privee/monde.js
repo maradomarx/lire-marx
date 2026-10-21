@@ -201,18 +201,17 @@ window.LM_MONDE = function (canvas) {
 
     lampe.intensity = 3.0 * (1 + 0.03 * Math.sin(T * 7.3));
 
-    /* la caméra. L'ensemble fait à peu près une unité et quart ; à 38° et en
-       paysage la largeur vue vaut 1,07 fois la distance, et la colonne de
-       texte prend 43 % — d'où deux unités et demie, et un décalage de 0,52. */
+    /* la caméra. La scène est une FIGURE en bas de page depuis octobre 2026 :
+       plus de colonne de texte à côté d'elle, donc plus de visée décalée à
+       gauche du sujet (elle rejetait la pierre au bord droit du cadre). On
+       vise la pierre de près, puis le milieu de l'ensemble balance, pierre,
+       étiquette, qui va de la balance (CX - 0,70) à l'étiquette (CX + 0,38). */
     var q = ss(0, 1, Math.min(1, G / 1.8));
-    var cx = lerp(0.46, 0.10, q), cy = lerp(0.52, 0.84, q), cz = lerp(1.05, 2.30, q);
-    cz = lerp(cz, 2.55, st.recul); cy = lerp(cy, 0.96, st.recul);
-    var camA = V3(lerp(CX, CX - 0.235, q), lerp(0.20, 0.14, q), CZ);
+    var cx = lerp(0.46, CX - 0.16, q), cy = lerp(0.52, 0.80, q), cz = lerp(1.05, 1.95, q);
+    cz = lerp(cz, 2.25, st.recul); cy = lerp(cy, 0.92, st.recul);
+    var camA = V3(lerp(CX, CX - 0.16, q), lerp(0.20, 0.18, q), CZ);
     camera.position.set(cx + 0.012 * Math.sin(T * 0.29), cy + 0.008 * Math.sin(T * 0.37), cz);
-    var dist = camera.position.distanceTo(camA);
-    var fwd = new THREE.Vector3().subVectors(camA, camera.position).normalize();
-    var right = new THREE.Vector3().crossVectors(fwd, V3(0, 1, 0)).normalize();
-    aim.copy(camA).addScaledVector(right, -Math.min(0.26 * dist, 0.42));
+    aim.copy(camA);
     camera.lookAt(aim);
     render();
   }
