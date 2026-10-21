@@ -1263,7 +1263,23 @@ function identite(nom) {
     let essai = readFileSync(`${dossier}/essai.html`, 'utf8').replace(/<!--[^]*?-->/g, '').trim();
     const url = `${ORIGIN}/glossaire/${t.id}`;
     const titre = nu(meta.titre || t.nom);
-    const desc = nu(meta.description || meta.chapo);
+    /* LE GABARIT DE LECTURE (mission glossaire-pilote, oct. 2026) : une page
+       réécrite selon glossaire/mondes/CHARTE.md porte `enbref` (qui remplace
+       le chapô), `retenir` et `questions`. Sa tête sort de la colonne pour
+       passer AVANT la scène sur téléphone (classe nt--tete). Une page non
+       réécrite garde l'ancien gabarit, au pixel près. */
+    const neuf = !!meta.enbref;
+    if (neuf) {
+      if (!Array.isArray(meta.retenir) || meta.retenir.length < 3)
+        throw new Error(`« ${t.nom} » : enbref sans « retenir » (3 points au moins).`);
+      if (!Array.isArray(meta.questions) || meta.questions.length < 2)
+        throw new Error(`« ${t.nom} » : enbref sans « questions » (2 au moins).`);
+      if (/data-q=/.test(JSON.stringify([meta.enbref, meta.retenir, meta.questions])))
+        throw new Error(`« ${t.nom} » : une citation liée dans meta.json serait invérifiable — paraphraser.`);
+    }
+    const numFrF = (n) => ['zéro', 'une', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit'][n] || String(n);
+    const tete = neuf ? meta.enbref : meta.chapo;
+    const desc = nu(meta.description || tete);
     // Le titre de résultat peut dire le mot tel qu'on le cherche (« définition »,
     // la forme courante) : meta.seo, choisi d'après Search Console.
     const titreSeo = meta.seo || `${titre} — Marx, définition et explication`;
@@ -1302,6 +1318,15 @@ function identite(nom) {
     if (/data-q=/.test(essai)) throw new Error(`« ${titre} » : une citation n'a pas été reconnue (data-q resté dans l'essai).`);
     const mots = nu(essai).split(/\s+/).filter(Boolean).length;
     if (mots < 1200) throw new Error(`« ${titre} » : ${mots} mots — une page-monde en veut au moins 1 200.`);
+    /* Temps de lecture, section par section (230 mots par minute, la vitesse
+       courante d'une lecture attentive en français). */
+    const minutes = (n) => Math.max(1, Math.round(n / 230));
+    for (const m of essai.matchAll(/<section class="nt-sec"[^>]*id="([^"]+)"[^>]*>([^]*?)<\/section>/g)) {
+      const sec = sections.find((x) => x.id === m[1]);
+      if (sec) sec.min = minutes(nu(m[2]).split(/\s+/).filter(Boolean).length);
+    }
+    if (neuf && /—|–/.test(nu(essai) + JSON.stringify([meta.enbref, meta.retenir, meta.questions])))
+      throw new Error(`« ${titre} » : un tiret cadratin reste dans la prose (CHARTE.md, §4).`);
 
     /* Les instruments viennent des provenances ; un outil du dossier qui
        vise le MÊME endroit en plus précis (#explore=x-feti contre #explore)
@@ -1309,7 +1334,7 @@ function identite(nom) {
     const precis = (meta.outils || []).map((o) => o.url);
     const outils = [
       ...t.sources.filter((sc) => !precis.some((u) => u.startsWith(sc.url)))
-        .map((sc) => ({ label: `${nu(sc.groupe)} — ${sc.oeuvre}`, url: sc.url })),
+        .map((sc) => ({ label: `${nu(sc.groupe)}${neuf ? ', ' : ' — '}${sc.oeuvre}`, url: sc.url })),
       ...(meta.outils || []),
     ];
     const voisines = (meta.voisins || [])
@@ -1365,6 +1390,49 @@ ${credit}  </aside>`;
         ] },
     ].map((o) => `${OPEN}\n${JSON.stringify(o, null, 2)}\n${CLOSE}`).join('\n');
 
+    /* La tête du gabarit de lecture : hors de la colonne, pour passer AVANT la
+       scène sur téléphone. « En bref » (30 secondes), « Ce qu'il faut
+       retenir » (2 minutes), puis l'essai. */
+    function teteNeuve() {
+      const tot = sections.reduce((a, s) => a + (s.min || 0), 0);
+      return `<header class="nt-tete">
+
+  <nav class="nt-fil" aria-label="Fil d'Ariane">
+    <a href="/">Lire Marx</a><span aria-hidden="true">›</span><a href="/glossaire/">Glossaire</a><span aria-hidden="true">›</span>${t.nom}
+  </nav>
+
+  <h1 class="nt-h1">${meta.titre || t.nom}${(meta.de || t.de) ? `<span class="nt-de" lang="de">${meta.de || t.de}</span>` : ''}</h1>
+
+  <section class="nt-bref" aria-labelledby="nt-bref-t">
+    <h2 class="nt-bref-t" id="nt-bref-t">En bref</h2>
+    <p>${meta.enbref}</p>
+  </section>
+
+  <section class="nt-retenir" aria-labelledby="nt-retenir-t">
+    <h2 class="nt-bloc-t" id="nt-retenir-t">Ce qu'il faut retenir</h2>
+    <ol>
+${meta.retenir.map((r) => `      <li>${r}</li>`).join('\n')}
+    </ol>
+    <p class="nt-duree">Pour aller plus loin, l'essai se lit en ${tot} minutes.</p>
+  </section>
+
+</header>
+${monde}
+<div class="nt-col">
+`;
+    }
+    function quizNeuf() {
+      return `
+  <section class="nt-quiz" aria-labelledby="nt-quiz-t">
+    <h2 id="nt-quiz-t">Vérifier sa compréhension</h2>
+${meta.questions.map((x) => `    <details>
+      <summary>${x.q}</summary>
+      <div class="nt-quiz-r"><p>${x.r}</p></div>
+    </details>`).join('\n')}
+  </section>
+`;
+    }
+
     const html = `<!doctype html>
 <html lang="fr">
 <head>
@@ -1402,9 +1470,9 @@ ${ld}
 </head>
 <body>
 <main class="wrap" id="contenu" tabindex="-1">
-<article class="nt nt--monde${plein ? ' nt--plein' : ''}">
+<article class="nt nt--monde${plein ? ' nt--plein' : ''}${neuf ? ' nt--tete' : ''}">
 <div class="nt-grid">
-<div class="nt-col">
+${neuf ? teteNeuve() : `<div class="nt-col">
 
   <nav class="nt-fil" aria-label="Fil d'Ariane">
     <a href="/">Lire Marx</a><span aria-hidden="true">›</span><a href="/glossaire/">Glossaire</a><span aria-hidden="true">›</span>${t.nom}
@@ -1413,19 +1481,21 @@ ${ld}
   <p class="nt-label">La notion</p>
   <h1 class="nt-h1">${meta.titre || t.nom}${(meta.de || t.de) ? `<span class="nt-de" lang="de">${meta.de || t.de}</span>` : ''}</h1>
   <p class="nt-chapo">${meta.chapo}</p>
-
+`}
   <nav class="nt-som" aria-label="Sommaire">
-    <p class="nt-som-t">Dans cet essai</p>
+    <p class="nt-som-t">${neuf ? `L'essai, en ${numFrF(sections.length)} questions` : 'Dans cet essai'}</p>
     <ol>
-${sections.map((s) => `      <li><a href="#${s.id}">${s.h2}</a></li>`).join('\n')}
+${sections.map((s) => `      <li><a href="#${s.id}">${s.h2}${neuf ? `<span class="nt-som-min">${s.min} min</span>` : ''}</a></li>`).join('\n')}
     </ol>
   </nav>
 
   <div class="nt-corps nt-essai">
 ${essai}
   </div>
-
-  <p class="nt-colophon">Les citations sont relevées dans le texte que ce site sert — ${src.cite || ''} — et chacune mène au passage dans la liseuse.</p>
+${neuf ? quizNeuf() : ''}
+  <p class="nt-colophon">${neuf
+    ? `Les citations viennent du texte que ce site sert&nbsp;: ${src.cite || ''}. Chacune mène au passage dans la liseuse.`
+    : `Les citations sont relevées dans le texte que ce site sert — ${src.cite || ''} — et chacune mène au passage dans la liseuse.`}</p>
 
   <div class="nt-appareil">
     <div class="nt-bloc nt-bloc--source">
@@ -1459,7 +1529,7 @@ ${voisines.map((v) => `      <a href="${v.href}">${v.nom}</a>`).join('\n')}
   </div>
 
 </div>
-${monde}
+${neuf ? '' : monde}
 </div>
 </article>
 </main>
@@ -1487,7 +1557,8 @@ ${aScene ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-d
      * notice à une entrée qui mène en haut de page. */
     const legendes = (meta.monde && meta.monde.etapes) || {};
     ESSAIS.push({ id: t.id, t: titre,
-      s: [{ a: '', h: 'Présentation', x: [nu(meta.chapo), nu(meta.ou)].join(' ').replace(/\s+/g, ' ').trim() }]
+      s: [{ a: '', h: neuf ? 'En bref' : 'Présentation',
+            x: [nu(tete), ...(neuf ? meta.retenir.map(nu) : []), nu(meta.ou)].join(' ').replace(/\s+/g, ' ').trim() }]
         .concat(sections.map((sec) => ({
           a: sec.id, h: nu(sec.h2),
           x: [corps[sec.id] || '', nu(legendes[sec.etape] || '')].join(' ').replace(/\s+/g, ' ').trim()

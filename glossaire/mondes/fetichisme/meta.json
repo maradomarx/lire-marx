@@ -1,19 +1,40 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/fetichisme. L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/fetichisme. L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Page pilote de glossaire/mondes/CHARTE.md (enbref, retenir, questions).",
   "titre": "Fétichisme de la marchandise",
   "de": "Fetischcharakter der Ware",
-  "chapo": "Le fétichisme de la marchandise n'est ni une croyance ni une erreur&nbsp;: c'est la forme sous laquelle un rapport social entre les hommes se présente réellement, dans une société marchande, comme un rapport entre des choses. Marx en fait le secret du chapitre premier du <i>Capital</i>, et la clé de tout ce qui suit.",
-  "description": "Le fétichisme de la marchandise chez Marx : pourquoi un rapport entre les hommes prend la forme d'un rapport entre les choses, et pourquoi le savoir n'y change rien.",
+  "enbref": "Le fétichisme de la marchandise désigne, chez Marx, le fait suivant&nbsp;: dans une société où l'on produit pour vendre, les rapports entre les hommes qui travaillent prennent la forme de rapports entre les choses qu'ils produisent. La valeur d'un objet semble lui appartenir, comme son poids, alors qu'elle exprime un rapport social. Marx l'analyse à la fin du premier chapitre du <i>Capital</i> (1867). Cette apparence tient à l'organisation du travail&nbsp;: la comprendre ne suffit pas à la dissiper.",
+  "retenir": [
+    "Une marchandise a l'air d'une chose simple. Marx montre qu'elle porte en elle un rapport entre les personnes qui l'ont produite et échangée.",
+    "Ce rapport passe par les choses parce que chacun travaille séparément, pour son compte. Les travaux ne se relient entre eux qu'au moment de l'échange.",
+    "En comparant les prix de leurs produits, les producteurs comparent leurs travaux sans le savoir. Le fétichisme se trouve dans ce qu'ils font avant de se trouver dans ce qu'ils pensent.",
+    "Savoir que la valeur vient du travail ne change rien à l'apparence. Elle durera aussi longtemps que cette organisation du travail.",
+    "Le mot vient de l'histoire des religions, où un fétiche est un objet auquel on prête un pouvoir qu'on lui a soi-même donné. Le sens courant, un goût excessif pour un objet, n'a rien à voir avec lui."
+  ],
+  "questions": [
+    {
+      "q": "Pourquoi la table de bois de Marx n'a-t-elle rien de mystérieux tant qu'on la regarde comme une table&nbsp;?",
+      "r": "Parce que, comme objet utile, elle montre tout ce qu'elle est&nbsp;: du bois auquel un menuisier a donné une forme. Le mystère commence quand elle devient marchandise, c'est-à-dire quand elle a un prix et s'échange contre d'autres choses dans une certaine proportion."
+    },
+    {
+      "q": "Les producteurs d'une société marchande se trompent-ils sur la valeur&nbsp;?",
+      "r": "Pas au sens d'une erreur de raisonnement. En échangeant leurs produits, ils égalisent réellement leurs travaux, sans y penser. L'apparence correspond à ce qui se passe&nbsp;: leurs rapports passent bel et bien par les choses."
+    },
+    {
+      "q": "Que montrent les exemples de Robinson, du serf et de l'association d'hommes libres&nbsp;?",
+      "r": "Qu'il existe des formes de production où l'on voit directement qui travaille pour qui. Le rapport social n'y a pas besoin d'être déchiffré. Le fétichisme appartient donc à une époque, celle de la production marchande, et peut finir avec elle."
+    }
+  ],
+  "description": "Le fétichisme de la marchandise chez Marx, expliqué simplement : pourquoi un rapport entre les hommes prend la forme d'un rapport entre les choses.",
   "source": {
     "_": "La source des citations : work = id de bibliotheque.json (le deep-link #s=&q= s'ouvre sur cette page), s = section Wikisource par défaut, cite = ce qu'on imprime sous chaque citation.",
     "work": "capital-1",
     "s": 1,
-    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre premier, IV — traduction Joseph Roy (1872)"
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre premier, section IV, traduction Joseph Roy (1872)"
   },
-  "ou": "Livre&nbsp;I, chapitre premier, quatrième et dernière section&nbsp;: « Le caractère fétiche de la marchandise et son secret ». Le fétiche revient à chaque forme plus développée — argent, capital, rente — et le Livre&nbsp;III en achève la série sous le nom de formule trinitaire.",
+  "ou": "Livre&nbsp;I, chapitre premier, quatrième et dernière section&nbsp;: « Le caractère fétiche de la marchandise et son secret ». Le fétiche revient à chaque forme plus développée (l'argent, le capital, la rente), et le Livre&nbsp;III en achève la série sous le nom de formule trinitaire.",
   "outils": [
     {
-      "label": "Le fétichisme — la pièce d'exploration de l'atelier",
+      "label": "Le fétichisme, la pièce d'exploration de l'atelier",
       "url": "/oeuvres/capital-1#explore=x-feti"
     }
   ],
@@ -30,9 +51,9 @@
     "_": "La scène : la table de bois de Marx, à la bougie — l'exemple par lequel il ouvre la section, pris au pied de la lettre. Autour d'elle, ce que le texte donne : les autres marchandises du chapitre I (la toile, l'habit, les bottes) devant lesquelles elle « se dresse sur sa tête », et le travail du menuisier qui « se voit » (rabot, scie, copeaux). Ordinaire tant qu'on la lit comme une table ; à la forme marchandise elle se soulève et se dresse sur sa tête, une étiquette de valeur pendue à un pied par un fil rouge ; au mécanisme elle danse et son ombre au mur devient deux personnes — le rapport social que la chose masque ; aux contre-mondes une lumière froide entre par la fenêtre et elle retombe sur ses pieds. Tout est fonction de la POSITION de lecture, donc réversible.",
     "alt": "Une table de bois, seule, éclairée à la bougie ; elle se dresse sur sa tête, une étiquette de valeur pendue à un pied, et son ombre sur le mur a la silhouette de deux personnes.",
     "etapes": {
-      "trivial": "La table de bois de Marx — l'exemple par lequel il ouvre la section. Tant qu'on la regarde comme une table, rien de mystérieux : le travail du menuisier se voit.",
+      "trivial": "La table de bois de Marx, l'exemple par lequel il ouvre la section. Tant qu'on la regarde comme une table, rien de mystérieux : le travail du menuisier se voit.",
       "table": "Le bois est resté bois, et le rabot est encore là. C'est comme marchandise qu'elle change de conduite.",
-      "forme": "« Elle se dresse, pour ainsi dire, sur sa tête de bois en face des autres marchandises » — la toile, l'habit, les bottes — et la valeur lui pend comme une propriété.",
+      "forme": "« Elle se dresse, pour ainsi dire, sur sa tête de bois en face des autres marchandises » (la toile, l'habit, les bottes), et la valeur lui pend comme une propriété.",
       "danse": "« Des caprices plus bizarres que si elle se mettait à danser. » Son ombre, elle, dit ce qu'elle est : un rapport entre des personnes.",
       "voile": "Là où le travail est commun, une autre lumière entre : la table retombe sur ses pieds, et le rapport se voit.",
       "lectures": "La table est redevenue une table. La forme, elle, est toujours là."
@@ -44,7 +65,7 @@
     },
     "source": {
       "_": "La ligne fixe sous la scène, quelle que soit l'étape : elle dit que ce qu'on voit est DANS le livre, et mène au passage (deep-link sur q).",
-      "texte": "D'après le texte — Livre I, chapitre I, section IV",
+      "texte": "D'après le texte : Livre I, chapitre I, section IV",
       "q": "elle se dresse, pour ainsi dire, sur sa tête de bois"
     }
   }
