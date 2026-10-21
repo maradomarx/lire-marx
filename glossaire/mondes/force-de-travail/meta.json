@@ -1,18 +1,40 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/force-de-travail.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/force-de-travail. L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrit en octobre 2026 selon glossaire/mondes/CHARTE.md.",
   "titre": "Force de travail",
   "de": "Arbeitskraft",
-  "chapo": "La force de travail est la marchandise que le travailleur vend : non son travail, mais la capacité d'en fournir, pour un temps. Marx la trouve sur le marché pour résoudre une énigme — d'où vient le plus de A—M—A′ — et c'est par elle que l'on passe de la sphère de l'échange, où tout est libre et égal, au laboratoire secret de la production.",
-  "description": "La force de travail chez Marx : ce que le travailleur vend vraiment, à quelles conditions historiques, comment sa valeur se fixe, et pourquoi son usage crée plus qu'elle ne coûte.",
+  "enbref": "La force de travail est, chez Marx, la capacité de travailler qu'un homme porte dans son corps et qu'il vend pour un temps limité contre un salaire. Ce qu'il vend n'est donc pas son travail, qui n'existe pas encore au moment de la vente. Marx l'expose au chapitre VI du <i>Capital</i> (1867). La distinction explique le profit sans supposer de vol&nbsp;: la force est payée à sa valeur, mais son usage crée plus de valeur qu'elle n'en coûte.",
+  "retenir": [
+    "Le capital est de l'argent qui revient augmenté. Cet accroissement ne peut naître de l'échange, où l'on échange des valeurs égales&nbsp;: il faut une marchandise dont l'usage crée de la valeur.",
+    "Cette marchandise est la force de travail, la capacité de travailler. Elle n'est en vente que si le travailleur est libre de se louer et n'a rien d'autre à vendre.",
+    "La force de travail se distingue du travail&nbsp;: l'une est vendue, l'autre est consommée. Ce que la force coûte et ce que son usage produit sont deux grandeurs différentes.",
+    "Sa valeur est celle des subsistances qui permettent au travailleur de recommencer le lendemain et d'élever ses enfants. Elle comprend une part historique et morale.",
+    "Au marché, l'acheteur et le vendeur sont libres et égaux. À l'atelier, l'un commande et l'autre travaille, sans que le contrat ait été violé."
+  ],
+  "questions": [
+    {
+      "q": "Dans l'exemple de Marx, pourquoi l'ouvrier qui reçoit trois shillings par jour n'est-il pas volé&nbsp;?",
+      "r": "Parce que trois shillings représentent les six heures de travail nécessaires pour produire ses subsistances d'une journée, c'est-à-dire la valeur de sa force de travail. Il la vend donc à sa valeur. Le profit vient de ce que l'acheteur l'emploie douze heures, et non d'un prix trop bas."
+    },
+    {
+      "q": "Pourquoi Marx refuse-t-il de parler de la «&nbsp;valeur du travail&nbsp;»&nbsp;?",
+      "r": "Parce que le travail est ce qui mesure la valeur&nbsp;: dire que douze heures de travail valent six heures de travail n'a pas de sens. Au moment de la vente, d'ailleurs, le travail n'existe pas encore. Ce qui se vend, c'est la capacité de travailler, qui a une valeur comme toute marchandise."
+    },
+    {
+      "q": "Pourquoi la force de travail suppose-t-elle une histoire&nbsp;?",
+      "r": "Parce qu'il faut des hommes libres de se louer et privés de tout autre moyen de vivre. La nature ne produit pas ces hommes&nbsp;: ils sont nés de la destruction des anciennes formes de production, que Marx appelle l'accumulation primitive. Le capital suppose cette rencontre sur le marché."
+    }
+  ],
+  "description": "La force de travail chez Marx, expliquée simplement : ce que le salarié vend vraiment, ce qu'elle vaut, et pourquoi son usage crée plus qu'elle ne coûte.",
   "source": {
+    "_": "La source des citations : work = id de bibliotheque.json, s = section Wikisource par défaut (2 = chapitres IV à VI ; certaines citations sont en section 3, chapitres VII à XI).",
     "work": "capital-1",
     "s": 2,
-    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitres V à VII et X — traduction Joseph Roy (1872)"
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitres V à VII et X, traduction Joseph Roy (1872)"
   },
-  "ou": "Livre&nbsp;I, chapitre VI, « Achat et vente de la force de travail » — la solution des contradictions de la formule générale (chapitre V). Le chapitre VII en tire la plus-value, le chapitre X la journée de travail, le chapitre XIX le salaire comme « prix du travail ».",
+  "ou": "Livre&nbsp;I, chapitre VI, «&nbsp;Achat et vente de la force de travail&nbsp;», qui résout les contradictions de la formule générale du capital (chapitre V). Le chapitre VII en tire la plus-value, le chapitre X la journée de travail, le chapitre XIX le salaire comme «&nbsp;prix du travail&nbsp;».",
   "outils": [
     {
-      "label": "La journée de travail — le laboratoire",
+      "label": "La journée de travail, le laboratoire",
       "url": "/oeuvres/capital-1#labo=s-jour"
     }
   ],
@@ -26,26 +48,97 @@
     "Fétichisme"
   ],
   "monde": {
-    "_": "LA PHOTOGRAPHIE EST LE MONDE. Plus de décor : le chapitre VI finit par quitter « cette sphère bruyante où tout se passe à la surface » pour le laboratoire secret de la production — on y est d'emblée, et la page n'est que ce que le défilement y fait REGARDER. De la salle et de ses machines aux quatre hommes qui s'y tiennent, puis retour : la salle n'est plus la même une fois qu'on sait ce qu'on y voit. Le troisième temps est un cadeau du tirage — les quatre hommes sont DEBOUT, bras croisés, ils ne travaillent pas : la distinction qui fait le concept est là, littéralement. Moteur 2d (un contexte 2D recadre une image mieux qu'un plan texturé, et sans charger Three.js).",
+    "_": "LA PHOTOGRAPHIE EST LE MONDE : la salle des métiers d'une filature (Lewis Hine, 1912), le « laboratoire secret de la production » du chapitre VI. La figure ne fait que déplacer le regard dans le tirage : de la salle aux quatre hommes qui s'y tiennent, debout, bras croisés (ils ne travaillent pas : ce qui s'achète est une capacité), puis retour à la salle entière. Moteur 2d : un contexte 2D recadre une image sans charger Three.js. Le décalage du sujet vers la droite ne joue qu'au-dessus de 1100 px de canevas.",
+    "titre": "La salle des métiers, en six temps",
     "layout": "plein",
     "alt": "Photographie d'archive : la salle des métiers d'une filature en 1912, ses arbres de transmission au plafond, et quatre jeunes ouvriers pieds nus debout au milieu, bras croisés, qui regardent l'objectif.",
     "source": {
-      "texte": "Le laboratoire secret — Livre I, chapitre VI",
+      "texte": "Le laboratoire secret : Livre I, chapitre VI",
       "q": "pour les suivre tous deux dans le laboratoire secret de la production"
     },
-    "credit": "Photographie : Lewis W. Hine, <i>The Mule Room in the New Bedford Cotton Mill</i>, 1912 — Library of Congress, collection National Child Labor Committee (nclc.02476), domaine public.",
+    "credit": "Photographie : Lewis W. Hine, <i>The Mule Room in the New Bedford Cotton Mill</i>, 1912. Library of Congress, collection National Child Labor Committee (nclc.02476), domaine public.",
     "etapes": {
-      "enigme": "La salle, ses métiers, ses courroies — et quatre hommes au milieu. D'où vient le plus de A—M—A′ ? De rien de ce qui se passe à la surface de l'échange.",
-      "definition": "On entre. Ce qui a été acheté, ce ne sont ni la salle ni les machines : c'est ce que ces hommes peuvent faire, et pour un temps convenu.",
-      "distinction": "Ils sont debout, bras croisés : ils ne travaillent pas. La distinction qui fait le concept est là, dans l'image — ce qui s'achète est une puissance ; le travail, lui, n'existe pas encore.",
-      "valeur": "Les corps, les pieds nus. La force vaut ce qu'il faut pour la refaire chaque jour : sa valeur se lit là, et pas dans ce qu'elle produira.",
-      "seuil": "Les hommes dans la salle. On est de l'autre côté de la porte, dans le laboratoire secret — et ce qu'on y voit est un rapport, non un échange.",
-      "lectures": "La salle entière, de nouveau, et elle n'est plus la même : deux échangistes égaux y sont un maître et un subordonné. Le contrat ne mentait pas."
+      "enigme": "La salle, ses métiers, ses courroies, et quatre hommes au milieu. D'où vient le profit, si au marché tout s'échange à sa valeur&nbsp;?",
+      "definition": "On entre. Ce qui a été acheté, ce ne sont ni la salle ni les machines&nbsp;: c'est ce que ces hommes peuvent faire, pour un temps convenu.",
+      "distinction": "Ils sont debout, bras croisés, et ne travaillent pas. Ce qui s'achète est une capacité&nbsp;; le travail n'a pas encore commencé.",
+      "valeur": "Les corps, les pieds nus. La force vaut ce qu'il faut pour la refaire chaque jour, et non ce qu'elle produira.",
+      "seuil": "On est de l'autre côté de la porte, dans le laboratoire secret. Ce qui s'y voit est un rapport de commandement.",
+      "lectures": "La salle entière, de nouveau. Les deux échangistes égaux du marché y sont devenus un maître et un subordonné, sans que le contrat ait menti."
     },
     "fixe": {
+      "_": "L'image fixe (monde.webp/.jpg) : tools/capture-monde.mjs la photographie à cette position g.",
       "g": 2.05,
-      "legende": "Les quatre hommes, debout, bras croisés : ce qui a été acheté n'est pas leur travail — il n'a pas commencé — mais leur capacité d'en fournir, pour la journée."
+      "legende": "Les quatre hommes, debout, bras croisés. Ce qui a été acheté, c'est leur capacité de travailler pour la journée&nbsp;; leur travail n'a pas commencé."
     },
     "moteur": "2d"
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : la grille. La page se lit devant la grille d'une filature : dehors, des hommes qui n'ont que leur force à vendre ; dedans, le laboratoire secret où on la consomme. La vitrine montre la force au repos, à la porte de l'usine ; la planche la montre en acte ; la scène, dans la salle. La lumière passe au froid quand l'essai franchit le seuil de l'atelier.",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 860,
+      "alt": "Des ouvriers assis sur le trottoir, adossés à la grille de fer d'une filature, à midi ; deux garçons debout contre le pilier de l'entrée ; derrière la grille, les bâtiments de l'usine.",
+      "legende": "À midi, des ouvriers de la filature Durfee font la pause devant sa grille. Selon la notice du photographe, le garçon de quinze ans cherchait du travail&nbsp;: il n'avait que sa force à offrir.",
+      "credit": "Lewis W. Hine, groupe devant la grille de la filature Durfee, Fall River (Massachusetts), 1916. Library of Congress, collection National Child Labor Committee (nclc.03029), domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Group_around_gate_of_Durfee_Mill_at_noon._15_year_old_boy_was_looking_for_a_job._LOC_nclc.03029.jpg"
+    },
+    "planches": {
+      "mecanicien": {
+        "img": "planche-mecanicien.webp",
+        "w": 1000,
+        "h": 1392,
+        "alt": "Un jeune mécanicien en maillot de corps, penché, serre de toutes ses forces une clé géante sur les boulons d'une pompe à vapeur.",
+        "legende": "La force de travail en acte&nbsp;: des muscles et une attention mis en mouvement sur la machine. Au moment de la vente, ce n'était qu'une capacité&nbsp;; ici, c'est du travail.",
+        "credit": "Lewis W. Hine, mécanicien d'une centrale travaillant sur une pompe à vapeur, 1920. National Archives (États-Unis), fonds de la WPA (69-RH-4L-2), domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Lewis_Hine_Power_house_mechanic_working_on_steam_pump.jpg"
+      }
+    },
+    "lumieres": {
+      "seuil": "aube",
+      "lectures": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : ce qui s'échange au marché du chapitre VI, dessiné en points. L'une des choses s'allume et monte ce que le marché en dit (chaude) ; passé le seuil de l'atelier, ou au survol, ce que l'analyse y lit (aube). Les chiffres sont ceux de l'exemple de Marx.",
+      "dessins": {
+        "grille": [
+          "1.1.1.1.1.1",
+          "1.1.1.1.1.1",
+          "11111111111",
+          "1.1.1.1.1.1",
+          "1.1.1.1.1.1",
+          "1.1.1.1.1.1",
+          "11111111111",
+          "1.1.1.1.1.1"
+        ],
+        "horloge": [
+          "..11111..",
+          ".1.....1.",
+          "1...1...1",
+          "1...1...1",
+          "1...111.1",
+          "1.......1",
+          ".1.....1.",
+          "..11111.."
+        ],
+        "pain": [
+          "...11111...",
+          ".111111111.",
+          "11.111.1111",
+          "111.111.111",
+          "1111.111.11",
+          "11111111111",
+          ".111111111."
+        ]
+      },
+      "motifs": [
+        { "m": "grille", "chaude": ["à vendre", "libre"], "aube": ["rien d'autre", "libre de tout"] },
+        { "m": "horloge", "chaude": ["une journée", "douze heures"], "aube": ["six payées", "six de plus"] },
+        { "m": "piece", "chaude": ["un écu", "3 shillings"], "aube": ["sa juste valeur", "payé après"] },
+        { "m": "pain", "chaude": ["subsistances", "le pain du jour"], "aube": ["refaire la force", "et les enfants"] },
+        { "m": "habit", "chaude": ["vêtements", "logement"], "aube": ["part historique", "et morale"] },
+        { "m": "botte", "chaude": ["libre", "égal"], "aube": ["prend les devants", "être tanné"] }
+      ]
+    }
   }
 }

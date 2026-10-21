@@ -42,9 +42,8 @@ window.LM_MONDE = function (canvas) {
 
   /* Les stations du regard. `s` est le SUJET dans l'image (fractions de sa
      largeur et de sa hauteur), `w` la part de largeur que le cadre embrasse.
-     Le sujet n'est pas centré : la colonne de texte occupe la gauche de
-     l'écran, on décale donc le cadre pour qu'il vive dans la moitié droite
-     — le même parti que la visée décalée des scènes en trois dimensions. */
+     Le sujet est au centre du cadre (voir plus bas : depuis la réécriture,
+     la scène est une figure et n'a plus de colonne de texte à éviter). */
   var KEY = [
     { sx: 0.50,  sy: 0.500, w: 1.00 },  /* 0 la salle entière : d'où vient le plus ? */
     { sx: 0.53,  sy: 0.545, w: 0.80 },  /* 1 on entre dans la salle */
@@ -54,7 +53,6 @@ window.LM_MONDE = function (canvas) {
     { sx: 0.50,  sy: 0.520, w: 0.88 },  /* 5 on se retire */
     { sx: 0.50,  sy: 0.500, w: 1.00 }   /* 6 la salle entière — elle n'est plus la même */
   ];
-  var BIAIS = 0.20;   /* le sujet se pose aux sept dixièmes de la largeur */
 
   var G = 0, T = 0, cw = 0, ch = 0, dpr = 1;
   function set(g) { G = g; }
@@ -88,7 +86,11 @@ window.LM_MONDE = function (canvas) {
     if (W > IW) { W = IW; H = W / A; }
     /* le décalage vaut la part de cadre disponible : à pleine largeur il
        n'y a plus de place, et l'image se recentre d'elle-même */
-    var cx = sx - BIAIS * (W / IW);
+    /* La page est réécrite (octobre 2026) : la scène n'est plus en plein
+       écran sous une colonne de texte, c'est une figure en bas de page.
+       Plus de colonne à éviter, donc plus de décalage : le sujet reste au
+       centre, à toutes les largeurs (l'image fixe fait 1200 px). */
+    var cx = sx;
     var x = cl2(cx * IW - W / 2, 0, IW - W);
     var y = cl2(sy * IH - H / 2, 0, IH - H);
     ctx.drawImage(img, x, y, W, H, 0, 0, cw, ch);
@@ -101,7 +103,7 @@ window.LM_MONDE = function (canvas) {
 
     /* un vignettage discret : le tirage est vu à la lampe, et les bords
        rendus au fond de la page laissent respirer le texte */
-    var vg = ctx.createRadialGradient(cw * 0.62, ch * 0.5, Math.min(cw, ch) * 0.22, cw * 0.62, ch * 0.5, Math.max(cw, ch) * 0.78);
+    var vg = ctx.createRadialGradient(cw * 0.5, ch * 0.5, Math.min(cw, ch) * 0.22, cw * 0.5, ch * 0.5, Math.max(cw, ch) * 0.78);
     vg.addColorStop(0, 'rgba(12,9,6,0)');
     vg.addColorStop(1, 'rgba(12,9,6,.62)');
     ctx.fillStyle = vg; ctx.fillRect(0, 0, cw, ch);
