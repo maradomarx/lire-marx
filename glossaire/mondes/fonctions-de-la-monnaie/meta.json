@@ -1,18 +1,43 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/fonctions-de-la-monnaie.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/fonctions-de-la-monnaie. L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrite en octobre 2026 selon glossaire/mondes/CHARTE.md (enbref, retenir, questions).",
   "titre": "Les fonctions de la monnaie",
   "de": "Funktionen des Geldes",
-  "chapo": "Le chapitre III ne demande pas ce qu'est la monnaie mais ce qu'elle fait — et il trouve quatre emplois qui n'exigent pas le même degré de réalité. Pour mesurer une valeur, il suffit d'un or imaginé ; pour circuler, d'un jeton usé ; pour thésauriser et pour éteindre une dette, il faut de l'or vrai. C'est de cet écart, et non d'une méchanceté quelconque, que sortent les crises monétaires.",
-  "description": "Les fonctions de la monnaie chez Marx : mesure des valeurs, moyen de circulation, trésor, moyen de paiement — pourquoi les deux premières peuvent se passer d'or réel, pourquoi les deux dernières ne le peuvent pas, et ce que Marx oppose à la théorie quantitative.",
+  "enbref": "Les fonctions de la monnaie désignent, chez Marx, les emplois que remplit la marchandise devenue monnaie&nbsp;: mesurer la valeur des autres marchandises, les faire circuler, se mettre en réserve comme trésor, éteindre les dettes, passer d'un pays à l'autre. Marx les expose au chapitre III du Livre&nbsp;I du <i>Capital</i> (1867). Ces emplois ne demandent pas la même chose&nbsp;: pour mesurer ou circuler, un or imaginé ou un billet suffit&nbsp;; pour garder ou payer, il faut la monnaie elle-même. Les crises monétaires naissent de cet écart.",
+  "retenir": [
+    "Marx part de ce que fait la monnaie. Il range ses emplois sous trois rubriques&nbsp;: la mesure des valeurs, le moyen de circulation, et la monnaie au sens propre, qui comprend le trésor, le paiement et la monnaie universelle.",
+    "Pour mesurer, la monnaie n'a pas besoin d'être présente&nbsp;: un prix est une somme d'or pensée. Pour circuler, une pièce usée ou un billet suffit, parce que la monnaie ne fait que passer.",
+    "La quantité de monnaie en circulation se règle sur la somme des prix et sur la vitesse à laquelle les pièces changent de main. Marx refuse l'ordre inverse, celui de la théorie quantitative.",
+    "Le trésor, la dette et le commerce entre nations demandent la valeur elle-même&nbsp;: on ne met pas un simple signe en réserve, et à l'échéance aucune marchandise ne remplace la monnaie due.",
+    "Dans une crise, la chaîne des paiements se rompt et la monnaie de compte ne suffit plus&nbsp;: chacun réclame des espèces. La crise monétaire fait éclater l'écart entre les fonctions."
+  ],
+  "questions": [
+    {
+      "q": "Dans l'exemple de Marx, comment 2 livres sterling suffisent-elles à faire circuler 8 livres de marchandises&nbsp;?",
+      "r": "Les mêmes pièces passent de main en main dans la journée&nbsp;: elles paient le froment, puis la toile, puis la bible, puis l'eau-de-vie. Elles font quatre tours et réalisent quatre prix de 2 livres chacun. La masse de monnaie nécessaire vaut donc la somme des prix divisée par le nombre de tours."
+    },
+    {
+      "q": "Pourquoi un billet peut-il remplacer l'or dans la circulation, et pas dans le trésor&nbsp;?",
+      "r": "Dans la circulation, la monnaie ne fait que passer d'une main à l'autre&nbsp;: il suffit qu'elle représente un prix le temps de l'échange, et un signe que l'État rend valable le fait très bien. Le trésor est de la valeur mise de côté pour plus tard, hors de tout échange en cours. Il doit valoir par lui-même, et Marx dit qu'il faut alors le métal en personne."
+    },
+    {
+      "q": "Que se passe-t-il dans une crise monétaire, d'après le chapitre III&nbsp;?",
+      "r": "Tant que les dettes se compensent les unes les autres, la monnaie sert surtout de monnaie de compte. Quand cette chaîne se dérange, chacun doit payer réellement à l'échéance, et la monnaie est exigée en espèces. Les marchandises ne la remplacent plus, et ce qu'on traitait la veille comme une illusion devient la seule richesse qu'on désire."
+    }
+  ],
+  "description": "Les fonctions de la monnaie chez Marx expliquées simplement : mesure des valeurs, circulation, trésor, paiement, et pourquoi la crise réclame des espèces.",
   "source": {
     "work": "capital-1",
     "s": 1,
-    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre III — traduction Joseph Roy (1872)"
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre III, traduction Joseph Roy (1872)"
   },
-  "ou": "Livre&nbsp;I, première section, chapitre III, « La monnaie ou la circulation des marchandises » — après la forme-valeur, qui a montré comment une marchandise finit par occuper la place de l'équivalent général, et avant la formule du capital, qui demandera ce que devient l'argent qu'on avance pour en retirer davantage.",
+  "ou": "Livre&nbsp;I, première section, chapitre III&nbsp;: «&nbsp;La monnaie ou la circulation des marchandises&nbsp;». Il vient après la forme-valeur, qui a montré comment une marchandise devient l'équivalent général, et avant la formule générale du capital, au chapitre IV.",
   "outils": [
     {
-      "label": "Le circuit du capital — le jeu",
+      "label": "La circulation de la monnaie, le laboratoire",
+      "url": "/oeuvres/capital-1#labo=s-monnaie"
+    },
+    {
+      "label": "Le circuit du capital, le jeu",
       "url": "/jeu/"
     }
   ],
@@ -25,23 +50,133 @@
     "Argent"
   ],
   "monde": {
-    "_": "LA SCÈNE : UNE PIÈCE, QUATRE MÉTIERS. Le chapitre trouve quatre emplois qui n'exigent pas le même degré de réalité : la matière de la pièce dit donc son métier. Fantôme au-dessus de l'étiquette (mesurer ne demande aucun or), jeton de cuivre usé sur le rail (circuler n'en demande qu'un semblant), or plein au coffre et au registre. Le dernier temps est la crise : les quatre places la réclament en même temps, et il n'y en a qu'une.",
+    "_": "LA SCÈNE : UNE PIÈCE, QUATRE PLACES. Les emplois de la monnaie n'exigent pas le même degré de réalité : la matière de la pièce dit donc son emploi. Fantôme au-dessus de l'étiquette (mesurer ne demande aucun or), jeton de cuivre usé sur le rail (circuler n'en demande qu'un semblant), or plein au coffre et au registre. Le dernier temps est la crise : les quatre places la réclament en même temps, et il n'y en a qu'une. La monnaie universelle n'a pas de place à elle : elle prolonge le trésor et le paiement à l'échelle du monde.",
+    "titre": "Une pièce et ses quatre places, en six temps",
     "alt": "Sur un comptoir, une pièce d'or et quatre places : une étiquette de prix sur son pied, un rail, un coffre-fort, un registre ouvert. La pièce passe de l'une à l'autre et change de matière selon la place.",
     "source": {
-      "texte": "D'après le texte — Livre I, chapitre III",
+      "texte": "D'après le texte : Livre I, chapitre III",
       "q": "Dans sa fonction de mesure des valeurs, la monnaie n’est employée que comme monnaie idéale"
     },
     "etapes": {
-      "fait": "Une pièce sur un comptoir. Elle paraît faire une seule chose — acheter — et le chapitre va lui en trouver quatre, qui ne demandent pas la même chose d'elle.",
-      "ou": "Les quatre places se posent : l'étiquette qui affiche un prix, le rail où la monnaie passe, le coffre où elle s'arrête, le registre où elle est due.",
-      "distinction": "Au-dessus de l'étiquette, la pièce n'est qu'un fantôme : pour mesurer, un or imaginé suffit. Sur le rail elle se ternit en jeton de cuivre : pour passer, un semblant suffit aussi.",
-      "mecanisme": "Elle va et vient de plus en plus vite, et un billet prend sa place. Une même pièce servant plusieurs fois, il en faut d'autant moins qu'elle court vite.",
-      "ouvre": "Au coffre et au registre, la pièce redevient de l'or plein. On ne garde pas un signe, et l'on n'éteint pas une dette avec une promesse : à l'échéance, il faut la chose même.",
-      "lectures": "La crise. Les quatre places la réclament en même temps, et il n'y en a qu'une. Ce qui passait pour une commodité de compte est réclamé comme argent comptant."
+      "fait": "Une pièce sur un comptoir. On croit qu'elle ne fait qu'acheter&nbsp;; le chapitre III lui trouve plusieurs emplois, qui ne lui demandent pas la même chose.",
+      "ou": "Les quatre places se posent&nbsp;: l'étiquette qui affiche un prix, le rail où la monnaie passe, le coffre où elle s'arrête, le registre où elle est due.",
+      "distinction": "Au-dessus de l'étiquette, la pièce n'est qu'un fantôme&nbsp;: pour mesurer, un or imaginé suffit. Sur le rail, elle s'use en jeton de cuivre&nbsp;: pour passer de main en main, un signe suffit aussi.",
+      "mecanisme": "La pièce va et vient de plus en plus vite, et un billet prend sa place. Plus la même pièce court, moins il en faut.",
+      "ouvre": "Au coffre et au registre, la pièce redevient de l'or plein. Le trésor se garde en métal, et à l'échéance d'une dette, aucune marchandise ne remplace la monnaie.",
+      "lectures": "La crise&nbsp;: les quatre places réclament la pièce en même temps, et il n'y en a qu'une. Ce qu'on tenait pour une écriture de compte, chacun le veut en espèces."
     },
     "fixe": {
       "g": 2.4,
-      "legende": "Au-dessus de l'étiquette, la pièce n'est qu'un fantôme. C'est le point le plus contre-intuitif du chapitre et le plus fécond : pour donner un prix à des millions de marchandises, il n'est pas besoin d'un grain d'or réel."
+      "legende": "Au-dessus de l'étiquette, la pièce n'est qu'un fantôme. Pour donner un prix à des millions de marchandises, personne n'a besoin d'avoir de l'or sous la main."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : le guichet. La page part du moment où la monnaie cesse d'être un signe et doit être là en personne : la foule devant la porte d'une banque, en 1873. Deux planches suivent les degrés de réalité que le chapitre distingue : un assignat, papier qui tient la place de l'or dans la circulation, et une lettre de change, la dette écrite d'où Marx fait naître la monnaie de crédit. Le fond : les objets du chapitre III. En lumière chaude monte ce que la monnaie paraît être (un prix, une pièce, un billet) ; à l'aube, à partir du trésor et de la dette, ce que chaque emploi exige d'elle.",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 1619,
+      "alt": "Gravure : une foule d'hommes en chapeau se presse devant la porte de la Fourth National Bank, à New York ; quelques-uns se hissent jusqu'à l'entrée par-dessus les autres.",
+      "legende": "Panique de 1873 à New York&nbsp;: les clients se pressent pour retirer leurs dépôts. Ce que la veille on tenait pour une écriture de compte, chacun le réclame en espèces.",
+      "credit": "« The Panic, Run on the Fourth National Bank, No. 20 Nassau Street », gravure sur bois, <i>Frank Leslie's Illustrated Newspaper</i>, 4 octobre 1873. Library of Congress, domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:The_Panic_-_Run_on_the_Fourth_National_Bank,_No._20_Nassau_Street_(New_York_City,_1873)_LCCN2002723398.jpg"
+    },
+    "planches": {
+      "assignat": {
+        "img": "planche-assignat.webp",
+        "w": 1300,
+        "h": 862,
+        "alt": "Un assignat de cinq livres créé le 1er novembre 1791 : un billet imprimé au nom des Domaines nationaux, payable au porteur par la Caisse de l'Extraordinaire, numéroté et signé à la main.",
+        "legende": "Un morceau de papier qui porte le nom d'une somme&nbsp;: cinq livres. Là où la monnaie ne fait que passer, un tel signe peut tenir la place de l'or.",
+        "credit": "Assignat de cinq livres, Domaines nationaux, créé le 1er novembre 1791. Rijksmuseum, Amsterdam, CC0.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Assignaat_van_5_livres,_1791_Assignat_de_cinq_livres_(titel_op_object),_RP-P-OB-86.594-16.jpg"
+      },
+      "lettre": {
+        "img": "planche-lettre.webp",
+        "w": 1400,
+        "h": 639,
+        "alt": "Une lettre de change imprimée sur papier bleu, à l'en-tête de la Guernsey Banking Company, remplie à la main pour quinze cents francs et signée Victor Hugo, couverte de tampons.",
+        "legende": "Une lettre de change&nbsp;: l'ordre écrit de payer une somme à une échéance. La marchandise est livrée, la monnaie viendra plus tard, et ce titre circule en attendant.",
+        "credit": "Lettre de change de Victor Hugo sur la Guernsey Banking Company, pour le paiement de 1&nbsp;500 francs à Paul Meurice, 1866-1868. Maison de Victor Hugo, Paris Musées, CC0.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Lettre_de_change_de_Victor_Hugo_sur_la_Guernsey_Banking_Company_pour_le_paiement_de_1_500_f._%C3%A0_Paul_Meurice,_18_avril_18,_ah770.3.jpg"
+      }
+    },
+    "lumieres": {
+      "ouvre": "aube",
+      "lectures": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les objets du chapitre III, dessinés en points. En lumière chaude monte ce que la monnaie paraît être ; à l'aube, ce que chaque emploi exige d'elle. Les sommes viennent des exemples de Marx (2 l. st., la guinée) ou de l'assignat de la planche.",
+      "dessins": {
+        "billet": [
+          "1111111111111",
+          "1...........1",
+          "1.111...1...1",
+          "1.1.....1...1",
+          "1.111...1...1",
+          "1...1...1...1",
+          "1.111...1...1",
+          "1...........1",
+          "1111111111111"
+        ],
+        "coffre": [
+          "..1111111..",
+          ".1.......1.",
+          "11111111111",
+          "1....1....1",
+          "1...111...1",
+          "1....1....1",
+          "1.........1",
+          "11111111111"
+        ],
+        "registre": [
+          "11111.11111",
+          "1...1.1...1",
+          "1.1.1.1.1.1",
+          "1...1.1...1",
+          "1.1.1.1.1.1",
+          "1...1.1...1",
+          "11111111111"
+        ],
+        "etiquette": [
+          "...1111111",
+          "..1......1",
+          ".1..1....1",
+          "1..1.1...1",
+          ".1..1....1",
+          "..1......1",
+          "...1111111"
+        ],
+        "balance": [
+          "....1....",
+          "111111111",
+          ".1..1..1.",
+          "1.1.1.1.1",
+          "111.1.111",
+          "....1....",
+          "....1....",
+          "..11111.."
+        ],
+        "lingot": [
+          "...1111111...",
+          "..1.......1..",
+          ".1.........1.",
+          "1111111111111",
+          "1...........1",
+          "1...........1",
+          "1111111111111"
+        ]
+      },
+      "motifs": [
+        { "m": "etiquette", "chaude": ["2 l. st.", "un prix"], "aube": ["or imaginé", "aucun or présent"] },
+        { "m": "piece", "chaude": ["une guinée", "de main en main"], "aube": ["poids perdu", "même nom"] },
+        { "m": "billet", "chaude": ["cinq livres", "cours forcé"], "aube": ["un signe", "signe d'or"] },
+        { "m": "sac", "chaude": ["le froment", "2 l. st."], "aube": ["quatre tours", "mêmes pièces"] },
+        { "m": "coffre", "chaude": ["un trésor", "mis de côté"], "aube": ["l'or en personne", "vendu sans acheter"] },
+        { "m": "registre", "chaude": ["une dette", "à un mois"], "aube": ["l'échéance", "en espèces"] },
+        { "m": "lingot", "chaude": ["un lingot", "le marché mondial"], "aube": ["monnaie du monde", "or et argent"] },
+        { "m": "balance", "chaude": ["le poids", "l'étalon"], "aube": ["titre et matière", "séparés"] }
+      ]
     }
   }
 }

@@ -1,19 +1,40 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/armee-de-reserve.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/armee-de-reserve. L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrit en octobre 2026 selon glossaire/mondes/CHARTE.md (enbref, retenir, questions).",
   "titre": "Armée de réserve",
   "de": "industrielle Reservearmee",
-  "chapo": "La population ouvrière disponible n'est pas une donnée que l'accumulation rencontre : c'est un produit qu'elle fabrique. Rendue superflue par la hausse de la composition du capital, cette surpopulation relative devient à son tour le levier de l'accumulation — un réservoir de bras que le capital n'a pas payé pour l'entretenir, et dont la seule présence pèse sur ceux qui travaillent.",
+  "enbref": "L'armée industrielle de réserve désigne, chez Marx, la part de la population ouvrière que le capital laisse sans emploi, ou n'emploie que par intermittence, et qu'il tient à sa disposition. Marx l'analyse au chapitre XXV du Livre&nbsp;I du <i>Capital</i> (1867). Il soutient que cette population est produite par l'accumulation elle-même&nbsp;: à mesure qu'il achète plus de machines, un capital qui grandit a besoin de proportionnellement moins de bras. Une fois formée, la réserve pèse sur les salaires de ceux qui travaillent.",
+  "retenir": [
+    "Pour Marx, l'accumulation du capital fabrique elle-même la population ouvrière dont elle n'a plus besoin. Le chômage a une cause économique, et une histoire.",
+    "Un capital qui grandit consacre une part croissante de sa valeur aux machines et aux matières. La part qui paie les salaires augmente en masse et diminue en proportion.",
+    "La surpopulation est dite relative&nbsp;: elle n'est en trop que par rapport aux besoins de valorisation d'un capital donné, à son niveau technique du moment.",
+    "Une fois formée, la réserve fournit des bras aux expansions soudaines de la production. Par sa seule présence, elle pèse sur ceux qui travaillent et sur leur salaire.",
+    "Marx distingue trois formes, flottante, latente et stagnante, avec le paupérisme au fond. Plus la réserve grossit, plus la misère s'étend&nbsp;: c'est la loi générale de l'accumulation."
+  ],
+  "questions": [
+    {
+      "q": "Que demandent les fileurs de Bolton pendant la disette de coton&nbsp;?",
+      "r": "Leurs patrons veulent leur imposer douze à treize heures par jour, alors que des centaines de leurs camarades restent sans travail. Les fileurs demandent qu'on raccourcisse la journée de tous tant que dure la crise. Ils ont compris que l'excès de travail des uns et l'oisiveté forcée des autres forment un seul fait."
+    },
+    {
+      "q": "Comment un capital peut-il doubler sans embaucher personne&nbsp;?",
+      "r": "La demande de travail dépend de la part variable du capital, celle qui paie les salaires. Si un capital passe de mille à deux mille francs pendant que la part des salaires tombe de deux cinquièmes à un cinquième, le fonds des salaires reste de quatre cents francs. Le capital a doublé, l'emploi n'a pas bougé."
+    },
+    {
+      "q": "Une hausse des salaires réfute-t-elle la loi générale de l'accumulation&nbsp;?",
+      "r": "Non. La loi porte sur le rapport entre la réserve et l'armée active, et Marx examine lui-même le cas où les salaires montent. La hausse reste contenue dans les limites que fixe l'accumulation, et quand elle gêne trop le capital, celui-ci achète des machines qui reconstituent la réserve, comme les fermiers anglais après 1849."
+    }
+  ],
   "seo": "Armée industrielle de réserve : définition (Marx)",
-  "description": "Armée industrielle de réserve : la population ouvrière que l'accumulation rend elle-même disponible, et qui pèse sur les salaires. Définition et loi générale du chapitre XXV.",
+  "description": "L'armée industrielle de réserve chez Marx, expliquée : pourquoi l'accumulation du capital produit elle-même les chômeurs qui pèsent sur les salaires.",
   "source": {
     "work": "capital-1",
     "s": 7,
-    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XXV — traduction Joseph Roy (1872)"
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XXV, traduction Joseph Roy (1872)"
   },
-  "ou": "Livre&nbsp;I, septième section, chapitre XXV, « La loi générale de l'accumulation capitaliste », troisième partie — après l'accumulation à composition constante et le changement de composition, dont elle est la conséquence.",
+  "ou": "Livre&nbsp;I, septième section, chapitre XXV, « Loi générale de l'accumulation capitaliste », troisième et quatrième parties. Elle vient après l'accumulation à composition constante et le changement de composition du capital, dont elle est la conséquence.",
   "outils": [
     {
-      "label": "Accumulation et armée de réserve — le laboratoire",
+      "label": "Accumulation et armée de réserve, dans le laboratoire",
       "url": "/oeuvres/capital-1#labo=s-accum"
     }
   ],
@@ -26,24 +47,159 @@
     "Force de travail"
   ],
   "monde": {
-    "_": "LA SCÈNE : L'APPAREIL — LA COLONNE, LE BASSIN ET L'AIGUILLE. Le vocabulaire hydraulique est celui de Marx lui-même : réservoir, canaux de décharge, forme flottante, attirer et repousser, engagée et dégagée, tendre et détendre. La figure le prend au mot. Une colonne de verre (l'armée active) et une cuve large (la réserve) tiennent le même liquide ; une pompe (l'accumulation) prend dans la cuve et verse dans la colonne. Quand la composition change, un trop-plein s'ouvre au haut de la colonne : la pompe a beau battre plus vite, tout le surplus repart à la cuve. Un flotteur suit le niveau de la réserve, un fléau renverse son mouvement, et l'aiguille du PRIX DU TRAVAIL descend d'autant que la réserve monte. Au dernier temps, un filet d'eau arrive du dehors — l'accroissement naturel de la population — et sa minceur, comparée à ce que déverse le trop-plein, est la réponse à Malthus.",
+    "_": "LA SCÈNE : L'APPAREIL, LA COLONNE, LA CUVE ET L'AIGUILLE. Le vocabulaire hydraulique est celui de Marx lui-même : réservoir, canaux de décharge, forme flottante, attirer et repousser, engagée et dégagée, tendre et détendre. Une colonne de verre (l'armée active) et une cuve large (la réserve) tiennent le même liquide ; une pompe (l'accumulation) prend dans la cuve et verse dans la colonne. Quand la composition change, un trop-plein s'ouvre au haut de la colonne : tout le surplus repart à la cuve. Un flotteur suit le niveau de la réserve, un fléau renverse son mouvement, et l'aiguille du PRIX DU TRAVAIL descend d'autant que la réserve monte. Au dernier temps, un filet d'eau arrive du dehors (l'accroissement naturel de la population), et sa minceur, comparée à ce que déverse le trop-plein, est la réponse à Malthus. Octobre 2026 : la scène est une figure en bas de page ; la visée n'est plus décalée.",
+    "titre": "L'appareil de la réserve, en six temps",
     "layout": "plein",
     "alt": "Un appareil de verre et de laiton : une colonne étroite et une cuve large tenant le même liquide, une pompe entre elles, et un fléau reliant un flotteur à l'aiguille d'un cadran gradué.",
     "source": {
-      "texte": "D'après le texte — Livre I, chapitre XXV",
+      "texte": "D'après le texte : Livre I, chapitre XXV",
       "q": "un réservoir inépuisable de forces disponibles"
     },
     "etapes": {
-      "fait": "L'appareil au repos. La colonne est à moitié pleine, la cuve presque vide : on croit voir un manque de bras, ou un excédent selon l'humeur du jour.",
-      "ou": "La pompe se met à battre. La colonne monte, la cuve baisse, l'aiguille remonte : à composition constante, l'accumulation appelle des bras et le salaire suit.",
-      "distinction": "Le trop-plein s'ouvre. La colonne cesse de monter quoi que fasse la pompe, et tout le surplus repart à la cuve : la demande de travail croît en masse et décroît en proportion.",
-      "mecanisme": "La cuve monte, le flotteur avec elle, le fléau bascule — et l'aiguille du prix du travail descend. La réserve ne fait rien : elle pèse.",
-      "formes": "La pompe accélère et ralentit, la colonne monte et redescend deux fois. Le partage change à chaque phase du cycle ; le niveau moyen de la cuve, lui, ne redescend plus.",
-      "lectures": "Un filet arrive du dehors — l'accroissement naturel de la population. Comparez-le à ce que déverse le trop-plein : ce n'est pas lui qui remplit la cuve."
+      "fait": "L'appareil au repos. La colonne de l'armée active est à moitié pleine, la cuve de la réserve presque vide.",
+      "ou": "La pompe de l'accumulation se met à battre. La colonne monte, la cuve baisse, l'aiguille du salaire remonte : tant que la composition du capital ne change pas, l'accumulation appelle des bras.",
+      "distinction": "Le trop-plein s'ouvre. La colonne cesse de monter, quoi que fasse la pompe, et le surplus repart à la cuve : la demande de travail croît en masse et décroît en proportion.",
+      "mecanisme": "La cuve monte, le flotteur avec elle, le fléau bascule, et l'aiguille du prix du travail descend. La réserve n'a rien à faire pour peser : il lui suffit d'être là.",
+      "formes": "La pompe accélère et ralentit, la colonne monte et redescend deux fois, au rythme du cycle industriel. Le partage change à chaque phase ; le niveau moyen de la cuve ne redescend plus.",
+      "lectures": "Un filet arrive du dehors : l'accroissement naturel de la population. Il est bien plus mince que ce que déverse le trop-plein, et ce n'est pas lui qui remplit la cuve."
     },
     "fixe": {
       "g": 3.6,
-      "legende": "La cuve monte, le fléau bascule, et l'aiguille du prix du travail descend d'autant. Ce que le capital dégage d'un côté, il le fait peser de l'autre."
+      "legende": "La cuve de la réserve monte, le fléau bascule, et l'aiguille du prix du travail descend d'autant. Ce que le capital dégage d'un côté pèse de l'autre."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : la file et la route. L'armée de réserve est une population qui attend, disponible, à la porte. En tête, la file de Luke Fildes devant un asile de nuit londonien : des hommes, des femmes et des enfants adossés au mur, que personne n'emploie, au fond de la réserve que Marx appelle le paupérisme. Dans l'essai, à la forme latente, l'homme de Herkomer sur la route, ses outils posés au bord du chemin. Le fond : des objets de l'embauche et du chômage, en points ; en lumière chaude, ce que dit le marché du travail (le salaire, l'offre et la demande) ; à l'aube, à partir de la section sur la surpopulation relative, ce que l'analyse fait voir : le capital qui fabrique ses surnuméraires.",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 782,
+      "alt": "Tableau sombre : la nuit, le long d'un mur, une file d'hommes, de femmes et d'enfants en haillons attend devant une porte ; à gauche, une femme portant un enfant entraîne une petite fille.",
+      "legende": "Devant la porte d'un asile de nuit, une file attend d'être admise. Marx place ces hommes au fond de l'armée de réserve, dans ce qu'il appelle le paupérisme.",
+      "credit": "Luke Fildes, <i>Applicants for Admission to a Casual Ward</i>, version peinte après 1908 du tableau de 1874. Tate, Londres, domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Applicants_for_Admission_to_a_Casual_Ward.jpg"
+    },
+    "planches": {
+      "route": {
+        "img": "planche-route.webp",
+        "w": 1400,
+        "h": 1055,
+        "alt": "Tableau : au bord d'une route de campagne, un homme debout, un baluchon sur l'épaule, regarde au loin ; sa femme et ses enfants dorment contre la haie ; une pioche et une bêche liées gisent au bord du chemin.",
+        "legende": "Sur une route de campagne, un homme debout, le baluchon à l'épaule, ses outils posés au bord du chemin&nbsp;; sa famille dort contre la haie. Des bras disponibles que personne n'emploie&nbsp;: Marx décrit ainsi la forme latente, une population qui attend l'occasion de partir.",
+        "credit": "Hubert von Herkomer, <i>Hard Times</i>, 1885, huile sur toile. Manchester Art Gallery, domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Hubert_von_Herkomer_-_Hard_Times.JPG"
+      }
+    },
+    "lumieres": {
+      "distinction": "aube",
+      "mecanisme": "aube",
+      "formes": "aube"
+    },
+    "fond": {
+      "_": "Le fond : des objets de l'embauche et du chômage, dessinés en points. En lumière chaude monte ce que dit le marché du travail ; à l'aube, ce que l'analyse fait voir. Les chiffres viennent du chapitre XXV.",
+      "dessins": {
+        "pelle": [
+          "....111....",
+          "....1.1....",
+          "....111....",
+          ".....1.....",
+          ".....1.....",
+          ".....1.....",
+          "...11111...",
+          "...11111...",
+          "...11111...",
+          "....111...."
+        ],
+        "grille": [
+          "1111111111111",
+          "1..1..1..1..1",
+          "1..1..1..1..1",
+          "1..1..1..1..1",
+          "1..1..1..1..1",
+          "1..1..1..1..1",
+          "1..1..1..1..1",
+          "1111111111111"
+        ],
+        "engrenage": [
+          "...1.1.1...",
+          "..1111111..",
+          ".11.....11.",
+          "111..1..111",
+          ".1..111..1.",
+          "111..1..111",
+          ".11.....11.",
+          "..1111111..",
+          "...1.1.1..."
+        ]
+      },
+      "motifs": [
+        {
+          "m": "pelle",
+          "chaude": [
+            "sept shillings",
+            "puis huit"
+          ],
+          "aube": [
+            "la machine arrive",
+            "forme latente"
+          ]
+        },
+        {
+          "m": "grille",
+          "chaude": [
+            "on embauche",
+            "on débauche"
+          ],
+          "aube": [
+            "attirer, repousser",
+            "forme flottante"
+          ]
+        },
+        {
+          "m": "engrenage",
+          "chaude": [
+            "le progrès",
+            "plus de produits"
+          ],
+          "aube": [
+            "moins de bras",
+            "des surnuméraires"
+          ]
+        },
+        {
+          "m": "rouet",
+          "chaude": [
+            "douze heures",
+            "treize heures"
+          ],
+          "aube": [
+            "les autres oisifs",
+            "Bolton, la crise"
+          ]
+        },
+        {
+          "m": "piece",
+          "chaude": [
+            "le salaire",
+            "offre et demande"
+          ],
+          "aube": [
+            "des dés pipés",
+            "la réserve pèse"
+          ]
+        },
+        {
+          "m": "sac",
+          "chaude": [
+            "sur la route",
+            "vers la ville"
+          ],
+          "aube": [
+            "toujours disponible",
+            "toujours exploitable"
+          ]
+        }
+      ]
     }
   }
 }

@@ -1,19 +1,40 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/capital-constant-et-variable.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/capital-constant-et-variable. L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrit en octobre 2026 selon glossaire/mondes/CHARTE.md.",
   "titre": "Capital constant et capital variable",
   "de": "konstantes und variables Kapital",
-  "chapo": "Une même avance, deux comportements. La partie qui devient coton, broches et bâtiments rend exactement ce qu'elle a reçu : sa valeur reparaît dans le produit sans y rien ajouter. La partie qui achète des journées de travail rembourse ce qu'elle a coûté et va au-delà. Marx appelle la première constante et la seconde variable — et c'est de cette coupure que dépendent le taux de la plus-value, la composition du capital et tout le Livre III.",
+  "enbref": "Le capital constant et le capital variable sont, chez Marx, les deux parts d'une même avance de capital. La première achète les moyens de production (matières, machines, bâtiments)&nbsp;: leur valeur passe dans le produit sans grandir. La seconde achète la force de travail, c'est-à-dire la capacité de travailler&nbsp;: elle reproduit sa valeur et y ajoute un excédent, la plus-value. Marx l'établit au chapitre VIII du Livre&nbsp;I du <i>Capital</i> (1867). La distinction ne se voit pas dans les comptes, où tout est avance.",
+  "retenir": [
+    "Un capitaliste avance de l'argent pour deux sortes d'achats, des moyens de production et des journées de travail. Dans ses comptes, les deux ne forment qu'une dépense.",
+    "En travaillant, l'ouvrier fait deux choses à la fois&nbsp;: par la forme utile de son travail, il transmet au produit la valeur du coton et des machines&nbsp;; par sa durée, il ajoute une valeur nouvelle.",
+    "La valeur des moyens de production reparaît dans le produit sans augmenter&nbsp;: c'est le capital constant. La force de travail rend sa propre valeur et un excédent&nbsp;: c'est le capital variable.",
+    "Constant ne veut pas dire invariable. Le prix du coton peut doubler&nbsp;: le changement vient du marché, la filature n'y est pour rien, et la valeur ajoutée par le fileur ne bouge pas.",
+    "La distinction sert à mesurer. La plus-value se rapporte au seul capital variable (le taux de plus-value), et le rapport du constant au variable donne la composition du capital."
+  ],
+  "questions": [
+    {
+      "q": "Dans l'exemple de Marx, que se passe-t-il quand une invention permet de filer en six heures ce qu'on filait en trente-six&nbsp;?",
+      "r": "Le fileur produit six fois plus de filés dans le même temps. Il transmet au produit six fois plus de valeur ancienne, celle du coton, mais il n'ajoute pas plus de valeur nouvelle, puisqu'il travaille toujours six heures. Les deux effets de son travail varient séparément&nbsp;: ce sont deux grandeurs distinctes."
+    },
+    {
+      "q": "Pourquoi une machine ne peut-elle pas ajouter au produit plus de valeur qu'elle n'en possède&nbsp;?",
+      "r": "Parce que sa valeur est celle du travail qu'a coûté sa fabrication, et qu'elle la cède à mesure qu'elle s'use. Une machine de mille livres qui dure mille jours en transmet un millième par jour. Elle rend le travail plus productif en objets utiles, sans rien ajouter à la valeur."
+    },
+    {
+      "q": "Pourquoi le taux de la plus-value se calcule-t-il sur le seul capital variable&nbsp;?",
+      "r": "Parce que le capital constant ne fait que reparaître dans le produit et n'a pris aucune part à la formation de l'excédent. Rapportée à l'avance entière, la même plus-value donne le taux de profit, celui que voit le capitaliste. Le taux de plus-value mesure l'exploitation de la force de travail."
+    }
+  ],
+  "description": "Capital constant et capital variable chez Marx expliqués simplement : pourquoi les machines ne font que transmettre leur valeur, et d'où vient la plus-value.",
   "seo": "Capital constant et capital variable (c et v) : définition",
-  "description": "Capital constant (c) : les moyens de production, dont la valeur ne fait que reparaître dans le produit. Capital variable (v) : la force de travail, seule à créer de la valeur neuve.",
   "source": {
     "work": "capital-1",
     "s": 3,
-    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre VIII — traduction Joseph Roy (1872)"
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre VIII, traduction Joseph Roy (1872)"
   },
-  "ou": "Livre&nbsp;I, troisième section, chapitre VIII, « Capital constant et capital variable » — entre le chapitre VII, qui montre comment naît la plus-value, et le chapitre IX, qui en donne le taux : il fallait d'abord établir par rapport à quoi ce taux se calcule.",
+  "ou": "Livre&nbsp;I, troisième section, chapitre VIII, «&nbsp;Capital constant et capital variable&nbsp;». Il se place entre le chapitre VII, qui montre comment naît la plus-value, et le chapitre IX, qui en donne le taux&nbsp;: il fallait d'abord dire par rapport à quoi ce taux se calcule.",
   "outils": [
     {
-      "label": "Le circuit du capital — le jeu",
+      "label": "Le circuit du capital, le jeu",
       "url": "/jeu/"
     }
   ],
@@ -29,20 +50,179 @@
     "_": "LA SCÈNE : LE COMPTOIR, ET LES DEUX PILES. Le chapitre compare deux COMPORTEMENTS DE GRANDEUR : il faut donc pouvoir compter. Une avance en une seule colonne, indistincte comme elle l'est dans les livres ; elle se partage, les deux parts sont dépensées, le comptoir reste vide. Puis le produit se monte de deux manières : les pièces sombres REPARAISSENT (métempsycose, le mot est de Marx), les claires ne viennent d'aucune pile. L'anneau marque l'avance ; ce qui dépasse est la plus-value. Au cinquième temps on double le prix du coton, et l'écart entre l'anneau et le sommet ne bouge pas d'une pièce.",
     "alt": "Sur un comptoir, une colonne de pièces qui se partage en deux, une balle de coton et une broche, et une seconde colonne qui se monte à côté d'une tige portant un anneau : la part sombre de la colonne ne fait que reparaître, la part claire la dépasse.",
     "source": {
-      "texte": "D'après le texte — Livre I, chapitre VIII",
+      "texte": "D'après le texte : Livre I, chapitre VIII",
       "q": "leur valeur est sujette à une espèce de métempsycose"
     },
     "etapes": {
-      "fait": "Une avance, en une seule colonne. Rien ne distingue ce qui achètera du coton de ce qui paiera une journée : c'est un seul décaissement, porté à un seul compte.",
-      "ou": "La colonne se partage. À gauche ce qui deviendra moyens de production, à droite ce qui achètera la force de travail — deux parts d'une même somme, et rien encore ne les oppose.",
-      "distinction": "Les deux parts sont dépensées. Il reste du coton et une broche d'un côté, rien du tout de l'autre : la journée a été payée, et le comptoir est vide.",
-      "mecanisme": "Le produit se monte. Les pièces sombres reparaissent — autant qu'il en était entré, jamais une de plus. Les claires ne viennent d'aucune pile : elles se forment au-dessus et tombent.",
-      "ouvre": "L'anneau marque l'avance. La part claire l'a dépassé : ce qui est au-dessus n'a été avancé par personne, et c'est là-dessus que se calcule le taux.",
-      "lectures": "On double le prix du coton. La part sombre double, la colonne monte d'autant, l'anneau monte d'autant — et l'écart entre l'anneau et le sommet ne bouge pas d'une pièce."
+      "fait": "Une avance, en une seule colonne. Rien ne distingue ce qui achètera du coton de ce qui paiera une journée&nbsp;: c'est une seule dépense, portée à un seul compte.",
+      "ou": "La colonne se partage. À gauche, ce qui deviendra moyens de production&nbsp;; à droite, ce qui achètera la force de travail. Ce sont deux parts d'une même somme.",
+      "distinction": "Les deux parts sont dépensées. Il reste du coton et une broche d'un côté, rien de l'autre&nbsp;: la journée a été payée, et le comptoir est vide.",
+      "mecanisme": "Le produit se monte. Les pièces sombres reparaissent, autant qu'il en était entré et pas une de plus. Les claires ne viennent d'aucune pile&nbsp;: elles se forment au-dessus.",
+      "ouvre": "L'anneau marque l'avance. La part claire l'a dépassé&nbsp;: ce qui est au-dessus n'a été avancé par personne, et c'est sur cet excédent que se calcule le taux.",
+      "lectures": "On double le prix du coton. La part sombre double, la colonne monte d'autant, l'anneau aussi, et l'écart entre l'anneau et le sommet ne bouge pas d'une pièce."
     },
     "fixe": {
       "g": 5.7,
-      "legende": "Le prix du coton a doublé : la part sombre de la colonne a doublé avec lui et l'anneau de l'avance est monté d'autant. L'écart entre l'anneau et le sommet — la plus-value — n'a pas bougé d'une pièce. Une seule chose a été déplacée, et elle prouve que ce sont deux grandeurs."
+      "legende": "Le prix du coton a doublé&nbsp;: la part sombre a doublé avec lui, et l'anneau de l'avance est monté d'autant. L'écart entre l'anneau et le sommet, la plus-value, n'a pas bougé."
+    },
+    "titre": "Le comptoir et les deux piles, en six temps"
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : l'huileur et le bureau de coton. La distinction ne se voit pas dans les comptes ; la page la montre en deux lieux. En tête, une salle de filature : des centaines de broches et un seul garçon chargé de les huiler, le capital constant et le capital variable dans le même cadre, et le travail vivant qui garde les machines en état. Dans l'essai, le bureau de coton de Degas : le prix du coton se fait hors de la filature, ce qui est le sens de « constant ». Le fond : les objets du chapitre VIII ; en lumière chaude ce que voit le capitaliste (des prix, une avance), à l'aube ce que l'analyse fait voir (ce qui reparaît et ce qui s'ajoute).",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 1114,
+      "alt": "Une salle de filature : deux métiers à filer en fonte portent des centaines de bobines blanches ; un garçon assis sur une caisse, entre les deux, tient un morceau de coton devant les broches.",
+      "legende": "Des centaines de broches, et un garçon de quatorze ans chargé de les huiler toutes. Les machines ne font que transmettre leur valeur au fil&nbsp;; seul le travail en ajoute, et c'est lui aussi qui les garde en état.",
+      "credit": "Lewis W. Hine, salle de filature de la King Philip Mill, 3 octobre 1915. National Child Labor Committee, Library of Congress, domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:King_Philip_Spinning_room._Oiler_Boy_-_Oils_all_the_spindles_in_this_room._George_Courtemonds,_114_Kellogg_St._October_3,_1915,_14_years_old._LOC_cph.3b33431.jpg"
+    },
+    "planches": {
+      "bureau": {
+        "img": "planche-bureau.webp",
+        "w": 1300,
+        "h": 1026,
+        "couleur": true,
+        "alt": "Le Bureau de coton à La Nouvelle-Orléans d'Edgar Degas : des négociants en noir examinent du coton étalé sur une table, l'un lit le journal, un autre écrit dans un registre.",
+        "legende": "Le prix du coton se fait ici, entre négociants, loin de la filature. Quand il change, la valeur que le coton transmet au fil change avec lui&nbsp;; celle qu'ajoute le fileur ne bouge pas.",
+        "credit": "Edgar Degas, <i>Le Bureau de coton à La Nouvelle-Orléans</i>, 1873, huile sur toile. Musée des Beaux-Arts de Pau, domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Edgar_Germain_Hilaire_Degas_016.jpg"
+      }
+    },
+    "lumieres": {
+      "distinction": "aube",
+      "mecanisme": "aube",
+      "ouvre": "aube",
+      "lectures": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les objets du chapitre VIII, dessinés en points. En lumière chaude, ce que voit le capitaliste (des prix, une avance) ; à l'aube, à partir de la section sur conserver et créer, ce que l'analyse fait voir. Les chiffres sont ceux de Marx (la machine de mille livres, l'avance de 500 livres du chapitre IX).",
+      "dessins": {
+        "broche": [
+          "...1...",
+          "..111..",
+          "..111..",
+          ".11111.",
+          ".11111.",
+          ".11111.",
+          "..111..",
+          "...1...",
+          "...1...",
+          "..111.."
+        ],
+        "livre": [
+          "111111.111111",
+          "1.....1.....1",
+          "1.111.1.111.1",
+          "1.....1.....1",
+          "1.111.1.111.1",
+          "1.....1.....1",
+          "1.111.1.111.1",
+          "1111111111111"
+        ],
+        "burette": [
+          "........1",
+          ".......1.",
+          "......1..",
+          "..111.1..",
+          ".1111111.",
+          "1111111..",
+          "1111111..",
+          "1111111..",
+          ".11111..."
+        ],
+        "moulin": [
+          "1.....1",
+          ".1...1.",
+          "..1.1..",
+          "...1...",
+          "..1.1..",
+          ".11111.",
+          ".1...1.",
+          ".1...1.",
+          ".11111."
+        ]
+      },
+      "motifs": [
+        {
+          "m": "livre",
+          "chaude": [
+            "une seule avance",
+            "500 livres"
+          ],
+          "aube": [
+            "c + v",
+            "deux conduites"
+          ]
+        },
+        {
+          "m": "sac",
+          "chaude": [
+            "le coton",
+            "prix doublé"
+          ],
+          "aube": [
+            "reparaît",
+            "rien de plus"
+          ]
+        },
+        {
+          "m": "broche",
+          "chaude": [
+            "la broche",
+            "mille livres"
+          ],
+          "aube": [
+            "un millième",
+            "par jour"
+          ]
+        },
+        {
+          "m": "piece",
+          "chaude": [
+            "le salaire",
+            "90 livres"
+          ],
+          "aube": [
+            "capital variable",
+            "rend davantage"
+          ]
+        },
+        {
+          "m": "rouet",
+          "chaude": [
+            "le filage",
+            "six heures"
+          ],
+          "aube": [
+            "conserve",
+            "et ajoute"
+          ]
+        },
+        {
+          "m": "burette",
+          "chaude": [
+            "l'entretien",
+            "rien à payer"
+          ],
+          "aube": [
+            "un don gratuit",
+            "au capitaliste"
+          ]
+        },
+        {
+          "m": "moulin",
+          "chaude": [
+            "le vent",
+            "la farine"
+          ],
+          "aube": [
+            "aucune valeur",
+            "rien transmis"
+          ]
+        }
+      ]
     }
   }
 }
