@@ -39,7 +39,9 @@ avec leur réponse.
 ### La figure
 
 La scène 3D (ou la planche) ne suit plus le défilement : elle est une
-**figure posée après « Ce qu'il faut retenir »**, immobile par défaut
+**figure posée en bas de page, après « Vérifier sa compréhension »**
+(arbitrage du 21 oct. : pas vers le haut), sous un titre propre à la page
+(`meta.monde.titre`, ex. « La table de Marx, en six temps »), immobile par défaut
 (l'image fixe), que le lecteur fait jouer (« Voir la scène », puis une
 étape par section de l'essai). Arbitrage du propriétaire (octobre 2026) :
 l'interface passe avant l'animation, le texte ne doit jamais bouger ni être
@@ -121,6 +123,18 @@ reflète dans la vitre). Trois outils, tous facultatifs :
   `<div data-planche="id"></div>`, là où la phrase dit ce que l'image
   montre. `"couleur": true` garde la couleur (une enluminure) ; sans lui,
   l'image est passée dans la pénombre sépia de la maison.
+- **`fond`** : le fond animé (`glossaire/fond.js`), **obligatoire** : le
+  propriétaire ne veut pas d'un simple dégradé. C'est un champ d'objets
+  dessinés en points (une « constellation », d'après le fond de GEO
+  Invader), qui bougent à peine ; de temps en temps l'un s'allume dans la
+  marge et un mot monte au-dessus de lui. Les objets et les mots disent la
+  notion : pour le fétichisme, les marchandises du chapitre I, et leur
+  prix (`chaude`) puis, à la section V, le travail qui les a faites
+  (`aube`). Les motifs disponibles sont dans `MOTIFS` de `fond.js` (table,
+  habit, botte, toile, sucre, piece, sac, rouet) : **une notion qui a
+  besoin d'autres objets ajoute ses motifs**, une grille de points de 7 à
+  10 lignes. Rien ne s'allume derrière la colonne de texte, et le champ y
+  tombe presque à rien.
 - **`lumieres`** : `{ "etape": "aube" }` fait passer la lumière
   d'ambiance du chaud au froid quand le lecteur arrive à cette section
   (ex. : le moment où le rapport social devient visible). Défaut : chaud.

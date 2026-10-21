@@ -67,7 +67,8 @@
       "_": "La ligne fixe sous la scène, quelle que soit l'étape : elle dit que ce qu'on voit est DANS le livre, et mène au passage (deep-link sur q).",
       "texte": "D'après le texte : Livre I, chapitre I, section IV",
       "q": "elle se dresse, pour ainsi dire, sur sa tête de bois"
-    }
+    },
+    "titre": "La table de Marx, en six temps"
   },
   "da": {
     "_": "LA DIRECTION ARTISTIQUE : la vitrine. La page se lit comme une vitrine de nuit : des choses dont le prix est écrit sur elles, et la rue qui se reflète dans la vitre. Trois images du domaine public, chacune choisie pour ce qu'elle montre du concept, et une lumière d'ambiance qui passe du chaud de la vitrine au froid de l'aube quand l'essai arrive aux sociétés sans fétiche.",
@@ -104,6 +105,88 @@
     "lumieres": {
       "voile": "aube",
       "lectures": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les marchandises du chapitre I, dessinées en points, qui dansent à peine. L'une s'allume et son prix monte au-dessus d'elle (chaude) ; à la section des sociétés sans fétiche, c'est le travail qui monte (aube). Les chiffres sont des exemples, pas des citations.",
+      "motifs": [
+        {
+          "m": "table",
+          "chaude": [
+            "40 F",
+            "= 2 habits"
+          ],
+          "aube": [
+            "le menuisier",
+            "neuf heures"
+          ]
+        },
+        {
+          "m": "habit",
+          "chaude": [
+            "225 F",
+            "= 20 m de toile"
+          ],
+          "aube": [
+            "le tailleur",
+            "six heures"
+          ]
+        },
+        {
+          "m": "botte",
+          "chaude": [
+            "32 F",
+            "= 1 sac de café"
+          ],
+          "aube": [
+            "le cordonnier",
+            "une journée"
+          ]
+        },
+        {
+          "m": "toile",
+          "chaude": [
+            "20 m",
+            "= 1 habit"
+          ],
+          "aube": [
+            "le tisserand",
+            "douze heures"
+          ]
+        },
+        {
+          "m": "sucre",
+          "chaude": [
+            "2 F",
+            "= 1 livre de thé"
+          ],
+          "aube": [
+            "le raffineur",
+            "deux heures"
+          ]
+        },
+        {
+          "m": "piece",
+          "chaude": [
+            "2 onces d'or",
+            "l’équivalent général"
+          ],
+          "aube": [
+            "le mineur",
+            "le monnayeur"
+          ]
+        },
+        {
+          "m": "sac",
+          "chaude": [
+            "40 livres de café",
+            "= 1 habit"
+          ],
+          "aube": [
+            "le planteur",
+            "le porteur"
+          ]
+        }
+      ]
     }
   }
 }

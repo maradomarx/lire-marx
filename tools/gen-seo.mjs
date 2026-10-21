@@ -1433,8 +1433,9 @@ ${credit}  </aside>`;
       const srcLien = meta.monde && meta.monde.source
         ? `<a href="${lien(src.s, meta.monde.source.q)}">${meta.monde.source.texte} →</a>` : '';
       const g0 = meta.monde && meta.monde.fixe && typeof meta.monde.fixe.g === 'number' ? meta.monde.fixe.g : 0;
-      return `<figure class="nt-fig" aria-label="La figure de la notion"${aScene
+      return `<figure class="nt-fig" aria-labelledby="nt-fig-t"${aScene
         ? `${meta.monde && meta.monde.moteur === '2d' ? '' : ` data-three="/vendor/three.min.js?v=${hashV('vendor/three.min.js')}"`} data-scene="/${dossier}/monde.js?v=${hashV(`${dossier}/monde.js`)}" data-g0="${g0}"` : ''}>
+  <h2 class="nt-fig-t" id="nt-fig-t">${(meta.monde && meta.monde.titre) || 'La scène'}</h2>
   <div class="nt-fig-cadre">
     <canvas hidden role="img" aria-label="${alt}"></canvas>
 ${still ? `    <img class="nt-monde-still" src="/${still}" alt="${alt}" width="1200" height="750" decoding="async">` : `    <div class="nt-monde-still" role="img" aria-label="${alt}"></div>`}
@@ -1487,7 +1488,6 @@ ${meta.retenir.map((r) => `      <li>${r}</li>`).join('\n')}
   </section>
 
 </header>
-${figureNeuve()}
   <nav class="nt-som" aria-label="Sommaire">
     <p class="nt-som-t">L'essai, en ${numFrF(sections.length)} questions</p>
     <ol>
@@ -1545,7 +1545,7 @@ ${meta.questions.map((x) => `    <details>
 ${ld}
 </head>
 <body${da ? ' class="nt-da"' : ''}>
-${da ? `<div class="nt-ambiance" aria-hidden="true"><span class="nt-amb nt-amb--chaude"></span><span class="nt-amb nt-amb--aube"></span></div>\n` : ''}<main class="wrap" id="contenu" tabindex="-1">
+${da ? `<div class="nt-ambiance" aria-hidden="true"><span class="nt-amb nt-amb--chaude"></span><span class="nt-amb nt-amb--aube"></span>${da.fond ? '<canvas class="nt-fond"></canvas>' : ''}</div>\n` : ''}${da && da.fond ? `<script type="application/json" id="nt-fond-data">${JSON.stringify(da.fond).replace(/</g, '\\u003c')}</script>\n` : ''}<main class="wrap" id="contenu" tabindex="-1">
 <article class="nt nt--monde${plein && !neuf ? ' nt--plein' : ''}${neuf ? ' nt--tete' : ''}${da && da.vitrine ? ' nt--vitrine' : ''}">
 <div class="nt-grid">
 ${neuf ? teteNeuve() : `<div class="nt-col">
@@ -1568,7 +1568,7 @@ ${sections.map((s) => `      <li><a href="#${s.id}">${s.h2}</a></li>`).join('\n'
   <div class="nt-corps nt-essai">
 ${essai}
   </div>
-${neuf ? quizNeuf() : ''}
+${neuf ? quizNeuf() : ''}${neuf ? figureNeuve() : ''}
   <p class="nt-colophon">${neuf
     ? `Les citations viennent du texte que ce site sert&nbsp;: ${src.cite || ''}. Chacune mène au passage dans la liseuse.`
     : `Les citations sont relevées dans le texte que ce site sert — ${src.cite || ''} — et chacune mène au passage dans la liseuse.`}</p>
@@ -1614,7 +1614,7 @@ ${PIED}
 <script src="/oeuvres/shell.js?v=22"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
-${aScene || neuf ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-driver.js')}" defer></script>` : ''}
+${da && da.fond ? `<script src="/glossaire/fond.js?v=${hashV('glossaire/fond.js')}" defer></script>\n` : ''}${aScene || neuf ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-driver.js')}" defer></script>` : ''}
 </body>
 </html>
 `;

@@ -11030,6 +11030,32 @@ mesure** : ses coins laissent voir la photo dans le rectangle mesuré.
 Le détecteur relève deux « side-tab » sur l'icône de pause, dessinée avec
 deux bordures : faux positif.
 
+### Le fond s'anime, la scène descend (même mission, 4e passe)
+
+Deux retours du propriétaire : la scène « plutôt tout en bas de la page »,
+et « il faut toujours réfléchir à un fond pertinent ; un dégradé noir, je
+n'aime pas ; fais une animation dans le fond », en partant au besoin du
+fond étoilé de GEO Invader (`~/Desktop/atum-geo/src/marketing/InvaderField.tsx` :
+des sprites en points, certains s'allument et un mot monte).
+
+- **La figure est en bas** : après « Vérifier sa compréhension », sous un
+  titre propre (`meta.monde.titre`). La grille n'a plus de zone `fig`.
+- **`glossaire/fond.js`, le fond animé** : un canevas fixe dans
+  `.nt-ambiance`, sous les teintes de lumière. Un champ clairsemé d'objets
+  en points (« constellation ») qui défile à 0,22 de la page (profondeur)
+  et danse en sinusoïdes lentes. Toutes les 1,5 à 2,8 s, un objet HORS de
+  la colonne de texte s'allume et son mot monte. **Pour le fétichisme : les
+  marchandises, et leur prix ; à la section V, le travail** (la même
+  bascule que la lumière, lue sur `body[data-lumiere]`). La danse vient du
+  texte : la table « se livre à des caprices plus bizarres que si elle se
+  mettait à danser ».
+- Lecture d'abord : derrière la colonne (et le sommaire, et la tête, à
+  44 px près), le champ tombe à 5 % d'opacité et rien ne s'y allume ; sur
+  téléphone, où la colonne prend toute la largeur, il n'est presque plus
+  qu'une texture. Sous reduced-motion, une image fixe. Boucle arrêtée si
+  l'onglet est masqué ; canevas plafonné à DPR 1,5 ; mesuré à 61 images/s.
+- Les motifs sont une bibliothèque (`MOTIFS`) que les pages enrichissent.
+
 ### `verif-citations.mjs` vérifie enfin le glossaire
 
 Le contrôle « 0 introuvable » ne couvrait que les chapitres et les

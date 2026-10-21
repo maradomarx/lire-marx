@@ -380,11 +380,10 @@ html.js-monde .nt--plein .nt-monde-credit{display:block;}
 .nt--tete .nt-tete,.nt--tete .nt-fig,.nt--tete .nt-som,.nt--tete .nt-col{width:100%;max-width:700px;min-width:0;}
 @media(min-width:1180px){
   .nt--tete .nt-grid{display:grid;grid-template-columns:minmax(0,700px) 236px;gap:0 56px;
-    justify-content:center;grid-template-areas:"vit vit" "tete som" "fig som" "col som";}
+    justify-content:center;grid-template-areas:"vit vit" "tete som" "col som";}
   .nt--tete .nt-vitrine{grid-area:vit;}
   .nt--vitrine .nt-som{margin-top:34px;}
   .nt--tete .nt-tete{grid-area:tete;}
-  .nt--tete .nt-fig{grid-area:fig;}
   .nt--tete .nt-col{grid-area:col;}
   .nt--tete .nt-som{grid-area:som;align-self:start;position:sticky;top:68px;margin-top:96px;
     max-height:calc(100vh - 92px);overflow:auto;padding:0;border:0;background:none;}
@@ -480,7 +479,9 @@ html.js-monde .nt--plein .nt-monde-credit{display:block;}
 /* ── LA FIGURE À LA DEMANDE (gabarit de lecture) ──
    Immobile par défaut : l'image fixe et sa légende. Le script révèle le
    bouton « Voir la scène » et la barre d'étapes s'il y a de quoi jouer. */
-.nt-fig{margin:34px 0 0;}
+.nt-fig{margin:clamp(44px,6vh,62px) 0 0;}
+.nt-fig-t{font-family:'Fraunces',serif;font-weight:900;letter-spacing:-.02em;
+  font-size:clamp(1.36rem,2.4vw,1.62rem);line-height:1.18;margin:0 0 14px;}
 .nt-fig-cadre{position:relative;aspect-ratio:16/10;border-radius:16px;overflow:hidden;
   background:#0d0a07;border:1px solid var(--border);}
 .nt-fig-cadre canvas,.nt-fig-cadre .nt-monde-still{position:absolute;inset:0;width:100%;height:100%;display:block;}
@@ -605,3 +606,5 @@ body[data-lumiere="aube"] .nt-amb--chaude{opacity:0;}
   line-height:1.45;color:var(--muted);text-decoration:none;border:0;}
 .nt-planche-src:hover{color:var(--gold);text-decoration:underline;text-underline-offset:3px;}
 @media (pointer:coarse){.nt-vitrine-leg a,.nt-planche-src{padding:10px 0;margin:-6px 0;}}
+/* le fond animé (glossaire/fond.js) : sous les teintes de lumière, plein écran */
+.nt-fond{position:absolute;inset:0;width:100%;height:100%;display:block;}
