@@ -78,6 +78,11 @@ try {
   await page.evaluate(async (g, w, h) => {
     const aside = document.querySelector('.nt-fig-cadre') || document.querySelector('.nt-monde');
     aside.style.cssText = `position:fixed;left:0;top:0;width:${w}px;height:${h}px;z-index:99999;margin:0;border:0;border-radius:0;aspect-ratio:auto`;
+    /* Depuis le fond animé (meta.da), <main> porte un z-index : la figure,
+       même en position fixe à 99999, reste prise dans ce contexte et la
+       barre du haut comme la barre latérale passaient par-dessus. On les
+       masque, avec le fond, le temps de la photographie. */
+    document.querySelectorAll('.topbar,.sidebar,.nt-ambiance').forEach((e) => { e.style.display = 'none'; });
     aside.querySelectorAll('.nt-monde-cap,.nt-monde-src,.nt-monde-credit,.nt-fig-go').forEach((e) => { e.style.display = 'none'; });
     const M = window.__ntMonde;
     if (M.monde.ready) await M.monde.ready;   /* une statue à charger, par exemple */

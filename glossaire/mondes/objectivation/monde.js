@@ -142,17 +142,17 @@ window.LM_MONDE = function (canvas) {
     lampe.intensity = 3.1 * (1 + 0.03 * Math.sin(T * 7.1));
 
     /* la caméra : serrée sur la cire, puis un peu de recul.
-       L'ensemble tient dans une unité ; à 38° la largeur vue vaut 1,07 fois
-       la distance, et la colonne de texte prend 43 % — d'où 2,0 et 0,45. */
+       La scène est maintenant une FIGURE en bas de page (oct. 2026) : plus
+       de colonne de texte à côté d'elle, donc plus de visée décalée à
+       gauche du sujet (elle le rejetait au bord droit du cadre). La caméra
+       vise la cire, et la visée remonte avec le cachet relevé pour que sa
+       tête reste dans le cadre. */
     var q = ss(0, 1, Math.min(1, G / 1.7));
     var cx = lerp(0.62, 0.22, q), cy = lerp(0.44, 0.72, q), cz = lerp(0.86, 1.72, q);
     cz = lerp(cz, 2.0, st.recul); cy = lerp(cy, 0.84, st.recul);
-    var camA = V3(lerp(CX, CX - 0.16, q), lerp(0.09, 0.10, q), CZ);
+    var camA = V3(CX, lerp(0.09, 0.10, q) + 0.07 * st.releve, CZ);
     camera.position.set(cx + 0.010 * Math.sin(T * 0.31), cy + 0.007 * Math.sin(T * 0.39), cz);
-    var dist = camera.position.distanceTo(camA);
-    var fwd = new THREE.Vector3().subVectors(camA, camera.position).normalize();
-    var right = new THREE.Vector3().crossVectors(fwd, V3(0, 1, 0)).normalize();
-    aim.copy(camA).addScaledVector(right, -Math.min(0.26 * dist, 0.45));
+    aim.copy(camA);
     camera.lookAt(aim);
     render();
   }

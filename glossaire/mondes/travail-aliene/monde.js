@@ -283,9 +283,11 @@ window.LM_MONDE = function (canvas) {
     }
     /* la caméra : elle suit la coupe, recule pour voir la statue entière, s'approche du visage, redescend au socle */
     var cy = lerp(2.55, 1.35, 1 - st.cut);
-    /* on vise à GAUCHE de la statue : la colonne de texte occupe les 600
-       premiers pixels, la statue doit vivre dans la moitié droite */
-    var ax = STATUE.x - 0.85 + 0.25 * st.close, ay = lerp(cy, 1.2, ss(1.5, 2.2, G)); ay = lerp(ay, 1.95, st.close); ay = lerp(ay, 0.55, st.end);
+    /* on vise la STATUE : la scène est maintenant une figure 16/10 en bas
+       de page (CHARTE.md, « La figure »). L'ancien décalage à gauche, fait
+       pour la colonne de texte de l'architecture « plein », décentrait le
+       sujet dans la figure. */
+    var ax = STATUE.x, ay = lerp(cy, 1.2, ss(1.5, 2.2, G)); ay = lerp(ay, 1.95, st.close); ay = lerp(ay, 0.55, st.end);
     var cz = lerp(5.4, 3.4, st.close); cz = lerp(cz, 4.6, st.end);
     camera.position.set(0.7 + 0.02 * Math.sin(T * 0.3), lerp(cy + 0.15, 1.7, ss(1.5, 2.2, G)) + 0.015 * Math.sin(T * 0.41), cz);
     camera.position.y = lerp(camera.position.y, 1.95, st.close); camera.position.y = lerp(camera.position.y, 1.1, st.end);

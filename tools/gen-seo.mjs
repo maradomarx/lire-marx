@@ -1360,7 +1360,8 @@ function identite(nom) {
     const precis = (meta.outils || []).map((o) => o.url);
     const outils = [
       ...t.sources.filter((sc) => !precis.some((u) => u.startsWith(sc.url)))
-        .map((sc) => ({ label: `${nu(sc.groupe)}${neuf ? ', ' : ' — '}${sc.oeuvre}`, url: sc.url })),
+        /* gabarit de lecture : l'œuvre d'abord, puis l'endroit (« Le XVIII brumaire · la préface ») */
+        .map((sc) => ({ label: neuf ? `${sc.oeuvre} · ${nu(sc.groupe)}` : `${nu(sc.groupe)} — ${sc.oeuvre}`, url: sc.url })),
       ...(meta.outils || []),
     ];
     const voisines = (meta.voisins || [])
@@ -1456,8 +1457,10 @@ ${sections.map((sec, i) => `      <button type="button" data-i="${i}" data-leg="
     }
     function teteNeuve() {
       const tot = sections.reduce((a, s) => a + (s.min || 0), 0);
+      /* le fil nomme la PAGE (« La forme-valeur »), pas la fiche d'atelier qui la
+         porte (« Forme simple ») */
       const fil = `  <nav class="nt-fil" aria-label="Fil d'Ariane">
-    <a href="/">Lire Marx</a><span aria-hidden="true">›</span><a href="/glossaire/">Glossaire</a><span aria-hidden="true">›</span>${t.nom}
+    <a href="/">Lire Marx</a><span aria-hidden="true">›</span><a href="/glossaire/">Glossaire</a><span aria-hidden="true">›</span>${meta.titre || t.nom}
   </nav>`;
       const h1 = `  <h1 class="nt-h1">${meta.titre || t.nom}${(meta.de || t.de) ? `<span class="nt-de" lang="de">${meta.de || t.de}</span>` : ''}</h1>`;
       const v = da && da.vitrine;
@@ -1570,7 +1573,8 @@ ${essai}
   </div>
 ${neuf ? quizNeuf() : ''}${neuf ? figureNeuve() : ''}
   <p class="nt-colophon">${neuf
-    ? `Les citations viennent du texte que ce site sert&nbsp;: ${src.cite || ''}. Chacune mène au passage dans la liseuse.`
+    ? (nbCit ? `Les citations viennent du texte que ce site sert&nbsp;: ${src.cite || ''}. Chacune mène au passage dans la liseuse.`
+      : `Cette page paraphrase le texte et le situe sans le citer&nbsp;: ${src.cite || ''}.`)
     : `Les citations sont relevées dans le texte que ce site sert — ${src.cite || ''} — et chacune mène au passage dans la liseuse.`}</p>
 
   <div class="nt-appareil">

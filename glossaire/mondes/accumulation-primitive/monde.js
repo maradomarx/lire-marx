@@ -192,14 +192,9 @@ window.LM_MONDE = function (canvas) {
     cz = lerp(cz, 12.5, st.recul); cy = lerp(cy, 1.72, st.recul);
     var camA = V3(lerp(3.2, 3.6, q), lerp(1.05, 1.15, q), lerp(-7.0, -9.5, q));
     camera.position.set(cx + 0.03 * Math.sin(T * 0.21), cy + 0.02 * Math.sin(T * 0.31), cz);
-    /* la colonne de texte occupe la gauche : on vise à GAUCHE du sujet, d'une
-       part proportionnelle à la distance et plafonnée — ici le sujet est une
-       LIGNE qui traverse tout le champ, on décale donc peu : c'est la
-       chaumière et le clos qui doivent tenir dans la moitié droite */
-    var dist = camera.position.distanceTo(camA);
-    var fwd = new THREE.Vector3().subVectors(camA, camera.position).normalize();
-    var right = new THREE.Vector3().crossVectors(fwd, V3(0, 1, 0)).normalize();
-    aim.copy(camA).addScaledVector(right, -Math.min(0.20 * dist, 2.6));
+    /* la scène est une FIGURE en bas de page (et non plus un fond derrière
+       la colonne de texte) : la caméra vise le sujet, sans décalage */
+    aim.copy(camA);
     camera.lookAt(aim);
     render();
   }
