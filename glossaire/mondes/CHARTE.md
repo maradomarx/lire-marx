@@ -103,6 +103,44 @@ Trois questions qu'un professeur poserait en fin de cours, avec une réponse
 de deux à quatre phrases. Une question porte sur l'exemple, une sur le
 mécanisme, une sur une conséquence. Pas de question piège.
 
+### La direction artistique de la page (`meta.da`)
+
+Chaque page a son monde visuel, tiré de ce que dit la notion. **Il n'y a
+pas de modèle à recopier** : on part de la notion et l'on cherche ce
+qu'elle donne à voir. Le fétichisme a donné **la vitrine** (une vitrine de
+nuit : des choses dont le prix est écrit sur elles, et la rue qui se
+reflète dans la vitre). Trois outils, tous facultatifs :
+
+- **`vitrine`** : une photographie ou une image d'archive sous le titre.
+  Elle doit montrer la notion, pas l'illustrer vaguement : chez Atget, le
+  prix est épinglé sur la poitrine d'un costume sans tête. La légende dit
+  ce qu'on voit et ce que cela a à voir avec la notion, en une ou deux
+  phrases ; le crédit donne l'auteur, le lieu, la date, l'institution et
+  la licence.
+- **`planches`** : une à trois images placées dans l'essai par
+  `<div data-planche="id"></div>`, là où la phrase dit ce que l'image
+  montre. `"couleur": true` garde la couleur (une enluminure) ; sans lui,
+  l'image est passée dans la pénombre sépia de la maison.
+- **`lumieres`** : `{ "etape": "aube" }` fait passer la lumière
+  d'ambiance du chaud au froid quand le lecteur arrive à cette section
+  (ex. : le moment où le rapport social devient visible). Défaut : chaud.
+  Rien ne bouge, la teinte change en fondu.
+
+Règles d'images, aucune exception :
+
+1. **Domaine public ou licence libre vérifiée sur la notice Commons**
+   (API `prop=imageinfo&iiprop=extmetadata` : `LicenseShortName`, `Artist`,
+   `Credit`). On n'imprime pas une provenance qu'on n'a pas lue (leçon de
+   l'affaire Palmier). Les quatre photos d'ouvriers de
+   `assets/img/archive/` à la licence « à confirmer » sont exclues.
+2. **Pas de figure humaine découpée**, pas d'image décorative : si
+   l'image ne montre rien de la notion, on n'en met pas.
+3. Fichiers dans le dossier de la notion, en WebP (`cwebp -q 72`), 1300 px
+   de large pour la vitrine, 1000 à 1400 pour une planche ; `w` et `h`
+   dans `meta.da`. On regarde l'image recadrée avant de l'employer.
+4. Les légendes suivent la charte (pas de tiret cadratin, pas de citation
+   liée).
+
 ## 3. Le ton
 
 - **« On » par défaut.** « Nous » seulement pour prendre position dans un

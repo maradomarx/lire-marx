@@ -1291,6 +1291,32 @@ function identite(nom) {
     if (!oeuvreSrc) throw new Error(`« ${t.nom} » : source.work « ${src.work} » n'est pas une œuvre de bibliotheque.json.`);
     const lien = (sEl, q) => `${hrefOf(oeuvreSrc)}#s=${sEl || src.s}&q=${encodeURIComponent(q)}`;
 
+    /* LA DIRECTION ARTISTIQUE DE LA PAGE (meta.da, mission glossaire-da, oct.
+       2026) : chaque notion a son monde visuel, tiré de ce qu'elle dit. La
+       vitrine (une photographie d'archive en tête, sous le titre), des
+       planches placées dans l'essai par <div data-planche="id"></div>, et la
+       lumière d'ambiance de chaque section (meta.da.lumieres, étape → teinte),
+       que monde-driver.js fait suivre à la lecture. Réservé au gabarit de
+       lecture : une page sans enbref n'a pas de DA. */
+    const da = neuf && meta.da ? meta.da : null;
+    const daDir = `/${dossier}/`;
+    const planchesVues = new Set();
+    if (da && da.planches) {
+      essai = essai.replace(/<div data-planche="([^"]+)"><\/div>/g, (m, id) => {
+        const pl = da.planches[id];
+        if (!pl) throw new Error(`« ${t.nom} » : planche « ${id} » absente de meta.da.planches.`);
+        planchesVues.add(id);
+        return `<figure class="nt-planche${pl.couleur ? ' nt-planche--couleur' : ''}">
+<img src="${daDir}${pl.img}" alt="${echap(nu(pl.alt))}" width="${pl.w}" height="${pl.h}" loading="lazy" decoding="async">
+<figcaption><span class="nt-planche-leg">${pl.legende}</span> <a class="nt-planche-src" href="${pl.lien}">${pl.credit}</a></figcaption>
+</figure>`;
+      });
+      const orphelines = Object.keys(da.planches).filter((k) => !k.startsWith('_') && !planchesVues.has(k));
+      if (orphelines.length) throw new Error(`« ${t.nom} » : planche(s) jamais placée(s) dans l'essai : ${orphelines.join(', ')}`);
+    }
+    if (/data-planche=/.test(essai)) throw new Error(`« ${t.nom} » : une planche est appelée dans l'essai sans meta.da.planches.`);
+    const lumieres = (da && da.lumieres) || {};
+
     /* Les sections : numéro romain, légende du monde, sommaire. */
     const sections = [];
     essai = essai.replace(/<section class="nt-sec" data-etape="([^"]+)" id="([^"]+)">\s*<h2>([^]*?)<\/h2>/g,
@@ -1298,7 +1324,7 @@ function identite(nom) {
         const n = sections.length;
         sections.push({ etape, id, h2 });
         const leg = (meta.monde && meta.monde.etapes && meta.monde.etapes[etape]) || '';
-        return `<section class="nt-sec" data-etape="${etape}" id="${id}" data-legende="${echap(nu(leg))}">\n<h2><span class="nt-sec-n" aria-hidden="true">${ROMAINS[n]}</span>${h2}</h2>`;
+        return `<section class="nt-sec" data-etape="${etape}" id="${id}" data-legende="${echap(nu(leg))}"${lumieres[etape] ? ` data-lumiere="${lumieres[etape]}"` : ''}>\n<h2><span class="nt-sec-n" aria-hidden="true">${ROMAINS[n]}</span>${h2}</h2>`;
       });
     if (sections.length < 3) throw new Error(`« ${titre} » : l'essai n'a que ${sections.length} section(s).`);
     if (meta.monde && meta.monde.etapes) {
@@ -1429,14 +1455,24 @@ ${sections.map((sec, i) => `      <button type="button" data-i="${i}" data-leg="
     }
     function teteNeuve() {
       const tot = sections.reduce((a, s) => a + (s.min || 0), 0);
-      return `<header class="nt-tete">
-
-  <nav class="nt-fil" aria-label="Fil d'Ariane">
+      const fil = `  <nav class="nt-fil" aria-label="Fil d'Ariane">
     <a href="/">Lire Marx</a><span aria-hidden="true">›</span><a href="/glossaire/">Glossaire</a><span aria-hidden="true">›</span>${t.nom}
-  </nav>
-
-  <h1 class="nt-h1">${meta.titre || t.nom}${(meta.de || t.de) ? `<span class="nt-de" lang="de">${meta.de || t.de}</span>` : ''}</h1>
-
+  </nav>`;
+      const h1 = `  <h1 class="nt-h1">${meta.titre || t.nom}${(meta.de || t.de) ? `<span class="nt-de" lang="de">${meta.de || t.de}</span>` : ''}</h1>`;
+      const v = da && da.vitrine;
+      return `${v ? `<div class="nt-vitrine">
+  <div class="nt-vitrine-photo">
+    <img src="${daDir}${v.img}" alt="${echap(nu(v.alt))}" width="${v.w}" height="${v.h}" fetchpriority="high" decoding="async">
+    <span class="nt-vitrine-reflet" aria-hidden="true"></span>
+  </div>
+  <div class="nt-vitrine-txt">
+${fil}
+${h1}
+  </div>
+  <p class="nt-vitrine-leg"><span>${v.legende}</span> <a href="${v.lien}">${v.credit}</a></p>
+</div>
+` : ''}<header class="nt-tete">
+${v ? '' : `\n${fil}\n\n${h1}\n`}
   <section class="nt-bref" aria-labelledby="nt-bref-t">
     <h2 class="nt-bref-t" id="nt-bref-t">En bref</h2>
     <p>${meta.enbref}</p>
@@ -1508,9 +1544,9 @@ ${meta.questions.map((x) => `    <details>
 <noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=13"></noscript>
 ${ld}
 </head>
-<body>
-<main class="wrap" id="contenu" tabindex="-1">
-<article class="nt nt--monde${plein && !neuf ? ' nt--plein' : ''}${neuf ? ' nt--tete' : ''}">
+<body${da ? ' class="nt-da"' : ''}>
+${da ? `<div class="nt-ambiance" aria-hidden="true"><span class="nt-amb nt-amb--chaude"></span><span class="nt-amb nt-amb--aube"></span></div>\n` : ''}<main class="wrap" id="contenu" tabindex="-1">
+<article class="nt nt--monde${plein && !neuf ? ' nt--plein' : ''}${neuf ? ' nt--tete' : ''}${da && da.vitrine ? ' nt--vitrine' : ''}">
 <div class="nt-grid">
 ${neuf ? teteNeuve() : `<div class="nt-col">
 

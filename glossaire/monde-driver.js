@@ -32,6 +32,9 @@
     var ligne = (window.innerHeight || 800) * 0.3, i = -1;
     for (var k = 0; k < cibles.length; k++) if (cibles[k] && cibles[k].getBoundingClientRect().top <= ligne) i = k;
     if (i === courant) return;
+    /* la lumière d'ambiance suit la section qu'on lit (meta.da.lumieres) */
+    var lum = i >= 0 && cibles[i] && cibles[i].dataset.lumiere;
+    if (lum) document.body.dataset.lumiere = lum; else delete document.body.dataset.lumiere;
     if (courant >= 0) liens[courant].removeAttribute('aria-current');
     if (i >= 0) liens[i].setAttribute('aria-current', 'location');
     courant = i;

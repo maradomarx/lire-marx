@@ -10997,6 +10997,39 @@ pour laisser la place au texte ; dans une figure le sujet peut être
 décentré. À vérifier à la réécriture de chacune (CHARTE.md, « La
 figure »).
 
+### Une direction artistique par page (même mission, 3e passe)
+
+Demande du propriétaire : « une véritable DA à la page, fond animé,
+correspondant au propos, des photos au besoin ». Le système est générique
+(`meta.da`, CHARTE.md « La direction artistique de la page ») ; le
+fétichisme reçoit **la vitrine** :
+
+- **en tête, une vitrine de tailleur d'Eugène Atget**, avenue des Gobelins,
+  1925 (Metropolitan Museum, domaine public, notice Commons vérifiée) : des
+  costumes sans tête portent leur prix épinglé sur la poitrine (« 225 »,
+  « 32 F »), la rue se reflète dans la vitre. Photo dans la moitié droite,
+  fondue à gauche sous le titre ; **un reflet traverse la vitre une fois à
+  l'arrivée** (le seul moment écrit de la page, coupé sous reduced-motion) ;
+- **deux planches** dans l'essai : la nef de l'Exposition universelle de
+  Londres, 1851 (calotype, exemplaire de W. H. Fox Talbot), à la fin de la
+  section sur « la région nuageuse du monde religieux » ; le mois de mars
+  des *Très Riches Heures* (musée Condé, domaine public), en couleur, à la
+  fin de la section des sociétés sans fétiche ;
+- **la lumière d'ambiance** (`.nt-ambiance`, fixe, derrière tout) : chaude
+  (la vitrine) par défaut, elle passe à **l'aube** quand le lecteur entre
+  dans la section V, celle des sociétés où l'on voit pour qui l'on
+  travaille, en écho à la lumière froide de la scène. `monde-driver.js`
+  pose `body[data-lumiere]` depuis la section courante ; fondu de 1,8 s.
+
+Pièges : **mesurer le contraste d'un texte posé sur une photo** demande de
+masquer le texte, de photographier et de lire le pixel le plus clair sous
+lui (la sonde ordinaire compare au premier fond opaque, c'est-à-dire au
+noir du bandeau) ; le fil d'Ariane, sur le haut clair du cliché, prend une
+pastille sombre sur téléphone. Et une **pastille arrondie fausse la
+mesure** : ses coins laissent voir la photo dans le rectangle mesuré.
+Le détecteur relève deux « side-tab » sur l'icône de pause, dessinée avec
+deux bordures : faux positif.
+
 ### `verif-citations.mjs` vérifie enfin le glossaire
 
 Le contrôle « 0 introuvable » ne couvrait que les chapitres et les

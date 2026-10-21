@@ -68,5 +68,42 @@
       "texte": "D'après le texte : Livre I, chapitre I, section IV",
       "q": "elle se dresse, pour ainsi dire, sur sa tête de bois"
     }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : la vitrine. La page se lit comme une vitrine de nuit : des choses dont le prix est écrit sur elles, et la rue qui se reflète dans la vitre. Trois images du domaine public, chacune choisie pour ce qu'elle montre du concept, et une lumière d'ambiance qui passe du chaud de la vitrine au froid de l'aube quand l'essai arrive aux sociétés sans fétiche.",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 1736,
+      "alt": "Vitrine d'un tailleur, avenue des Gobelins, en 1925 : des costumes sans tête portent leur prix épinglé sur la poitrine, des pantalons alignés affichent 32 et 35 francs, et la rue se reflète dans la vitre.",
+      "legende": "Le prix est épinglé sur la poitrine des costumes. Ce qu'il exprime, le travail de ceux qui les ont cousus, ne s'y lit pas.",
+      "credit": "Eugène Atget, vitrine avenue des Gobelins, Paris, 1925. Metropolitan Museum of Art, domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Eug%C3%A8ne_Atget,_Men%27s_Fashions,_1925.jpg"
+    },
+    "planches": {
+      "nef": {
+        "img": "planche-nef.webp",
+        "w": 1400,
+        "h": 1036,
+        "alt": "La grande nef de l'Exposition universelle de Londres en 1851 : une allée bordée de vitrines, de statues et de drapeaux, sous une charpente de fer et de verre.",
+        "legende": "Londres, 1851 : les marchandises du monde entier exposées sous une nef de verre, comme dans une église. Marx vit alors à Londres.",
+        "credit": "Calotype, Exposition universelle, 1851 (exemplaire de William Henry Fox Talbot). Domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Great_Exhibition,_View_of_Eastern_Nave_by_HF_Talbot,_1851.jpg"
+      },
+      "mars": {
+        "img": "planche-mars.webp",
+        "w": 1000,
+        "h": 1078,
+        "couleur": true,
+        "alt": "Miniature du mois de mars : sous un château fort, un paysan laboure avec deux bœufs, d'autres taillent la vigne.",
+        "legende": "Au pied du château, le paysan laboure. Ce qu'il doit à son seigneur ne passe par aucun prix : on voit pour qui l'on travaille.",
+        "credit": "Les Très Riches Heures du duc de Berry, mois de mars, frères de Limbourg et Barthélemy d'Eyck, vers 1412-1440. Musée Condé, Chantilly, domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Les_Tr%C3%A8s_Riches_Heures_du_duc_de_Berry_mars.jpg"
+      }
+    },
+    "lumieres": {
+      "voile": "aube",
+      "lectures": "chaude"
+    }
   }
 }
