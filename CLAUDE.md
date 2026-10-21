@@ -10961,6 +10961,42 @@ Pièges payés :
    compte maintenant la bande, et une ombre pleine bouche l'interstice de
    8 px où le texte apparaissait au-dessus d'elle.
 
+### La scène devient une figure à la demande (même mission, 2e passe)
+
+Retour du propriétaire sur le pilote : « il faut repenser l'animation, voire
+la faire disparaître, l'UI UX doit être la priorité ». Trois options
+posées (figure à la demande, image fixe seule, scène gardée en marge) ;
+**arbitré : la figure à la demande**. Sur une page réécrite :
+
+- **plus de scène collée qui bouge pendant qu'on lit**, ni colonne collante
+  au bureau ni bande collante sur téléphone. La scène est une
+  `figure.nt-fig` posée après « Ce qu'il faut retenir », immobile (l'image
+  fixe) ;
+- **« Voir la scène »** charge Three.js et la scène AU PREMIER GESTE
+  (rien avant : 148 Ko de moins au chargement) et la joue d'un trait,
+  g de 0 à N, environ 3,6 s par étape — la même chorégraphie qu'au
+  défilement ; une barre d'étapes (I à VI, comme les sections) y va
+  directement, un bouton met en pause (WCAG 2.2.2). Sous reduced-motion,
+  on saute d'étape en étape. La légende de l'étape s'écrit sous la figure ;
+- **le sommaire passe en colonne collante à droite au-dessus de 1180 px**
+  et marque la section qu'on lit (`aria-current="location"`) ; en dessous
+  il reste dans le flux, après la figure ;
+- `capture-monde.mjs` charge la scène par `window.__ntFig.charger()`.
+
+**La règle « la colonne de texte ne bouge jamais » devient, sur ces pages :
+rien ne bouge sans qu'on l'ait demandé.** Les pages non réécrites gardent
+l'ancien comportement (scène pilotée au défilement) jusqu'à leur tour.
+
+Pièges : la grille hérite d'un `gap` de 1100 px (`clamp(28px,4vw,64px)`)
+qui posait 57 px entre la figure et l'essai — `gap:0 56px` ; et le bouton
+« Voir la scène » disparaît au chargement : le focus passe au bouton de
+lecture, sinon il tombe sur `<body>`.
+
+**Reste par page** : les 23 scènes « plein » visaient à gauche du sujet
+pour laisser la place au texte ; dans une figure le sujet peut être
+décentré. À vérifier à la réécriture de chacune (CHARTE.md, « La
+figure »).
+
 ### `verif-citations.mjs` vérifie enfin le glossaire
 
 Le contrôle « 0 introuvable » ne couvrait que les chapitres et les
@@ -10986,7 +11022,7 @@ DA documentée). `gen-seo --check` à jour.
 
 ### Ce qui reste
 
-- **La relecture du pilote par Fabio**, puis les 44 autres pages par
+- Après validation de la figure, les 44 autres pages par
   vagues d'agents, chacun avec la charte, `verif-citations` et une
   relecture par un second agent qui chasse les tics.
 - Les vidéos explicatives : idée discutée, pas commencée. Faisables par

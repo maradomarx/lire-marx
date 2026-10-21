@@ -373,13 +373,22 @@ html.js-monde .nt--plein .nt-monde-credit{display:block;}
    droite sur toute la hauteur. Tout est scopé sous .nt--tete : une page
    non réécrite ne bouge pas d'un pixel.
    ═══════════════════════════════════════════════════════════════════ */
-.nt--tete .nt-tete{max-width:680px;min-width:0;}
-.nt--tete .nt-monde{order:0;}
-@media(min-width:1100px){
-  .nt--tete .nt-grid{grid-template-areas:"tete monde" "col monde";}
+/* Une colonne de lecture ; au-dessus de 1180 px, le sommaire passe dans
+   une colonne étroite à droite, collante, et marque la section qu'on lit. */
+.nt--tete{max-width:1080px;}
+.nt--tete .nt-grid{display:flex;flex-direction:column;}
+.nt--tete .nt-tete,.nt--tete .nt-fig,.nt--tete .nt-som,.nt--tete .nt-col{width:100%;max-width:700px;min-width:0;}
+@media(min-width:1180px){
+  .nt--tete .nt-grid{display:grid;grid-template-columns:minmax(0,700px) 236px;gap:0 56px;
+    justify-content:center;grid-template-areas:"tete som" "fig som" "col som";}
   .nt--tete .nt-tete{grid-area:tete;}
+  .nt--tete .nt-fig{grid-area:fig;}
   .nt--tete .nt-col{grid-area:col;}
-  .nt--tete .nt-monde{grid-area:monde;align-self:start;}
+  .nt--tete .nt-som{grid-area:som;align-self:start;position:sticky;top:68px;margin-top:96px;
+    max-height:calc(100vh - 92px);overflow:auto;padding:0;border:0;background:none;}
+  .nt--tete .nt-grid{grid-template-columns:minmax(0,700px) 256px;}
+  .nt--tete .nt-som-t{padding-left:10px;}
+  .nt--tete .nt-som a{font-size:.9rem;line-height:1.35;padding:6px 8px 6px 10px;border-radius:8px;}
 }
 
 /* « En bref » : la surface d'emphase de la maison, la seule de la page */
@@ -404,9 +413,13 @@ html.js-monde .nt--plein .nt-monde-credit{display:block;}
   font-weight:500;color:var(--gold);font-size:1.05rem;line-height:1.5;}
 .nt-duree{margin-top:10px;font-family:var(--f-ui);font-size:.8rem;color:var(--muted);}
 
-/* le sommaire dit le temps de chaque section */
-.nt--tete .nt-som{margin-top:34px;}
-@media(min-width:1100px){.nt--tete .nt-som{margin-top:0;}}
+/* le sommaire dit le temps de chaque section, et la section qu'on lit */
+.nt--tete .nt-som{margin-top:30px;}
+.nt--tete .nt-corps{margin-top:0;}
+.nt--tete .nt-essai>.nt-sec:first-child{margin-top:44px;}
+.nt-som-txt{flex:1;min-width:0;}
+.nt--tete .nt-som a[aria-current="location"]{color:var(--text);background:var(--hover);}
+.nt--tete .nt-som a[aria-current="location"]::before{color:var(--gold);}
 .nt-som-min{margin-left:auto;padding-left:12px;flex:none;font-family:var(--f-ui);
   font-size:.72rem;color:var(--muted);font-variant-numeric:tabular-nums;}
 
@@ -447,20 +460,6 @@ html.js-monde .nt--plein .nt-monde-credit{display:block;}
 .nt-corps .nt-quiz-r p,.nt-quiz-r p{font-family:var(--f-serif);font-size:1rem;line-height:1.7;
   color:var(--ink-soft);margin:0;}
 
-/* L'architecture « plein » avec la tête dehors : le voile passe de la
-   colonne à la tête, sans quoi la colonne, peinte après, le poserait
-   PAR-DESSUS le titre et « En bref ». */
-@media(min-width:1100px){
-  html.js-monde .nt--plein.nt--tete .nt-tete{position:relative;z-index:1;max-width:600px;padding-right:40px;}
-  html.js-monde .nt--plein.nt--tete .nt-col::before{display:none;}
-  /* align-self:start (posé plus haut pour la grille) réduit un élément en
-     position fixe à la hauteur de son contenu : la scène tombait à 0 px. */
-  html.js-monde .nt--plein.nt--tete .nt-monde--plein{align-self:auto;}
-  html.js-monde .nt--plein.nt--tete .nt-som{margin-top:34px;}
-  html.js-monde .nt--plein.nt--tete .nt-tete::before{content:'';position:fixed;inset:0;z-index:-1;
-    pointer-events:none;
-    background:linear-gradient(to right,rgba(13,10,7,.94) 0,rgba(13,10,7,.9) 560px,rgba(13,10,7,.55) 820px,rgba(13,10,7,0) 1040px);}
-}
 .nt-quiz+.nt-colophon{border-top:0;}
 @media(max-width:560px){.nt-bref p{font-size:1.06rem;}.nt-bref{padding:18px 20px 20px;}}
 /* SOUS 1100 px, LA BANDE COLLANTE COUVRE LE HAUT DE L'ÉCRAN : une ancre du
@@ -469,9 +468,52 @@ html.js-monde .nt--plein .nt-monde-credit{display:block;}
    l'interstice de 8 px entre la topbar et la bande laissait voir le texte
    qui défile : une ombre pleine à la couleur du fond le bouche. */
 @media(max-width:1099px){
-  .nt--monde .nt-sec,.nt--monde .nt-quiz{scroll-margin-top:calc(var(--nt-top,44px) + min(44vh,380px) + 26px);}
+  .nt--monde:not(.nt--tete) .nt-sec{scroll-margin-top:calc(var(--nt-top,44px) + min(44vh,380px) + 26px);}
   .nt--monde .nt-monde{box-shadow:0 -9px 0 1px var(--bg);}
 }
 @media(max-width:760px){
-  .nt--monde .nt-sec,.nt--monde .nt-quiz{scroll-margin-top:calc(var(--nt-top,44px) + clamp(170px,28vh,240px) + 24px);}
+  .nt--monde:not(.nt--tete) .nt-sec{scroll-margin-top:calc(var(--nt-top,44px) + clamp(170px,28vh,240px) + 24px);}
 }
+
+/* ── LA FIGURE À LA DEMANDE (gabarit de lecture) ──
+   Immobile par défaut : l'image fixe et sa légende. Le script révèle le
+   bouton « Voir la scène » et la barre d'étapes s'il y a de quoi jouer. */
+.nt-fig{margin:34px 0 0;}
+.nt-fig-cadre{position:relative;aspect-ratio:16/10;border-radius:16px;overflow:hidden;
+  background:#0d0a07;border:1px solid var(--border);}
+.nt-fig-cadre canvas,.nt-fig-cadre .nt-monde-still{position:absolute;inset:0;width:100%;height:100%;display:block;}
+.nt-fig-cadre .nt-monde-still{object-fit:cover;}
+.nt-fig-cadre canvas[hidden],.nt-fig-cadre .nt-monde-still[hidden]{display:none;}
+.nt-fig-go{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);display:inline-flex;
+  align-items:center;gap:10px;padding:11px 20px 11px 16px;border-radius:999px;cursor:pointer;
+  background:rgba(13,10,7,.78);border:1px solid rgba(216,173,76,.5);color:var(--text);
+  font-family:var(--f-ui);font-size:.9rem;font-weight:600;backdrop-filter:blur(4px);
+  transition:background .18s,border-color .18s;}
+.nt-fig-go:hover{background:rgba(13,10,7,.92);border-color:var(--gold);}
+.nt-fig-go[hidden]{display:none;}
+/* l'icône de lecture et de pause, dessinée */
+.nt-fig-ic{display:inline-block;width:0;height:0;border-style:solid;border-width:6px 0 6px 10px;
+  border-color:transparent transparent transparent var(--gold);}
+.nt-fig.is-playing .nt-fig-lire .nt-fig-ic{width:10px;height:12px;border:0;
+  border-left:3px solid var(--gold);border-right:3px solid var(--gold);}
+.nt-fig-barre{display:flex;align-items:center;gap:10px;margin-top:10px;}
+.nt-fig-barre[hidden]{display:none;}
+.nt-fig-lire{flex:none;width:36px;height:36px;border-radius:999px;display:grid;place-items:center;
+  cursor:pointer;background:var(--surface);border:1px solid var(--line-strong);color:var(--text);}
+.nt-fig-lire:hover{border-color:var(--gold);}
+.nt-fig-lire[hidden]{display:none;}
+.nt-fig-pas{display:flex;flex-wrap:wrap;gap:6px;}
+.nt-fig-pas button{min-width:36px;height:36px;padding:0 10px;border-radius:999px;cursor:pointer;
+  background:none;border:1px solid var(--border);color:var(--muted);
+  font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:.95rem;
+  transition:border-color .18s,color .18s,background .18s;}
+.nt-fig-pas button:hover{border-color:var(--gold);color:var(--text);}
+.nt-fig-pas button[aria-pressed="true"]{background:var(--emphase);border-color:rgba(216,173,76,.55);color:var(--gold);}
+.nt-fig figcaption{margin-top:10px;display:flex;flex-direction:column;gap:6px;}
+.nt-fig-cap{font-family:var(--f-serif);font-style:italic;font-size:.98rem;line-height:1.55;color:var(--ink-soft);
+  transition:opacity .25s;}
+.nt-fig-cap.swap{opacity:0;}
+.nt-fig-src{display:flex;flex-wrap:wrap;gap:4px 14px;font-family:var(--f-ui);font-size:.78rem;color:var(--muted);}
+.nt-fig-src a{display:inline-block;padding:5px 0;color:var(--gold);text-decoration:none;}
+.nt-fig-src a:hover{text-decoration:underline;}
+@media (pointer:coarse){.nt-fig-src a{padding:12px 0;margin:-9px 0;}.nt-fig-pas button,.nt-fig-lire{min-width:40px;height:40px;}}

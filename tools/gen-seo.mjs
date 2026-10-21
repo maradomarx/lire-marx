@@ -1390,9 +1390,43 @@ ${credit}  </aside>`;
         ] },
     ].map((o) => `${OPEN}\n${JSON.stringify(o, null, 2)}\n${CLOSE}`).join('\n');
 
-    /* La tête du gabarit de lecture : hors de la colonne, pour passer AVANT la
-       scène sur téléphone. « En bref » (30 secondes), « Ce qu'il faut
-       retenir » (2 minutes), puis l'essai. */
+    /* La tête du gabarit de lecture : « En bref » (30 secondes), « Ce qu'il
+       faut retenir » (2 minutes), LA FIGURE, puis l'essai. Le sommaire est un
+       enfant de la grille : sur grand écran il devient une colonne collante
+       qui suit la lecture (monde-driver.js marque la section courante).
+
+       LA FIGURE À LA DEMANDE (arbitrage du propriétaire, oct. 2026 : « l'UI
+       UX doit être la priorité ») : la scène ne bouge plus pendant qu'on lit.
+       Elle est posée, immobile (l'image fixe), après le résumé ; un bouton la
+       fait jouer, des étapes numérotées comme les sections de l'essai la
+       placent où l'on veut. Three.js ne se charge qu'au premier geste. Sans
+       script, sans WebGL : l'image et sa légende, la page est finie. */
+    function figureNeuve() {
+      const legs = sections.map((s) => echap(nu((meta.monde && meta.monde.etapes && meta.monde.etapes[s.etape]) || '')));
+      const credit = meta.monde && meta.monde.credit ? `<span class="nt-fig-credit">${meta.monde.credit}</span>` : '';
+      const srcLien = meta.monde && meta.monde.source
+        ? `<a href="${lien(src.s, meta.monde.source.q)}">${meta.monde.source.texte} →</a>` : '';
+      const g0 = meta.monde && meta.monde.fixe && typeof meta.monde.fixe.g === 'number' ? meta.monde.fixe.g : 0;
+      return `<figure class="nt-fig" aria-label="La figure de la notion"${aScene
+        ? `${meta.monde && meta.monde.moteur === '2d' ? '' : ` data-three="/vendor/three.min.js?v=${hashV('vendor/three.min.js')}"`} data-scene="/${dossier}/monde.js?v=${hashV(`${dossier}/monde.js`)}" data-g0="${g0}"` : ''}>
+  <div class="nt-fig-cadre">
+    <canvas hidden role="img" aria-label="${alt}"></canvas>
+${still ? `    <img class="nt-monde-still" src="/${still}" alt="${alt}" width="1200" height="750" decoding="async">` : `    <div class="nt-monde-still" role="img" aria-label="${alt}"></div>`}
+    <button type="button" class="nt-fig-go" hidden><span class="nt-fig-ic" aria-hidden="true"></span>Voir la scène</button>
+  </div>
+  <div class="nt-fig-barre" hidden>
+    <button type="button" class="nt-fig-lire" aria-label="Lire la scène"><span class="nt-fig-ic" aria-hidden="true"></span></button>
+    <div class="nt-fig-pas" role="group" aria-label="Les étapes de la scène, une par section de l'essai">
+${sections.map((sec, i) => `      <button type="button" data-i="${i}" data-leg="${legs[i]}" aria-pressed="false" aria-label="Étape ${i + 1} : ${echap(nu(sec.h2))}" title="${echap(nu(sec.h2))}">${ROMAINS[i]}</button>`).join('\n')}
+    </div>
+  </div>
+  <figcaption>
+    <span class="nt-fig-cap" aria-live="polite">${legende0}</span>
+    <span class="nt-fig-src">${srcLien}${credit}</span>
+  </figcaption>
+</figure>
+`;
+    }
     function teteNeuve() {
       const tot = sections.reduce((a, s) => a + (s.min || 0), 0);
       return `<header class="nt-tete">
@@ -1417,7 +1451,13 @@ ${meta.retenir.map((r) => `      <li>${r}</li>`).join('\n')}
   </section>
 
 </header>
-${monde}
+${figureNeuve()}
+  <nav class="nt-som" aria-label="Sommaire">
+    <p class="nt-som-t">L'essai, en ${numFrF(sections.length)} questions</p>
+    <ol>
+${sections.map((s) => `      <li><a href="#${s.id}"><span class="nt-som-txt">${s.h2}</span><span class="nt-som-min">${s.min} min</span></a></li>`).join('\n')}
+    </ol>
+  </nav>
 <div class="nt-col">
 `;
     }
@@ -1470,7 +1510,7 @@ ${ld}
 </head>
 <body>
 <main class="wrap" id="contenu" tabindex="-1">
-<article class="nt nt--monde${plein ? ' nt--plein' : ''}${neuf ? ' nt--tete' : ''}">
+<article class="nt nt--monde${plein && !neuf ? ' nt--plein' : ''}${neuf ? ' nt--tete' : ''}">
 <div class="nt-grid">
 ${neuf ? teteNeuve() : `<div class="nt-col">
 
@@ -1481,14 +1521,14 @@ ${neuf ? teteNeuve() : `<div class="nt-col">
   <p class="nt-label">La notion</p>
   <h1 class="nt-h1">${meta.titre || t.nom}${(meta.de || t.de) ? `<span class="nt-de" lang="de">${meta.de || t.de}</span>` : ''}</h1>
   <p class="nt-chapo">${meta.chapo}</p>
-`}
+
   <nav class="nt-som" aria-label="Sommaire">
-    <p class="nt-som-t">${neuf ? `L'essai, en ${numFrF(sections.length)} questions` : 'Dans cet essai'}</p>
+    <p class="nt-som-t">Dans cet essai</p>
     <ol>
-${sections.map((s) => `      <li><a href="#${s.id}">${s.h2}${neuf ? `<span class="nt-som-min">${s.min} min</span>` : ''}</a></li>`).join('\n')}
+${sections.map((s) => `      <li><a href="#${s.id}">${s.h2}</a></li>`).join('\n')}
     </ol>
   </nav>
-
+`}
   <div class="nt-corps nt-essai">
 ${essai}
   </div>
@@ -1538,7 +1578,7 @@ ${PIED}
 <script src="/oeuvres/shell.js?v=22"></script>
 <script src="/oeuvres/shell-social.js"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
-${aScene ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-driver.js')}" defer></script>` : ''}
+${aScene || neuf ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-driver.js')}" defer></script>` : ''}
 </body>
 </html>
 `;

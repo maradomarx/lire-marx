@@ -70,12 +70,15 @@ try {
   const page = await browser.newPage();
   await page.setViewport({ width: 1400, height: 900, deviceScaleFactor: 1 });
   await page.goto(`${ORIGIN}/glossaire/${slug}`, { waitUntil: 'networkidle0', timeout: 60000 });
+  /* gabarit de lecture : la scène est une figure qui ne se charge qu'au
+     premier geste — on la charge ici sans geste */
+  await page.evaluate(() => window.__ntFig && window.__ntFig.charger());
   await page.waitForFunction(() => !!window.__ntMonde, { timeout: 20000 })
     .catch(() => die('La scène ne s\'est pas armée (pas de WebGL dans ce Chrome ?).'));
   await page.evaluate(async (g, w, h) => {
-    const aside = document.querySelector('.nt-monde');
+    const aside = document.querySelector('.nt-fig-cadre') || document.querySelector('.nt-monde');
     aside.style.cssText = `position:fixed;left:0;top:0;width:${w}px;height:${h}px;z-index:99999;margin:0;border:0;border-radius:0;aspect-ratio:auto`;
-    aside.querySelectorAll('.nt-monde-cap,.nt-monde-src,.nt-monde-credit').forEach((e) => { e.style.display = 'none'; });
+    aside.querySelectorAll('.nt-monde-cap,.nt-monde-src,.nt-monde-credit,.nt-fig-go').forEach((e) => { e.style.display = 'none'; });
     const M = window.__ntMonde;
     if (M.monde.ready) await M.monde.ready;   /* une statue à charger, par exemple */
     M.monde.resize();

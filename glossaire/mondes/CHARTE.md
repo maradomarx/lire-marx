@@ -36,6 +36,28 @@ Une page se lit à trois profondeurs. Chacune doit se suffire.
 Puis **Vérifier sa compréhension** (`meta.questions`) : trois questions
 avec leur réponse.
 
+### La figure
+
+La scène 3D (ou la planche) ne suit plus le défilement : elle est une
+**figure posée après « Ce qu'il faut retenir »**, immobile par défaut
+(l'image fixe), que le lecteur fait jouer (« Voir la scène », puis une
+étape par section de l'essai). Arbitrage du propriétaire (octobre 2026) :
+l'interface passe avant l'animation, le texte ne doit jamais bouger ni être
+accompagné d'un mouvement qu'on n'a pas demandé.
+
+Conséquences pour une réécriture :
+
+- les légendes d'étape (`meta.monde.etapes`) se lisent maintenant **sous la
+  figure, une à une, au clic** : chacune doit se comprendre seule ;
+- `meta.monde.fixe.legende` est la légende de l'image au repos ;
+- **le cadrage est à revérifier** pour les pages qui étaient en
+  architecture « plein » (`meta.monde.layout: "plein"`) : leur caméra visait
+  à gauche du sujet pour laisser la place au texte, et dans une figure le
+  sujet peut se retrouver décentré. On regarde l'image fixe et la scène
+  dans la figure ; si le sujet est décentré, on corrige la visée dans
+  `monde.js` (pas de décalage quand le canevas fait moins de 1100 px) et
+  l'on refait l'image avec `node tools/capture-monde.mjs <notion>`.
+
 ### En bref
 
 - La première phrase commence par le nom de la notion et la définit :
