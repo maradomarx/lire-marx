@@ -1,22 +1,43 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/plus-value.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/plus-value. L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrite en octobre 2026 selon glossaire/mondes/CHARTE.md (enbref, retenir, questions).",
   "titre": "Plus-value",
   "de": "Mehrwert",
-  "chapo": "La plus-value est la valeur que le travail crée au-delà de ce que coûte la force de travail. Elle ne vient pas de l'échange, où l'on ne peut que redistribuer, mais de la production, où la journée se coupe en deux : le travail nécessaire, qui rembourse le salaire, et le surtravail, qui ne coûte rien au capital. Et le contrat, dit Marx, est rigoureusement respecté.",
-  "description": "La plus-value chez Marx : d'où vient le profit sans violer l'échange, la journée coupée en travail nécessaire et surtravail, le taux d'exploitation, et pourquoi Lefebvre dit « survaleur ».",
+  "enbref": "La plus-value est, chez Marx, la valeur que le travail salarié produit au-delà de ce qu'il coûte à celui qui l'emploie. Le capitaliste achète la force de travail, c'est-à-dire la capacité de travailler, à sa valeur, celle des subsistances de l'ouvrier&nbsp;; mais la journée dure plus longtemps qu'il ne faut pour reproduire cette valeur. Marx l'expose au chapitre VII du Livre&nbsp;I du <i>Capital</i> (1867). La difficulté tient à ceci&nbsp;: elle naît sans qu'aucun échange soit faussé.",
+  "retenir": [
+    "L'argent placé comme capital revient augmenté. Marx montre que ce surplus ne peut pas venir de l'échange, où ce que l'un gagne, l'autre le perd.",
+    "La solution est une marchandise dont l'usage crée de la valeur&nbsp;: la force de travail. On l'achète sur le marché, on l'emploie dans l'atelier, où naît la plus-value.",
+    "La force de travail vaut ce que coûtent les subsistances de l'ouvrier, mettons six heures de travail. Si on la fait travailler douze heures, la différence est la plus-value.",
+    "Tout se passe dans les règles, chaque marchandise étant payée à sa valeur. Le rapport du surtravail au travail nécessaire, le taux de plus-value, mesure le degré d'exploitation.",
+    "Le capital l'accroît en allongeant la journée (plus-value absolue) ou en réduisant le travail nécessaire par la productivité (plus-value relative). Le profit en est la forme visible."
+  ],
+  "questions": [
+    {
+      "q": "Pourquoi le fileur de Marx ne produit-il aucune plus-value quand il ne travaille que six heures&nbsp;?",
+      "r": "Parce que six heures de filage ajoutent au coton exactement la valeur de sa force de travail, trois shillings. Les filés valent alors quinze shillings, autant que ce qui a été avancé. Il faut que la journée dure douze heures pour que le produit vaille trente shillings, pour vingt-sept avancés."
+    },
+    {
+      "q": "Le capitaliste vole-t-il l'ouvrier en lui payant son salaire&nbsp;?",
+      "r": "Pas au sens de l'échange&nbsp;: Marx suppose que la force de travail est payée à sa valeur. La plus-value vient de ce que l'usage de cette force produit plus qu'elle ne coûte. C'est pourquoi Marx peut parler d'exploitation sans parler de fraude."
+    },
+    {
+      "q": "Pourquoi le profit cache-t-il la plus-value&nbsp;?",
+      "r": "Parce qu'on le rapporte au capital tout entier, machines et matières comprises, et non à la seule part dépensée en salaires. Le surplus semble alors sortir de l'ensemble du capital. Le taux de profit est plus faible que le taux de plus-value et laisse son origine dans l'ombre."
+    }
+  ],
+  "description": "La plus-value chez Marx expliquée simplement : d'où vient le profit quand tout s'échange à sa valeur, le surtravail, et le mot « survaleur ».",
   "source": {
     "work": "capital-1",
     "s": 3,
-    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitres V, VII, IX et X — traduction Joseph Roy (1872)"
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitres V à X et XVI, traduction Joseph Roy (1872)"
   },
-  "ou": "Livre&nbsp;I, chapitre VII, « Production de valeurs d'usage et production de la plus-value », après que le chapitre V a rendu le problème insoluble et que le chapitre VI a trouvé la force de travail. Le chapitre IX la mesure (le taux), le chapitre X en fait une lutte (la journée), les sections IV et V en distinguent les deux formes, absolue et relative.",
+  "ou": "Livre&nbsp;I, chapitre VII, «&nbsp;Production de valeurs d'usage et production de la plus-value&nbsp;». Le chapitre V pose le problème, le chapitre VI trouve la force de travail, le chapitre IX mesure la plus-value par son taux, le chapitre X trace la ligne de la journée de travail. Les sections IV et V en distinguent les deux formes, absolue et relative.",
   "outils": [
     {
-      "label": "La journée de travail — le laboratoire",
+      "label": "La journée de travail, le laboratoire",
       "url": "/oeuvres/capital-1#labo=s-jour"
     },
     {
-      "label": "Le circuit du capital — le jeu",
+      "label": "Le circuit du capital, le jeu",
       "url": "/jeu/"
     }
   ],
@@ -31,24 +52,158 @@
     "Journée de travail"
   ],
   "monde": {
-    "_": "LA SCÈNE : LE FIL, ET LA LIGNE QU'IL ÉCRIT. Marx donne lui-même les deux images, et elles n'en font qu'une — au chapitre VII l'exemple est le fileur (du coton, une broche, du fil) ; au chapitre IX il représente la journée par une ligne droite coupée en b, a—b le travail nécessaire, b—c le surtravail. Or le fil qui sort de la broche EST cette ligne : il ne s'arrête pas quand l'ouvrier a filé la valeur de sa propre force, il continue, dans le même geste, et c'est ce prolongement qui est la plus-value. Une NATURE MORTE SERRÉE — le bout d'un établi sous une lampe, la broche, la bobine qui grossit, la craie sur le bois — et non une salle : le cadrage fait la différence entre un objet et un dessin en trois dimensions. Le geste ne change jamais ; ce qui change, c'est où va ce qu'il produit. La mise en page est « plein » : une colonne verticale contrarierait une ligne horizontale, qui n'y tient pas. L'ensemble est donc COURT — une unité et demie — pour tenir tout entier dans la moitié droite, hors de la colonne de texte.",
+    "_": "LA SCÈNE : LE FIL, ET LA LIGNE QU'IL ÉCRIT. Marx donne lui-même les deux images, et elles n'en font qu'une : au chapitre VII l'exemple est le fileur (du coton, une broche, du fil) ; au chapitre X il représente la journée par une ligne droite coupée en b, a-b le travail nécessaire, b-c le surtravail. Le fil qui sort de la broche est cette ligne : il ne s'arrête pas quand l'ouvrier a filé la valeur de sa propre force, il continue dans le même geste, et ce prolongement est la plus-value. Une nature morte serrée : le bout d'un établi sous une lampe, la broche, la bobine qui grossit, la craie sur le bois. Depuis octobre 2026 la scène est une figure à la demande en bas de page : elle se cadre centrée (plus de décalage de visée sous 1100 px de canevas).",
+    "titre": "Le fil du fileur, en six temps",
     "alt": "Le bout d'un établi sous une lampe : une broche, une bobine de fil qui grossit, du coton, quelques pièces, et à la craie sur le bois une ligne droite marquée a, b et c.",
     "source": {
-      "texte": "D'après le texte — Livre I, chapitres VII et IX",
+      "texte": "D'après le texte : Livre I, chapitres VII et X",
       "q": "La production de plus‑value n’est donc autre chose que la production d"
     },
     "etapes": {
-      "enigme": "Une broche, un fil qui descend, une bobine qui tourne. D'où vient le plus ? De rien qu'on voie encore : le geste est toujours le même.",
-      "lieu": "L'établi, le coton, la lampe. Ce qui se passe ici ne se passe pas sur le marché : on est dans la production, et le travail est l'usage de la force achetée.",
-      "distinction": "La craie écrit la journée : de a à b, l'ouvrier a filé la valeur de sa propre force. Trois shillings sur l'établi — elle est payée à sa valeur, tout est en règle.",
-      "mecanisme": "Et le fil continue. Même geste, même main, même bobine : de b à c, ce qui se file ne va plus à l'ouvrier. La plus-value n'est pas volée dans l'échange, elle est produite ici.",
-      "ouvre": "La nuit tombe, la lampe prend, et la ligne s'allonge : c recule. Allonger la journée ou resserrer a—b, ce sont les deux voies — et un droit contre un droit se tranche par la force.",
-      "lectures": "La craie reste sur le bois. Ce n'est ni le profit, ni une fraude, ni la machine : c'est la longueur du fil au-delà de b."
+      "enigme": "Une broche, un fil qui descend, une bobine qui tourne. Le geste reste le même du début à la fin, et rien ne montre encore d'où vient le surplus.",
+      "lieu": "L'établi, le coton, la lampe. On est dans l'atelier, loin du marché : le travail est l'usage de la force de travail que le capitaliste a achetée.",
+      "distinction": "La craie écrit la journée. De a à b, l'ouvrier a filé la valeur de sa propre force : trois shillings sur l'établi, il est payé à sa valeur.",
+      "mecanisme": "Le fil continue, du même geste et sur la même bobine. De b à c, ce qui se file ne revient plus à l'ouvrier : c'est la plus-value, produite ici.",
+      "ouvre": "La nuit tombe, la lampe s'allume et la ligne s'allonge. Prolonger la journée ou raccourcir a-b : ce sont les deux voies du capital.",
+      "lectures": "La craie reste sur le bois. La plus-value est cette longueur de fil au-delà de b."
     },
     "fixe": {
       "g": 4.3,
-      "legende": "Le fil ne s'arrête pas en b : de b à c, le même geste file ce qui ne revient pas à l'ouvrier — la ligne du chapitre IX, à la craie sur l'établi."
+      "legende": "Le fil ne s'arrête pas en b. De b à c, le même geste file ce qui ne revient pas à l'ouvrier : la ligne du chapitre X, tracée à la craie sur l'établi."
     },
     "layout": "plein"
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : la feuille de paie. La plus-value ne se voit nulle part, parce que le salaire a l'air de payer toute la journée. La page part donc d'une enveloppe de paie de filature, où une somme est inscrite en face des journées, puis entre dans la salle de filature où le travail se fait. Le fond : les objets de l'exemple de Marx (le coton, la bobine, la pièce, l'horloge, la lampe) ; en lumière chaude, ce qui se voit (les prix, le salaire, la journée) ; à l'aube, à partir de la section du mécanisme, ce que l'analyse fait voir (les heures payées et les heures de plus).",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 1732,
+      "alt": "Une enveloppe de paie imprimée de la filature Cooleemee Cotton Mills, datée du 9 décembre 1902 : un nom écrit à la main, et la somme de 7,50 dollars inscrite sur la ligne des journées travaillées.",
+      "legende": "La somme est inscrite sur la ligne des journées. Le salaire semble payer toute la journée de travail ; Marx montre qu'il n'en paie qu'une partie.",
+      "credit": "Enveloppe de paie, Cooleemee Cotton Mills, Caroline du Nord, 9 décembre 1902. Davie County Public Library, via la Digital Public Library of America, domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Cooleemee_Cotton_Mills_Pay_Envelope_-_DPLA_-_1e38a0638764d6559f7eee43a79b570d.jpg"
+    },
+    "planches": {
+      "mule": {
+        "img": "planche-mule.webp",
+        "w": 1100,
+        "h": 702,
+        "alt": "Une salle de filature mécanique sous une charpente de fer et de verre : un fileur pousse le chariot d'une longue machine à filer, une ouvrière se penche sur les fils, un enfant ramasse le coton tombé sous la machine.",
+        "legende": "Une salle de filature mécanique, vers 1834. C'est le travail de l'exemple de Marx, à l'échelle de la fabrique : le même geste répété sur des centaines de broches.",
+        "credit": "« Mule spinning », gravure de J. W. Lowry d'après Thomas Allom, 1834, pour l'<i>History of the Cotton Manufacture</i> d'Edward Baines (1835). Wellcome Collection, licence CC BY 4.0.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Textiles;_a_belt-driven_version_of_Crompton%27s_mule_inside_an_Wellcome_V0024077.jpg"
+      }
+    },
+    "lumieres": {
+      "mecanisme": "aube",
+      "ouvre": "aube",
+      "lectures": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les objets de l'exemple du fileur, dessinés en points. En lumière chaude monte ce qui se voit (les prix et le salaire) ; à l'aube, ce que l'analyse fait voir (les heures payées et les heures de plus). Les chiffres sont ceux de Marx au chapitre VII.",
+      "dessins": {
+        "horloge": [
+          "..11111..",
+          ".1.....1.",
+          "1...1...1",
+          "1...1...1",
+          "1...111.1",
+          "1.......1",
+          "1.......1",
+          ".1.....1.",
+          "..11111.."
+        ],
+        "bobine": [
+          "1111111",
+          ".1...1.",
+          ".11111.",
+          ".11111.",
+          ".11111.",
+          ".11111.",
+          ".1...1.",
+          "1111111"
+        ],
+        "lampe": [
+          "....1....",
+          "...111...",
+          "...111...",
+          "..1...1..",
+          ".1.....1.",
+          ".1.....1.",
+          "..1...1..",
+          "...111...",
+          ".1111111."
+        ]
+      },
+      "motifs": [
+        {
+          "m": "horloge",
+          "chaude": [
+            "douze heures",
+            "une journée"
+          ],
+          "aube": [
+            "six payées",
+            "six de plus"
+          ]
+        },
+        {
+          "m": "bobine",
+          "chaude": [
+            "30 shillings",
+            "vingt livres"
+          ],
+          "aube": [
+            "27 avancés",
+            "3 de plus"
+          ]
+        },
+        {
+          "m": "piece",
+          "chaude": [
+            "3 shillings",
+            "le salaire"
+          ],
+          "aube": [
+            "six heures",
+            "travail nécessaire"
+          ]
+        },
+        {
+          "m": "sac",
+          "chaude": [
+            "le coton",
+            "20 shillings"
+          ],
+          "aube": [
+            "valeur transmise",
+            "rien de plus"
+          ]
+        },
+        {
+          "m": "rouet",
+          "chaude": [
+            "le filage",
+            "la broche"
+          ],
+          "aube": [
+            "travail vivant",
+            "source de valeur"
+          ]
+        },
+        {
+          "m": "lampe",
+          "chaude": [
+            "le soir",
+            "encore une heure"
+          ],
+          "aube": [
+            "le surtravail",
+            "b recule"
+          ]
+        }
+      ]
+    }
   }
 }

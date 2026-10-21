@@ -253,11 +253,13 @@ window.LM_MONDE = function (canvas) {
     var dist = camera.position.distanceTo(camA);
     var fwd = new THREE.Vector3().subVectors(camA, camera.position).normalize();
     var right = new THREE.Vector3().crossVectors(fwd, V3(0, 1, 0)).normalize();
-    /* mise en page « marge » : la scène a sa propre colonne, rien ne la
-       recouvre — on ne décale donc presque pas, elle se cadre centrée */
-    /* la colonne de texte occupe 43 % de la largeur : l'ensemble, court,
-       se pose entre 51 % et 92 % — le décalage vaut 0,80 à pleine distance */
-    aim.copy(camA).addScaledVector(right, -Math.min(0.26 * dist, 0.80));
+    /* Octobre 2026 : la scène n'est plus en plein écran derrière le texte,
+       c'est une figure en bas de page que rien ne recouvre. Le décalage à
+       gauche (qui laissait la moitié gauche à la colonne de texte) la
+       décentrait : il ne joue plus que sur un canevas d'au moins 1100 px
+       qui ne serait pas une figure, c'est-à-dire jamais sur cette page. */
+    var large = canvas.clientWidth >= 1100 && !(canvas.closest && canvas.closest('.nt-fig'));
+    aim.copy(camA).addScaledVector(right, large ? -Math.min(0.26 * dist, 0.80) : 0);
     camera.lookAt(aim);
     render();
   }
