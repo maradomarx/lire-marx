@@ -1,18 +1,39 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/corvee-esclave-salarie.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/corvee-esclave-salarie. L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrite en octobre 2026 selon glossaire/mondes/CHARTE.md (enbref, retenir, questions, direction artistique « ce que le partage laisse voir »).",
   "titre": "Corvée · esclave · salarié",
   "de": "Fronarbeit · Sklavenarbeit · Lohnarbeit",
-  "chapo": "Dans les trois formes, la journée du producteur est coupée au même endroit ; ce qui change est ce que la forme laisse voir de la coupure. Le servage la sépare dans le temps et l'espace, l'esclavage fait paraître non payé tout le travail, le salariat fait paraître payé tout le travail — et ces deux dernières sont l'exacte symétrie l'une de l'autre.",
-  "description": "Corvée, esclavage et salariat chez Marx : trois formes du même partage entre travail payé et non payé, classées non par leur dureté mais par ce qu'elles rendent visible.",
+  "enbref": "Corvée, esclavage et salariat sont, chez Marx, trois formes d'un même partage de la journée de travail&nbsp;: une part reproduit ce que consomme le travailleur, l'autre revient à un maître sans contrepartie. Marx les compare au chapitre XIX du Livre&nbsp;I du <i>Capital</i> (1867), consacré au salaire. La corvée montre ce partage&nbsp;; l'esclavage fait paraître tout le travail non payé&nbsp;; le salariat le fait paraître tout entier payé. C'est ainsi que le salaire cache le surtravail.",
+  "retenir": [
+    "Sous la corvée, l'esclavage et le salariat, la journée se partage de la même façon&nbsp;: une part reproduit les subsistances du travailleur, l'autre est fournie sans équivalent.",
+    "La corvée montre ce partage, parce que le serf travaille pour lui et pour le seigneur sur des terres et à des jours différents. On peut le compter en jours.",
+    "L'esclavage fait paraître non payé tout le travail, même celui qui nourrit l'esclave. Le salariat fait paraître payé tout le travail, même le surtravail&nbsp;: les deux formes sont symétriques.",
+    "Le salaire produit cette apparence parce qu'il se présente comme le prix du travail de toute la journée. Le droit et l'économie courante raisonnent dans cette forme.",
+    "Marx classe les trois formes par ce qu'elles laissent voir, sans rien dire de leur dureté. Il oppose l'esclavage et le salariat au lieu de les confondre."
+  ],
+  "questions": [
+    {
+      "q": "Pourquoi le paysan valaque sait-il combien il donne au boyard, alors que l'ouvrier anglais ne le sait pas&nbsp;?",
+      "r": "Parce que la corvée se fait sur la terre du seigneur, à des jours fixés&nbsp;: elle se compte en jours, et Marx en tire un taux. Chez l'ouvrier, les heures qui reproduisent son salaire et celles du surtravail se suivent dans la même journée, au même endroit, et le salaire les couvre toutes."
+    },
+    {
+      "q": "En quoi l'esclavage et le salariat sont-ils symétriques&nbsp;?",
+      "r": "Dans l'esclavage, la propriété du maître fait paraître non payée même la part de la journée où l'esclave produit ses propres subsistances. Dans le salariat, le paiement en argent fait paraître payée même la part que le salarié fournit gratis. Chaque forme cache une moitié du partage, et ce n'est pas la même."
+    },
+    {
+      "q": "Que se passe-t-il quand un paysan corvéable devient le salarié de son ancien seigneur&nbsp;?",
+      "r": "Le partage de sa semaine ne change pas&nbsp;: trois jours pour son entretien, trois pour l'ancien seigneur. Ce qui change, c'est la forme. Ses subsistances lui arrivent désormais comme un salaire avancé par un autre, et son surtravail cesse d'apparaître comme un travail à part."
+    }
+  ],
+  "description": "Corvée, esclavage et salariat chez Marx : trois formes du même partage entre travail payé et non payé, et ce que chacune en laisse voir.",
   "source": {
     "work": "capital-1",
     "s": 6,
-    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XIX — traduction Joseph Roy (1872)"
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitres X, XIX et XXIII, traduction Joseph Roy (1872)"
   },
-  "ou": "Livre&nbsp;I, sixième section, chapitre XIX, « Transformation de la valeur de la force de travail en salaire ». La comparaison n'est pas dans un chapitre d'histoire mais au chapitre du salaire, parce que c'est là qu'il faut expliquer pourquoi une journée coupée en deux a mis des siècles à se laisser lire.",
+  "ou": "Livre&nbsp;I, sixième section, chapitre XIX, «&nbsp;Transformation de la valeur ou du prix de la force de travail en salaire&nbsp;». La comparaison des trois formes s'y trouve parce que ce chapitre explique pourquoi le salaire semble payer toute la journée. Le chapitre X compare la corvée valaque et la fabrique anglaise, et le chapitre XXIII suit un corvéable devenu salarié.",
   "outils": [
     {
-      "label": "Le laboratoire des lois — les simulations",
+      "label": "Le laboratoire des lois, les simulations",
       "url": "/oeuvres/capital-1#labo"
     }
   ],
@@ -25,23 +46,202 @@
     "Force de travail"
   ],
   "monde": {
-    "_": "LA SCÈNE : LES TROIS TAILLES. Le chapitre ne compare pas trois duretés, il compare trois TRANSPARENCES : la coupure est au même endroit dans les trois formes, et ce qui change est ce que la forme en laisse voir. La figure pose donc la MÊME entaille trois fois. Trois baguettes de taille pendues au mur, l'entaille à mi-hauteur ; la première est sciée à l'entaille et ses deux morceaux pendent à deux chevilles écartées, une gerbe sous l'un et une borne scellée sous l'autre — séparés par le temps et l'espace ; la deuxième prend un fourreau de cuir sombre qui la couvre tout entière ; la troisième un fourreau de toile claire, qui la couvre tout entière aussi. Les deux fourreaux sont l'exacte symétrie l'un de l'autre et cachent la même chose. Puis ils deviennent translucides, et au dernier temps ils tombent : les trois entailles se retrouvent sur une seule ligne.",
+    "_": "LA SCÈNE : LES TROIS TAILLES. Le chapitre compare trois transparences : le partage est au même endroit dans les trois formes, et ce qui change est ce que la forme en laisse voir. La figure pose donc la MÊME entaille trois fois. Trois baguettes de taille pendues au mur, l'entaille à mi-hauteur ; la première est sciée à l'entaille et ses deux morceaux pendent à deux chevilles écartées, une gerbe sous l'un et une borne scellée sous l'autre (séparés par le temps et l'espace) ; la deuxième prend un fourreau de cuir sombre qui la couvre tout entière ; la troisième un fourreau de toile claire, qui la couvre tout entière aussi. Les deux fourreaux sont symétriques et cachent la même chose. Puis ils deviennent translucides, et au dernier temps ils tombent : les trois entailles se retrouvent sur une seule ligne. Architecture « marge » : la visée est déjà centrée, l'image fixe aussi.",
+    "titre": "Les trois tailles, en six temps",
     "alt": "Trois baguettes de taille pendues à un mur, entaillées à mi-hauteur : la première sciée en deux morceaux écartés, la deuxième couverte d'un fourreau de cuir sombre, la troisième d'un fourreau de toile claire.",
     "source": {
-      "texte": "D'après le texte — Livre I, chapitre XIX",
+      "texte": "D'après le texte : Livre I, chapitre XIX",
       "q": "nettement séparés l’un de l’autre par le temps et l’espace"
     },
     "etapes": {
-      "fait": "Trois baguettes de taille, la même entaille à mi-hauteur sur les trois. Le partage de la journée est identique : c'est de là qu'il faut partir.",
-      "distinction": "La première est sciée à l'entaille. Ses deux morceaux pendent à deux chevilles écartées, une gerbe sous l'un, une borne scellée sous l'autre : le corvéable sait ce qu'il donne, parce qu'il le donne ailleurs.",
-      "mecanisme": "Un fourreau de cuir descend sur la deuxième et la couvre tout entière. La part où l'esclave travaille pour lui-même passe elle aussi pour du travail non payé.",
-      "portee": "Un fourreau de toile monte sur la troisième et la couvre tout entière. C'est l'exacte symétrie : ici même le travail non payé revêt l'apparence du payé.",
-      "ouvre": "Les deux fourreaux deviennent translucides et l'entaille se devine. Il faut du temps à l'histoire pour déchiffrer le secret du salaire, et rien n'est plus facile que d'en comprendre la nécessité.",
-      "lectures": "Les fourreaux tombent, les deux morceaux se rejoignent, et les trois entailles se retrouvent sur une seule ligne. Trois formes, un seul partage."
+      "fait": "Trois baguettes de taille portent la même entaille à mi-hauteur. Le partage de la journée est identique dans les trois formes.",
+      "distinction": "La première est sciée à l'entaille. Ses deux morceaux pendent à deux chevilles écartées, une gerbe sous l'un, une borne sous l'autre : le corvéable sait ce qu'il donne, parce qu'il le donne ailleurs.",
+      "mecanisme": "Un fourreau de cuir descend sur la deuxième et la couvre tout entière. Sous l'esclavage, même la part où l'esclave travaille pour lui-même passe pour du travail non payé.",
+      "portee": "Un fourreau de toile monte sur la troisième et la couvre tout entière. Sous le salariat, même le travail non payé passe pour du travail payé.",
+      "ouvre": "Les deux fourreaux deviennent translucides et l'entaille se devine dessous. Il a fallu longtemps pour lire le secret du salaire.",
+      "lectures": "Les fourreaux tombent, les deux morceaux se rejoignent, et les trois entailles se retrouvent sur une seule ligne. Trois formes pour un même partage."
     },
     "fixe": {
       "g": 3.7,
-      "legende": "La première taille sciée à l'entaille et ses morceaux écartés ; la deuxième sous son fourreau de cuir, la troisième sous son fourreau de toile. Les deux fourreaux couvrent la même entaille, et ils la couvrent en sens contraire."
+      "legende": "La première taille est sciée à l'entaille et ses morceaux sont écartés ; la deuxième est sous un fourreau de cuir, la troisième sous un fourreau de toile. Les deux fourreaux couvrent la même entaille, en sens contraire."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : ce que le partage laisse voir. Trois documents, un par forme, et aucun corps : la corvée s'écrit dans une loi qui compte les jours (le manifeste de Paul Ier, 1797) ; l'esclavage, dans un acte de vente où un homme est cédé avec une maison (Shuruppak, vers 2600 av. J.-C.) ; le salariat, dans une pointeuse qui n'enregistre que l'entrée et la sortie. Sujet grave : pas de figure humaine, pas d'image de souffrance mise en spectacle ; les légendes disent ce que montre le document. Le fond : les objets des trois formes ; en lumière chaude ce qui se voit, à l'aube (sections III à V) ce que l'analyse fait voir.",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 1230,
+      "alt": "Une page imprimée en russe, en caractères du XVIIIe siècle : en tête, le titre de l'empereur Paul Ier, puis un paragraphe daté de Moscou, le 5 avril 1797, et en bas le monogramme impérial.",
+      "legende": "Le manifeste interdit de contraindre les paysans au travail le dimanche, et compte les six autres jours, à partager en nombre égal entre leur travail pour eux-mêmes et celui qu'ils doivent aux propriétaires. Sous la corvée, le partage s'écrit noir sur blanc.",
+      "credit": "Manifeste de l'empereur Paul Ier, Moscou, 5 avril 1797, exemplaire imprimé au Sénat. Domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Ukaz_o_trekhdnevnoy_barschine.jpg"
+    },
+    "planches": {
+      "tablette": {
+        "img": "planche-tablette.webp",
+        "w": 1100,
+        "h": 1050,
+        "alt": "Une tablette d'argile carrée, couverte de signes cunéiformes rangés en cases, photographiée sur fond noir.",
+        "legende": "Un acte de vente sumérien : un homme y est cédé dans la même transaction qu'une maison. La propriété couvre la personne entière, et avec elle le temps où elle travaille pour se nourrir.",
+        "credit": "Acte de vente d'un esclave et d'une maison, Shuruppak (Mésopotamie), vers 2600 av. J.-C., musée du Louvre (AO 3765). Photographie Rama, 2018, licence CC BY-SA 3.0 FR.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Contract_sale_of_a_slave_and_house-AO_3765-IMG_9158-black.jpg"
+      },
+      "pointeuse": {
+        "img": "planche-pointeuse.webp",
+        "w": 1000,
+        "h": 1732,
+        "alt": "Une pointeuse ancienne en fonte peinte en vert : un cadran d'horloge en haut, et dessous deux ouvertures marquées IN et OUT, avec la plaque de la National Time Recorder Company de Londres.",
+        "legende": "La pointeuse enregistre l'entrée et la sortie. Entre les deux, toutes les heures se ressemblent : rien ne marque celle où l'ouvrier a reproduit la valeur de son salaire.",
+        "credit": "Pointeuse de la National Time Recorder Co., Londres, conservée au Crich Tramway Museum (Derbyshire). Photographie Robert Powell, 2016, licence CC BY-SA 3.0.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Time_Recorder,_Crich_Tramway_Museum._-_panoramio.jpg"
+      }
+    },
+    "lumieres": {
+      "mecanisme": "aube",
+      "portee": "aube",
+      "ouvre": "aube",
+      "lectures": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les objets des trois formes, dessinés en points. En lumière chaude monte ce qui se voit (les jours de corvée, l'acte de propriété, le salaire) ; à l'aube, à partir de la section du mécanisme, ce que l'analyse fait voir (le partage de la journée). Les chiffres sont ceux de Marx aux chapitres X, XIX et XXIII.",
+      "dessins": {
+        "gerbe": [
+          "...1.1.1...",
+          "..1.1.1.1..",
+          "...11111...",
+          "....111....",
+          "..1111111..",
+          "....111....",
+          "...11.11...",
+          "..11...11..",
+          "..1.....1.."
+        ],
+        "borne": [
+          "...111...",
+          "..11111..",
+          ".1111111.",
+          ".11...11.",
+          ".1111111.",
+          ".1111111.",
+          ".1111111.",
+          "111111111"
+        ],
+        "taille": [
+          "...1...",
+          "..111..",
+          "..1.11.",
+          "..111..",
+          "..1.11.",
+          "..111..",
+          "..1.11.",
+          "..111..",
+          "..111..",
+          "...1..."
+        ],
+        "tablette": [
+          ".111111111.",
+          "11.......11",
+          "1.1111111.1",
+          "1.........1",
+          "1.11111.1.1",
+          "1.........1",
+          "1.1111111.1",
+          "1.........1",
+          "11.......11",
+          ".111111111."
+        ],
+        "horloge": [
+          "..11111..",
+          ".1.....1.",
+          "1...1...1",
+          "1...1...1",
+          "1...111.1",
+          "1.......1",
+          "1.......1",
+          ".1.....1.",
+          "..11111.."
+        ]
+      },
+      "motifs": [
+        {
+          "m": "gerbe",
+          "chaude": [
+            "son champ",
+            "trois jours"
+          ],
+          "aube": [
+            "travail nécessaire",
+            "pour lui"
+          ]
+        },
+        {
+          "m": "borne",
+          "chaude": [
+            "terre du seigneur",
+            "la corvée"
+          ],
+          "aube": [
+            "le surtravail",
+            "séparé dans l'espace"
+          ]
+        },
+        {
+          "m": "taille",
+          "chaude": [
+            "jours comptés",
+            "56 par an"
+          ],
+          "aube": [
+            "trois jours gratis",
+            "même partage"
+          ]
+        },
+        {
+          "m": "tablette",
+          "chaude": [
+            "un homme vendu",
+            "avec une maison"
+          ],
+          "aube": [
+            "vendu par un tiers",
+            "toute sa journée"
+          ]
+        },
+        {
+          "m": "sac",
+          "chaude": [
+            "la ration",
+            "donnée par le maître"
+          ],
+          "aube": [
+            "ses subsistances",
+            "travail pour lui"
+          ]
+        },
+        {
+          "m": "piece",
+          "chaude": [
+            "trois francs",
+            "la journée payée"
+          ],
+          "aube": [
+            "six heures payées",
+            "six heures gratis"
+          ]
+        },
+        {
+          "m": "horloge",
+          "chaude": [
+            "douze heures",
+            "prix du travail"
+          ],
+          "aube": [
+            "six pour lui",
+            "six pour le capital"
+          ]
+        }
+      ]
     }
   }
 }
