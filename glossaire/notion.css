@@ -596,7 +596,8 @@ body[data-lumiere="aube"] .nt-amb--chaude{opacity:0;}
 
 /* les planches */
 .nt-planche{margin:34px 0 36px;}
-.nt-planche img{display:block;width:100%;height:auto;border-radius:12px;border:1px solid var(--border);
+/* une planche en hauteur ne doit pas prendre tout l'écran : elle se plafonne et garde ses proportions */
+.nt-planche img{display:block;width:auto;max-width:100%;max-height:min(76vh,680px);height:auto;border-radius:12px;border:1px solid var(--border);
   filter:grayscale(1) sepia(.32) contrast(1.06) brightness(.62);}
 .nt-planche--couleur{max-width:540px;}
 .nt-planche--couleur img{filter:saturate(.8) brightness(.76) contrast(1.04);}

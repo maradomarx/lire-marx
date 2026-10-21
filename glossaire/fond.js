@@ -97,7 +97,7 @@
     /* la barre latérale couvre le bord gauche : un mot qui y monterait serait coupé */
     var sb = document.querySelector('.sidebar'), rs = sb && sb.getBoundingClientRect();
     gauche = rs && rs.right > 0 && rs.width ? rs.right : 0;
-    ['.nt-col', '.nt-tete', '.nt-som'].forEach(function(s){
+    ['.nt-col', '.nt-tete', '.nt-som', '.nt-vitrine'].forEach(function(s){
       var e = document.querySelector(s); if (!e) return;
       var r = e.getBoundingClientRect(); if (r.width) { zones.push([r.left - 44, r.right + 44]); bords.push([r.left - 12, r.right + 12]); }
     });
