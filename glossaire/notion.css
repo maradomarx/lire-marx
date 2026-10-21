@@ -580,7 +580,9 @@ body[data-lumiere="aube"] .nt-amb--chaude{opacity:0;}
 }
 @media(max-width:899px){
   /* la photographie en haut, le titre posé sur son pied, la légende dessous */
-  .nt-vitrine{display:grid;min-height:0;border-radius:16px;}
+  /* minmax(0,1fr) : sans lui, un fil d'Ariane en max-content élargissait la
+     piste et un titre long débordait à gauche (« omposition ») */
+  .nt-vitrine{display:grid;grid-template-columns:minmax(0,1fr);min-height:0;border-radius:16px;}
   .nt-vitrine-photo{position:relative;grid-area:1/1;width:100%;height:min(48vh,380px);z-index:0;}
   .nt-vitrine-photo::after{background:linear-gradient(to bottom,rgba(13,10,7,.82) 0,rgba(13,10,7,0) 24%),
     linear-gradient(to top,#0d0a07 0,rgba(13,10,7,.55) 34%,rgba(13,10,7,0) 66%);}
@@ -591,6 +593,15 @@ body[data-lumiere="aube"] .nt-amb--chaude{opacity:0;}
   .nt-vitrine-txt{grid-area:1/1;z-index:1;display:flex;flex-direction:column;justify-content:space-between;
     padding:16px 20px 18px;max-width:none;}
   .nt-vitrine-leg{grid-row:2;margin:12px 20px 18px;text-align:left;max-width:none;font-size:.86rem;}
+}
+/* Entre 900 et 1279 px, la colonne de titre est étroite et le texte avance
+   sur la photo : le fondu à gauche doit couvrir davantage (mesuré : fil
+   d'Ariane à 1,4:1 à 1100 px sur le fétichisme avant ce voile). */
+@media(min-width:900px) and (max-width:1279px){
+  .nt-vitrine-photo{width:70%;}
+  .nt-vitrine-photo img{-webkit-mask-image:linear-gradient(to right,transparent 0,#000 62%);mask-image:linear-gradient(to right,transparent 0,#000 62%);}
+  .nt-vitrine-photo::after{background:linear-gradient(to top,#0d0a07 0,rgba(13,10,7,.6) 34%,rgba(13,10,7,0) 66%),
+    linear-gradient(to right,rgba(13,10,7,.9) 0,rgba(13,10,7,.68) 50%,rgba(13,10,7,0) 80%);}
 }
 @media(prefers-reduced-motion:reduce){.nt-vitrine-reflet{display:none;}}
 
