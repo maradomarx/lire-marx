@@ -159,15 +159,28 @@ window.LM_MONDE = function (canvas) {
        chèvre, la règle) : à 38° et en paysage la largeur vue vaut 1,07 fois
        la distance, il en faut donc six pour qu'il tienne dans les 57 % que la
        colonne de texte laisse — et le décalage vaut alors 1,4. */
+    /* Octobre 2026 : la scène est une figure 16/10 en bas de page, que rien
+       ne recouvre. Le décalage à gauche ne joue plus que sur un canevas d'au
+       moins 1100 px qui ne serait pas une figure ; sinon l'ensemble (chèvre,
+       poutre, règle) est centré et la caméra se rapproche : il ne fait que
+       deux unités et demie de large, et la hauteur de la chèvre commande. */
+    var large = canvas.clientWidth >= 1100 && !(canvas.closest && canvas.closest('.nt-fig'));
     var q = ss(0, 1, Math.min(1, G / 2.0));
-    var cx = lerp(1.3, 0.35, q), cy = lerp(0.72, 1.18, q), cz = lerp(3.4, 6.0, q);
-    cz = lerp(cz, 6.4, st.recul);
-    var camA = V3(lerp(PX, PX + 0.30, q), lerp(0.60, 1.00, q), 0);
+    var cx, cy, cz, camA;
+    if (large) {
+      cx = lerp(1.3, 0.35, q); cy = lerp(0.72, 1.18, q); cz = lerp(3.4, 6.0, q);
+      cz = lerp(cz, 6.4, st.recul);
+      camA = V3(lerp(PX, PX + 0.30, q), lerp(0.60, 1.00, q), 0);
+    } else {
+      cx = lerp(1.3, 0.75, q); cy = lerp(0.72, 1.25, q); cz = lerp(3.4, 4.7, q);
+      cz = lerp(cz, 5.0, st.recul);
+      camA = V3(lerp(PX, PX + 0.27, q), lerp(0.60, 1.10, q), 0);
+    }
     camera.position.set(cx + 0.02 * Math.sin(T * 0.25), cy + 0.014 * Math.sin(T * 0.33), cz);
     var dist = camera.position.distanceTo(camA);
     var fwd = new THREE.Vector3().subVectors(camA, camera.position).normalize();
     var right = new THREE.Vector3().crossVectors(fwd, V3(0, 1, 0)).normalize();
-    aim.copy(camA).addScaledVector(right, -Math.min(0.24 * dist, 1.40));
+    aim.copy(camA).addScaledVector(right, large ? -Math.min(0.24 * dist, 1.40) : 0);
     camera.lookAt(aim);
     render();
   }

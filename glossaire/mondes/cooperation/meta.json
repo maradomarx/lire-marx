@@ -1,18 +1,39 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/cooperation.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/cooperation. L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrite en octobre 2026 selon glossaire/mondes/CHARTE.md (enbref, retenir, questions).",
   "titre": "Coopération",
   "de": "Kooperation",
-  "chapo": "La coopération n'ajoute pas les forces : elle en crée une nouvelle, qui ne fonctionne que comme force collective et cesse avec la réunion. Le capitaliste achète chaque force de travail à sa valeur et ne paie rien pour leur combinaison, qui n'est la propriété d'aucun vendeur — de sorte que la puissance des hommes réunis lui apparaît comme une puissance du capital.",
-  "description": "La coopération chez Marx : pourquoi le travail réuni produit plus que la somme des travaux isolés, pourquoi cet excédent n'est le prix de personne, et comment il finit par paraître une force propre au capital.",
+  "enbref": "La coopération est, chez Marx, la forme que prend le travail quand plusieurs travailleurs agissent ensemble, selon un plan, dans un même procès de production. Réunis, ils produisent davantage que la somme de leurs travaux isolés&nbsp;: Marx appelle force collective ce surplus. Il l'analyse au chapitre XIII du premier livre du <i>Capital</i> (1867). Le capitaliste paie chaque force de travail séparément et rien pour leur combinaison, si bien que la puissance des ouvriers réunis semble lui appartenir.",
+  "retenir": [
+    "Des hommes qui travaillent ensemble produisent plus que la somme de leurs travaux séparés. Marx appelle force collective ce surplus, qui n'existe que tant qu'ils sont réunis.",
+    "Le surplus vient de la combinaison des travaux&nbsp;: forces réunies, émulation, travail simultané aux moments critiques, outils partagés. Aucune de ces sources ne tient à un individu.",
+    "Des salariés ne coopèrent que si un même capital les emploie ensemble. Leur unité se trouve donc hors d'eux, et leur force commune leur apparaît comme l'autorité du patron.",
+    "Le capitaliste paie chaque force de travail à sa valeur et rien pour leur combinaison. La force collective, que personne n'a vendue, semble alors une force propre au capital.",
+    "La coopération est plus ancienne que le capitalisme, et elle subsiste dans la manufacture comme dans la grande industrie. Marx en fait le mode fondamental de la production capitaliste."
+  ],
+  "questions": [
+    {
+      "q": "Pourquoi douze maçons qui font la chaîne vont-ils plus vite qu'un maçon seul qui travaillerait douze fois plus longtemps&nbsp;?",
+      "r": "Parce que leurs gestes, tous identiques, deviennent les étapes successives d'une même opération&nbsp;: la pierre ne fait qu'un trajet, de main en main, au lieu que chacun monte et descend l'échafaudage. Personne ne travaille plus dur. Le gain vient de l'arrangement des douze, qui n'appartient à aucun d'eux."
+    },
+    {
+      "q": "Pourquoi la force collective n'est-elle payée à personne&nbsp;?",
+      "r": "Parce que le contrat de travail porte sur une force individuelle&nbsp;: l'ouvrier ne peut vendre que ce qu'il possède. Le capitaliste signe autant de contrats qu'il emploie d'ouvriers, et aucun ne porte sur leur combinaison, qui n'existe qu'une fois ces ouvriers réunis dans l'atelier. Aucune règle de l'échange n'est violée."
+    },
+    {
+      "q": "Le profit du capitaliste rémunère-t-il son travail de direction&nbsp;?",
+      "r": "Marx admet que tout travail commun d'une certaine ampleur demande une coordination, comme un orchestre demande un chef. Mais sous le capital la direction sert aussi à exploiter le travail, et elle découle de la propriété&nbsp;: on devient chef d'industrie parce qu'on est capitaliste. La surveillance est d'ailleurs bientôt confiée à des salariés."
+    }
+  ],
+  "description": "La coopération chez Marx, expliquée simplement : pourquoi des travailleurs réunis produisent plus que leur somme, et pourquoi ce surplus n'est payé à personne.",
   "source": {
     "work": "capital-1",
     "s": 4,
-    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XIII — traduction Joseph Roy (1872)"
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XIII, traduction Joseph Roy (1872)"
   },
-  "ou": "Livre&nbsp;I, quatrième section, chapitre XIII, « Coopération » — la prémisse des deux chapitres suivants : la manufacture organise la combinaison, la grande industrie l'incorpore dans un système de machines.",
+  "ou": "Livre&nbsp;I, quatrième section («&nbsp;La production de la plus-value relative&nbsp;»), chapitre XIII, «&nbsp;Coopération&nbsp;». Les deux chapitres suivants en décrivent les formes développées&nbsp;: la manufacture organise la combinaison en division du travail, la grande industrie l'incorpore à un système de machines.",
   "outils": [
     {
-      "label": "Coopération, manufacture, grande industrie — les explorations",
+      "label": "Coopération, manufacture et grande industrie, les explorations de l'atelier",
       "url": "/oeuvres/capital-1#explore=x-coop"
     }
   ],
@@ -25,24 +46,145 @@
     "Fétichisme"
   ],
   "monde": {
-    "_": "LA SCÈNE : LA POUTRE, LES CORDES, ET L'ÉCART. Le chapitre ne dit pas que plusieurs font plus qu'un — il dit qu'ils font PLUS QUE LEUR SOMME, et que cet excédent n'est le prix de personne. La figure devait donc rendre l'écart MESURABLE, sans quoi elle ne dirait que « à plusieurs on soulève mieux ». Une poutre de pierre, des cordes qui montent vers une chèvre et s'attellent une à une ; à côté, une règle porte deux index — la somme des forces individuelles, qui monte proportionnellement, et la hauteur réelle, qui monte plus vite. L'écart entre les deux est la force collective. Au dernier temps une pièce se pose au pied de chaque corde, et l'écart n'en reçoit aucune.",
+    "_": "LA SCÈNE : LA POUTRE, LES CORDES, ET L'ÉCART. Le chapitre ne dit pas seulement que plusieurs font plus qu'un : ils font PLUS QUE LEUR SOMME, et cet excédent n'est le prix de personne. La figure rend l'écart mesurable : une poutre de pierre, des cordes qui montent vers une chèvre et s'attellent une à une ; à côté, une règle porte deux index, la somme des forces individuelles (qui monte proportionnellement) et la hauteur réelle (qui monte plus vite). Au dernier temps une pièce se pose au pied de chaque corde, et l'écart n'en reçoit aucune. Depuis octobre 2026 la scène est une figure 16/10 en bas de page : la visée est centrée (plus de décalage à gauche, sauf sur un canevas d'au moins 1100 px qui ne serait pas une figure).",
     "layout": "plein",
-    "alt": "Une poutre de pierre soulevée par plusieurs cordes tendues vers une chèvre de bois, et à côté une règle graduée portant deux index à des hauteurs différentes.",
+    "titre": "La poutre et les cordes, en six temps",
+    "alt": "Une poutre de pierre soulevée par plusieurs cordes tendues vers une chèvre de bois, et à côté une règle graduée portant deux index à des hauteurs différentes ; au pied de chaque corde, une pièce.",
     "source": {
-      "texte": "D'après le texte — Livre I, chapitre XIII",
+      "texte": "D'après le texte : Livre I, chapitre XIII",
       "q": "Parce que la force sociale du travail ne coûte rien au capital"
     },
     "etapes": {
-      "fait": "Une poutre au sol, une corde. Elle ne bouge pas. Ce que douze hommes lèvent, un seul ne le lèverait pas en douze fois plus de temps : il ne le lèverait jamais.",
-      "distinction": "Les cordes s'attellent, et la règle dresse ses deux index. L'un suit la somme des forces individuelles ; l'autre, ce qui est réellement soulevé — et il monte plus vite.",
-      "renversement": "L'écart se creuse. Il n'est le fait d'aucune corde en particulier : c'est une force nouvelle, qui ne fonctionne que comme force collective et qui cesse avec la réunion.",
-      "echelle": "La poutre est haute. Il a fallu un capital assez grand pour acheter d'un coup toutes ces forces — la coopération suppose une concentration préalable.",
-      "ouvre": "Une pièce se pose au pied de chaque corde : chacune est payée à sa valeur, et le contrat est tenu. L'écart, lui, n'en reçoit aucune.",
-      "lectures": "Rien n'a été volé, et pourtant l'excédent n'est le prix de personne. C'est pourquoi il semble être une force dont le capital est doué par nature."
+      "fait": "Une poutre de pierre au sol, une seule corde&nbsp;: rien ne bouge. Ce que douze hommes soulèvent ensemble, un homme seul ne le soulève pas, même en y passant douze fois plus de temps.",
+      "distinction": "Les cordes s'attellent une à une. La règle porte deux index&nbsp;: le plus terne suit la somme des forces de chacun, le doré suit ce qui est réellement soulevé, et il monte plus vite.",
+      "renversement": "L'écart entre les deux index se creuse. Aucune corde ne le porte à elle seule&nbsp;: c'est la force de l'ensemble, et l'ensemble n'existe que parce que quelqu'un a réuni les cordes.",
+      "echelle": "La poutre est haute. Pour atteler tant de cordes à la fois, il a fallu une avance assez grande pour acheter d'un coup toutes ces forces de travail.",
+      "ouvre": "Une pièce se pose au pied de chaque corde&nbsp;: chaque force de travail est payée à sa valeur. L'écart entre les deux index, lui, ne reçoit rien.",
+      "lectures": "Personne n'a été volé, et l'écart n'est payé à personne. C'est pourquoi la force des ouvriers réunis semble appartenir au capital qui les emploie."
     },
     "fixe": {
-      "g": 4.3,
-      "legende": "Les deux index de la règle : la somme des forces individuelles, et ce qui est réellement soulevé. L'écart entre eux est la force collective — et il n'est le prix de personne."
+      "g": 5.5,
+      "legende": "Une pièce au pied de chaque corde, et deux index sur la règle&nbsp;: la somme des forces payées, et ce que les cordes soulèvent ensemble. L'écart entre eux est la force collective, et aucun salaire ne le paie."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : la corde. La coopération se voit là où une charge ne bouge que si beaucoup tirent ensemble, et sous la cadence d'un seul. En tête, le relief de la tombe de Djéhoutihotep à el-Bersheh, relevé par Wilkinson : quatre rangées d'hommes halent un colosse, un homme debout sur ses genoux semble donner la cadence. C'est l'exemple que Marx cite lui-même (les œuvres gigantesques des Égyptiens, où le nombre des bras suffisait). Dans l'essai, la tonte de Tom Roberts : le moment critique où beaucoup de mains font en quelques jours ce qu'un homme ne ferait pas à temps. Le fond : les objets de la coopération (la pierre, la corde, la gerbe, le mouton, la cloche d'atelier) ; en lumière chaude ce qui se voit (un homme, une corde, un salaire) ; à l'aube, à la section où l'on demande qui paie, ce que l'analyse fait voir (la force combinée, rien pour l'ensemble).",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 897,
+      "alt": "Dessin au trait d'un relief égyptien : une statue colossale assise, liée sur un traîneau, est halée par quatre rangées d'hommes tirant chacun sur une corde ; un homme debout sur les genoux de la statue lève les bras, un autre verse un liquide devant le traîneau.",
+      "legende": "Quatre rangées d'hommes halent un colosse qu'aucun d'eux ne déplacerait seul. Sur les genoux de la statue, un homme semble donner la cadence à tous.",
+      "credit": "John Gardner Wilkinson, relevé du relief de la tombe de Djéhoutihotep à el-Bersheh (Égypte, XIIe dynastie), <i>A Popular Account of the Ancient Egyptians</i>, 1854. Domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Colosse-dj%C3%A9houtih%C3%A9tep2.jpg"
+    },
+    "planches": {
+      "tonte": {
+        "img": "planche-tonte.webp",
+        "w": 1200,
+        "h": 798,
+        "couleur": true,
+        "alt": "L'intérieur d'un hangar de tonte en bois : au premier plan, des tondeurs penchés sur des béliers, d'autres alignés dans l'allée faisant le même travail, un garçon qui porte la laine, un homme qui amène un bélier et un vieil homme accroupi qui regarde.",
+        "legende": "La tonte est un de ces moments critiques dont parle Marx&nbsp;: les tondeurs, côte à côte, font le même geste, et leur nombre seul permet de tondre le troupeau à temps.",
+        "credit": "Tom Roberts, <i>Shearing the Rams</i>, 1890, huile sur toile. National Gallery of Victoria, Melbourne (Felton Bequest, 1932), domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Tom_Roberts_-_Shearing_the_rams_-_Google_Art_Project.jpg"
+      }
+    },
+    "lumieres": {
+      "ouvre": "aube",
+      "lectures": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les objets de la coopération, dessinés en points. En lumière chaude monte ce qui se voit (un homme, une corde, un salaire) ; à l'aube, à partir de la section où l'on demande qui paie la force collective, ce que l'analyse fait voir (la force combinée, et rien payé pour elle).",
+      "dessins": {
+        "pierre": [
+          ".....1.....",
+          ".....1.....",
+          "....1.1....",
+          "...1...1...",
+          "11111111111",
+          "1.........1",
+          "1...1.....1",
+          "1.......1.1",
+          "11111111111"
+        ],
+        "corde": [
+          "...11111...",
+          "..1.....1..",
+          ".1..111..1.",
+          "1..1...1..1",
+          "1..1.1.1..1",
+          "1..1...1..1",
+          ".1..111..1.",
+          "..1.....1..",
+          "...111111..",
+          ".........11"
+        ],
+        "gerbe": [
+          "1..1.1.1..1",
+          ".1.1.1.1.1.",
+          "..1.1.1.1..",
+          "...11111...",
+          "..1111111..",
+          "...11111...",
+          "..1.1.1.1..",
+          ".1..1.1..1.",
+          "1...1.1...1"
+        ],
+        "mouton": [
+          "..11111111...",
+          ".1111111111..",
+          "111111111111.",
+          "1111111111111",
+          ".111111111111",
+          ".11111111..11",
+          "..1.1.1.1....",
+          "..1.1.1.1...."
+        ],
+        "cloche": [
+          ".....1.....",
+          "....111....",
+          "...11111...",
+          "..1111111..",
+          "..1111111..",
+          "..1111111..",
+          ".111111111.",
+          "11111111111",
+          ".....1....."
+        ]
+      },
+      "motifs": [
+        {
+          "m": "pierre",
+          "chaude": ["un fardeau", "une poutre"],
+          "aube": ["vingt-quatre mains", "un seul corps"]
+        },
+        {
+          "m": "corde",
+          "chaude": ["une corde", "un homme"],
+          "aube": ["force collective", "cesse sans réunion"]
+        },
+        {
+          "m": "piece",
+          "chaude": ["un salaire", "payé à sa valeur"],
+          "aube": ["cent contrats", "rien pour l'ensemble"]
+        },
+        {
+          "m": "gerbe",
+          "chaude": ["la moisson", "une journée"],
+          "aube": ["cent journées", "au moment critique"]
+        },
+        {
+          "m": "mouton",
+          "chaude": ["la tonte", "un troupeau"],
+          "aube": ["cent tondeurs", "le même jour"]
+        },
+        {
+          "m": "cloche",
+          "chaude": ["l'horaire", "le contremaître"],
+          "aube": ["le plan du patron", "volonté étrangère"]
+        }
+      ]
     }
   }
 }
