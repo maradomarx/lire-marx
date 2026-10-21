@@ -1,18 +1,39 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/valeur-d-usage-vs-valeur.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/valeur-d-usage-et-valeur (dossier valeur-d-usage-vs-valeur, adresse fixée par page.slug dans oeuvres/lexique.json). L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrit en octobre 2026 selon glossaire/mondes/CHARTE.md.",
   "titre": "Valeur d'usage et valeur",
   "de": "Gebrauchswert / Wert",
-  "chapo": "L'utilité d'une chose n'a rien de mystérieux : elle tient à son corps, et elle vaut pour toutes les époques. Le mystère commence avec la valeur, qui n'a pas de corps propre, qui n'appartient qu'à la production marchande, et qui réduit à une seule mesure — du temps de travail — des choses qu'aucune mesure commune ne pouvait comparer.",
-  "description": "Valeur d'usage et valeur chez Marx : pourquoi une marchandise est deux choses à la fois, comment l'abstraction ramène des utilités incomparables à une différence de quantité, et ce que le chapitre premier exclut expressément de la valeur.",
+  "enbref": "La valeur d'usage et la valeur sont, chez Marx, les deux faces de toute marchandise. La valeur d'usage est l'utilité d'une chose&nbsp;: elle tient à son corps, à ce que la chose est. La valeur est ce qui la rend échangeable&nbsp;: une quantité de travail humain, mesurée par le temps socialement nécessaire pour la produire. Marx pose cette distinction à la première page du <i>Capital</i> (1867). La difficulté est du côté de la valeur, qu'on ne trouve dans aucune chose prise à part.",
+  "retenir": [
+    "Une marchandise est deux choses à la fois&nbsp;: un objet utile, dont l'utilité tient à ses propriétés physiques, et une valeur, qui ne contient pas un atome de matière.",
+    "Comme objets utiles, les marchandises diffèrent par la qualité et se mesurent chacune à sa façon. Comme valeurs, elles ne diffèrent plus que par la quantité.",
+    "Ce qu'elles ont en commun, une fois l'utilité mise de côté, c'est d'être des produits du travail humain en général, dont la grandeur se mesure par la durée.",
+    "Seul compte le temps socialement nécessaire, aux conditions moyennes&nbsp;: un ouvrier lent ne crée pas plus de valeur, et une machine nouvelle fait baisser celle des produits semblables.",
+    "L'air ou un sol vierge, utiles sans travail, sont des valeurs d'usage sans être des valeurs. La richesse a deux sources, la nature et le travail&nbsp;; la valeur, une seule."
+  ],
+  "questions": [
+    {
+      "q": "Pourquoi le tisserand à la main voit-il le produit de son heure perdre la moitié de sa valeur quand arrive le tissage à la vapeur&nbsp;?",
+      "r": "Parce que la valeur se mesure au temps qu'exige la production dans les conditions ordinaires de sa société. Quand les métiers mécaniques font le même tissu en deux fois moins de temps, son heure de travail ne compte plus que pour une demi-heure sociale. Rien n'a changé dans sa toile ni dans son effort."
+    },
+    {
+      "q": "Que reste-t-il des marchandises quand on fait abstraction de leur valeur d'usage&nbsp;?",
+      "r": "Il ne leur reste qu'une qualité&nbsp;: être des produits du travail humain. Et ce travail lui-même a perdu sa forme particulière, puisque ce qui distingue le tissage de la couture tenait à l'objet produit. Il ne reste qu'une dépense de force humaine en général, que Marx appelle une réalité fantomatique."
+    },
+    {
+      "q": "Une prairie naturelle a-t-elle une valeur au sens de Marx&nbsp;?",
+      "r": "Non&nbsp;: elle est utile, donc c'est une valeur d'usage, mais elle ne provient d'aucun travail. Elle compte dans la richesse d'une société sans entrer dans la valeur. Qu'on puisse la vendre à un prix est une autre question, que la théorie de la rente traite plus loin."
+    }
+  ],
+  "description": "Valeur d'usage et valeur chez Marx, expliquées simplement : pourquoi une marchandise est à la fois une chose utile et une quantité de travail.",
   "source": {
     "work": "capital-1",
     "s": 1,
-    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre premier — traduction Joseph Roy (1872)"
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre premier, traduction Joseph Roy (1872)"
   },
-  "ou": "Livre&nbsp;I, première section, chapitre premier, « La marchandise », première partie. C'est la toute première page du livre&nbsp;: rien de ce qui suit n'est intelligible si cette distinction est manquée, et rien n'y est présupposé qui n'ait été obtenu là.",
+  "ou": "Livre&nbsp;I, première section, chapitre premier, «&nbsp;La marchandise&nbsp;», première partie&nbsp;: c'est la première page du livre. La correction de vocabulaire (valeur et non valeur d'échange) se lit dans la troisième partie du même chapitre.",
   "outils": [
     {
-      "label": "La forme-valeur — le laboratoire",
+      "label": "La forme-valeur, dans le laboratoire",
       "url": "/oeuvres/capital-1#labo=s-forme"
     }
   ],
@@ -25,23 +46,163 @@
     "Mesure des valeurs"
   ],
   "monde": {
-    "_": "LA SCÈNE : TROIS CHOSES, TROIS MESURES, PUIS UNE SEULE. Comme valeurs d'usage, les marchandises sont de qualité différente, et chacune se mesure d'une manière qui n'appartient qu'à elle — l'aune pour la toile, les poids pour le fer, le boisseau pour le grain. Puis la valeur d'usage est mise de côté : les trois corps passent au fantôme (« ils ont tous une même réalité fantômatique »), les trois mesures se retirent, et un sablier paraît. Trois tas de sable se forment devant les fantômes, de trois grandeurs différentes : la même substance, et plus qu'une différence de quantité. Au dernier temps les corps reviennent sans que les tas s'effacent — car la marchandise est DEUX CHOSES À LA FOIS. À gauche, la motte de terre et la laine brute n'ont pas de tas : ce qui ne provient pas du travail n'a pas de valeur.",
+    "_": "LA SCÈNE : TROIS CHOSES, TROIS MESURES, PUIS UNE SEULE. Comme valeurs d'usage, les marchandises sont de qualité différente, et chacune se mesure d'une manière qui n'appartient qu'à elle (l'aune pour la toile, les poids pour le fer, le boisseau pour le grain). Puis la valeur d'usage est mise de côté : les trois corps passent au fantôme (« ils ont tous une même réalité fantômatique »), les trois mesures se retirent, et un sablier paraît. Trois tas de sable se forment devant les fantômes, de trois grandeurs différentes : la même substance, et plus qu'une différence de quantité. Au dernier temps les corps reviennent sans que les tas s'effacent, car la marchandise est deux choses à la fois. À gauche, une motte de terre (le sol vierge du chapitre) n'a pas de tas. Les touffes grises posées à côté avaient été pensées comme de la laine brute : la laine coûte du travail, les légendes ne la nomment donc pas.",
+    "titre": "Trois choses, trois mesures, puis une seule",
     "alt": "Un comptoir : une pièce de toile, une barre de fer et un sac de grain, chacun avec sa mesure propre, un sablier, et devant chaque objet un tas de sable d'une grandeur différente.",
     "source": {
-      "texte": "D'après le texte — Livre I, chapitre premier",
+      "texte": "D'après le texte : Livre I, chapitre premier",
       "q": "Comme valeurs d’usage, les marchandises sont avant tout de qualité différente"
     },
     "etapes": {
-      "fait": "Trois choses sur le comptoir. Leur utilité tient à leur corps, et elle n'a rien de mystérieux : le fer coupe parce qu'il est dur.",
-      "ou": "Trois mesures, et aucune ne mesure la même chose. L'aune, les poids, le boisseau : il y a autant de mesures que d'espèces de choses utiles.",
-      "distinction": "On met la valeur d'usage de côté, et les corps passent au fantôme. Il ne leur reste qu'une qualité : celle d'être des produits du travail.",
-      "mecanisme": "Une seule mesure paraît, et c'est du temps. Non celui de tel homme, mais le temps socialement nécessaire — sinon le paresseux ferait la marchandise la plus chère.",
-      "ouvre": "À gauche, la terre et la laine brute n'ont pas de tas. Ce qui est utile sans provenir du travail est une valeur d'usage sans être une valeur.",
-      "lectures": "Les corps reviennent, et les tas restent. La valeur n'était pas dans le corps, et le corps n'a pas disparu : c'est le mot « à la fois » qui porte tout."
+      "fait": "Trois choses sur le comptoir&nbsp;: de la toile, du fer, du grain. Leur utilité tient à leur corps et n'a rien de mystérieux&nbsp;: le fer coupe parce qu'il est dur.",
+      "ou": "À chacune sa mesure&nbsp;: l'aune pour la toile, les poids pour le fer, le boisseau pour le grain. Aucune ne sert pour les deux autres.",
+      "distinction": "On met de côté ce qui les rend utiles, et les corps passent au fantôme. Il ne leur reste qu'une qualité commune&nbsp;: être des produits du travail.",
+      "mecanisme": "Une seule mesure paraît, le temps. Trois tas de la même substance se forment, de trois grandeurs&nbsp;: les marchandises ne diffèrent plus que par la quantité.",
+      "ouvre": "À gauche, une motte de terre prise à un sol vierge n'a pas de tas. Ce qui est utile sans venir du travail est une valeur d'usage sans être une valeur.",
+      "lectures": "Les corps reviennent et les tas restent. La marchandise est deux choses à la fois&nbsp;: un objet utile, et une quantité de travail qui ne se voit sur aucune de ses faces."
     },
     "fixe": {
       "g": 3.9,
-      "legende": "Les trois corps sont passés au fantôme et une seule mesure a paru : trois tas de la même substance, qui ne diffèrent plus que d'un plus ou d'un moins."
+      "legende": "Les trois corps sont passés au fantôme et une seule mesure a paru&nbsp;: trois tas de la même substance, qui ne diffèrent plus que par la quantité."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : les mesures. Une page sur ce qui se mesure de mille façons et sur ce qui ne se mesure que d'une. En tête, l'affiche de 1800 qui enseigne au public les nouvelles mesures, une par espèce de chose utile (le litre pour le vin, le gramme pour ce qu'on pèse, le mètre pour la toile). Dans l'essai, la salle des métiers mécaniques de 1835 : c'est le tissage à la vapeur de l'exemple de Marx, qui fait tomber de moitié la valeur du produit du tisserand à la main. Le fond : des choses utiles en points, dont monte d'abord leur usage et leur mesure propre (chaude), puis, à partir de la section où l'on fait abstraction de l'utilité, le travail et sa durée (aube).",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 1138,
+      "alt": "Gravure de 1800, Usage des nouvelles mesures : un homme verse du vin dans une bouteille avec un entonnoir, une femme pèse sur une balance à côté de deux cônes, un troisième homme mesure une pièce de tissu imprimé avec une règle graduée.",
+      "legende": "Le litre pour le vin, le gramme pour ce qu'on pèse, le mètre pour la toile&nbsp;: à chaque espèce de chose utile sa mesure. Aucune ne dit ce qui rend le vin échangeable contre la toile.",
+      "credit": "L. F. Labrousse, gravure d'après J. P. Delion, <i>Usage des nouvelles mesures</i>, Paris, 1800. Bibliothèque nationale de France, domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Usage_des_Nouvelles_Mesures_1800.jpg"
+    },
+    "planches": {
+      "tissage": {
+        "img": "planche-tissage.webp",
+        "w": 1300,
+        "h": 840,
+        "alt": "Une longue salle de métiers à tisser mécaniques, entraînés par des courroies qui descendent d'arbres de transmission au plafond ; des ouvrières surveillent les métiers, un contremaître est debout dans l'allée.",
+        "legende": "Les métiers mécaniques d'une fabrique anglaise en 1835. Là où ils tissent en deux fois moins de temps, l'heure du tisserand à la main ne compte plus que pour une demi-heure.",
+        "credit": "Thomas Allom (dessin) et J. Tingle (gravure), <i>Power loom weaving</i>, dans Edward Baines, <i>History of the Cotton Manufacture in Great Britain</i>, 1835. Domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Powerloom_weaving_in_1835.jpg"
+      }
+    },
+    "lumieres": {
+      "distinction": "aube",
+      "ouvre": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : des choses utiles, dessinées en points. L'une s'allume et monte au-dessus d'elle ce qu'elle est comme objet utile, son usage et sa mesure propre (chaude) ; dès que l'essai fait abstraction de l'utilité, c'est le travail qui monte, et sa durée (aube). Fer, froment et diamant sont les exemples de Marx au début du chapitre ; la montre vient de sa douzaine de montres. Les chiffres sont des exemples, pas des citations. Le pré : utile, sans travail, donc sans valeur.",
+      "dessins": {
+        "fer": [
+          "....11111....",
+          "...1111111...",
+          "..111111111..",
+          ".11111111111.",
+          "1111111111111",
+          "1111111111111",
+          "1111111111111"
+        ],
+        "diamant": [
+          ".1111111.",
+          "11.1.1.11",
+          "111111111",
+          ".1111111.",
+          "..11111..",
+          "...111...",
+          "....1...."
+        ],
+        "montre": [
+          "....111....",
+          "....1.1....",
+          "..1111111..",
+          ".1.......1.",
+          "1....1....1",
+          "1....1....1",
+          "1....111..1",
+          "1.........1",
+          ".1.......1.",
+          "..1111111.."
+        ],
+        "pre": [
+          "......1......",
+          "..1.....1....",
+          "1.1..1..1..1.",
+          "1.11.1.11..11",
+          "1111.1111.111",
+          "1111111111111",
+          "1111111111111"
+        ]
+      },
+      "motifs": [
+        {
+          "m": "toile",
+          "chaude": [
+            "habille",
+            "20 aunes"
+          ],
+          "aube": [
+            "le tissage",
+            "deux heures"
+          ]
+        },
+        {
+          "m": "fer",
+          "chaude": [
+            "coupe",
+            "une tonne"
+          ],
+          "aube": [
+            "la forge",
+            "dix heures"
+          ]
+        },
+        {
+          "m": "sac",
+          "chaude": [
+            "nourrit",
+            "8 boisseaux"
+          ],
+          "aube": [
+            "le labour",
+            "une saison"
+          ]
+        },
+        {
+          "m": "diamant",
+          "chaude": [
+            "brille",
+            "un carat"
+          ],
+          "aube": [
+            "la mine",
+            "des mois"
+          ]
+        },
+        {
+          "m": "montre",
+          "chaude": [
+            "donne l'heure",
+            "une douzaine"
+          ],
+          "aube": [
+            "l'horloger",
+            "temps moyen"
+          ]
+        },
+        {
+          "m": "pre",
+          "chaude": [
+            "nourrit le bétail",
+            "un pré"
+          ],
+          "aube": [
+            "aucun travail",
+            "pas de valeur"
+          ]
+        }
+      ]
     }
   }
 }
