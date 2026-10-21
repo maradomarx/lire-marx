@@ -1,18 +1,39 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/division-du-travail.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/division-du-travail. L'essai est dans essai.html, la scène dans monde.js. Réécrit en octobre 2026 selon glossaire/mondes/CHARTE.md.",
   "titre": "Division du travail",
   "de": "Teilung der Arbeit",
-  "chapo": "Diviser les tâches est vieux comme le travail. Ce que le chapitre XIV isole, c'est une division d'une espèce particulière : celle qui ne se règle pas par l'échange entre producteurs indépendants mais par l'autorité de celui qui les a réunis, qui décompose le métier en opérations attachées à vie à un même homme, et dont la forme finale est un organisme de production dont les membres sont des hommes.",
-  "description": "La division du travail chez Marx : ce qui sépare la division sociale de la division manufacturière, comment l'outil se différencie et la proportion devient loi technique, et pourquoi la manufacture prépare la machine qui la supprimera.",
+  "enbref": "La division du travail désigne, chez Marx, deux choses qu'il faut distinguer&nbsp;: la répartition des métiers dans une société, reliés entre eux par l'échange, et la décomposition d'un métier en opérations confiées chacune à un ouvrier, dans un même atelier. Marx étudie la seconde au chapitre XIV du Livre&nbsp;I du <i>Capital</i> (1867), «&nbsp;Division du travail et manufacture&nbsp;». Elle accroît la productivité, mais elle attache chaque ouvrier à un seul geste et fait de l'ensemble la propriété de celui qui l'organise.",
+  "retenir": [
+    "La répartition des métiers dans une société se rencontre partout. Marx isole une autre division, propre au capitalisme&nbsp;: celle qui décompose un métier à l'intérieur d'un atelier.",
+    "Dans la société, les producteurs sont reliés par la vente de leurs produits. Dans l'atelier, ils sont reliés par l'autorité de celui qui a acheté leur force de travail.",
+    "La décomposition se lit dans les outils, qui prennent chacun une forme fixe pour un seul usage, et dans les effectifs, fixés par une proportion qui devient une loi technique.",
+    "L'ouvrier gagne une adresse extrême à un seul geste et perd le reste de ses facultés. L'intelligence de l'ensemble passe du côté du capital, qui dirige la combinaison.",
+    "En réduisant chaque outil à un usage unique, la manufacture prépare la machine, qui la remplacera et rendra inutile l'habileté de la main sur laquelle elle reposait."
+  ],
+  "questions": [
+    {
+      "q": "Pourquoi la fonderie de caractères que décrit Marx emploie-t-elle quatre fondeurs pour deux casseurs et un frotteur&nbsp;?",
+      "r": "Parce que les trois opérations n'ont pas la même vitesse&nbsp;: en une heure, un fondeur fond deux mille lettres, un casseur en détache quatre mille, un frotteur en polit huit mille. Avec ces effectifs, chaque poste traite huit mille lettres et personne n'attend. Pour produire davantage, il faut un multiple du groupe entier&nbsp;: la proportion s'impose à tous comme une loi technique."
+    },
+    {
+      "q": "Pourquoi l'ouvrier de manufacture ne produit-il pas de marchandise&nbsp;?",
+      "r": "Parce qu'il ne fait qu'une partie d'un produit, et qu'une partie ne se vend pas. Seul le produit de l'ensemble de l'atelier devient marchandise. Ce que l'ouvrier vend, c'est sa force de travail, au même acheteur que ses voisins, et c'est cet acheteur qui relie leurs travaux."
+    },
+    {
+      "q": "En quoi la manufacture prépare-t-elle la machine&nbsp;?",
+      "r": "En séparant les opérations, elle a donné à chaque outil une forme fixe pour un seul usage. Un outil qui ne fait plus qu'un geste invariable peut être saisi par un mécanisme. La machine reprend donc l'œuvre de la manufacture et rend inutile l'habileté de la main sur laquelle celle-ci reposait."
+    }
+  ],
+  "description": "La division du travail chez Marx, expliquée simplement : ce qui sépare l'atelier de la société, et ce que la manufacture fait de l'ouvrier.",
   "source": {
     "work": "capital-1",
     "s": 4,
-    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XIV — traduction Joseph Roy (1872)"
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XIV, traduction Joseph Roy (1872)"
   },
-  "ou": "Livre&nbsp;I, quatrième section, chapitre XIV, « Division du travail et manufacture » — entre la coopération, qui établit la force collective, et le machinisme, qui l'incorpore dans un système de machines.",
+  "ou": "Livre&nbsp;I, quatrième section, chapitre XIV&nbsp;: «&nbsp;Division du travail et manufacture&nbsp;» (chapitre 12 dans l'édition allemande). Le chapitre vient après la coopération, qui réunit les ouvriers, et avant le machinisme, qui fait passer leur combinaison dans un système de machines.",
   "outils": [
     {
-      "label": "Coopération, manufacture, grande industrie — les explorations",
+      "label": "Coopération, manufacture, grande industrie&nbsp;: les explorations",
       "url": "/oeuvres/capital-1#explore=x-coop"
     }
   ],
@@ -25,23 +46,122 @@
     "Subsomption réelle"
   ],
   "monde": {
-    "_": "LA SCÈNE : LE RÂTELIER. Marx donne la figure lui-même — à Birmingham, cinq cents variétés de marteaux, dont chacune ne sert qu'à un seul procès. La différenciation de l'OUTIL est la trace matérielle de la décomposition de l'homme, et c'est la seule qu'on puisse montrer sans figure humaine. Un panneau d'atelier, un marteau au centre : celui de l'artisan, qui fait tout. Puis les rangées se remplissent de variantes presque identiques, chacune bonne pour un seul coup, chacune clouée à sa cheville. À la fin, un porte-outil mécanique se lève sur l'établi et saisit l'une d'elles : un outil réduit à un geste unique est un outil qu'une machine peut prendre.",
-    "alt": "Un panneau d'atelier couvert de rangées de marteaux presque identiques, chacun pendu à sa cheville, au-dessus d'un établi où repose une seule pièce.",
+    "_": "LA SCÈNE : LE RÂTELIER. Marx donne la figure lui-même : à Birmingham, cinq cents variétés de marteaux, dont chacune ne sert qu'à un seul procès. La différenciation de l'OUTIL est la trace matérielle de la décomposition de l'homme, et c'est la seule qu'on puisse montrer sans figure humaine. Un panneau d'atelier, un marteau au centre : celui de l'artisan, qui fait tout. Puis les rangées se remplissent de variantes presque identiques, chacune bonne pour un seul coup, chacune pendue à sa cheville. À la fin, un porte-outil mécanique se lève sur l'établi et saisit l'une d'elles : un outil réduit à un geste unique est un outil qu'une machine peut prendre. La roue posée sur l'établi rappelle l'exemple du carrosse.",
+    "titre": "Le râtelier des marteaux, en six temps",
+    "alt": "Un panneau d'atelier couvert de rangées de marteaux presque identiques, chacun pendu à sa cheville, au-dessus d'un établi où repose une roue de voiture.",
     "source": {
-      "texte": "D'après le texte — Livre I, chapitre XIV",
+      "texte": "D'après le texte : Livre I, chapitre XIV",
       "q": "À Birmingham, on produit environ cinq cents variétés de marteaux, dont chacune ne sert qu’à un seul procès particulier de production"
     },
     "etapes": {
-      "fait": "Un marteau, un métier. Celui de l'artisan sert à tout, et la pièce sur l'établi est son ouvrage entier.",
-      "ou": "Deux autres paraissent à côté. La manufacture a une double origine : tantôt elle combine des métiers, tantôt elle décompose un seul — et les deux chemins donnent la même forme.",
-      "distinction": "Les rangées se remplissent. Les instruments de même espèce perdent leur forme commune : chacun prend une forme fixe pour un seul usage, et ne rend son service que dans une main spéciale.",
-      "mecanisme": "Chacun est cloué à sa cheville, et la lumière se resserre sur un seul. Un marteau qui ne sert qu'à un coup est le portrait d'un homme qui ne fait qu'un geste.",
-      "ouvre": "Un porte-outil se lève sur l'établi et saisit l'une des variantes. Ce que la manufacture avait dû produire pour tenir est ce qui la rendra caduque.",
-      "lectures": "Le panneau est complet, et la pièce sur l'établi n'a pas changé. Ce qui a changé est qui décide du découpage — et cela ne se lit pas sur l'outil."
+      "fait": "Un marteau, un métier. Celui de l'artisan sert à tout, et la roue posée sur l'établi est son ouvrage entier.",
+      "ou": "Deux autres marteaux paraissent à côté. La manufacture naît tantôt de métiers réunis, tantôt d'un métier décomposé, et les deux chemins mènent à la même forme.",
+      "distinction": "Les rangées se remplissent. Chaque marteau prend une forme fixe pour un seul usage, et ne rend son service que dans une main spéciale.",
+      "mecanisme": "Chacun est pendu à sa cheville, et la lumière se resserre sur un seul. Un marteau qui ne donne qu'un coup ressemble à l'homme qui ne fait qu'un geste.",
+      "ouvre": "Un porte-outil se lève sur l'établi et saisit l'un des marteaux. Un outil réduit à un geste invariable est un outil qu'une machine peut prendre.",
+      "lectures": "Le panneau est complet, et la roue sur l'établi n'a pas changé. Ce qui a changé, c'est qui décide du découpage, et cela ne se lit pas sur l'outil."
     },
     "fixe": {
       "g": 2.7,
-      "legende": "Les instruments de même espèce perdent leur forme commune : cinq cents variétés de marteaux, dont chacune ne sert qu'à un seul coup. La différenciation de l'outil est la trace de la décomposition de l'homme."
+      "legende": "Les outils d'une même espèce perdent leur forme commune&nbsp;: chaque marteau ne sert plus qu'à un seul coup. La spécialisation de l'outil est la trace de celle de l'homme."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : le catalogue et l'atelier. La notion se voit dans l'outil, que la division a spécialisé : en tête, la planche des marteaux d'un catalogue de Sheffield (1816), où chaque marteau porte le nom du métier qu'il sert. Dans l'essai, la fonderie de caractères de l'Encyclopédie, la manufacture même que Marx prend pour exemple des proportions. Le fond : les outils et les produits de la manufacture (marteaux, caractère d'imprimerie, roue de carrosse, bouteille, pièce) ; en lumière chaude, ce que dit l'atelier (le nom de l'outil, l'effectif du poste) ; à l'aube, aux sections de la distinction et du mécanisme, ce que l'analyse fait voir (le geste unique, l'autorité, la proportion imposée).",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 1546,
+      "alt": "Planche gravée d'un catalogue anglais intitulée « Hammers » : une dizaine de marteaux de formes différentes, chacun numéroté et nommé d'après un métier (Shoe-makers, Brick, Lathing, Sadler's, Upholster's, Revitting).",
+      "legende": "Chaque marteau porte le nom du métier qu'il sert&nbsp;: cordonnier, briqueteur, lattier, sellier, tapissier. Une forme fixe pour un seul usage, c'est la marque de la division du travail sur l'outil.",
+      "credit": "Planche «&nbsp;Hammers&nbsp;», <i>Explanation or Key to the Various Manufactories of Sheffield</i>, publié par Joseph Smith, Sheffield, 1816. Bibliothèque nationale de France, domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Explanation_or_Key,_to_the_various_manufactories_of_Sheffield_-_with_engravings_of_each_article_designed_for_the_utility_of_merchants,_wholesale..._-_btv1b8529037p_(063_of_145).jpg"
+    },
+    "planches": {
+      "fonderie": {
+        "img": "planche-fonderie.webp",
+        "w": 1007,
+        "h": 545,
+        "alt": "Gravure d'un atelier de fonderie de caractères : au fond, des ouvriers fondent les lettres au fourneau d'où monte la fumée ; à gauche, d'autres travaillent à des établis près des fenêtres ; à droite, deux ouvrières assises à une table devant des lettres fondues.",
+        "legende": "Une fonderie de caractères au dix-huitième siècle&nbsp;: dans une même salle, on fond les lettres au fourneau, d'autres les travaillent aux établis et aux tables. C'est la manufacture que Marx prend pour exemple des proportions.",
+        "credit": "Planche «&nbsp;Fonderie en caractères&nbsp;», <i>Encyclopédie</i> de Diderot et d'Alembert, recueil de planches, 1763. Domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Typefoundry_2_Encyclopedie_1763.jpg"
+      }
+    },
+    "lumieres": {
+      "distinction": "aube",
+      "mecanisme": "aube",
+      "lectures": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les outils et les produits de la manufacture, dessinés en points. L'un s'allume et ce que dit l'atelier monte au-dessus de lui (chaude) ; aux sections de la distinction et du mécanisme, c'est ce que l'analyse fait voir (aube). Les effectifs de la fonderie sont ceux du chapitre XIV.",
+      "dessins": {
+        "marteau": [
+          "111111111..",
+          "111111111..",
+          "....11.....",
+          "....11.....",
+          "....11.....",
+          "....11.....",
+          "....11.....",
+          "....11.....",
+          "...1111...."
+        ],
+        "sellier": [
+          "11.......11",
+          ".111111111.",
+          "....111....",
+          "....11.....",
+          "....11.....",
+          "....11.....",
+          "....11.....",
+          "....11.....",
+          "...111....."
+        ],
+        "caractere": [
+          "..11111..",
+          ".1.....1.",
+          ".1..1..1.",
+          ".1.1.1.1.",
+          ".1.111.1.",
+          ".1.1.1.1.",
+          ".1.....1.",
+          ".1111111.",
+          ".1111111.",
+          ".1111111."
+        ],
+        "roue": [
+          "..11111..",
+          ".1..1..1.",
+          "1.1.1.1.1",
+          "1..111..1",
+          "111111111",
+          "1..111..1",
+          "1.1.1.1.1",
+          ".1..1..1.",
+          "..11111.."
+        ],
+        "bouteille": [
+          "...111...",
+          "...111...",
+          "...111...",
+          "..11111..",
+          ".1111111.",
+          ".1111111.",
+          ".1111111.",
+          ".1111111.",
+          ".1111111.",
+          ".1111111."
+        ]
+      },
+      "motifs": [
+        { "m": "marteau", "chaude": ["Birmingham", "cinq cents variétés"], "aube": ["un seul coup", "un seul geste"] },
+        { "m": "sellier", "chaude": ["marteau de sellier", "un seul usage"], "aube": ["une main spéciale", "pour la vie"] },
+        { "m": "caractere", "chaude": ["quatre fondeurs", "deux casseurs", "un frotteur"], "aube": ["proportion imposée", "loi technique"] },
+        { "m": "roue", "chaude": ["un carrosse", "le doreur"], "aube": ["produit collectif", "métier perdu"] },
+        { "m": "bouteille", "chaude": ["un fourneau", "cinq ouvriers"], "aube": ["un seul organisme", "paralysé sans un"] },
+        { "m": "piece", "chaude": ["salaires gradués", "habiles, inhabiles"], "aube": ["la hiérarchie", "valeur abaissée"] }
+      ]
     }
   }
 }
