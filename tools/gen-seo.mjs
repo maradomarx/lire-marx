@@ -1573,7 +1573,8 @@ ${essai}
   </div>
 ${neuf ? quizNeuf() : ''}${neuf ? figureNeuve() : ''}
   <p class="nt-colophon">${neuf
-    ? `Les citations viennent du texte que ce site sert&nbsp;: ${src.cite || ''}. Chacune mène au passage dans la liseuse.`
+    ? (nbCit ? `Les citations viennent du texte que ce site sert&nbsp;: ${src.cite || ''}. Chacune mène au passage dans la liseuse.`
+      : `Cette page paraphrase le texte et le situe sans le citer&nbsp;: ${src.cite || ''}.`)
     : `Les citations sont relevées dans le texte que ce site sert — ${src.cite || ''} — et chacune mène au passage dans la liseuse.`}</p>
 
   <div class="nt-appareil">
