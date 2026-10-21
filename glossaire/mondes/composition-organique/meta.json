@@ -1,19 +1,40 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/composition-organique.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/composition-organique. L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrite en octobre 2026 selon glossaire/mondes/CHARTE.md.",
   "titre": "Composition organique du capital",
   "de": "organische Zusammensetzung des Kapitals",
-  "chapo": "Un capital se compose de deux parties, et l'on peut compter leur rapport de deux façons : en masse de moyens de production par ouvrier, ou en valeur. Marx appelle organique la seconde en tant seulement qu'elle suit la première — « les changements survenus dans celle-ci se réfléchissent dans celle-là ». Ce n'est donc pas une troisième grandeur mais une correspondance, et c'est d'elle que sortent la surpopulation relative et la loi tendancielle.",
   "seo": "Composition organique du capital : définition (Marx)",
-  "description": "Composition organique du capital : le rapport c/v en valeur, en tant qu'il suit la composition technique (moyens de production par ouvrier). Définition, exemple, conséquences.",
+  "enbref": "La composition organique du capital désigne, chez Marx, le rapport entre la partie du capital dépensée en moyens de production (le capital constant) et la partie qui paie les salaires (le capital variable), en tant que ce rapport en argent reflète un rapport technique&nbsp;: la masse de machines et de matières qu'un ouvrier met en œuvre. Marx la définit au début du chapitre XXV du Livre&nbsp;I du <i>Capital</i> (1867). Elle explique pourquoi l'accumulation rend une partie des travailleurs superflus.",
+  "retenir": [
+    "Le rapport entre les moyens de production et le travail se compte de deux façons&nbsp;: en masse de machines et de matières par ouvrier, c'est la composition technique, ou en argent, c'est la composition-valeur.",
+    "La composition organique est la composition-valeur en tant qu'elle suit la composition technique. Une hausse du prix des matières, sans aucun changement dans l'atelier, ne la modifie pas.",
+    "Avec la productivité, chaque ouvrier met en œuvre plus de machines et de matières. Le rapport en argent monte aussi, mais beaucoup moins vite, parce que ces moyens deviennent meilleur marché.",
+    "La part des salaires baisse donc par rapport au capital total. L'emploi peut encore croître en nombre, mais moins vite que le capital, et l'accumulation produit une population ouvrière en surnombre.",
+    "Au Livre&nbsp;III, la même hausse sert à expliquer la baisse tendancielle du taux de profit. Une seule grandeur relie ainsi la technique, l'emploi et le profit."
+  ],
+  "questions": [
+    {
+      "q": "Dans l'exemple de la filature, pourquoi la part constante du capital passe-t-elle seulement de la moitié aux sept huitièmes, alors que la masse de coton et de broches par fileur est des centaines de fois plus grande&nbsp;?",
+      "r": "Parce que le progrès qui multiplie le coton et les broches mis entre les mains d'un fileur fait aussi baisser leur valeur. La valeur des moyens de production monte donc beaucoup moins vite que leur masse. Le rapport en argent ne donne de la technique qu'un reflet très atténué."
+    },
+    {
+      "q": "Si le prix du coton double après une mauvaise récolte, sans qu'aucune machine change, la composition organique du capital s'élève-t-elle&nbsp;?",
+      "r": "Non. La composition-valeur s'élève, puisque la part dépensée en matières grossit. Mais ce changement vient de la culture du coton et ne doit rien à la technique de la filature. La composition organique ne retient que la part de la composition-valeur qui suit la composition technique."
+    },
+    {
+      "q": "L'élévation de la composition organique signifie-t-elle que le nombre d'ouvriers employés diminue&nbsp;?",
+      "r": "Pas forcément. La part variable baisse par rapport au capital, mais elle peut grandir en valeur absolue, et Marx le souligne pour éviter l'erreur. Simplement, il faut de plus en plus de capital pour embaucher un ouvrier de plus, et ceux que l'accumulation n'absorbe pas forment l'armée de réserve."
+    }
+  ],
+  "description": "La composition organique du capital chez Marx, expliquée simplement : le rapport entre machines et salaires, et pourquoi l'accumulation rend des bras superflus.",
   "source": {
     "work": "capital-1",
     "s": 7,
-    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XXV — traduction Joseph Roy (1872)"
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XXV, traduction Joseph Roy (1872)"
   },
-  "ou": "Livre&nbsp;I, septième section, chapitre XXV, « Loi générale de l'accumulation capitaliste » — à la deuxième page. Marx la pose comme l'instrument dont il aura besoin pour tout le chapitre, dont la question est l'influence de l'accumulation sur le sort de la classe ouvrière.",
+  "ou": "Livre&nbsp;I, septième section, chapitre XXV, «&nbsp;Loi générale de l'accumulation capitaliste&nbsp;», dès le deuxième paragraphe. La distinction du capital constant et du capital variable, que la notion suppose, est posée au chapitre VIII&nbsp;; le Livre&nbsp;III en tire la baisse tendancielle du taux de profit.",
   "outils": [
     {
-      "label": "Le circuit du capital — le jeu",
+      "label": "Le circuit du capital, le jeu",
       "url": "/jeu/"
     }
   ],
@@ -26,23 +47,157 @@
     "Machine-outil"
   ],
   "monde": {
-    "_": "LA SCÈNE : LE MIROIR, ET CE QU'IL REND. Le mot est de Marx — les changements de la composition technique SE RÉFLÉCHISSENT dans la composition-valeur. À gauche la chose (un outil, et la masse qui grossit), à droite son reflet dans un cadre. Le reflet suit, moins vite ; puis le prix du fer tombe et le reflet se rétracte SANS que la chose bouge — et ce mouvement-là n'est pas de la composition organique. Au dernier temps la glace se ternit : ce qu'on mesure est le reflet entier, jamais la part du reflet qui suit l'objet.",
+    "_": "LA SCÈNE : LE MIROIR, ET CE QU'IL REND. Le mot est de Marx : les changements de la composition technique SE RÉFLÉCHISSENT dans la composition-valeur. À gauche la chose (un outil, et la masse qui grossit), à droite son reflet dans un cadre. Le reflet suit, moins vite ; puis le prix du fer tombe et le reflet se rétracte SANS que la chose bouge, et ce mouvement-là n'est pas de la composition organique. Au dernier temps la glace se ternit : ce qu'on mesure est le reflet entier, jamais la part du reflet qui suit l'objet. Figure à la demande en bas de page depuis octobre 2026 ; l'architecture était « marge », la visée est centrée.",
+    "titre": "Le miroir de l'atelier, en six temps",
     "alt": "Sur un comptoir, un outil et un tas de pièces de fer qui grossit ; en face, un miroir sur pied où le même tas paraît, plus petit et retourné.",
     "source": {
-      "texte": "D'après le texte — Livre I, chapitre XXV",
+      "texte": "D'après le texte : Livre I, chapitre XXV",
       "q": "les changements survenus dans celle-ci se réfléchissent dans celle-là"
     },
     "etapes": {
-      "fait": "Un outil et quelques pièces sur un comptoir. Le rapport de l'un aux autres se compte de deux façons, et elles ne donnent pas le même résultat.",
-      "ou": "Le miroir se pose en face. Ce qu'il montre est le même atelier, compté en valeur et non en masse.",
-      "distinction": "La masse grossit, et le reflet grossit avec elle — moins vite, car la productivité qui multiplie les machines les rend aussi meilleur marché.",
-      "mecanisme": "Le prix du fer tombe. Le reflet se rétracte sans qu'une seule pièce ait bougé : ce mouvement-là est de la composition-valeur, il n'est pas de la composition organique.",
-      "ouvre": "L'outil est resté seul. Le capital emploie toujours plus d'ouvriers en nombre, et toujours moins par unité de capital — c'est d'ici que sort l'armée de réserve.",
-      "lectures": "La glace se ternit. Ce qu'on mesure dans les comptes est le reflet entier ; la part du reflet qui suit vraiment l'objet, personne ne l'observe directement."
+      "fait": "Un outil et quelques pièces de fer sur un comptoir. Le rapport de l'un aux autres se compte de deux façons, et elles ne donnent pas le même résultat.",
+      "ou": "Le miroir se pose en face. Il montre le même atelier, compté en argent au lieu d'être compté en masse.",
+      "distinction": "La masse grossit, et le reflet grossit avec elle, mais moins vite&nbsp;: la productivité qui multiplie les machines les rend aussi meilleur marché.",
+      "mecanisme": "Le prix du fer tombe. Le reflet se rétracte sans qu'une seule pièce ait bougé&nbsp;: ce mouvement change la composition-valeur, il ne change pas la composition organique.",
+      "ouvre": "L'outil est resté seul. Le capital emploie toujours plus d'ouvriers en nombre, et toujours moins par franc avancé&nbsp;: de là vient l'armée de réserve.",
+      "lectures": "La glace se ternit. Les comptes mesurent le reflet entier&nbsp;; la part du reflet qui suit vraiment l'objet, personne ne l'observe directement."
     },
     "fixe": {
       "g": 4.4,
-      "legende": "Le prix du fer vient de tomber : le reflet s'est rétracté alors qu'aucune pièce n'a bougé sur le comptoir. C'est la distinction que le mot « organique » sert à faire — la composition-valeur bouge aussi pour des raisons qui ne doivent rien à la technique."
+      "legende": "Le prix du fer vient de tomber&nbsp;: le reflet s'est rétracté, et aucune pièce n'a bougé sur le comptoir. Le mot «&nbsp;organique&nbsp;» sert à écarter ce genre de mouvement, qui ne doit rien à la technique."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : le fileur et ses broches. La notion compare deux comptes d'un même atelier, la masse des moyens de production qu'un ouvrier met en œuvre et leur valeur en argent. Marx prend lui-même l'exemple de la filature : la masse de coton et de broches par fileur a été multipliée par des centaines, la part constante du capital est seulement passée de la moitié aux sept huitièmes. La vitrine montre la masse (une salle de filature sans personne dans le champ), la planche montre le point de départ (une fileuse, un rouet, une broche). La lumière passe à l'aube quand l'essai arrive au mécanisme et à ses conséquences pour l'emploi.",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 892,
+      "alt": "Une salle de filature mécanique de 1916 : des rangées de métiers à filer chargés de milliers de bobines blanches s'étendent jusqu'au fond, sous les poulies et les courroies du plafond. Personne n'est visible.",
+      "legende": "Des milliers de broches, et personne dans le champ. C'est la composition technique du capital&nbsp;: la masse des moyens de production qu'un seul ouvrier met en œuvre.",
+      "credit": "Lewis W. Hine, salle de filature n°&nbsp;2, Indian Orchard Cotton Mill, Massachusetts, 1916. Library of Congress, collection du National Child Labor Committee, domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:General_View_of_-2_Spinning_Room_in_Indian_Orchard_Cotton_Mill._LOC_nclc.03100.jpg"
+    },
+    "planches": {
+      "rouet": {
+        "img": "planche-rouet.webp",
+        "w": 1000,
+        "h": 702,
+        "alt": "Gravure&nbsp;: dans une cuisine encombrée de tonneaux et de paniers, une vieille femme file au rouet, une main sur la roue, l'autre tirant le fil de la quenouille.",
+        "legende": "Une fileuse, un rouet, une broche. C'est le point de départ de la comparaison de Marx&nbsp;: la masse de coton qu'un fileur travaille sera multipliée par des centaines.",
+        "credit": "Louis Surugue, <i>La Fileuse flamande</i>, gravure d'après David Teniers, Paris, 1749 (détail). Bibliothèque nationale de France, domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:La_fileuse_flamande_-_estampe_-_David_Teniers_pinxit_1655_%3B_Ludovicus_Surugue_sculpsit_1749_-_btv1b525069571.jpg"
+      }
+    },
+    "lumieres": {
+      "mecanisme": "aube",
+      "ouvre": "aube",
+      "lectures": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les objets de l'exemple de la filature, dessinés en points. En lumière chaude monte ce que montrent les comptes (les sommes, les parts du capital) ; à l'aube, ce que l'analyse fait voir (la masse, l'écart entre la masse et la valeur, les bras de trop). Les chiffres sont ceux de Marx au chapitre XXV.",
+      "dessins": {
+        "broches": [
+          "1...1...1",
+          "1...1...1",
+          "11.111.11",
+          "11.111.11",
+          "11.111.11",
+          "11.111.11",
+          "1...1...1",
+          "111111111",
+          "1.......1"
+        ],
+        "registre": [
+          "11111.11111",
+          "1...1.1...1",
+          "1.111.111.1",
+          "1...1.1...1",
+          "1.111.111.1",
+          "1...1.1...1",
+          "1.111.111.1",
+          "11111.11111"
+        ],
+        "porte": [
+          "....111....",
+          "..1111111..",
+          ".111111111.",
+          "11.......11",
+          "11.11111.11",
+          "11.1...1.11",
+          "11.1...1.11",
+          "11.1...1.11",
+          "11.1...1.11"
+        ]
+      },
+      "motifs": [
+        {
+          "m": "rouet",
+          "chaude": [
+            "un fileur",
+            "une broche"
+          ],
+          "aube": [
+            "moitié constant",
+            "moitié variable"
+          ]
+        },
+        {
+          "m": "broches",
+          "chaude": [
+            "mille broches",
+            "un fileur"
+          ],
+          "aube": [
+            "sept huitièmes",
+            "un huitième"
+          ]
+        },
+        {
+          "m": "sac",
+          "chaude": [
+            "le coton",
+            "cent fois plus"
+          ],
+          "aube": [
+            "moins cher",
+            "valeur moindre"
+          ]
+        },
+        {
+          "m": "piece",
+          "chaude": [
+            "6 000 francs",
+            "18 000 francs"
+          ],
+          "aube": [
+            "3 000 en salaires",
+            "3 600 en salaires"
+          ]
+        },
+        {
+          "m": "registre",
+          "chaude": [
+            "capital constant",
+            "capital variable"
+          ],
+          "aube": [
+            "le reflet",
+            "de loin"
+          ]
+        },
+        {
+          "m": "porte",
+          "chaude": [
+            "on embauche",
+            "plus de bras"
+          ],
+          "aube": [
+            "moins par franc",
+            "en réserve"
+          ]
+        }
+      ]
     }
   }
 }
