@@ -1,18 +1,39 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/travail-aliene.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/travail-aliene. Réécrit en octobre 2026 selon glossaire/mondes/CHARTE.md (enbref, retenir, questions, da). L'essai est dans essai.html, la scène dans monde.js.",
   "titre": "Travail aliéné",
   "de": "Entfremdete Arbeit",
-  "chapo": "Le travail aliéné est le premier concept que Marx ait formé en propre, en 1844, dans des cahiers restés inédits jusqu'en 1932. Il part d'un fait que l'économie constate sans l'expliquer — l'ouvrier devient d'autant plus pauvre qu'il produit plus de richesse — et en tire quatre déterminations, dont la dernière renverse l'économie : la propriété privée n'est pas la cause du travail aliéné, elle en est le produit.",
-  "description": "Le travail aliéné chez Marx (Manuscrits de 1844) : les quatre déterminations — le produit, l'activité, l'être générique, l'autre homme — et pourquoi la propriété privée en est la conséquence.",
+  "enbref": "Le travail aliéné désigne, chez Marx, la situation de l'ouvrier à qui ce qu'il fait devient étranger&nbsp;: l'objet qu'il produit, son activité, ce qui fait de lui un homme, et les autres hommes. Marx forme ce concept en 1844, à Paris, dans le premier des <i>Manuscrits de 1844</i>, restés inédits jusqu'en 1932. Il en tire une conclusion qui renverse l'économie de son temps&nbsp;: la propriété privée est le produit du travail aliéné.",
+  "retenir": [
+    "Marx part d'un fait que les économistes constatent sans l'expliquer&nbsp;: l'ouvrier s'appauvrit d'autant plus qu'il produit de richesse.",
+    "Le produit du travail appartient à un autre et se dresse devant l'ouvrier comme une puissance étrangère. Plus l'objet est grand, plus l'ouvrier est diminué.",
+    "La perte commence dans l'activité même&nbsp;: l'ouvrier travaille sous la contrainte, pour un autre, et ne se sent chez lui qu'en dehors du travail.",
+    "L'homme se distingue par une activité libre et consciente. Le travail aliéné réduit cette activité à un simple moyen de gagner sa vie.",
+    "Le produit revient à un autre homme, le maître du travail. La propriété privée est donc la conséquence du travail aliéné, avant de devenir sa condition."
+  ],
+  "questions": [
+    {
+      "q": "Que veut dire Marx quand il écrit que le travail produit des palais pour les uns et des tanières pour l'ouvrier&nbsp;?",
+      "r": "Il décrit une proportion&nbsp;: la richesse produite ne revient pas à celui qui la produit, et sa misère grandit avec elle. Les deux termes sont liés. Le palais est fait du temps et de la vie que l'ouvrier n'a plus pour lui."
+    },
+    {
+      "q": "Pourquoi l'aliénation du produit suppose-t-elle celle de l'activité&nbsp;?",
+      "r": "Parce que le produit n'est que le résultat de l'activité. Si l'ouvrier perd l'objet, c'est que, pendant qu'il le fabriquait, son travail appartenait déjà à un autre. Marx fait de la deuxième détermination le fondement de la première."
+    },
+    {
+      "q": "En quel sens Marx renverse-t-il l'économie politique&nbsp;?",
+      "r": "Les économistes partent de la propriété privée comme d'un fait premier. Marx la déduit du travail aliéné&nbsp;: un produit qui n'appartient pas à l'ouvrier appartient à un autre homme. La propriété privée apparaît alors comme un rapport produit par le travail, qui le reproduit ensuite."
+    }
+  ],
+  "description": "Le travail aliéné chez Marx (Manuscrits de 1844), expliqué simplement : le produit, l'activité, l'être générique, l'autre homme, et la propriété privée.",
   "source": {
     "work": "manuscrits-1844",
     "s": 3,
-    "cite": "Karl Marx, <i>Manuscrits de 1844</i>, premier manuscrit, « Le travail aliéné » — traduction Émile Bottigelli (1962)"
+    "cite": "Karl Marx, <i>Manuscrits de 1844</i>, premier manuscrit, « Le travail aliéné », traduction Émile Bottigelli (1962)"
   },
-  "ou": "<i>Manuscrits de 1844</i>, premier manuscrit, le dernier fragment, « Le travail aliéné » — écrit à Paris entre avril et août 1844, après les trois colonnes sur le salaire, le profit et la rente, et publié en 1932 seulement. Le troisième manuscrit en tire le communisme comme réappropriation.",
+  "ou": "<i>Manuscrits de 1844</i>, premier manuscrit, dernier fragment&nbsp;: « Le travail aliéné ». Écrit à Paris entre avril et août 1844, après les trois colonnes sur le salaire, le profit et la rente, publié en 1932 seulement. Le troisième manuscrit en tire le communisme comme réappropriation.",
   "outils": [
     {
-      "label": "La carte des concepts — l'atelier des Manuscrits",
+      "label": "La carte des concepts, dans l'atelier des Manuscrits",
       "url": "/oeuvres/manuscrits-1844#labo=carte"
     }
   ],
@@ -25,25 +46,71 @@
     "Force de travail"
   ],
   "monde": {
-    "_": "La scène : LE SCULPTEUR ET LA STATUE, en plein écran. Marx donne l'image (« l'homme façonne aussi d'après les lois de la beauté » ; « plus l'homme met de choses en Dieu, moins il en garde en lui-même »). À droite de la statue, face à elle, le sculpteur : un vrai travailleur scanné — le laboureur du groupe The Wounded Scout de John Rogers (1864, Smithsonian, domaine public), chemise aux manches relevées, pantalon, pieds nus —, son ombre portée au mur par la lanterne, et le geste du maillet. À droite, le bloc de marbre d'où la statue sort à mesure qu'on lit — un plan de coupe descend, le bloc se réduit, les éclats volent. Première détermination : elle se dresse devant lui, achevée, et son ombre à lui a déjà diminué. Deuxième : le maillet et le ciseau frappent seuls, le geste ne lui appartient plus. Troisième : elle se tourne et lui fait face. Quatrième : le marbre devient bronze, elle a le visage d'un autre homme — la statue est un vrai scan de Théodoric le Grand (Peter Vischer, Innsbruck, 1513), un seigneur en armure. Fin : le socle porte encore les traces de son ciseau. Tout est fonction de g, donc réversible.",
+    "_": "La scène : LE SCULPTEUR ET LA STATUE. Marx donne l'image (« l'homme façonne aussi d'après les lois de la beauté » ; « plus l'homme met de choses en Dieu, moins il en garde en lui-même »). Le sculpteur n'est que son ombre portée au mur par la lanterne, et le geste du maillet ; elle rapetisse à mesure que la statue prend la lumière. La statue sort du bloc (plan de coupe), se dresse (1re détermination), le maillet frappe seul (2e), elle se tourne et lui fait face (3e), le marbre devient bronze, un homme en armure (4e), la caméra redescend au socle. La statue est un vrai scan : Théodoric le Grand, Peter Vischer l'Ancien, Hofkirche d'Innsbruck. Tout est fonction de g. Depuis la réécriture, la scène est une figure 16/10 en bas de page : la caméra vise la statue au centre (plus de décalage pour la colonne de texte).",
     "layout": "plein",
+    "titre": "La statue et l'ombre du sculpteur, en six temps",
     "alt": "Un atelier de sculpteur à la lanterne : le bloc de marbre d'où sort la statue d'un homme en armure, et sur le mur l'ombre portée d'un homme au maillet levé.",
     "source": {
-      "texte": "D'après le texte — premier manuscrit, « Le travail aliéné »",
+      "texte": "D'après le texte : premier manuscrit, « Le travail aliéné »",
       "q": "Il produit des palais, mais des tanières pour l'ouvrier"
     },
-    "credit": "Statue : Théodoric le Grand, Peter Vischer l'Ancien d'après Dürer, 1512-13, Hofkirche d'Innsbruck — scan threedscans.com (Oliver Laric), sans restriction de droits.",
+    "credit": "Statue : Théodoric le Grand, Peter Vischer l'Ancien d'après Dürer, 1512-1513, Hofkirche d'Innsbruck. Scan threedscans.com (Oliver Laric), sans restriction de droits.",
     "etapes": {
-      "fait": "L'atelier, à la lanterne. Un bloc de marbre où quelque chose commence à paraître — et de celui qui taille, on ne voit que l'ombre portée au mur.",
-      "objet": "La statue est achevée : elle se dresse devant lui, étrangère. Ce qu'il y a mis, il ne l'a plus — et son ombre, elle, a rapetissé.",
+      "fait": "L'atelier, à la lanterne. Dans le bloc de marbre, quelque chose commence à paraître ; de celui qui taille, on ne voit que l'ombre portée au mur.",
+      "objet": "La statue est achevée et se dresse devant lui, étrangère. Ce qu'il y a mis, il ne l'a plus, et son ombre a rapetissé.",
       "acte": "Le maillet et le ciseau frappent seuls. Le geste n'est plus le sien : il appartient à un autre.",
-      "genre": "Elle se tourne et lui fait face. La vie qu'il a mise dans le marbre le regarde.",
-      "autre": "Le marbre devient bronze : c'est un homme, en armure. Le produit n'est allé ni aux dieux ni à la nature — à un autre homme.",
-      "lectures": "Sur le socle, les traces du ciseau. Rien à restaurer : le marbre est celui qu'il a taillé ; c'est le rapport qui le lui rend étranger."
+      "genre": "La statue se tourne et lui fait face. La vie qu'il a mise dans le marbre le regarde.",
+      "autre": "Le marbre devient bronze : c'est un homme en armure. Le produit n'est allé ni aux dieux ni à la nature, il est allé à un autre homme.",
+      "lectures": "Sur le socle restent les traces du ciseau. Le marbre est celui qu'il a taillé ; c'est le rapport qui le lui a rendu étranger."
     },
     "fixe": {
       "g": 1.5,
-      "legende": "La statue sort du bloc, et de celui qui la taille il ne reste que l'ombre au mur, maillet levé — plus il met de choses dans l'objet, moins il en garde en lui-même."
+      "legende": "La statue sort du bloc, et de celui qui la taille il ne reste que l'ombre au mur, maillet levé. Plus il met de lui-même dans l'objet, moins il en garde."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : le chantier du palais. La page se lit comme le chantier d'un palais vu par ceux qui le bâtissent : en tête, un sculpteur minuscule au pied de l'ornement qu'il taille (Durandelle, Opéra de Paris) ; dans l'essai, l'autre moitié de l'antithèse de Marx, une ruelle ouvrière de Glasgow (Annan). Le fond montre les produits et à qui ils vont (chaude), puis, au survol et à la quatrième détermination, celui qui les a faits (aube). La lumière passe à l'aube quand l'essai découvre l'autre homme, à qui va le produit.",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 894,
+      "alt": "Chantier de l'Opéra de Paris, vers 1865-1872 : le long d'une façade, une rangée d'énormes ornements de pierre sculptée, fruits et volutes, et plus loin un sculpteur en blouse, tout petit à côté d'eux, qui en taille un.",
+      "legende": "Sur le chantier de l'Opéra, un sculpteur taille un ornement parmi des dizaines d'autres. La façade qu'il orne le dépasse de toute sa hauteur, et elle appartiendra à d'autres.",
+      "credit": "Louis-Émile Durandelle, Le Nouvel Opéra de Paris, sculpture ornementale, 1865-1872. Metropolitan Museum of Art, domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Louis-Emile_Durandelle,_Le_Nouvel_Op%C3%A9ra_de_Paris_(Sculpture_Ornementale).jpg"
+    },
+    "planches": {
+      "close": {
+        "img": "planche-close.webp",
+        "w": 1100,
+        "h": 1408,
+        "alt": "Une ruelle étroite et sombre entre de hauts murs lépreux, du linge tendu entre les façades, une lanterne, et au fond un groupe de femmes et d'enfants qui regardent l'objectif.",
+        "legende": "L'autre moitié de l'antithèse de Marx : à côté des palais, les logements ouvriers des villes industrielles, une ruelle de Glasgow où le jour ne descend presque pas.",
+        "credit": "Thomas Annan (attribué), Close, No. 118 High Street, Glasgow, 1868 ou 1877, tirage au charbon. Rijksmuseum, Amsterdam, domaine public (CC0).",
+        "lien": "https://commons.wikimedia.org/wiki/File:De_sloppen_van_Glasgow_Groepsportret_in_een_steeg_in_High_Street,_Glasgow_6._Close,_No._118_High_Street_(titel_op_object),_RP-F-F80005.jpg"
+      }
+    },
+    "lumieres": {
+      "autre": "aube",
+      "lectures": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les produits du travail et les outils, dessinés en points. L'un s'allume et dit comment il apparaît, à qui il va (chaude) ; au survol et à la quatrième détermination, il dit qui l'a fait et ce que cela lui a coûté (aube).",
+      "dessins": {
+        "palais": ["....111....", "..1111111..", "11111111111", "1.1.1.1.1.1", "1.1.1.1.1.1", "1.1.1.1.1.1", "1.1.1.1.1.1", "11111111111", "11111111111"],
+        "masure": ["....1....", "...111...", "..11111..", ".1111111.", "111111111", ".1111111.", ".11...11.", ".11...11."],
+        "maillet": [".1111111.", "111111111", ".1111111.", "....1....", "....1....", "....1....", "....1....", "...111..."],
+        "statue": ["...111...", "..11111..", "...111...", "..11111..", ".1111111.", ".1.111.1.", "...111...", "...1.1...", "..11111..", ".1111111."]
+      },
+      "motifs": [
+        { "m": "palais", "chaude": ["un palais", "au propriétaire"], "aube": ["le maçon", "sa vie dedans"] },
+        { "m": "statue", "chaude": ["une statue", "étrangère"], "aube": ["le sculpteur", "sa main"] },
+        { "m": "masure", "chaude": ["une tanière", "un loyer"], "aube": ["celui qui bâtit", "logé ici"] },
+        { "m": "maillet", "chaude": ["un outil", "au patron"], "aube": ["son geste", "travail forcé"] },
+        { "m": "piece", "chaude": ["le salaire", "de quoi vivre"], "aube": ["sa vie", "un moyen"] },
+        { "m": "rouet", "chaude": ["le métier", "du maître"], "aube": ["la fileuse", "hors de soi"] },
+        { "m": "toile", "chaude": ["vingt mètres", "au marchand"], "aube": ["le tisserand", "dépossédé"] }
+      ]
     }
   }
 }
