@@ -277,10 +277,13 @@ window.LM_MONDE = function (canvas) {
     /* ── LE CADRAGE ───────────────────────────────────────────────────
        Page « plein » : la visée est décalée à GAUCHE de 0,25 de la largeur
        vue, ce qui porte la masse à environ 75 % — la part claire du voile.
-       La masse et l'orbite tiennent alors entre 57 % et 93 %. */
+       La masse et l'orbite tiennent alors entre 57 % et 93 %.
+       Depuis octobre 2026 la scène est aussi une figure en bas de page :
+       là, et sur tout canevas de moins de 1100 px, elle se cadre centrée. */
     var dz = lerp(1.48, 1.38, ss(0, 1, Math.min(1, G / 3)));
     var visW = 1.102 * dz;
-    var aim = V3(-0.245 * visW, 0.235, 0.0);
+    var large = canvas.clientWidth >= 1100 && !(canvas.closest && canvas.closest('.nt-fig'));
+    var aim = V3(large ? -0.245 * visW : 0, 0.235, 0.0);
     camera.position.set(aim.x + 0.010 * Math.sin(T * 0.19), aim.y + 0.055 + 0.007 * Math.sin(T * 0.24), aim.z + dz);
     camera.lookAt(aim);
     render();
