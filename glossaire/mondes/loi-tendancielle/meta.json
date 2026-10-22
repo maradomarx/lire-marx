@@ -1,18 +1,40 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/loi-tendancielle.",
-  "titre": "Loi tendancielle",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/loi-tendancielle. L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrite en octobre 2026 selon glossaire/mondes/CHARTE.md. La loi est au Livre III, que le site ne sert pas : il est paraphrasé et situé, et toutes les citations liées viennent du Livre I.",
+  "titre": "Loi tendancielle de la baisse du taux de profit",
   "de": "Gesetz des tendenziellen Falls der Profitrate",
-  "chapo": "La loi tendancielle énonce que la hausse de la composition organique du capital fait baisser le taux de profit à taux d'exploitation constant : seul le travail vivant produit de la plus-value, et sa part dans le capital avancé décroît à mesure que la productivité s'élève. C'est une tendance, contrariée par des forces inverses — non un destin.",
-  "description": "La loi tendancielle de la baisse du taux de profit : ce qu'elle énonce, la distinction du taux de plus-value et du taux de profit, les forces qui la contrarient, et l'état de la discussion.",
+  "seo": "Baisse tendancielle du taux de profit : la loi de Marx expliquée",
+  "enbref": "La loi tendancielle de la baisse du taux de profit énonce, chez Marx, que le profit rapporté à l'ensemble du capital avancé tend à diminuer à mesure que la productivité s'élève. La part du capital dépensée en machines et en matières grandit plus vite que celle qui paie les salaires, alors que seul le travail produit la plus-value. Marx l'expose au Livre&nbsp;III du <i>Capital</i>, publié par Engels en 1894. Des forces contraires la freinent, d'où le mot «&nbsp;tendancielle&nbsp;».",
+  "retenir": [
+    "Le taux de profit rapporte la plus-value à tout le capital avancé, machines et matières comprises. Le taux de plus-value la rapporte aux seuls salaires et mesure l'exploitation.",
+    "Avec l'accumulation, la part du capital dépensée en moyens de production croît plus vite que la part qui paie la force de travail. Le Livre&nbsp;I établit ce mouvement au chapitre XXV.",
+    "La plus-value ne peut pas dépasser le travail des ouvriers employés, alors que la masse des moyens de production peut croître sans limite. Le taux de profit tend donc à baisser, même si l'exploitation reste la même ou s'aggrave.",
+    "Des forces contraires freinent la baisse&nbsp;: exploitation accrue, salaires comprimés, machines meilleur marché, commerce extérieur. C'est pourquoi la loi n'énonce qu'une tendance.",
+    "La loi ne prédit pas l'effondrement du capitalisme, et une statistique qui ne montre aucune baisse ne suffit pas à la réfuter. Sa cohérence reste discutée depuis le théorème d'Okishio (1961)."
+  ],
+  "questions": [
+    {
+      "q": "Un capitaliste avance 400 livres en moyens de production et 100 en salaires, et ses ouvriers produisent une plus-value de 20 livres. Pourquoi son profit n'est-il pas de 20&nbsp;pour cent&nbsp;?",
+      "r": "Parce que 20&nbsp;pour cent est le taux de plus-value, calculé sur les seuls salaires. Le profit se calcule sur tout le capital avancé, ici 500 livres&nbsp;: 20 sur 500 font 4&nbsp;pour cent. C'est l'exemple par lequel Marx corrige John Stuart Mill au Livre&nbsp;I."
+    },
+    {
+      "q": "Pourquoi le progrès technique, qui accroît la plus-value relative, fait-il pourtant baisser le taux de profit&nbsp;?",
+      "r": "Parce qu'il remplace une partie du capital qui payait des ouvriers par des machines, qui ne produisent pas de plus-value. La plus-value tirée de chaque ouvrier augmente, mais le nombre d'ouvriers baisse par rapport au capital, et la plus-value ne peut pas dépasser ce que ces ouvriers fournissent. Le dénominateur du taux de profit grandit plus vite que son numérateur."
+    },
+    {
+      "q": "Si l'on constate que le taux de profit n'a pas baissé pendant trente ans, la loi est-elle réfutée&nbsp;?",
+      "r": "Pas par ce seul constat. La loi énonce une tendance que d'autres causes peuvent compenser, et Marx consacre un chapitre à ces forces contraires. Une série stable peut traduire une tendance réelle masquée par une exploitation accrue ou par des machines devenues meilleur marché. La discussion sérieuse porte sur la cohérence du raisonnement, pas sur une série de chiffres."
+    }
+  ],
+  "description": "La baisse tendancielle du taux de profit chez Marx, expliquée simplement : pourquoi le progrès fait baisser le profit, et ce qui freine cette baisse.",
   "source": {
     "work": "capital-1",
     "s": 7,
-    "cite": "Prémisse : Karl Marx, <i>Le Capital</i>, Livre I, chapitre XXV — traduction Joseph Roy (1872). La loi elle-même est exposée au Livre III, section III, que ce site ne sert pas."
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, traduction Joseph Roy (1872). La loi elle-même est exposée au Livre III, section III, que ce site ne sert pas&nbsp;: elle est résumée sans guillemets"
   },
-  "ou": "Livre&nbsp;III, section&nbsp;III, chapitres XIII à XV — manuscrits laissés inachevés, publiés par Engels en 1894. ⚠️ Ce site ne sert que le Livre&nbsp;I : le Livre&nbsp;III est donc paraphrasé et situé, jamais cité entre guillemets. La PRÉMISSE — la composition du capital et son mouvement dans l'accumulation — est au Livre&nbsp;I, chapitre XXV, et c'est d'elle que viennent les citations liées.",
+  "ou": "Livre&nbsp;III, troisième section, chapitres XIII à XV, dans les manuscrits inachevés que publia Engels en 1894. Ce site ne sert que le Livre&nbsp;I&nbsp;: le Livre&nbsp;III y est résumé et situé, jamais cité entre guillemets. La prémisse, la composition du capital, est au chapitre XXV du Livre&nbsp;I&nbsp;; la distinction des deux taux et l'annonce du Livre&nbsp;III sont au chapitre XVII.",
   "outils": [
     {
-      "label": "Le taux de profit — le laboratoire",
+      "label": "Le taux de profit, au laboratoire de l'atelier",
       "url": "/oeuvres/capital-1#labo"
     }
   ],
@@ -25,25 +47,161 @@
     "La forme-salaire"
   ],
   "monde": {
-    "_": "LA SCÈNE EST UNE PLANCHE, ET NON UN OBJET — pas de 3D, et c'est le concept qui le commande : la loi ne porte sur aucune chose, elle énonce le comportement d'un RAPPORT DE GRANDEURS. Sa figure propre est donc un dessin : des axes, la composition du capital en barres sous l'abscisse, les deux formules dont le dénominateur du taux de profit ENFLE, puis deux courbes. Celle de la TENDANCE tombe de moitié à un septième ; les forces contraires la poussent par en dessous ; celle qu'on OBSERVE reste presque plate. C'est le cœur de la notion : une série statistique qui ne montre rien ne réfute pas la loi, et le chapitre des forces contraires l'annonce. Moteur 2d — ni WebGL ni Three.js.",
+    "_": "LA SCÈNE EST UNE PLANCHE, ET NON UN OBJET : la loi ne porte sur aucune chose, elle énonce le comportement d'un rapport de grandeurs. Des axes, la composition du capital en barres sous l'abscisse, les deux formules dont le dénominateur du taux de profit enfle, puis deux courbes : la tendance tombe de moitié à un septième, ce qu'on observe reste presque plat. Moteur 2d, ni WebGL ni Three.js. Figure à la demande en bas de page depuis octobre 2026 : la planche est centrée sous 1100 px et dans la figure.",
+    "titre": "La planche des deux courbes, en six temps",
     "moteur": "2d",
     "layout": "plein",
     "alt": "Une planche dessinée : deux courbes du taux de profit sur des axes, l'une qui tombe de moitié à un septième, l'autre presque plate, et sous l'abscisse des barres où la part du capital variable diminue.",
     "source": {
-      "texte": "La prémisse — Livre I, chapitre XXV",
+      "texte": "D'après le texte : Livre I, chapitre XXV",
       "q": "le décroissement de la partie variable du capital par rapport à sa partie constante"
     },
     "etapes": {
-      "enonce": "Une planche vide, et deux axes. Ce qu'on va suivre n'est pas une chose mais un rapport : de la plus-value au capital avancé tout entier.",
-      "premisse": "Sous l'abscisse, la composition du capital : la part qui paie le travail — v, en or — décroît à mesure que l'accumulation avance. Elle décroît relativement, non absolument.",
-      "distinction": "Deux formules, même numérateur. À gauche pl/v, l'exploitation. À droite pl/(c+v), le rendement — et son dénominateur enfle. Les deux taux peuvent varier en sens contraire.",
-      "mecanisme": "La courbe tombe : de moitié à un septième, sans que rien ait changé dans le partage de la journée. Un rapport dont le haut est borné et le bas ne l'est pas tend vers le bas.",
-      "contrariee": "Les forces contraires poussent la courbe par en dessous — le taux d'exploitation relevé, le capital constant qui se déprécie, le commerce extérieur. C'est pourquoi la loi est dite tendancielle.",
-      "lectures": "Ce qu'on observe reste presque plat, alors que la tendance, en pointillé, est tombée. Une série qui ne montre rien ne réfute donc rien — et c'est exactement ce que le chapitre des forces contraires annonce."
+      "enonce": "Une planche vide et deux axes. On va suivre un rapport, celui de la plus-value au capital avancé tout entier.",
+      "premisse": "Sous l'abscisse, la composition du capital. La part qui paie le travail, en or, rétrécit à mesure que l'accumulation avance, en proportion et non en quantité.",
+      "distinction": "Deux formules, le même numérateur. À gauche pl/v, l'exploitation&nbsp;; à droite pl/(c+v), le rendement, dont le dénominateur enfle.",
+      "mecanisme": "La courbe tombe, de moitié à un septième, sans que rien ait changé dans le partage de la journée. Un rapport dont le haut est borné et le bas ne l'est pas tend vers le bas.",
+      "contrariee": "Les forces contraires poussent la courbe par en dessous&nbsp;: exploitation accrue, capital constant meilleur marché, commerce extérieur. C'est pourquoi la loi est dite tendancielle.",
+      "lectures": "Ce qu'on observe reste presque plat, alors que la tendance, en pointillé, est tombée. Une série qui ne montre rien ne réfute donc pas la loi."
     },
     "fixe": {
       "g": 5.6,
-      "legende": "La tendance, en pointillé, est tombée de moitié à un septième ; ce qu'on observe, une fois le taux d'exploitation relevé, reste presque plat. La loi n'est pas démentie par une série qui ne montre rien."
+      "legende": "La tendance, en pointillé, est tombée de moitié à un septième&nbsp;; ce qu'on observe, une fois le taux d'exploitation relevé, reste presque plat. Une série qui ne montre rien ne dément pas la loi."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : la machine de fer. La loi tient dans un rapport entre la masse des moyens de production et le travail vivant qui seul produit la plus-value. La vitrine montre ce rapport poussé à l'extrême : la machine Corliss de l'Exposition du centenaire (1876), des tonnes de fonte sur une estrade, et une seule silhouette, floue au point d'être transparente. La planche montre une force contraire que Marx décrit au Livre I : le marteau à vapeur de Nasmyth, dont l'usure se répartit sur tant de fer que chaque quintal n'en absorbe presque rien. La lumière passe à l'aube quand l'essai sépare les deux taux et montre le mécanisme, puis revient au chaud quand les forces contraires masquent de nouveau la tendance.",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 907,
+      "alt": "La machine à vapeur Corliss à l'Exposition du centenaire de Philadelphie, en 1876 : deux énormes balanciers, des cylindres et des échelles de fonte sur une estrade ronde, sous la charpente de verre de la galerie des machines. Une seule silhouette floue se devine sur l'estrade.",
+      "legende": "Des tonnes de fonte, et une seule silhouette sur l'estrade, si floue qu'on la voit à travers. La loi tient dans ce rapport&nbsp;: toujours plus de machines par travailleur, alors que seul le travail produit la plus-value.",
+      "credit": "Centennial Photographic Company, la machine Corliss à l'Exposition du centenaire, Philadelphie, 1876. Free Library of Philadelphia, domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:The_Corliss_'Centennial_Engine'_at_the_US_Centennial_Exhibition_(1876).jpg"
+    },
+    "planches": {
+      "marteau": {
+        "img": "planche-marteau.webp",
+        "w": 1200,
+        "h": 955,
+        "couleur": true,
+        "alt": "Peinture&nbsp;: dans une forge sombre, un marteau à vapeur gigantesque s'abat sur une pièce de fer rougie&nbsp;; une équipe d'ouvriers tire une grue à gauche, deux hommes regardent à droite, et par une arche on aperçoit des cheminées d'usine.",
+        "legende": "Le marteau à vapeur de Nasmyth, que Marx décrit au chapitre XV. Son usure se répartit sur tant de fer forgé que chaque quintal n'en porte presque rien&nbsp;: le capital constant grossit en masse bien plus qu'en valeur, et c'est l'une des forces qui freinent la baisse.",
+        "credit": "James Nasmyth, <i>A Steam Hammer at Work</i>, peinture, 1871. Science Museum, Londres, domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:James_Nasmyth_(1808-1890)_-_A_Steam_Hammer_at_Work_-_1957-15_-_Science_Museum.jpg"
+      }
+    },
+    "lumieres": {
+      "distinction": "aube",
+      "mecanisme": "aube",
+      "contrariee": "chaude",
+      "lectures": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les objets de la loi, dessinés en points. En lumière chaude monte ce que montrent les comptes (le rendement, le progrès) ; à l'aube, ce que l'analyse fait voir (les deux taux, la borne de la journée, la tendance). Les chiffres sont ceux des exemples de l'essai.",
+      "dessins": {
+        "marteau": [
+          "....111....",
+          "....111....",
+          "11111111111",
+          "1..1...1..1",
+          "1..11111..1",
+          "1..1...1..1",
+          "1..1.1.1..1",
+          "1111...1111",
+          "11.1111111."
+        ],
+        "courbe": [
+          "1..........",
+          "11.........",
+          "1.11.......",
+          "1...11.....",
+          "1.....111..",
+          "1........11",
+          "1..........",
+          "11111111111"
+        ],
+        "engrenage": [
+          "...1.1.1...",
+          "..1111111..",
+          ".111...111.",
+          "111.....111",
+          ".11..1..11.",
+          "111.....111",
+          ".111...111.",
+          "..1111111..",
+          "...1.1.1..."
+        ],
+        "sablier": [
+          "111111111",
+          ".1.....1.",
+          "..1...1..",
+          "...1.1...",
+          "....1....",
+          "...1.1...",
+          "..11111..",
+          ".1111111.",
+          "111111111"
+        ]
+      },
+      "motifs": [
+        {
+          "m": "marteau",
+          "chaude": [
+            "six tonnes",
+            "capital constant"
+          ],
+          "aube": [
+            "un quintal",
+            "valeur minime"
+          ]
+        },
+        {
+          "m": "courbe",
+          "chaude": [
+            "taux de profit",
+            "le rendement"
+          ],
+          "aube": [
+            "la tendance",
+            "pl/(c+v)"
+          ]
+        },
+        {
+          "m": "engrenage",
+          "chaude": [
+            "le progrès",
+            "la productivité"
+          ],
+          "aube": [
+            "moins de bras",
+            "c grandit"
+          ]
+        },
+        {
+          "m": "sablier",
+          "chaude": [
+            "douze heures",
+            "la journée"
+          ],
+          "aube": [
+            "une borne",
+            "deux ouvriers"
+          ]
+        },
+        {
+          "m": "piece",
+          "chaude": [
+            "4 %",
+            "500 livres"
+          ],
+          "aube": [
+            "20 %",
+            "pl/v"
+          ]
+        }
+      ]
     }
   }
 }
