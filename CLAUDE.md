@@ -11121,10 +11121,31 @@ Ce que les vagues ont appris, et qui vaut pour toute page future :
   masquer le texte masque aussi la pastille, et l'on mesure 1,5 à 3:1 sur la
   photo nue. Vérifier à la capture.
 
-Restent, à arbitrer : trois « En bref » à 88-90 mots (plafond de 85) ; deux
-planches petites à la source (le décret de 1789, la poule de Grandville) ;
-quelques scènes 3D sombres ou au sol vide (travail nécessaire, surtravail),
-laissées telles quelles.
+Reste, à arbitrer : trois « En bref » à 88-90 mots (plafond de 85).
+
+**Finitions (même mois, branche `glossaire-finitions`).** Les deux planches
+trop petites sont remplacées : la poule de Grandville par le scan de Nancy
+(1 150 px au lieu de 734), le décret de 1789 — un 530 px agrandi — par la
+gravure de Monnet et Helman de la nuit du 4 août (Carnavalet, CC0). Et douze
+scènes 3D ont été reprises après MESURE de la luminance des 45 images fixes
+(moyenne, cinquième bas, part de pixels presque noirs — un script puppeteer
+qui dessine l'image dans un canevas) :
+- cinq simplement sous-exposées : `toneMappingExposure` 1,02 → 1,75
+  (législation sanglante, appendice, force productive, corvée, travailleur
+  collectif) ;
+- sept reprises scène par scène, une par agent, sous une consigne qui
+  interdisait de toucher à la chorégraphie : **la bande noire du bas venait
+  presque toujours d'un plateau de table qui s'arrête dans le champ**, avec le
+  vide de la couleur d'effacement dessous. On la remplit (plateau prolongé
+  sous l'objectif, façade de comptoir, tablier à tiroirs) plutôt qu'en
+  éclaircissant. Besoins a reçu un vrai dehors (ciel peint au canevas,
+  châssis), travail mort et vivant un mur émissif derrière la masse, un
+  contre-jour et un environnement de reflets pour que le fer soit du métal.
+  Le sceau d'or du surtravail a pris un léger émissif : sans environnement,
+  un métal ne rend rien. Toutes les scènes reprises sont à ≥ 25 de moyenne et
+  ≥ 27 au cinquième bas ; législation sanglante et appendice restent les plus
+  sombres, et c'est voulu (la forge refroidie, l'atelier sans lumière du
+  jour).
 
 ### Ce qui reste
 
