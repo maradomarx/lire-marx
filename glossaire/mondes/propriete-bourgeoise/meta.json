@@ -1,22 +1,43 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/propriete-bourgeoise (mission manifeste-notions, sept. 2026).",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/propriete-bourgeoise (mission manifeste-notions, sept. 2026 ; réécrite selon glossaire/mondes/CHARTE.md en octobre 2026). L'essai est dans essai.html, la planche dans monde.js. Assemblé par tools/gen-seo.mjs.",
   "titre": "Propriété bourgeoise",
   "de": "bürgerliches Eigentum",
-  "chapo": "Le <i>Manifeste</i> résume la théorie communiste en une formule, « abolition de la propriété privée », et précise aussitôt qu’il ne s’agit ni de la propriété en général ni du fruit personnel du travail : il s’agit de la propriété bourgeoise, celle qui donne pouvoir sur le travail d’autrui — et qui n’existe pour quelques-uns que parce qu’elle est abolie pour les neuf dixièmes.",
-  "description": "La propriété bourgeoise chez Marx et Engels : la distinction entre propriété personnelle et propriété bourgeoise, le capital comme force sociale, les « neuf dixièmes », et les contresens sur l'abolition de la propriété privée.",
+  "enbref": "La propriété bourgeoise est, dans le <i>Manifeste du parti communiste</i> (Marx et Engels, 1848), la propriété qui donne un pouvoir sur le travail des autres&nbsp;: au premier chef le capital. Le texte la distingue de la propriété personnelle, fruit du travail de chacun, qu'il ne veut pas abolir. Il l'expose dans la deuxième partie, «&nbsp;Prolétaires et communistes&nbsp;». La notion est difficile parce qu'elle définit la propriété par un rapport entre des hommes, là où l'on pense d'ordinaire à des choses.",
+  "retenir": [
+    "Le <i>Manifeste</i> résume la théorie communiste par l'abolition de la propriété privée, puis précise la forme qu'il vise : la propriété bourgeoise.",
+    "La propriété a une histoire. La Révolution française a aboli la propriété féodale au profit de la propriété bourgeoise, qui est la dernière forme fondée sur l'exploitation d'une classe par une autre.",
+    "La propriété personnelle, fruit du travail de chacun, ne donne aucun pouvoir sur autrui. La propriété bourgeoise est celle qui permet de faire travailler les autres à son profit.",
+    "Le capital est un produit collectif, mis en mouvement par le travail combiné de beaucoup. L'abolir comme propriété de classe ne prend rien à personne : la chose était déjà sociale.",
+    "Elle est abolie pour les neuf dixièmes de la société, et c'est pour cela qu'elle existe pour quelques-uns. La privation du grand nombre est sa condition."
+  ],
+  "questions": [
+    {
+      "q": "Pourquoi le fileur de la filature de Ravensberg et le détenteur d'une de ses actions sont-ils propriétaires de deux manières différentes&nbsp;?",
+      "r": "Les biens du fileur viennent de son salaire et servent à sa vie&nbsp;: ils ne lui permettent de faire travailler personne. L'action donne à son détenteur une part de ce que d'autres produisent en filant, sans qu'il ait à travailler. C'est la seconde propriété, et elle seule, que le <i>Manifeste</i> appelle bourgeoise."
+    },
+    {
+      "q": "Pourquoi le <i>Manifeste</i> dit-il que le capital est une force sociale&nbsp;?",
+      "r": "Parce qu'il est un produit collectif&nbsp;: il ne fonctionne que si beaucoup de gens travaillent ensemble. Celui qui le possède occupe donc une position dans le système de la production, au-delà de sa personne. Faire du capital une propriété commune change le caractère de sa propriété, qui cesse d'être une propriété de classe."
+    },
+    {
+      "q": "Que répond le texte à ceux qui l'accusent de vouloir priver chacun de sa propriété&nbsp;?",
+      "r": "Que cette privation est déjà faite pour les neuf dixièmes de la société, et qu'elle est la condition de la propriété bourgeoise elle-même. Il ajoute que la petite propriété de l'artisan et du paysan a été ruinée par le progrès de l'industrie lui-même."
+    }
+  ],
+  "description": "La propriété bourgeoise chez Marx et Engels, expliquée simplement : la différence avec la propriété personnelle, le capital comme force sociale, les neuf dixièmes.",
   "source": {
     "work": "manifeste-parti-communiste",
     "s": 1,
-    "cite": "Karl Marx et Friedrich Engels, <i>Manifeste du parti communiste</i> (1848) — traduction Laura Lafargue (1897)"
+    "cite": "Karl Marx et Friedrich Engels, <i>Manifeste du parti communiste</i> (1848), partie II, traduction Laura Lafargue (1897)"
   },
-  "ou": "<i>Manifeste du parti communiste</i>, partie&nbsp;II, « Prolétaires et communistes » — de la formule « abolition de la propriété privée » à la réponse aux objections (la propriété personnelle, la liberté, la paresse). À distinguer de la <i>propriété privée</i> des <i>Manuscrits de 1844</i>, qui la pensent comme le résultat du travail aliéné.",
+  "ou": "<i>Manifeste du parti communiste</i>, partie&nbsp;II, «&nbsp;Prolétaires et communistes&nbsp;», de la formule «&nbsp;abolition de la propriété privée&nbsp;» à la réponse aux objections (la propriété personnelle, la liberté, la paresse). À distinguer de la <i>propriété privée</i> des <i>Manuscrits de 1844</i>, qui la pensent comme la conséquence du travail aliéné.",
   "outils": [
     {
-      "label": "Lire « Prolétaires et communistes » — la liseuse du Manifeste",
+      "label": "Lire « Prolétaires et communistes » dans la liseuse du Manifeste",
       "url": "/oeuvres/manifeste#partie=3"
     },
     {
-      "label": "La carte des socialismes — le socialisme conservateur et bourgeois",
+      "label": "La carte des socialismes : le socialisme conservateur et bourgeois",
       "url": "/oeuvres/manifeste#labo=bourgeois"
     }
   ],
@@ -29,25 +50,211 @@
     "Communisme"
   ],
   "monde": {
-    "_": "LA PLANCHE : LES NEUF DIXIÈMES. Le texte donne lui-même la proportion, et la proportion est l'argument : « dans votre société la propriété privée est abolie pour les neuf dixièmes de ses membres ». Dix parcelles en deux rangs, chacune avec sa maison et sa clôture — la propriété personnelle, fruit du travail. L'intitulé passe de FÉODALE à BOURGEOISE (la propriété a une histoire). Puis neuf parcelles se vident : leur contenu s'écoule vers la dixième, qui grandit (le progrès de l'industrie l'a abolie). La grande parcelle prend le nom de CAPITAL, et des traits la relient aux neuf autres : le capital est un produit collectif, une force sociale. Puis la fraction s'inscrit : 9/10 sans propriété, 1/10 propriétaire. Au dernier temps la clôture de la grande parcelle tombe, et chaque parcelle retrouve sa maison sans clôture autour de l'ensemble : s'approprier sa part des produits sociaux, sans pouvoir assujettir le travail d'autrui. Moteur 2d. Tout est fonction de g, donc réversible.",
+    "_": "LA PLANCHE : LES NEUF DIXIÈMES. Le texte donne lui-même la proportion, et la proportion est l'argument : « dans votre société la propriété privée est abolie pour les neuf dixièmes de ses membres ». Dix parcelles en deux rangs, chacune avec sa maison et sa clôture : la propriété personnelle, fruit du travail. L'intitulé passe de FÉODALE à BOURGEOISE (la propriété a une histoire). Puis neuf parcelles se vident : leur contenu s'écoule vers la dixième, qui grandit (le progrès de l'industrie l'a abolie). La grande parcelle prend le nom de CAPITAL, et des traits la relient aux neuf autres : le capital est un produit collectif, une force sociale. Puis la fraction s'inscrit : 9/10 sans propriété, 1/10 propriétaire. Au dernier temps la clôture de la grande parcelle tombe, et chaque parcelle retrouve sa maison sans clôture autour de l'ensemble : s'approprier sa part des produits sociaux, sans pouvoir assujettir le travail d'autrui. Moteur 2d, centré dans le cadre de la figure. Tout est fonction de g, donc réversible.",
     "moteur": "2d",
     "layout": "plein",
-    "alt": "Un plan de dix parcelles : neuf sont vides, clôture en pointillé ; la dixième, agrandie et close, porte le nom de capital, et une fraction 9/10 est inscrite au-dessus.",
+    "titre": "Les neuf dixièmes, en six temps",
+    "alt": "Un plan de dix parcelles : neuf sont vides, clôture en pointillé ; la dixième, agrandie et close, porte le nom de capital, et une fraction 9/10 est inscrite dessous.",
     "source": {
-      "texte": "D'après le texte — Manifeste, partie II",
+      "texte": "D'après le texte : Manifeste, partie II",
       "q": "la propriété privée est abolie pour les neuf dixièmes de ses membres"
     },
     "etapes": {
-      "horreur": "Dix parcelles, chacune avec sa maison et sa clôture : la propriété personnelle, fruit du travail, qu'on accuse les communistes de vouloir abolir.",
-      "histoire": "L'intitulé change : FÉODALE, puis BOURGEOISE. La propriété a subi de constants changements ; la Révolution française a aboli la propriété féodale en faveur de la propriété bourgeoise.",
-      "personnelle": "Neuf parcelles se vident, et ce qu'elles contenaient s'écoule vers la dixième. La petite propriété, nul besoin de l'abolir : le progrès de l'industrie l'a abolie, ou est en train de l'abolir.",
-      "capital": "La grande parcelle s'appelle capital, et des traits la relient à toutes les autres : le capital est un produit collectif, mis en mouvement par les efforts combinés de beaucoup — une force sociale.",
-      "neuf": "La fraction s'inscrit : neuf dixièmes sans propriété, un dixième propriétaire. C'est précisément parce qu'elle n'existe pas pour les neuf dixièmes qu'elle existe pour quelques-uns.",
-      "lectures": "La clôture de la grande parcelle tombe, et chaque parcelle retrouve sa maison. Le communisme n'enlève à personne le pouvoir de s'approprier sa part : il ôte le pouvoir d'assujettir le travail d'autrui."
+      "horreur": "Dix parcelles, chacune avec sa maison et sa clôture. C'est la propriété personnelle, fruit du travail, qu'on accuse les communistes de vouloir abolir.",
+      "histoire": "L'intitulé change : FÉODALE est barré, BOURGEOISE s'inscrit. La Révolution française a aboli une forme de propriété au profit d'une autre.",
+      "personnelle": "Neuf parcelles se vident, et ce qu'elles contenaient s'écoule vers la dixième. La petite propriété, le progrès de l'industrie l'a déjà abolie.",
+      "capital": "La grande parcelle prend le nom de capital, et des traits la relient à toutes les autres. Le capital est un produit collectif, une force sociale tenue par quelques-uns.",
+      "neuf": "La fraction s'inscrit : neuf dixièmes sans propriété, un dixième propriétaire. La propriété des uns existe parce que les autres n'en ont pas.",
+      "lectures": "La clôture de la grande parcelle tombe, et chaque parcelle retrouve sa maison. Chacun garde sa part des produits sociaux ; personne n'a plus de pouvoir sur le travail d'autrui."
     },
     "fixe": {
       "g": 4.6,
-      "legende": "Neuf parcelles vides, une seule close et agrandie, qui a pris le nom de capital : la propriété bourgeoise n'existe pour quelques-uns que parce qu'elle est abolie pour les neuf dixièmes."
+      "legende": "Neuf parcelles vides, une seule close et agrandie, qui a pris le nom de capital. La propriété bourgeoise existe pour quelques-uns parce qu'elle est abolie pour les neuf dixièmes."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : le titre de propriété. La notion définit la propriété par ce qu'elle donne pouvoir de faire. La page s'ouvre donc sur une action de filature de 1856 : une usine gravée en tête, et un papier qui fait de son détenteur un propriétaire de cette usine, avec dix coupons de dividende, sans qu'il ait à y entrer. Dans l'essai, le décret d'août 1789 qui détruit le régime féodal (la propriété a une histoire) et une expulsion irlandaise de 1888 (la propriété des uns se fait sentir comme la privation des autres). Le fond fait monter ce que la propriété dit d'elle-même (chaude), puis, à partir de la section du capital, ce que l'analyse y lit (aube) : le travail des autres, la force sociale, les neuf dixièmes.",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 980,
+      "alt": "Une action imprimée de 1856 : en tête, la gravure d'une grande filature à cheminée dans un paysage ; dessous, en capitales, RAVENSBERGER SPINNEREI, puis ACTIE N° 1993 de deux cents thalers, un texte en allemand et des signatures ; un tampon rouge plus tardif barre le titre en travers.",
+      "legende": "L'usine gravée en tête appartient, pour deux cents thalers, au détenteur de ce papier, qui touche ses dividendes sans y entrer. Ceux qui la font tourner n'y figurent pas.",
+      "credit": "Action n° 1993 de la Ravensberger Spinnerei, Bielefeld, 1er avril 1856, graveur inconnu. Collection du Erster Deutscher Historic-Actien-Club, domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Ravensberger_Spinnerei_1856.jpg"
+    },
+    "planches": {
+      "decret": {
+        "img": "planche-decret.webp",
+        "w": 1060,
+        "h": 768,
+        "alt": "Page imprimée de 1789 : DÉCRETS DE L'ASSEMBLÉE NATIONALE, des 4, 6, 7, 8 et 11 août 1789, Article premier : l'Assemblée nationale détruit entièrement le régime féodal ; une partie des droits est abolie sans indemnité, les autres sont déclarés rachetables.",
+        "legende": "Août 1789 : l'Assemblée détruit le régime féodal. Une partie des droits seigneuriaux tombe sans indemnité, l'autre devra être rachetée. Une forme de propriété en abolit une autre.",
+        "credit": "Décrets de l'Assemblée nationale des 4, 6, 7, 8 et 11 août 1789, Imprimerie du Roi, 1789. Domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:D%C3%A9crets_du_4,_6,_7,_8_et_11_ao%C3%BBt_1789.jpg"
+      },
+      "belier": {
+        "img": "planche-belier.webp",
+        "w": 1300,
+        "h": 983,
+        "alt": "Photographie : une chaumière irlandaise dont le mur est éventré ; devant, un bélier de bois suspendu à un trépied ; à droite, un groupe d'hommes en chapeau melon et deux policiers casqués regardent.",
+        "legende": "Comté de Clare, 1888. Le bélier a ouvert le mur d'une chaumière, lors d'une expulsion, sous le regard de la police. La propriété des uns se fait sentir, pour les autres, comme une privation.",
+        "credit": "Robert French, « The Battering Ram has done its work », vers juillet 1888. Collection Lawrence, National Library of Ireland, domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:%22The_Battering_Ram_has_done_its_work%22_(23392381204).jpg"
+      }
+    },
+    "lumieres": {
+      "capital": "aube",
+      "lectures": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les objets de la propriété, dessinés en points (le titre d'action, l'usine, la maison, la clôture, le coffre, la clé, la pièce). L'un s'allume et ce que la propriété dit d'elle-même monte au-dessus de lui (chaude) ; à partir de la section du capital, c'est ce que l'analyse y lit (aube). Les mots résument le texte, ce ne sont pas des citations.",
+      "dessins": {
+        "action": [
+          "11111111111",
+          "1.........1",
+          "1..11111..1",
+          "1..1...1..1",
+          "1..11111..1",
+          "1.........1",
+          "1.1111111.1",
+          "1.........1",
+          "1.111.111.1",
+          "11111111111"
+        ],
+        "usine": [
+          "..1........",
+          "..1........",
+          "..1........",
+          "..1..1..1..",
+          "111.11.11.1",
+          "11111111111",
+          "1.1.1.1.1.1",
+          "1.1.1.1.1.1",
+          "11111111111"
+        ],
+        "maison": [
+          ".....1.....",
+          "....111....",
+          "...1...1...",
+          "..1.....1..",
+          ".111111111.",
+          ".1.......1.",
+          ".1.11.1..1.",
+          ".1.11.1..1.",
+          ".111111111."
+        ],
+        "cloture": [
+          ".1...1...1.",
+          "111.111.111",
+          "1.1.1.1.1.1",
+          "11111111111",
+          "1.1.1.1.1.1",
+          "11111111111",
+          "1.1.1.1.1.1",
+          "1.1.1.1.1.1"
+        ],
+        "coffre": [
+          "11111111111",
+          "1.........1",
+          "1.1111111.1",
+          "1.1.....1.1",
+          "1.1..1..1.1",
+          "1.1.111.1.1",
+          "1.1.....1.1",
+          "1.1111111.1",
+          "11111111111",
+          ".1.......1."
+        ],
+        "cle": [
+          ".111.......",
+          "1...1......",
+          "1...1......",
+          "1...1111111",
+          "1...1...1.1",
+          "1...1...1.1",
+          ".111......."
+        ]
+      },
+      "motifs": [
+        {
+          "m": "action",
+          "chaude": [
+            "200 thalers",
+            "un dividende"
+          ],
+          "aube": [
+            "le travail des autres",
+            "un produit collectif"
+          ]
+        },
+        {
+          "m": "usine",
+          "chaude": [
+            "propriété privée",
+            "défense d'entrer"
+          ],
+          "aube": [
+            "une force sociale",
+            "efforts combinés"
+          ]
+        },
+        {
+          "m": "maison",
+          "chaude": [
+            "fruit du travail",
+            "sa maison"
+          ],
+          "aube": [
+            "la petite propriété",
+            "déjà ruinée"
+          ]
+        },
+        {
+          "m": "cloture",
+          "chaude": [
+            "mon terrain",
+            "propriété close"
+          ],
+          "aube": [
+            "neuf dixièmes",
+            "sans propriété"
+          ]
+        },
+        {
+          "m": "coffre",
+          "chaude": [
+            "le capital",
+            "travail accumulé"
+          ],
+          "aube": [
+            "le passé",
+            "domine le présent"
+          ]
+        },
+        {
+          "m": "cle",
+          "chaude": [
+            "le propriétaire",
+            "chez soi"
+          ],
+          "aube": [
+            "un pouvoir",
+            "sur autrui"
+          ]
+        },
+        {
+          "m": "piece",
+          "chaude": [
+            "le salaire",
+            "sa part"
+          ],
+          "aube": [
+            "aucun profit net",
+            "aucun pouvoir"
+          ]
+        }
+      ]
     }
   }
 }

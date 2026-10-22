@@ -60,13 +60,19 @@ window.LM_MONDE = function (canvas) {
     for (var gx = 0; gx < cw; gx += 200) for (var gy = 0; gy < ch; gy += 200) ctx.drawImage(grain, gx, gy);
     ctx.restore();
 
-    var large = cw >= 1100;
-    var X0 = large ? cw * 0.49 : cw * 0.07, X1 = large ? cw * 0.93 : cw * 0.93;
+    /* la scène est une figure : le plan est centré dans son cadre, quelle
+       que soit sa largeur (il visait jadis la moitié droite d'une page en
+       plein écran, pour laisser la place au texte) */
+    var marge = cw >= 600 ? 0.12 : 0.07;
+    var X0 = cw * marge, X1 = cw * (1 - marge);
     var W = X1 - X0, cell = W / 5, Hc = Math.min(cell * 0.82, ch * 0.24);
     var Y0 = ch * 0.5 - Hc - ch * 0.02;
     /* réglé sur la hauteur : dans le bandeau mobile, un plancher de 12 px
        poussait la dernière ligne hors du cadre */
-    var t = Math.max(8, Math.round(Math.min(ch * 0.03, cell * 0.2, ch * 0.9 / 19)));
+    /* dans la figure (16/10, 650 px de large au plus sur la page), un
+       plancher de 3 % de la hauteur rendait l'intitulé à 7 px : on part de
+       4,5 %, toujours borné par la cellule et par la hauteur */
+    var t = Math.max(8, Math.round(Math.min(ch * 0.045, cell * 0.2, ch * 0.9 / 19)));
 
     var vu = ss(0.05, 0.9, G);
     if (vu < 0.01) return;
@@ -162,7 +168,7 @@ window.LM_MONDE = function (canvas) {
     if (fin > 0.35) {
       ctx.globalAlpha = ss(0.35, 1, fin); ctx.textAlign = 'left'; ctx.fillStyle = SOURD;
       ctx.font = 'italic ' + Math.round(t * 0.95) + 'px Georgia, serif';
-      ctx.fillText('sa part des produits sociaux — sans pouvoir sur le travail d’autrui', X0, Y0 + 2 * Hc + t * 5.2);
+      ctx.fillText('sa part des produits sociaux, sans pouvoir sur le travail d’autrui', X0, Y0 + 2 * Hc + t * 5.2);
     }
     ctx.globalAlpha = 1;
   }
