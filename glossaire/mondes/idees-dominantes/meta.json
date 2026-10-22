@@ -1,22 +1,44 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/idees-dominantes (mission manifeste-notions, sept. 2026).",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/idees-dominantes (mission manifeste-notions, sept. 2026 ; réécrite selon glossaire/mondes/CHARTE.md en octobre 2026).",
   "titre": "Idées dominantes",
   "de": "herrschende Ideen",
-  "chapo": "« Les idées dominantes d’une époque n’ont jamais été que les idées de la classe dominante » : la phrase du <i>Manifeste</i> ne dit pas que toutes les idées sont des mensonges intéressés, mais que la production intellectuelle se transforme avec la production matérielle, et que ce qu’une époque tient pour des vérités éternelles porte la marque des rapports sociaux qui la font vivre.",
-  "description": "Les idées dominantes chez Marx et Engels : la conscience qui change avec l'existence sociale, la liberté de conscience comme libre concurrence dans le domaine de la connaissance, les « vérités éternelles », et les contresens du reflet et du relativisme.",
+  "enbref": "Les idées dominantes désignent, chez Marx et Engels, les idées qui prévalent dans une époque&nbsp;: celles qu'on enseigne, qu'on répète et qui passent pour évidentes. Le <i>Manifeste du parti communiste</i> (1848, partie&nbsp;II) affirme qu'elles ont toujours été les idées de la classe dominante, parce que la production intellectuelle se transforme avec la production matérielle. La difficulté est de comprendre que ces idées peuvent être sincères, et justes en partie, tout en portant la marque d'une domination.",
+  "retenir": [
+    "Le <i>Manifeste</i> pose la thèse en réponse à une objection&nbsp;: la liberté et la justice seraient des vérités éternelles, communes à toutes les sociétés.",
+    "Il reproche à la bourgeoisie, comme à toutes les classes régnantes avant elle, de prendre les rapports sociaux de son époque pour des lois de la nature et de la raison.",
+    "Une idée est dominante quand elle prévaut et passe pour évidente. Elle doit cette place à la classe qui tient les moyens de la répandre&nbsp;: l'école, la presse, la chaire.",
+    "Les idées changent quand les classes changent&nbsp;: le christianisme l'emporte avec le déclin du monde antique, la philosophie des Lumières avec la bourgeoisie montante.",
+    "Les mots durent plus que leur contenu. La liberté de conscience proclame la libre concurrence dans le domaine de la connaissance, et certaines formes de pensée dureront autant que la division en classes."
+  ],
+  "questions": [
+    {
+      "q": "Que signifie le mot «&nbsp;liberté&nbsp;» dans la bouche du bourgeois de 1848, selon le <i>Manifeste</i>&nbsp;?",
+      "r": "La liberté du commerce et du libre-échange. Le mot prend son sens par contraste avec le commerce entravé du Moyen Âge, où les corporations réglaient la production et la vente. Il désigne donc une liberté précise, née d'une histoire précise, et il a une date comme le monde qui l'emploie."
+    },
+    {
+      "q": "Pourquoi une idée devient-elle dominante, d'après le <i>Manifeste</i>&nbsp;?",
+      "r": "Parce qu'elle est portée par la classe qui domine la production matérielle et qui dispose, du même coup, des moyens de produire et de répandre les idées&nbsp;: l'éducation, les livres, la presse. Sa place ne dépend pas d'abord de sa vérité. Le texte n'en conclut pas que d'autres idées sont impossibles, puisqu'il en annonce lui-même de nouvelles."
+    },
+    {
+      "q": "Si les idées dépendent des classes, pourquoi la religion, la morale et la philosophie semblent-elles traverser toutes les époques&nbsp;?",
+      "r": "Parce que l'exploitation d'une partie de la société par l'autre est un fait commun à toutes les époques passées. La conscience de tous les âges s'est donc mue dans des formes communes, qui ne disparaîtront complètement qu'avec l'antagonisme des classes. Ce qui dure, c'est la division en classes elle-même."
+    }
+  ],
+  "description": "Les idées dominantes chez Marx et Engels, expliquées simplement : pourquoi les idées d'une époque sont celles de sa classe dominante, et ce que cela veut dire.",
   "source": {
+    "_": "La source des citations : work = id de bibliotheque.json (le générateur en lit le path : /oeuvres/manifeste). Le texte du Manifeste tient en une seule page Wikisource, donc une seule section de liseuse : s = 1 partout.",
     "work": "manifeste-parti-communiste",
     "s": 1,
-    "cite": "Karl Marx et Friedrich Engels, <i>Manifeste du parti communiste</i> (1848) — traduction Laura Lafargue (1897)"
+    "cite": "Karl Marx et Friedrich Engels, <i>Manifeste du parti communiste</i> (1848), traduction Laura Lafargue (1897)"
   },
-  "ou": "<i>Manifeste du parti communiste</i>, partie&nbsp;II, « Prolétaires et communistes » — la réponse aux objections portées au nom de la liberté, de la culture et du droit, puis de la religion, de la philosophie et de l’idéologie en général. <i>L’Idéologie allemande</i> (1845-1846), où la thèse est développée, n’a été publiée qu’en 1932 et n’est pas servie : elle est paraphrasée.",
+  "ou": "<i>Manifeste du parti communiste</i>, partie&nbsp;II, « Prolétaires et communistes » : la réponse aux objections portées au nom de la liberté, de la culture et du droit, puis de la religion, de la philosophie et de l’idéologie en général. <i>L’Idéologie allemande</i> (1845-1846), où la thèse est développée, n’a été publiée qu’en 1932 et n’est pas servie : elle est paraphrasée.",
   "outils": [
     {
-      "label": "Lire « Prolétaires et communistes » — la liseuse du Manifeste",
+      "label": "Lire « Prolétaires et communistes » dans la liseuse du Manifeste",
       "url": "/oeuvres/manifeste#partie=3"
     },
     {
-      "label": "La carte des socialismes — le « vrai » socialisme allemand",
+      "label": "La carte des socialismes : le « vrai » socialisme allemand",
       "url": "/oeuvres/manifeste#labo=vrai"
     }
   ],
@@ -28,24 +50,196 @@
     "Fétichisme"
   ],
   "monde": {
-    "_": "LA SCÈNE : UNE PRESSE À IMPRIMER. « La production intellectuelle se transforme avec la production matérielle » : les idées ont une fabrication, et qui tient la presse tient la page. Une presse à bras sur son marbre, une feuille dessous. Au départ elle imprime LIBERTÉ · JUSTICE — les vérités que l'objection dit éternelles. Puis on voit à côté la pile des feuilles d'avant. Puis l'histoire se rejoue sur le marbre, et la presse change de matière avec elle : de bois, elle imprime LES DIEUX DE LA CITÉ, puis LA FOI CHRÉTIENNE ; de fer, LES LUMIÈRES, puis LIBERTÉ DE CONSCIENCE, sur quoi s'imprime en or ce que le texte y lit : la libre concurrence dans le domaine de la connaissance. La feuille ne change jamais qu'au moment où la platine la couvre. Au dernier temps la platine se relève sur une feuille blanche. Tout est fonction de g, donc réversible.",
+    "_": "LA SCÈNE : UNE PRESSE À IMPRIMER. « La production intellectuelle se transforme avec la production matérielle » : les idées ont une fabrication, et qui tient la presse tient la page. Une presse à bras sur son marbre, une feuille dessous. Au départ elle imprime LIBERTÉ · JUSTICE : les vérités que l'objection dit éternelles. Puis on voit à côté la pile des feuilles d'avant. Puis l'histoire se rejoue sur le marbre, et la presse change de matière avec elle : de bois, elle imprime LES DIEUX DE LA CITÉ, puis LA FOI CHRÉTIENNE ; de fer, LES LUMIÈRES, puis LIBERTÉ DE CONSCIENCE, sur quoi s'imprime en or ce que le texte y lit : la libre concurrence dans le domaine de la connaissance. La feuille ne change jamais qu'au moment où la platine la couvre. Au dernier temps la platine se relève sur une feuille blanche. Tout est fonction de g, donc réversible.",
     "layout": "plein",
     "alt": "Une presse à imprimer à bras, en fer, sur son marbre ; la feuille porte en capitales LIBERTÉ DE CONSCIENCE, et en or, par-dessus, la mention « libre concurrence » ; à côté, une pile de feuilles déjà imprimées.",
     "source": {
-      "texte": "D'après le texte — Manifeste, partie II",
+      "texte": "D'après le texte : Manifeste, partie II",
       "q": "la production intellectuelle se transforme avec la production matérielle"
     },
     "etapes": {
-      "eternelles": "La presse imprime LIBERTÉ · JUSTICE. L'objection dit ces vérités communes à toutes les conditions sociales : c'est la page qu'on nous tend comme si personne ne l'avait composée.",
-      "ou": "À côté, la pile des feuilles d'avant. Le texte ne répond pas par une doctrine mais par une histoire : ce qu'une époque imprime, une autre l'a imprimé autrement.",
-      "production": "L'histoire se rejoue sur le marbre, et la presse redevient de bois. LES DIEUX DE LA CITÉ, puis LA FOI CHRÉTIENNE : les vieilles religions furent vaincues quand l'ancien monde était à son déclin.",
-      "dissolution": "La presse devient de fer, et la feuille dit LES LUMIÈRES. La dissolution des vieilles idées marche de pair avec celle des anciennes relations sociales.",
-      "concurrence": "LIBERTÉ DE CONSCIENCE — et par-dessus, en or, ce que le texte y lit : le règne de la libre concurrence dans le domaine de la connaissance.",
-      "lectures": "La platine se relève sur une feuille blanche. Les formes de conscience d'une société divisée ne se dissoudront qu'avec la disparition de l'antagonisme des classes : la page n'est pas encore écrite."
+      "eternelles": "La presse imprime LIBERTÉ · JUSTICE. L'objection tient ces vérités pour communes à toutes les sociétés, comme une page que personne n'aurait composée.",
+      "ou": "À côté, la pile des feuilles d'avant. Le Manifeste répond par une histoire : ce qu'une époque imprime, une autre l'avait imprimé autrement.",
+      "production": "La presse redevient de bois : LES DIEUX DE LA CITÉ, puis LA FOI CHRÉTIENNE. Les vieilles religions furent vaincues quand l'ancien monde était à son déclin.",
+      "dissolution": "La presse est de fer, et la feuille dit LES LUMIÈRES. Les vieilles idées se défont en même temps que les anciennes relations sociales.",
+      "concurrence": "LIBERTÉ DE CONSCIENCE, et par-dessus, en or, ce que le texte y lit : le règne de la libre concurrence dans le domaine de la connaissance.",
+      "lectures": "La platine se relève sur une feuille blanche. Les formes de conscience d'une société divisée ne se dissoudront qu'avec l'antagonisme des classes."
     },
     "fixe": {
       "g": 4.75,
-      "legende": "La presse de fer imprime LIBERTÉ DE CONSCIENCE, et le texte y lit, en surimpression, la libre concurrence dans le domaine de la connaissance : la production intellectuelle se transforme avec la production matérielle."
+      "legende": "La presse de fer imprime LIBERTÉ DE CONSCIENCE, et le texte y lit, en or, la libre concurrence dans le domaine de la connaissance."
+    },
+    "titre": "La presse et ses pages, en six temps"
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : les Tables de la Loi. La notion dit que les idées d'une classe se présentent comme des vérités éternelles. La page s'ouvre donc sur la Déclaration de 1789 peinte comme les Tables de Moïse, sous l'œil qui rayonne (Le Barbier) : des droits nés d'une révolution, présentés comme descendus d'en haut. Plus bas, le frontispice de l'Encyclopédie : la Raison lève le voile de la Vérité et la Théologie lui tourne le dos, le passage des idées chrétiennes aux idées philosophiques que le Manifeste date. Le fond fait monter ce que chaque idée dit d'elle-même (chaude), puis, à la section de la liberté de conscience, ce que l'analyse y lit (aube) : sa date et sa classe.",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 1078,
+      "alt": "La Déclaration des droits de l'homme et du citoyen peinte sur deux tables de pierre arrondies, comme les Tables de la Loi, sous un œil rayonnant dans un triangle ; de part et d'autre, deux figures allégoriques, l'une tenant des chaînes brisées, l'autre, ailée, désignant le texte d'un sceptre.",
+      "legende": "La Déclaration de 1789 peinte comme les Tables de la Loi, sous l'œil qui rayonne. Des droits nés d'une révolution s'y présentent comme des vérités descendues d'en haut, et la propriété y est dite inviolable et sacrée.",
+      "credit": "Jean-Jacques-François Le Barbier, Déclaration des droits de l'homme et du citoyen, huile sur toile, 1789. Musée Carnavalet, Paris, domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Jean-Jacques_Le_Barbier_-_D%C3%A9claration_des_droits_de_l%27homme_et_du_citoyen_-_P708_-_Mus%C3%A9e_Carnavalet.jpg"
+    },
+    "planches": {
+      "encyclopedie": {
+        "img": "planche-encyclopedie.webp",
+        "w": 1100,
+        "h": 978,
+        "alt": "Gravure : sous une colonnade antique, une femme voilée rayonne de lumière ; une figure couronnée lui soulève le voile ; à ses pieds, une figure agenouillée, près d'un livre marqué BIBLIA, lui tourne le dos et regarde vers le ciel ; autour, une foule d'allégories des arts et des sciences.",
+        "legende": "La Raison lève le voile de la Vérité, et la Théologie, à ses pieds, lui tourne le dos en attendant sa lumière d'en haut. Les Lumières se peignent en vérité dévoilée, sans date ; le <i>Manifeste</i> y voit la bataille de la bourgeoisie contre la société féodale.",
+        "credit": "Charles-Nicolas Cochin (dessin, 1764) et Benoît-Louis Prévost (gravure, 1772), frontispice de l'<i>Encyclopédie</i>. Domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Encyclopedie_frontispice_full.jpg"
+      }
+    },
+    "lumieres": {
+      "concurrence": "aube",
+      "lectures": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les instruments et les emblèmes de la production des idées, dessinés en points (la presse, les tables de la loi, le temple antique, le livre, l'encrier, la balance, la pièce). L'un s'allume et ce que l'idée dit d'elle-même monte au-dessus de lui (chaude) ; à la section de la liberté de conscience, c'est ce que l'analyse y lit qui monte (aube) : sa date et sa classe. Les mots viennent du texte ou le résument, ce ne sont pas des citations.",
+      "dessins": {
+        "presse": [
+          "11111111111",
+          ".1.......1.",
+          ".1..111..1.",
+          ".1...1...1.",
+          ".1..111..1.",
+          ".1.11111.1.",
+          "11111111111",
+          ".1.......1.",
+          ".1.......1."
+        ],
+        "tables": [
+          ".111...111.",
+          "11111.11111",
+          "1...1.1...1",
+          "11111.11111",
+          "1...1.1...1",
+          "11111.11111",
+          "1...1.1...1",
+          "11111.11111"
+        ],
+        "temple": [
+          "....111....",
+          "..1111111..",
+          "11111111111",
+          ".1.1.1.1.1.",
+          ".1.1.1.1.1.",
+          ".1.1.1.1.1.",
+          ".1.1.1.1.1.",
+          "11111111111"
+        ],
+        "livre": [
+          "11111.11111",
+          "1...1.1...1",
+          "1.111.111.1",
+          "1...1.1...1",
+          "1.111.111.1",
+          "1...1.1...1",
+          "11111111111"
+        ],
+        "encrier": [
+          "........1",
+          ".......1.",
+          "......1..",
+          ".....1...",
+          "..111111.",
+          ".1111111.",
+          ".1111111.",
+          "..11111.."
+        ],
+        "balance": [
+          ".....1.....",
+          "..1111111..",
+          ".1...1...1.",
+          "1.1..1..1.1",
+          "111..1..111",
+          ".....1.....",
+          ".....1.....",
+          "...11111..."
+        ]
+      },
+      "motifs": [
+        {
+          "m": "tables",
+          "chaude": [
+            "droits naturels",
+            "inviolable et sacré"
+          ],
+          "aube": [
+            "propriété bourgeoise",
+            "liberté du commerce"
+          ]
+        },
+        {
+          "m": "temple",
+          "chaude": [
+            "les vieux dieux",
+            "l'ordre éternel"
+          ],
+          "aube": [
+            "l'ancien monde",
+            "à son déclin"
+          ]
+        },
+        {
+          "m": "livre",
+          "chaude": [
+            "la foi",
+            "la révélation"
+          ],
+          "aube": [
+            "la société féodale",
+            "sa dernière bataille"
+          ]
+        },
+        {
+          "m": "encrier",
+          "chaude": [
+            "la Raison",
+            "les Lumières"
+          ],
+          "aube": [
+            "la bourgeoisie",
+            "alors révolutionnaire"
+          ]
+        },
+        {
+          "m": "presse",
+          "chaude": [
+            "la vérité",
+            "l'opinion"
+          ],
+          "aube": [
+            "production intellectuelle",
+            "production matérielle"
+          ]
+        },
+        {
+          "m": "balance",
+          "chaude": [
+            "la justice",
+            "le droit"
+          ],
+          "aube": [
+            "volonté de classe",
+            "érigée en loi"
+          ]
+        },
+        {
+          "m": "piece",
+          "chaude": [
+            "liberté de conscience",
+            "libre examen"
+          ],
+          "aube": [
+            "libre concurrence",
+            "le marché"
+          ]
+        }
+      ]
     }
   }
 }
