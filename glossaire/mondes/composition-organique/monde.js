@@ -26,7 +26,7 @@ window.LM_MONDE = function (canvas) {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.6));
   renderer.setClearColor(0x0a0806, 1);
   if (THREE.sRGBEncoding) renderer.outputEncoding = THREE.sRGBEncoding;
-  if (THREE.ACESFilmicToneMapping) { renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.02; }
+  if (THREE.ACESFilmicToneMapping) { renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.10; }
   renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
   var scene = new THREE.Scene(); scene.fog = new THREE.Fog(0x0a0806, 1.6, 4.0);
@@ -50,13 +50,18 @@ window.LM_MONDE = function (canvas) {
       g.stroke();
     }
   });
-  var comptoir = new THREE.Mesh(new THREE.BoxGeometry(1.9, 0.12, 0.58),
-    std({ map: boisTex, color: 0x9c8768, roughness: 0.86 }));
-  comptoir.position.set(0, -0.06, -0.02); comptoir.receiveShadow = true; scene.add(comptoir);
+  /* Le plan de travail VIENT JUSQU'À NOUS : arrêté à 0,27 devant le tas,
+     il montrait sa tranche puis du noir, et le bas de l'image était une
+     bande sombre vide (13/255 mesuré). Prolongé sous la caméra, c'est le
+     bois qui remplit le pied du cadre. */
+  boisTex.wrapS = boisTex.wrapT = THREE.RepeatWrapping; boisTex.repeat.set(1, 1.6);
+  var comptoir = new THREE.Mesh(new THREE.BoxGeometry(1.9, 0.12, 1.9),
+    std({ map: boisTex, color: 0xb59c78, roughness: 0.86 }));
+  comptoir.position.set(0, -0.06, 0.64); comptoir.receiveShadow = true; scene.add(comptoir);
   var fond = new THREE.Mesh(new THREE.PlaneGeometry(5, 2.4), std({ color: 0x150f0a, roughness: 1 }));
   fond.position.set(0, 0.6, -0.44); scene.add(fond);
 
-  scene.add(new THREE.AmbientLight(0xffe6c2, 0.24));
+  scene.add(new THREE.AmbientLight(0xffe6c2, 0.30));
   var lampe = new THREE.PointLight(0xffd9a8, 1.30, 2.8, 2);
   lampe.position.set(-0.30, 0.72, 0.34); lampe.castShadow = true;
   lampe.shadow.mapSize.set(1024, 1024); lampe.shadow.bias = -0.0016; scene.add(lampe);
@@ -197,9 +202,13 @@ window.LM_MONDE = function (canvas) {
     /* ── LE CADRAGE ───────────────────────────────────────────────────
        La chose de −0,40 à −0,06, le cadre de 0,04 à 0,39 : VÉRIFIÉ PAR
        PROJECTION à la position portrait, qui est la plus étroite. */
-    var dz = lerp(1.26, 1.18, ss(0, 1, Math.min(1, G / 2.5)));
-    var camA = V3(-0.005, lerp(0.10, 0.135, ss(1.5, 4.5, G)), ZB + 0.04);
-    camera.position.set(camA.x + 0.008 * Math.sin(T * 0.21), camA.y + 0.145 + 0.006 * Math.sin(T * 0.27), camA.z + dz);
+    /* RAPPROCHÉ (oct. 2026) : à 1,2 de distance le tas et le miroir ne
+       tenaient que la moitié de la largeur, au milieu d'un grand mur
+       brun. À 0,9 et un peu plus haut, ils prennent les quatre
+       cinquièmes du cadre et le regard plonge sur le bois. */
+    var dz = lerp(0.78, 0.74, ss(0, 1, Math.min(1, G / 2.5)));
+    var camA = V3(0.012, lerp(0.10, 0.12, ss(1.5, 4.5, G)), ZB + 0.04);
+    camera.position.set(camA.x + 0.006 * Math.sin(T * 0.21), camA.y + 0.19 + 0.005 * Math.sin(T * 0.27), camA.z + dz);
     camera.lookAt(camA);
     render();
   }
