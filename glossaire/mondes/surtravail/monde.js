@@ -49,9 +49,11 @@ window.LM_MONDE = function (canvas) {
       g.stroke();
     }
   });
-  var sol = new THREE.Mesh(new THREE.BoxGeometry(1.9, 0.10, 0.60),
+  /* le plateau descend jusque sous l'objectif : arrêté à 0,28, il laissait
+     voir sa face avant dans l'ombre, une bande noire au bas du cadre. */
+  var sol = new THREE.Mesh(new THREE.BoxGeometry(1.9, 0.10, 1.70),
     std({ map: boisTex, color: 0x9c8768, roughness: 0.88 }));
-  sol.position.set(0, -0.05, -0.02); sol.receiveShadow = true; scene.add(sol);
+  sol.position.set(0, -0.05, 0.53); sol.receiveShadow = true; scene.add(sol);
   var mur = new THREE.Mesh(new THREE.PlaneGeometry(4.6, 2.2), std({ color: 0x171009, roughness: 1 }));
   mur.position.set(0, 0.6, -0.42); scene.add(mur);
 
@@ -120,7 +122,8 @@ window.LM_MONDE = function (canvas) {
   var sceaux = [];
   for (var i = 0; i < 3; i++) {
     var m = new THREE.Mesh(new THREE.CylinderGeometry(0.030, 0.030, 0.010, 20),
-      std({ color: SCEAUX[i], metalness: i === 2 ? 0.85 : 0.25, roughness: i === 2 ? 0.3 : 0.72,
+      std({ color: SCEAUX[i], metalness: i === 2 ? 0.55 : 0.25, roughness: i === 2 ? 0.32 : 0.72,
+            emissive: i === 2 ? 0x4a3008 : 0x000000,   /* l'or a son éclat propre : sans environnement, un métal ne rend rien */
             transparent: true, opacity: 0 }));
     m.rotation.x = Math.PI / 2;
     m.position.set(0.265, 0.115, 0.128); m.castShadow = true;

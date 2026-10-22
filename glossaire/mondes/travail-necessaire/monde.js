@@ -40,18 +40,20 @@ window.LM_MONDE = function (canvas) {
   function V3(x, y, z) { return new THREE.Vector3(x, y, z); }
 
   var boisTex = tex(512, 512, function (g, w, h) {
-    g.fillStyle = '#463526'; g.fillRect(0, 0, w, h);
+    g.fillStyle = '#6e543b'; g.fillRect(0, 0, w, h);
     for (var i = 0; i < 180; i++) {
-      g.strokeStyle = 'rgba(' + (rnd() < 0.5 ? '26,18,10' : '112,90,62') + ',' + (0.05 + rnd() * 0.16) + ')';
+      g.strokeStyle = 'rgba(' + (rnd() < 0.5 ? '40,28,16' : '150,122,86') + ',' + (0.05 + rnd() * 0.16) + ')';
       g.lineWidth = 0.6 + rnd() * 2.4; g.beginPath();
       var y = rnd() * h; g.moveTo(0, y);
       for (var x = 0; x <= w; x += 30) g.lineTo(x, y + Math.sin(x * 0.013 + i) * 4);
       g.stroke();
     }
   });
-  var sol = new THREE.Mesh(new THREE.BoxGeometry(1.9, 0.10, 0.56),
-    std({ map: boisTex, color: 0x9c8768, roughness: 0.88 }));
-  sol.position.set(0, -0.05, -0.02); sol.receiveShadow = true; scene.add(sol);
+  /* le plancher court jusque sous la caméra : posé court, son bord avant
+     tombait dans le cadre et laissait un cinquième d'image noir. */
+  var sol = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.10, 1.70),
+    std({ map: boisTex, color: 0xd2bf9e, roughness: 0.86 }));
+  sol.position.set(0, -0.05, 0.45); sol.receiveShadow = true; scene.add(sol);
   var mur = new THREE.Mesh(new THREE.PlaneGeometry(4.6, 2.2), std({ color: 0x171009, roughness: 1 }));
   mur.position.set(0, 0.6, -0.40); scene.add(mur);
 
@@ -69,11 +71,11 @@ window.LM_MONDE = function (canvas) {
   var XE = -0.19;
   var etagere = new THREE.Group(); etagere.position.set(XE, 0, -0.16); scene.add(etagere);
   var planche = new THREE.Mesh(new THREE.BoxGeometry(0.30, 0.020, 0.115),
-    std({ map: boisTex, color: 0x8a7454, roughness: 0.9 }));
+    std({ map: boisTex, color: 0xe6d4b2, roughness: 0.9 }));
   planche.position.y = 0.175; planche.castShadow = true; planche.receiveShadow = true; etagere.add(planche);
   [-1, 1].forEach(function (s) {
     var m = new THREE.Mesh(new THREE.BoxGeometry(0.016, 0.185, 0.100),
-      std({ map: boisTex, color: 0x7a6444, roughness: 0.92 }));
+      std({ map: boisTex, color: 0xdac6a2, roughness: 0.92 }));
     m.position.set(s * 0.142, 0.083, 0); m.castShadow = true; etagere.add(m);
   });
   var vivres = [];
@@ -94,11 +96,11 @@ window.LM_MONDE = function (canvas) {
   var XB = 0.175;
   var etabli = new THREE.Group(); etabli.position.set(XB, 0, -0.06); scene.add(etabli);
   var plateau = new THREE.Mesh(new THREE.BoxGeometry(0.30, 0.024, 0.170),
-    std({ map: boisTex, color: 0x8a7454, roughness: 0.9 }));
+    std({ map: boisTex, color: 0xe6d4b2, roughness: 0.9 }));
   plateau.position.y = 0.128; plateau.castShadow = true; plateau.receiveShadow = true; etabli.add(plateau);
   [[-0.12, -0.06], [0.12, -0.06], [-0.12, 0.06], [0.12, 0.06]].forEach(function (p) {
     var m = new THREE.Mesh(new THREE.BoxGeometry(0.018, 0.128, 0.018),
-      std({ color: 0x5a4429, roughness: 0.92 }));
+      std({ map: boisTex, color: 0xdac6a2, roughness: 0.92 }));
     m.position.set(p[0], 0.064, p[1]); m.castShadow = true; etabli.add(m);
   });
   var broche = new THREE.Mesh(new THREE.CylinderGeometry(0.006, 0.007, 0.19, 10),
@@ -180,9 +182,9 @@ window.LM_MONDE = function (canvas) {
     /* ── LE CADRAGE ───────────────────────────────────────────────────
        L'étagère de −0,37 à −0,06, l'établi de 0,04 à 0,35 : VÉRIFIÉ PAR
        PROJECTION à la position portrait, la plus étroite. */
-    var dz = lerp(1.22, 1.14, ss(0, 1, Math.min(1, G / 2.5)));
-    var camA = V3(-0.01, lerp(0.15, 0.18, ss(1.5, 4.5, G)), -0.08);
-    camera.position.set(camA.x + 0.008 * Math.sin(T * 0.21), camA.y + 0.20 + 0.006 * Math.sin(T * 0.27), camA.z + dz);
+    var dz = lerp(0.92, 0.86, ss(0, 1, Math.min(1, G / 2.5)));
+    var camA = V3(-0.01, lerp(0.17, 0.19, ss(1.5, 4.5, G)), -0.08);
+    camera.position.set(camA.x + 0.008 * Math.sin(T * 0.21), camA.y + 0.16 + 0.006 * Math.sin(T * 0.27), camA.z + dz);
     camera.lookAt(camA);
     render();
   }

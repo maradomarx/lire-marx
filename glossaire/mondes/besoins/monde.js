@@ -40,34 +40,107 @@ window.LM_MONDE = function (canvas) {
 
   /* ── la pièce : un plâtre sale, un plancher ── */
   var platreTex = tex(512, 512, function (g, w, h) {
-    g.fillStyle = '#6a5c4c'; g.fillRect(0, 0, w, h);
-    for (var i = 0; i < 5200; i++) { g.fillStyle = 'rgba(' + (rnd() < 0.5 ? '30,22,14' : '150,136,112') + ',' + (rnd() * 0.10) + ')'; g.fillRect(rnd() * w, rnd() * h, 2 + rnd() * 4, 2 + rnd() * 3); }
-    for (i = 0; i < 9; i++) { g.strokeStyle = 'rgba(24,16,8,.16)'; g.lineWidth = 1; g.beginPath(); var x = rnd() * w, y = rnd() * h; g.moveTo(x, y); for (var k = 0; k < 7; k++) { x += (rnd() - 0.5) * 70; y += 30 + rnd() * 40; g.lineTo(x, y); } g.stroke(); }
+    g.fillStyle = '#8a7e6c'; g.fillRect(0, 0, w, h);
+    /* des taches larges et douces (le plâtre sale), puis un grain fin */
+    /* LA TEXTURE SE RACCORDE SUR SES BORDS : le plâtre est désormais
+       continu d'un panneau à l'autre (voir pan()), donc le bord de la
+       texture tombe au milieu du mur — tout motif est dessiné aussi à ses
+       copies décalées d'une largeur et d'une hauteur. */
+    function tuile(f) { for (var ox = -1; ox <= 1; ox++) for (var oy = -1; oy <= 1; oy++) f(ox * w, oy * h); }
+    for (var i = 0; i < 60; i++) { (function (bx, by, br, dk) {
+      tuile(function (ox, oy) { var bg = g.createRadialGradient(bx + ox, by + oy, 0, bx + ox, by + oy, br);
+        bg.addColorStop(0, dk ? 'rgba(40,30,20,.10)' : 'rgba(170,158,136,.08)'); bg.addColorStop(1, 'rgba(0,0,0,0)');
+        g.fillStyle = bg; g.fillRect(bx + ox - br, by + oy - br, br * 2, br * 2); });
+    })(rnd() * w, rnd() * h, 30 + rnd() * 90, rnd() < 0.6); }
+    for (i = 0; i < 14000; i++) { g.fillStyle = 'rgba(' + (rnd() < 0.5 ? '30,22,14' : '160,148,126') + ',' + (rnd() * 0.07) + ')'; g.fillRect(rnd() * w, rnd() * h, 1, 1); }
+    for (i = 0; i < 9; i++) { var pts = [], x = rnd() * w, y = rnd() * h; pts.push([x, y]);
+      for (var k = 0; k < 7; k++) { x += (rnd() - 0.5) * 70; y += 30 + rnd() * 40; pts.push([x, y]); }
+      g.strokeStyle = 'rgba(24,16,8,.07)'; g.lineWidth = 1;
+      tuile(function (ox, oy) { g.beginPath(); g.moveTo(pts[0][0] + ox, pts[0][1] + oy); for (var m = 1; m < pts.length; m++) g.lineTo(pts[m][0] + ox, pts[m][1] + oy); g.stroke(); }); }
   });
   platreTex.wrapS = platreTex.wrapT = THREE.RepeatWrapping;
-  var mur = std({ map: platreTex, roughness: 0.97, color: 0x8a7c68 });
+  /* la texture porte la couleur du plâtre : le matériau n'en est qu'une
+     teinte claire (octobre 2026 : le mur était un aplat presque noir) */
+  var mur = std({ map: platreTex, roughness: 0.97, color: 0xc4bcae });
   var WZ = -1.65, OW = 1.30, OH = 1.62, OY = 1.28;   /* l'ouverture au repos */
 
   /* LES QUATRE PANNEAUX : ils bougent, et c'est eux qui referment le jour */
-  var panG = new THREE.Mesh(new THREE.BoxGeometry(4, 4.4, 0.16), mur);
-  var panD = new THREE.Mesh(new THREE.BoxGeometry(4, 4.4, 0.16), mur);
-  var panH = new THREE.Mesh(new THREE.BoxGeometry(3, 2.2, 0.16), mur);
-  var panB = new THREE.Mesh(new THREE.BoxGeometry(3, 2.2, 0.16), mur);
+  /* chaque panneau a SA copie de la texture, recalée sur sa position à
+     chaque image : le plâtre est continu d'un panneau à l'autre, on voit
+     un mur et non quatre plaques (le défaut ne se voyait pas tant que la
+     pièce était noire) */
+  function pan(w0, h0) {
+    var m = mur.clone(); m.map = platreTex.clone(); m.map.needsUpdate = true;
+    m.map.repeat.set(w0 / 4, h0 / 4.4);
+    var p = new THREE.Mesh(new THREE.BoxGeometry(w0, h0, 0.16), m); p.userData.w0 = w0; p.userData.h0 = h0; return p;
+  }
+  function cale(p) {
+    var ww = p.userData.w0 * p.scale.x;
+    p.material.map.repeat.set(ww / 4, p.userData.h0 / 4.4);
+    p.material.map.offset.set((p.position.x - ww / 2) / 4, (p.position.y - p.userData.h0 / 2) / 4.4);
+  }
+  var panG = pan(4, 4.4), panD = pan(4, 4.4), panH = pan(3, 2.2), panB = pan(3, 2.2);
   [panG, panD, panH, panB].forEach(function (p) { p.receiveShadow = true; p.castShadow = true; scene.add(p); });
 
-  var sol = new THREE.Mesh(new THREE.PlaneGeometry(9, 9), std({ map: platreTex, roughness: 1, color: 0x4e4034 }));
+  var sol = new THREE.Mesh(new THREE.PlaneGeometry(9, 9), std({ map: platreTex, roughness: 1, color: 0x8c7660 }));
   sol.rotation.x = -Math.PI / 2; sol.receiveShadow = true; scene.add(sol);
   var murL = new THREE.Mesh(new THREE.PlaneGeometry(5, 4.4), mur);
   murL.rotation.y = Math.PI / 2; murL.position.set(-1.65, 2.2, 0.6); murL.receiveShadow = true; scene.add(murL);
 
   /* le rebord */
-  var rebord = new THREE.Mesh(new THREE.BoxGeometry(2.0, 0.09, 0.34), std({ color: 0x5c4a34, roughness: 0.86 }));
+  var rebord = new THREE.Mesh(new THREE.BoxGeometry(2.0, 0.09, 0.34), std({ color: 0x3a2e20, roughness: 0.86 }));
   rebord.position.set(0.55, OY - OH / 2 - 0.04, WZ + 0.16); rebord.castShadow = rebord.receiveShadow = true; scene.add(rebord);
 
   /* ── LE JOUR : un plan derrière l'ouverture ── */
-  var jourMat = new THREE.MeshBasicMaterial({ color: 0xdfe8f2, fog: false });
+  /* UN VRAI DEHORS (octobre 2026) : un ciel, des toits, des cheminées —
+     le Londres des arrière-cours que la page nomme. Peint au canevas et
+     tenu sous le blanc (le plus clair est à 0xdcd9cb) ; le matériau n'est
+     pas soumis au tone mapping, c'est son multiplicateur qui fait le jour. */
+  var cielTex = tex(1024, 1024, function (g, w, h) {
+    var gr = g.createLinearGradient(0, 0, 0, h * 0.62);
+    gr.addColorStop(0, '#7f9ab4'); gr.addColorStop(0.55, '#b4c2cc'); gr.addColorStop(1, '#dcd9cb');
+    g.fillStyle = gr; g.fillRect(0, 0, w, h);
+    for (var i = 0; i < 26; i++) {           /* nuages bas, pâles */
+      var cx = rnd() * w, cy = h * (0.18 + rnd() * 0.36), r = 30 + rnd() * 80;
+      g.save(); g.translate(cx, cy); g.scale(1, 0.4);
+      var rg = g.createRadialGradient(0, 0, 0, 0, 0, r);
+      rg.addColorStop(0, 'rgba(226,224,214,.40)'); rg.addColorStop(1, 'rgba(226,224,214,0)');
+      g.fillStyle = rg; g.fillRect(-r, -r, r * 2, r * 2); g.restore();
+    }
+    /* la ligne des toits : deux plans, le plus lointain plus clair */
+    function toits(base, amp, col, seed) {
+      g.fillStyle = col; g.beginPath(); g.moveTo(0, h);
+      var x = 0;
+      while (x < w) {
+        var lw = 40 + rnd() * 90, y = base - rnd() * amp;
+        g.lineTo(x, y);
+        if (rnd() < 0.7) { var cxm = x + lw * (0.2 + rnd() * 0.5), ch = 18 + rnd() * 40, cw = 8 + rnd() * 12;
+          g.lineTo(cxm, y); g.lineTo(cxm, y - ch); g.lineTo(cxm + cw, y - ch); g.lineTo(cxm + cw, y); }
+        if (rnd() < 0.5) { g.lineTo(x + lw * 0.5, y - 14 - rnd() * 18); }
+        g.lineTo(x + lw, y); x += lw;
+      }
+      g.lineTo(w, h); g.closePath(); g.fill();
+    }
+    toits(h * 0.585, h * 0.04, '#8b8a86', 1);
+    toits(h * 0.625, h * 0.05, '#5d5249', 2);
+    /* fenêtres éclairées des façades voisines, quelques-unes */
+    for (i = 0; i < 40; i++) { g.fillStyle = 'rgba(' + (rnd() < 0.3 ? '190,170,120' : '70,62,56') + ',.8)'; g.fillRect(rnd() * w, h * (0.66 + rnd() * 0.3), 7, 11); }
+    /* une fumée qui monte des cheminées */
+    for (i = 0; i < 14; i++) { var sx = rnd() * w, sy = h * 0.55; for (var k = 0; k < 6; k++) { var sr = 12 + k * 9;
+      var sg = g.createRadialGradient(sx + k * 10, sy - k * 22, 0, sx + k * 10, sy - k * 22, sr);
+      sg.addColorStop(0, 'rgba(150,146,140,.16)'); sg.addColorStop(1, 'rgba(150,146,140,0)');
+      g.fillStyle = sg; g.fillRect(sx + k * 10 - sr, sy - k * 22 - sr, sr * 2, sr * 2); } }
+  });
+  var jourMat = new THREE.MeshBasicMaterial({ map: cielTex, color: 0xffffff, fog: false, toneMapped: false });
   var jour = new THREE.Mesh(new THREE.PlaneGeometry(6, 6), jourMat);
   jour.position.set(0.55, OY, WZ - 0.6); scene.add(jour);
+
+  /* le châssis : un dormant et une croisée de bois sombre, qui suivent
+     l'ouverture. Contre le ciel ils se lisent en silhouette, et c'est ce
+     qui dit « fenêtre » plutôt que « trou dans le mur ». */
+  var boisMat = std({ color: 0x1c140c, roughness: 0.8 });
+  var chassis = [];
+  for (var cb = 0; cb < 6; cb++) { var bar = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), boisMat); bar.castShadow = true; scene.add(bar); chassis.push(bar); }
 
   /* ── LES OBJETS DU REBORD : ils s'entassent, puis s'espacent ── */
   var objets = [];
@@ -85,7 +158,13 @@ window.LM_MONDE = function (canvas) {
   for (var i = 0; i < 7; i++) objets.push(petit(i % 5, COULS[i]));
 
   /* ── la lumière : elle vient de l'ouverture, et d'elle seule ── */
-  var amb = new THREE.AmbientLight(0x3a342c, 0.55); scene.add(amb);
+  var amb = new THREE.AmbientLight(0x4a4238, 0.4); scene.add(amb);
+  /* LE JOUR RENVOYÉ : la lumière qui entre par la fenêtre éclaire la pièce
+     et revient sur le mur de la fenêtre — sans elle ce mur, à contre-jour,
+     était un vide noir. Elle suit le jour : elle baisse quand la fenêtre se
+     referme, si bien que la pièce s'assombrit avec elle (l'argument). */
+  var renvoi = new THREE.PointLight(0xe9e4da, 1.0, 5.2, 1); renvoi.position.set(0.45, 1.5, 0.9); scene.add(renvoi);
+  var hemi = new THREE.HemisphereLight(0xcdd5dc, 0x6a5440, 0.5); scene.add(hemi);
   /* un appoint très faible, chaud, qui ne vient de nulle part : sans lui
      la pièce refermée tombe au noir absolu et l'image ne dit plus rien —
      or ce qu'on doit voir, c'est le rebord qui se charge PENDANT que le
@@ -122,15 +201,30 @@ window.LM_MONDE = function (canvas) {
     var h = lerp(OH, 0.52, f) * lerp(1, 1.16, st.rouvre);
     panG.position.set(0.55 - w / 2 - 2, OY, WZ);
     panD.position.set(0.55 + w / 2 + 2, OY, WZ);
-    panH.position.set(0.55, OY + h / 2 + 1.1, WZ);
-    panB.position.set(0.55, OY - h / 2 - 1.1, WZ);
+    /* haut et bas ont JUSTE la largeur de l'ouverture, un rien en retrait :
+       sinon, là où ils recouvraient les panneaux latéraux, les faces
+       coplanaires se disputaient le pixel et le mur se couvrait de damiers */
+    panH.position.set(0.55, OY + h / 2 + 1.1, WZ - 0.002);
+    panB.position.set(0.55, OY - h / 2 - 1.1, WZ - 0.002);
+    panH.scale.x = panB.scale.x = (w + 0.01) / 3;   /* juste la largeur de l'ouverture */
+    cale(panG); cale(panD); cale(panH); cale(panB);
 
     /* le jour : il baisse et se refroidit, puis revient plus clair */
     var n = st.nuit * (1 - st.rouvre), r = st.rouvre;
-    var k = lerp(lerp(1, 0.17, n), 1.32, r);
+    var k = lerp(lerp(1, 0.17, n), 1.32, r) * 0.75;   /* le ciel ne passe jamais au blanc */
     jourMat.color.setRGB(0.875 * k, lerp(lerp(0.91, 0.72, n), 0.94, r) * k, lerp(lerp(0.95, 0.62, n), 0.98, r) * k);
     dehors.intensity = lerp(lerp(2.5, 0.55, n), 3.4, r);
-    amb.intensity = lerp(lerp(0.55, 0.34, n), 0.62, r);
+    amb.intensity = lerp(lerp(0.40, 0.15, n), 0.46, r);
+    renvoi.intensity = lerp(lerp(1.05, 0.13, n), 1.30, r);
+    hemi.intensity = lerp(lerp(0.34, 0.07, n), 0.42, r);
+    /* le châssis : dormant sur les quatre bords, croisée au milieu */
+    var e = 0.045, zc = WZ + 0.02;
+    chassis[0].position.set(0.55 - w / 2 + e / 2, OY, zc); chassis[0].scale.set(e, h, 0.07);
+    chassis[1].position.set(0.55 + w / 2 - e / 2, OY, zc); chassis[1].scale.set(e, h, 0.07);
+    chassis[2].position.set(0.55, OY + h / 2 - e / 2, zc); chassis[2].scale.set(w, e, 0.07);
+    chassis[3].position.set(0.55, OY - h / 2 + e / 2, zc); chassis[3].scale.set(w, e, 0.07);
+    chassis[4].position.set(0.55, OY, zc); chassis[4].scale.set(e * 0.7, h, 0.05);
+    chassis[5].position.set(0.55, OY + h * 0.12, zc); chassis[5].scale.set(w, e * 0.7, 0.05);
     veilleuse.intensity = 0.35 + 0.95 * n * (1 - r);
 
     /* le rebord : ils arrivent l'un après l'autre, serrés ; puis ils
@@ -149,9 +243,14 @@ window.LM_MONDE = function (canvas) {
 
     /* la caméra : on est DEDANS, et l'on recule un peu à la fin */
     var q = ss(0, 1, Math.min(1, G / 2.2));
-    var cx = lerp(-0.34, -0.62, q), cy = lerp(1.32, 1.24, q), cz = lerp(1.15, 1.95, q);
-    cz = lerp(cz, 2.35, st.recul);
-    var camA = V3(lerp(0.55, 0.42, q), lerp(1.30, 1.16, q), WZ);
+    /* octobre 2026 : la caméra s'approche du rebord. Elle descend vers
+       les objets pendant qu'ils s'entassent (le sujet n'est plus un rebord
+       minuscule au bas d'un grand mur), puis recule juste assez pour voir
+       la fenêtre rouverte en entier. */
+    var cx = lerp(-0.22, -0.40, q), cy = lerp(1.30, 1.12, q), cz = lerp(0.75, 0.55, q);
+    cz = lerp(cz, 1.15, st.recul); cy = lerp(cy, 1.22, st.recul);
+    var camA = V3(lerp(0.55, 0.50, q), lerp(1.24, 0.98, q), WZ);
+    camA.y = lerp(camA.y, 1.20, st.recul);
     camera.position.set(cx + 0.012 * Math.sin(T * 0.25), cy + 0.009 * Math.sin(T * 0.33), cz);
     /* la scène est une figure en bas de page (octobre 2026) : la fenêtre
        est visée au centre du cadre. La visée décalée de l'architecture
