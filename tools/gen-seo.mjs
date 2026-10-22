@@ -1324,7 +1324,7 @@ function identite(nom) {
         const n = sections.length;
         sections.push({ etape, id, h2 });
         const leg = (meta.monde && meta.monde.etapes && meta.monde.etapes[etape]) || '';
-        return `<section class="nt-sec" data-etape="${etape}" id="${id}" data-legende="${echap(nu(leg))}"${lumieres[etape] ? ` data-lumiere="${lumieres[etape]}"` : ''}>\n<h2><span class="nt-sec-n" aria-hidden="true">${ROMAINS[n]}</span>${h2}</h2>`;
+        return `<section class="nt-sec" data-etape="${etape}" id="${id}" data-legende="${echap(nu(leg))}"${lumieres[etape] ? ` data-lumiere="${lumieres[etape]}"` : ''}>\n<h2><span class="nt-sec-n" aria-hidden="true">${ROMAINS[n]}</span><span class="nt-sec-t">${h2}</span></h2>`;
       });
     if (sections.length < 3) throw new Error(`« ${titre} » : l'essai n'a que ${sections.length} section(s).`);
     if (meta.monde && meta.monde.etapes) {
@@ -1868,7 +1868,7 @@ ${PIED}
       const sections = [];
       essai = essai.replace(/<section class="nt-sec" data-etape="([^"]+)" id="([^"]+)">\s*<h2>([^]*?)<\/h2>/g, (mm, etape, id, h2) => {
         const n = sections.length; sections.push({ etape, id, h2 });
-        return `<section class="nt-sec" data-etape="${etape}" id="${id}">\n<h2><span class="nt-sec-n" aria-hidden="true">${ROMAINS[n]}</span>${h2}</h2>`;
+        return `<section class="nt-sec" data-etape="${etape}" id="${id}">\n<h2><span class="nt-sec-n" aria-hidden="true">${ROMAINS[n]}</span><span class="nt-sec-t">${h2}</span></h2>`;
       });
       if (sections.length < 3) throw new Error(`Chapitre ${c.rn} : l'essai n'a que ${sections.length} section(s).`);
       let nbCit = 0;
@@ -2092,7 +2092,7 @@ ${o.ld}
     const sections = [];
     const out = essai.replace(/<section class="nt-sec" data-etape="([^"]+)" id="([^"]+)">\s*<h2>([^]*?)<\/h2>/g, (mm, etape, id, h2) => {
       const n = sections.length; sections.push({ etape, id, h2, n: ROMAINS[n] });
-      return `<section class="nt-sec" data-etape="${etape}" id="${id}">\n<h2>${numeros ? `<span class="nt-sec-n" aria-hidden="true">${ROMAINS[n]}</span>` : ''}${h2}</h2>`;
+      return `<section class="nt-sec" data-etape="${etape}" id="${id}">\n<h2>${numeros ? `<span class="nt-sec-n" aria-hidden="true">${ROMAINS[n]}</span>` : ''}<span class="nt-sec-t">${h2}</span></h2>`;
     });
     if (sections.length < 3) throw new Error(`${qui} : l'essai n'a que ${sections.length} section(s).`);
     return { essai: out, sections };
