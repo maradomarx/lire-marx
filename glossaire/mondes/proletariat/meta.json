@@ -1,22 +1,43 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/proletariat (mission manifeste-notions, sept. 2026). Porte aussi le renvoi de « Moyens de production ».",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/proletariat (mission manifeste-notions, sept. 2026 ; réécrite selon glossaire/mondes/CHARTE.md en octobre 2026). Porte aussi le renvoi de « Moyens de production ».",
   "titre": "Prolétariat",
   "de": "Proletariat",
-  "chapo": "Le prolétariat n’est pas la pauvreté : c’est la classe de ceux qui, ne possédant aucun moyen de production, doivent vendre leur force de travail pour vivre. Le <i>Manifeste</i> le définit par ce qu’il n’a pas — ni terre, ni outil, ni patrie, ni propriété à garantir — et c’est de ce manque même qu’il tire sa thèse : une classe qui n’a rien à conserver ne peut s’émanciper qu’en abolissant toute appropriation de classe.",
-  "description": "Le prolétariat chez Marx et Engels : pourquoi il se définit par la non-possession et non par la misère, le « prix du travail » de 1848 que le Capital corrigera, les fossoyeurs, et les contresens sur la disparition de la classe ouvrière.",
+  "enbref": "Le prolétariat désigne, chez Marx et Engels, la classe de ceux qui ne possèdent aucun moyen de production (terre, outils, machines) et doivent, pour vivre, vendre leur capacité de travailler à ceux qui les possèdent. Le <i>Manifeste du parti communiste</i> (1848) le présente comme le produit de la grande industrie. Il se définit par une absence de propriété, que l'on confond souvent avec la pauvreté&nbsp;: c'est cette absence qui fait de lui, selon le texte, la classe qui n'a rien à conserver.",
+  "retenir": [
+    "Le prolétaire se définit par ce qu'il ne possède pas&nbsp;: les moyens de produire. Un salarié bien payé reste un prolétaire, un petit artisan pauvre n'en est pas un.",
+    "Le prolétariat est produit par le capital. Il se forme d'artisans, de paysans et de petits commerçants que la grande industrie a ruinés.",
+    "N'ayant que ses bras, l'ouvrier doit se vendre au jour le jour. <i>Le Capital</i> précisera qu'il vend sa force de travail, sa capacité de travailler, et non son travail.",
+    "Une classe qui ne possède rien n'a aucun ordre de propriété à défendre. Sa victoire, selon le <i>Manifeste</i>, abolirait les classes au lieu d'en installer une nouvelle.",
+    "En rassemblant les ouvriers dans les fabriques, la grande industrie remplace leur concurrence par leur association&nbsp;: la bourgeoisie produit ainsi ses propres fossoyeurs."
+  ],
+  "questions": [
+    {
+      "q": "Un contremaître bien payé et un petit cordonnier pauvre&nbsp;: lequel est un prolétaire au sens du <i>Manifeste</i>&nbsp;?",
+      "r": "Le contremaître. Il ne possède rien de ce qui sert à produire et vit de la vente de sa capacité de travail. Le cordonnier est pauvre, mais il travaille avec ses propres outils et vend sa propre marchandise&nbsp;; il ne deviendrait prolétaire qu'en perdant son échoppe."
+    },
+    {
+      "q": "Pourquoi Marx corrige-t-il plus tard l'expression «&nbsp;prix du travail&nbsp;» employée dans le <i>Manifeste</i>&nbsp;?",
+      "r": "Parce qu'au moment de la vente le travail n'existe pas encore. L'ouvrier vend sa force de travail, sa capacité de travailler pendant un temps donné. La distinction permet de comprendre la plus-value&nbsp;: le travail fourni peut produire plus que la valeur de cette force."
+    },
+    {
+      "q": "En quel sens la bourgeoisie produit-elle «&nbsp;ses propres fossoyeurs&nbsp;»&nbsp;?",
+      "r": "Le capital suppose des ouvriers qui se font concurrence. Or la grande industrie les rassemble dans les mêmes fabriques, égalise leurs conditions et facilite leurs liaisons. En organisant la production, la bourgeoisie rend possible l'union de ceux qu'elle exploite."
+    }
+  ],
+  "description": "Le prolétariat chez Marx et Engels, expliqué simplement : une classe définie par l'absence de moyens de production, que l'on confond avec la pauvreté.",
   "source": {
     "work": "manifeste-parti-communiste",
     "s": 1,
-    "cite": "Karl Marx et Friedrich Engels, <i>Manifeste du parti communiste</i> (1848) — traduction Laura Lafargue (1897)"
+    "cite": "Karl Marx et Friedrich Engels, <i>Manifeste du parti communiste</i> (1848), traduction Laura Lafargue (1897)"
   },
-  "ou": "<i>Manifeste du parti communiste</i>, partie&nbsp;I, « Bourgeois et prolétaires » — de la naissance du prolétariat aux fossoyeurs ; partie&nbsp;II pour la patrie et la propriété ; la dernière ligne du texte pour les chaînes et le monde à gagner.",
+  "ou": "<i>Manifeste du parti communiste</i>, partie&nbsp;I, «&nbsp;Bourgeois et prolétaires&nbsp;», de la naissance du prolétariat jusqu'aux fossoyeurs&nbsp;; partie&nbsp;II pour la patrie et la propriété&nbsp;; la dernière ligne du texte pour les chaînes et le monde à gagner.",
   "outils": [
     {
-      "label": "Lire « Bourgeois et prolétaires » — la liseuse du Manifeste",
+      "label": "Lire « Bourgeois et prolétaires » dans la liseuse du Manifeste",
       "url": "/oeuvres/manifeste#partie=2"
     },
     {
-      "label": "Le cheminement du Manifeste — les crises, et ceux qui manieront les armes",
+      "label": "Le cheminement du Manifeste : les crises, et ceux qui manieront les armes",
       "url": "/oeuvres/manifeste#deriv"
     }
   ],
@@ -30,25 +51,180 @@
     "Forme-salaire"
   ],
   "monde": {
-    "_": "LA PLANCHE : UN INVENTAIRE. Le prolétariat se définit par ce qu'il n'a pas ; sa figure propre est donc un registre de possessions qu'on raye. En tête, « Inventaire » en capitales et un filet ; sept lignes à points conducteurs, chacune cochée : la terre qu'on cultivait, l'outil du métier, l'atelier, le produit de son travail, une patrie, une propriété à garantir, sa force de travail. Au défilement, un trait rouge barre les six premières l'une après l'autre et les coches tombent. La septième reste, et reçoit une mention en or : à vendre, au jour le jour. Au dernier temps, au pied de la feuille, les deux phrases de Lafargue qui ferment le texte : rien à perdre, hors leurs chaînes — un monde à gagner. Moteur 2d : c'est un document qu'on lit, pas un objet qu'on regarde. Tout est fonction de g, donc réversible.",
+    "_": "LA PLANCHE : UN INVENTAIRE. Le prolétariat se définit par ce qu'il n'a pas ; sa figure propre est donc un registre de possessions qu'on raye. Sept lignes cochées ; un trait rouge barre les six premières l'une après l'autre et les coches tombent. La septième reste, et reçoit une mention en or : à vendre, au jour le jour. Au dernier temps, au pied de la feuille, les deux phrases de Lafargue qui ferment le texte. Moteur 2d : un document qu'on lit. Tout est fonction de g, donc réversible. Depuis octobre 2026 la planche est une figure en bas de page : la feuille y est centrée.",
     "moteur": "2d",
     "layout": "plein",
-    "alt": "Une feuille d'inventaire à sept lignes — la terre, l'outil, l'atelier, le produit du travail, une patrie, une propriété, la force de travail — dont les six premières sont barrées d'un trait rouge ; la dernière porte la mention « à vendre, au jour le jour ».",
+    "alt": "Une feuille d'inventaire à sept lignes (la terre, l'outil, l'atelier, le produit du travail, une patrie, une propriété, la force de travail) dont les six premières sont barrées d'un trait rouge ; la dernière porte la mention « à vendre, au jour le jour ».",
     "source": {
-      "texte": "D'après le texte — Manifeste, partie I",
+      "texte": "D'après le texte : Manifeste, partie I",
       "q": "Le prolétaire est sans propriété"
     },
     "etapes": {
-      "misere": "Un inventaire, et sept lignes cochées : ce qu'un producteur pouvait posséder. Le prolétariat ne se reconnaît pas à ce qu'il gagne, mais à ce qui manque à cette liste.",
-      "naissance": "Rien n'est encore rayé. Le prolétaire moderne sort de ce monde-là : du paysan, de l'artisan, du petit boutiquier que la grande industrie fait tomber.",
-      "sans": "Les lignes se barrent une à une : la terre, l'outil, l'atelier, le produit du travail. Le prolétaire est sans propriété — et c'est ce manque, non la misère, qui le définit.",
-      "marchandise": "Il reste une ligne, et elle change de sens : sa force de travail, à vendre au jour le jour. Les ouvriers sont une marchandise comme tout autre article du commerce.",
-      "fossoyeurs": "Une patrie, une propriété à garantir : rayées aussi. Une classe qui n'a rien à assurer ne peut conserver aucun ordre, et c'est pourquoi la bourgeoisie produit ses propres fossoyeurs.",
+      "misere": "Un inventaire de sept lignes, toutes cochées : ce qu'un producteur pouvait posséder. Le prolétaire se reconnaît à ce qui manque à cette liste, et non à ce qu'il gagne.",
+      "naissance": "Rien n'est encore rayé. Le prolétaire sort de ce monde-là : du paysan, de l'artisan, du petit boutiquier que la grande industrie fait tomber.",
+      "sans": "Les lignes se barrent une à une : la terre, l'outil, l'atelier, le produit du travail. Le prolétaire est sans propriété.",
+      "marchandise": "Il reste une ligne, et elle change de sens : sa force de travail, à vendre au jour le jour, comme tout autre article du commerce.",
+      "fossoyeurs": "Une patrie, une propriété à garantir : rayées aussi. Une classe qui n'a rien à assurer ne peut conserver aucun ordre de propriété.",
       "lectures": "Au pied de la feuille, les deux phrases qui ferment le texte : rien à perdre, hors leurs chaînes ; un monde à gagner."
     },
     "fixe": {
       "g": 3.7,
-      "legende": "Les lignes de l'inventaire sont barrées une à une ; il ne reste que la force de travail, à vendre au jour le jour. Le prolétaire se définit par ce qu'il n'a pas."
+      "legende": "Les lignes de l'inventaire sont barrées une à une ; il ne reste que la force de travail, à vendre au jour le jour."
+    },
+    "titre": "L'inventaire du prolétaire, en six temps"
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : la grève et l'inventaire. Le prolétariat se définit par ce qu'il n'a pas ; la page s'ouvre donc sur la scène où ce manque se voit : d'un côté la maison du patron, son perron et, au fond, la fabrique ; de l'autre, des hommes qui n'ont que leur travail et qui viennent de le retirer (Koehler, La Grève, 1886). Plus bas, des employées de bureau vers 1908 : le salariat ne s'arrête pas à l'usine. Le fond fait monter ce que l'on possédait (chaude), puis, à partir de la section sur ce qu'il n'a pas, ce qu'il en reste (aube).",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 1176,
+      "alt": "Peinture : devant le perron d'une maison bourgeoise, un homme en haut-de-forme fait face à une foule d'ouvriers en blouse et en casquette ; l'un d'eux tend le bras vers lui, une femme retient un homme, un autre ramasse une pierre ; au fond, les cheminées d'une fabrique.",
+      "legende": "D'un côté la maison, le perron et, au fond, la fabrique ; de l'autre, des hommes qui ne possèdent que leur travail. En grève, ils retirent la seule chose qu'ils ont à vendre.",
+      "credit": "Robert Koehler, <i>La Grève</i> (<i lang=\"de\">Der Streik</i>), huile sur toile, 1886. Deutsches Historisches Museum, Berlin, domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Robert_Koehler_-_Der_Streik_(1886).jpg"
+    },
+    "planches": {
+      "bureau": {
+        "img": "planche-bureau.webp",
+        "w": 1300,
+        "h": 870,
+        "alt": "Photographie : cinq jeunes femmes en jupe longue et chemisier blanc, debout ou assises sur le toit-terrasse d'un immeuble de bureaux à New York.",
+        "legende": "Des employées de la Metropolitan Life, une compagnie d'assurances, sur le toit de son immeuble à New York, vers 1908. Elles ne possèdent pas plus leurs bureaux que le fileur son métier.",
+        "credit": "Collection George Grantham Bain, vers 1908. Library of Congress, domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Clerks_on_roof_of_the_Metropolitan_Life_Building,_New_York_City_LCCN97513568.jpg"
+      }
+    },
+    "lumieres": {
+      "sans": "aube",
+      "marchandise": "aube",
+      "fossoyeurs": "aube"
+    },
+    "fond": {
+      "_": "Le fond : ce qu'un producteur pouvait posséder, dessiné en points (la gerbe, l'outil, l'atelier), et ce qui reste au prolétaire (ses mains, le salaire, les chaînes). L'un s'allume et monte ce qu'il était pour celui qui le possédait (chaude) ; à partir de la section sur ce qu'il n'a pas, ce qu'il en reste (aube). Les mots viennent du texte, ce ne sont pas des citations.",
+      "dessins": {
+        "gerbe": [
+          "1.1.1.1.1",
+          ".1.1.1.1.",
+          "1.11111.1",
+          ".1111111.",
+          "..11111..",
+          "...111...",
+          "..11111..",
+          ".11.1.11.",
+          "11..1..11"
+        ],
+        "marteau": [
+          "11111111.",
+          "11111111.",
+          "11111111.",
+          "...11....",
+          "...11....",
+          "...11....",
+          "...11....",
+          "...11....",
+          "...11...."
+        ],
+        "atelier": [
+          ".....1.....",
+          "....111....",
+          "...11111...",
+          "..1111111..",
+          ".111111111.",
+          ".11.111.11.",
+          ".111111111.",
+          ".111...111.",
+          ".111...111."
+        ],
+        "main": [
+          "...1.1.1..",
+          "...1.1.1..",
+          "...1.1.1.1",
+          ".1.1111111",
+          ".1.1111111",
+          ".111111111",
+          "..11111111",
+          "..1111111.",
+          "...11111..",
+          "...11111.."
+        ],
+        "chaine": [
+          ".1111...1111.",
+          "1....1.1....1",
+          "1...11111...1",
+          "1...1.1.1...1",
+          "1...11111...1",
+          "1....1.1....1",
+          ".1111...1111."
+        ]
+      },
+      "motifs": [
+        {
+          "m": "gerbe",
+          "chaude": [
+            "sa terre",
+            "sa récolte"
+          ],
+          "aube": [
+            "perdue",
+            "sans propriété"
+          ]
+        },
+        {
+          "m": "marteau",
+          "chaude": [
+            "son outil",
+            "son métier"
+          ],
+          "aube": [
+            "l'outil d'un autre",
+            "à la fabrique"
+          ]
+        },
+        {
+          "m": "atelier",
+          "chaude": [
+            "son atelier",
+            "sa boutique"
+          ],
+          "aube": [
+            "fermé",
+            "tombé au prolétariat"
+          ]
+        },
+        {
+          "m": "main",
+          "chaude": [
+            "ses bras",
+            "sa journée"
+          ],
+          "aube": [
+            "à vendre",
+            "au jour le jour"
+          ]
+        },
+        {
+          "m": "piece",
+          "chaude": [
+            "le salaire",
+            "de quoi vivre"
+          ],
+          "aube": [
+            "force de travail",
+            "au prix du marché"
+          ]
+        },
+        {
+          "m": "chaine",
+          "chaude": [
+            "ses chaînes"
+          ],
+          "aube": [
+            "rien à perdre",
+            "monde à gagner"
+          ]
+        }
+      ]
     }
   }
 }
