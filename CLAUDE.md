@@ -11089,11 +11089,45 @@ largeurs, ancre du sommaire posée sous la bande sur téléphone. Détecteur :
 0 constat sur la page ; notion.css +2 `overused-font` (Fraunces des numéros,
 DA documentée). `gen-seo --check` à jour.
 
+### ✅ Les 45 pages sont réécrites (oct. 2026, six vagues d'agents)
+
+Le pilote validé, les 44 autres pages ont été réécrites par vagues de
+quatre à huit agents, chacun dans sa copie de travail (`isolation:
+worktree`), sur une consigne commune (scratchpad de la session, non
+versionnée) qui renvoie à `CHARTE.md` et au pilote. Chaque agent ne
+committait QUE son dossier `glossaire/mondes/<notion>/` ; le coordinateur
+cherry-pickait sur une branche `glossaire-vague-N`, régénérait, relisait
+(captures à 1440 et 390 px, `verif-citations`, détecteur), puis fusionnait
+dans `main`. **Toutes les pages portent `enbref`, une vitrine d'archive, un
+fond animé et une figure à la demande ; 1 201 citations, 0 introuvable.**
+
+Ce que les vagues ont appris, et qui vaut pour toute page future :
+
+- **Le titre de section enveloppe son texte** (`span.nt-sec-t` dans les
+  trois gabarits de gen-seo) : `h2` est en flex, et un `<i>` au milieu d'un
+  titre en faisait un élément à part qui ne passait plus à la ligne
+  (débord de 5 à 7 px à 390 px).
+- **Pas deux fois la même image** : la gravure de Homer « Bell-Time » a
+  servi deux fois, l'une a été retirée. Relire les `"lien"` déjà pris avant
+  de choisir.
+- **Les agents ont corrigé des erreurs de fond de l'ancienne version**, et
+  plusieurs étaient en ligne depuis des semaines : la subsomption « absente »
+  du Livre I (voir plus haut), la proportion des fondeurs (quatre fondeurs,
+  deux casseurs, un frotteur), la place de « Le capital n'a point inventé »
+  (ouverture de la partie II du ch. X), la forme-salaire au ch. XIX et non
+  XVII, la lettre de Carlisle au ch. XI et non X. **Une réécriture est aussi
+  une relecture.**
+- **La pastille sombre du fil d'Ariane sur téléphone fausse les sondes** :
+  masquer le texte masque aussi la pastille, et l'on mesure 1,5 à 3:1 sur la
+  photo nue. Vérifier à la capture.
+
+Restent, à arbitrer : trois « En bref » à 88-90 mots (plafond de 85) ; deux
+planches petites à la source (le décret de 1789, la poule de Grandville) ;
+quelques scènes 3D sombres ou au sol vide (travail nécessaire, surtravail),
+laissées telles quelles.
+
 ### Ce qui reste
 
-- Après validation de la figure, les 44 autres pages par
-  vagues d'agents, chacun avec la charte, `verif-citations` et une
-  relecture par un second agent qui chasse les tics.
 - Les vidéos explicatives : idée discutée, pas commencée. Faisables par
   programme (scène + titres + ffmpeg), mais la voix est le vrai problème
   (les voix du Mac sonnent robotiques), et Cloudflare Pages limite un
