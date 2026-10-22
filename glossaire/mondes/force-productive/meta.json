@@ -1,19 +1,40 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/force-productive.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/force-productive. L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrite en octobre 2026 selon glossaire/mondes/CHARTE.md (enbref, retenir, questions).",
   "titre": "Force productive",
   "de": "Produktivkraft",
-  "chapo": "La grandeur de valeur d'une marchandise varie en raison directe du temps dépensé et en raison inverse de la force productive qui s'y réalise. C'est de ce rapport inverse que sort la solution d'une vieille énigme : pourquoi celui qui n'a à cœur que la valeur d'échange passe sa vie à la faire baisser.",
+  "enbref": "La force productive du travail désigne, chez Marx, ce qu'une quantité donnée de travail rend en produits. Elle dépend de l'habileté des travailleurs, de la science, de l'organisation de la production, des moyens de produire et de la nature. Marx l'introduit au premier chapitre du <i>Capital</i> (1867)&nbsp;: plus elle est grande, moins chaque marchandise contient de travail, et moins elle vaut. Le progrès technique multiplie donc les richesses sans augmenter la valeur, et le capital s'en sert pour allonger le surtravail.",
+  "retenir": [
+    "La force productive est ce qu'une quantité donnée de travail rend en produits. Elle dépend de l'habileté, de la science, de l'organisation du travail, des moyens de produire et des conditions naturelles.",
+    "La valeur d'une marchandise varie comme le temps de travail dépensé et en sens inverse de la force productive. Quand le même temps donne deux fois plus de produits, chacun vaut deux fois moins.",
+    "Une journée de travail rend toujours la même valeur, quelle que soit la force productive. Celle-ci multiplie les objets utiles sans rien ajouter à la valeur totale.",
+    "Quand les subsistances coûtent moins de travail, l'ouvrier reproduit son salaire en moins d'heures. Le reste de la journée passe au surtravail : c'est la plus-value relative.",
+    "Le capitaliste fait baisser la valeur de ses marchandises parce que les mêmes procédés augmentent la plus-value qu'elles contiennent. La coopération, la manufacture et la machine sont les moyens de ce mouvement."
+  ],
+  "questions": [
+    {
+      "q": "Pourquoi le tisserand à bras de Marx produit-il moins de valeur qu'avant alors qu'il travaille autant&nbsp;?",
+      "r": "Parce que la valeur se règle sur le temps de travail socialement nécessaire, et non sur le temps que chacun passe à l'ouvrage. Le métier à vapeur a réduit de moitié le temps nécessaire pour tisser une même quantité de fil. Chacune des heures du tisserand ne compte plus que pour une demi-heure de travail social."
+    },
+    {
+      "q": "En quoi une hausse de la force productive se distingue-t-elle d'une hausse de l'intensité du travail&nbsp;?",
+      "r": "L'intensité fait dépenser plus de travail dans la même heure&nbsp;: elle augmente à la fois les produits et la valeur. La force productive tire plus de produits du même travail&nbsp;: la valeur totale reste la même et se partage entre plus d'objets. Marx compare les deux cas au chapitre XVII."
+    },
+    {
+      "q": "Comment la baisse du prix des marchandises augmente-t-elle la plus-value&nbsp;?",
+      "r": "La force de travail se paie à la valeur des subsistances qui l'entretiennent. Si ces subsistances coûtent moins de travail, l'ouvrier produit l'équivalent de son salaire en moins d'heures. La journée gardant sa longueur, les heures dégagées vont au surtravail, donc à la plus-value."
+    }
+  ],
   "seo": "Force productive (forces productives) : définition, Marx",
-  "description": "Force productive du travail : ce qu'un travail produit en un temps donné. Plus elle croît, moins chaque objet vaut, et c'est le levier de la plus-value relative.",
+  "description": "La force productive du travail chez Marx, expliquée simplement : pourquoi produire plus dans le même temps fait baisser la valeur et grandir la plus-value.",
   "source": {
     "work": "capital-1",
     "s": 1,
-    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitres I et XII — traduction Joseph Roy (1872)"
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitres I, XII, XIV et XVII, traduction Joseph Roy (1872)"
   },
-  "ou": "Livre&nbsp;I, chapitre premier, deuxième paragraphe, où la force productive entre comme la variable qui fait varier la valeur ; puis chapitre XII, « La notion de la plus-value relative », où le capital s'en saisit comme d'un moyen. Toute la quatrième section en est l'inventaire.",
+  "ou": "Livre&nbsp;I, chapitre premier, où la force productive entre comme la variable qui fait varier la valeur&nbsp;; puis chapitre XII, «&nbsp;La notion de la plus-value relative&nbsp;», où le capital s'en saisit comme d'un moyen. La quatrième section en fait l'inventaire, et le chapitre XVII la sépare de l'intensité du travail.",
   "outils": [
     {
-      "label": "Le laboratoire des lois — les simulations",
+      "label": "Le laboratoire des lois, les simulations",
       "url": "/oeuvres/capital-1#labo"
     }
   ],
@@ -26,23 +47,150 @@
     "Loi tendancielle"
   ],
   "monde": {
-    "_": "LA SCÈNE : L'ÉTAGÈRE DU POTIER. Le concept est un RAPPORT INVERSE, et une figure qui montrerait seulement un atelier plus productif dirait la moitié de l'argument — celle que tout le monde admet. Il fallait que la CONSTANCE du travail dépensé se voie en même temps que la multiplication du produit. Un séchoir à quatre tablettes : sur chacune, au bout gauche, le même bout de chandelle brûlé au même trait — c'est la journée, et elle ne bouge pas ; à côté, les pots — deux, quatre, huit, seize, et ils gardent exactement la même taille, car les faire rétrécir dirait que le produit s'appauvrit ; au bout droit, un jeton de terre, ce que vaut UN pot, deux fois plus petit d'une tablette à l'autre. Puis un cordon se tend au devant de chaque tablette : la part des pots qui paie les subsistances, et elle recule. Au dernier temps, deux pots viennent sur la planche du bas avec leurs deux jetons : le pot n'a pas changé, le jeton a fondu.",
+    "_": "LA SCÈNE : L'ÉTAGÈRE DU POTIER. Le concept est un RAPPORT INVERSE : la constance du travail dépensé doit se voir en même temps que la multiplication du produit. Un séchoir à quatre tablettes : sur chacune, le même bout de chandelle brûlé au même trait (la journée) ; à côté, deux, quatre, huit, seize pots de la même taille ; au bout, un jeton de terre, ce que vaut UN pot, deux fois plus petit d'une tablette à l'autre. Puis un cordon se tend au devant de chaque tablette : la part des pots qui paie les subsistances, et elle recule. Au dernier temps, deux pots viennent sur la planche du bas avec leurs deux jetons.",
+    "titre": "L'étagère du potier, en six temps",
     "alt": "Un séchoir de potier à quatre tablettes : sur chacune un bout de chandelle identique, une rangée de pots de plus en plus nombreuse, et un jeton de terre de plus en plus petit.",
     "source": {
-      "texte": "D'après le texte — Livre I, chapitre I",
+      "texte": "D'après le texte : Livre I, chapitre I",
       "q": "en raison inverse de la force productive du travail"
     },
     "etapes": {
-      "fait": "Une tablette, un bout de chandelle, deux pots, et un jeton de terre : ce que vaut un pot. La journée est dépensée, et voilà ce qu'elle rend.",
-      "distinction": "Deuxième tablette. La chandelle est la même, brûlée au même trait ; les pots sont deux fois plus nombreux et de la même taille ; le jeton est deux fois plus petit.",
-      "mecanisme": "Troisième tablette. La journée n'a pas bougé d'une minute et la valeur totale qu'elle rend non plus : elle se partage seulement entre plus de pots.",
-      "portee": "Quatrième tablette, seize pots. Quatre chandelles identiques, quatre jetons dont le dernier tient sous l'ongle. La richesse a quadruplé, la valeur est la même.",
-      "ouvre": "Un cordon se tend au devant de chaque tablette : la part des pots qui paie les subsistances de celui qui les a faits. Elle recule, et ce qui est dégagé passe au surtravail.",
-      "lectures": "Deux pots sur la planche du bas, un de la première tablette et un de la dernière, avec leurs jetons. Le pot n'a pas changé : c'est le jeton qui a fondu."
+      "fait": "Une tablette, un bout de chandelle, deux pots et un jeton de terre, qui dit ce que vaut un pot. La chandelle mesure la journée dépensée, les pots ce qu'elle rend.",
+      "distinction": "Deuxième tablette. La chandelle est la même, brûlée au même trait. Les pots sont deux fois plus nombreux et de la même taille, et le jeton est deux fois plus petit.",
+      "mecanisme": "Troisième tablette. La journée n'a pas bougé d'une minute, et la valeur totale qu'elle rend non plus : elle se partage seulement entre plus de pots.",
+      "portee": "Quatrième tablette, seize pots. Quatre chandelles identiques et quatre jetons, dont le dernier tient sous l'ongle. Les richesses ont été multipliées par huit, la valeur de la journée est la même.",
+      "ouvre": "Un cordon se tend au devant de chaque tablette : la part des pots qui paie les subsistances de celui qui les a faits. Elle recule, et le temps dégagé passe au surtravail.",
+      "lectures": "Deux pots sur la planche du bas, l'un de la première tablette, l'autre de la dernière, avec leurs jetons. Le pot n'a pas changé ; son jeton a fondu."
     },
     "fixe": {
       "g": 3.8,
-      "legende": "Quatre tablettes, quatre chandelles identiques : la même journée à chaque fois. Les pots vont de deux à seize sans changer de taille, et le jeton — ce que vaut un pot — est deux fois plus petit d'une tablette à l'autre."
+      "legende": "Quatre tablettes, quatre chandelles identiques : la même journée à chaque fois. Les pots vont de deux à seize sans changer de taille, et le jeton, ce que vaut un pot, rapetisse de moitié d'une tablette à l'autre."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : « le même temps ». La notion se voit chez ceux que la force productive des autres dévalue, et dans ce qui coûte beaucoup de travail sous un petit volume. En tête, le dernier tisserand à bras de F. W. Jackson : l'exemple même de Marx au chapitre I (même temps, même pièce, et la moitié de la valeur). Dans l'essai, le lavage des diamants au Brésil gravé pour John Mawe, à l'endroit où Marx parle des mines de diamants du Brésil. Le fond : les objets des exemples de Marx (le pot de la scène, l'épi de froment, le diamant, la navette du tisserand, la chandelle de la journée, la chemise, la pièce) ; en lumière chaude ce que montre le marché (la quantité, le prix) ; à l'aube, au mécanisme et à la vieille énigme, ce que l'analyse fait voir (la même journée, la même valeur, le surtravail).",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 910,
+      "alt": "Peinture : un vieil homme à lunettes, en gilet et foulard rouge, assis derrière un métier à tisser à bras en bois ; la toile en cours occupe le premier plan, une lampe pend à droite.",
+      "legende": "Un tisserand à bras, à son métier. Le métier à vapeur a réduit de moitié le temps nécessaire pour tisser une pièce&nbsp;; lui y passe toujours le même temps, mais chacune de ses heures ne compte plus que pour une demi-heure de travail social.",
+      "credit": "Frederick William Jackson (1859-1918), <i>The Last of the Hand Loom Weavers</i>. Touchstones, Rochdale (via Art UK), domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Frederick_William_Jackson_(1859-1918)_-_The_Last_of_the_Hand_Loom_Weavers_-_1099_-_Touchstones_Rochdale.jpg"
+    },
+    "planches": {
+      "diamants": {
+        "img": "planche-diamants.webp",
+        "w": 1100,
+        "h": 1620,
+        "couleur": true,
+        "alt": "Gravure coloriée : au bord d'une rivière, des esclaves penchés lavent le gravier dans des auges de bois, l'un lève les bras ; à droite, deux surveillants sont assis sur des sièges hauts, sous des palmiers.",
+        "legende": "Au Brésil, des esclaves lavent le gravier des rivières pour en tirer quelques diamants, sous l'œil de surveillants assis. Beaucoup de travail pour un petit volume&nbsp;: c'est ce qui fait la valeur du diamant.",
+        "credit": "Planche de John Mawe, <i>Travels in the Interior of Brazil</i>, Londres, Longman, édition de 1822. Internet Archive, domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Escravos_procurando_diamantes_e_ouro_no_Brasil_Mawe_1822_(page_346_crop).jpg"
+      }
+    },
+    "lumieres": {
+      "mecanisme": "aube",
+      "portee": "aube",
+      "ouvre": "chaude",
+      "lectures": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les objets des exemples de Marx, dessinés en points. L'un s'allume et ce que montre le marché monte au-dessus de lui (chaude) ; au mécanisme et à la vieille énigme, c'est ce que l'analyse fait voir (aube). Les chiffres sont ceux de Marx (boisseaux, pence, shillings, heures).",
+      "dessins": {
+        "pot": [
+          "..11111..",
+          "...111...",
+          "..11111..",
+          ".1111111.",
+          "111111111",
+          "111111111",
+          ".1111111.",
+          "..11111..",
+          "...111..."
+        ],
+        "epi": [
+          "....1....",
+          "...111...",
+          "..1.1.1..",
+          "...111...",
+          "..1.1.1..",
+          "...111...",
+          "..1.1.1..",
+          "...111...",
+          "....1....",
+          "....1...."
+        ],
+        "diamant": [
+          "..1111111..",
+          ".1..1.1..1.",
+          "11111111111",
+          ".1..1.1..1.",
+          "..1.1.1.1..",
+          "...1.1.1...",
+          "....111....",
+          ".....1....."
+        ],
+        "navette": [
+          "....11111....",
+          "..111111111..",
+          ".111.....111.",
+          "1111.111.1111",
+          ".111.....111.",
+          "..111111111..",
+          "....11111...."
+        ],
+        "chandelle": [
+          "...1...",
+          "..111..",
+          "..111..",
+          "...1...",
+          ".11111.",
+          ".11111.",
+          ".11111.",
+          ".11111.",
+          ".11111.",
+          "1111111"
+        ]
+      },
+      "motifs": [
+        {
+          "m": "pot",
+          "chaude": ["seize pots", "un jeton minuscule"],
+          "aube": ["même journée", "valeur partagée"]
+        },
+        {
+          "m": "epi",
+          "chaude": ["8 boisseaux", "bonne saison"],
+          "aube": ["même travail", "ou 4 boisseaux"]
+        },
+        {
+          "m": "diamant",
+          "chaude": ["un diamant", "petit volume"],
+          "aube": ["beaucoup de travail", "mines plus riches"]
+        },
+        {
+          "m": "navette",
+          "chaude": ["la même pièce", "le même temps"],
+          "aube": ["demi-heure sociale", "valeur divisée"]
+        },
+        {
+          "m": "chandelle",
+          "chaude": ["douze heures", "24 pièces"],
+          "aube": ["toujours 6 shillings", "plus de produits"]
+        },
+        {
+          "m": "habit",
+          "chaude": ["chemises moins chères"],
+          "aube": ["salaire abaissé", "surtravail accru"]
+        },
+        {
+          "m": "piece",
+          "chaude": ["12 pence", "puis 9 pence"],
+          "aube": ["plus-value extra", "un penny"]
+        }
+      ]
     }
   }
 }

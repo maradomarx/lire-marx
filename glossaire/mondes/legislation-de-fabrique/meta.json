@@ -1,13 +1,34 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/legislation-de-fabrique.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/legislation-de-fabrique. L'essai est dans essai.html, la scène dans monde.js. Réécrit en octobre 2026 selon glossaire/mondes/CHARTE.md (enbref, retenir, questions).",
   "titre": "Factory Acts & inspecteurs",
   "de": "Fabrikgesetzgebung",
-  "chapo": "De 1802 à 1833, le Parlement vota trois lois sur le travail sans un centime pour les faire exécuter, et elles restèrent lettre morte. Ce qui change en 1833 n'est pas le principe mais l'appareil : des inspecteurs payés, une horloge publique que le fabricant ne règle pas, un avis affiché, des rapports publiés tous les six mois. Une limite sociale tient par son appareil de mesure, non par sa formulation.",
-  "description": "La législation de fabrique chez Marx : pourquoi trois lois sans inspecteurs n'ont rien produit, comment les rapports d'inspection sont devenus sa principale source, et où la loi s'arrête.",
+  "enbref": "La législation de fabrique désigne, chez Marx, les lois anglaises (les <i lang=\"en\">Factory Acts</i>) qui limitent à partir de 1833 la durée du travail dans les fabriques, et l'appareil qui les fait respecter&nbsp;: des inspecteurs, une horloge publique, des rapports publiés tous les six mois. Marx en fait l'histoire au chapitre X du Livre&nbsp;I du <i>Capital</i> (1867) et en tire la portée au chapitre XV. Il en retient une leçon&nbsp;: une limite au temps de travail n'existe que si quelqu'un peut la mesurer.",
+  "retenir": [
+    "De 1802 à 1833, trois lois sur le travail restent lettre morte, faute du moindre moyen pour les faire exécuter. La journée normale date de la loi de 1833 et de ses inspecteurs.",
+    "La loi de 1844 impose une horloge publique et un avis affiché. La mesure du temps échappe ainsi au fabricant, parce que la fraude se fait par petites minutes volées.",
+    "Les inspecteurs publient tous les six mois des rapports où Marx trouve une grande partie des faits du Livre&nbsp;I. Il faut encore des juges qui ne soient pas les fabricants eux-mêmes.",
+    "Les industries qui se disaient incapables de s'y plier s'y plient en quelques mois. La loi bute en revanche sur ce qui toucherait à la mise en valeur du capital, comme l'air dû à chaque ouvrier.",
+    "La concurrence finit par faire réclamer une loi générale par les fabricants eux-mêmes. Marx y voit un produit de la grande industrie, arraché de haute lutte, qui déplace la limite sans changer le rapport."
+  ],
+  "questions": [
+    {
+      "q": "Comment un fabricant peut-il prendre vingt-sept journées de travail par an sans commettre d'infraction visible&nbsp;?",
+      "r": "En volant quelques minutes à chaque bout de la journée et des repas&nbsp;: un quart d'heure avant six heures, un quart d'heure après, cinq ou dix minutes sur chaque pause. Le compte des inspecteurs que cite Marx arrive à cinq heures quarante par semaine. Aucune de ces minutes ne se prouve seule&nbsp;; leur somme fait près d'un mois de travail."
+    },
+    {
+      "q": "Pourquoi la loi de 1844 exige-t-elle que la cloche de la fabrique se règle sur une horloge publique&nbsp;?",
+      "r": "Parce qu'une horloge réglée par le fabricant lui laisse décider de l'heure légale. Une horloge publique, comme celle de la gare voisine, est un étalon qu'il ne contrôle pas. L'écart entre les deux devient alors un fait qu'on peut constater et opposer."
+    },
+    {
+      "q": "Pourquoi des fabricants finissent-ils par demander une loi qui les contraint&nbsp;?",
+      "r": "Parce qu'un fabricant soumis à la loi perd face à un concurrent qui ne l'est pas. Ceux qui respectaient la loi de 1833 dénonçaient déjà les « faux frères » qui la violaient. La limite n'est supportable pour chacun que si elle s'impose à toutes les branches à la fois."
+    }
+  ],
+  "description": "La législation de fabrique chez Marx, expliquée simplement : pourquoi les lois sur le travail ont dû avoir leurs inspecteurs et leur horloge publique.",
   "source": {
     "work": "capital-1",
     "s": 3,
-    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitres X et XV — traduction Joseph Roy (1872)"
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitres X et XV, traduction Joseph Roy (1872)"
   },
   "ou": "Livre&nbsp;I, troisième section, chapitre X, « La journée de travail », dont les paragraphes VI et VII racontent la lutte pour la journée normale ; puis quatrième section, chapitre XV, paragraphe IX, « Législation de fabrique », qui en tire la portée générale.",
   "outils": [
@@ -25,23 +46,168 @@
     "Corvée · esclave · salarié"
   ],
   "monde": {
-    "_": "LA SCÈNE : L'HORLOGE PUBLIQUE. Le chapitre est une leçon sur ce qui fait qu'une limite EXISTE, et la loi de 1844 le prescrit à la lettre : une horloge PUBLIQUE, que le fabricant ne règle pas, et sur laquelle la cloche de la fabrique doit se régler. La figure est donc UN SEUL INSTRUMENT en gros plan — le cadran de la fabrique. Un repère de laiton marque l'heure fixée par l'avis ; l'aiguille le dépasse, et personne ne peut le prouver parce qu'il n'y a rien à quoi la comparer. Puis un second cadran, petit, est encastré dans le premier et plombé d'un sceau au bout de son fil : dès lors l'écart entre les deux aiguilles est un ANGLE, c'est-à-dire une chose qui se voit et se consigne. Une plaque de laiton se visse sous le cadran, la cloche est reliée au cadran public, et d'autres plaques suivent, une par industrie soumise. Au dernier temps il reste un trou de vis VIDE : la plaque qui n'a jamais été faite — les cinq cents pieds cubes d'air.",
-    "alt": "Le cadran de fonte d'une horloge de fabrique en gros plan, un repère de laiton sur sa graduation, un second cadran plus petit encastré et scellé d'un plomb, et une couronne de plaques de laiton vissées sur la boîte.",
+    "_": "LA SCÈNE : L'HORLOGE PUBLIQUE. La loi de 1844 prescrit une horloge publique, que le fabricant ne règle pas, sur laquelle la cloche de la fabrique doit se régler. La figure est un seul instrument en gros plan, le cadran de la fabrique : un repère de laiton marque l'heure de l'avis, l'aiguille le dépasse sans que rien la contredise ; puis un second cadran, plombé d'un sceau, s'encastre dans le premier, et l'écart devient un angle qui se consigne. Des plaques de laiton se vissent, une par industrie soumise ; au dernier temps il reste un trou de vis vide, les cinq cents pieds cubes d'air.",
+    "titre": "L'horloge de la fabrique, en six temps",
+    "alt": "Le cadran de fonte d'une horloge de fabrique en gros plan, un repère de laiton sur sa graduation, un second cadran plus petit encastré et scellé d'un plomb, et une rangée de plaques de laiton vissées sous la boîte.",
     "source": {
-      "texte": "D'après le texte — Livre I, chapitre X",
+      "texte": "D'après le texte : Livre I, chapitre X",
       "q": "doit être indiqué par une horloge publique"
     },
     "etapes": {
-      "fait": "Un cadran de fabrique, un repère de laiton sur l'heure que l'avis affiche. Rien d'autre. Trois lois en trente et un ans, et pas un centime pour les faire exécuter.",
-      "distinction": "L'aiguille dépasse le repère, doucement, et rien ne la contredit : il n'y a pas de second cadran. Quinze minutes avant six heures, quelques minutes prises sur le repas.",
-      "mecanisme": "Un second cadran s'encastre dans le premier, plombé au bout d'un fil : l'horloge publique, que le fabricant ne règle pas. L'écart devient un angle, donc une chose qui se consigne.",
-      "portee": "Une plaque de laiton se visse sous le cadran — le corps d'inspection —, et la cloche de la fabrique est reliée par un cordon au cadran public. L'aiguille recule.",
-      "ouvre": "Les plaques se multiplient autour de la boîte, une par industrie soumise. Le capital lui-même finit par réclamer la loi générale : soumis seul, il ne soutient pas la concurrence.",
-      "lectures": "Il reste un trou de vis vide, et il restera vide. Ce sont les cinq cents pieds cubes d'air par travailleur, que la loi n'a jamais imposés."
+      "fait": "Un cadran de fabrique, et un repère de laiton sur l'heure que l'avis affiche. De 1802 à 1833, trois lois, et pas un centime pour les faire exécuter.",
+      "distinction": "L'aiguille dépasse le repère, doucement, et rien ne la contredit, faute d'un second cadran. Un quart d'heure avant six heures, quelques minutes sur le repas.",
+      "mecanisme": "Un second cadran s'encastre dans le premier, plombé au bout d'un fil : l'horloge publique, que le fabricant ne règle pas. L'écart devient un angle, une chose qui se consigne.",
+      "portee": "Une plaque de laiton se visse sous le cadran, celle du corps d'inspection, et la cloche est reliée au cadran public. L'aiguille recule.",
+      "ouvre": "Les plaques se multiplient sous la boîte, une par industrie soumise. Soumis seul à la loi, un fabricant ne soutient pas la concurrence : la loi devient générale.",
+      "lectures": "Il reste un trou de vis vide, et il restera vide : les cinq cents pieds cubes d'air par travailleur, que la loi n'a jamais imposés."
     },
     "fixe": {
       "g": 4.7,
-      "legende": "Le cadran de la fabrique et, encastré dedans, le cadran public scellé d'un plomb : l'écart des deux aiguilles est un angle, donc une chose qui se consigne. Autour de la boîte, une plaque par industrie soumise."
+      "legende": "Le cadran de la fabrique et, encastré dedans, le cadran public scellé d'un plomb : l'écart des deux aiguilles devient un angle, une chose qui se consigne. Dessous, une plaque par industrie soumise."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : le livre bleu. La notion dit qu'une limite tient par son appareil de mesure et par ceux qui consignent ce qu'ils mesurent. La page s'ouvre donc sur la couverture d'un rapport semestriel des inspecteurs de fabrique (1863), une des pièces que l'État produit sur sa propre industrie ; dans l'essai, le tableau des poursuites du même rapport, où les minutes volées deviennent des lignes chiffrées. Le fond : les instruments de la mesure (horloge, cloche, avis, registre, amende) ; en lumière chaude, ce que le fabricant affiche ; à l'aube, à partir du mécanisme, ce que l'inspection consigne.",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 1635,
+      "alt": "Couverture d'un rapport imprimé : « Reports of the Inspectors of Factories to Her Majesty's Principal Secretary of State for the Home Department, for the half year ending 31st October 1863 », présenté aux deux chambres du Parlement, sous les armes royales.",
+      "legende": "Tous les six mois, les inspecteurs de fabrique rendent compte au ministre, et leur rapport est imprimé pour le Parlement. Marx tire de ces rapports une grande partie des faits du <i>Capital</i>.",
+      "credit": "<i>Reports of the Inspectors of Factories</i>, semestre clos le 31 octobre 1863, Londres, Eyre et Spottiswoode, 1864. Exemplaire de la Wellcome Library, numérisé par l'Internet Archive, domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Reports_of_the_inspectors_of_factories_to_Her_Majesty%27s_principal_Secretary_of_State_for_the_Home_Department._May_-_October_1863._(IA_s4768id1338176).pdf"
+    },
+    "planches": {
+      "registre": {
+        "img": "planche-registre.webp",
+        "w": 1100,
+        "h": 1338,
+        "alt": "Page imprimée d'un tableau : « Appendix No. 2. Summary of the Total Number of Informations and Convictions, and the Amount of Penalties and Costs, in the Districts of the Two Inspectors, during the Six Months ended the 31st of October 1863 », avec une ligne par infraction.",
+        "legende": "Six mois, deux inspecteurs : 173 poursuites pour avoir fait travailler après six heures du soir, 81 pour avoir empiété sur l'heure des repas. Les minutes volées deviennent des lignes chiffrées, et l'amende la plus fréquente est de vingt shillings.",
+        "credit": "Tableau des poursuites et des amendes, <i>Reports of the Inspectors of Factories</i>, semestre clos le 31 octobre 1863, Londres, 1864, p. 5. Wellcome Library, numérisé par l'Internet Archive, domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Reports_of_the_inspectors_of_factories_to_Her_Majesty%27s_principal_Secretary_of_State_for_the_Home_Department._May_-_October_1863._(IA_s4768id1338176).pdf"
+      }
+    },
+    "lumieres": {
+      "mecanisme": "aube",
+      "portee": "aube",
+      "ouvre": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les instruments de la mesure, dessinés en points. En lumière chaude monte ce que le fabricant affiche ; à l'aube, à partir de la section du mécanisme, ce que l'inspection consigne. Les chiffres sont ceux du chapitre X et du rapport de 1863.",
+      "dessins": {
+        "horloge": [
+          "..11111..",
+          ".1.....1.",
+          "1...1...1",
+          "1...1...1",
+          "1...111.1",
+          "1.......1",
+          "1.......1",
+          ".1.....1.",
+          "..11111.."
+        ],
+        "cloche": [
+          "....1....",
+          "...111...",
+          "..1...1..",
+          "..1...1..",
+          ".1.....1.",
+          ".1.....1.",
+          "1.......1",
+          "111111111",
+          "....1...."
+        ],
+        "avis": [
+          "111111111",
+          "1.......1",
+          "1.11111.1",
+          "1.......1",
+          "1.11111.1",
+          "1.1111..1",
+          "1.......1",
+          "1.111...1",
+          "111111111"
+        ],
+        "registre": [
+          "111111111111",
+          "1....1.....1",
+          "1.11.1.111.1",
+          "1....1.....1",
+          "1.11.1.111.1",
+          "1....1.....1",
+          "1.11.1.111.1",
+          "111111111111"
+        ]
+      },
+      "motifs": [
+        {
+          "m": "horloge",
+          "chaude": [
+            "six heures",
+            "l'heure du patron"
+          ],
+          "aube": [
+            "l'heure publique",
+            "six moins le quart"
+          ]
+        },
+        {
+          "m": "cloche",
+          "chaude": [
+            "la cloche",
+            "fin du repas"
+          ],
+          "aube": [
+            "minutes volées",
+            "réglée sur la gare"
+          ]
+        },
+        {
+          "m": "avis",
+          "chaude": [
+            "l'avis affiché",
+            "de 6 à 6"
+          ],
+          "aube": [
+            "lu par tous",
+            "opposable"
+          ]
+        },
+        {
+          "m": "registre",
+          "chaude": [
+            "le registre",
+            "tenu en règle"
+          ],
+          "aube": [
+            "173 poursuites",
+            "81 repas écourtés"
+          ]
+        },
+        {
+          "m": "piece",
+          "chaude": [
+            "20 shillings",
+            "l'amende"
+          ],
+          "aube": [
+            "bilan favorable",
+            "un juge payé"
+          ]
+        },
+        {
+          "m": "rouet",
+          "chaude": [
+            "la filature",
+            "dix heures"
+          ],
+          "aube": [
+            "340 minutes",
+            "27 journées"
+          ]
+        }
+      ]
     }
   }
 }

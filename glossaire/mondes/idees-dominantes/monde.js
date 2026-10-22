@@ -170,10 +170,10 @@ window.LM_MONDE = function (canvas) {
     dist = lerp(dist, 3.6, st.zoom); haut = lerp(haut, 2.9, st.zoom); cy = lerp(cy, 1.05, st.zoom); az = lerp(az, 0.08, st.zoom);
     var cible = new THREE.Vector3(lerp(lerp(0, 0.55, st.pile), 0, st.zoom), cy, 0);
     camera.position.set(cible.x + Math.sin(az) * dist + 0.03 * Math.sin(TT * 0.23), cy + haut + 0.02 * Math.sin(TT * 0.31), Math.cos(az) * dist);
-    var large = (canvas.clientWidth || 0) >= 1100;
-    var fwd = new THREE.Vector3().subVectors(cible, camera.position).normalize();
-    var right = new THREE.Vector3().crossVectors(fwd, new THREE.Vector3(0, 1, 0)).normalize();
-    aim.copy(cible).addScaledVector(right, large ? -lerp(0.17, 0.3, st.zoom) * camera.position.distanceTo(cible) : 0);
+    /* la scène est une figure posée en bas de page (oct. 2026) : plus de
+       colonne de texte à dégager, on vise le sujet lui-même, à toutes les
+       largeurs (l'image fixe, photographiée à 1200 px, aussi). */
+    aim.copy(cible);
     camera.lookAt(aim);
     render();
   }

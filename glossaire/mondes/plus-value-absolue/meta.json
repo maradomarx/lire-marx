@@ -1,18 +1,39 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/plus-value-absolue.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/plus-value-absolue. L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrite en octobre 2026 selon glossaire/mondes/CHARTE.md (enbref, retenir, questions).",
   "titre": "Plus-value absolue",
   "de": "absoluter Mehrwert",
-  "chapo": "La forme qui ne demande rien de neuf : ni invention, ni capital supplémentaire, ni transformation de l'atelier — seulement de faire travailler plus longtemps. Marx la nomme au chapitre XII, mais c'est le chapitre X qui la traite, et il la montre au ras du sol : la journée s'allonge moins par des heures franches que par grignotage, sur les bords, là où personne ne compte.",
-  "description": "La plus-value absolue chez Marx : la forme obtenue en allongeant la journée sans toucher au procédé, ses deux limites, le grignotage des minutes que rapportent les inspecteurs de fabrique, et pourquoi la loi a poussé le capital vers l'autre forme.",
+  "enbref": "La plus-value absolue est, chez Marx, la plus-value que le capital obtient en allongeant la journée de travail, sans rien changer aux procédés de production. La part de la journée qui reproduit le salaire reste la même&nbsp;; les heures ajoutées au bout vont au capital. Marx la nomme au chapitre XII du Livre&nbsp;I du <i>Capital</i> (1867), mais il l'étudie au chapitre X, sur la journée de travail. Elle bute sur une borne&nbsp;: la longueur du jour, que la loi finit par fixer.",
+  "retenir": [
+    "La journée de travail se divise en deux parties&nbsp;: le travail nécessaire, qui reproduit la valeur du salaire, et le surtravail, qui produit la plus-value.",
+    "La plus-value absolue s'obtient en prolongeant la journée, sans toucher à la part nécessaire ni aux procédés de travail. L'adjectif désigne cet accroissement par addition.",
+    "Aucune loi économique ne fixe la durée de la journée. Elle varie entre une limite physique et une limite morale, toutes deux élastiques, et dépend d'un rapport de forces.",
+    "Dans les fabriques, l'allongement procède souvent par miettes&nbsp;: quelques minutes prises au début, à la fin et sur les repas, que les inspecteurs avaient peine à prouver.",
+    "Quand la loi fixe la journée, cette voie se ferme et le capital se tourne vers la plus-value relative, qui transforme la production. Les deux formes continuent pourtant de coexister."
+  ],
+  "questions": [
+    {
+      "q": "Dans l'exemple de Marx, pourquoi la plus-value double-t-elle quand la journée passe de neuf à douze heures&nbsp;?",
+      "r": "Parce que le travail nécessaire reste fixé à six heures. Le surtravail passe donc de trois heures à six, et le taux de plus-value de 50 à 100&nbsp;%. Rien d'autre n'a changé&nbsp;: ni le salaire, ni l'outil, ni la vitesse du travail."
+    },
+    {
+      "q": "Pourquoi les inspecteurs de fabrique avaient-ils tant de mal à prouver les vols de minutes&nbsp;?",
+      "r": "Parce que chaque prélèvement est minuscule et se fait sur les bords de la journée ou sur les pauses, là où personne ne compte. Pris un à un, ils échappent au contrôle&nbsp;; additionnés sur l'année et sur tous les ouvriers, ils font une somme. C'est pourquoi la loi a dû fixer l'heure du début, celle de la fin et celle des repas."
+    },
+    {
+      "q": "Pourquoi la limitation légale de la journée a-t-elle poussé le capital vers la machine&nbsp;?",
+      "r": "Parce qu'une fois la durée fixée, on ne peut plus accroître le surtravail en ajoutant des heures. Il reste à réduire le travail nécessaire, ce qui demande de rendre le travail plus productif, donc de transformer les procédés. Marx montre au chapitre XV que le capital s'est alors jeté sur le machinisme et sur l'intensification du travail."
+    }
+  ],
+  "description": "La plus-value absolue chez Marx expliquée simplement : allonger la journée de travail sans changer les procédés, ses limites, et les minutes volées.",
   "source": {
     "work": "capital-1",
     "s": 3,
-    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitres X et XII — traduction Joseph Roy (1872)"
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitres X, XII, XV et XVI, traduction Joseph Roy (1872)"
   },
-  "ou": "Livre&nbsp;I — la troisième section tout entière (chapitres VII à XI) la traite sans la nommer&nbsp;; le nom n'arrive qu'au chapitre XII, à la première page de la section suivante, et rétrospectivement. Marx nomme quand il a besoin d'opposer, et il n'a besoin d'opposer qu'au moment d'introduire l'autre forme.",
+  "ou": "Livre&nbsp;I, chapitre X, «&nbsp;La journée de travail&nbsp;», qui en fait l'étude sans la nommer. Le nom arrive au chapitre XII, quand Marx l'oppose à la plus-value relative&nbsp;; le chapitre XV montre la machine qui prolonge la journée, et le chapitre XVI fait le bilan des deux formes.",
   "outils": [
     {
-      "label": "Le circuit du capital — le jeu",
+      "label": "Le circuit du capital, le jeu",
       "url": "/jeu/"
     }
   ],
@@ -25,23 +46,157 @@
     "Plus-value"
   ],
   "monde": {
-    "_": "LA SCÈNE : LA PENDULE ET LE BOCAL. La journée s'allonge par grignotage — « petty pilferings of minutes », disent les inspecteurs. Le cadran de l'atelier porte la journée légale et ses deux repas ; ce qui est PRIS s'y inscrit en rouge aux quatre bords où personne ne compte, et chaque éclat tombe dans le bocal, qui se remplit d'heures jamais comptées. Au dernier temps une garde de laiton se referme sur le cadran : la loi doit descendre à ce degré de détail parce qu'elle s'oppose à une pratique qui procède par miettes.",
+    "_": "LA SCÈNE : LA PENDULE ET LE BOCAL. La journée s'allonge par grignotage (les inspecteurs parlent de petty pilferings of minutes). Le cadran de l'atelier porte la journée légale et ses deux repas ; ce qui est PRIS s'y inscrit en rouge aux quatre bords où personne ne compte, et chaque éclat tombe dans le bocal, qui se remplit d'heures jamais comptées. Au dernier temps une garde de laiton se referme sur le cadran : la loi doit descendre à ce degré de détail parce qu'elle s'oppose à une pratique qui procède par miettes. Composition centrée : pas de décalage de visée à corriger pour la figure.",
+    "titre": "La pendule et le bocal, en six temps",
     "alt": "Une pendule d'atelier sur un mur, dont le cadran porte la journée légale et deux repas ; des éclats rouges se détachent de ses bords et tombent dans un bocal de verre posé sur une étagère.",
     "source": {
-      "texte": "D'après le texte — Livre I, chapitre X",
+      "texte": "D'après le texte : Livre I, chapitre X",
       "q": "Les atomes du temps sont les éléments du gain"
     },
     "etapes": {
-      "fait": "Le cadran de l'atelier. La journée légale y est un arc, et les deux repas deux entailles claires : voilà ce dont on part, et rien d'autre ne va changer.",
-      "ou": "Rien dans l'atelier ne se transforme. C'est la marque de cette forme : elle laisse intacts les procédés et se contente d'en prolonger la durée.",
-      "distinction": "La journée n'est pas donnée. Entre la limite du corps et celle des besoins sociaux, aucune loi économique ne tranche — et l'espace ainsi laissé libre est celui d'un rapport de forces.",
-      "mecanisme": "Le vol commence, et il commence par les bords. Un peu au début, un peu à la fin, un peu de chaque côté des repas : le bocal se remplit d'heures qui n'ont jamais été comptées.",
-      "ouvre": "Le bocal est plein, et le cadran ne peut plus rien céder. Vingt-quatre heures sont vingt-quatre heures : cette voie a une fin, et c'est ce qui obligera le capital à l'autre.",
-      "lectures": "La garde se referme. La loi descend au détail — l'heure du début, celle de la fin, la durée exacte des repas — parce que c'est la seule forme sous laquelle on peut s'opposer à une pratique qui procède par miettes."
+      "fait": "Le cadran de l'atelier. La journée légale y forme un arc, et les deux repas deux entailles claires. C'est le point de départ, et la manière de travailler ne changera pas.",
+      "ou": "Rien dans l'atelier ne se transforme. C'est la marque de cette forme : elle garde les procédés tels qu'ils sont et se contente d'en prolonger la durée.",
+      "distinction": "La journée n'a pas de longueur donnée. Entre la limite du corps et celle des besoins sociaux, aucune loi économique ne tranche, et ce jeu laisse place à un rapport de forces.",
+      "mecanisme": "Le vol commence, et il commence par les bords : un peu au début, un peu à la fin, un peu de chaque côté des repas. Le bocal se remplit d'heures que personne n'a comptées.",
+      "ouvre": "Le bocal est plein, et le cadran ne peut plus rien céder. Une journée ne dépasse pas vingt-quatre heures : cette voie a une fin, qui pousse le capital vers l'autre forme.",
+      "lectures": "La garde se referme. La loi fixe l'heure du début, celle de la fin et la durée des repas, parce qu'on ne peut opposer une limite qu'en détail à une pratique qui procède par miettes."
     },
     "fixe": {
       "g": 4.6,
-      "legende": "Ce qui est pris n'est pris qu'aux bords : au début, à la fin, et de chaque côté des deux repas. Les inspecteurs appelaient cela des filoutages de minutes, et avouaient éprouver des difficultés presque insurmontables à en établir la preuve — pendant qu'un fabricant calculait ce que dix minutes par jour lui mettraient dans la poche."
+      "legende": "Ce qui est pris l'est sur les bords : au début, à la fin et de chaque côté des deux repas. Chaque éclat tombe dans le bocal, qui se remplit d'heures que le salaire ne paie pas."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : le repas pris à la machine. La plus-value absolue ne demande aucune invention, seulement des heures en plus ; ce qui la montre, ce sont les heures prises là où l'ouvrier devrait être hors du travail : le repas avalé dans l'atelier (Menzel), la nuit passée à coudre (Redgrave). Le fond : les objets de la journée (l'horloge, la cloche, la gamelle, la chandelle, la pièce) ; en lumière chaude, l'horaire qu'on affiche ; à l'aube, à partir de la section des minutes volées, ce qui est pris.",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 1254,
+      "alt": "Détail d'un tableau de laminoir : au centre, des ouvriers poussent un bloc de fer incandescent sous les cylindres ; à droite, d'autres mangent dans des gamelles, accroupis contre une tôle, et une jeune fille apporte un panier de nourriture.",
+      "legende": "À droite, des ouvriers mangent contre une tôle, à deux pas du fer rouge que d'autres continuent de laminer. Le repas se prend dans l'atelier même, sans que le travail s'arrête.",
+      "credit": "Adolph Menzel, <i>Eisenwalzwerk</i> (Le laminoir), 1872-1875, détail. Alte Nationalgalerie, Berlin, domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Adolph_Menzel_-_Eisenwalzwerk_-_Google_Art_Project.jpg"
+    },
+    "planches": {
+      "sempstress": {
+        "img": "planche-sempstress.webp",
+        "w": 1000,
+        "h": 836,
+        "alt": "Une couturière assise dans une mansarde, une chemise sur les genoux, lève les yeux ; par la fenêtre il fait nuit et les fenêtres d'en face sont éclairées ; une horloge est pendue au mur.",
+        "legende": "Une couturière dans sa mansarde : dehors il fait nuit, au mur une horloge, et l'ouvrage n'est pas fini. Le tableau précède de dix-sept ans la mort de Mary Anne Walkley, modiste, dans un métier voisin.",
+        "credit": "Richard Redgrave, <i>The Sempstress</i>, 1846, huile sur toile. Tate Britain, Londres, domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Richard_Redgrave_-_The_Sempstress.jpg"
+      }
+    },
+    "lumieres": {
+      "mecanisme": "aube",
+      "ouvre": "aube",
+      "lectures": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les objets de la journée de travail, dessinés en points. En lumière chaude monte l'horaire tel qu'on l'affiche ; à l'aube, ce que l'analyse fait voir, les minutes et les heures prises en plus. Les dix minutes et les mille livres sont ceux du fabricant cité par Marx au chapitre X ; les vingt-six heures sont celles de Mary Anne Walkley.",
+      "dessins": {
+        "horloge": [
+          "..11111..",
+          ".1.....1.",
+          "1...1...1",
+          "1...1...1",
+          "1...1...1",
+          "1....11.1",
+          "1.......1",
+          ".1.....1.",
+          "..11111.."
+        ],
+        "cloche": [
+          "....1....",
+          "...111...",
+          "..1...1..",
+          "..1...1..",
+          ".1.....1.",
+          ".1.....1.",
+          "1.......1",
+          "111111111",
+          "....1...."
+        ],
+        "gamelle": [
+          "...111...",
+          "..11111..",
+          "1.......1",
+          "111111111",
+          "1.......1",
+          "1.......1",
+          "1.......1",
+          ".1111111."
+        ],
+        "chandelle": [
+          "...1...",
+          "..111..",
+          "...1...",
+          "..111..",
+          "..1.1..",
+          "..1.1..",
+          "..1.1..",
+          "..1.1..",
+          "1111111"
+        ]
+      },
+      "motifs": [
+        {
+          "m": "horloge",
+          "chaude": [
+            "l'heure légale",
+            "douze heures"
+          ],
+          "aube": [
+            "dix minutes",
+            "prises au début"
+          ]
+        },
+        {
+          "m": "cloche",
+          "chaude": [
+            "la cloche",
+            "fin du travail"
+          ],
+          "aube": [
+            "sonnée en retard",
+            "cinq minutes"
+          ]
+        },
+        {
+          "m": "gamelle",
+          "chaude": [
+            "le repas",
+            "la pause"
+          ],
+          "aube": [
+            "mangé à l'atelier",
+            "pause rognée"
+          ]
+        },
+        {
+          "m": "chandelle",
+          "chaude": [
+            "la veillée",
+            "la saison"
+          ],
+          "aube": [
+            "vingt-six heures",
+            "sans relâche"
+          ]
+        },
+        {
+          "m": "piece",
+          "chaude": [
+            "le salaire",
+            "même paie"
+          ],
+          "aube": [
+            "mille livres",
+            "par an"
+          ]
+        }
+      ]
     }
   }
 }

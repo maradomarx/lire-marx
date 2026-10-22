@@ -1,18 +1,39 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/forme-salaire.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/forme-salaire. L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrit en octobre 2026 selon glossaire/mondes/CHARTE.md.",
   "titre": "La forme-salaire",
   "de": "Arbeitslohn",
-  "chapo": "La forme-salaire est la manière dont le rapport de capital se présente à ceux qui y sont pris : comme le paiement d'une journée de travail. Ce qui est acheté est pourtant la force de travail, et payé à sa valeur ; ce qui paraît payé est le travail tout entier. La forme n'ajoute aucun mensonge à l'échange — elle en efface la coupure.",
-  "description": "La forme-salaire chez Marx : pourquoi « prix du travail » est une expression irrationnelle, comment le salaire fait disparaître la limite entre travail payé et travail non payé, et ce que cette forme engendre.",
+  "enbref": "La forme-salaire désigne, chez Marx, la manière dont le rapport entre le capitaliste et l'ouvrier se présente&nbsp;: comme le paiement d'une journée de travail. Ce que l'ouvrier vend est sa force de travail, sa capacité de travailler, et elle lui est payée à sa valeur&nbsp;; le salaire semble pourtant payer tout le travail fourni. Marx l'analyse au Livre&nbsp;I du <i>Capital</i> (1867), chapitres XIX à XXII. Cette apparence efface la limite entre travail payé et travail gratuit, sans qu'aucune somme soit fausse.",
+  "retenir": [
+    "L'expression «&nbsp;prix du travail&nbsp;» n'a pas de sens&nbsp;: le travail mesure la valeur des marchandises sans en avoir lui-même. Marx explique pourtant pourquoi tout le monde l'emploie.",
+    "L'ouvrier vend sa force de travail, et elle lui est payée à sa valeur. Le salaire, versé pour la journée, fait croire qu'il paie tout son travail.",
+    "La journée se partage entre un temps payé et un surtravail gratuit. Le salaire efface toute trace de ce partage, sans qu'aucune somme soit falsifiée.",
+    "Dans le servage, la limite se voit&nbsp;; dans l'esclavage, tout le travail paraît gratuit. Dans le salariat, tout paraît payé, parce que le rapport passe par l'argent.",
+    "De cette apparence viennent les notions du droit et l'idée d'un contrat entre égaux. Le salaire au temps et le salaire aux pièces en sont les deux formes pratiques."
+  ],
+  "questions": [
+    {
+      "q": "Dans l'exemple de Marx, l'ouvrier reçoit trois francs pour une journée de douze heures. Est-il volé&nbsp;?",
+      "r": "Non. Trois francs sont la valeur de sa force de travail, c'est-à-dire de ses subsistances, et il les reproduit en six heures. Il est payé à cette valeur. Les six autres heures produisent trois francs de plus pour le capitaliste, et le salaire, versé pour la journée entière, ne laisse pas voir où passe la limite."
+    },
+    {
+      "q": "Pourquoi le surtravail du salarié paraît-il payé, alors que tout le travail de l'esclave paraît gratuit&nbsp;?",
+      "r": "Parce que le rapport passe par l'argent. L'esclave ne reçoit rien, si bien que même le temps où il reproduit ses subsistances semble fait pour son maître. Le salarié reçoit une somme pour sa journée, et cette somme semble couvrir toutes les heures, y compris celles qu'il travaille gratuitement."
+    },
+    {
+      "q": "Pourquoi une hausse des salaires ne fait-elle pas disparaître la forme-salaire&nbsp;?",
+      "r": "Parce que la forme et le montant sont deux choses distinctes. Un salaire plus élevé reste versé pour la journée entière, et la limite entre travail payé et travail gratuit reste aussi invisible qu'avant. Cette limite se déplace avec la longueur de la journée et la valeur de la force, et c'est sur elles que portent les luttes ouvrières."
+    }
+  ],
+  "description": "La forme-salaire chez Marx, expliquée simplement : pourquoi le salaire semble payer tout le travail de la journée, alors qu'il paie la force de travail.",
   "source": {
     "work": "capital-1",
     "s": 6,
-    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, sixième section, chapitres XIX à XXII — traduction Joseph Roy (1872)"
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, sixième section, chapitres XIX à XXII, traduction Joseph Roy (1872)"
   },
-  "ou": "Livre&nbsp;I, sixième section, « Le salaire » (ch. XIX-XXII). Le chapitre XIX transforme la valeur de la force de travail en salaire et montre l'irrationalité du « prix du travail » ; le XX traite du salaire au temps, le XXI du salaire aux pièces, le XXII des différences nationales.",
+  "ou": "Livre&nbsp;I, sixième section, «&nbsp;Le salaire&nbsp;» (chapitres XIX à XXII). Le chapitre XIX transforme la valeur de la force de travail en salaire et montre l'irrationalité du «&nbsp;prix du travail&nbsp;»&nbsp;; le XX traite du salaire au temps, le XXI du salaire aux pièces, le XXII des différences nationales.",
   "outils": [
     {
-      "label": "La journée de travail — le laboratoire",
+      "label": "La journée de travail, le laboratoire",
       "url": "/oeuvres/capital-1#labo=s-jour"
     }
   ],
@@ -25,24 +46,148 @@
     "Fétichisme"
   ],
   "monde": {
-    "_": "LA SCÈNE : UNE LIMITE QU'ON RECOUVRE. Douze jetons de laiton sur un comptoir — les douze heures —, une marque rouge après le sixième, les pièces comptées à côté ; puis une BANDE DE PAPIER posée en travers, qui couvre les jetons et la marque, et sur laquelle il n'y a plus qu'une ligne : douze heures, six francs. La rangée se lit alors d'une seule venue. Au dernier temps une lumière prend SOUS le comptoir et la division reparaît par transparence — « il faut distinguer entre les apparences des choses et leur réalité ». Le passage au travers est DESSINÉ sur la texture du papier : un plan opaque ne laisse rien voir, et l'on veut ici que la marque se lise exactement.",
+    "_": "LA SCÈNE : UNE LIMITE QU'ON RECOUVRE. Douze jetons de laiton sur un comptoir (les douze heures), une marque rouge après le sixième, six pièces comptées à côté ; puis une BANDE DE PAPIER posée en travers, qui couvre les jetons et la marque, et sur laquelle il n'y a plus qu'une ligne : douze heures, trois francs (la formule de Marx au chapitre XIX). Au dernier temps une lumière prend SOUS le comptoir et la division reparaît par transparence. Le passage au travers est DESSINÉ sur la texture du papier. La visée ne se décale vers la gauche que sur un canevas d'au moins 1100 px qui n'est pas la figure.",
     "layout": "plein",
-    "alt": "Sur un comptoir sombre, douze jetons de laiton alignés et une marque rouge après le sixième ; une bande de papier posée en travers les recouvre, où on lit « douze heures — six francs ».",
+    "titre": "Le comptoir de la paie, en six temps",
+    "alt": "Sur un comptoir sombre, douze jetons de laiton alignés et une marque rouge après le sixième ; une bande de papier posée en travers les recouvre, où on lit « douze heures, trois francs ».",
     "source": {
-      "texte": "D'après le texte — Livre I, sixième section",
+      "texte": "D'après le texte : Livre I, sixième section",
       "q": "même le surtravail ou travail non payé revêt l’apparence de travail payé"
     },
     "etapes": {
-      "irrationnelle": "Douze jetons se posent, un par heure. C'est la journée, et elle est encore lisible heure par heure — ce qui ne durera pas.",
-      "ou": "La marque tombe après le sixième jeton : jusque-là, l'ouvrier a reproduit la valeur de sa force ; au-delà, il travaille pour rien. La limite existe, et on la voit.",
-      "distinction": "Six pièces comptées à côté. Le paiement est exact, le contrat est tenu : ce que la forme escamote n'est pas une somme, c'est la coupure.",
-      "mecanisme": "La bande de papier se pose en travers et couvre tout — les jetons et la marque. La rangée n'a plus de milieu : il n'y a plus qu'une journée, et un prix.",
-      "ouvre": "Sur le papier, une seule ligne : douze heures, six francs. C'est de cette apparence que dérivent les notions juridiques, les illusions libérales et les faux-fuyants de l'économie vulgaire.",
-      "lectures": "Une lumière prend sous le comptoir, et la coupure reparaît à travers le papier. Elle n'a jamais cessé d'être là : la forme ne la supprime pas, elle la rend invisible."
+      "irrationnelle": "Douze jetons se posent sur le comptoir, un par heure de la journée. Pour l'instant, la journée se lit encore heure par heure.",
+      "ou": "Une marque rouge tombe après le sixième jeton. Jusque-là, l'ouvrier reproduit la valeur de sa force ; au-delà, il travaille gratuitement.",
+      "distinction": "Six pièces sont comptées à côté : trois francs, la valeur de la force de travail. Le paiement est exact et le contrat tenu.",
+      "mecanisme": "Une bande de papier se pose en travers et recouvre les jetons et la marque. La rangée n'a plus de milieu.",
+      "ouvre": "Sur le papier, une seule ligne : douze heures, trois francs. C'est de cette ligne que partent les notions du droit et les illusions sur le contrat.",
+      "lectures": "Une lumière prend sous le comptoir, et la marque reparaît à travers le papier. La forme ne l'avait pas supprimée, elle la rendait invisible."
     },
     "fixe": {
       "g": 5.6,
-      "legende": "La lumière prise sous le comptoir : à travers la feuille qui ne dit que « douze heures — six francs », les douze jetons et la marque du sixième reparaissent."
+      "legende": "La lumière prend sous le comptoir : à travers la bande qui ne dit que « douze heures, trois francs », les douze jetons et la marque du sixième reparaissent."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : la paye. La page part d'un moment que tout salarié connaît, celui où l'on est payé : les moissonneurs de Lhermitte reçoivent leurs pièces dans la cour de la ferme, et rien dans le geste ne dit quelle part de la journée elles paient. Puis, au salaire aux pièces, un atelier de confection dans un logement de New York, sans contremaître. Le fond : les objets de la paie (la pièce, la pendule, le contrat, l'habit cousu à la pièce, la gerbe) ; en lumière chaude, ce que la forme montre (le prix, la journée payée, le contrat) ; à l'aube, aux sections de la distinction et du mécanisme, ce que l'analyse fait voir (le partage de la journée, le travail gratuit).",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 1174,
+      "alt": "Dans la cour d'une ferme, des moissonneurs reçoivent leur paye : un homme en blouse bleue dépose des pièces dans la main d'un faucheur, un autre compte son argent, et un vieil ouvrier est assis, sa faux à la main, près de gerbes de blé.",
+      "legende": "La paye des moissonneurs se compte d'un seul geste. Rien, dans les pièces qui passent de main en main, ne dit quelle part de la journée elles paient.",
+      "credit": "Léon Lhermitte, <i>La Paye des moissonneurs</i>, huile sur toile, 1882. Musée d'Orsay, Paris, domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:La_paye_des_moissonneurs_L%C3%A9on_Augustin_Lhermitte.jpg"
+    },
+    "planches": {
+      "atelier": {
+        "img": "planche-atelier.webp",
+        "w": 1200,
+        "h": 942,
+        "alt": "Une pièce d'habitation à New York : des hommes et des femmes cousent des vêtements assis sur des chaises de bois, des étoffes s'entassent sur le sol et sur les meubles, un chien regarde sous une chaise.",
+        "legende": "Un atelier de confection installé dans un logement de Ludlow Street, à New York, vers 1889. Aucun contremaître : l'anglais appelait ce système <i lang=\"en\">sweating</i>, et Marx le rattache au salaire aux pièces.",
+        "credit": "Jacob Riis, atelier de Ludlow Street, New York, vers 1889. Library of Congress, domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Sweatshop_in_Ludlow_Street_Tenement,_New_York_cph.3a24271.jpg"
+      }
+    },
+    "lumieres": {
+      "distinction": "aube",
+      "mecanisme": "aube"
+    },
+    "fond": {
+      "_": "Le fond : les objets de la paie, dessinés en points. En lumière chaude monte ce que la forme montre (le prix, la journée payée, le contrat) ; à l'aube, ce que l'analyse fait voir (le partage de la journée, le travail gratuit). Les chiffres sont ceux de Marx aux chapitres XIX et XX.",
+      "dessins": {
+        "pendule": [
+          "..11111..",
+          ".1.....1.",
+          "1...1...1",
+          "1...11..1",
+          "1.......1",
+          ".1.....1.",
+          "..11111..",
+          "....1....",
+          "....1....",
+          "...111..."
+        ],
+        "contrat": [
+          "111111111",
+          "1.......1",
+          "1.11111.1",
+          "1.......1",
+          "1.11111.1",
+          "1.......1",
+          "1.111...1",
+          "1....11.1",
+          "111111111"
+        ],
+        "gerbe": [
+          "1..1.1..1",
+          ".1.111.1.",
+          "..11111..",
+          "...111...",
+          "..11111..",
+          "...111...",
+          "...111...",
+          "..1.1.1..",
+          ".1..1..1."
+        ]
+      },
+      "motifs": [
+        {
+          "m": "piece",
+          "chaude": [
+            "trois francs",
+            "le prix du travail"
+          ],
+          "aube": [
+            "la force achetée",
+            "six heures"
+          ]
+        },
+        {
+          "m": "pendule",
+          "chaude": [
+            "douze heures",
+            "25 c l'heure"
+          ],
+          "aube": [
+            "six payées",
+            "six gratuites"
+          ]
+        },
+        {
+          "m": "contrat",
+          "chaude": [
+            "do ut facias",
+            "contrat égal"
+          ],
+          "aube": [
+            "travail gratuit",
+            "la limite effacée"
+          ]
+        },
+        {
+          "m": "habit",
+          "chaude": [
+            "à la pièce",
+            "tant la pièce"
+          ],
+          "aube": [
+            "du temps mesuré",
+            "le marchandeur"
+          ]
+        },
+        {
+          "m": "gerbe",
+          "chaude": [
+            "la paye",
+            "la journée payée"
+          ],
+          "aube": [
+            "moitié payée",
+            "moitié gratuite"
+          ]
+        }
+      ]
     }
   }
 }

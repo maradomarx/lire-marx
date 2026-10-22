@@ -1,18 +1,39 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/journee-de-travail.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/journee-de-travail. L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrite en octobre 2026 selon glossaire/mondes/CHARTE.md.",
   "titre": "Journée de travail",
   "de": "Arbeitstag",
-  "chapo": "La longueur de la journée de travail n'est fixée par aucune loi économique : le contrat vend la force de travail pour un jour sans dire ce qu'est un jour. Entre le droit de l'acheteur d'en tirer le plus grand usage et celui du vendeur d'en préserver la source, deux droits également fondés s'opposent — et c'est la force qui décide.",
-  "description": "La journée de travail chez Marx : pourquoi sa longueur est indéterminée par l'échange, ce qu'est l'antinomie du droit contre droit, et pourquoi sa limitation légale enregistre un rapport de forces au lieu de le précéder.",
+  "enbref": "La journée de travail désigne, chez Marx, le temps pendant lequel le capitaliste fait travailler la force de travail qu'il a achetée pour un jour. Une partie de cette journée est fixée&nbsp;: celle où l'ouvrier reproduit la valeur de ce qu'il consomme pour vivre. La journée entière, elle, n'est fixée par aucune loi économique. Marx l'analyse au chapitre X du Livre&nbsp;I du <i>Capital</i> (1867). Il montre qu'entre le droit de l'acheteur et celui du vendeur, également fondés, c'est la force qui décide.",
+  "retenir": [
+    "Le travail nécessaire, qui reproduit la valeur des subsistances de l'ouvrier, est une grandeur donnée. La longueur totale de la journée, elle, n'est fixée par rien dans l'échange.",
+    "La journée a des limites physiques et morales. Elles sont si élastiques qu'on trouve, au temps de Marx, des journées de dix à dix-huit heures.",
+    "L'acheteur veut tirer de sa marchandise le plus grand usage possible, le vendeur veut qu'on n'en détruise pas la source. Les deux droits viennent de la même loi de l'échange.",
+    "Le capital n'a aucune borne interne. Livré à lui-même, il dépasse les limites morales, puis physiologiques, au prix de la santé et de la durée de vie des travailleurs.",
+    "La journée normale sort d'une lutte entre deux classes, que la loi enregistre après coup. Une fois la journée bornée, le capital cherche à intensifier le travail."
+  ],
+  "questions": [
+    {
+      "q": "Que montre le calcul de l'ouvrier qui compte vendre sa force de travail pendant trente ans&nbsp;?",
+      "r": "Si l'acheteur use en dix ans une force qui devait durer trente, il ne paie chaque jour qu'un tiers de ce qu'il consomme. L'ouvrier en tire sa demande d'une journée normale au nom de la loi même de l'échange, sans faire appel à la pitié de personne."
+    },
+    {
+      "q": "Pourquoi l'échange ne peut-il pas fixer la longueur de la journée&nbsp;?",
+      "r": "Parce que les deux parties y ont un droit également fondé. Le capitaliste agit en acheteur qui use de ce qu'il a payé, l'ouvrier en vendeur qui protège sa marchandise. La loi de l'échange appuie les deux prétentions et n'a aucun moyen de les départager&nbsp;: c'est la force qui tranche."
+    },
+    {
+      "q": "Quand la loi borne la journée, l'exploitation diminue-t-elle forcément&nbsp;?",
+      "r": "Pas forcément. Le capital cherche alors à raccourcir la part de la journée qui rembourse le salaire, par la hausse de la productivité, et à tirer plus de travail de chaque heure. Le taux de la plus-value peut donc monter pendant que la journée raccourcit."
+    }
+  ],
+  "description": "La journée de travail chez Marx, expliquée simplement : pourquoi aucune loi économique ne fixe sa longueur, et pourquoi c'est la force qui décide.",
   "source": {
     "work": "capital-1",
     "s": 3,
-    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre X — traduction Joseph Roy (1872)"
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, traduction Joseph Roy (1872)"
   },
-  "ou": "Livre&nbsp;I, troisième section, chapitre X, « La journée de travail » — l'un des plus longs du livre (le troisième, avec près de vingt-cinq mille mots chez Roy), et l'un de ceux dont la preuve est d'espèce historique. Le chapitre XII enchaîne sur la plus-value relative, c'est-à-dire sur ce qui reste au capital quand la journée est bornée.",
+  "ou": "Livre&nbsp;I, troisième section, chapitre X, « La journée de travail » (chapitre 8 dans l'édition allemande). C'est le troisième plus long des trente-trois chapitres, près de vingt-cinq mille mots chez Roy. Le chapitre XII ouvre ensuite la plus-value relative, c'est-à-dire ce qui reste au capital quand la journée est bornée.",
   "outils": [
     {
-      "label": "La journée de travail — le laboratoire",
+      "label": "La journée de travail, la station du laboratoire",
       "url": "/oeuvres/capital-1#labo=s-jour"
     }
   ],
@@ -25,24 +46,199 @@
     "Plus-value absolue"
   ],
   "monde": {
-    "_": "LA SCÈNE : LA TOISE, ET LA BARRE. Le chapitre démontre qu'une grandeur décisive n'est réglée par aucune loi économique — il fallait donc montrer une LONGUEUR QUI MONTE et que rien n'arrête, jusqu'à ce que quelque chose l'arrête. Une toise verticale graduée en heures contre le mur de l'atelier ; deux traits gravés, la limite morale plus bas, la limite physiologique tout en haut ; un index de laiton qui monte de dix à dix-huit heures, passe la première sans rien rencontrer, approche la seconde. Puis une barre de fer se fixe en travers, et l'index redescend contre elle : la loi n'a pas précédé le mouvement, elle l'a enregistré. ELLE EST VERTICALE, et c'est délibéré : la ligne a—b—c de la plus-value est horizontale, et deux pages voisines ne doivent pas se ressembler.",
+    "_": "LA SCÈNE : LA TOISE, ET LA BARRE. Une toise verticale graduée en heures contre le mur de l'atelier ; deux traits gravés, la limite morale plus bas, la limite physiologique tout en haut ; un index de laiton qui monte de dix à dix-huit heures, passe la première sans rien rencontrer, approche la seconde. Puis une barre de fer se fixe en travers, et l'index redescend contre elle. La barre vient du texte : les ouvriers « dressent une barrière infranchissable, un obstacle social ». Figure 16/10 en bas de page depuis octobre 2026 : la visée n'est plus décalée.",
     "layout": "plein",
+    "titre": "La toise des heures, en six temps",
     "alt": "Une toise de bois graduée de zéro à vingt-quatre heures contre un mur d'atelier, avec un index de laiton, deux traits gravés et une barre de fer fixée en travers.",
     "source": {
-      "texte": "D'après le texte — Livre I, chapitre X",
+      "texte": "D'après le texte : Livre I, chapitre X",
       "q": "Il y a donc ici une antinomie, droit contre droit"
     },
     "etapes": {
-      "grandeur": "Une toise graduée de zéro à vingt-quatre. L'index est à dix heures — mais rien, dans le contrat, ne dit pourquoi dix plutôt que douze ou dix-huit.",
-      "antinomie": "Deux traits se gravent : la limite morale, plus bas ; la limite physiologique, tout en haut. Elles existent, et elles ne fixent rien — elles sont très élastiques et laissent la plus grande latitude.",
-      "soif": "L'index monte : douze, quatorze, seize. Il passe la limite morale sans rien rencontrer. Ce n'est pas la cupidité d'un homme : le capital est de la valeur qui ne se conserve qu'en s'accroissant.",
-      "loi": "Il approche la limite physiologique. Le capital vole jusqu'au temps qui devrait être employé à respirer l'air libre — et rien dans le rapport ne l'en empêche.",
-      "apres": "Une barre de fer se pose en travers, à dix heures, et l'index redescend contre elle. La loi n'a pas précédé le mouvement : elle l'a enregistré.",
-      "lectures": "La barre tient, et la toise reste. Ce qui est daté, ce sont les chiffres ; ce qui ne l'est pas, c'est la structure — une grandeur que le contrat laisse indéterminée, et une issue qui dépend d'un rapport de forces."
+      "grandeur": "Une toise graduée de zéro à vingt-quatre heures, contre le mur de l'atelier. L'index marque dix heures, et rien dans le contrat ne dit pourquoi pas douze ou dix-huit.",
+      "antinomie": "Deux traits se gravent&nbsp;: la limite morale plus bas, la limite physiologique tout en haut. Elles existent, et elles laissent à l'index une très grande latitude.",
+      "soif": "L'index monte, douze, quatorze, seize heures, et passe la limite morale sans rien rencontrer. Le capital n'a pas de borne interne.",
+      "loi": "Il approche la limite physiologique&nbsp;: le temps du sommeil, des repas, de l'air libre. Rien dans l'échange ne l'arrête.",
+      "apres": "Une barre de fer se fixe en travers, à dix heures, et l'index redescend contre elle. La loi vient après la lutte et en consigne le résultat.",
+      "lectures": "La barre tient et la toise reste. Les chiffres ont changé depuis Marx&nbsp;; la question de savoir qui fixe la longueur du jour demeure."
     },
     "fixe": {
       "g": 4.2,
-      "legende": "L'index a passé la limite morale sans rien rencontrer et approche la limite physiologique. Entre deux droits également fondés, rien dans l'échange ne tranche."
+      "legende": "L'index a passé la limite morale et approche la limite physiologique. Entre deux droits également fondés, rien dans l'échange ne l'arrête."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : la cloche et l'horloge. Ce que la notion donne à voir, c'est l'heure à laquelle le travail s'arrête, et le fait que cette heure se dispute. La page s'ouvre sur la sortie de fabrique de Winslow Homer (1868), au son de la cloche ; la planche est une bannière de charpentiers de Philadelphie (1835), où l'un d'eux montre l'horloge du clocher et où le coffre porte « 6 to 6 » : la journée réclamée par les vendeurs eux-mêmes. Le fond : les objets de la journée (l'horloge, la cloche, la lampe du travail de nuit, la gamelle, le lit, le soleil) ; en lumière chaude ce que dit le contrat (un jour, des heures) ; à l'aube, à la section de la lutte, ce que l'analyse fait voir (droit contre droit, le temps volé). La lumière repasse au chaud quand la journée bornée laisse place à l'intensification.",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 874,
+      "alt": "Gravure : une foule d'ouvrières, d'ouvriers et d'enfants, gamelles à la main, sort d'une grande fabrique surmontée d'un clocheton, sous la lumière basse du soir.",
+      "legende": "La cloche a sonné, et la foule sort de la fabrique, gamelles à la main, des enfants parmi les adultes. Le temps vendu s'arrête à l'heure de cette cloche&nbsp;: c'est cette heure qui se dispute.",
+      "credit": "Winslow Homer, « New England Factory Life&nbsp;: Bell-Time », gravure sur bois parue dans <i>Harper's Weekly</i>, 25 juillet 1868. Cleveland Museum of Art, CC0.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Winslow_Homer_-_New_England_Factory_Life_-_%22Bell-Time%22_-_1942.1287_-_Cleveland_Museum_of_Art.jpg"
+    },
+    "planches": {
+      "horloge": {
+        "img": "planche-horloge.webp",
+        "w": 1221,
+        "h": 1000,
+        "couleur": true,
+        "alt": "Bannière peinte de 1835 : dans un atelier de menuiserie, un charpentier montre du doigt l'horloge d'un clocher à un camarade qui scie une planche ; sur un coffre vert au premier plan, on lit « 6 to 6 ».",
+        "legende": "Un charpentier montre l'horloge du clocher à son camarade&nbsp;: la journée finit à l'heure qu'elle marque. Sur le coffre, la journée réclamée, « 6 to 6 », de six heures à six heures.",
+        "credit": "Bannière de la Journeymen House Carpenters' Association de Philadelphie, par J. A. Van Schoick, 1835. Bibliothèques de l'université du Maryland, domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Journeyman_House_Carpenters%27_Association_of_Philadelphia_Promoting_ten-hour_day_1835.jpg"
+      }
+    },
+    "lumieres": {
+      "loi": "aube",
+      "apres": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les objets de la journée de travail, dessinés en points. En lumière chaude monte ce que dit le contrat (un jour, des heures) ; à l'aube, à la section de la lutte, ce que l'analyse fait voir. Les chiffres viennent du chapitre X (journées de dix à dix-huit heures, la vie de travail de trente ans).",
+      "dessins": {
+        "horloge": [
+          "..11111..",
+          ".1.....1.",
+          "1...1...1",
+          "1...1...1",
+          "1...111.1",
+          "1.......1",
+          "1.......1",
+          ".1.....1.",
+          "..11111.."
+        ],
+        "cloche": [
+          ".....1.....",
+          "....111....",
+          "...11111...",
+          "..1111111..",
+          "..1111111..",
+          "..1111111..",
+          ".111111111.",
+          "11111111111",
+          ".....1....."
+        ],
+        "lampe": [
+          "...111...",
+          "..1...1..",
+          ".1111111.",
+          ".1.111.1.",
+          ".1.111.1.",
+          ".1..1..1.",
+          ".1111111.",
+          "...111..."
+        ],
+        "gamelle": [
+          "...111...",
+          "..1...1..",
+          ".1111111.",
+          ".1.....1.",
+          ".1111111.",
+          ".1.....1.",
+          ".1.....1.",
+          ".1111111."
+        ],
+        "lit": [
+          "1..........",
+          "1..........",
+          "1.111......",
+          "1.111111111",
+          "11111111111",
+          "1.........1",
+          "1.........1"
+        ],
+        "soleil": [
+          "....1....",
+          ".1.....1.",
+          "...111...",
+          "..11111..",
+          "1.11111.1",
+          "..11111..",
+          "...111...",
+          ".1.....1.",
+          "....1...."
+        ]
+      },
+      "motifs": [
+        {
+          "m": "horloge",
+          "chaude": [
+            "un jour",
+            "six à six"
+          ],
+          "aube": [
+            "combien d'heures ?",
+            "rien ne fixe"
+          ]
+        },
+        {
+          "m": "cloche",
+          "chaude": [
+            "la cloche",
+            "on reprend"
+          ],
+          "aube": [
+            "droit contre droit",
+            "la force décide"
+          ]
+        },
+        {
+          "m": "lampe",
+          "chaude": [
+            "travail de nuit",
+            "les relais"
+          ],
+          "aube": [
+            "le sommeil pris",
+            "la vie abrégée"
+          ]
+        },
+        {
+          "m": "soleil",
+          "chaude": [
+            "dix-huit heures",
+            "jusqu'au soir"
+          ],
+          "aube": [
+            "l'air libre",
+            "le soleil volé"
+          ]
+        },
+        {
+          "m": "gamelle",
+          "chaude": [
+            "le repas",
+            "à la machine"
+          ],
+          "aube": [
+            "le corps nourri",
+            "comme une chaudière"
+          ]
+        },
+        {
+          "m": "lit",
+          "chaude": [
+            "six heures",
+            "de torpeur"
+          ],
+          "aube": [
+            "limite physiologique",
+            "la force refaite"
+          ]
+        },
+        {
+          "m": "piece",
+          "chaude": [
+            "le prix du jour",
+            "payé comptant"
+          ],
+          "aube": [
+            "un jour payé",
+            "trois jours usés"
+          ]
+        }
+      ]
     }
   }
 }

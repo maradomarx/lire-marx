@@ -63,7 +63,15 @@ window.LM_MONDE = function (canvas) {
     /* LA PLANCHE VIT DANS LA MOITIÉ DROITE : la colonne de texte occupe les
        quarante-trois premiers pour cent de la largeur, et une figure dont la
        moitié passe sous le texte ne s'explique pas toute seule. */
-    var X0 = cw * 0.475, X1 = cw * 0.905, Y0 = ch * 0.285, Y1 = ch * 0.735;
+    /* Depuis octobre 2026, la planche est une FIGURE en bas de page que rien
+       ne recouvre : le décalage à droite ne joue plus que sur un canevas d'au
+       moins 1100 px hors de la figure. Ailleurs la planche est centrée, et ses
+       écritures grossissent d'un tiers (le canevas est plus petit), sans
+       descendre sous dix pixels sur téléphone. */
+    var large = cw >= 1100 && !(canvas.closest && canvas.closest('.nt-fig'));
+    var X0 = large ? cw * 0.475 : cw < 600 ? cw * 0.27 : cw * 0.2, X1 = large ? cw * 0.905 : cw * 0.84;
+    var Y0 = ch * 0.285, Y1 = ch * 0.735;
+    var FZ = large ? 1 : 1.3;
     var LW = X1 - X0, LH = Y1 - Y0;
     function px(t) { return X0 + t * LW; }
     function py(v) { return Y1 - (v / YMAX) * LH; }
@@ -92,7 +100,7 @@ window.LM_MONDE = function (canvas) {
     trait(X0, Y1, X1 + 18, Y1, axes, ENCRE, 1.6);
     trait(X0, Y1, X0, Y0 - 18, axes, ENCRE, 1.6);
     if (axes > 0.7) {
-      ctx.fillStyle = SOURD; ctx.font = 'italic ' + Math.round(ch * 0.021) + 'px Georgia, serif';
+      ctx.fillStyle = SOURD; ctx.font = 'italic ' + Math.max(Math.round(ch * 0.021 * FZ), 10) + 'px Georgia, serif';
       ctx.textAlign = 'right'; ctx.fillText('taux de profit', X0 - 12, Y0 + 6);
       ctx.textAlign = 'left'; ctx.fillText('le progrès de l’accumulation →', X0 + 6, Y1 + ch * 0.052);
     }
@@ -110,7 +118,7 @@ window.LM_MONDE = function (canvas) {
         ctx.fillRect(x, by + h * (1 - part), bw, h * part); ctx.globalAlpha = 1;
       }
       if (barres > 0.85) {
-        ctx.fillStyle = SOURD; ctx.font = 'italic ' + Math.round(ch * 0.019) + 'px Georgia, serif'; ctx.textAlign = 'left';
+        ctx.fillStyle = SOURD; ctx.font = 'italic ' + Math.max(Math.round(ch * 0.019 * FZ), 10) + 'px Georgia, serif'; ctx.textAlign = 'left';
         ctx.fillText('c', px(0) - bw / 2 - ch * 0.028, by + bh * 0.34);
         ctx.fillStyle = OR; ctx.fillText('v', px(0) - bw / 2 - ch * 0.028, by + bh * 0.92);
       }
@@ -120,7 +128,7 @@ window.LM_MONDE = function (canvas) {
        celui du taux de profit ENFLE à mesure que la composition s'élève */
     if (form > 0.01) {
       ctx.globalAlpha = form; ctx.textAlign = 'left';
-      var fx = X0 + LW * 0.04, fy = ch * 0.15, s0 = ch * 0.032;
+      var fx = X0 + LW * 0.04, fy = ch * 0.15, s0 = Math.max(ch * 0.032 * FZ, 14);
       ctx.fillStyle = SOURD; ctx.font = 'italic ' + Math.round(s0) + 'px Georgia, serif';
       ctx.fillText('pl', fx, fy - s0 * 0.55);
       ctx.strokeStyle = SOURD; ctx.lineWidth = 1.2;
@@ -157,7 +165,7 @@ window.LM_MONDE = function (canvas) {
     }
     courbe(pTend, tend, ENCRE, 2.4, final > 0.5);
     if (tend > 0.9) {
-      ctx.fillStyle = ENCRE; ctx.font = 'italic ' + Math.round(ch * 0.021) + 'px Georgia, serif'; ctx.textAlign = 'right';
+      ctx.fillStyle = ENCRE; ctx.font = 'italic ' + Math.max(Math.round(ch * 0.021 * FZ), 10) + 'px Georgia, serif'; ctx.textAlign = 'right';
       ctx.fillText('la tendance', px(1) - 6, py(pTend(1)) + ch * 0.045);
     }
 
@@ -173,7 +181,7 @@ window.LM_MONDE = function (canvas) {
         ctx.beginPath(); ctx.moveTo(X - 4, yy + 6); ctx.lineTo(X, yy); ctx.lineTo(X + 4, yy + 6); ctx.stroke();
       }
       if (forces > 0.8) {
-        ctx.fillStyle = OR; ctx.font = 'italic ' + Math.round(ch * 0.019) + 'px Georgia, serif'; ctx.textAlign = 'center';
+        ctx.fillStyle = OR; ctx.font = 'italic ' + Math.max(Math.round(ch * 0.019 * FZ), 10) + 'px Georgia, serif'; ctx.textAlign = 'center';
         ctx.fillText('les forces contraires', px(0.30), py(0.545));
       }
     }
@@ -181,7 +189,7 @@ window.LM_MONDE = function (canvas) {
     /* ce qu'on observe : presque plat, et pourtant la tendance est là */
     courbe(pObs, obs, ROUGE, 2.6, false);
     if (obs > 0.9) {
-      ctx.fillStyle = ROUGE; ctx.font = 'italic ' + Math.round(ch * 0.021) + 'px Georgia, serif'; ctx.textAlign = 'right';
+      ctx.fillStyle = ROUGE; ctx.font = 'italic ' + Math.max(Math.round(ch * 0.021 * FZ), 10) + 'px Georgia, serif'; ctx.textAlign = 'right';
       ctx.fillText('ce qu’on observe', px(1) - 6, py(pObs(1)) - ch * 0.028);
     }
   }

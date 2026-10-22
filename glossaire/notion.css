@@ -234,6 +234,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--f-ui);
   font-size:clamp(1.36rem,2.4vw,1.62rem);line-height:1.18;margin:0 0 18px;
   display:flex;gap:14px;align-items:baseline;}
 .nt-sec-n{font-style:italic;font-weight:500;color:var(--gold);font-size:.92em;flex:none;}
+.nt-sec-t{min-width:0;}
 .nt-sec h2+p{margin-top:0;}
 .nt-corps .nt-sec p a{color:var(--gold);text-decoration:none;
   border-bottom:1px solid rgba(216,173,76,.45);}
