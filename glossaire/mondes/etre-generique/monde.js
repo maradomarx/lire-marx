@@ -48,6 +48,43 @@ window.LM_MONDE = function (canvas) {
   });
   var etabli = new THREE.Mesh(new THREE.BoxGeometry(2.9, 0.13, 1.15), std({ map: boisTex, roughness: 0.66, color: 0xb59a78 }));
   etabli.position.set(0, -0.065, 0); etabli.castShadow = etabli.receiveShadow = true; scene.add(etabli);
+  /* LE BAS DU CADRE (oct. 2026) : sous le plateau, l'image tombait au noir
+     pur (cinquième bas mesuré à 5/255). L'établi a désormais un corps — un
+     tablier de bois à deux tiroirs qui descend jusqu'au plancher —, et le
+     plancher existe. Une lueur basse venue du devant les éclaire : la lampe,
+     au-dessus du plateau, ne prenait le tablier que de biais. */
+  var tablierTex = tex(1024, 256, function (g, w, h) {
+    g.fillStyle = '#4a321c'; g.fillRect(0, 0, w, h);
+    for (var i = 0; i < 120; i++) {
+      g.strokeStyle = 'rgba(16,9,3,' + (0.05 + rnd() * 0.12) + ')'; g.lineWidth = 0.6 + rnd() * 1.6;
+      g.beginPath(); var y = rnd() * h; g.moveTo(0, y);
+      for (var x = 0; x <= w; x += 60) g.lineTo(x, y + (rnd() - 0.5) * 4); g.stroke();
+    }
+    /* deux façades de tiroir, leur joint creusé, leur filet clair */
+    [[0.06, 0.47], [0.53, 0.94]].forEach(function (d) {
+      var x0 = d[0] * w, x1 = d[1] * w, y0 = 0.16 * h, y1 = 0.62 * h;
+      g.strokeStyle = 'rgba(10,6,2,0.85)'; g.lineWidth = 5; g.strokeRect(x0, y0, x1 - x0, y1 - y0);
+      g.strokeStyle = 'rgba(214,170,110,0.22)'; g.lineWidth = 2; g.strokeRect(x0 + 5, y0 + 5, x1 - x0 - 10, y1 - y0 - 10);
+    });
+  });
+  var tablier = new THREE.Mesh(new THREE.BoxGeometry(2.82, 0.62, 0.05), std({ map: tablierTex, roughness: 0.7, color: 0xc4ac88 }));
+  tablier.position.set(0, -0.44, 0.52); tablier.receiveShadow = true; scene.add(tablier);
+  var laiton = std({ color: 0xc89a4a, roughness: 0.35, metalness: 0.55 });
+  [-0.66, 0.66].forEach(function (x) {
+    var b = new THREE.Mesh(new THREE.SphereGeometry(0.026, 14, 10), laiton);
+    b.position.set(x, -0.40, 0.555); scene.add(b);
+  });
+  var plancherTex = tex(512, 512, function (g, w, h) {
+    g.fillStyle = '#3a2816'; g.fillRect(0, 0, w, h);
+    for (var k = 0; k < 8; k++) {
+      g.fillStyle = 'rgba(' + (60 + Math.floor(rnd() * 20)) + ',' + (40 + Math.floor(rnd() * 14)) + ',22,0.35)';
+      g.fillRect(0, k * h / 8, w, h / 8 - 3);
+      g.fillStyle = 'rgba(8,5,2,0.8)'; g.fillRect(0, (k + 1) * h / 8 - 3, w, 3);
+    }
+  });
+  plancherTex.wrapS = plancherTex.wrapT = THREE.RepeatWrapping; plancherTex.repeat.set(3, 3);
+  var plancher = new THREE.Mesh(new THREE.PlaneGeometry(10, 8), std({ map: plancherTex, roughness: 0.85, color: 0xb8a080 }));
+  plancher.rotation.x = -Math.PI / 2; plancher.position.set(0, -0.76, 1.6); plancher.receiveShadow = true; scene.add(plancher);
   var fond = new THREE.Mesh(new THREE.PlaneGeometry(10, 6), std({ color: 0x1a1209, roughness: 0.98 }));
   fond.position.set(0, 1.3, -1.75); fond.receiveShadow = true; scene.add(fond);
   /* un filet gravé sépare les deux moitiés de l'établi */
@@ -85,6 +122,9 @@ window.LM_MONDE = function (canvas) {
 
   /* ── la lumière ── */
   scene.add(new THREE.AmbientLight(0x3a2e22, 0.4));
+  /* la lueur basse, devant l'établi, sans ombre : elle prend le tablier et
+     le plancher, à peine le plateau */
+  var bas = new THREE.PointLight(0xffb070, 1.4, 4.2, 1.6); bas.position.set(0.1, -0.35, 1.9); scene.add(bas);
   var lampe = new THREE.PointLight(0xffc286, 3.0, 5.6, 1.8); lampe.position.set(-0.10, 1.16, 0.66);
   lampe.castShadow = true; lampe.shadow.bias = -0.0013; lampe.shadow.mapSize.set(1024, 1024); scene.add(lampe);
   var abat = new THREE.Mesh(new THREE.ConeGeometry(0.19, 0.15, 20, 1, true), std({ color: 0x2b1d13, roughness: 0.82, side: THREE.DoubleSide }));
