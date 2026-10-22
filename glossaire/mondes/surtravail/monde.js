@@ -49,9 +49,11 @@ window.LM_MONDE = function (canvas) {
       g.stroke();
     }
   });
-  var sol = new THREE.Mesh(new THREE.BoxGeometry(1.9, 0.10, 0.60),
+  /* le plateau descend jusque sous l'objectif : arrêté à 0,28, il laissait
+     voir sa face avant dans l'ombre, une bande noire au bas du cadre. */
+  var sol = new THREE.Mesh(new THREE.BoxGeometry(1.9, 0.10, 1.70),
     std({ map: boisTex, color: 0x9c8768, roughness: 0.88 }));
-  sol.position.set(0, -0.05, -0.02); sol.receiveShadow = true; scene.add(sol);
+  sol.position.set(0, -0.05, 0.53); sol.receiveShadow = true; scene.add(sol);
   var mur = new THREE.Mesh(new THREE.PlaneGeometry(4.6, 2.2), std({ color: 0x171009, roughness: 1 }));
   mur.position.set(0, 0.6, -0.42); scene.add(mur);
 
