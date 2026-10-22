@@ -1,18 +1,39 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/taux-de-plus-value.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/taux-de-plus-value. L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrit en octobre 2026 selon glossaire/mondes/CHARTE.md (enbref, retenir, questions).",
   "titre": "Taux de la plus-value",
   "de": "Rate des Mehrwerts",
-  "chapo": "Un excédent seul ne dit rien : tout est dans ce à quoi on le rapporte. Marx le rapporte au seul capital variable, et non à l'avance totale — parce que le capital constant n'a rien engendré, il a traversé. Le nombre qui en sort mesure un partage, non un rendement : c'est, dit-il, l'expression exacte du degré d'exploitation.",
-  "description": "Le taux de la plus-value chez Marx : pourquoi le dénominateur est le capital variable et non l'avance totale, en quoi il diffère du taux de profit, comment il se traduit en heures, et comment il démolit la « dernière heure » de Nassau Senior.",
+  "enbref": "Le taux de la plus-value est le rapport entre la plus-value et le capital variable, c'est-à-dire la part du capital qui paie les salaires (p/v). Marx l'établit au chapitre IX du Livre I du <i>Capital</i> (1867). Il équivaut au rapport du surtravail au travail nécessaire&nbsp;: un taux de cent pour cent veut dire que l'ouvrier travaille la moitié de sa journée sans être payé. Toute la difficulté tient au choix du dénominateur, car rapporté à tout le capital avancé, le même excédent donne un chiffre bien plus faible.",
+  "retenir": [
+    "Le taux de la plus-value rapporte la plus-value au seul capital variable, la part du capital qui achète la force de travail. Dans l'exemple de Marx, 90 livres sur 90 font cent pour cent.",
+    "Machines, bâtiments et matières premières sont laissés de côté parce que leur valeur ne fait que reparaître dans le produit. Seuls le salaire et la plus-value forment la valeur nouvelle.",
+    "Le même rapport se lit en temps&nbsp;: la plus-value est au salaire ce que le surtravail est au travail nécessaire. Marx y voit l'expression exacte du degré d'exploitation.",
+    "Rapporté à tout le capital avancé, le même excédent donne le taux de profit, beaucoup plus bas (dix-huit pour cent dans l'exemple). Marx renvoie l'étude de ce second rapport au Livre III.",
+    "Nassau Senior, en mêlant capital constant et salaires, croyait prouver que tout le profit naît de la dernière heure de la journée. Le taux de la plus-value montre qu'il se forme sur toutes les heures."
+  ],
+  "questions": [
+    {
+      "q": "Dans l'exemple de Marx, un capital de 500 livres rapporte 90 livres de plus. Pourquoi le taux de la plus-value est-il de cent pour cent et non de dix-huit&nbsp;?",
+      "r": "Parce que Marx rapporte les 90 livres de plus-value aux 90 livres de salaires, et non aux 500 livres avancées. Les 410 livres de capital constant ne font que reparaître dans le produit&nbsp;: elles n'ont rien créé. Dix-huit pour cent est le taux de profit, qui répond à une autre question."
+    },
+    {
+      "q": "Pourquoi peut-on traduire le taux de la plus-value en heures de travail&nbsp;?",
+      "r": "Parce que le salaire vaut ce que vaut la force de travail, et que cette valeur fixe la partie de la journée pendant laquelle l'ouvrier reproduit son salaire. La plus-value correspond au reste de la journée. Le rapport entre les sommes d'argent est donc le même que le rapport entre les durées."
+    },
+    {
+      "q": "Si l'on réduit la journée d'une heure, le profit disparaît-il, comme le soutenait Senior&nbsp;?",
+      "r": "Non. La consommation de coton et l'usure des machines diminuent dans la même proportion, et la plus-value se forme sur toutes les heures, pas sur la dernière. D'après le calcul de Marx, le surtravail passe de cinq heures trois quarts à quatre heures trois quarts, et le taux reste au-dessus de quatre-vingts pour cent."
+    }
+  ],
+  "description": "Le taux de la plus-value chez Marx expliqué : pourquoi il rapporte la plus-value aux seuls salaires, ce qu'il dit en heures, et l'erreur de Senior.",
   "source": {
     "work": "capital-1",
     "s": 3,
-    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre IX — traduction Joseph Roy (1872)"
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitres IX et X, traduction Joseph Roy (1872)"
   },
-  "ou": "Livre&nbsp;I, troisième section, chapitre IX, « Le taux de la plus-value » — immédiatement après le chapitre VIII, qui partage le capital en constant et variable : il fallait ce partage pour qu'un rapport entre les deux ait un sens.",
+  "ou": "Livre&nbsp;I, troisième section, chapitre IX, «&nbsp;Le taux de la plus-value&nbsp;». Il suit immédiatement le chapitre VIII, qui partage le capital en constant et variable&nbsp;: il fallait ce partage pour qu'un rapport entre les deux parts ait un sens.",
   "outils": [
     {
-      "label": "Le circuit du capital — le jeu",
+      "label": "Le circuit du capital, le jeu",
       "url": "/jeu/"
     }
   ],
@@ -25,23 +46,132 @@
     "Composition organique"
   ],
   "monde": {
-    "_": "LA SCÈNE : LA MÊME MASSE, DEUX PESÉES. L'excédent pesé est le même des deux côtés ; seul le contrepoids change. À gauche le capital variable seul, et le fléau s'équilibre — cent pour cent. À droite l'avance entière, et il bouge à peine — dix-huit. Le même fait, deux nombres, deux questions. Au dernier temps un poids étranger, le capital constant, est glissé du côté du contrepoids de gauche : c'est l'erreur de Senior, et elle a servi des années contre la limitation de la journée.",
+    "_": "LA SCÈNE : LA MÊME MASSE, DEUX PESÉES. L'excédent pesé est le même des deux côtés ; seul le contrepoids change. À gauche le capital variable seul, et le fléau s'équilibre : cent pour cent. À droite l'avance entière, et il bouge à peine : dix-huit. Au dernier temps un poids étranger, le capital constant, est glissé du côté du contrepoids de gauche : c'est l'erreur de Senior.",
+    "titre": "Une même masse, deux pesées, en six temps",
     "alt": "Deux balances de laiton côte à côte, portant chacune la même masse dorée sur son plateau gauche ; à droite les contrepoids diffèrent, et l'un des fléaux est presque horizontal quand l'autre penche fortement.",
     "source": {
-      "texte": "D'après le texte — Livre I, chapitre IX",
+      "texte": "D'après le texte : Livre I, chapitre IX",
       "q": "Le taux de la plus-value est donc l’expression exacte du degré d’exploitation de la force de travail par le capital"
     },
     "etapes": {
-      "fait": "Deux balances, et rien encore dessus. Un excédent seul ne dit rien : ce qui décide de ce qu'il signifie, c'est ce contre quoi on le pèse.",
-      "ou": "La même masse est posée sur les deux plateaux de gauche. C'est le même fait, le même excédent, et il ne sera pas question d'autre chose.",
-      "distinction": "À gauche, le contrepoids est le seul capital variable, et le fléau s'équilibre. Le nombre qui en sort dit quelle part du travail vivant n'a pas été payée.",
-      "mecanisme": "À droite, le contrepoids est l'avance entière, constant compris, et le fléau bouge à peine. Le nombre qui en sort dit tout autre chose : le rendement de ce qui a été engagé.",
-      "ouvre": "Les deux balances sont justes. Elles ne répondent pas à la même question, et c'est de les confondre que viennent presque tous les malentendus sur les chiffres de Marx.",
-      "lectures": "Un poids étranger paraît à gauche : le capital constant, glissé du côté du contrepoids. La balance ment aussitôt — et c'est très exactement le calcul par lequel Nassau Senior démontrait que tout le profit vient de la dernière heure."
+      "fait": "Deux balances, et rien encore dessus. Un excédent seul ne dit rien : son sens dépend de ce contre quoi on le pèse.",
+      "ou": "La même masse est posée sur les deux plateaux de gauche. C'est le même excédent, les 90 livres de plus-value de l'exemple de Marx.",
+      "distinction": "À gauche, le contrepoids est le seul capital variable, et le fléau s'équilibre. Le nombre qui en sort dit quelle part du travail n'a pas été payée.",
+      "mecanisme": "À droite, le contrepoids est toute l'avance, capital constant compris, et le fléau bouge à peine. Le nombre qui en sort dit le rendement de ce qui a été engagé.",
+      "ouvre": "Les deux balances sont justes. Elles ne répondent pas à la même question, et c'est en les confondant qu'on se trompe sur les chiffres de Marx.",
+      "lectures": "Un poids étranger paraît à gauche : le capital constant, glissé du côté du contrepoids. La balance ment aussitôt. C'est le calcul par lequel Senior faisait naître tout le profit de la dernière heure."
     },
     "fixe": {
       "g": 4.4,
-      "legende": "La même masse, deux contrepoids. À gauche le capital variable seul : cent pour cent, et le fléau s'équilibre. À droite l'avance entière : dix-huit pour cent, et il bouge à peine. Aucun des deux nombres n'est faux, et ils ne mesurent pas la même chose."
+      "legende": "La même masse, deux contrepoids. À gauche le capital variable seul : cent pour cent, et le fléau s'équilibre. À droite toute l'avance : dix-huit pour cent, et il bouge à peine. Les deux nombres sont exacts et ne mesurent pas la même chose."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : le livre de comptes. La notion est une affaire de dénominateur : le même excédent change de sens selon ce à quoi on le rapporte. La page s'ouvre sur la page même où Nassau Senior, en 1837, additionne machines, coton et salaires et conclut que tout le profit vient de la dernière heure ; la planche montre un jour de terme, où la plus-value se partage sous l'un de ses noms, la rente. Le fond : les objets du calcul (la balance, le registre, la bobine, la pièce, le sac de coton, l'horloge) ; en lumière chaude ce que dit la comptabilité du capitaliste (500 livres avancées, dix-huit pour cent, la dernière heure) ; à l'aube, à partir de la section de ce que mesure le taux, ce que l'analyse fait voir (90 sur 90, la moitié du jour non payée).",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 1101,
+      "alt": "Une page imprimée de 1837, en anglais : l'auteur annonce que dans une filature tout le profit net provient de la dernière heure, en supposant 100 000 livres placées, 80 000 dans les bâtiments et les machines, 20 000 dans la matière première et les salaires, avec un profit brut de quinze pour cent. Un lecteur a marqué le passage au crayon.",
+      "legende": "Senior additionne machines, coton et salaires, rapporte le profit à cette somme et conclut que tout le profit vient de la dernière heure. Le taux de la plus-value sépare ce qu'il confond.",
+      "credit": "Nassau W. Senior, <i>Letters on the Factory Act, as it affects the cotton manufacture</i>, Londres, B. Fellowes, 1837, page 4. Exemplaire des bibliothèques de l'université de Californie, numérisé par l'Internet Archive, domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Letters_on_the_Factory_act,_as_it_affects_the_cotton_manufacture,_addressed_to_the_right_honourable_the_president_of_the_Board_of_trade_(IA_lettersonfactory00senirich).pdf"
+    },
+    "planches": {
+      "terme": {
+        "img": "planche-terme.webp",
+        "w": 1300,
+        "h": 731,
+        "alt": "Gravure : dans une grande salle, l'intendant d'un domaine, assis à une table couverte de pièces, reçoit des fermiers ; d'autres attendent leur tour sur des chaises, une famille avec deux enfants au milieu, et à droite on mange à une table dressée.",
+        "legende": "Jour de terme : les fermiers apportent la rente à l'intendant du domaine. Dans les comptes que Marx reprend de Jacob, la rente est l'une des rubriques entre lesquelles se partage la plus-value tirée du travail des laboureurs.",
+        "credit": "Abraham Raimbach d'après David Wilkie, <i>The Rent Day</i>, gravure publiée à Londres le 10 mars 1817. Rijksmuseum, Amsterdam, CC0.",
+        "lien": "https://commons.wikimedia.org/wiki/File:The_Rent_Day._RP-P-OB-70.963.jpg"
+      }
+    },
+    "lumieres": {
+      "distinction": "aube",
+      "mecanisme": "aube",
+      "ouvre": "aube",
+      "lectures": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les objets du calcul, dessinés en points. En lumière chaude monte ce que dit la comptabilité du capitaliste ; à l'aube, ce que l'analyse fait voir. Les chiffres sont ceux de Marx au chapitre IX (l'exemple des 500 livres, la filature de 1871, la dernière heure de Senior).",
+      "dessins": {
+        "balance": [
+          ".....1.....",
+          "11111111111",
+          ".1...1...1.",
+          ".1...1...1.",
+          "111..1..111",
+          ".....1.....",
+          ".....1.....",
+          "....111....",
+          "..1111111.."
+        ],
+        "registre": [
+          "11111.11111",
+          "1...1.1...1",
+          "1.111.111.1",
+          "1...1.1...1",
+          "1.111.111.1",
+          "1...1.1...1",
+          "1.111.111.1",
+          "11111111111"
+        ],
+        "horloge": [
+          "..11111..",
+          ".1.....1.",
+          "1...1...1",
+          "1...1...1",
+          "1...111.1",
+          "1.......1",
+          "1.......1",
+          ".1.....1.",
+          "..11111.."
+        ],
+        "bobine": [
+          "1111111",
+          ".1...1.",
+          ".11111.",
+          ".11111.",
+          ".11111.",
+          ".11111.",
+          ".1...1.",
+          "1111111"
+        ]
+      },
+      "motifs": [
+        {
+          "m": "balance",
+          "chaude": ["90 sur 500", "18 %"],
+          "aube": ["90 sur 90", "100 %"]
+        },
+        {
+          "m": "registre",
+          "chaude": ["500 l. avancées", "profit : 10 %"],
+          "aube": ["410 reparaissent", "180 de neuf"]
+        },
+        {
+          "m": "horloge",
+          "chaude": ["11 heures ½", "la dernière heure"],
+          "aube": ["six pour lui", "six non payées"]
+        },
+        {
+          "m": "bobine",
+          "chaude": ["filés : 510 l.", "10 000 broches"],
+          "aube": ["80 sur 52", "153 %"]
+        },
+        {
+          "m": "piece",
+          "chaude": ["salaires : 90 l.", "le salaire"],
+          "aube": ["capital variable", "valeur qui grandit"]
+        },
+        {
+          "m": "sac",
+          "chaude": ["coton, 342 l.", "les frais"],
+          "aube": ["valeur qui reparaît", "posée à zéro"]
+        }
+      ]
     }
   }
 }

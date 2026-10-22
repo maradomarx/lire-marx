@@ -56,10 +56,12 @@ window.LM_MONDE = function (canvas) {
     for (var gx = 0; gx < cw; gx += 200) for (var gy = 0; gy < ch; gy += 200) ctx.drawImage(grain, gx, gy);
     ctx.restore();
 
-    /* LA FEUILLE VIT DANS LA MOITIÉ DROITE au large (la colonne de texte
-       couvre les 43 premiers pour cent) ; en bande étroite, elle est centrée */
-    var large = cw >= 1100;
-    var X0 = large ? cw * 0.49 : cw * 0.08, X1 = large ? cw * 0.93 : cw * 0.92;
+    /* LA FEUILLE EST CENTRÉE. Elle vivait dans la moitié droite au large,
+       quand la planche était un fond plein écran sous la colonne de texte ;
+       depuis octobre 2026 elle est une figure en bas de page, sans rien à
+       sa gauche à dégager. Sa largeur suit la hauteur disponible. */
+    var LW = Math.min(cw * 0.86, Math.max(ch * 0.78, cw * 0.46));
+    var X0 = (cw - LW) / 2, X1 = X0 + LW;
     var H = Math.min(ch * 0.8, (X1 - X0) * 1.05), Y0 = (ch - H) / 2 + ch * 0.01;
     /* la taille se règle sur la HAUTEUR disponible : la feuille compte vingt-deux
        lignes de texte en tout, et dans le bandeau mobile (225 px) une taille

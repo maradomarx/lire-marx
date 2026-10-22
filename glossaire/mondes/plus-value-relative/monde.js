@@ -161,9 +161,14 @@ window.LM_MONDE = function (canvas) {
     /* UNE SCÈNE VUE À HAUTEUR D'ŒIL EST PLATE : les socles se perdaient
        dans l'ombre et rien ne disait la profondeur. La caméra domine
        légèrement. */
-    var dz = lerp(1.16, 1.08, ss(0, 1, Math.min(1, G / 2.5)));
+    /* DANS LA FIGURE 16/10 (octobre 2026), la scène est vue en paysage :
+       à la distance calée pour la colonne portrait, les jauges n'occupaient
+       que le tiers du cadre. On se rapproche d'un cinquième, visée
+       inchangée (centrée : la figure n'a pas de texte à côté). */
+    var zoom = camera.aspect > 1.2 ? 0.8 : 1;
+    var dz = zoom * lerp(1.16, 1.08, ss(0, 1, Math.min(1, G / 2.5)));
     var camA = V3(0, lerp(0.15, 0.18, ss(1.5, 4.5, G)), 0.02);
-    camera.position.set(camA.x + 0.008 * Math.sin(T * 0.21), camA.y + 0.235 + 0.006 * Math.sin(T * 0.27), camA.z + dz);
+    camera.position.set(camA.x + 0.008 * Math.sin(T * 0.21), camA.y + zoom * 0.235 + 0.006 * Math.sin(T * 0.27), camA.z + dz);
     camera.lookAt(camA);
     render();
   }

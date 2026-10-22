@@ -2,18 +2,39 @@
   "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/reproduction-simple.",
   "titre": "Reproduction simple",
   "de": "einfache Reproduktion",
-  "chapo": "On suppose que le capitaliste n'accumule rien et consomme chaque année toute sa plus-value : c'est l'hypothèse la plus favorable qu'on puisse lui faire. Elle suffit pourtant à établir qu'après un certain nombre de rotations il ne subsiste plus un atome de valeur de l'avance qu'il avait faite, et que ce qu'il détient est devenu du travail d'autrui non payé.",
+  "enbref": "La reproduction simple désigne, chez Marx, la production capitaliste répétée d'année en année sur la même échelle&nbsp;: le capitaliste dépense pour vivre toute la plus-value, c'est-à-dire tout le surplus que le travail de ses ouvriers lui rapporte sans qu'il le paie. Marx l'étudie au chapitre XXIII du Livre&nbsp;I du <i>Capital</i> (1867). Cette simple répétition suffit à deux résultats&nbsp;: au bout de quelques années, le capital avancé n'est plus que du travail non payé, et chaque tour oblige l'ouvrier à revenir vendre sa force de travail.",
+  "retenir": [
+    "Marx regarde le même procès de production recommencé sans fin. Il suppose que le capitaliste dépense toute sa plus-value et n'agrandit rien, pour isoler l'effet de la seule répétition.",
+    "Le salaire est payé après le travail, avec l'argent tiré de ce que l'ouvrier a produit auparavant. L'ouvrier produit donc d'avance la somme qui le paie.",
+    "Quand le capitaliste a consommé autant de plus-value qu'il avait avancé, il ne reste rien de son avance en valeur&nbsp;: tout son capital est du travail d'autrui non payé.",
+    "Le paysan corvéable voit son travail gratuit, qui occupe des jours séparés. Devenu salarié, il fait le même partage, mais ce qui le fait vivre prend l'aspect d'une avance du maître.",
+    "Chaque tour remet face à face un capital et un ouvrier qui n'a que sa force de travail. La production reproduit ainsi le rapport entre capitaliste et salarié."
+  ],
+  "questions": [
+    {
+      "q": "Un capitaliste avance 1&nbsp;000 livres et dépense chaque année les 200 livres de plus-value qu'il en tire. Que reste-t-il de son avance au bout de cinq ans&nbsp;?",
+      "r": "Rien, en valeur. Il a dépensé cinq fois 200 livres, soit exactement ce qu'il avait apporté. Son entreprise vaut toujours 1&nbsp;000 livres, mais cette valeur a été entièrement fournie par la plus-value des cinq années."
+    },
+    {
+      "q": "Pourquoi Marx dit-il que l'ouvrier produit le fonds de son propre paiement&nbsp;?",
+      "r": "Parce que le salaire est versé à la fin de la semaine ou du mois, quand le travail est fait. L'argent qui le paie vient de la vente de ce qu'il a produit la période précédente. Le capitaliste n'avance réellement qu'au premier tour."
+    },
+    {
+      "q": "Pourquoi le salarié n'a-t-il pas besoin d'être enchaîné pour revenir travailler&nbsp;?",
+      "r": "Parce qu'il sort du procès de production comme il y est entré, sans autre bien que sa force de travail. Son salaire passe en subsistances, et il doit revenir se vendre. Marx parle de fils invisibles, qui le lient à la classe capitaliste plutôt qu'à un patron."
+    }
+  ],
   "seo": "Reproduction simple : définition (Marx)",
-  "description": "Reproduction simple : toute la plus-value est consommée et la production se répète à la même échelle. Marx montre que cette seule répétition reproduit le rapport capitaliste.",
+  "description": "La reproduction simple chez Marx, expliquée simplement : comment la seule répétition de la production change le capital et reproduit le salariat.",
   "source": {
     "work": "capital-1",
     "s": 7,
-    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XXIII — traduction Joseph Roy (1872)"
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XXIII, traduction Joseph Roy (1872)"
   },
   "ou": "Livre&nbsp;I, septième section, chapitre XXIII, « Reproduction simple ». C'est le chapitre d'ouverture de la section sur l'accumulation, et son hypothèse restrictive est levée dès le chapitre XXIV.",
   "outils": [
     {
-      "label": "Le laboratoire des lois — les simulations",
+      "label": "Le laboratoire des lois, les simulations",
       "url": "/oeuvres/capital-1#labo"
     }
   ],
@@ -26,23 +47,169 @@
     "Capital variable"
   ],
   "monde": {
-    "_": "LA SCÈNE : L'AVANCE MANGÉE. Le chapitre ne dit pas qu'une fortune grossit, il dit qu'une somme CHANGE DE NATURE du seul fait qu'elle tourne. La figure devait donc montrer une masse qui ne varie pas d'un pouce et dont, à la fin, plus rien n'est ce qu'il était. Un comptoir vu de haut, un râtelier, cinq pièces sur chant : l'avance. Chaque année une pièce claire monte du fond de l'atelier, prend une place, et la pièce sombre qu'elle remplace s'en va se coucher dans le sébile, mangée ; une entaille de plus à la taille. Au bout de cinq tours le râtelier tient toujours cinq pièces, et il n'y reste pas un atome de l'ancien capital ; le sébile en contient cinq, sombres, et vient se ranger contre le râtelier pour que l'égalité se compte. Au dernier temps une sixième encoche s'ouvre et une pièce claire y reste au lieu de s'en aller.",
+    "_": "LA SCÈNE : L'AVANCE MANGÉE. Le chapitre dit qu'une somme CHANGE DE NATURE du seul fait qu'elle tourne. La figure montre une masse qui ne varie pas et dont, à la fin, plus rien n'est ce qu'il était. Un comptoir vu de haut, un râtelier, cinq pièces sur chant : l'avance. Chaque année une pièce claire monte du fond de l'atelier, prend une place, et la pièce sombre qu'elle remplace va se coucher dans le sébile, mangée ; une entaille de plus à la taille. Au dernier temps une sixième encoche s'ouvre et une pièce claire y reste.",
     "alt": "Un comptoir de bois vu de haut : un râtelier tenant cinq pièces sur chant, un sébile où d'autres pièces sont couchées, et une baguette de taille entaillée.",
     "source": {
-      "texte": "D'après le texte — Livre I, chapitre XXIII",
+      "texte": "D'après le texte : Livre I, chapitre XXIII",
       "q": "il n’existe donc plus un seul atome de valeur"
     },
     "etapes": {
       "fait": "Cinq pièces sur chant dans leur râtelier : l'avance, telle qu'elle est entrée dans l'affaire. La taille est vierge, rien n'a encore tourné.",
-      "distinction": "Une pièce claire monte du fond de l'atelier et prend une place. La pièce sombre qu'elle remplace s'en va se coucher dans le sébile : elle a été consommée. Une entaille.",
-      "mecanisme": "Le tour recommence, et la masse ne bouge pas d'un pouce. Ce qui change n'est pas la grandeur du capital mais la matière dont il est fait.",
-      "portee": "Cinquième entaille. Le râtelier tient toujours cinq pièces, et pas une n'est celle du début — il ne reste pas un atome de valeur de l'ancien capital.",
-      "ouvre": "Le sébile vient se ranger contre le râtelier : cinq pièces sombres consommées, cinq pièces claires en caisse. Ce qu'il a mangé égale ce qu'il avait avancé.",
-      "lectures": "Une sixième encoche s'ouvre, et une pièce claire y reste au lieu de s'en aller. Le cercle de la reproduction simple s'étend et se change en spirale."
+      "distinction": "Une pièce claire monte du fond de l'atelier et prend une place. La pièce sombre qu'elle remplace va se coucher dans le sébile : elle a été consommée. Une entaille.",
+      "mecanisme": "Le tour recommence, et la masse ne bouge pas. Ce qui change, c'est la matière dont le capital est fait.",
+      "portee": "Cinquième entaille. Le râtelier tient toujours cinq pièces, et aucune n'est celle du début : il ne reste rien de la valeur de l'ancien capital.",
+      "ouvre": "Le sébile vient se ranger contre le râtelier : cinq pièces sombres consommées, cinq pièces claires en caisse. Ce qui a été mangé égale ce qui avait été avancé.",
+      "lectures": "Une sixième encoche s'ouvre, et une pièce claire y reste au lieu de s'en aller. Le cercle de la reproduction simple s'élargit en spirale : c'est l'accumulation."
     },
     "fixe": {
       "g": 4.8,
-      "legende": "Cinq pièces sombres dans le sébile, cinq pièces claires au râtelier : la masse n'a pas varié d'un pouce, et il n'en reste pas un atome de l'avance. Ce qui a été consommé égale exactement ce qui avait été avancé."
+      "legende": "Cinq pièces sombres dans le sébile, cinq pièces claires au râtelier : la masse n'a pas varié, et il ne reste rien de l'avance. Ce qui a été consommé égale ce qui avait été avancé."
+    },
+    "titre": "L'avance mangée, en six temps"
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : la soupe et le samedi. La page montre les deux visages de la reproduction : ce qui fait revenir l'ouvrier (la soupe populaire de Manchester en 1862, pendant la crise du coton que Marx cite au chapitre XXIII, où l'on garde les ouvriers sur place pour la reprise) et le salaire versé après le travail (la paie du samedi au domaine, peinte par Chełmoński en 1869, dans la section du corvéable devenu salarié). La lumière passe à l'aube à la section du corvéable, où le travail gratuit se voit encore.",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 728,
+      "alt": "Gravure de 1862 : dans une salle de Manchester, un homme verse la soupe d'une marmite à des femmes et des enfants massés derrière une barrière, sous le regard de messieurs en haut-de-forme.",
+      "legende": "Manchester, 1862 : pendant la crise du coton, les ouvriers sans travail viennent chercher la soupe. Les fabricants veulent les garder sur place, prêts pour la reprise.",
+      "credit": "The Illustrated London News, 22 novembre 1862, soupe populaire de la Société des Amis, Manchester. Wellcome Collection, CC BY 4.0.",
+      "lien": "https://commons.wikimedia.org/wiki/File:The_Society_of_Friends%27_soup-kitchen,_Manchester,_1862_Wellcome_L0004800.jpg"
+    },
+    "planches": {
+      "samedi": {
+        "img": "planche-samedi.webp",
+        "w": 1300,
+        "h": 1044,
+        "couleur": true,
+        "alt": "Peinture : devant une maison de bois au toit délabré, des paysans tenant faux et faucilles attendent avec leurs enfants ; un homme en redingote se tient à la porte.",
+        "legende": "Le samedi, au domaine, on paie la semaine aux gens de la ferme, qui tiennent encore leurs faux et leurs faucilles. Le salaire arrive une fois le travail fait.",
+        "credit": "Józef Chełmoński, Le samedi au domaine (Sobota na folwarku), 1869. Musée national de Varsovie, domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:J%C3%B3zef_Che%C5%82mo%C5%84ski_-_Saturday_at_the_farm_-_MP_4130_MNW_-_National_Museum_in_Warsaw.jpg"
+      }
+    },
+    "lumieres": {
+      "portee": "aube",
+      "ouvre": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les objets du chapitre XXIII. En lumière chaude, ce que montre l'acte isolé (l'avance, la paie, le libre contrat) ; en lumière froide, ce que fait voir la répétition (le travail passé, la plus-value capitalisée, les fils invisibles). Les sommes sont celles de l'exemple de Marx.",
+      "motifs": [
+        {
+          "m": "piece",
+          "chaude": [
+            "1000 livres",
+            "l'avance"
+          ],
+          "aube": [
+            "pas un atome",
+            "travail non payé"
+          ]
+        },
+        {
+          "m": "sac",
+          "chaude": [
+            "la paie",
+            "du samedi"
+          ],
+          "aube": [
+            "la semaine passée",
+            "son propre produit"
+          ]
+        },
+        {
+          "m": "registre",
+          "chaude": [
+            "200 par an",
+            "cinq ans"
+          ],
+          "aube": [
+            "1000 consommées",
+            "plus-value capitalisée"
+          ]
+        },
+        {
+          "m": "pain",
+          "chaude": [
+            "les subsistances",
+            "son salaire"
+          ],
+          "aube": [
+            "force refaite",
+            "pour le capital"
+          ]
+        },
+        {
+          "m": "faux",
+          "chaude": [
+            "six jours",
+            "une avance"
+          ],
+          "aube": [
+            "trois pour lui",
+            "trois au maître"
+          ]
+        },
+        {
+          "m": "chaine",
+          "chaude": [
+            "libre contrat",
+            "libre de partir"
+          ],
+          "aube": [
+            "fils invisibles",
+            "la classe capitaliste"
+          ]
+        }
+      ],
+      "dessins": {
+        "registre": [
+          "111111.111111",
+          "1.....1.....1",
+          "1.111.1.111.1",
+          "1.....1.....1",
+          "1.111.1.111.1",
+          "1.....1.....1",
+          "1.111.1.111.1",
+          "1.....1.....1",
+          "111111.111111"
+        ],
+        "pain": [
+          "...11111...",
+          ".111111111.",
+          "11111111111",
+          "11.11.11.11",
+          "11111111111",
+          "11111111111",
+          ".111111111."
+        ],
+        "faux": [
+          "11111111...",
+          "........11.",
+          ".........11",
+          "........1..",
+          ".......1...",
+          "......1....",
+          ".....1.....",
+          "....1......",
+          "...1.......",
+          "..1........"
+        ],
+        "chaine": [
+          "..111..",
+          ".1...1.",
+          ".1...1.",
+          "..111..",
+          "...1...",
+          "..111..",
+          ".1...1.",
+          ".1...1.",
+          "..111..",
+          "...1..."
+        ]
+      }
     }
   }
 }

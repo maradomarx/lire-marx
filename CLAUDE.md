@@ -7302,14 +7302,17 @@ subsomption réelle d'un simple commandement — elle s'est inscrite dans la
 chose. Chaque branche existe en deux états, libre et palissée, et ses nœuds
 sont interpolés&nbsp;: réversible par construction.
 
-**La page dit ce que le vocabulaire cache.** «&nbsp;Subsomption formelle&nbsp;» et
-«&nbsp;subsomption réelle&nbsp;» ne figurent pas dans le Livre&nbsp;I publié&nbsp;: elles
-viennent d'un manuscrit que Marx n'a pas fait paraître. Ce que le chapitre
-XVI dit à leur place est que la plus-value relative se développe «&nbsp;avec le
-mode de production capitaliste proprement dit&nbsp;» — plus lourd, et plus exact,
-parce qu'il fait entendre qu'il existe une production capitaliste qui n'est
-pas encore la sienne en propre. **Quand une page porte un terme que le texte
-servi n'emploie pas, elle le dit.**
+**La page dit ce que le vocabulaire cache.** ⚠️ Corrigé en oct. 2026 (vague 5
+de la réécriture) : la première version affirmait que « subsomption
+formelle » et « subsomption réelle » ne figurent pas dans le Livre I publié.
+C'était FAUX : le texte allemand les emploie au chapitre sur la plus-value
+absolue et relative (la traduction anglaise de 1887 a « formal / real
+subjection », ch. XVI) ; c'est la traduction de Roy, celle que le site sert,
+qui ABRÈGE le passage et laisse tomber les deux termes (ainsi que le
+paragraphe sur les formes intermédiaires). Ils sont développés dans le
+manuscrit inédit de 1863-1866. **Quand une page porte un terme que le texte
+servi n'emploie pas, elle le dit — et elle dit pourquoi : ici, une coupe du
+traducteur, non un silence de Marx.**
 
 #### ⚠️ LA COLONNE COLLANTE EST PLUS ÉTROITE QUE L'IMAGE FIXE — troisième fois
 

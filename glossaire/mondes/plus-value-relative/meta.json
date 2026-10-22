@@ -1,19 +1,40 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/plus-value-relative.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/plus-value-relative. L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrite en octobre 2026 selon glossaire/mondes/CHARTE.md (enbref, retenir, questions).",
   "titre": "Plus-value relative",
   "de": "relativer Mehrwert",
-  "chapo": "La journée étant fixée, il reste une voie : contracter la part où l'ouvrier reproduit la valeur de sa force. Mais personne ne vise cela. Ce que chaque fabricant cherche, c'est un avantage sur ses concurrents — un survalu extra qui disparaît dès que la méthode se répand. Ce qui reste alors n'est à personne : le prix a baissé pour tous, et avec lui celui de l'entretien de l'ouvrier.",
+  "enbref": "La plus-value relative est, chez Marx, la plus-value que le capital obtient sans allonger la journée de travail, en réduisant le temps dont l'ouvrier a besoin pour reproduire la valeur de sa force de travail, c'est-à-dire de son salaire. Elle suppose que les gains de productivité rendent ses subsistances moins chères. Marx l'expose au chapitre XII du Livre&nbsp;I du <i>Capital</i> (1867). Sa difficulté tient à ceci&nbsp;: personne ne la vise, elle naît de la concurrence.",
+  "retenir": [
+    "Sans allonger la journée, le capital peut accroître le surtravail en raccourcissant la part de la journée où l'ouvrier reproduit l'équivalent de son salaire.",
+    "Cette part ne diminue que si la valeur de la force de travail baisse, donc si les subsistances de l'ouvrier coûtent moins de travail à produire.",
+    "Le capitaliste qui innove le premier vend au prix commun une marchandise qui lui coûte moins. Il empoche une plus-value extra, qui disparaît quand sa méthode se répand.",
+    "La concurrence force les autres à suivre et le prix baisse pour tous. La plus-value relative apparaît quand cette baisse atteint les biens que l'ouvrier consomme.",
+    "Le gain de productivité ne sert pas à raccourcir la journée. Il augmente la part de la journée que l'ouvrier passe à travailler pour le capital."
+  ],
+  "questions": [
+    {
+      "q": "Dans l'exemple de Marx, pourquoi le capitaliste qui fait vingt-quatre pièces au lieu de douze les vend-il dix pence&nbsp;?",
+      "r": "Parce qu'il doit écouler deux fois plus de pièces et qu'il ne gagne de nouveaux acheteurs qu'en baissant son prix. À dix pence, il vend au-dessous de la valeur sociale de la pièce, un shilling, et au-dessus de ce qu'elle lui coûte, neuf pence. Il garde un penny de plus-value extra par pièce."
+    },
+    {
+      "q": "Pourquoi une invention qui rend les dentelles moins chères ne produit-elle pas de plus-value relative&nbsp;?",
+      "r": "Parce que les dentelles n'entrent pas dans l'entretien de l'ouvrier. La valeur de sa force de travail ne change pas, ni le temps nécessaire à la reproduire. L'inventeur peut en tirer une plus-value extra, mais le taux général de la plus-value ne bouge pas."
+    },
+    {
+      "q": "Pourquoi les capitalistes ne cessent-ils jamais d'innover&nbsp;?",
+      "r": "Parce que l'avantage de l'innovateur disparaît dès que sa méthode se généralise. Les autres l'adoptent pour ne pas perdre leurs clients, et chacun doit alors chercher un nouvel avantage. Marx appelle cette contrainte la loi coercitive de la concurrence."
+    }
+  ],
   "seo": "Plus-value relative : définition et exemple (Marx)",
-  "description": "Plus-value relative : la plus-value obtenue sans allonger la journée, en réduisant le travail nécessaire par la productivité. Définition, exemple, et la plus-value extra de l'innovateur.",
+  "description": "La plus-value relative chez Marx, expliquée simplement : comment le capital gagne davantage sans allonger la journée, et la plus-value extra de l'innovateur.",
   "source": {
     "work": "capital-1",
     "s": 4,
-    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XII — traduction Joseph Roy (1872)"
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XII (et chapitres VI et XV), traduction Joseph Roy (1872)"
   },
-  "ou": "Livre&nbsp;I, quatrième section, chapitre XII, « La plus-value relative » — un chapitre court, qui commande les trois suivants : coopération, manufacture et machinisme sont les formes historiques sous lesquelles cette plus-value a été produite.",
+  "ou": "Livre&nbsp;I, quatrième section, chapitre XII, «&nbsp;La plus-value relative&nbsp;». Un chapitre court, que suivent les trois chapitres où Marx décrit les méthodes par lesquelles cette plus-value a été produite&nbsp;: la coopération, la division du travail et la manufacture, le machinisme et la grande industrie.",
   "outils": [
     {
-      "label": "Le circuit du capital — le jeu",
+      "label": "Le circuit du capital, le jeu",
       "url": "/jeu/"
     }
   ],
@@ -26,23 +47,165 @@
     "Travail nécessaire"
   ],
   "monde": {
-    "_": "LA SCÈNE : LA BARRE DU PRIX COMMUN. Quatre établis, quatre jauges — la valeur individuelle de chacun — et une barre de laiton posée en travers, qui est la valeur sociale : elle ne peut pas descendre plus bas que le plus haut de ceux qui la portent. Une jauge descend, l'écart qui s'ouvre sous la barre est le survalu extra, et il brille. Les autres descendent à leur tour, la barre suit, l'écart se referme. Alors seulement la seconde barre — la valeur de la force de travail — descend elle aussi.",
+    "_": "LA SCÈNE : LA BARRE DU PRIX COMMUN. Quatre établis, quatre jauges (la valeur individuelle de chacun) et une barre de laiton posée en travers, qui est la valeur sociale : elle ne peut pas descendre plus bas que le plus haut de ceux qui la portent. Une jauge descend, l'écart qui s'ouvre sous la barre est la plus-value extra, et il brille. Les autres descendent à leur tour, la barre suit, l'écart se referme. Alors seulement la seconde barre, la valeur de la force de travail, descend elle aussi.",
+    "titre": "La barre du prix commun, en six temps",
     "alt": "Quatre établis portant chacun une jauge verticale, et une barre de laiton posée en travers de leurs sommets ; l'une des jauges est plus basse que les autres et l'écart sous la barre est éclairé.",
     "source": {
-      "texte": "D'après le texte — Livre I, chapitre XII",
+      "texte": "D'après le texte : Livre I, chapitre XII",
       "q": "cette plus-value extra disparaît dès que le nouveau mode de production se généralise"
     },
     "etapes": {
-      "fait": "Quatre ateliers, quatre jauges à la même hauteur. La barre posée en travers est la valeur sociale : ce que coûte la chose en moyenne, non ce qu'elle coûte à tel ou tel.",
-      "ou": "Rien ne bouge encore. C'est l'état d'où l'on part : des conditions moyennes que tous partagent, et un prix commun qui s'y règle.",
-      "distinction": "Un atelier double sa productivité. Sa jauge descend, la barre ne bouge pas — et l'écart qui s'ouvre est à lui. Ce n'est pas encore de la plus-value relative : c'est un survalu extra, et il n'existe que chez lui.",
-      "mecanisme": "Les autres suivent, contraints. Leurs jauges descendent, la barre descend avec elles, et l'écart se referme : ce qui poussait l'innovateur a disparu au moment même où sa méthode a gagné.",
-      "ouvre": "La barre est plus basse et l'avantage n'est à personne. Le prix a baissé pour tous — et c'est seulement à ce moment-là que quelque chose a changé pour le taux général.",
-      "lectures": "La seconde barre descend à son tour : la valeur de la force de travail. Encore fallait-il que ce qu'on produit ici entre dans l'entretien de l'ouvrier — une invention qui abaisse le prix des dentelles n'y changerait rien."
+      "fait": "Quatre ateliers, quatre jauges à la même hauteur. La barre posée en travers est la valeur sociale : ce que la pièce coûte en moyenne, et non chez l'un ou chez l'autre.",
+      "ou": "Rien ne bouge encore. On part de conditions moyennes que tous partagent, et d'un prix commun qui se règle sur elles.",
+      "distinction": "Un atelier double sa productivité. Sa jauge descend, la barre reste en place, et l'écart ouvert sous elle lui revient : c'est la plus-value extra, qui n'existe que chez lui.",
+      "mecanisme": "Les autres suivent, contraints par la concurrence. Leurs jauges descendent, la barre descend avec elles, et l'écart se referme : l'avantage du premier a disparu.",
+      "ouvre": "La barre est plus basse, et l'avantage n'appartient plus à personne. Le prix a baissé pour tous ; c'est maintenant que le taux général de la plus-value peut changer.",
+      "lectures": "La seconde barre descend à son tour : la valeur de la force de travail. Elle ne bouge que si ce qu'on produit ici entre dans l'entretien de l'ouvrier."
     },
     "fixe": {
       "g": 3.1,
-      "legende": "Le premier a doublé sa productivité : sa jauge est descendue, la barre du prix commun n'a pas bougé, et l'écart qui s'ouvre sous elle lui appartient. Il ne durera que le temps que les autres mettront à le rattraper."
+      "legende": "Le premier atelier a doublé sa productivité : sa jauge est descendue, la barre du prix commun n'a pas bougé, et l'écart ouvert sous elle lui revient, le temps que les autres le rattrapent."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : la chemise au prix réduit. Marx prend la chemise pour exemple d'un objet de première nécessité dont le prix baisse ; la page s'ouvre sur une affiche de chemiserie qui vend son prix comme un secret de maison, passe par la foule qui court au magasin le moins cher (la conquête du marché par la baisse du prix) et par le prix du pain affiché (ce sur quoi se règle la valeur de la force de travail). Le fond : les objets des exemples du chapitre XII ; en lumière chaude, les prix qu'on voit ; à l'aube, à partir de la section du mécanisme, ce que l'analyse fait voir (la valeur individuelle, le temps nécessaire qui recule).",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 1146,
+      "alt": "Affiche illustrée de la Chemiserie spéciale, à Paris : sous le nom de la maison, deux hommes en habit et plastron blanc se parlent au milieu d'un bal.",
+      "legende": "La chemise à plastron du danseur coûte 3 fr 75, dit l'affiche, et son « secret » appartient à une seule maison : « Surtout ne te trompe pas de maison ! » La chemise est l'exemple de Marx : qui la produit à moindre coût vend sous le prix des autres.",
+      "credit": "Caran d'Ache, affiche pour la Chemiserie spéciale, 102 boulevard de Sébastopol, Paris, 1886. Bibliothèque nationale de France, domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:102_Bd_de_S%C3%A9bastopol._Chemiserie_sp%C3%A9ciale_(Arts_et_M%C3%A9tiers)_-_affiche_-_Caran_d%27Ache_-_btv1b90165821.jpg"
+    },
+    "planches": {
+      "pain": {
+        "img": "planche-pain.webp",
+        "w": 1000,
+        "h": 1236,
+        "alt": "Affiche typographique de la mairie de Paris, « Taxe du pain » : le prix du kilogramme de pain est fixé à 50 centimes du 16 au 22 février, avec les quantités vendues pour 10, 15 et 20 centimes.",
+        "legende": "Paris, février 1871 : la mairie affiche le prix du kilogramme de pain. La valeur de la force de travail se règle sur des prix comme celui-ci ; un gain de productivité ne l'abaisse que s'il les fait baisser.",
+        "credit": "« Taxe du pain », affiche de la mairie de Paris signée Jules Ferry, 15 février 1871, impr. Charles de Mourgues frères. Musée Carnavalet, CC0.",
+        "lien": "https://commons.wikimedia.org/wiki/File:REPUBLIQUE_FRANCAISE._LIBERTE,_EGALITE,_FRATERNITE._MAIRIE_DE_PARIS._TAXE_DU_PAIN._AFF3802.jpg"
+      },
+      "course": {
+        "img": "planche-course.webp",
+        "w": 1400,
+        "h": 486,
+        "alt": "Une foule d'hommes en chapeau court dans la même direction, bras tendus, l'un tombe, un chien emporte un panier ; en bas, la question « Où courent-ils ?? ».",
+        "legende": "« Où courent-ils ? » Au magasin qui vend le moins cher. Pour écouler deux fois plus de pièces, l'innovateur de Marx doit baisser son prix et prendre les acheteurs de ses rivaux.",
+        "credit": "Jules Chéret, « Où courent-ils ? », affiche pour Au Grand Bon Marché, Paris, 1875. Bibliothèque nationale de France, domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:O%C3%B9_courent-ils_(Au_Grand_Bon_March%C3%A9)_-_affiche_-_Jules_Ch%C3%A9ret_-_btv1b90040684.jpg"
+      }
+    },
+    "lumieres": {
+      "mecanisme": "aube",
+      "ouvre": "aube",
+      "lectures": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les objets des exemples du chapitre XII (la chemise, la paire de bottes, la pièce, l'horloge de la journée) et le pain des subsistances, dessinés en points. En lumière chaude monte le prix qu'on voit ; à l'aube, ce que l'analyse fait voir. Les chiffres sont ceux de Marx, sauf le pain (l'affiche de 1871).",
+      "dessins": {
+        "chemise": [
+          "..111.111..",
+          ".1...1...1.",
+          "1....1....1",
+          "11...1...11",
+          ".1...1...1.",
+          ".1...1...1.",
+          ".1...1...1.",
+          ".1...1...1.",
+          ".111111111."
+        ],
+        "pain": [
+          "....11111....",
+          "..11.....11..",
+          ".1..1..1...1.",
+          "1....1..1...1",
+          "1...........1",
+          ".1.........1.",
+          "..111111111.."
+        ],
+        "horloge": [
+          "..11111..",
+          ".1.....1.",
+          "1...1...1",
+          "1...1...1",
+          "1...111.1",
+          "1.......1",
+          "1.......1",
+          ".1.....1.",
+          "..11111.."
+        ]
+      },
+      "motifs": [
+        {
+          "m": "chemise",
+          "chaude": [
+            "3 fr 75",
+            "prix réduit"
+          ],
+          "aube": [
+            "moins de travail",
+            "entretien moins cher"
+          ]
+        },
+        {
+          "m": "botte",
+          "chaude": [
+            "deux paires",
+            "même journée"
+          ],
+          "aube": [
+            "productivité doublée",
+            "valeur divisée"
+          ]
+        },
+        {
+          "m": "piece",
+          "chaude": [
+            "10 pence",
+            "moins cher"
+          ],
+          "aube": [
+            "coûte 9 pence",
+            "plus-value extra"
+          ]
+        },
+        {
+          "m": "pain",
+          "chaude": [
+            "50 centimes",
+            "le kilogramme"
+          ],
+          "aube": [
+            "force de travail",
+            "moins chère"
+          ]
+        },
+        {
+          "m": "horloge",
+          "chaude": [
+            "douze heures",
+            "même journée"
+          ],
+          "aube": [
+            "b recule",
+            "surtravail allongé"
+          ]
+        },
+        {
+          "m": "toile",
+          "chaude": [
+            "prix commun",
+            "valeur sociale"
+          ],
+          "aube": [
+            "quatre heures",
+            "annexées"
+          ]
+        }
+      ]
     }
   }
 }

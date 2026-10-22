@@ -1,18 +1,39 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/surtravail.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/surtravail. L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrit en octobre 2026 selon glossaire/mondes/CHARTE.md.",
   "titre": "Surtravail",
   "de": "Mehrarbeit",
-  "chapo": "La part de la journée qui dépasse le travail nécessaire. Marx la nomme sans emphase — ce qui dépasse — et il désarme lui-même l'accusation facile : le capital n'a point inventé le surtravail, toute société où une partie détient le monopole des moyens de production en produit. Ce qui distingue les formes économiques n'est donc pas qu'il y ait un surplus, mais la manière dont il est pris.",
-  "description": "Le surtravail chez Marx : ce qui dépasse le travail nécessaire, pourquoi il existe dans toute société au-dessus de la subsistance, et pourquoi seule la forme sous laquelle il est extorqué distingue la corvée, l'esclavage et le salariat.",
+  "enbref": "Le surtravail est, chez Marx, le travail que l'ouvrier fournit au-delà du temps nécessaire pour reproduire la valeur de sa propre subsistance. Ce temps en plus lui coûte de l'effort et produit une valeur qui revient à un autre&nbsp;: la plus-value. Marx le définit au chapitre IX du <i>Capital</i> (1867) et le compare, au chapitre X, à la corvée du paysan valaque. Le capital ne l'a pas inventé&nbsp;; ce qui lui est propre, c'est la forme sous laquelle il le prend et l'absence de borne à cette prise.",
+  "retenir": [
+    "La journée de l'ouvrier se partage en deux. Pendant le travail nécessaire, il reproduit la valeur de sa force de travail ; pendant le surtravail, il produit pour celui qui l'emploie.",
+    "Les deux parts se définissent l'une par l'autre, et leur rapport donne le taux de la plus-value. La frontière entre elles se calcule, elle ne se voit pas dans l'atelier.",
+    "Le surtravail existe dans toute société où une minorité possède les moyens de production. Esclavage, servage et salariat ne diffèrent que par la manière dont il est imposé.",
+    "La forme ne change pas la quantité, elle change ce qui se voit. La corvée montre le partage dans le calendrier, le salaire le dissout dans chaque heure.",
+    "Ce qui est propre au capital, c'est un appétit sans borne : produisant pour la valeur d'échange, il n'est plus limité par les besoins de ceux qui prennent le surplus."
+  ],
+  "questions": [
+    {
+      "q": "Dans l'exemple du fileur, combien d'heures de surtravail fournit l'ouvrier par semaine, et pourquoi&nbsp;?",
+      "r": "Trente-six heures. Sa force de travail vaut trois shillings par jour, valeur qu'il reproduit en six heures ; il travaille douze heures. Les six heures restantes, sur six jours, font trente-six heures que personne ne lui paie."
+    },
+    {
+      "q": "Pourquoi ne peut-on pas voir le surtravail en observant un atelier&nbsp;?",
+      "r": "Parce que, sous le salariat, les heures qui reproduisent le salaire et celles qui produisent la plus-value se suivent au même endroit, sous le même salaire. Rien ne marque leur passage. La limite se calcule à partir de la valeur de la force de travail."
+    },
+    {
+      "q": "Si le surtravail existe dans toute société de classes, que reste-t-il à reprocher au capital&nbsp;?",
+      "r": "La forme sous laquelle il le prend et sa démesure. Une société qui produit pour l'usage voit son surtravail borné par les besoins de ses maîtres. Le capital produit pour la valeur d'échange, qui peut toujours grossir : son appétit de surtravail n'a pas de limite, d'où la lutte pour la durée de la journée."
+    }
+  ],
+  "description": "Le surtravail chez Marx, expliqué simplement : le travail fourni au-delà du travail nécessaire, pourquoi toute société de classes en produit, et ce qui est propre au capital.",
   "source": {
     "work": "capital-1",
     "s": 3,
-    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitres IX et X — traduction Joseph Roy (1872)"
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitres IX et X, traduction Joseph Roy (1872)"
   },
-  "ou": "Livre&nbsp;I, troisième section&nbsp;: le terme naît au chapitre IX, à quelques lignes du travail nécessaire dont il est le complément, et prend son relief au chapitre X, dans le paragraphe qui met le boyard valaque et le fabricant anglais côte à côte.",
+  "ou": "Livre&nbsp;I, troisième section&nbsp;: le terme naît au chapitre IX, à quelques lignes du travail nécessaire dont il est le complément, et prend son relief au chapitre X, dans la partie intitulée «&nbsp;Le Capital affamé de surtravail. Boyard et fabricant&nbsp;».",
   "outils": [
     {
-      "label": "Le circuit du capital — le jeu",
+      "label": "Le circuit du capital, le jeu",
       "url": "/jeu/"
     }
   ],
@@ -25,23 +46,191 @@
     "La forme-salaire"
   ],
   "monde": {
-    "_": "LA SCÈNE : LE SECOND SAC, ET LES TROIS SCEAUX. La meule tourne du même mouvement du début à la fin : un premier sac se remplit jusqu'au trait de craie, c'est l'entretien ; puis un second se remplit, du même geste et sans qu'aucun signal ne l'annonce. Au dernier temps il reçoit trois sceaux l'un après l'autre — la cire d'un seigneur, le fer d'un maître, l'or d'un salaire — et LE SAC NE CHANGE PAS. Ce qui change est le sceau, c'est-à-dire la forme sous laquelle il est pris.",
+    "_": "LA SCÈNE : LE SECOND SAC, ET LES TROIS SCEAUX. La meule tourne du même mouvement du début à la fin : un premier sac se remplit jusqu'au trait de craie, c'est l'entretien ; puis un second se remplit, du même geste et sans qu'aucun signal ne l'annonce. Au dernier temps il reçoit trois sceaux l'un après l'autre (la cire d'un seigneur, le fer d'un maître, l'or d'un salaire) et LE SAC NE CHANGE PAS. Ce qui change est le sceau, c'est-à-dire la forme sous laquelle il est pris.",
+    "titre": "Le second sac, en six temps",
     "alt": "Un moulin à bras et deux sacs de jute : le premier rempli jusqu'à un trait de craie, le second rempli de la même manière et portant tour à tour trois sceaux de couleurs différentes.",
     "source": {
-      "texte": "D'après le texte — Livre I, chapitre X",
+      "texte": "D'après le texte : Livre I, chapitre X",
       "q": "Le capital n’a point inventé le surtravail"
     },
     "etapes": {
-      "fait": "Un moulin, et un sac. Ce qui s'y accumule d'abord vaut exactement ce que l'entretien du producteur a coûté.",
-      "ou": "Le trait de craie se pose. Il ne marque rien qu'on puisse voir dans le grain : c'est un calcul, non une frontière.",
-      "distinction": "Un second sac se remplit, du même geste et sans qu'aucun signal ne l'annonce. La meule n'a pas changé de rythme, et pourtant ce qui tombe maintenant ne revient plus au producteur.",
-      "mecanisme": "Le second sac est plein. Il n'a rien de particulier : c'est du même grain, moulu de la même manière, et c'est cela qu'il faut voir avant d'aller plus loin.",
-      "ouvre": "Toute société où une partie détient le monopole des moyens de production remplit ce second sac. Le capital ne l'a pas inventé, et il ne peut donc pas être ce qu'on lui reproche.",
-      "lectures": "Trois sceaux se posent l'un après l'autre : la cire d'un seigneur, le fer d'un maître, l'or d'un salaire. Le sac ne change pas. Ce qui distingue les formes économiques n'est pas le surplus, c'est le mode dont il est pris."
+      "fait": "Un moulin à bras, et un premier sac. Le grain qui s'y accumule vaut exactement ce que coûte l'entretien de celui qui tourne la meule.",
+      "ou": "Un trait de craie marque la limite. On ne la voit pas dans le grain : elle se calcule à partir de ce que vaut l'entretien.",
+      "distinction": "Un second sac se remplit, du même geste. La meule n'a pas changé de rythme, mais ce qui tombe maintenant ne revient plus au producteur.",
+      "mecanisme": "Le second sac est plein. C'est le même grain, moulu de la même manière : rien en lui ne dit qu'il appartient à un autre.",
+      "ouvre": "Toute société où une minorité possède les moyens de production remplit ce second sac. Le capital ne l'a pas inventé.",
+      "lectures": "Trois sceaux se posent l'un après l'autre : la cire d'un seigneur, le fer d'un maître, l'or d'un salaire. Le sac reste le même, seule change la forme sous laquelle il est pris."
     },
     "fixe": {
       "g": 5.6,
-      "legende": "Le même sac, et le troisième sceau. Sous la corvée le partage se voit dans le calendrier ; sous l'esclavage tout le travail paraît non payé ; sous le salariat tout paraît payé. Trois apparences également fausses, et une seule qui se passe de contrainte visible."
+      "legende": "Le même second sac sous le troisième sceau, celui du salaire. Sous la corvée, le partage se voyait dans le calendrier ; sous le salariat, tout le travail paraît payé."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : la dîme. Le surtravail le plus visible de l'histoire est celui qu'on apporte soi-même au bureau du collecteur, en œufs, en volailles, en raisin : la vitrine est ce bureau, où les sacs pendent aux poutres. La planche montre le moment où ce surplus cesse d'avoir une borne, quand le coton des plantations part pour le marché mondial. Le fond fait monter, sur les choses qu'on livre, ce qu'elles semblent être (une redevance, un salaire) puis, à l'aube, ce que l'analyse y voit : du travail en plus, pour un autre.",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 950,
+      "alt": "Le bureau d'un collecteur, peint vers 1616 : des paysans chapeau à la main apportent des œufs, une volaille, du raisin et des légumes à un homme assis derrière une table chargée de registres ; des dizaines de sacs étiquetés pendent aux poutres.",
+      "legende": "Les paysans apportent eux-mêmes leurs œufs et leurs volailles. Sous la dîme, le travail en plus se voit, il a un jour et un guichet.",
+      "credit": "Pieter Brueghel le Jeune, «&nbsp;Le paiement de la dîme&nbsp;» (aussi intitulé «&nbsp;Le collecteur des tailles&nbsp;»), huile sur panneau, vers 1616-1617, collection particulière. Domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Pieter_Brueghel_the_Younger_-_The_payment_of_the_tithes.jpeg"
+    },
+    "planches": {
+      "levee": {
+        "img": "planche-levee.webp",
+        "w": 1300,
+        "h": 768,
+        "alt": "Le quai de La Nouvelle-Orléans en 1860 : des balles de coton empilées par centaines au premier plan, et derrière elles une file de bateaux à vapeur dont les cheminées fument.",
+        "legende": "La Nouvelle-Orléans, 1860 : le coton des plantations attend les bateaux. C'est quand il part pour le marché mondial que le travail des esclaves cesse d'avoir une borne.",
+        "credit": "«&nbsp;Vue de la levée de La Nouvelle-Orléans&nbsp;», gravure sur bois d'après une photographie d'E. H. Nelson, <i>Frank Leslie's Illustrated Newspaper</i>, 14 avril 1860. Library of Congress, domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:LOC_cph_3c32548,_2002735884_-_panels_stitched_-_New_Orleans_levee_boatmen_steamboats_cotton_bales_1860.jpg"
+      }
+    },
+    "lumieres": {
+      "distinction": "aube",
+      "mecanisme": "aube",
+      "ouvre": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les choses qu'on livre à celui qui possède les moyens de production, dessinées en points. En lumière chaude monte ce qu'elles paraissent être (une redevance, un salaire, une balle de coton) ; à l'aube, ce que l'analyse y voit, le travail en plus. Les chiffres sont ceux de Marx aux chapitres VII, IX et X.",
+      "dessins": {
+        "panier": [
+          "....111....",
+          "...1...1...",
+          "..1.....1..",
+          ".111111111.",
+          "1.1.1.1.1.1",
+          "11.1.1.1.11",
+          "1.1.1.1.1.1",
+          ".1.1.1.1.1.",
+          "..1111111.."
+        ],
+        "poule": [
+          "..11.......",
+          ".1111......",
+          "11.11......",
+          "..111...11.",
+          "..1111111..",
+          "..1111111..",
+          "...11111...",
+          "....1.1....",
+          "...11.11..."
+        ],
+        "balle": [
+          "11111111111",
+          "1.1.1.1.1.1",
+          "11111111111",
+          "1.1.1.1.1.1",
+          "11111111111",
+          "1.1.1.1.1.1",
+          "11111111111",
+          "1.1.1.1.1.1",
+          "11111111111"
+        ],
+        "meule": [
+          "...11111...",
+          "..1.....1..",
+          ".1.......1.",
+          "1....1....1",
+          "1...111...1",
+          "1....1....1",
+          ".1.......1.",
+          "..1.....1..",
+          "...11111..."
+        ],
+        "sceau": [
+          "...111...",
+          "..11111..",
+          "...111...",
+          "...111...",
+          "..11111..",
+          ".1111111.",
+          "11.1.1.11",
+          "1.11111.1",
+          "111111111"
+        ]
+      },
+      "motifs": [
+        {
+          "m": "panier",
+          "chaude": [
+            "la dîme",
+            "des œufs"
+          ],
+          "aube": [
+            "travail en plus",
+            "pour le collecteur"
+          ]
+        },
+        {
+          "m": "poule",
+          "chaude": [
+            "une redevance",
+            "apportée soi-même"
+          ],
+          "aube": [
+            "le surtravail",
+            "qui se voit"
+          ]
+        },
+        {
+          "m": "sac",
+          "chaude": [
+            "le second sac",
+            "même grain"
+          ],
+          "aube": [
+            "ce qui dépasse",
+            "pour un autre"
+          ]
+        },
+        {
+          "m": "meule",
+          "chaude": [
+            "douze heures",
+            "même rythme"
+          ],
+          "aube": [
+            "six pour lui",
+            "six pour un autre"
+          ]
+        },
+        {
+          "m": "piece",
+          "chaude": [
+            "trois shillings",
+            "la journée payée"
+          ],
+          "aube": [
+            "six heures payées",
+            "six heures en plus"
+          ]
+        },
+        {
+          "m": "balle",
+          "chaude": [
+            "coton exporté",
+            "le marché mondial"
+          ],
+          "aube": [
+            "plus de borne",
+            "un appétit dévorant"
+          ]
+        },
+        {
+          "m": "sceau",
+          "chaude": [
+            "cire, fer, or",
+            "trois formes"
+          ],
+          "aube": [
+            "le même surplus",
+            "une autre prise"
+          ]
+        }
+      ]
     }
   }
 }

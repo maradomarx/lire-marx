@@ -1,22 +1,43 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/pouvoir-politique (mission manifeste-notions, sept. 2026).",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/pouvoir-politique (mission manifeste-notions, sept. 2026 ; réécrite en octobre 2026 selon glossaire/mondes/CHARTE.md).",
   "titre": "Pouvoir politique",
   "de": "politische Gewalt",
-  "chapo": "« Le pouvoir politique, à proprement parler, est le pouvoir organisé d’une classe pour l’oppression d’une autre » : la définition du <i>Manifeste</i> refuse à l’État la place d’arbitre au-dessus des classes qu’il revendique. Elle ne le réduit pas pour autant à l’instrument d’un patron : il gère les affaires communes de toute une classe, et c’est pourquoi une classe qui abolit les classes abolit du même coup le caractère politique du pouvoir.",
-  "description": "Le pouvoir politique et l'État chez Marx et Engels : le « comité administratif » de la classe bourgeoise, la conquête du pouvoir par le prolétariat, le pouvoir public qui perd son caractère politique, et les contresens de l'instrument et de l'arbitre.",
+  "enbref": "Le pouvoir politique est défini par Marx et Engels, dans le <i>Manifeste du parti communiste</i> (1848), comme le pouvoir organisé d'une classe pour en opprimer une autre. L'État moderne se présente comme un arbitre placé au-dessus des intérêts&nbsp;; le <i>Manifeste</i> y voit le comité qui gère les affaires communes de toute la classe bourgeoise. La notion est difficile parce que ce comité peut contrarier certains capitalistes et accorder des lois aux ouvriers sans cesser de servir une classe.",
+  "retenir": [
+    "Le Manifeste distingue le pouvoir public, l'administration des affaires communes, du pouvoir politique au sens strict, qui organise la domination d'une classe sur une autre.",
+    "La bourgeoisie a conquis ce pouvoir au terme de son développement économique, dans l'État représentatif moderne, à l'exclusion des autres classes.",
+    "Le gouvernement est le comité des affaires communes de toute la classe bourgeoise. Il n'obéit à aucun capitaliste en particulier, et c'est ce qui lui permet de passer pour l'arbitre de tous.",
+    "Les divisions entre bourgeois laissent prise à la lutte ouvrière, qui arrache des lois comme celle de dix heures. Toute lutte de classe devient ainsi une lutte pour le pouvoir politique.",
+    "Une classe qui abolit les classes abolit sa propre domination&nbsp;: le pouvoir public subsiste, mais il perd son caractère politique."
+  ],
+  "questions": [
+    {
+      "q": "Que montre l'exemple de la loi de dix heures sur la nature de l'État&nbsp;?",
+      "r": "Qu'un État de classe peut imposer à des capitalistes une loi qu'ils combattent. La loi passe en 1847 sous la pression ouvrière, avec l'appui des grands propriétaires terriens, qui se vengent des industriels. L'État gère l'intérêt de la classe dans son ensemble, et la division des possédants donne prise aux ouvriers."
+    },
+    {
+      "q": "Pourquoi le mot «&nbsp;comité&nbsp;» empêche-t-il de voir dans l'État un simple instrument&nbsp;?",
+      "r": "Parce qu'un comité gère les affaires communes d'un groupe dont les membres sont en concurrence. Il ne reçoit pas les ordres d'un capitaliste ou d'une branche. Ce qu'il garantit, la propriété, le salariat et l'ordre, aucun capitaliste ne pourrait le garantir seul."
+    },
+    {
+      "q": "Pourquoi le pouvoir conquis par le prolétariat devrait-il perdre son caractère politique&nbsp;?",
+      "r": "Parce que le pouvoir politique est, par définition, l'organisation d'une classe contre une autre. Si le prolétariat abolit les rapports de production qui divisent la société en classes, il n'y a plus de classe à tenir. Il reste une administration publique de la production associée."
+    }
+  ],
+  "description": "Le pouvoir politique chez Marx et Engels, expliqué simplement : pourquoi le Manifeste fait de l'État le comité des affaires communes de la bourgeoisie.",
   "source": {
     "work": "manifeste-parti-communiste",
     "s": 1,
-    "cite": "Karl Marx et Friedrich Engels, <i>Manifeste du parti communiste</i> (1848) — traduction Laura Lafargue (1897)"
+    "cite": "Karl Marx et Friedrich Engels, <i>Manifeste du parti communiste</i> (1848), traduction Laura Lafargue (1897)"
   },
-  "ou": "<i>Manifeste du parti communiste</i>, partie&nbsp;I pour la conquête du pouvoir par la bourgeoisie et l’État représentatif moderne ; partie&nbsp;II pour la conquête du pouvoir par le prolétariat, les mesures transitoires et la définition du pouvoir politique. La préface de 1872, écrite après la Commune, n’est pas servie : elle est paraphrasée.",
+  "ou": "<i>Manifeste du parti communiste</i>, partie&nbsp;I pour la conquête du pouvoir par la bourgeoisie et l’État représentatif moderne&nbsp;; partie&nbsp;II pour la conquête du pouvoir par le prolétariat, les mesures transitoires et la définition du pouvoir politique. La préface de 1872, écrite après la Commune, et <i>Le XVIII brumaire</i> prolongent la notion&nbsp;: ils sont paraphrasés, pas cités.",
   "outils": [
     {
-      "label": "Lire « Prolétaires et communistes » — la liseuse du Manifeste",
+      "label": "Lire « Prolétaires et communistes » dans la liseuse du Manifeste",
       "url": "/oeuvres/manifeste#partie=3"
     },
     {
-      "label": "La carte des socialismes — le communisme du Manifeste",
+      "label": "La carte des socialismes : le communisme du Manifeste",
       "url": "/oeuvres/manifeste#labo=communisme"
     }
   ],
@@ -29,24 +50,160 @@
     "Factory Acts & inspecteurs"
   ],
   "monde": {
-    "_": "LA SCÈNE : UNE BALANCE QUI PARAÎT JUSTE. L'État se présente comme un arbitre au-dessus des classes ; la balance est la figure de cette prétention, et c'est en la regardant de plus près qu'on voit comment l'équilibre est obtenu. D'abord deux plateaux à niveau sur un fût. Puis on voit le socle : il est posé sur la dalle de gauche. Puis la construction : le plateau de gauche porte une pile de lingots, celui de droite un poids léger, et pourtant le fléau est horizontal — parce que le pivot n'est pas au milieu. Puis des poids s'ajoutent à droite (la loi de dix heures), le fléau s'incline, et le pivot glisse pour rétablir le niveau : gérer les affaires communes de la classe, c'est aussi concéder. Puis le pivot passe de l'autre côté, et le fléau est déposé : les deux plateaux reposent sur une même table, sans balance. Tout est fonction de g, donc réversible.",
+    "_": "LA SCÈNE : UNE BALANCE QUI PARAÎT JUSTE. L'État se présente comme un arbitre au-dessus des classes ; la balance est la figure de cette prétention, et c'est en la regardant de plus près qu'on voit comment l'équilibre est obtenu. D'abord deux plateaux à niveau sur un fût. Puis on voit le socle : il est posé sur la dalle de gauche. Puis la construction : le plateau de gauche porte une pile de lingots, celui de droite un poids léger, et pourtant le fléau est horizontal, parce que le pivot n'est pas au milieu. Puis des poids s'ajoutent à droite (la loi de dix heures), le fléau s'incline, et le pivot glisse pour rétablir le niveau. Puis le pivot passe de l'autre côté, et le fléau est déposé : les deux plateaux reposent sur les dalles, sans balance. Tout est fonction de g, donc réversible. Depuis oct. 2026, figure en bas de page : la caméra vise le sujet lui-même (monde.js).",
+    "titre": "La balance qui paraît juste, en six temps",
     "layout": "plein",
     "alt": "Une balance de laiton dont le fléau est horizontal alors que le plateau de gauche porte une pile de lingots et celui de droite un seul poids ; le pivot n'est pas au milieu, et le socle repose sur la dalle de gauche.",
     "source": {
-      "texte": "D'après le texte — Manifeste, partie II",
+      "texte": "D'après le texte : Manifeste, partie II",
       "q": "Le pouvoir politique, à proprement parler, est le pouvoir organisé d’une classe pour l’oppression d’une autre"
     },
     "etapes": {
-      "arbitre": "Une balance à l'équilibre, deux plateaux à niveau. C'est ainsi que l'État se présente : au-dessus des parties, également distant de chacune.",
-      "conquete": "On voit le socle : il n'est pas posé au milieu de la salle mais sur la dalle de gauche. La bourgeoisie s'est emparée du pouvoir politique, à l'exclusion des autres classes, dans l'État représentatif moderne.",
-      "comite": "La pile de lingots d'un côté, un poids léger de l'autre — et le fléau reste droit, parce que le pivot n'est pas au milieu. L'équilibre n'est pas une neutralité : c'est une construction.",
-      "communes": "Des poids s'ajoutent à droite, le fléau s'incline, et le pivot glisse pour rétablir le niveau. Gérer les affaires communes de toute une classe, c'est aussi céder sur une part pour garder le tout.",
-      "extinction": "Le pivot passe de l'autre côté ; puis le fléau est déposé, et les deux plateaux reposent sur une même table. Une classe qui détruit les conditions de l'antagonisme détruit sa propre domination comme classe.",
-      "lectures": "Il reste le fût vide. Le pouvoir public ne disparaît pas d'un coup : il perd son caractère politique — la préface de 1872 ajoutera qu'on ne peut pas se contenter de prendre la machine telle quelle."
+      "arbitre": "Une balance à l'équilibre, deux plateaux à niveau. C'est ainsi que l'État se présente : au-dessus des parties, à égale distance de chacune.",
+      "conquete": "On voit le socle : il repose sur la dalle de gauche. La bourgeoisie a pris le pouvoir politique, à l'exclusion des autres classes.",
+      "comite": "Une pile de lingots d'un côté, un poids léger de l'autre, et le fléau reste droit, parce que le pivot n'est pas au milieu. L'équilibre est construit.",
+      "communes": "Des poids s'ajoutent à droite, le fléau penche, puis le pivot glisse et rétablit le niveau. Gérer les affaires communes d'une classe, c'est aussi céder sur une part pour garder le tout.",
+      "extinction": "Le pivot passe de l'autre côté, puis le fléau est déposé, et les deux plateaux reposent sur les dalles. Une classe qui abolit les classes abolit sa propre domination.",
+      "lectures": "Il reste le fût vide. Le pouvoir public ne disparaît pas d'un coup : il perd son caractère politique."
     },
     "fixe": {
       "g": 2.6,
-      "legende": "La pile de lingots d'un côté, un poids léger de l'autre, et le fléau reste droit : le pivot n'est pas au milieu. L'équilibre n'est pas une neutralité, c'est une construction."
+      "legende": "Une pile de lingots d'un côté, un poids léger de l'autre, et le fléau reste droit : le pivot n'est pas au milieu. L'équilibre est construit."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : la Chambre des possédants. La page s'ouvre sur la Chambre des députés de la monarchie de Juillet vue par Daumier : l'État représentatif moderne dont parle le Manifeste, élu par les seuls électeurs qui payaient le cens. Plus bas, l'affiche du décret de la Commune qui supprime l'armée permanente illustre la leçon de la préface de 1872 : on ne prend pas la machine telle quelle. La lumière passe au froid à partir de la section du comité, où l'équilibre se révèle construit. Le fond fait monter ce que l'État dit de lui-même (chaude), puis ce que l'analyse y lit (aube).",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 846,
+      "alt": "Lithographie : sur quatre rangs de bancs en hémicycle, des députés ventrus somnolent, lisent ou bavardent ; au premier rang, devant l'inscription « Banc des ministres », un ministre lit un papier, un chapeau haut de forme est posé sur la balustrade.",
+      "legende": "La Chambre des députés de la monarchie de Juillet, élue par les seuls hommes qui payaient le cens. C'est l'État représentatif moderne que décrit le <i>Manifeste</i>&nbsp;: un comité des affaires de la bourgeoisie.",
+      "credit": "Honoré Daumier, <i>Le Ventre législatif</i>, lithographie publiée dans <i>L'Association mensuelle</i>, janvier 1834. National Gallery of Art, Washington, domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Honor%C3%A9_Daumier,_Le_Ventre_L%C3%A9gislatif_(The_Legislative_Belly),_1834,_NGA_6129.jpg"
+    },
+    "planches": {
+      "commune": {
+        "img": "planche-commune.webp",
+        "w": 1200,
+        "h": 930,
+        "alt": "Affiche imprimée de la Commune de Paris : « La Commune de Paris décrète : 1° La conscription est abolie ; 2° Aucune force militaire, autre que la garde nationale, ne pourra être créée ou introduite dans Paris ; 3° Tous les citoyens valides font partie de la garde nationale. Hôtel-de-Ville, le 29 mars 1871. »",
+        "legende": "Le décret du 29 mars 1871&nbsp;: la conscription est abolie, et aucune force militaire autre que la garde nationale ne peut entrer dans Paris. La Commune défait une pièce de la machine d'État au lieu de s'en servir.",
+        "credit": "Affiche de la Commune de Paris, Imprimerie nationale, mars 1871. Musée Carnavalet, Paris, domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:REPUBLIQUE_FRANCAISE_N%C2%B0_42_LIBERTE_-_EGALITE_-_FRATERNITE_N%C2%B0_42_COMMUNE_DE_PARIS_La_Commune_de_Paris_DECRETE_1%C2%B0_La,_AFF5651.jpg"
+      }
+    },
+    "lumieres": {
+      "comite": "aube",
+      "communes": "aube",
+      "extinction": "aube",
+      "lectures": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les objets de l'État représentatif dessinés en points (la balance, le palais à colonnes, l'urne, l'affiche de loi, la pièce). L'un s'allume et monte au-dessus de lui ce que l'État dit de lui-même (chaude) ; à partir de la section du comité, ce que l'analyse y lit (aube). Les chiffres du cens viennent de la notice citée dans l'essai ; ce ne sont pas des citations.",
+      "dessins": {
+        "balance": [
+          ".....1.....",
+          "11111111111",
+          "1....1....1",
+          "1....1....1",
+          ".1...1...1.",
+          "111..1..111",
+          ".....1.....",
+          "....111....",
+          "..1111111.."
+        ],
+        "palais": [
+          ".....1.....",
+          "...11111...",
+          ".111111111.",
+          "11111111111",
+          ".1.1.1.1.1.",
+          ".1.1.1.1.1.",
+          ".1.1.1.1.1.",
+          "11111111111",
+          "11111111111"
+        ],
+        "urne": [
+          "...11....",
+          "...11....",
+          "111111111",
+          "1..111..1",
+          "1.......1",
+          "1..111..1",
+          "1.......1",
+          "1.......1",
+          "111111111"
+        ],
+        "affiche": [
+          "11111111",
+          "1......1",
+          "1.1111.1",
+          "1......1",
+          "1.1111.1",
+          "1.111..1",
+          "1......1",
+          "1.1111.1",
+          "11111111"
+        ]
+      },
+      "motifs": [
+        {
+          "m": "balance",
+          "chaude": [
+            "l'arbitre",
+            "la loi pour tous"
+          ],
+          "aube": [
+            "une classe",
+            "contre une autre"
+          ]
+        },
+        {
+          "m": "palais",
+          "chaude": [
+            "la nation",
+            "l'intérêt général"
+          ],
+          "aube": [
+            "un comité",
+            "affaires communes"
+          ]
+        },
+        {
+          "m": "urne",
+          "chaude": [
+            "les représentants",
+            "le suffrage"
+          ],
+          "aube": [
+            "200 F de cens",
+            "246 000 électeurs"
+          ]
+        },
+        {
+          "m": "affiche",
+          "chaude": [
+            "la loi",
+            "l'ordre public"
+          ],
+          "aube": [
+            "garantie légale",
+            "dix heures"
+          ]
+        },
+        {
+          "m": "piece",
+          "chaude": [
+            "une seule loi",
+            "un seul tarif"
+          ],
+          "aube": [
+            "intérêt de classe",
+            "la propriété"
+          ]
+        }
+      ]
     }
   }
 }
