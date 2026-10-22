@@ -1,19 +1,41 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/machine-outil.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/machine-outil. L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrit en octobre 2026 selon glossaire/mondes/CHARTE.md (enbref, retenir, questions).",
   "titre": "Machine-outil",
   "de": "Werkzeugmaschine",
-  "chapo": "La révolution industrielle n'a pas commencé au moteur. Elle a commencé à la partie du mécanisme qui s'est emparée de l'outil : celle qui met en jeu, d'une seule impulsion, un grand nombre d'outils identiques — ce qu'aucun corps ne peut faire. De là le renversement qui donne son concept à la fabrique : dans le métier, l'ouvrier se sert de son outil ; dans la fabrique, il sert la machine.",
+  "enbref": "La machine-outil désigne, chez Marx, la partie d'un mécanisme qui prend l'outil des mains de l'homme et le manie à sa place. Elle met en jeu, d'un seul mouvement, un grand nombre d'outils semblables, ce qu'aucun corps ne peut faire. Marx l'analyse au chapitre XV du Livre I du <i>Capital</i> (1867), «&nbsp;Machinisme et grande industrie&nbsp;». Sa thèse surprend&nbsp;: la révolution industrielle commence avec elle, et non avec la machine à vapeur.",
+  "retenir": [
+    "Une machine n'est pas un outil plus grand ou plus compliqué. Elle commence quand l'outil quitte la main de l'homme pour être tenu et mû par un mécanisme.",
+    "Tout mécanisme développé comprend un moteur, une transmission et une machine d'opération. C'est cette dernière, la machine-outil, qui fait la révolution industrielle, même quand l'homme reste le moteur.",
+    "La machine-outil franchit la limite du corps&nbsp;: un homme manie autant d'outils que ses organes le permettent, la Jenny fait tourner douze fuseaux d'un seul mouvement.",
+    "Dans un système de machines, l'organisation du travail existe dans les choses avant l'ouvrier. Dans le métier il se servait de son outil, dans la fabrique il sert la machine.",
+    "Sous le capital, la machine sert à produire de la plus-value relative. Elle allonge la journée, puis, quand la loi la borne, elle intensifie le travail. Ce que Marx accuse est cet emploi&nbsp;; la machine elle-même, il la tient pour un triomphe de l'homme sur les forces naturelles."
+  ],
+  "questions": [
+    {
+      "q": "Pourquoi Marx refuse-t-il de distinguer l'outil et la machine par la force qui les meut&nbsp;?",
+      "r": "Parce que ce critère classe les choses à l'envers. Une charrue tirée par des bœufs deviendrait une machine, et le métier circulaire de Claussen, qui fait des dizaines de milliers de mailles par minute sous la main d'un seul ouvrier, resterait un outil. La coupure se trouve dans la partie qui saisit l'objet du travail."
+    },
+    {
+      "q": "Que veut dire Marx quand il écrit que, dans la fabrique, l'ouvrier sert la machine&nbsp;?",
+      "r": "Dans le métier et la manufacture, le mouvement de l'outil part de l'ouvrier&nbsp;: c'est lui qui fixe le rythme. Dans la fabrique, le mouvement part du système de machines, et l'ouvrier ne fait que le suivre. L'organisation du travail existe dans l'atelier avant lui, comme une condition toute prête."
+    },
+    {
+      "q": "Comment la machine peut-elle allonger ou intensifier le travail qu'elle permettrait d'abréger&nbsp;?",
+      "r": "Parce que le capital l'emploie pour produire de la plus-value, et qu'une machine arrêtée est un capital qui ne rapporte rien. Il pousse donc à prolonger la journée. Quand la loi la limite, il fait tourner les machines plus vite et supprime les moments de répit&nbsp;: ce qu'il ne prend plus en durée, il le prend en intensité."
+    }
+  ],
   "seo": "Machine-outil et machinisme : définition (Marx)",
-  "description": "Machine-outil : la machine qui prend l'outil des mains de l'ouvrier. Pour Marx c'est elle, et non le moteur, qui ouvre la révolution industrielle (Le Capital, chapitre XV).",
+  "description": "La machine-outil chez Marx, expliquée simplement : la machine qui prend l'outil des mains de l'ouvrier, et pourquoi elle ouvre la révolution industrielle.",
   "source": {
+    "_": "La source des citations : work = id de bibliotheque.json, s = section Wikisource par défaut, cite = ce qu'on imprime sous chaque citation.",
     "work": "capital-1",
     "s": 4,
-    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XV — traduction Joseph Roy (1872)"
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XV, traduction Joseph Roy (1872)"
   },
-  "ou": "Livre&nbsp;I, quatrième section, chapitre XV, « Machinisme et grande industrie » — après la division du travail, qui avait dû réduire l'outil à un geste unique pour tenir, et qui rend par là possible qu'un mécanisme le saisisse.",
+  "ou": "Livre&nbsp;I, quatrième section, chapitre XV, «&nbsp;Machinisme et grande industrie&nbsp;». Il suit le chapitre de la division du travail, qui avait réduit chaque outil à un geste unique et l'avait rendu par là saisissable par un mécanisme.",
   "outils": [
     {
-      "label": "Coopération, manufacture, grande industrie — les explorations",
+      "label": "Coopération, manufacture et grande industrie, les explorations de l'atelier",
       "url": "/oeuvres/capital-1#explore=x-coop"
     }
   ],
@@ -26,23 +48,170 @@
     "Travail mort"
   ],
   "monde": {
-    "_": "LA SCÈNE : LA TRANSMISSION. Elle RIME avec le râtelier de la division du travail, et c'est voulu : le même atelier, à l'étape suivante. Là les outils pendaient immobiles à leurs chevilles, ici ils sont serrés dans un bâti et entraînés d'en haut. Le rouet à une broche est sur l'établi — un homme n'a que deux mains ; puis le bâti se lève avec ses douze broches, puis le moteur et l'arbre s'installent au-dessus et la courroie descend. La lumière parcourt les trois parties et revient à la troisième : c'est là qu'est la révolution. Enfin d'autres courroies descendent aux deux bords du cadre — le système continue au-delà — et le rouet est poussé de côté, parce que le mouvement d'ensemble ne part plus de personne.",
+    "_": "LA SCÈNE : LA TRANSMISSION. Elle rime avec le râtelier de la division du travail : le même atelier, à l'étape suivante. Là les outils pendaient immobiles à leurs chevilles, ici ils sont serrés dans un bâti et entraînés d'en haut. Le rouet à une broche est sur l'établi ; puis le bâti se lève avec ses douze broches, puis le moteur et l'arbre s'installent au-dessus et la courroie descend ; d'autres courroies descendent aux deux bords, et le rouet est poussé de côté. Depuis octobre 2026 la scène est une figure à la demande en bas de page (architecture « marge » : pas de décalage de visée à corriger).",
+    "titre": "Le rouet et le bâti, en six temps",
     "alt": "Un atelier : une courroie qui descend d'en haut vers un bâti de douze broches posé sur l'établi, un rouet à une seule broche poussé de côté, et un cadran de vitesse au mur.",
     "source": {
-      "texte": "D'après le texte — Livre I, chapitre XV",
+      "texte": "D'après le texte : Livre I, chapitre XV",
       "q": "C’est la machine-outil qui inaugure au dix-huitième siècle la révolution industrielle"
     },
     "etapes": {
       "fait": "Le rouet, sa roue et sa broche unique. Le nombre d'outils qu'un homme met en jeu est borné par le nombre de ses organes.",
-      "ou": "Le bâti se lève derrière lui : douze broches, une seule impulsion. Ce n'est pas la taille qui a changé, c'est le nombre d'outils.",
-      "distinction": "Le moteur et l'arbre s'installent, la courroie descend. La lumière parcourt les trois parties et s'arrête sur la troisième : le moteur a changé plusieurs fois, la coupure n'est pas là.",
-      "mecanisme": "Tout tourne. Le mouvement part de la machine et l'ouvrier ne fait que le suivre : le rouet, qui était l'outil de sa main, est poussé de côté.",
-      "ouvre": "D'autres courroies descendent aux deux bords : l'arbre sort du cadre. Un système de machines forme par lui-même un grand automate.",
-      "lectures": "Le cadran monte : ce qu'on ne peut plus prendre en longueur se prend en vitesse. La machine n'est pas en cause — l'emploi qu'on en fait l'est, et c'est un fait social."
+      "ou": "Le bâti se lève derrière lui : douze broches pour une seule impulsion. Le nombre d'outils a changé ; leur taille, à peine.",
+      "distinction": "Le moteur et l'arbre s'installent, la courroie descend. La lumière parcourt les trois parties du mécanisme et s'arrête sur la troisième, celle qui tient les outils.",
+      "mecanisme": "Tout tourne. Le mouvement part de la machine et l'ouvrier ne fait que le suivre : le rouet, outil de sa main, est poussé de côté.",
+      "ouvre": "D'autres courroies descendent aux deux bords, l'arbre sort du cadre. Un système de machines forme à lui seul un grand automate.",
+      "lectures": "Le cadran monte : ce qu'on ne peut plus prendre en durée se prend en vitesse. C'est l'emploi capitaliste de la machine que Marx accuse."
     },
     "fixe": {
       "g": 4.5,
-      "legende": "Le rouet et sa broche unique est poussé de côté ; les douze broches du bâti tournent, entraînées par une courroie qui descend d'en haut. D'autres montent aux deux bords : le moteur n'est pas dans le cadre, et la coupure n'est pas là."
+      "legende": "Le rouet et sa broche unique sont poussés de côté. Les douze broches du bâti tournent, entraînées par une courroie qui descend d'un moteur qu'on ne voit pas : la révolution est dans les broches."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : la roue et les fuseaux. La notion se voit dans la Jenny de 1811 : un homme tourne encore la grande roue, mais un seul tour fait tourner toute une rangée de fuseaux. C'est la phrase de Marx, « une révolution s'est accomplie alors même que l'homme reste le moteur », gravée. Dans l'essai, le marteau-pilon de Nasmyth, que Marx nomme : la machine qui fait des machines, et dont la partie active est encore une tête de marteau ordinaire. Le fond : les pièces du mécanisme (rouet, bâti à broches, poulie, cadran, marteau-pilon) ; en lumière chaude ce que dit l'atelier, à l'aube, à partir du mécanisme, ce que l'analyse fait voir.",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 1058,
+      "alt": "Gravure d'une Spinning Jenny : un long bâti de bois, une grande roue à manivelle à droite, et à gauche une rangée d'une vingtaine de fuseaux entraînés par une même corde.",
+      "legende": "Un seul tour de la grande roue fait tourner toute une rangée de fuseaux. L'homme reste le moteur, mais l'outil n'est plus dans sa main.",
+      "credit": "Wilson Lowry, «&nbsp;Spinning Jenny&nbsp;», planche «&nbsp;Woollen Manufacture&nbsp;», Londres, Longman, Hurst, Rees, Orme et Brown, 1811. Wellcome Collection, CC BY 4.0.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Textiles;_a_spinning_jenny._Engraving_by_W._Lowry,_1811._Wellcome_V0024143.jpg"
+    },
+    "planches": {
+      "marteau": {
+        "img": "planche-marteau.webp",
+        "w": 1100,
+        "h": 1684,
+        "alt": "Gravure technique du marteau-pilon à vapeur de Nasmyth : un bâti de fonte en arc, le cylindre à vapeur en haut, la tête du marteau suspendue au-dessus de l'enclume, et à droite une coupe du cylindre.",
+        "legende": "Le marteau-pilon de Nasmyth, une des machines qui font des machines. La pièce qui frappe est une tête de marteau ordinaire&nbsp;; c'est le mécanisme qui la tient.",
+        "credit": "Charles Tomlinson, «&nbsp;Nasmyth's Patent Steam Hammer&nbsp;», gravure sur bois d'après la machine de l'Exposition universelle de 1851, 1854. Library of Congress, domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Nasmyth%27s_patent_steam_hammer,_copied_by_permission_of_the_inventor_from_the_machine_in_the_great_exhibition_LCCN2006691796.jpg"
+      }
+    },
+    "lumieres": {
+      "mecanisme": "aube",
+      "ouvre": "aube",
+      "lectures": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les pièces du mécanisme, dessinées en points. L'une s'allume et ce que dit l'atelier monte au-dessus d'elle (chaude) ; aux sections du mécanisme et de l'intensification, c'est ce que l'analyse fait voir (aube). Les chiffres sont ceux du chapitre XV.",
+      "dessins": {
+        "broches": [
+          "1111111111111",
+          "1.1.1.1.1.1.1",
+          "1.1.1.1.1.1.1",
+          "1.1.1.1.1.1.1",
+          "1111111111111",
+          "1...........1",
+          "1...........1",
+          "1...........1"
+        ],
+        "poulie": [
+          "..11111..",
+          ".1.....1.",
+          "1...1...1",
+          "1..111..1",
+          "1...1...1",
+          ".1.....1.",
+          "..11111..",
+          ".1.....1.",
+          ".1.....1.",
+          ".1.....1."
+        ],
+        "cadran": [
+          "..11111..",
+          ".1.....1.",
+          "1.......1",
+          "1.....1.1",
+          "1....1..1",
+          "1...1...1",
+          "1.......1",
+          ".1.....1.",
+          "..11111.."
+        ],
+        "pilon": [
+          "....111....",
+          "....111....",
+          "..1111111..",
+          ".11..1..11.",
+          "11...1...11",
+          "1...111...1",
+          "1...111...1",
+          "1.........1",
+          "1..11111..1",
+          "11.11111.11"
+        ]
+      },
+      "motifs": [
+        {
+          "m": "rouet",
+          "chaude": [
+            "une broche",
+            "deux mains"
+          ],
+          "aube": [
+            "l'homme, moteur",
+            "limite des organes"
+          ]
+        },
+        {
+          "m": "broches",
+          "chaude": [
+            "douze fuseaux",
+            "une impulsion"
+          ],
+          "aube": [
+            "l'outil saisi",
+            "filer sans doigts"
+          ]
+        },
+        {
+          "m": "poulie",
+          "chaude": [
+            "l'arbre moteur",
+            "la courroie"
+          ],
+          "aube": [
+            "un grand automate",
+            "un mécanisme mort"
+          ]
+        },
+        {
+          "m": "cadran",
+          "chaude": [
+            "plus de tours",
+            "la journée bornée"
+          ],
+          "aube": [
+            "plus de labeur",
+            "pores resserrés"
+          ]
+        },
+        {
+          "m": "pilon",
+          "chaude": [
+            "six tonnes",
+            "Nasmyth"
+          ],
+          "aube": [
+            "machines par machines",
+            "un marteau ordinaire"
+          ]
+        },
+        {
+          "m": "piece",
+          "chaude": [
+            "capital avancé",
+            "chaque heure"
+          ],
+          "aube": [
+            "plus-value relative",
+            "l'arrêt coûte"
+          ]
+        }
+      ]
     }
   }
 }
