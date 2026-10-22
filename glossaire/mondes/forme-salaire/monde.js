@@ -10,7 +10,7 @@
    comptoir — les douze heures —, une marque à la craie après le sixième,
    les pièces comptées à côté ; puis une BANDE DE PAPIER posée en travers,
    qui couvre les jetons et la marque, et sur laquelle il n'y a plus qu'une
-   ligne : douze heures, six francs. La rangée se lit alors d'une seule
+   ligne : douze heures, trois francs. La rangée se lit alors d'une seule
    venue.
 
    Au dernier temps une lumière prend SOUS le comptoir, et la division
@@ -75,7 +75,7 @@ window.LM_MONDE = function (canvas) {
     new THREE.MeshBasicMaterial({ color: 0xe7503c, transparent: true, opacity: 0 }));
   marque.rotation.x = -Math.PI / 2; marque.position.set(XM, 0.004, ZJ); marque.renderOrder = 2; scene.add(marque);
 
-  /* ── les pièces : six francs, comptés à côté ── */
+  /* ── les pièces : trois francs en six pièces, comptés à côté ── */
   var pieces = [];
   [[-0.60, 0.30], [-0.49, 0.26], [-0.55, 0.37], [-0.44, 0.35], [-0.38, 0.27], [-0.50, 0.45]].forEach(function (p) {
     var m = new THREE.Mesh(new THREE.CylinderGeometry(0.058, 0.058, 0.012, 24), std({ color: 0xdcd6c6, metalness: 0.8, roughness: 0.27 }));
@@ -116,7 +116,9 @@ window.LM_MONDE = function (canvas) {
       pg.font = '44px Georgia, serif';
       pg.fillText('—', PW * 0.50, PH * 0.34);
       pg.font = 'italic 54px Georgia, serif';
-      pg.fillText('six francs', PW * 0.71, PH * 0.36);
+      /* la formule de Marx au chapitre XIX : « Le travail de douze heures a
+         une valeur de trois francs » (les six pièces sont des demi-francs) */
+      pg.fillText('trois francs', PW * 0.71, PH * 0.36);
       pg.globalAlpha = 1;
     }
     papTex.needsUpdate = true;
@@ -185,7 +187,12 @@ window.LM_MONDE = function (canvas) {
     var dist = camera.position.distanceTo(camA);
     var fwd = new THREE.Vector3().subVectors(camA, camera.position).normalize();
     var right = new THREE.Vector3().crossVectors(fwd, V3(0, 1, 0)).normalize();
-    aim.copy(camA).addScaledVector(right, -Math.min(0.26 * dist, 0.55));
+    /* le décalage vers la gauche laissait la place à la colonne de texte de
+       l'ancienne architecture « plein » ; dans la figure il décentrait le
+       comptoir : il ne joue plus que sur un canevas d'au moins 1100 px qui
+       ne serait pas une figure. */
+    var large = canvas.clientWidth >= 1100 && !(canvas.closest && canvas.closest('.nt-fig'));
+    aim.copy(camA).addScaledVector(right, large ? -Math.min(0.26 * dist, 0.55) : 0);
     camera.lookAt(aim);
     render();
   }
