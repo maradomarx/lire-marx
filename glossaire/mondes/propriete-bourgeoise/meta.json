@@ -73,7 +73,7 @@
     }
   },
   "da": {
-    "_": "LA DIRECTION ARTISTIQUE : le titre de propriété. La notion définit la propriété par ce qu'elle donne pouvoir de faire. La page s'ouvre donc sur une action de filature de 1856 : une usine gravée en tête, et un papier qui fait de son détenteur un propriétaire de cette usine, avec dix coupons de dividende, sans qu'il ait à y entrer. Dans l'essai, le décret d'août 1789 qui détruit le régime féodal (la propriété a une histoire) et une expulsion irlandaise de 1888 (la propriété des uns se fait sentir comme la privation des autres). Le fond fait monter ce que la propriété dit d'elle-même (chaude), puis, à partir de la section du capital, ce que l'analyse y lit (aube) : le travail des autres, la force sociale, les neuf dixièmes.",
+    "_": "LA DIRECTION ARTISTIQUE : le titre de propriété. La notion définit la propriété par ce qu'elle donne pouvoir de faire. La page s'ouvre donc sur une action de filature de 1856 : une usine gravée en tête, et un papier qui fait de son détenteur un propriétaire de cette usine, avec dix coupons de dividende, sans qu'il ait à y entrer. Dans l'essai, la séance de la nuit du 4 août 1789, gravée par Helman d'après Monnet, dont sort le décret qui détruit le régime féodal (la propriété a une histoire) et une expulsion irlandaise de 1888 (la propriété des uns se fait sentir comme la privation des autres). Le fond fait monter ce que la propriété dit d'elle-même (chaude), puis, à partir de la section du capital, ce que l'analyse y lit (aube) : le travail des autres, la force sociale, les neuf dixièmes.",
     "vitrine": {
       "img": "vitrine.webp",
       "w": 1300,
@@ -86,12 +86,12 @@
     "planches": {
       "decret": {
         "img": "planche-decret.webp",
-        "w": 1060,
-        "h": 768,
-        "alt": "Page imprimée de 1789 : DÉCRETS DE L'ASSEMBLÉE NATIONALE, des 4, 6, 7, 8 et 11 août 1789, Article premier : l'Assemblée nationale détruit entièrement le régime féodal ; une partie des droits est abolie sans indemnité, les autres sont déclarés rachetables.",
-        "legende": "Août 1789 : l'Assemblée détruit le régime féodal. Une partie des droits seigneuriaux tombe sans indemnité, l'autre devra être rachetée. Une forme de propriété en abolit une autre.",
-        "credit": "Décrets de l'Assemblée nationale des 4, 6, 7, 8 et 11 août 1789, Imprimerie du Roi, 1789. Domaine public.",
-        "lien": "https://commons.wikimedia.org/wiki/File:D%C3%A9crets_du_4,_6,_7,_8_et_11_ao%C3%BBt_1789.jpg"
+        "w": 1300,
+        "h": 826,
+        "alt": "Gravure : la salle de l’Assemblée nationale à Versailles, la nuit du 4 août 1789 ; au centre, des députés se pressent vers le bureau du président pour renoncer à leurs privilèges.",
+        "legende": "La nuit du 4 août 1789, les députés de la noblesse et du clergé renoncent à leurs privilèges. Le décret qui suit détruit le régime féodal, mais déclare une partie des droits rachetables. Une forme de propriété en abolit une autre.",
+        "credit": "Charles Monnet (dessin) et Isidore-Stanislas Helman (gravure), <i>Assemblée nationale, abandon de tous les privilèges, à Versailles, séance de la nuit du 4 au 5 août 1789</i>, 1790. Musée Carnavalet, CC0.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Assembl%C3%A9e_Nationale_abandon_de_tous_les_privil%C3%A8ges,_%C3%A0_Versailles,_s%C3%A9ance_de_la_nuit_du_4_au_5_aout_1789,_G.27902(2).jpg"
       },
       "belier": {
         "img": "planche-belier.webp",

@@ -84,12 +84,12 @@
     "planches": {
       "poule": {
         "img": "planche-poule.webp",
-        "w": 734,
-        "h": 735,
+        "w": 1150,
+        "h": 1180,
         "alt": "Gravure : sous une porte voûtée, un homme assis tient sur ses genoux une poule ouverte et morte, un couteau à ses pieds, une jatte vide devant lui.",
         "legende": "La poule aux œufs d'or de La Fontaine&nbsp;: l'avare l'ouvre pour prendre le trésor d'un coup et n'y trouve rien. Le thésauriseur de Marx garde l'argent hors de la circulation&nbsp;; le capitaliste le relance, et la somme revient grossie.",
-        "credit": "J.-J. Grandville, illustration de «&nbsp;La Poule aux œufs d'or&nbsp;» (Fables, livre V, fable 13), <i>Fables de La Fontaine</i>, Paris, H. Fournier, 1838-1840. Bibliothèque nationale de France, Gallica, domaine public.",
-        "lien": "https://commons.wikimedia.org/wiki/File:Grandville_-_Fables_de_La_Fontaine_-_05-13_._La_poule_aux_%C5%93ufs_d%27or.jpg"
+        "credit": "J.-J. Grandville, illustration de «&nbsp;La Poule aux œufs d'or&nbsp;» (Fables, livre V, fable 13), <i>Fables de La Fontaine</i>, Paris, H. Fournier, 1838-1840, tome III. Bibliothèques de Nancy (Rés. 10 795), domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:La_poule_aux_%C5%93ufs_d%27or_R%C3%A9s._10_795_(3).jpg"
       }
     },
     "lumieres": {

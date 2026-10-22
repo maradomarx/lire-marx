@@ -40,7 +40,7 @@ window.LM_MONDE = function (canvas) {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.6));
   renderer.setClearColor(0x0a0806, 1);
   if (THREE.sRGBEncoding) renderer.outputEncoding = THREE.sRGBEncoding;
-  if (THREE.ACESFilmicToneMapping) { renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.02; }
+  if (THREE.ACESFilmicToneMapping) { renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.75; }
   renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
   var scene = new THREE.Scene(); scene.fog = new THREE.Fog(0x0a0806, 3.6, 10.5);
