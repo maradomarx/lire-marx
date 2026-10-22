@@ -61,6 +61,48 @@ window.LM_MONDE = function (canvas) {
   var fond = new THREE.Mesh(new THREE.PlaneGeometry(12, 7), std({ color: 0x1d1409, roughness: 0.98 }));
   fond.position.set(0, 1.5, -2.1); fond.receiveShadow = true; scene.add(fond);
 
+  /* LE CORPS DU COMPTOIR. Le plateau flottait seul : sous son chant, le
+     quart bas du cadre n'était que la couleur d'effacement — un noir à
+     8 sur 255 qui alourdissait toute l'image. Un vrai comptoir de paie a
+     une façade : des panneaux de bois, en léger retrait sous le plateau,
+     jusqu'au plancher. Elle ne reçoit pas l'ombre du plateau (la lampe la
+     raserait et la laisserait noire) ; c'est l'appoint de face qui la tient
+     lisible, et la lumière de dessous, au dernier temps, s'y voit monter. */
+  var YSOL = -1.05;
+  var facadeTex = tex(1024, 512, function (g, w, h) {
+    g.fillStyle = '#4a3220'; g.fillRect(0, 0, w, h);
+    for (var i = 0; i < 160; i++) {
+      g.strokeStyle = 'rgba(18,10,4,' + (0.05 + rnd() * 0.12) + ')'; g.lineWidth = 0.6 + rnd() * 1.8;
+      g.beginPath(); var x = rnd() * w; g.moveTo(x, 0);
+      for (var y = 0; y <= h; y += 48) g.lineTo(x + (rnd() - 0.5) * 5, y);
+      g.stroke();
+    }
+    /* quatre panneaux à plate-bande : un cadre plus clair, un creux,
+       et la table du panneau, que la lumière accroche en haut */
+    var n = 4, m = 26, pw = (w - m * (n + 1)) / n, top = 34, bot = h - 70;
+    for (var k = 0; k < n; k++) {
+      var x0 = m + k * (pw + m);
+      g.fillStyle = 'rgba(12,6,2,0.42)'; g.fillRect(x0, top, pw, bot - top);
+      g.fillStyle = 'rgba(255,214,160,0.07)'; g.fillRect(x0 + 10, top + 10, pw - 20, bot - top - 20);
+      g.fillStyle = 'rgba(255,214,160,0.10)'; g.fillRect(x0 + 10, top + 10, pw - 20, 4);
+      g.fillStyle = 'rgba(12,6,2,0.30)'; g.fillRect(x0 + 10, bot - 14, pw - 20, 4);
+    }
+    /* la plinthe */
+    g.fillStyle = 'rgba(10,5,2,0.55)'; g.fillRect(0, h - 40, w, 40);
+  });
+  var HCORPS = -0.14 - YSOL;
+  var corps = new THREE.Mesh(new THREE.BoxGeometry(2.86, HCORPS, 0.98), std({ map: facadeTex, roughness: 0.72, color: 0xc9ad88 }));
+  corps.position.set(0, -0.14 - HCORPS / 2, -0.04); corps.castShadow = true; corps.receiveShadow = false; scene.add(corps);
+  /* le plancher, que la lampe touche devant le comptoir */
+  var solTex = tex(512, 512, function (g, w, h) {
+    g.fillStyle = '#2e2014'; g.fillRect(0, 0, w, h);
+    for (var i = 0; i < 8; i++) { g.fillStyle = 'rgba(8,4,1,0.5)'; g.fillRect(0, i * 64, w, 2); }
+    for (i = 0; i < 300; i++) { g.fillStyle = 'rgba(10,5,2,' + (rnd() * 0.12) + ')'; g.fillRect(rnd() * w, rnd() * h, 30 + rnd() * 80, 1.5); }
+  });
+  solTex.wrapS = solTex.wrapT = THREE.RepeatWrapping; solTex.repeat.set(3, 3);
+  var sol = new THREE.Mesh(new THREE.PlaneGeometry(12, 8), std({ map: solTex, roughness: 0.9, color: 0xa88c6c }));
+  sol.rotation.x = -Math.PI / 2; sol.position.set(0, YSOL, 1.0); sol.receiveShadow = true; scene.add(sol);
+
   /* ── les douze heures ── */
   var NJ = 12, PASJ = 0.108, XJ0 = -0.62, ZJ = -0.06;
   var laiton = std({ color: 0xb98f3e, metalness: 0.82, roughness: 0.31 });
@@ -136,8 +178,13 @@ window.LM_MONDE = function (canvas) {
   abat.position.set(-0.55, 1.29, 0.62); scene.add(abat);
   var ampoule = new THREE.Mesh(new THREE.SphereGeometry(0.04, 12, 10), new THREE.MeshBasicMaterial({ color: 0xffd79a }));
   ampoule.position.copy(lampe.position); scene.add(ampoule);
-  /* celle de dessous : elle ne sert qu'à border le comptoir d'un liseré */
-  var dessous = new THREE.PointLight(0xffcf8a, 0, 2.2, 2.0); dessous.position.set(XM, -0.42, ZJ + 0.1); scene.add(dessous);
+  /* l'appoint de face : il tient la façade et le plancher hors du noir,
+     sans ombre, et assez bas pour ne rien brûler sur le papier */
+  var appoint = new THREE.PointLight(0xffd6a8, 1.15, 5.2, 1.4); appoint.position.set(0.3, -0.35, 2.7); scene.add(appoint);
+  /* celle de dessous : depuis la façade du comptoir, devant les panneaux et
+     sous le rebord du plateau — on la voit prendre au dernier temps, et le
+     papier, lui, la laisse passer par son dessin */
+  var dessous = new THREE.PointLight(0xffcf8a, 0, 1.6, 2.0); dessous.position.set(XM, -0.30, 0.66); scene.add(dessous);
 
   /* ── chorégraphie ── */
   var G = 0, T = 0;
