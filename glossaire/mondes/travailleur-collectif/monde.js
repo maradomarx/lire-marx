@@ -370,7 +370,10 @@ window.LM_MONDE = function (canvas) {
     var dist = camera.position.distanceTo(camA);
     var fwd = new THREE.Vector3().subVectors(camA, camera.position).normalize();
     var right = new THREE.Vector3().crossVectors(fwd, V3(0, 1, 0)).normalize();
-    aim.copy(camA).addScaledVector(right, -Math.min(0.20 * dist, 0.70));
+    /* Dans la figure (et sous 1100 px), la scène n'a plus de colonne de
+       texte à éviter : la visée se fait sur le sujet, sans décalage. */
+    var large = canvas.clientWidth >= 1100 && !(canvas.closest && canvas.closest('.nt-fig'));
+    aim.copy(camA).addScaledVector(right, large ? -Math.min(0.20 * dist, 0.70) : 0);
     camera.lookAt(aim);
     render();
   }
