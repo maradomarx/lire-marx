@@ -122,7 +122,8 @@ window.LM_MONDE = function (canvas) {
   var sceaux = [];
   for (var i = 0; i < 3; i++) {
     var m = new THREE.Mesh(new THREE.CylinderGeometry(0.030, 0.030, 0.010, 20),
-      std({ color: SCEAUX[i], metalness: i === 2 ? 0.85 : 0.25, roughness: i === 2 ? 0.3 : 0.72,
+      std({ color: SCEAUX[i], metalness: i === 2 ? 0.55 : 0.25, roughness: i === 2 ? 0.32 : 0.72,
+            emissive: i === 2 ? 0x4a3008 : 0x000000,   /* l'or a son éclat propre : sans environnement, un métal ne rend rien */
             transparent: true, opacity: 0 }));
     m.rotation.x = Math.PI / 2;
     m.position.set(0.265, 0.115, 0.128); m.castShadow = true;
