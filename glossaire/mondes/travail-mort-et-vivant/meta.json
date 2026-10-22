@@ -1,18 +1,39 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/travail-mort-et-vivant.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/travail-mort-et-vivant. L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrit en octobre 2026 selon glossaire/mondes/CHARTE.md.",
   "titre": "Travail mort et travail vivant",
   "de": "tote und lebendige Arbeit",
-  "chapo": "Une fabrique arrêtée est une masse énorme de travail humain qui ne fait rien, et qui se défait&nbsp;: le fer se rouille, le bois pourrit. Il faut que le travail vivant vienne la ressaisir pour qu'elle serve encore. Puis le rapport se retourne : devenue automate, la masse se dresse devant l'ouvrier et commande le mouvement. C'est là que Marx écrit que le capital est du travail mort qui ne s'anime qu'en suçant le travail vivant.",
-  "description": "Travail mort et travail vivant chez Marx : pourquoi le travail passé n'agit pas de lui-même, ce que la formule du vampire démontre exactement, et comment le machinisme retourne le rapport en faveur de la chose.",
+  "enbref": "Travail mort et travail vivant désignent, chez Marx, deux états du travail humain. Le travail mort est le travail passé, déposé dans des choses (bâtiments, machines, matières), qui ne produit rien de lui-même. Le travail vivant est l'activité présente des ouvriers, seule capable de remettre ces choses en mouvement et de créer une valeur nouvelle. Marx suit ce rapport dans <i>Le Capital</i> (1867), du chapitre VII au chapitre XV. La difficulté est de comprendre comment la chose inerte finit par commander celui qui travaille.",
+  "retenir": [
+    "Le travail mort est du travail passé, fixé dans des moyens de production. Il a de la valeur, mais il n'agit pas, et laissé à lui-même il se dégrade.",
+    "Le travail vivant, en s'exerçant sur ces choses, conserve leur valeur en la faisant passer dans le produit, et y ajoute une valeur nouvelle.",
+    "Le capital est du travail mort qui ne grossit qu'en absorbant du travail vivant. D'où sa tendance à allonger la journée, que Marx exprime par l'image du vampire.",
+    "Avec la machine, le rapport se retourne dans l'atelier même : la machine donne le mouvement, et l'ouvrier le suit.",
+    "Marx ne condamne pas les machines. Il distingue la technique de son emploi capitaliste, qui la fait servir à allonger le travail au lieu de le réduire."
+  ],
+  "questions": [
+    {
+      "q": "Pourquoi une fabrique arrêtée perd-elle de la valeur&nbsp;?",
+      "r": "Parce que ses machines et ses matières ne gardent leur valeur qu'en passant dans des produits, et elles n'y passent que si des ouvriers les mettent en œuvre. Immobiles, elles se détériorent sans rien transmettre. C'est pourquoi un industriel écossais cité par Marx croyait que chaque heure de travail retirée diminuait la valeur de ses machines."
+    },
+    {
+      "q": "Que veut dire Marx quand il écrit que le capital est du travail mort semblable au vampire&nbsp;?",
+      "r": "Que le capital n'a pas de vie propre&nbsp;: c'est une masse de travail passé qui ne s'accroît qu'en absorbant le travail présent des ouvriers. L'image est aussi quantitative, puisque le capital vit d'autant mieux qu'il en absorbe davantage. Elle explique la tendance à prolonger la journée de travail."
+    },
+    {
+      "q": "En quoi la machine change-t-elle le rapport entre travail mort et travail vivant&nbsp;?",
+      "r": "Avec l'outil, l'ouvrier met la chose en mouvement. Avec la machine, c'est le mécanisme qui fixe le rythme, et l'ouvrier s'y ajuste. La domination du travail passé sur le travail présent, qui n'était jusque-là qu'un rapport de valeur, devient la disposition matérielle de l'atelier."
+    }
+  ],
+  "description": "Travail mort et travail vivant chez Marx, expliqués simplement : pourquoi les machines n'agissent pas seules, ce que dit l'image du vampire, et comment la machine retourne le rapport.",
   "source": {
     "work": "capital-1",
     "s": 3,
-    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitres VII à X et XV — traduction Joseph Roy (1872)"
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitres VII à XI et XV, traduction Joseph Roy (1872)"
   },
-  "ou": "Livre&nbsp;I — la paire n'a pas de chapitre à elle : elle paraît au chapitre VII (le procès de travail), au VIII (qui conserve et qui crée), au IX (le taux), au X (la journée de travail, où elle donne la formule du vampire) et au XV, où le machinisme la retourne. C'est un fil, non un concept local.",
+  "ou": "Livre&nbsp;I. La paire n'a pas de chapitre à elle&nbsp;: elle paraît au chapitre VII (le procès de travail), au VIII (qui conserve la valeur et qui la crée), au IX (le taux de la plus-value), au X (la journée de travail, avec l'image du vampire), à la fin du XI (l'inversion des rôles) et au XV, où le machinisme rend le renversement visible.",
   "outils": [
     {
-      "label": "Le circuit du capital — le jeu",
+      "label": "Le circuit du capital, le jeu",
       "url": "/jeu/"
     }
   ],
@@ -25,24 +46,192 @@
     "Force de travail"
   ],
   "monde": {
-    "_": "LA SCÈNE : LE FER ET LA FLAMME. Les deux images sont de Marx à la lettre — « le fer se rouille, le bois pourrit », et le travail vivant « lèche de sa flamme » ce qu'il ressuscite. Ce que la flamme atteint tourne ; ce qu'elle quitte s'arrête et se rouille. Au troisième temps elle se retire tout à fait : la masse n'a aucun mouvement propre, et la démonstration ne coûte qu'un aller-retour. Puis la masse grossit de ce que la flamme lui donne, se met à tourner seule, et la flamme n'a plus de chemin à elle — elle est portée sur une orbite que la grande roue lui impose.",
+    "_": "LA SCÈNE : LE FER ET LA FLAMME. Les deux images sont de Marx à la lettre : « le fer se rouille, le bois pourrit », et le travail vivant « lèche de sa flamme » ce qu'il ressuscite. Ce que la flamme atteint tourne ; ce qu'elle quitte s'arrête et se rouille. Au troisième temps elle se retire tout à fait : la masse n'a aucun mouvement propre. Puis la masse grossit de ce que la flamme lui donne, se met à tourner seule, et la flamme est portée sur une orbite que la grande roue lui impose. Depuis octobre 2026 la scène est une figure à la demande en bas de page : elle s'y cadre centrée (plus de décalage de visée hors des canevas d'au moins 1100 px).",
+    "titre": "Le fer et la flamme, en six temps",
     "alt": "Dans le noir, une masse de roues et d'arbres de fer rouillés ; une flamme passe et ce qu'elle atteint devient du fer clair et tourne ; puis la masse, agrandie, tourne seule et entraîne la flamme autour d'elle.",
     "source": {
-      "texte": "D'après le texte — Livre I, chapitre VII",
+      "texte": "D'après le texte : Livre I, chapitre VII",
       "q": "Le travail vivant doit ressaisir ces objets, les ressusciter des morts"
     },
     "etapes": {
-      "fait": "Une masse de fer dans le noir, immobile et rouillée. Ce n'est pas seulement qu'elle n'agit pas : livrée à elle-même, elle se défait.",
-      "ou": "Une flamme passe. Ce qu'elle atteint perd sa rouille et se met à tourner. Le contact suffit&nbsp;: il n'y a pas d'autre opération à accomplir.",
-      "distinction": "La flamme se retire. Tout s'arrête et se rouille de nouveau. La masse n'a aucun mouvement propre, et une fabrique sans ouvriers n'est pas un capital au repos mais une valeur qui s'en va.",
-      "mecanisme": "La flamme travaille, et la masse grossit de ce qu'elle lui donne. La flamme, elle, ne grandit pas d'un pouce.",
-      "ouvre": "La masse tourne seule. La flamme n'a plus de chemin à elle : elle est portée sur une orbite que la grande roue lui impose&nbsp;: le renversement est technique avant d'être juridique.",
-      "lectures": "À chaque tour un filet de lumière quitte la flamme et entre dans le fer. La flamme baisse d'un cran et se reprend&nbsp;: elle s'anime d'une vie qu'elle n'a pas."
+      "fait": "Une masse de fer dans le noir, immobile et rouillée. Livrée à elle-même, elle ne produit rien et se défait.",
+      "ou": "Une flamme passe. Ce qu'elle atteint perd sa rouille et se met à tourner : le contact suffit.",
+      "distinction": "La flamme se retire, et tout s'arrête et se rouille de nouveau. La masse n'a aucun mouvement propre : sans travail vivant, sa valeur s'en va.",
+      "mecanisme": "La flamme travaille, et la masse grossit de ce qu'elle lui donne. La flamme, elle, ne grandit pas.",
+      "ouvre": "La masse tourne seule, et la flamme est portée sur une orbite que la grande roue lui impose. Le renversement est d'abord technique.",
+      "lectures": "À chaque tour, un filet de lumière quitte la flamme et entre dans le fer. Le fer s'anime d'une vie qu'il n'a pas."
     },
     "layout": "plein",
     "fixe": {
       "g": 5.5,
-      "legende": "La masse a grossi et tourne seule ; la flamme, réduite, est portée sur une orbite qu'elle ne choisit pas, et un filet de lumière la quitte à chaque tour pour entrer dans le fer. Rien n'a changé de nature&nbsp;: c'est le même fer, et c'est la même flamme."
+      "legende": "La masse a grossi et tourne seule. La flamme, plus petite, suit l'orbite que la roue lui impose, et à chaque tour un filet de lumière passe d'elle au fer."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : la forge de nuit. La page se lit comme une usine qui ne dort pas : le fer accumulé dans le noir, et le feu du travail qui seul l'anime. En tête, les hauts fourneaux de Coalbrookdale allumés en pleine nuit, avec au premier plan des cylindres de fonte couchés sur le sol (le travail mort qui attend) ; dans l'essai, la barre chauffée à blanc sous le marteau de Wright of Derby (le contact qui ressuscite). La lumière passe à l'aube à partir de la section où l'on voit qui conserve et qui crée la valeur, et revient au chaud pour les lectures.",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 898,
+      "alt": "Coalbrookdale de nuit : au fond, les hauts fourneaux embrasent le ciel de flammes et de fumée au-dessus des cheminées des forges ; au premier plan, des cylindres de fonte gisent sur le sol, un homme marche sur la route et un attelage tire une charrette.",
+      "legende": "Les hauts fourneaux brûlent en pleine nuit. Pour Marx, un fourneau qui se repose est perte pure : le fer ne vaut qu'en absorbant du travail, à toute heure.",
+      "credit": "Philippe-Jacques de Loutherbourg, <i>Coalbrookdale de nuit</i>, 1801. Science Museum, Londres, domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Philipp_Jakob_Loutherbourg_d._J._002.jpg"
+    },
+    "planches": {
+      "forge": {
+        "img": "planche-forge.webp",
+        "w": 1200,
+        "h": 1102,
+        "alt": "L'intérieur d'une forge sous une charpente : un forgeron penché tient une barre de fer chauffée à blanc sous un gros marteau mû par une roue à aubes, un autre ouvrier le regarde, bras croisés ; une femme et des enfants se tiennent à droite.",
+        "legende": "La barre chauffée à blanc, le marteau, la roue qui l'entraîne : du travail passé, qui ne sert qu'au moment où des hommes s'en saisissent.",
+        "credit": "Joseph Wright of Derby, <i>Une forge</i> (<i>An Iron Forge</i>), 1772. Tate Britain, Londres, domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Joseph_Wright_-_An_Iron_Forge_-_Google_Art_Project.jpg"
+      }
+    },
+    "lumieres": {
+      "distinction": "aube",
+      "mecanisme": "aube",
+      "ouvre": "aube",
+      "lectures": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les choses de la fabrique, dessinées en points. En lumière chaude monte ce qu'on voit (le fer, le prix, la nuit qui brûle) ; à l'aube, ce que l'analyse fait voir (du travail passé, qui ne vit que du travail présent). Les chiffres sont ceux du texte (douze pence, cent mille livres, douze machines).",
+      "dessins": {
+        "engrenage": [
+          "..1.1.1..",
+          ".1111111.",
+          "111...111",
+          ".1..1..1.",
+          "11.111.11",
+          ".1..1..1.",
+          "111...111",
+          ".1111111.",
+          "..1.1.1.."
+        ],
+        "fourneau": [
+          "....1....",
+          "...1.1...",
+          "....1....",
+          "...111...",
+          "...1.1...",
+          "..1...1..",
+          "..1...1..",
+          ".1.....1.",
+          ".1..1..1.",
+          "111111111"
+        ],
+        "pioche": [
+          "..1111111..",
+          ".1...1...1.",
+          "1....1....1",
+          ".....1.....",
+          ".....1.....",
+          ".....1.....",
+          ".....1.....",
+          ".....1....."
+        ],
+        "marteau": [
+          ".111111..",
+          ".111111..",
+          "...11....",
+          "...11....",
+          "...11....",
+          "...11....",
+          "...11....",
+          "...11...."
+        ],
+        "horloge": [
+          "..11111..",
+          ".1.....1.",
+          "1...1...1",
+          "1...1...1",
+          "1...111.1",
+          "1.......1",
+          "1.......1",
+          ".1.....1.",
+          "..11111.."
+        ]
+      },
+      "motifs": [
+        {
+          "m": "engrenage",
+          "chaude": [
+            "cent mille livres",
+            "la fabrique"
+          ],
+          "aube": [
+            "travail passé",
+            "rien sans bras"
+          ]
+        },
+        {
+          "m": "fourneau",
+          "chaude": [
+            "le haut fourneau",
+            "toute la nuit"
+          ],
+          "aube": [
+            "perte pure",
+            "s'il se repose"
+          ]
+        },
+        {
+          "m": "pioche",
+          "chaude": [
+            "douze pence",
+            "la pioche"
+          ],
+          "aube": [
+            "posée, inutile",
+            "travail mort"
+          ]
+        },
+        {
+          "m": "marteau",
+          "chaude": [
+            "le fer forgé",
+            "la barre"
+          ],
+          "aube": [
+            "ressuscité",
+            "par le travail"
+          ]
+        },
+        {
+          "m": "horloge",
+          "chaude": [
+            "douze heures",
+            "et la nuit"
+          ],
+          "aube": [
+            "vingt-quatre heures",
+            "soif de vampire"
+          ]
+        },
+        {
+          "m": "piece",
+          "chaude": [
+            "le capital",
+            "valeur avancée"
+          ],
+          "aube": [
+            "du travail mort",
+            "grossi du vivant"
+          ]
+        },
+        {
+          "m": "rouet",
+          "chaude": [
+            "douze machines",
+            "à vendre"
+          ],
+          "aube": [
+            "plus qu'une dizaine",
+            "si dix heures"
+          ]
+        }
+      ]
     }
   }
 }

@@ -1,22 +1,43 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/valeur-qui-se-valorise.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/valeur-qui-se-valorise. L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrite en octobre 2026 selon glossaire/mondes/CHARTE.md (enbref, retenir, questions).",
   "titre": "La valeur qui se valorise",
   "de": "sich verwertender Wert",
-  "chapo": "Le capital n'est ni une chose ni une somme : c'est un mouvement. De la valeur qui traverse des formes (argent, marchandise, argent) sans cesser d'être la même, et qui en revient grossie. De sorte qu'elle paraît s'accroître par sa propre vertu, et que celui qui la possède n'en est que le support conscient.",
-  "description": "La valeur qui se valorise chez Marx : pourquoi le capital se définit par un mouvement et non par une substance, ce qui sépare A—M—A′ de M—A—M, et pourquoi ce mouvement ne contient en lui-même aucune limite.",
+  "enbref": "La valeur qui se valorise est, chez Marx, la définition du capital&nbsp;: une somme de valeur qui passe de la forme argent à la forme marchandise, puis revient à la forme argent, plus grande qu'au départ, et recommence. Le capital se définit ainsi par un mouvement, celui d'acheter pour revendre plus cher, que Marx note A-M-A′. Il l'expose au chapitre IV du Livre&nbsp;I du <i>Capital</i> (1867). Vu de l'extérieur, ce mouvement donne l'impression que l'argent grossit tout seul&nbsp;: Marx décrit cette apparence avant d'en chercher la cause.",
+  "retenir": [
+    "Une somme d'argent n'est pas du capital par elle-même. Elle le devient quand elle sert à acheter une marchandise pour la revendre plus cher, puis qu'on recommence.",
+    "Vendre pour acheter (M-A-M) s'achève dans une chose qu'on consomme. Acheter pour vendre (A-M-A′) part de l'argent et y revient&nbsp;: il n'a de sens que si la somme revient plus grande.",
+    "La somme revenue est prête à recommencer, et cent dix livres ont le même besoin de croître que cent. Ce mouvement ne trouve en lui-même aucun point d'arrêt.",
+    "Comme la valeur reste la même à travers ses changements de forme et revient toujours accrue, elle semble s'accroître par sa propre vertu. Marx expliquera aux chapitres V et VI que le surplus vient de la force de travail.",
+    "Le capitaliste est défini par sa place dans ce mouvement&nbsp;: il en est le support conscient. Il se distingue ainsi de l'avare, qui retire son argent de la circulation au lieu de l'y relancer."
+  ],
+  "questions": [
+    {
+      "q": "Dans l'exemple de Marx, pourquoi acheter du coton 100 livres sterling pour le revendre 100 livres serait-il absurde&nbsp;?",
+      "r": "Parce qu'on reviendrait au point de départ avec la même somme, après avoir couru le risque de la perdre. Dans A-M-A′, les deux bouts sont de l'argent et ne diffèrent que par la quantité. Le mouvement n'a donc de sens que si l'on revend 110 ce qu'on a acheté 100."
+    },
+    {
+      "q": "Pourquoi le mouvement du capital n'a-t-il pas de fin, alors que la circulation simple en a une&nbsp;?",
+      "r": "La circulation simple s'arrête quand le besoin est satisfait&nbsp;: le pain acheté est mangé. Dans le mouvement du capital, le but est une grandeur, et une grandeur peut toujours être plus grande. La somme revenue reprend le même chemin, et ainsi de suite."
+    },
+    {
+      "q": "Marx pense-t-il que l'argent a le pouvoir de faire des petits&nbsp;?",
+      "r": "Non. Il écrit que la valeur semble avoir acquis ce pouvoir, et il décrit là une apparence. Au chapitre V, il montre que l'échange ne peut pas produire de surplus, et au chapitre VI il trouve la marchandise qui en produit&nbsp;: la force de travail."
+    }
+  ],
+  "description": "La valeur qui se valorise chez Marx, expliquée simplement : pourquoi le capital est un mouvement, acheter pour revendre plus cher, et pourquoi il n'a pas de fin.",
   "source": {
     "work": "capital-1",
     "s": 2,
-    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre IV — traduction Joseph Roy (1872)"
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitres IV et V, traduction Joseph Roy (1872)"
   },
-  "ou": "Livre&nbsp;I, deuxième section, chapitre IV, « La transformation de l'argent en capital ». Aussitôt après la marchandise et l'argent, et avant qu'il ait été question de salaire&nbsp;: le concept se construit sur la seule circulation.",
+  "ou": "Livre&nbsp;I, deuxième section, «&nbsp;La transformation de l'argent en capital&nbsp;», chapitre IV&nbsp;: «&nbsp;La formule générale du capital&nbsp;». Le concept vient juste après la marchandise et l'argent, et avant qu'il soit question de salaire&nbsp;: il est construit sur la seule circulation.",
   "outils": [
     {
-      "label": "Le circuit du capital — le jeu",
+      "label": "Le circuit du capital, le jeu",
       "url": "/jeu/"
     },
     {
-      "label": "Marchandise, argent, capital — le laboratoire",
+      "label": "Marchandise, argent, capital&nbsp;: le laboratoire",
       "url": "/oeuvres/capital-1#labo=s-circuit"
     }
   ],
@@ -29,23 +50,147 @@
     "Accumulation"
   ],
   "monde": {
-    "_": "LA SCÈNE : LE MÊME PLATEAU, SIX FOIS. Le concept n'est pas un objet mais un mouvement, et il ne fallait pourtant pas d'un circuit (le jeu du site en est un, et la page du communisme a déjà ses deux tracés). Le mouvement se joue donc SUR PLACE : un seul plateau de comptoir, où la forme alterne (une colonne d'écus, puis un ballot de coton, puis les écus de nouveau) pendant que la grandeur monte d'un dixième à chaque tour. Derrière, l'ardoise du comptoir inscrit la série, cent, cent dix, cent vingt et un, et la dernière ligne se perd sous le bord : le mouvement ne contient aucun terme. À droite la bourse, qui est le point de départ et le point de retour.",
+    "_": "LA SCÈNE : LE MÊME PLATEAU, SIX FOIS. Le concept est un mouvement, et il ne fallait pourtant pas d'un circuit (le jeu du site en est un, et la page du communisme a déjà ses deux tracés). Le mouvement se joue donc SUR PLACE : un seul plateau de comptoir, où la forme alterne (une colonne d'écus, puis un ballot de coton, puis les écus de nouveau) pendant que la grandeur monte d'un dixième à chaque tour. Derrière, l'ardoise du comptoir inscrit la série, cent, cent dix, cent vingt et un, et la dernière ligne se perd sous le bord. À droite la bourse, point de départ et point de retour.",
+    "titre": "Le plateau du comptoir, en six temps",
     "alt": "Un comptoir sous une lampe : un plateau de laiton où s'élève une colonne d'écus, une ardoise au mur où une série de nombres est écrite à la craie, et une bourse de cuir.",
     "source": {
-      "texte": "D'après le texte — Livre I, chapitre IV",
+      "texte": "D'après le texte : Livre I, chapitre IV",
       "q": "la valeur se présente ici comme une substance automatique, douée d’une vie propre, qui, tout en échangeant ses formes sans cesse, change aussi de grandeur"
     },
     "etapes": {
-      "fait": "Des écus sur un plateau. On dirait que le capital est là, dans le métal. Mais une somme qui dort ne grossit pas d'un liard.",
-      "ou": "Le métal a fait place au ballot : la même valeur, une autre forme. C'est le mouvement qui fait le capital, et il se lit d'abord sur la seule circulation.",
-      "distinction": "Les écus reviennent, et ils sont plus nombreux. L'ardoise inscrit la série : ce qui sort n'est pas cent d'un côté et dix de l'autre, mais cent dix, prêts à recommencer.",
-      "mecanisme": "La forme change, la grandeur monte, et la valeur paraît s'accroître par sa propre vertu. Le mot est « semble »&nbsp;: d'où vient l'excédent, deux chapitres plus loin le diront.",
-      "ouvre": "La bourse est le point de départ et le point de retour. Celui qui la tient n'est capitaliste qu'autant qu'il est le support de ce mouvement.",
-      "lectures": "La dernière ligne de l'ardoise se perd sous le bord. Le mouvement ne contient aucun terme, ce qui n'est pas dire qu'il n'en rencontre aucun."
+      "fait": "Des écus sur un plateau. On croirait que le capital est là, dans le métal&nbsp;; mais une somme qui dort ne grossit pas d'un liard.",
+      "ou": "Le métal a fait place au ballot de coton. C'est la même valeur sous une autre forme, et tout se passe encore sur le marché.",
+      "distinction": "Les écus reviennent, plus nombreux, et l'ardoise inscrit la série. Ce qui revient forme une seule somme de cent dix, prête à repartir.",
+      "mecanisme": "La forme change, la grandeur monte, et la valeur paraît s'accroître d'elle-même. Marx écrit qu'elle semble le faire&nbsp;: la cause viendra deux chapitres plus loin.",
+      "ouvre": "La bourse est le point de départ et le point de retour de l'argent. Celui qui la tient est capitaliste dans la mesure où il porte ce mouvement.",
+      "lectures": "La dernière ligne de l'ardoise se perd sous le bord. Le mouvement n'a en lui-même aucun terme&nbsp;; ses limites lui viennent du dehors."
     },
     "fixe": {
       "g": 3.4,
-      "legende": "La même valeur, une forme après l'autre, et la série qui monte d'un dixième à chaque tour. Elle paraît s'accroître par sa propre vertu, et le mot de Marx est « semble »."
+      "legende": "La même valeur, d'une forme à l'autre, et la série qui monte d'un dixième à chaque tour. Elle paraît s'accroître d'elle-même, et le mot de Marx est «&nbsp;semble&nbsp;»."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : la Bourse. Le capital, dans ce chapitre, se montre sur le marché, dans la circulation, avant qu'on entre à l'usine. La page s'ouvre donc sur la place de la Bourse de Liverpool en 1847 : une foule d'hommes en redingote et haut-de-forme, tous semblables, et pas une marchandise en vue. Ce qu'on y fait, acheter pour revendre, ne se voit pas, et ceux qui le font ne se distinguent que par la place qu'ils occupent. Une planche de Grandville place dans l'essai la poule aux œufs d'or de La Fontaine, l'image même que Marx reprend pour l'apparence de l'argent qui fait des petits, et la figure de l'avare qui veut le trésor tout de suite. Lumière froide à partir du mécanisme, où l'apparence est nommée comme telle.",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 936,
+      "alt": "La place de la Bourse de Liverpool en 1847 : une foule de négociants en redingote et haut-de-forme, debout par petits groupes devant une façade à colonnes, autour d'un monument central. Aucune marchandise n'est visible.",
+      "legende": "Des négociants qui achètent pour revendre, et pas une marchandise en vue. Ici l'argent ne fait que passer par les choses pour revenir à son point de départ.",
+      "credit": "Anonyme, la Bourse de Liverpool (Exchange Flags), 1847, reproduit dans Ramsay Muir, <i>Bygone Liverpool</i>, 1913. Domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Liverpool_Exchange_1847.jpg"
+    },
+    "planches": {
+      "poule": {
+        "img": "planche-poule.webp",
+        "w": 734,
+        "h": 735,
+        "alt": "Gravure : sous une porte voûtée, un homme assis tient sur ses genoux une poule ouverte et morte, un couteau à ses pieds, une jatte vide devant lui.",
+        "legende": "La poule aux œufs d'or de La Fontaine&nbsp;: l'avare l'ouvre pour prendre le trésor d'un coup et n'y trouve rien. Le thésauriseur de Marx garde l'argent hors de la circulation&nbsp;; le capitaliste le relance, et la somme revient grossie.",
+        "credit": "J.-J. Grandville, illustration de «&nbsp;La Poule aux œufs d'or&nbsp;» (Fables, livre V, fable 13), <i>Fables de La Fontaine</i>, Paris, H. Fournier, 1838-1840. Bibliothèque nationale de France, Gallica, domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Grandville_-_Fables_de_La_Fontaine_-_05-13_._La_poule_aux_%C5%93ufs_d%27or.jpg"
+      }
+    },
+    "lumieres": {
+      "mecanisme": "aube",
+      "ouvre": "aube",
+      "lectures": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les choses par lesquelles passe la valeur dans A-M-A′, dessinées en points (la pièce, le ballot de coton, la bourse, le sac, l'œuf d'or). En lumière chaude monte ce qui se voit sur le marché, les sommes et les achats ; à l'aube, ce que l'analyse fait voir : une seule valeur qui change de forme, et le surplus dont la circulation ne dit pas l'origine. Les sommes sont celles de l'exemple de Marx au chapitre IV.",
+      "dessins": {
+        "ballot": [
+          "...........",
+          ".111111111.",
+          "1.1.....1.1",
+          "1.1.....1.1",
+          "11111111111",
+          "1.1.....1.1",
+          "1.1.....1.1",
+          "1.1.....1.1",
+          ".111111111."
+        ],
+        "bourse": [
+          "...1.1...",
+          "....1....",
+          "..11111..",
+          "...111...",
+          ".1111111.",
+          "11111.111",
+          "1111.1111",
+          "11111.111",
+          ".1111111."
+        ],
+        "oeuf": [
+          "...111...",
+          "..11111..",
+          ".1111111.",
+          ".11111.1.",
+          "1111111.1",
+          "111111111",
+          "111111111",
+          ".1111111.",
+          "..11111.."
+        ]
+      },
+      "motifs": [
+        {
+          "m": "piece",
+          "chaude": [
+            "100 l. st.",
+            "110 l. st."
+          ],
+          "aube": [
+            "la même valeur",
+            "forme générale"
+          ]
+        },
+        {
+          "m": "ballot",
+          "chaude": [
+            "2000 livres de coton",
+            "acheter pour vendre"
+          ],
+          "aube": [
+            "forme dissimulée",
+            "valeur avancée"
+          ]
+        },
+        {
+          "m": "bourse",
+          "chaude": [
+            "point de départ",
+            "point de retour"
+          ],
+          "aube": [
+            "support conscient",
+            "capital personnifié"
+          ]
+        },
+        {
+          "m": "sac",
+          "chaude": [
+            "121 l. st.",
+            "et encore"
+          ],
+          "aube": [
+            "pas de limites",
+            "même jeu"
+          ]
+        },
+        {
+          "m": "oeuf",
+          "chaude": [
+            "œufs d'or",
+            "argent qui pond"
+          ],
+          "aube": [
+            "elle semble",
+            "la force de travail"
+          ]
+        }
+      ]
     }
   }
 }

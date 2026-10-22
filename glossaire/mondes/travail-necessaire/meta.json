@@ -1,18 +1,40 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/travail-necessaire.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/travail-necessaire. L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrit en octobre 2026 selon glossaire/mondes/CHARTE.md.",
   "titre": "Travail nécessaire",
   "de": "notwendige Arbeit",
-  "chapo": "La portion de la journée pendant laquelle l'ouvrier ne fait que reproduire la valeur de sa force de travail. Marx forge le terme en donnant deux raisons, et non une : nécessaire pour le travailleur, parce qu'il faut vivre sous tous les régimes ; nécessaire pour le capital, parce que ce monde a pour base l'existence du travailleur. Ce n'est pas un minimum vital&nbsp;: la grandeur comporte un élément historique et moral, et c'est ce qui la rend disputable.",
-  "description": "Le travail nécessaire chez Marx : ce que « nécessaire » veut dire et pour qui, pourquoi ce n'est pas un minimum de survie, la différence entre reproduire et produire, et pourquoi cette portion commande le taux de la plus-value.",
+  "enbref": "Le travail nécessaire est, chez Marx, la partie de la journée pendant laquelle l'ouvrier produit une valeur égale à celle de sa force de travail, c'est-à-dire aux subsistances qui lui permettent de revenir le lendemain. Le reste de la journée est le surtravail. Marx forge le terme au chapitre IX du <i>Capital</i> (1867). La difficulté tient au mot «&nbsp;nécessaire&nbsp;»&nbsp;: il renvoie à un niveau de vie qui dépend de l'histoire de chaque société, et que Marx distingue du minimum de survie.",
+  "retenir": [
+    "La journée de travail salarié se partage en deux. Le travail nécessaire reproduit la valeur du salaire&nbsp;; le surtravail, qui vient ensuite, produit la plus-value.",
+    "Marx donne deux raisons au mot «&nbsp;nécessaire&nbsp;». Il faut vivre sous tous les régimes, et le capital a besoin que l'ouvrier soit encore là demain.",
+    "Ce que le travail nécessaire reproduit comprend un élément moral et historique. Le minimum physiologique est un cas limite, celui d'une force de travail payée au-dessous de sa valeur.",
+    "Pendant cette portion, l'ouvrier ne fait que remplacer une valeur déjà avancée. Rien dans son geste ne marque la limite&nbsp;: elle se calcule dans la valeur produite.",
+    "Le taux de la plus-value se mesure à cette portion, et la plus-value relative consiste à la raccourcir en faisant baisser la valeur des subsistances."
+  ],
+  "questions": [
+    {
+      "q": "Dans l'exemple de Marx, combien d'heures le fileur travaille-t-il pour lui-même, et pourquoi&nbsp;?",
+      "r": "Six heures sur douze. Les subsistances d'une journée coûtent six heures de travail et valent trois shillings&nbsp;; en six heures, le fileur ajoute au coton une valeur de trois shillings, qui remplace son salaire. Les six heures suivantes produisent une valeur que personne ne lui paie."
+    },
+    {
+      "q": "Pourquoi le travail nécessaire n'est-il pas le temps qu'il faut pour survivre&nbsp;?",
+      "r": "Parce que la valeur de la force de travail comprend des besoins que l'histoire d'un pays a rendus normaux. Marx nomme bien un minimum, celui des subsistances physiologiquement indispensables, mais il dit qu'une force payée à ce niveau l'est au-dessous de sa valeur."
+    },
+    {
+      "q": "Comment un capitaliste peut-il raccourcir le travail nécessaire sans allonger la journée&nbsp;?",
+      "r": "En payant le salaire au-dessous de la valeur de la force de travail, ce que Marx appelle un vol sur le temps nécessaire et qu'il écarte de l'analyse. Ou en faisant baisser la valeur des subsistances par une productivité accrue&nbsp;: c'est la plus-value relative, la seule voie qui respecte l'échange à valeur égale."
+    }
+  ],
+  "description": "Le travail nécessaire chez Marx, expliqué simplement : la part de la journée qui reproduit le salaire, pourquoi elle dépasse le minimum vital et ce qu'elle commande.",
   "source": {
+    "_": "La source des citations : work = id de bibliotheque.json, s = section Wikisource par défaut (3 : chapitres VII à XI), cite = ce qu'on imprime sous chaque citation.",
     "work": "capital-1",
     "s": 3,
-    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre IX — traduction Joseph Roy (1872)"
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, traduction Joseph Roy (1872)"
   },
-  "ou": "Livre&nbsp;I, troisième section, chapitre IX, « Le taux de la plus-value » — le terme naît à quelques lignes de son contraire, et les deux se définissent l'un par l'autre : le travail nécessaire est celui qui reproduit, le surtravail est ce qui dépasse.",
+  "ou": "Livre&nbsp;I, troisième section, chapitre IX, «&nbsp;Le taux de la plus-value&nbsp;». Le terme y naît à quelques lignes de son contraire, le surtravail. Il suppose le chapitre VI, qui détermine la valeur de la force de travail, et il commande le chapitre XII, où la plus-value relative raccourcit le travail nécessaire.",
   "outils": [
     {
-      "label": "Le circuit du capital — le jeu",
+      "label": "Le circuit du capital, le jeu",
       "url": "/jeu/"
     }
   ],
@@ -25,23 +47,177 @@
     "Journée de travail"
   ],
   "monde": {
-    "_": "LA SCÈNE : L'ÉTAGÈRE, ET L'ÉTABLI. Les deux nécessités se font face. À gauche l'entretien — le pain, le charbon, le vêtement — qui se vide dans la journée ; à droite l'établi, dont la bobine se remplit du même geste, sans que rien ne signale le passage d'une portion à l'autre. Un repère monte le long du montant : quand il atteint la marque, l'étagère est regarnie. Au cinquième temps on essaie de s'en passer, et l'établi s'éteint. C'est la seconde nécessité, et elle ne se dit pas autrement.",
+    "_": "LA SCÈNE : L'ÉTAGÈRE ET L'ÉTABLI. Les deux nécessités se font face. À gauche l'entretien (le pain, le charbon, le vêtement), qui se vide dans la journée ; à droite l'établi, dont la bobine se remplit du même geste, sans que rien ne signale le passage d'une portion à l'autre. Un repère monte le long du montant : quand il atteint la marque, l'étagère est regarnie. Au dernier temps on essaie de s'en passer, et l'établi s'éteint.",
+    "titre": "L'étagère et l'établi, en six temps",
     "alt": "Une étagère portant du pain, un seau de charbon et un vêtement, face à un établi dont la bobine se remplit ; entre les deux, une tige de laiton où un repère monte vers une marque rouge.",
     "source": {
-      "texte": "D'après le texte — Livre I, chapitre IX",
+      "texte": "D'après le texte : Livre I, chapitre IX",
       "q": "nécessaire pour le capital et le monde capitaliste, parce que ce monde a pour base l’existence du travailleur"
     },
     "etapes": {
-      "fait": "Une étagère et un établi. Sur l'une, ce qu'il faut pour vivre ; sur l'autre, ce qui se produit, et la journée va se partager entre les deux sans qu'on voie où.",
-      "ou": "Le repère et sa marque se posent. La marque est le point où ce qui a été produit vaut exactement ce que l'entretien a coûté&nbsp;: ni le patron ni la nature ne l'ont fixée.",
-      "distinction": "Ce n'est pas un minimum de survie. Ce que contient l'étagère dépend de ce qu'une société tient pour une vie acceptable&nbsp;: la grandeur est déterminée sans être fixe.",
-      "mecanisme": "La bobine se remplit du même geste, du début à la fin. Rien dans le travail ne marque le passage&nbsp;: le repère atteint la marque, l'étagère est regarnie, et le fil continue de venir.",
-      "ouvre": "Au-delà de la marque, tout ce qui vient va ailleurs. C'est de cette portion-là que se calcule le taux, et c'est sur elle que porte la lutte.",
-      "lectures": "On essaie de s'en passer : l'étagère reste vide et l'établi s'éteint. Le monde qui emploie l'ouvrier a besoin qu'il soit encore là demain. La seconde nécessité n'est pas une bonté, c'est une condition."
+      "fait": "Une étagère et un établi. Sur l'une, ce qu'il faut pour vivre&nbsp;; sur l'autre, ce qui se produit. La journée va se partager entre les deux sans qu'on voie où.",
+      "ou": "Le repère et sa marque se posent. La marque est le point où ce qui a été produit vaut exactement ce que l'entretien a coûté.",
+      "distinction": "Ce que contient l'étagère dépend de ce qu'une société tient pour une vie normale. La grandeur est déterminée, et elle peut changer.",
+      "mecanisme": "La bobine se remplit du même geste du début à la fin. Le repère atteint la marque, l'étagère est regarnie, et le fil continue de venir.",
+      "ouvre": "Au-delà de la marque, tout ce qui vient va à un autre. C'est sur cette portion que se calcule le taux, et sur elle que porte la lutte.",
+      "lectures": "On essaie de se passer de l'entretien&nbsp;: l'étagère reste vide et l'établi s'éteint. Le monde qui emploie l'ouvrier a besoin qu'il soit encore là demain."
     },
     "fixe": {
       "g": 3.6,
-      "legende": "Le repère a passé la marque : ce qui a été produit vaut désormais plus que ce que l'entretien a coûté. Rien pourtant ne l'a signalé&nbsp;: la bobine se remplit du même geste, et c'est ce qui rend possible que la forme-salaire fasse disparaître le partage."
+      "legende": "Le repère a passé la marque&nbsp;: ce qui a été produit vaut désormais plus que ce que l'entretien a coûté. La bobine, elle, se remplit du même geste qu'avant."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : la table du soir. Le travail nécessaire est le temps qui refait, chaque jour, ce qu'il faut pour revenir le lendemain : la page s'ouvre sur cette table, celle des Mangeurs de pommes de terre de Van Gogh (1885), des paysans qui travaillent pour eux-mêmes, ce qui est la première nécessité de Marx. La planche montre le plancher que Marx distingue de la valeur de la force de travail : une ration de workhouse comptée à l'once, dans un rapport officiel anglais de 1866. Le fond fait monter, sur les choses de l'entretien, ce qu'elles semblent être (un prix, un salaire) puis, à partir de la section du mécanisme, ce que l'analyse y voit : des heures de la journée.",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 874,
+      "alt": "Peinture sombre : cinq paysans autour d'une table, sous une lampe à pétrole ; un homme et une femme se servent dans un plat de pommes de terre, une autre femme verse du café.",
+      "legende": "La table du soir, sous la lampe&nbsp;: des pommes de terre et du café. C'est ce qu'une partie de la journée doit refaire chaque jour pour qu'on revienne travailler le lendemain.",
+      "credit": "Vincent van Gogh, <i>Les Mangeurs de pommes de terre</i>, Nuenen, avril 1885. Van Gogh Museum, Amsterdam, domaine public.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_The_potato_eaters_-_Google_Art_Project.jpg"
+    },
+    "planches": {
+      "ration": {
+        "img": "planche-ration.webp",
+        "w": 1100,
+        "h": 888,
+        "alt": "Page imprimée d'un rapport anglais : un tableau intitulé Dietary for able-bodied men, avec des colonnes Bread, Porridge, Gruel, Meat, Potatoe, et pour le workhouse de Northallerton, chez les hommes, 7 onces de pain et une pinte et demie de porridge au petit déjeuner.",
+        "legende": "La ration des hommes valides dans un workhouse anglais, comptée à l'once de pain et à la pinte de porridge. Voilà un minimum calculé&nbsp;; Marx le place au-dessous de la valeur de la force de travail.",
+        "credit": "Edward Smith, <i>Dietaries for the Inmates of Workhouses</i>, rapport au Poor Law Board, Londres, 1866, p.&nbsp;140. Royal College of Surgeons of England, via Internet Archive, domaine public.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Dietaries_for_the_inmates_of_workhouses_-_report_to_the_President_of_the_Poor_Law_Board_(IA_b22352740).pdf"
+      }
+    },
+    "lumieres": {
+      "mecanisme": "aube",
+      "ouvre": "aube",
+      "lectures": "chaude"
+    },
+    "fond": {
+      "_": "Le fond : les choses de l'entretien, dessinées en points. En lumière chaude monte ce qu'elles semblent être, un prix ou un salaire ; à l'aube, ce que l'analyse y voit : des heures de la journée. Les chiffres sont ceux de Marx aux chapitres VI et IX (six heures, trois shillings).",
+      "dessins": {
+        "pain": [
+          "...11111...",
+          ".111111111.",
+          "11.1.1.1.11",
+          "1.1.1.1.1.1",
+          "11111111111",
+          "11111111111",
+          ".111111111."
+        ],
+        "cafetiere": [
+          "...111....",
+          "..11111...",
+          ".1111111.1",
+          "11111111.1",
+          "1111111111",
+          "11111111.1",
+          "1111111.1.",
+          ".11111....",
+          "1111111..."
+        ],
+        "seau": [
+          "..1.1.1..",
+          ".1.111.1.",
+          "1.......1",
+          "111111111",
+          ".1111111.",
+          ".1111111.",
+          ".1111111.",
+          "..11111.."
+        ],
+        "lampe": [
+          "....1....",
+          "....1....",
+          "..11111..",
+          ".1111111.",
+          "111111111",
+          "...111...",
+          "..1...1..",
+          "..1...1..",
+          "...111..."
+        ]
+      },
+      "motifs": [
+        {
+          "m": "pain",
+          "chaude": [
+            "le pain du jour",
+            "acheté au salaire"
+          ],
+          "aube": [
+            "temps de travail",
+            "à refaire demain"
+          ]
+        },
+        {
+          "m": "cafetiere",
+          "chaude": [
+            "le café",
+            "une habitude"
+          ],
+          "aube": [
+            "un besoin historique",
+            "dans le panier"
+          ]
+        },
+        {
+          "m": "seau",
+          "chaude": [
+            "le charbon",
+            "l'hiver"
+          ],
+          "aube": [
+            "du travail passé",
+            "reproduit"
+          ]
+        },
+        {
+          "m": "lampe",
+          "chaude": [
+            "la veillée",
+            "le pétrole"
+          ],
+          "aube": [
+            "recommencer demain",
+            "vigueur et santé"
+          ]
+        },
+        {
+          "m": "habit",
+          "chaude": [
+            "le vêtement",
+            "le loyer"
+          ],
+          "aube": [
+            "l'entretien",
+            "six heures"
+          ]
+        },
+        {
+          "m": "piece",
+          "chaude": [
+            "3 shillings",
+            "le salaire"
+          ],
+          "aube": [
+            "six heures sur douze",
+            "déjà payé"
+          ]
+        },
+        {
+          "m": "rouet",
+          "chaude": [
+            "les filés",
+            "la journée"
+          ],
+          "aube": [
+            "la sixième heure",
+            "le même geste"
+          ]
+        }
+      ]
     }
   }
 }

@@ -1,18 +1,39 @@
 {
-  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/travailleur-collectif.",
+  "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/travailleur-collectif. L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrit en octobre 2026 selon glossaire/mondes/CHARTE.md (enbref, retenir, questions).",
   "titre": "Travailleur collectif",
   "de": "Gesamtarbeiter",
-  "chapo": "Dans la manufacture, le produit n'est plus l'ouvrage de personne : le producteur est une combinaison, dont les organes sont des hommes réduits chacun à une fonction. Marx en tire la proposition la plus dure du chapitre XIV, à savoir que ce corps est d'autant plus parfait que ses membres sont plus bornés, et que son enrichissement a pour condition leur appauvrissement.",
-  "description": "Le travailleur collectif chez Marx : pourquoi la manufacture fait naître un producteur qui n'est aucun des ouvriers, comment ses proportions sont fixées par un rapport mathématique, et pourquoi sa force apparaît comme une force du capital.",
+  "enbref": "Le travailleur collectif désigne, chez Marx, le producteur qui apparaît quand un travail est réparti entre de nombreux ouvriers&nbsp;: la combinaison de ces ouvriers, dont chacun n'accomplit qu'une opération. Marx l'analyse aux chapitres XIII et XIV du premier livre du <i>Capital</i> (1867), consacrés à la coopération et à la manufacture. Cette combinaison est plus productive que ses membres pris un à un, mais elle réduit chacun à une fonction, et sa force revient au capital qui l'a assemblée.",
+  "retenir": [
+    "Dans la manufacture, aucun ouvrier ne fait le produit entier. Le producteur est la combinaison de tous, que Marx nomme le travailleur collectif.",
+    "Ses parties sont des fonctions portées par des hommes. Chaque ouvrier devient d'autant plus efficace qu'il est réduit à un seul geste.",
+    "Ses proportions sont fixées par la technique&nbsp;: il faut tant d'hommes à chaque opération, et l'absence d'un seul peut arrêter tout le groupe.",
+    "La force de la combinaison a pour condition l'appauvrissement de chacun de ses membres. Elle revient au capital, qui l'a assemblée sans la payer.",
+    "Le concept élargit la notion de travail productif à tous les organes du travailleur collectif. Dans la fabrique mécanique, il cède la place de sujet à la machine."
+  ],
+  "questions": [
+    {
+      "q": "Que montre l'exemple du groupe de cinq ouvriers devant l'ouverture d'un four de verrerie&nbsp;?",
+      "r": "Qu'un groupe de manufacture fonctionne comme un organisme. Chacun des cinq a une fonction distincte, et le travail ne se fait que si les cinq sont là&nbsp;: il suffit qu'un seul manque pour que le groupe entier s'arrête."
+    },
+    {
+      "q": "Pourquoi le travailleur parcellaire est-il d'autant plus parfait qu'il est plus borné&nbsp;?",
+      "r": "Parce qu'à répéter une seule opération, il la fait plus vite et plus sûrement. Sa perfection se mesure à sa place dans l'ensemble&nbsp;; hors de cet ensemble, son habileté ne lui sert presque plus à rien."
+    },
+    {
+      "q": "Pourquoi Marx dit-il que la force du travailleur collectif est une force productive du capital&nbsp;?",
+      "r": "Parce que les ouvriers sont engagés un à un, par des contrats séparés, et ne coopèrent qu'une fois entrés dans l'atelier, sous la direction du capitaliste. Le capital paie chaque force de travail, mais rien pour leur combinaison, qui lui revient."
+    }
+  ],
+  "description": "Le travailleur collectif chez Marx, expliqué simplement : pourquoi, dans la manufacture, le producteur est la combinaison des ouvriers, et ce qu'elle leur coûte.",
   "source": {
     "work": "capital-1",
     "s": 4,
-    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitre XIV — traduction Joseph Roy (1872)"
+    "cite": "Karl Marx, <i>Le Capital</i>, Livre I, chapitres XIII à XV, traduction Joseph Roy (1872)"
   },
-  "ou": "Livre&nbsp;I, quatrième section, chapitre XIV, « De la division du travail et de la manufacture ». Le concept est repris au chapitre XV, où l'automate lui dispute la place de sujet, et à la cinquième section, où il élargit la détermination du travail productif.",
+  "ou": "Livre&nbsp;I, quatrième section&nbsp;: le chapitre XIII, «&nbsp;Coopération&nbsp;», où le travailleur collectif apparaît, et le chapitre XIV, «&nbsp;Division du travail et manufacture&nbsp;», où il devient un organisme dont les membres sont des hommes. Le chapitre XV montre la machine qui lui prend la place de sujet, et le chapitre XVI, dans la cinquième section, s'en sert pour élargir la notion de travail productif.",
   "outils": [
     {
-      "label": "Coopération, manufacture, grande industrie — les explorations",
+      "label": "Coopération, manufacture, grande industrie&nbsp;: les explorations",
       "url": "/oeuvres/capital-1#explore=x-coop"
     }
   ],
@@ -25,24 +46,159 @@
     "Travail aliéné"
   ],
   "monde": {
-    "_": "LA SCÈNE : L'ÉTABLI, ET LE CORPS QU'ON Y COMPOSE. Le chapitre ne dit pas que le travail se répartit, il dit qu'un PRODUCTEUR NOUVEAU apparaît — et qu'il est d'autant plus parfait que chacun de ses organes est plus borné. La figure devait donc montrer les deux mouvements en même temps. Un outil complet, qui fait toute la pièce et la fait lentement, éclate : ses quatre têtes vont se planter en rang, un rail les relie, un arbre leur donne une seule cadence, et là où le débit l'exige la station se dédouble — deux lames, trois poinçons, rien d'autre. On ôte la dernière station : la pièce cale juste avant le sébile, et tout s'arrête. Puis les manches tombent et s'entassent derrière l'établi pendant que les lames, nues, vont plus vite. Au dernier temps un montant se lève en retrait, sans lame, battant la même cadence sans jamais toucher la pièce.",
+    "_": "LA SCÈNE : L'ÉTABLI, ET LE CORPS QU'ON Y COMPOSE. Un outil complet, qui fait toute la pièce lentement, éclate : ses quatre têtes se plantent en rang, un arbre leur donne une seule cadence, la station se dédouble là où le débit l'exige. On ôte la dernière station : la pièce cale, tout s'arrête. Les manches tombent derrière l'établi pendant que les lames vont plus vite. Au dernier temps un montant se lève en retrait, sans lame, battant la même cadence sans toucher la pièce.",
+    "titre": "L'établi du travailleur collectif, en six temps",
     "layout": "plein",
     "alt": "Sur un établi, quatre têtes d'outil plantées en rang le long d'un rail de laiton, reliées par un arbre qui passe sous le plateau ; un sébile de pièces finies à droite, et au fond du plateau un tas de manches de bois abandonnés.",
     "source": {
-      "texte": "D'après le texte — Livre I, chapitre XIV",
+      "texte": "D'après le texte : Livre I, chapitre XIV",
       "q": "le mécanisme vivant de la manufacture, le travailleur collectif"
     },
     "etapes": {
-      "fait": "Un seul outil, qui fait toute la pièce et la fait lentement. Le sébile se garnit à peine. Tant que le producteur est un homme, le produit est son ouvrage.",
-      "distinction": "L'outil éclate. Ses quatre têtes vont se planter en rang, chacune ne gardant qu'une opération, et la pièce ne les traverse plus qu'une fois chacune. Le manche vidé s'en va se coucher au bout de l'établi.",
-      "mecanisme": "Un arbre passe sous le plateau et leur donne une seule cadence ; là où le débit l'exige, la station se dédouble. On ôte la dernière : la pièce cale juste avant d'arriver, et le débit ne ralentit pas, il cesse.",
-      "portee": "Les manches tombent et s'entassent au fond de l'établi. Chaque tête, réduite à sa lame, va plus vite : le corps s'enrichit de ce que ses organes ont perdu.",
-      "ouvre": "Un montant se lève en retrait, sans lame, et bat la même cadence sans jamais toucher la pièce. Pour être productif, il suffit d'être un organe du travailleur collectif.",
-      "lectures": "Le rang tourne, le sébile se remplit, et derrière lui le tas de manches reste au fond du plateau. La combinaison est une conquête réelle ; sa forme est une mutilation."
+      "fait": "Un seul outil fait toute la pièce, et il la fait lentement. Tant que le producteur est un homme, le produit est son ouvrage.",
+      "distinction": "L'outil éclate. Ses quatre têtes se plantent en rang, chacune ne garde qu'une opération, et la pièce les traverse une à une.",
+      "mecanisme": "Un arbre leur donne une seule cadence, et la station se dédouble là où le débit l'exige. On ôte la dernière : la pièce cale, et tout s'arrête.",
+      "portee": "Les manches tombent au fond de l'établi. Chaque tête, réduite à sa lame, va plus vite : le corps s'enrichit de ce que ses organes perdent.",
+      "ouvre": "Un montant se lève en retrait, sans lame, et bat la même cadence sans toucher la pièce. Pour être productif, il suffit d'être un organe du corps.",
+      "lectures": "Le rang tourne, le sébile se remplit, et les manches restent au fond du plateau. La combinaison est une conquête ; sa forme est une mutilation."
     },
     "fixe": {
       "g": 3.9,
-      "legende": "Les quatre organes en rang, l'arbre qui leur donne une seule cadence, et au fond du plateau les manches abandonnés. L'enrichissement du travailleur collectif a pour condition l'appauvrissement du travailleur."
+      "legende": "Les quatre organes en rang, l'arbre qui leur donne une seule cadence, et au fond du plateau les manches abandonnés : le corps s'enrichit de ce que ses membres perdent."
+    }
+  },
+  "da": {
+    "_": "LA DIRECTION ARTISTIQUE : le four. Le travailleur collectif se voit là où un produit ne sort que de plusieurs mains à la fois, chacune réduite à un geste. En tête, une verrerie anglaise de 1747 : autour des fours, chaque homme tient une seule opération, et l'on coule une glace à quatre. Dans l'essai, une montre démontée, ses pièces rangées par espèce : la montre que Marx dit devenue le produit social de plus de trente métiers. La lumière passe au froid à la section de ce que la combinaison coûte à ses membres.",
+    "vitrine": {
+      "img": "vitrine.webp",
+      "w": 1300,
+      "h": 982,
+      "alt": "Intérieur d'une verrerie au XVIIIe siècle : sous deux fours en coupole, un homme prend le verre au four, un autre souffle une boule au bout de sa canne, un troisième frappe à la masse au fond de la salle, et quatre hommes coulent une glace sur une table de fer.",
+      "legende": "Autour des fours, chaque homme tient une seule opération&nbsp;: prendre le verre, souffler, frapper, couler. La glace qui sort de là n'est l'ouvrage d'aucun d'eux.",
+      "credit": "«&nbsp;The several Methods of blowing and casting Plate Glass, with the Men at Work&nbsp;», gravure, 1747 (peut-être de C. Grignion). Wellcome Collection, licence CC BY 4.0.",
+      "lien": "https://commons.wikimedia.org/wiki/File:Glass;_men_at_work_inside_a_plate_glass_factory._Engraving,_Wellcome_V0024057.jpg"
+    },
+    "planches": {
+      "montre": {
+        "img": "planche-montre.webp",
+        "w": 1200,
+        "h": 900,
+        "alt": "Une montre-bracelet posée au centre d'une vitrine, entourée de ses pièces détachées rangées par espèce sur de petits socles étiquetés : platine, ponts, pignons, roues, vis, ressorts, cadrans, spiral.",
+        "legende": "Une montre et ses pièces, rangées par espèce&nbsp;: pignons, roues, vis, ressorts, cadrans. Dans la manufacture que décrit Marx, chacune avait son ouvrier.",
+        "credit": "Montre-bracelet mécanique Prim démontée, photographie de Kozuch, 2009. Licence CC BY-SA 3.0.",
+        "lien": "https://commons.wikimedia.org/wiki/File:Prim_mechanical_wrist_watch_disassembled_whole.jpg"
+      }
+    },
+    "lumieres": {
+      "portee": "aube"
+    },
+    "fond": {
+      "_": "Le fond : les produits et les outils de la manufacture, dessinés en points. L'un s'allume et ce que montre l'atelier monte au-dessus de lui (chaude) ; à partir de la section de ce que la combinaison coûte, et au survol, c'est ce que l'analyse fait voir (aube). Les nombres sont ceux des chapitres XIII et XIV.",
+      "dessins": {
+        "epingle": [
+          "...111...",
+          "..11111..",
+          "...111...",
+          "....1....",
+          "....1....",
+          "....1....",
+          "....1....",
+          "....1....",
+          "....1....",
+          "....1...."
+        ],
+        "montre": [
+          "....11....",
+          "...1111...",
+          "..111111..",
+          ".11....11.",
+          "11...1..11",
+          "11...1..11",
+          "11...111.1",
+          ".11.....1.",
+          "..111111..",
+          "....11...."
+        ],
+        "flacon": [
+          "...111...",
+          "...1.1...",
+          "...1.1...",
+          "..11.11..",
+          ".11...11.",
+          ".1.....1.",
+          ".1.....1.",
+          ".1.....1.",
+          ".1111111."
+        ],
+        "pierre": [
+          "...........",
+          ".111111111.",
+          ".1.......1.",
+          ".1.......1.",
+          ".111111111.",
+          "...........",
+          "11111.11111",
+          "1...1.1...1",
+          "11111.11111"
+        ]
+      },
+      "motifs": [
+        {
+          "m": "epingle",
+          "chaude": [
+            "une épingle",
+            "fil de laiton"
+          ],
+          "aube": [
+            "mille mains",
+            "aucun auteur"
+          ]
+        },
+        {
+          "m": "montre",
+          "chaude": [
+            "une montre",
+            "Nuremberg"
+          ],
+          "aube": [
+            "produit social",
+            "trente métiers"
+          ]
+        },
+        {
+          "m": "flacon",
+          "chaude": [
+            "un four",
+            "cinq ouvriers"
+          ],
+          "aube": [
+            "un organisme",
+            "un membre manque"
+          ]
+        },
+        {
+          "m": "pierre",
+          "chaude": [
+            "douze maçons",
+            "la chaîne"
+          ],
+          "aube": [
+            "vingt-quatre mains",
+            "présent partout"
+          ]
+        },
+        {
+          "m": "piece",
+          "chaude": [
+            "le salaire",
+            "échelle graduée"
+          ],
+          "aube": [
+            "force du capital",
+            "jamais payée"
+          ]
+        }
+      ]
     }
   }
 }
