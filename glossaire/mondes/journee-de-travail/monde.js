@@ -158,7 +158,13 @@ window.LM_MONDE = function (canvas) {
     var dist = camera.position.distanceTo(camA);
     var fwd = new THREE.Vector3().subVectors(camA, camera.position).normalize();
     var right = new THREE.Vector3().crossVectors(fwd, V3(0, 1, 0)).normalize();
-    aim.copy(camA).addScaledVector(right, -Math.min(0.26 * dist, 0.62));
+    /* Octobre 2026 : la scène est une figure 16/10 en bas de page, que rien
+       ne recouvre. Le décalage à gauche (qui laissait la place à la colonne
+       de texte de l'architecture « plein ») rejetait la toise au bord droit :
+       il ne joue plus que sur un canevas d'au moins 1100 px qui ne serait
+       pas une figure. */
+    var large = canvas.clientWidth >= 1100 && !(canvas.closest && canvas.closest('.nt-fig'));
+    aim.copy(camA).addScaledVector(right, large ? -Math.min(0.26 * dist, 0.62) : 0);
     camera.lookAt(aim);
     render();
   }
