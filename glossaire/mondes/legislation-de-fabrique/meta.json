@@ -67,7 +67,7 @@
     }
   },
   "da": {
-    "_": "LA DIRECTION ARTISTIQUE : le livre bleu. La notion dit qu'une limite tient par son appareil de mesure et par ceux qui consignent ce qu'ils mesurent. La page s'ouvre donc sur la couverture d'un rapport semestriel des inspecteurs de fabrique (1863), une des pièces que l'État produit sur sa propre industrie ; dans l'essai, la cloche qui règle la journée (Winslow Homer, 1868), puis le tableau des poursuites du même rapport, où les minutes volées deviennent des lignes chiffrées. Le fond : les instruments de la mesure (horloge, cloche, avis, registre, amende) ; en lumière chaude, ce que le fabricant affiche ; à l'aube, à partir du mécanisme, ce que l'inspection consigne.",
+    "_": "LA DIRECTION ARTISTIQUE : le livre bleu. La notion dit qu'une limite tient par son appareil de mesure et par ceux qui consignent ce qu'ils mesurent. La page s'ouvre donc sur la couverture d'un rapport semestriel des inspecteurs de fabrique (1863), une des pièces que l'État produit sur sa propre industrie ; dans l'essai, le tableau des poursuites du même rapport, où les minutes volées deviennent des lignes chiffrées. Le fond : les instruments de la mesure (horloge, cloche, avis, registre, amende) ; en lumière chaude, ce que le fabricant affiche ; à l'aube, à partir du mécanisme, ce que l'inspection consigne.",
     "vitrine": {
       "img": "vitrine.webp",
       "w": 1300,
@@ -78,15 +78,6 @@
       "lien": "https://commons.wikimedia.org/wiki/File:Reports_of_the_inspectors_of_factories_to_Her_Majesty%27s_principal_Secretary_of_State_for_the_Home_Department._May_-_October_1863._(IA_s4768id1338176).pdf"
     },
     "planches": {
-      "cloche": {
-        "img": "planche-cloche.webp",
-        "w": 1300,
-        "h": 874,
-        "alt": "Gravure : une foule d'ouvrières, d'ouvriers et d'enfants, gamelles à la main, marche sur une allée ; au fond, les longs bâtiments d'une filature et leur clocheton.",
-        "legende": "La journée commence et finit au son de la cloche de la filature. Tant que le fabricant la règle lui-même, c'est lui qui dit l'heure légale : la loi anglaise de 1844 l'oblige à la régler sur une horloge publique.",
-        "credit": "Winslow Homer, « New England Factory Life, Bell-Time », gravure sur bois pour <i>Harper's Weekly</i>, 25 juillet 1868. Cleveland Museum of Art, CC0.",
-        "lien": "https://commons.wikimedia.org/wiki/File:Winslow_Homer_-_New_England_Factory_Life_-_%22Bell-Time%22_-_1942.1287_-_Cleveland_Museum_of_Art.jpg"
-      },
       "registre": {
         "img": "planche-registre.webp",
         "w": 1100,
@@ -152,33 +143,69 @@
       "motifs": [
         {
           "m": "horloge",
-          "chaude": ["six heures", "l'heure du patron"],
-          "aube": ["l'heure publique", "six moins le quart"]
+          "chaude": [
+            "six heures",
+            "l'heure du patron"
+          ],
+          "aube": [
+            "l'heure publique",
+            "six moins le quart"
+          ]
         },
         {
           "m": "cloche",
-          "chaude": ["la cloche", "fin du repas"],
-          "aube": ["minutes volées", "réglée sur la gare"]
+          "chaude": [
+            "la cloche",
+            "fin du repas"
+          ],
+          "aube": [
+            "minutes volées",
+            "réglée sur la gare"
+          ]
         },
         {
           "m": "avis",
-          "chaude": ["l'avis affiché", "de 6 à 6"],
-          "aube": ["lu par tous", "opposable"]
+          "chaude": [
+            "l'avis affiché",
+            "de 6 à 6"
+          ],
+          "aube": [
+            "lu par tous",
+            "opposable"
+          ]
         },
         {
           "m": "registre",
-          "chaude": ["le registre", "tenu en règle"],
-          "aube": ["173 poursuites", "81 repas écourtés"]
+          "chaude": [
+            "le registre",
+            "tenu en règle"
+          ],
+          "aube": [
+            "173 poursuites",
+            "81 repas écourtés"
+          ]
         },
         {
           "m": "piece",
-          "chaude": ["20 shillings", "l'amende"],
-          "aube": ["bilan favorable", "un juge payé"]
+          "chaude": [
+            "20 shillings",
+            "l'amende"
+          ],
+          "aube": [
+            "bilan favorable",
+            "un juge payé"
+          ]
         },
         {
           "m": "rouet",
-          "chaude": ["la filature", "dix heures"],
-          "aube": ["340 minutes", "27 journées"]
+          "chaude": [
+            "la filature",
+            "dix heures"
+          ],
+          "aube": [
+            "340 minutes",
+            "27 journées"
+          ]
         }
       ]
     }
