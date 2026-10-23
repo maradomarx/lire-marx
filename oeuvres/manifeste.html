@@ -57,8 +57,8 @@ nav.tabs.worktabs .tab{font-family:var(--f-ui);font-weight:600;
   transition:color .16s,background .16s,border-color .16s;}
 nav.tabs.worktabs .tab:hover{color:var(--ink);background:var(--hover);}
 nav.tabs.worktabs .tab.active{color:var(--ink);
-  background:linear-gradient(150deg,#2c2117,#211a12,#1b150e);
-  border-color:rgba(216,173,76,.28);}
+  background:var(--emphase);
+  border-color:rgba(var(--gold-rgb),.28);}
 nav.tabs.worktabs .tab.active::after{display:none;}
 nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
 
@@ -96,9 +96,8 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
 .reader-content .mf-src{margin:3em 0 0;padding-top:1.2em;border-top:1px solid var(--line);
   font-family:var(--f-ui);font-size:.8rem;line-height:1.6;color:var(--muted);}
 .reader-content .mf-src a{color:var(--ink);text-decoration:underline;
-  text-decoration-color:rgba(216,173,76,.5);text-underline-offset:2px;}
+  text-decoration-color:rgba(var(--gold-rgb),.5);text-underline-offset:2px;}
 .reader-content .mf-src a:hover{color:var(--gold);}
-.reader.theme-sepia .reader-content h2.mf-part .mf-rn{color:var(--red-deep);}
 
 /* ── LE DOSSIER ── */
 /* La chronologie (.chr) vit dans atelier.css depuis la mission
@@ -116,9 +115,9 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
   font-weight:600;font-size:.98rem;line-height:1.3;color:var(--ink-soft);background:transparent;
   border:1px solid var(--line);border-radius:12px;padding:11px 15px;cursor:pointer;
   transition:color .15s,border-color .15s,background .15s;}
-.soc-pick:hover{color:var(--ink);border-color:rgba(216,173,76,.45);background:var(--hover);}
+.soc-pick:hover{color:var(--ink);border-color:rgba(var(--gold-rgb),.45);background:var(--hover);}
 .soc-pick[aria-pressed="true"]{color:var(--ink);
-  background:linear-gradient(150deg,#2c2117,#211a12,#1b150e);border-color:rgba(216,173,76,.4);}
+  background:var(--emphase);border-color:rgba(var(--gold-rgb),.4);}
 .soc-pick.is-ref{border-style:dashed;}
 .soc-pick:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
 .soc-detail{position:sticky;top:168px;}
