@@ -20,7 +20,15 @@
    - le champ défile plus lentement que la page (profondeur), danse en
      sinusoïdes lentes, et ne tourne que si l'onglet est visible ;
    - sous prefers-reduced-motion : une image fixe, sans allumage.
-   Le canevas est plafonné à 1,5 de densité de pixels : c'est un décor. */
+   Le canevas est plafonné à 1,5 de densité de pixels : c'est un décor.
+
+   LES TROIS MODES (mission affichage, oct. 2026) : les encres viennent des
+   jetons (--ink-rgb pour les objets éteints, --gold-rgb pour le prix qui
+   monte, --blue-rgb pour le travail), relus à chaque `lm:mode`. Le jour,
+   les objets sont tracés à l'encre sur le papier et leur lueur se resserre ;
+   en ÉDITION (le mode de la longue lecture), le champ est IMMOBILE et sans
+   lueur, comme sous prefers-reduced-motion : ni allumage, ni lanterne du
+   regard, une gravure posée derrière la page. */
 (function(){
   'use strict';
   var data = document.getElementById('nt-fond-data');
@@ -28,7 +36,8 @@
   if (!data || !cv || !cv.getContext) return;
   var cfg; try { cfg = JSON.parse(data.textContent); } catch (e) { return; }
   var ctx = cv.getContext('2d');
-  var REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var REDUIT = matchMedia('(prefers-reduced-motion: reduce)').matches, REDUCE = REDUIT;
+  function modeCourant(){ return document.documentElement.getAttribute('data-mode') || 'bougie'; }
   var DPR = Math.min(1.5, window.devicePixelRatio || 1);
 
   /* ── les motifs : une grille de points par objet ── */
@@ -46,7 +55,24 @@
      { nom: [lignes de '1' et '.'] }) sans toucher à ce fichier */
   if (cfg.dessins) for (var nom in cfg.dessins) if (Array.isArray(cfg.dessins[nom])) MOTIFS[nom] = cfg.dessins[nom];
   var CELL = 4.4;                       /* pas de la grille, en px CSS, à profondeur 1 */
-  var TEINTES = { chaude: [216, 173, 76], aube: [169, 196, 222] };
+  /* bougie : les valeurs d'avant, au chiffre près ; ailleurs, les jetons */
+  var TEINTES, ENCRE, GLOW, MODE, ATTENUE = 1;
+  function jeton(n, def){
+    var v = getComputedStyle(document.documentElement).getPropertyValue(n).split(',').map(function(x){ return parseInt(x, 10); });
+    return v.length === 3 && v.every(function(x){ return x >= 0; }) ? v : def;
+  }
+  function lireTeintes(){
+    MODE = modeCourant();
+    ATTENUE = MODE === 'jour' ? 0.72 : MODE === 'edition' ? 0.58 : 1;
+    if (MODE === 'bougie') { ENCRE = [243, 233, 212]; TEINTES = { chaude: [216, 173, 76], aube: [169, 196, 222] }; GLOW = 8; }
+    else {
+      ENCRE = jeton('--ink-rgb', [34, 25, 15]);
+      TEINTES = { chaude: jeton('--gold-rgb', [124, 90, 27]), aube: jeton('--blue-rgb', [61, 104, 128]) };
+      GLOW = MODE === 'jour' ? 4 : 0;
+    }
+    REDUCE = REDUIT || MODE === 'edition';
+  }
+  lireTeintes();
 
   function sprite(rows, rgb, glow){
     var w = rows[0].length, h = rows.length, pad = glow ? 10 : 2;
@@ -54,7 +80,7 @@
     c.width = Math.ceil((w * CELL + pad * 2) * DPR); c.height = Math.ceil((h * CELL + pad * 2) * DPR);
     var g = c.getContext('2d'); g.scale(DPR, DPR);
     g.fillStyle = 'rgb(' + rgb.join(',') + ')';
-    if (glow) { g.shadowColor = 'rgba(' + rgb.join(',') + ',.85)'; g.shadowBlur = 8; }
+    if (glow && GLOW) { g.shadowColor = 'rgba(' + rgb.join(',') + ',.85)'; g.shadowBlur = GLOW; }
     var r = CELL * 0.24;
     for (var y = 0; y < h; y++) for (var x = 0; x < w; x++) if (rows[y][x] === '1') {
       g.beginPath(); g.arc(pad + x * CELL + CELL / 2, pad + y * CELL + CELL / 2, r, 0, 6.2832); g.fill();
@@ -66,11 +92,14 @@
   var defs = (cfg.motifs || []).filter(function(d){ return MOTIFS[d.m]; });
   if (!defs.length) return;
   var spr = {};
-  defs.forEach(function(d){
-    var rows = MOTIFS[d.m];
-    spr[d.m] = { dim: sprite(rows, [243, 233, 212], false),
-                 chaude: sprite(rows, TEINTES.chaude, true), aube: sprite(rows, TEINTES.aube, true) };
-  });
+  function peindreSprites(){
+    defs.forEach(function(d){
+      var rows = MOTIFS[d.m];
+      spr[d.m] = { dim: sprite(rows, ENCRE, false),
+                   chaude: sprite(rows, TEINTES.chaude, true), aube: sprite(rows, TEINTES.aube, true) };
+    });
+  }
+  peindreSprites();
 
   /* Le champ est une bande virtuelle plus haute que l'écran, qui défile à
      une fraction de la vitesse de la page et revient sur elle-même. */
@@ -193,9 +222,10 @@
     ctx.clearRect(0, 0, W, H);
     var off = REDUCE ? 0 : scrollY * 0.22, sec = now / 1000;
     /* la lanterne du regard, sous les objets */
-    if (souris) {
+    if (souris && MODE !== 'edition') {
       var halo = ctx.createRadialGradient(mx, my, 0, mx, my, R_HALO);
-      halo.addColorStop(0, 'rgba(216,173,76,.075)'); halo.addColorStop(1, 'rgba(216,173,76,0)');
+      var hg = TEINTES.chaude.join(',');
+      halo.addColorStop(0, 'rgba(' + hg + ',.075)'); halo.addColorStop(1, 'rgba(' + hg + ',0)');
       ctx.fillStyle = halo; ctx.fillRect(mx - R_HALO, my - R_HALO, R_HALO * 2, R_HALO * 2);
     }
     var proche = null, dProche = R_CIBLE;
@@ -208,9 +238,11 @@
       var danse = REDUCE ? 0 : Math.sin(sec * 6.2832 / it.per + it.ph);
       var x = it.x + (REDUCE ? 0 : danse * 3), y = sy + (REDUCE ? 0 : Math.cos(sec * 6.2832 / (it.per * 1.3) + it.ph) * 4);
       var rot = it.rot * 0.25 + danse * 0.06;
-      var base = (zone ? 0.055 : 0.2) * it.z;
+      /* une encre sombre sur le papier se lit plus que le crème sur la nuit :
+         le jour et l'édition baissent le champ, derrière le texte surtout */
+      var base = (zone ? (MODE === 'bougie' ? 0.055 : 0.028) : 0.2 * ATTENUE) * it.z;
       /* le regard : éclaire les voisins, et le plus proche montre son travail */
-      if (souris && !zone) {
+      if (souris && !zone && MODE !== 'edition') {
         var dx = x - mx, dy = y - my, dist = Math.sqrt(dx * dx + dy * dy);
         base += Math.max(0, 1 - dist / R_HALO) * 0.26;
         if (dist < dProche && libre(it.x)) { dProche = dist; proche = it; }
@@ -274,7 +306,14 @@
     allumer(now); dessiner(now);
     raf = requestAnimationFrame(boucle);
   }
-  function lancer(){ if (REDUCE) return; encours = !document.hidden; if (encours && !raf) raf = requestAnimationFrame(boucle); }
+  function lancer(){ if (REDUCE) { encours = false; return; } encours = !document.hidden; if (encours && !raf) raf = requestAnimationFrame(boucle); }
+  /* le mode change : nouvelles encres, et l'édition arrête le champ */
+  document.addEventListener('lm:mode', function(){
+    lireTeintes(); peindreSprites();
+    for (var k = 0; k < items.length; k++) { items[k].lit = 0; items[k].h = 0; }
+    cible = null;
+    dessiner(performance.now()); lancer();
+  });
   document.addEventListener('visibilitychange', lancer);
   window.addEventListener('resize', resize);
   /* la colonne bouge quand la coquille et les polices arrivent : on remesure */
