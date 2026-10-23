@@ -1826,7 +1826,7 @@
         options: { data:{ username: username || '' }, emailRedirectTo: location.href.split('#')[0] }
       });
       if(r.error) throw r.error;
-      view.notice = 'Compte créé. Si la confirmation par e-mail est activée, vérifie ta boîte.';
+      view.notice = 'Compte créé. Si la confirmation par e-mail est activée, vérifiez votre boîte.';
       return { ok:true };
     } catch(e){
       view.err = errFr(e, 'Échec de l\'inscription.');
@@ -2434,7 +2434,7 @@
   async function uploadAvatar(file){
     var c = await getClient();
     if(!c || !state.user || !file) return {ok:false, msg:'Non connecté.'};
-    if(!(state.profile && state.profile.username)) return {ok:false, msg:'Choisis d\'abord un pseudo.'};
+    if(!(state.profile && state.profile.username)) return {ok:false, msg:'Choisissez d\'abord un pseudo.'};
     try {
       var ext = ((file.name || '').split('.').pop() || 'png').toLowerCase().replace(/[^a-z0-9]/g, '') || 'png';
       var path = state.user.id + '/avatar_' + Date.now() + '.' + ext;
@@ -2659,7 +2659,7 @@
     return s || '?';
   }
   function accent(n){
-    var palette = ['#a52a21', '#39596b', '#9a7b35', '#52742f'];
+    var palette = ['#a52a21', '#39596b', '#7d6326', '#52742f']; // l'ocre assombri : #9a7b35 ne portait le blanc qu'à 4:1
     return palette[(((+n || 1) - 1) % 4 + 4) % 4];
   }
 
@@ -2739,7 +2739,7 @@
       '<article class="fm-card' + (clickable ? '' : ' fm-card-soon') + '"' +
         (clickable ? ' data-open="' + esc(path) + '" data-note="' + esc(note.id) + '" role="button" tabindex="0"' : '') + '>' +
         '<div class="fm-row">' +
-          '<span class="fm-av" style="background:' + ac + '">' + esc(initials(name)) + '</span>' +
+          '<span class="fm-av" aria-hidden="true" style="background:' + ac + '">' + esc(initials(name)) + '</span>' +
           '<span class="fm-name">' + esc(name) + '</span>' +
           (sec ? '<span class="fm-tag">' + esc(sec) + '</span>' : '') +
           '<span class="fm-when">' + esc(ago(note.created)) + '</span>' +

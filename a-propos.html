@@ -69,7 +69,7 @@
 body{margin:0;background:var(--bg);color:var(--text);font-family:var(--f-ui);}
 /* Les surfaces que le navigateur dessine à notre place portent le thème
    comme le reste — la bibliothèque et le carnet le font déjà. */
-::selection{background:rgba(216,173,76,.32);color:var(--text);}
+::selection{background:rgba(var(--gold-rgb),.32);color:var(--text);}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:3px;}
 
 .ap{max-width:1000px;margin:0 auto;padding:56px clamp(20px,5vw,44px) 0;}
@@ -102,7 +102,7 @@ h2{font-family:'Fraunces',serif;font-weight:900;letter-spacing:-.015em;
 .ap p b{color:var(--ink);font-weight:600;}
 .ap p em{color:var(--ink-soft);}
 .ap-corps a{color:var(--red-text);text-decoration:none;
-  border-bottom:1px solid rgba(229,100,79,.34);}
+  border-bottom:1px solid rgba(var(--red-rgb),.38);}
 .ap-corps a:hover{color:var(--gold);border-bottom-color:var(--gold);}
 
 /* ── La marginalia. Petite, en Inter (c'est de l'appareil, pas du texte),
@@ -138,12 +138,17 @@ h2{font-family:'Fraunces',serif;font-weight:900;letter-spacing:-.015em;
 .ap-src a{font-family:var(--f-ui);font-size:.8rem;color:var(--gold);
   text-decoration:none;border-bottom:1px solid transparent;white-space:nowrap;}
 .ap-src a:hover{border-bottom-color:var(--gold);}
+/* en nowrap, le titre de la Contribution (« Contribution à la critique de
+   l'économie politique ») faisait 415 px : la page débordait de 40 px sur un
+   téléphone. La sonde ne le voyait pas — sous émulation mobile, le viewport
+   s'élargit au contenu et innerWidth suit. */
+@media (max-width:600px){.ap-src a{white-space:normal;}}
 
 /* ── Le contact : la surface d'emphase du socle, la seule de la page.
       La bougie éclaire d'en bas — jamais un aplat plus clair. */
-.ap-contact{background:var(--emphase);border:1px solid rgba(216,173,76,.20);
+.ap-contact{background:var(--emphase);border:1px solid rgba(var(--gold-rgb),.20);
   border-radius:16px;padding:24px 26px;margin-top:20px;
-  box-shadow:0 18px 40px -26px rgba(0,0,0,.85);}
+  box-shadow:0 18px 40px -26px rgba(var(--ombre-rgb),.85);}
 .ap-contact p{font-size:.98rem;margin-bottom:16px;}
 .ap-liens{display:flex;flex-wrap:wrap;gap:10px;margin:0;}
 .ap-mail{display:inline-flex;align-items:center;font-family:var(--f-ui);font-size:.88rem;

@@ -42,8 +42,10 @@ body{
   padding:32px 22px;line-height:1.6;
   /* la bougie de la maison : une lueur chaude qui monte du bas */
   background-image:radial-gradient(120% 74% at 50% 108%,
-    rgba(216,173,76,.10) 0%, rgba(213,64,47,.05) 42%, transparent 72%);
+    rgba(var(--gold-rgb),.10) 0%, rgba(var(--red-rgb),.05) 42%, transparent 72%);
 }
+/* l'édition de 1872 est un imprimé : pas de lueur de bougie */
+html[data-mode="edition"] body{background-image:none;}
 .e-wrap{width:100%;max-width:620px;}
 .e-code{
   font-family:'Fraunces',Georgia,serif;font-weight:900;font-size:.78rem;

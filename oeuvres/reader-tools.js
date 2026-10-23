@@ -1,8 +1,31 @@
 (function(){
   if(window.Reading) return;
   var SKEY='liremarx.read.v1';
-  var DEF={theme:'paper',fs:1.04,lh:1.72,width:760,align:'justify',font:'standard',focus:false,rate:1,voice:'',gloss:false};
+  var DEF={fs:1.04,lh:1.72,width:760,align:'justify',font:'standard',focus:false,rate:1,voice:'',gloss:false};
   var S=loadS();
+  /* La liseuse suit le MODE DU SITE (mission `affichage`) : ses thèmes
+     propres ont disparu. Un ancien choix est repris UNE fois — « Papier »
+     (sepia) devient le jour, « Nuit » (dark) la bougie —, seulement si le
+     lecteur n'a pas déjà choisi un mode ; « Atelier » (paper) était le fond
+     du site, il ne dit rien. Puis le champ est oublié. */
+  (function migrerTheme(){
+    if(!('theme' in S))return;
+    var t=S.theme, m=t==='sepia'?'jour':t==='dark'?'bougie':null;
+    delete S.theme; saveS();
+    if(!m||!window.LM||!LM.mode)return;
+    var deja=null; try{deja=localStorage.getItem('liremarx.mode.v1');}catch(e){}
+    if(!deja) LM.mode(m);
+  })();
+  var FOND_NOMS=[['auto','Auto'],['bougie','Bougie'],['jour','Jour'],['edition','Édition']];
+  function choixFond(){ var L=window.LM; return (L&&L.mode&&L.mode().choix)||'auto'; }
+  function choisirFond(m,origine){ var L=window.LM; if(!L||!L.mode)return; if(L.basculer)L.basculer(m,origine); else L.mode(m); }
+  /* le segment suit le mode, d'où qu'il change (menu de la barre, autre onglet) */
+  document.addEventListener('lm:choix',function(){
+    var c=choixFond();
+    document.querySelectorAll('[data-seg="fond"] [data-set]').forEach(function(x){
+      var on=x.getAttribute('data-v')===c; x.classList.toggle('on',on); x.setAttribute('aria-pressed',on?'true':'false');
+    });
+  });
   function loadS(){try{var o=JSON.parse(localStorage.getItem(SKEY)||'{}');return Object.assign({},DEF,o);}catch(e){return Object.assign({},DEF);}}
   function saveS(){try{localStorage.setItem(SKEY,JSON.stringify(S));}catch(e){}}
   function esc(s){return (s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
@@ -34,7 +57,6 @@
     if(!r)return;
     r.classList.add('rd-on');
     r.classList.remove('theme-paper','theme-sepia','theme-dark','align-left','font-atkinson','font-lexend','font-opendyslexic','focus-on');
-    r.classList.add('theme-'+S.theme);
     if(S.align==='left') r.classList.add('align-left');
     if(S.font&&S.font!=='standard'){ ensureFont(S.font); r.classList.add('font-'+S.font); }
     if(S.focus) r.classList.add('focus-on');
@@ -205,7 +227,7 @@
       }).join('')+'</div>';
     }
     function segLab(n){
-      return n==='theme'?'Thème':n==='align'?'Alignement':n==='font'?'Police':n==='focus'?'Mode focus':n==='gloss'?'Mots du glossaire':n;
+      return n==='fond'?'Fond':n==='align'?'Alignement':n==='font'?'Police':n==='focus'?'Mode focus':n==='gloss'?'Mots du glossaire':n;
     }
     /* Les huit boutons − / + n'avaient pour nom accessible que « − » ou
        « + » : huit contrôles indiscernables. */
@@ -215,9 +237,9 @@
         +'<span class="rd-val" data-val="'+name+'" role="status" aria-live="polite" aria-atomic="true">'+disp+'</span>'
         +'<button type="button" class="rd-mini" data-inc="'+name+'" aria-label="Augmenter : '+lab.toLowerCase()+'"><span aria-hidden="true">+</span></button></span></div>';
     }
-    function stateVal(n){ return n==='theme'?S.theme : n==='align'?S.align : n==='font'?S.font : n==='focus'?(S.focus?1:0) : n==='gloss'?(S.gloss?1:0) : ''; }
+    function stateVal(n){ return n==='fond'?choixFond() : n==='align'?S.align : n==='font'?S.font : n==='focus'?(S.focus?1:0) : n==='gloss'?(S.gloss?1:0) : ''; }
     var h='<h5>Réglages de lecture</h5>';
-    h+='<div class="rd-setrow"><span class="lab">Thème</span>'+seg('theme',[['paper','Atelier'],['sepia','Papier'],['dark','Nuit']])+'</div>';
+    if(window.LM&&LM.mode) h+='<div class="rd-setrow"><span class="lab">Fond</span>'+seg('fond',FOND_NOMS)+'</div>';
     h+=stepRow('Taille du texte','fs',Math.round(S.fs*100/1.04)+' %');
     h+=stepRow('Interligne','lh',S.lh.toFixed(2));
     h+=stepRow('Largeur','width',S.width+' px');
@@ -266,7 +288,8 @@
     }
     box.querySelectorAll('[data-set]').forEach(function(b){ b.onclick=function(){
       var n=b.getAttribute('data-set'), v=b.getAttribute('data-v');
-      if(n==='theme')S.theme=v; else if(n==='align')S.align=v;
+      if(n==='fond'){ choisirFond(v,b); syncSeg(n); return; }
+      if(n==='align')S.align=v;
       else if(n==='font')S.font=v; else if(n==='focus')S.focus=(v==='1');
       else if(n==='gloss'){ S.gloss=(v==='1'); if(S.gloss)wrapGloss(); else unwrapGloss(); }
       saveS(); applyTo(r); syncSeg(n);

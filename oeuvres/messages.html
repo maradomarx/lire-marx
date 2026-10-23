@@ -97,7 +97,7 @@
   background:var(--card);border:1px solid var(--line-strong);border-radius:999px;
   padding:10px 15px;transition:border-color .16s,box-shadow .16s;}
 .mg-inp::placeholder{color:var(--const);}
-.mg-inp:focus{outline:none;border-color:var(--gold-deep);box-shadow:0 0 0 3px rgba(216,173,76,.24);}
+.mg-inp:focus{outline:none;border-color:var(--gold-deep);box-shadow:0 0 0 3px rgba(var(--gold-rgb),.24);}
 
 /* ── boutons pilule maison (autonomes : atelier.css n'est pas partout) ── */
 .mg-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;
@@ -108,7 +108,7 @@
   transition:background .18s,border-color .18s,color .18s;}
 .mg-btn:hover{background:var(--hover);border-color:var(--gold);}
 .mg-btn.pri{background:var(--text);border-color:var(--text);color:var(--bg);}
-.mg-btn.pri:hover{background:var(--gold);border-color:var(--gold);color:#1a130c;}
+.mg-btn.pri:hover{background:var(--gold);border-color:var(--gold);color:var(--paper);}
 .mg-btn[disabled]{opacity:.5;cursor:default;}
 .mg-btn[disabled]:hover{background:transparent;border-color:var(--line-strong);color:var(--text);}
 
@@ -120,10 +120,10 @@
   background:transparent;border:0;border-radius:13px;padding:10px;cursor:pointer;
   font-family:inherit;transition:background .16s;}
 .mg-ct:hover{background:var(--hover);}
-.mg-ct.on{background:linear-gradient(150deg,#2c2117,#211a12,#1b150e);
-  box-shadow:inset 0 0 0 1px rgba(216,173,76,.24);}
+.mg-ct.on{background:var(--emphase);
+  box-shadow:inset 0 0 0 1px rgba(var(--gold-rgb),.24);}
 .mg-ava{flex:0 0 auto;width:38px;height:38px;border-radius:50%;position:relative;
-  overflow:hidden;background:var(--red);color:#fff;display:flex;align-items:center;
+  overflow:hidden;background:var(--red);color:var(--sur-red);display:flex;align-items:center;
   justify-content:center;font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:.92rem;}
 .mg-ct-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;}
 .mg-ct-name{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:.95rem;
@@ -132,7 +132,7 @@
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .mg-ct.unread .mg-ct-prev{color:var(--ink-soft);}
 .mg-badge{flex:0 0 auto;min-width:20px;height:20px;padding:0 6px;border-radius:999px;
-  background:var(--red);color:#fff;font-family:var(--f-ui);font-weight:600;font-size:.72rem;
+  background:var(--red);color:var(--sur-red);font-family:var(--f-ui);font-weight:600;font-size:.72rem;
   display:flex;align-items:center;justify-content:center;}
 .mg-when{flex:0 0 auto;font-family:var(--f-ui);font-size:.72rem;color:var(--const);}
 
@@ -146,7 +146,7 @@
 .mg-thread-pane{display:flex;flex-direction:column;height:calc(100vh - 210px);min-height:420px;}
 .mg-conv-head{display:flex;align-items:center;gap:12px;padding:14px 18px;
   border-bottom:1px solid var(--line);
-  background:linear-gradient(150deg,#2c2117,#211a12,#1b150e);
+  background:var(--emphase);
   border-radius:18px 18px 0 0;}
 .mg-back{display:none;flex:0 0 auto;width:34px;height:34px;border-radius:50%;
   border:1px solid var(--line-strong);background:transparent;color:var(--text);
@@ -165,8 +165,8 @@
 .mg-b{max-width:min(72%,560px);padding:9px 14px;border-radius:16px;
   font-family:var(--f-serif);font-size:.96rem;line-height:1.5;color:var(--ink);
   white-space:pre-wrap;overflow-wrap:anywhere;}
-.mg-b.me{align-self:flex-end;background:rgba(213,64,47,.22);
-  border:1px solid rgba(213,64,47,.42);border-bottom-right-radius:5px;}
+.mg-b.me{align-self:flex-end;background:rgba(var(--red-rgb),.22);
+  border:1px solid rgba(var(--red-rgb),.42);border-bottom-right-radius:5px;}
 .mg-b.them{align-self:flex-start;background:var(--card);border:1px solid var(--line);
   border-bottom-left-radius:5px;}
 /* .72rem et non .68 : le plancher du projet pour un texte fonctionnel est
@@ -183,7 +183,7 @@
 .mg-new{position:absolute;left:50%;bottom:96px;transform:translateX(-50%);
   z-index:3;font-family:var(--f-ui);font-weight:600;font-size:.76rem;line-height:1;
   color:var(--bg);background:var(--gold);border:0;border-radius:999px;
-  padding:9px 15px;cursor:pointer;box-shadow:0 10px 26px -10px rgba(0,0,0,.8);}
+  padding:9px 15px;cursor:pointer;box-shadow:0 10px 26px -10px rgba(var(--ombre-rgb),.8);}
 .mg-new[hidden]{display:none;}
 .mg-thread-pane{position:relative;}
 .mg-compose{display:flex;gap:10px;align-items:flex-end;padding:14px 18px;
@@ -193,7 +193,7 @@
   background:var(--card);border:1px solid var(--line-strong);border-radius:14px;
   padding:11px 14px;transition:border-color .16s,box-shadow .16s;}
 .mg-ta::placeholder{color:var(--const);}
-.mg-ta:focus{outline:none;border-color:var(--gold-deep);box-shadow:0 0 0 3px rgba(216,173,76,.24);}
+.mg-ta:focus{outline:none;border-color:var(--gold-deep);box-shadow:0 0 0 3px rgba(var(--gold-rgb),.24);}
 .mg-hint{font-family:var(--f-ui);font-size:.72rem;color:var(--const);
   padding:0 18px 12px;margin:-6px 0 0;}
 
@@ -211,7 +211,9 @@
 /* le halo de la maison sur la carte d'accueil du fil */
 .mg-welcome{position:relative;isolation:isolate;}
 .mg-welcome::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:18px;
-  background:radial-gradient(120% 130% at 50% 118%,rgba(216,173,76,.15),transparent 62%);}
+  background:radial-gradient(120% 130% at 50% 118%,rgba(var(--gold-rgb),.15),transparent 62%);}
+/* l'édition de 1872 est un imprimé : pas de halo */
+html[data-mode="edition"] .mg-welcome::before{display:none;}
 
 @media(max-width:900px){
   .mg-cols{grid-template-columns:1fr;}

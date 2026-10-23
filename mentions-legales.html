@@ -61,7 +61,7 @@
 }
 *{box-sizing:border-box;}
 body{margin:0;background:var(--bg);color:var(--text);font-family:var(--f-ui);}
-::selection{background:rgba(216,173,76,.32);color:var(--text);}
+::selection{background:rgba(var(--gold-rgb),.32);color:var(--text);}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:3px;}
 
 .ml{max-width:1000px;margin:0 auto;padding:56px clamp(20px,5vw,44px) 0;}
@@ -84,7 +84,7 @@ h1{font-family:'Fraunces',serif;font-weight:900;letter-spacing:-.02em;line-heigh
 .ml-som a{display:inline-block;color:var(--const);text-decoration:none;padding:8px 14px;
   border-radius:8px;border-bottom:0;transition:color .16s,background .16s;}
 .ml-som a:hover{color:var(--ink-soft);background:var(--hover);}
-.ml-som a.on{color:var(--gold);background:rgba(216,173,76,.10);font-weight:600;}
+.ml-som a.on{color:var(--gold);background:rgba(var(--gold-rgb),.10);font-weight:600;}
 
 /* ── La grille : marge | texte, identique à /a-propos. */
 .ml-bloc{display:grid;grid-template-columns:var(--marge) minmax(0,1fr);
@@ -106,7 +106,7 @@ h3{font-family:var(--f-ui);font-weight:600;font-size:.92rem;color:var(--ink);
 .ml-corps p:last-child{margin-bottom:0;}
 .ml-corps p b{color:var(--ink);font-weight:600;}
 .ml-corps p em{color:var(--ink-soft);font-style:italic;}
-.ml-corps a{color:var(--red-text);text-decoration:none;border-bottom:1px solid rgba(229,100,79,.34);}
+.ml-corps a{color:var(--red-text);text-decoration:none;border-bottom:1px solid rgba(var(--red-rgb),.38);}
 .ml-corps a:hover{color:var(--gold);border-bottom-color:var(--gold);}
 
 /* ── La marge : des REPÈRES, pas un résumé du texte. Même grammaire que
@@ -126,9 +126,9 @@ h3{font-family:var(--f-ui);font-weight:600;font-size:.92rem;color:var(--ink);
 .ml-note a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--line-strong);}
 .ml-note a:hover{color:var(--gold);border-bottom-color:var(--gold);}
 
-.ml-contact{background:var(--emphase);border:1px solid rgba(216,173,76,.20);
+.ml-contact{background:var(--emphase);border:1px solid rgba(var(--gold-rgb),.20);
   border-radius:16px;padding:22px 24px;margin-top:20px;
-  box-shadow:0 18px 40px -26px rgba(0,0,0,.85);}
+  box-shadow:0 18px 40px -26px rgba(var(--ombre-rgb),.85);}
 .ml-contact p{margin-bottom:12px;}
 .ml-contact p:last-child{margin-bottom:0;}
 .ml-mail{display:inline-flex;align-items:center;font-family:var(--f-ui);font-size:.86rem;

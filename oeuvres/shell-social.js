@@ -496,7 +496,7 @@
       return;
     }
     if(!user){
-      notifPop.innerHTML = '<div class="tb-pop-h">Notifications</div><div class="tb-pop-empty">Connecte-toi pour suivre les réponses et les mentions.</div><a class="tb-pop-cta" data-soc="login" href="#">Se connecter</a>';
+      notifPop.innerHTML = '<div class="tb-pop-h">Notifications</div><div class="tb-pop-empty">Connectez-vous pour suivre les réponses et les mentions.</div><a class="tb-pop-cta" data-soc="login" href="#">Se connecter</a>';
       var lb = notifPop.querySelector('[data-soc="login"]');
       if(lb) lb.onclick = function(e){ e.preventDefault(); socClosePops(null); openAcctModal(); };
       return;
