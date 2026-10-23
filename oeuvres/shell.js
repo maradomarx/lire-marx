@@ -138,10 +138,10 @@
       var c = html.getAttribute('data-mode-choix') || 'auto', out = [];
       ['bougie','jour','edition','auto'].forEach(function(m){
         if(m === c) return;
-        out.push({ t: 'Mode : ' + MODE_NOMS[m].toLowerCase(), s: MODE_GLOSES[m] || 'suivre le système', mots: 'mode affichage theme ' + MODE_NOMS[m] + ' ' + (MODE_GLOSES[m] || '') + (m === 'bougie' ? ' sombre nuit' : m === 'auto' ? ' systeme' : ' clair'), act: function(){ choisirMode(m, b); } });
+        out.push({ t: 'Mode : ' + MODE_NOMS[m].toLowerCase(), s: MODE_GLOSES[m] || 'suivre le système', mots: 'mode affichage theme ' + MODE_NOMS[m] + ' ' + (MODE_GLOSES[m] || '') + (m === 'bougie' ? ' sombre nuit' : m === 'auto' ? ' systeme' : ' clair'), act: function(){ choisirMode(m, b); }, reglage: true });
       });
       var F = window.LM_FOND;
-      if(F){ var r = F.reglage(); ['anime','fixe','aucun'].forEach(function(f){ if(f !== r) out.push({ t: 'Fond : ' + FOND_NOMS[f].toLowerCase(), s: 'le fond de la page', mots: 'fond animation mouvement ' + FOND_NOMS[f], act: function(){ F.regler(f); } }); }); }
+      if(F){ var r = F.reglage(); ['anime','fixe','aucun'].forEach(function(f){ if(f !== r) out.push({ t: 'Fond : ' + FOND_NOMS[f].toLowerCase(), s: 'le fond de la page', mots: 'fond animation mouvement ' + FOND_NOMS[f], act: function(){ F.regler(f); }, reglage: true }); }); }
       return out;
     });
   }
@@ -1192,7 +1192,7 @@
     function actions(nq){
       var out = [];
       actionsRecherche.forEach(function(fn){ try { out = out.concat(fn() || []); } catch(e){} });
-      out = out.map(function(a){ return { t: a.t, s: a.s, cat: 'action', act: function(){ inp.value = ''; close(); if(etroitReplie) etroitReplie(); a.act(); }, h: norm((a.mots || '') + ' ' + a.t + ' ' + (a.s || '')) }; });
+      out = out.map(function(a){ return { t: a.t, s: a.s, cat: 'action', act: function(){ inp.value = ''; close(); if(etroitReplie) etroitReplie(); a.act(); }, reglage: !!a.reglage, h: norm((a.mots || '') + ' ' + a.t + ' ' + (a.s || '')) }; });
       if(!nq) return out;
       return out.filter(function(a){ return nq.split(/\s+/).every(function(w){ return a.h.indexOf(w) >= 0; }); });
     }
@@ -1204,7 +1204,11 @@
       if(rec.length) groups.recente = rec;
       groups.exemple = EXEMPLES.filter(function(x){ return rec.every(function(r){ return norm(r.t) !== norm(x); }); })
         .slice(0, 3).map(function(x){ return { t: x, cat: 'exemple', act: function(){ inp.value = x; render(x); } }; });
-      var ac = actions(''); if(ac.length) groups.action = ac.slice(0, 4);
+      /* les actions des gestes (haut de page, plein écran, copier…) d'abord,
+         le mode et le fond ensuite : sans cet ordre, les quatre places étaient
+         prises par le mode et le fond (mission `affichage`) */
+      var ac = actions(''); ac = ac.filter(function(a){ return !a.reglage; }).concat(ac.filter(function(a){ return a.reglage; }));
+      if(ac.length) groups.action = ac.slice(0, 6);
       paint(groups, '');
     }
 
@@ -1386,6 +1390,8 @@
        pas de seconde recherche. mouvement.js lie la touche ; ici, l'API. */
     var SR = (window.SHELL = window.SHELL || {}).recherche = window.SHELL.recherche || {};
     SR.ouvrir = deplie;
+    /* fermer : la liste, puis le champ replié des petits écrans */
+    SR.fermer = function(){ close(); replie(false); };
     SR.actions = actionsRecherche;
     if(closeBtn) closeBtn.addEventListener('click', function(e){ e.stopPropagation(); replie(true); });
     inp.addEventListener('keydown', function(e){ if(e.key === 'Escape') replie(true); });

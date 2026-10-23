@@ -151,7 +151,8 @@
     html.classList.remove('lm-palette');
     var w = wrap(); if(w){ w.removeAttribute('role'); w.removeAttribute('aria-label'); }
     if(document.body.classList.contains('tb-searching')){
-      var x = document.getElementById('tbSearchClose'); if(x) x.click();
+      var R = window.SHELL && window.SHELL.recherche;
+      if(R && R.fermer) R.fermer(); else { var x = document.getElementById('tbSearchClose'); if(x) x.click(); }
     }
     var o = ouvreur; ouvreur = null;
     if(rendre === false) return;
