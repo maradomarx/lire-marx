@@ -512,6 +512,63 @@ const PIED_PAGES = [
   'jeu/index.html'
 ];
 
+/* ── L'AFFICHAGE : LES TROIS MODES, LE FOND, LES GESTES (mission `affichage`) ──
+   Un bloc DÉRIVÉ en fin de <head>, dans toutes les pages (tenues à la main,
+   entre marqueurs ; générées, par leurs gabarits) : le script qui pose le
+   mode AVANT le premier rendu, puis les quatre actifs communs. Leurs ?v=
+   sont le hachage de leur contenu : la page n'est jamais mise en cache, eux
+   le sont quatre heures — le piège de home.js et de shell.css, réglé ici
+   une fois pour toutes, sans geste à la main.
+
+   LE CONTRAT DES MODES (assets/modes.css le décrit) :
+     html[data-mode] ∈ bougie | jour | edition ; html[data-mode-choix] ∈
+     auto | bougie | jour | edition ; localStorage['liremarx.mode.v1'] ;
+     « auto » suit le système (clair → jour, sombre → bougie).
+     window.LM.mode()   → { mode, choix }
+     window.LM.mode(m)  → choisit, mémorise, applique — SYNCHRONE, sans
+                          transition de vue (la révélation circulaire de
+                          mouvement.js l'enveloppe : LM.basculer).
+     document reçoit `lm:mode` ({detail:{mode, choix}}) quand le mode RÉSOLU
+     change, et `lm:choix` à chaque choix (le menu se repeint).
+   C'est le SEUL chemin par lequel un mode change : le menu de la barre, le
+   panneau de la liseuse, la palette. */
+const MODE_TEINTES = { bougie: '#15100b', jour: '#f6efe0', edition: '#ebe1c9' };
+const MODE_SCRIPT = "(function(){var h=document.documentElement,K='liremarx.mode.v1',C=['auto','bougie','jour','edition'],T=" + JSON.stringify(MODE_TEINTES).replace(/"/g, "'") + ",S=null,f=0;try{S=matchMedia('(prefers-color-scheme: light)')}catch(e){}" +
+  "function r(c){return c==='auto'?(S&&S.matches?'jour':'bougie'):c}" +
+  "function lu(){var c='';try{c=localStorage.getItem(K)||''}catch(e){}return C.indexOf(c)<0?'auto':c}" +
+  "function p(c){if(C.indexOf(c)<0)c='auto';var m=r(c),a=h.getAttribute('data-mode');h.setAttribute('data-mode-choix',c);if(m!==a){if(a){h.classList.add('lm-bascule');clearTimeout(f);f=setTimeout(function(){h.classList.remove('lm-bascule')},140)}h.setAttribute('data-mode',m);var x=document.getElementsByName('theme-color');for(var i=0;i<x.length;i++)x[i].setAttribute('content',T[m]);if(a)document.dispatchEvent(new CustomEvent('lm:mode',{detail:{mode:m,choix:c}}))}document.dispatchEvent(new CustomEvent('lm:choix',{detail:{mode:m,choix:c}}));return m}" +
+  "var L=window.LM=window.LM||{};L.MODES=C;L.TEINTES=T;L.resoudre=r;" +
+  "L.mode=function(m){if(m===undefined)return{mode:h.getAttribute('data-mode'),choix:h.getAttribute('data-mode-choix')};if(C.indexOf(m)<0)return null;try{localStorage.setItem(K,m)}catch(e){}return p(m)};" +
+  "p(lu());if(S&&S.addEventListener)S.addEventListener('change',function(){if(h.getAttribute('data-mode-choix')==='auto')p('auto')});" +
+  "addEventListener('storage',function(e){if(e.key===K)p(C.indexOf(e.newValue)<0?'auto':e.newValue)})})();";
+const hashActif = (f) => createHash('sha1').update(readFileSync(f)).digest('hex').slice(0, 8);
+function blocAffichage() {
+  const v = f => hashActif(f);
+  return '\n<script>' + MODE_SCRIPT + '</script>\n' +
+    '<link rel="stylesheet" href="/assets/modes.css?v=' + v('assets/modes.css') + '">\n' +
+    '<link rel="stylesheet" href="/assets/mouvement.css?v=' + v('assets/mouvement.css') + '">\n' +
+    '<link rel="stylesheet" href="/assets/fond.css?v=' + v('assets/fond.css') + '">\n' +
+    '<script src="/assets/mouvement.js?v=' + v('assets/mouvement.js') + '" defer></script>\n' +
+    '<script src="/assets/fond.js?v=' + v('assets/fond.js') + '" defer></script>\n';
+}
+const AFF_DEB = '<!-- AFFICHAGE:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs (modes, fond, gestes), ne pas éditer à la main -->';
+const AFF_FIN = '<!-- AFFICHAGE:FIN -->';
+const AFFICHAGE = AFF_DEB + blocAffichage() + AFF_FIN;
+/* Les pages tenues à la main : celles du pied de page, plus les deux pages
+   autonomes (la 404 et la page hors ligne n'ont ni shell ni pied de page,
+   mais elles ont un mode — le lecteur qui a choisi le jour ne doit pas
+   tomber dans le noir sur une erreur). `jeu/jouer.html` n'y est PAS : le jeu
+   garde sa propre direction artistique. */
+const AFF_PAGES = [...PIED_PAGES, '404.html', 'hors-ligne.html'];
+/* Dans une page tenue à la main : entre ses marqueurs s'ils existent, sinon
+   posés une première fois juste avant </head>. */
+function avecAffichage(src, fichier) {
+  if (src.indexOf(AFF_DEB) >= 0) return entreMarqueurs(src, AFF_DEB, AFF_FIN, blocAffichage(), fichier);
+  const i = src.indexOf('</head>');
+  if (i < 0) throw new Error('</head> introuvable dans ' + fichier);
+  return src.slice(0, i) + AFFICHAGE + '\n' + src.slice(i);
+}
+
 function lien(href, texte) { return `        <li><a href="${href}">${esc(texte)}</a></li>`; }
 
 function piedDePage() {
@@ -1546,6 +1603,7 @@ ${meta.questions.map((x) => `    <details>
 <link rel="preload" href="/oeuvres/shell.css?v=13" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=13"></noscript>
 ${ld}
+${AFFICHAGE}
 </head>
 <body${da ? ' class="nt-da"' : ''}>
 ${da ? `<div class="nt-ambiance" aria-hidden="true"><span class="nt-amb nt-amb--chaude"></span><span class="nt-amb nt-amb--aube"></span>${da.fond ? '<canvas class="nt-fond"></canvas>' : ''}</div>\n` : ''}${da && da.fond ? `<script type="application/json" id="nt-fond-data">${JSON.stringify(da.fond).replace(/</g, '\\u003c')}</script>\n` : ''}<main class="wrap" id="contenu" tabindex="-1">
@@ -1722,6 +1780,7 @@ ${da && da.fond ? `<script src="/glossaire/fond.js?v=${hashV('glossaire/fond.js'
 <link rel="preload" href="/oeuvres/shell.css?v=13" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=13"></noscript>
 ${ld}
+${AFFICHAGE}
 </head>
 <body>
 <main class="wrap" id="contenu" tabindex="-1">
@@ -1968,6 +2027,7 @@ ${PIED}
 <link rel="preload" href="/oeuvres/shell.css?v=13" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=13"></noscript>
 ${ld}
+${AFFICHAGE}
 </head>
 <body>
 <main class="wrap" id="contenu" tabindex="-1">
@@ -2076,6 +2136,7 @@ ${PIED}
 <link rel="preload" href="/oeuvres/shell.css?v=13" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=13"></noscript>
 ${o.ld}
+${AFFICHAGE}
 </head>`;
   const piedCm = (workTitle) => `${PIED}
 <script src="/config.js"></script>
@@ -2889,6 +2950,13 @@ const entries = [
 for (const f of PIED_PAGES) {
   const src = readFileSync(f, 'utf8');
   writeIfNeeded(f, entreMarqueurs(src, PIED_DEB, PIED_FIN, PIED, f), f + ' (pied de page)');
+}
+
+/* Le bloc AFFICHAGE (modes, fond, gestes), en fin de <head> des pages tenues
+   à la main. Les pages générées le reçoivent par leur gabarit. */
+for (const f of AFF_PAGES) {
+  const src = readFileSync(f, 'utf8');
+  writeIfNeeded(f, avecAffichage(src, f), f + ' (affichage)');
 }
 
 const xml =

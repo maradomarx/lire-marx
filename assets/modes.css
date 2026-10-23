@@ -1,0 +1,149 @@
+/* Lire Marx — LES TROIS MODES (mission `affichage`, oct. 2026).
+
+   Le contrat (les autres feuilles le LISENT, elles ne le changent pas) :
+     html[data-mode]        ∈ bougie | jour | edition     — le mode RÉSOLU
+     html[data-mode-choix]  ∈ auto | bougie | jour | edition
+   posés AVANT le premier rendu par le script de tête (bloc AFFICHAGE,
+   dérivé par tools/gen-seo.mjs), depuis localStorage['liremarx.mode.v1'].
+
+     bougie   — la pièce à la bougie : la DA de toujours, brun-nuit, or, rouge.
+     jour     — le jour sur la liasse : le même bureau, volets ouverts ; le
+                papier crème des manuscrits, l'encre ferro-gallique, l'or
+                devenu ocre (un or ne se lit pas sur du clair).
+     edition  — l'édition de 1872 : le papier de la traduction Roy que la
+                liseuse sert, le noir d'imprimerie et le rouge de rubrique ;
+                plus d'or (un imprimé n'en a pas), des chiffres elzéviriens.
+                C'est le mode de la LONGUE lecture.
+
+   LES NOMS DES JETONS NE CHANGENT PAS, SEULES LEURS VALEURS. Le mode bougie
+   est le :root de chaque page (atelier.css, et les :root des pages qui
+   redéclarent leur palette) : il n'est PAS redit ici. `html[data-mode=…]`
+   vaut (0,1,1) et passe devant `:root` (0,1,0), quel que soit l'ordre des
+   feuilles. Sans script, aucun attribut : le site reste à la bougie.
+
+   Les deux vocabulaires de la maison sont couverts : celui de l'accueil
+   (--bg --surface --text --muted --accent --border) et celui de la coquille
+   et des ateliers (--paper --card --ink --ink-soft --red --line…).
+
+   Jetons DÉRIVÉS, valables dans les trois modes (déclarés ici sur :root pour
+   la bougie) — c'est par eux qu'une couleur écrite en dur doit passer :
+     --ink-rgb     le texte, en composantes : rgba(var(--ink-rgb),.13)
+     --paper-rgb   le fond : les voiles des barres collantes
+     --surface-rgb la surface des cartes
+     --red-rgb --gold-rgb --blue-rgb
+     --ombre-rgb   les OMBRES : toujours sombres (une ombre en --ink-rgb
+                   deviendrait un halo clair à la bougie, et l'inverse le jour)
+     --voile-rgb   le fond des modales
+     --sur-red     le texte posé SUR un aplat --red
+     --emphase / --emphase-bord   la carte d'emphase (dégradé chaud + filet)
+     --photo-filtre  le traitement des tirages d'archive
+     --scene-fond  le fond d'une scène WebGL (et son brouillard)
+   Tout nouveau jeton se déclare dans les TROIS modes, ici. */
+
+:root{
+  --ink-rgb:243,233,212;--paper-rgb:21,16,11;--surface-rgb:30,23,16;
+  --red-rgb:213,64,47;--gold-rgb:216,173,76;--blue-rgb:92,138,163;
+  --ombre-rgb:0,0,0;--voile-rgb:10,7,4;
+  --sur-red:#fff;
+  --emphase:linear-gradient(150deg,#2c2117,#211a12,#1b150e);
+  --emphase-bord:rgba(216,173,76,.2);
+  --photo-filtre:grayscale(1) contrast(1.06) sepia(.30) brightness(.66);
+  --scene-fond:#15100b;
+  color-scheme:dark;
+}
+
+html[data-mode="jour"]{
+  color-scheme:light;
+  --bg:#f6efe0;--surface:#fbf6ea;--text:#22190f;
+  --muted:#5c4d39;--accent:#b8361f;--border:rgba(34,25,15,.14);
+  --paper:#f6efe0;--paper-2:#fbf6ea;--card:#fffbf2;
+  --ink:#22190f;--ink-soft:#4b3d2c;
+  --red:#b8361f;--bright:#a5301c;--red-deep:#a5301c;--red-text:#a5301c;
+  --blue-text:#2f5b74;
+  --line-strong:rgba(34,25,15,.46);
+  --gold:#7c5a1b;--gold-deep:#6e4f18;--blue:#3d6880;--const:#6b5c46;
+  --line:rgba(34,25,15,.14);--line-soft:rgba(34,25,15,.07);--ok:#466f26;
+  --hover:rgba(34,25,15,.045);
+  --candle:rgba(124,90,27,.12);
+  --ink-rgb:34,25,15;--paper-rgb:246,239,224;--surface-rgb:251,246,234;
+  --red-rgb:184,54,31;--gold-rgb:124,90,27;--blue-rgb:61,104,128;
+  --ombre-rgb:58,40,20;--voile-rgb:40,30,18;
+  --sur-red:#fff;
+  --emphase:linear-gradient(150deg,#fffaf0,#f8eedb,#f2e5cb);
+  --emphase-bord:rgba(124,90,27,.32);
+  --photo-filtre:grayscale(1) contrast(1.02) sepia(.28) brightness(.97);
+  --scene-fond:#f6efe0;
+}
+
+html[data-mode="edition"]{
+  color-scheme:light;
+  --bg:#ebe1c9;--surface:#f2e9d5;--text:#1c1712;
+  --muted:#54493a;--accent:#9c2a1a;--border:rgba(28,23,18,.16);
+  --paper:#ebe1c9;--paper-2:#f2e9d5;--card:#f5eddb;
+  --ink:#1c1712;--ink-soft:#3d3428;
+  --red:#9c2a1a;--bright:#8e2415;--red-deep:#8e2415;--red-text:#8e2415;
+  --blue-text:#2c4c60;
+  --line-strong:rgba(28,23,18,.5);
+  /* « l'or » de la maison devient le bistre d'une gravure : un imprimé
+     de 1872 n'a pas de dorure, mais il a deux encres */
+  --gold:#6a4f22;--gold-deep:#5c441d;--blue:#3a5b6e;--const:#5d5141;
+  --line:rgba(28,23,18,.16);--line-soft:rgba(28,23,18,.08);--ok:#3f5f26;
+  --hover:rgba(28,23,18,.05);
+  --candle:rgba(106,79,34,.1);
+  --ink-rgb:28,23,18;--paper-rgb:235,225,201;--surface-rgb:242,233,213;
+  --red-rgb:156,42,26;--gold-rgb:106,79,34;--blue-rgb:58,91,110;
+  --ombre-rgb:40,30,20;--voile-rgb:30,24,16;
+  --sur-red:#fff;
+  --emphase:linear-gradient(150deg,#f6efde,#efe4cb,#e8dbbd);
+  --emphase-bord:rgba(28,23,18,.28);
+  --photo-filtre:grayscale(1) contrast(1.12) sepia(.14) brightness(.95);
+  --scene-fond:#ebe1c9;
+}
+
+/* Le mode de la longue lecture : chiffres elzéviriens, ligatures et crénage
+   sur la PROSE seulement (un compteur d'interface en elzévirien danserait). */
+html[data-mode="edition"] :is(.reader-content,.nt-essai,.nt-sec,.ch-essai,.cm-essai,.ap-texte,.hs-faq-a,.lead,blockquote){
+  font-variant-numeric:oldstyle-nums proportional-nums;
+  font-feature-settings:"kern" 1,"liga" 1,"onum" 1;
+  font-kerning:normal;
+}
+
+/* La bascule : pendant le changement de mode, aucune transition de couleur
+   ne joue (deux cents fondus décalés font une page qui « coule »). Posée par
+   LM.mode pour deux images. La révélation circulaire (mouvement.js) joue,
+   elle, sur l'image entière. */
+html.lm-bascule *,html.lm-bascule *::before,html.lm-bascule *::after{transition:none!important;}
+
+/* ── LE MENU « AFFICHAGE » de la barre du haut (shell.js) ───────────── */
+.tb-mode{position:relative;display:flex;}
+html:not([data-mode-choix]) .tb-mode{display:none;}
+.tb-mode-b .ic{display:none;width:18px;height:18px;}
+html[data-mode-choix="auto"] .tb-mode-b .ic-auto,
+html[data-mode-choix="bougie"] .tb-mode-b .ic-bougie,
+html[data-mode-choix="jour"] .tb-mode-b .ic-jour,
+html[data-mode-choix="edition"] .tb-mode-b .ic-edition{display:block;}
+.tb-mode svg{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.tb-mode svg .pl{fill:currentColor;stroke:none;}
+.tb-menu{position:absolute;top:calc(100% + 8px);right:-6px;z-index:150;min-width:236px;
+  background:var(--card);border:1px solid var(--line-strong);border-radius:14px;padding:6px;
+  box-shadow:0 22px 50px -18px rgba(var(--ombre-rgb),.55);
+  font-family:var(--f-ui,'Inter',system-ui,sans-serif);}
+.tb-menu[hidden]{display:none;}
+.tb-menu-h{font-size:.72rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--muted);padding:8px 10px 6px;margin:0;}
+.tb-menu-g + .tb-menu-g{border-top:1px solid var(--line);margin-top:4px;padding-top:2px;}
+.tb-menu-g[hidden]{display:none;}
+.tb-menu button{display:flex;align-items:center;gap:10px;width:100%;min-height:36px;
+  padding:7px 10px;border:0;border-radius:9px;background:none;cursor:pointer;
+  font:inherit;font-size:.9rem;color:var(--ink);text-align:left;position:relative;}
+.tb-menu button svg{width:18px;height:18px;flex:none;color:var(--ink-soft);}
+.tb-menu button:hover,.tb-menu button:focus-visible{background:var(--hover);outline:none;}
+.tb-menu button:focus-visible{box-shadow:inset 0 0 0 2px var(--gold);}
+.tb-menu button[aria-checked="true"]{color:var(--ink);font-weight:600;}
+/* le choix est marqué d'une coche rouge en bout de ligne — pas d'un filet
+   latéral, que la maison a retiré partout ailleurs */
+.tb-menu button[aria-checked="true"]::after{content:"";margin-left:auto;width:14px;height:14px;flex:none;background:var(--red-text);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2.5 7.4l2.9 2.9 6.1-6.6' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+          mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M2.5 7.4l2.9 2.9 6.1-6.6' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;}
+.tb-menu button[aria-checked="true"] svg{color:var(--red-text);}
+@media (pointer:coarse){.tb-menu button{min-height:44px;}}

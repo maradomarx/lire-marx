@@ -46,6 +46,112 @@
     return t.content.firstElementChild;
   }
 
+  /* ── LE MENU « AFFICHAGE » (mission `affichage`) ──────────────────────
+     Un bouton à l'icône du CHOIX, un menu de radios en deux groupes : les
+     quatre choix de mode (le contrat vit dans assets/modes.css et dans le
+     script de tête dérivé par gen-seo : window.LM.mode), puis le fond
+     (window.LM_FOND, assets/fond.js) — ce second groupe reste caché tant que
+     le fond n'a pas dit qu'il était là. Le menu n'existe que si le script de
+     tête a posé html[data-mode-choix] (le CSS le masque sinon).
+     Icônes : automatique, un cercle à demi encré ; bougie, une chandelle ;
+     jour, un soleil ; édition, un livre ouvert. */
+  var MODE_IC = {
+    auto: '<circle cx="10" cy="10" r="6.5"/><path class="pl" d="M10 3.5a6.5 6.5 0 0 1 0 13z"/>',
+    bougie: '<path d="M10 2.4c1.7 1.9 2.1 3.3 1.2 4.6-.6.8-1.8.8-2.4 0-.9-1.3-.4-2.7 1.2-4.6z"/><rect x="7.6" y="8.8" width="4.8" height="8" rx=".8"/><path d="M5.4 17.4h9.2"/>',
+    jour: '<circle cx="10" cy="10" r="3.3"/><path d="M10 1.9v2.4M10 15.7v2.4M1.9 10h2.4M15.7 10h2.4M4.3 4.3L6 6M14 14l1.7 1.7M4.3 15.7L6 14M14 6l1.7-1.7"/>',
+    edition: '<path d="M2.6 4.6c2.5-.7 4.9-.4 7.4 1 2.5-1.4 4.9-1.7 7.4-1v11c-2.5-.7-4.9-.4-7.4 1-2.5-1.4-4.9-1.7-7.4-1z"/><path d="M10 5.6v11"/>',
+    'fond-anime': '<circle cx="5" cy="13" r="1.1" class="pl"/><circle cx="9.5" cy="8.5" r="1.1" class="pl"/><circle cx="14.5" cy="5" r="1.1" class="pl"/><path d="M3.5 16.5c4-1 8-5.2 12.5-12"/>',
+    'fond-fixe': '<circle cx="5" cy="13" r="1.1" class="pl"/><circle cx="9.5" cy="8.5" r="1.1" class="pl"/><circle cx="14.5" cy="5" r="1.1" class="pl"/><circle cx="13" cy="14" r="1.1" class="pl"/>',
+    'fond-aucun': '<rect x="3.5" y="3.5" width="13" height="13" rx="2"/><path d="M5 15L15 5"/>'
+  };
+  var MODE_NOMS = { auto: 'Automatique', bougie: 'Bougie', jour: 'Jour', edition: 'Édition de 1872' };
+  var MODE_GLOSES = { bougie: 'la pièce à la bougie', jour: 'le jour sur la liasse', edition: 'la longue lecture' };
+  var FOND_NOMS = { anime: 'Animé', fixe: 'Immobile', aucun: 'Aucun' };
+  function icMode(k, cls){ return '<svg class="' + (cls || '') + '" viewBox="0 0 20 20" aria-hidden="true">' + MODE_IC[k] + '</svg>'; }
+  function boutonMode(){
+    var modes = ['auto','bougie','jour','edition'];
+    return '<div class="tb-mode">' +
+      '<button type="button" class="tb-btn tb-icon tb-mode-b" id="tbMode" aria-haspopup="menu" aria-expanded="false" aria-controls="tbModes" aria-label="Affichage">' +
+        modes.map(function(m){ return icMode(m, 'ic ic-' + m); }).join('') + '</button>' +
+      '<div class="tb-menu" id="tbModes" role="menu" aria-label="Affichage" hidden>' +
+        '<div class="tb-menu-g" role="group" aria-label="Mode"><p class="tb-menu-h" aria-hidden="true">Mode</p>' +
+        modes.map(function(m){ return '<button type="button" role="menuitemradio" aria-checked="false" data-choix="' + m + '" tabindex="-1"' + (MODE_GLOSES[m] ? ' title="' + MODE_GLOSES[m] + '"' : '') + '>' + icMode(m) + MODE_NOMS[m] + '</button>'; }).join('') +
+        '</div>' +
+        '<div class="tb-menu-g" role="group" aria-label="Fond" data-groupe-fond hidden><p class="tb-menu-h" aria-hidden="true">Fond</p>' +
+        ['anime','fixe','aucun'].map(function(f){ return '<button type="button" role="menuitemradio" aria-checked="false" data-reglage-fond="' + f + '" tabindex="-1">' + icMode('fond-' + f) + FOND_NOMS[f] + '</button>'; }).join('') +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }
+  /* Le choix passe par LM.basculer (la révélation circulaire de
+     assets/mouvement.js) quand elle existe, sinon par LM.mode tout net. */
+  function choisirMode(m, origine){
+    var L = window.LM; if(!L || !L.mode) return;
+    if(L.basculer) L.basculer(m, origine); else L.mode(m);
+  }
+  function wireMode(){
+    var b = document.getElementById('tbMode'), menu = document.getElementById('tbModes');
+    if(!b || !menu || b.dataset.w) return;
+    b.dataset.w = '1';
+    var html = document.documentElement;
+    function items(){ return Array.prototype.filter.call(menu.querySelectorAll('[data-choix],[data-reglage-fond]'), function(x){ return !x.closest('[hidden]'); }); }
+    function peindre(){
+      var c = html.getAttribute('data-mode-choix') || 'auto', m = html.getAttribute('data-mode') || 'bougie';
+      Array.prototype.forEach.call(menu.querySelectorAll('[data-choix]'), function(x){ x.setAttribute('aria-checked', String(x.dataset.choix === c)); });
+      var F = window.LM_FOND, g = menu.querySelector('[data-groupe-fond]');
+      if(g){ g.hidden = !F; if(F){ var r = F.reglage(); Array.prototype.forEach.call(g.querySelectorAll('[data-reglage-fond]'), function(x){ x.setAttribute('aria-checked', String(x.dataset.reglageFond === r)); }); } }
+      b.setAttribute('aria-label', 'Affichage : ' + MODE_NOMS[c].toLowerCase() + (c === 'auto' ? ' (' + MODE_NOMS[m].toLowerCase() + ')' : ''));
+    }
+    function ouvert(){ return !menu.hidden; }
+    function fermer(rendre){ if(!ouvert()) return; menu.hidden = true; b.setAttribute('aria-expanded','false'); if(rendre) b.focus(); }
+    function ouvrir(){
+      peindre();
+      menu.hidden = false; b.setAttribute('aria-expanded','true');
+      var l = items(), c = l.filter(function(x){ return x.getAttribute('aria-checked') === 'true'; })[0] || l[0];
+      if(c) c.focus();
+    }
+    b.addEventListener('click', function(e){ e.stopPropagation(); ouvert() ? fermer(true) : ouvrir(); });
+    b.addEventListener('keydown', function(e){ if(e.key === 'ArrowDown' || e.key === 'ArrowUp'){ e.preventDefault(); ouvrir(); } });
+    menu.addEventListener('click', function(e){
+      var f = e.target.closest('[data-reglage-fond]');
+      if(f){ if(window.LM_FOND) window.LM_FOND.regler(f.dataset.reglageFond); peindre(); fermer(true); return; }
+      var x = e.target.closest('[data-choix]'); if(!x) return;
+      fermer(true);
+      choisirMode(x.dataset.choix, b);
+    });
+    menu.addEventListener('keydown', function(e){
+      var l = items(), i = l.indexOf(document.activeElement);
+      if(e.key === 'Escape'){ e.preventDefault(); e.stopPropagation(); fermer(true); }
+      else if(e.key === 'ArrowDown'){ e.preventDefault(); l[(i + 1) % l.length].focus(); }
+      else if(e.key === 'ArrowUp'){ e.preventDefault(); l[(i - 1 + l.length) % l.length].focus(); }
+      else if(e.key === 'Home'){ e.preventDefault(); l[0].focus(); }
+      else if(e.key === 'End'){ e.preventDefault(); l[l.length - 1].focus(); }
+      else if(e.key === 'Tab') fermer(false);
+    });
+    document.addEventListener('pointerdown', function(e){ if(ouvert() && !menu.contains(e.target) && !b.contains(e.target)) fermer(false); });
+    document.addEventListener('lm:choix', peindre);
+    document.addEventListener('lm:fond', peindre);
+    peindre();
+    /* La palette (la recherche de la barre) sait aussi changer de mode et de
+       fond : ses actions sont lues ici, au moment où l'on tape. */
+    actionsRecherche.push(function(){
+      var c = html.getAttribute('data-mode-choix') || 'auto', out = [];
+      ['bougie','jour','edition','auto'].forEach(function(m){
+        if(m === c) return;
+        out.push({ t: 'Mode : ' + MODE_NOMS[m].toLowerCase(), s: MODE_GLOSES[m] || 'suivre le système', mots: 'mode affichage theme ' + MODE_NOMS[m] + ' ' + (MODE_GLOSES[m] || '') + (m === 'bougie' ? ' sombre nuit' : m === 'auto' ? ' systeme' : ' clair'), act: function(){ choisirMode(m, b); } });
+      });
+      var F = window.LM_FOND;
+      if(F){ var r = F.reglage(); ['anime','fixe','aucun'].forEach(function(f){ if(f !== r) out.push({ t: 'Fond : ' + FOND_NOMS[f].toLowerCase(), s: 'le fond de la page', mots: 'fond animation mouvement ' + FOND_NOMS[f], act: function(){ F.regler(f); } }); }); }
+      return out;
+    });
+  }
+  /* Les ACTIONS de la recherche (mission `affichage`) : des fournisseurs
+     — function() → [{t, s, mots, act}] — appelés à chaque rendu. La recherche
+     de la barre devient ainsi une palette : l'état vide montre les actions,
+     une requête les filtre sur leurs mots. Les gestes (mouvement.js) en
+     ajoutent par SHELL.recherche.actions.push(fn). */
+  var actionsRecherche = [];
+
   function buildTopbar(){
     return el(
       '<header class="topbar"><div class="topbar-in">' +
@@ -66,6 +172,7 @@
           '<button id="tbSearchClose" class="tb-search-close" type="button" aria-label="Fermer la recherche"><span aria-hidden="true">✕</span></button>' +
         '</div>' +
         '<div class="topbar-right">' +
+          boutonMode() +
           '<button id="supportBtn" class="tb-btn tb-support" type="button" aria-label="Nous soutenir">' +
             '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 20.3l-1-1.4C5.9 14.3 3 11.7 3 8.4 3 5.9 4.9 4 7.4 4 9 4 10.4 4.8 11.2 6 12 4.8 13.4 4 15 4c2.5 0 4.4 1.9 4.4 4.4 0 3.3-2.9 5.9-8 10.5l-1 1.4z"/></svg>' +
             '<span class="tb-lbl">Nous soutenir</span>' +
@@ -336,6 +443,7 @@
     // wireSupportPopover() et wireSharedSearch() ci-dessous.
     wireSupportPopover();
     wireSharedSearch();
+    wireMode();
     wireInstall(sb);
     registerSW();
   }
@@ -425,14 +533,15 @@
       'a-venir':{ lab: 'À venir',    grp: 'À venir' },
       essai:    { lab: 'Essai',      grp: 'Dans les explications du site' },
       ressource:{ lab: 'Ressource',  grp: 'Pour aller plus loin' },
-      texte:    { lab: 'Texte',      grp: 'Dans le texte des œuvres' }
+      texte:    { lab: 'Texte',      grp: 'Dans le texte des œuvres' },
+      action:   { lab: 'Action',     grp: 'Actions' }
     };
     /* « Dans le texte » vient EN DERNIER, et c'est un choix : sur un mot
        comme « plus-value » le texte rendrait des centaines d'occurrences
        là où le chapitre et la notion répondent mieux. Le plein texte est
        un complément, pas la porte d'entrée — mais sur « vampire », qui
        n'est ni un chapitre ni une notion, c'est le seul groupe rempli. */
-    var ORDER = ['reprise','recente','exemple','chapitre','partie','notion','date','outil','oeuvre','page','a-venir','essai','texte'];
+    var ORDER = ['reprise','recente','exemple','chapitre','partie','notion','date','outil','oeuvre','page','action','a-venir','essai','texte'];
     var PER_GROUP = 4, MAX = 14;
 
     var INDEX = null, TEXTE = null;
@@ -1077,6 +1186,17 @@
        exemples. C'est lui qui ENSEIGNE ce qu'on peut chercher — les novices
        ne reformulent pas une requête vide, ils concluent que ça n'existe
        pas. */
+    /* Les actions de la palette (mode, fond, haut de page…), lues chez leurs
+       fournisseurs à chaque rendu : leur liste dépend de l'état (on ne propose
+       pas le mode où l'on est déjà). Une requête les filtre sur leurs mots. */
+    function actions(nq){
+      var out = [];
+      actionsRecherche.forEach(function(fn){ try { out = out.concat(fn() || []); } catch(e){} });
+      out = out.map(function(a){ return { t: a.t, s: a.s, cat: 'action', act: function(){ inp.value = ''; close(); if(etroitReplie) etroitReplie(); a.act(); }, h: norm((a.mots || '') + ' ' + a.t + ' ' + (a.s || '')) }; });
+      if(!nq) return out;
+      return out.filter(function(a){ return nq.split(/\s+/).every(function(w){ return a.h.indexOf(w) >= 0; }); });
+    }
+    var etroitReplie = null;
     function zeroState(){
       var groups = {};
       var rep = resumeItems(); if(rep.length) groups.reprise = rep;
@@ -1084,6 +1204,7 @@
       if(rec.length) groups.recente = rec;
       groups.exemple = EXEMPLES.filter(function(x){ return rec.every(function(r){ return norm(r.t) !== norm(x); }); })
         .slice(0, 3).map(function(x){ return { t: x, cat: 'exemple', act: function(){ inp.value = x; render(x); } }; });
+      var ac = actions(''); if(ac.length) groups.action = ac.slice(0, 4);
       paint(groups, '');
     }
 
@@ -1202,7 +1323,8 @@
         /* pas de suggestion pour « chapitre X » ou une année qui ne
            correspond à rien : ce sont des adresses, pas des mots */
         var sug = (hits.length || chapRn || year) ? null : suggestion(nq, ix);
-        if(!hits.length && !veutTexte){
+        var acts = (chapRn || year) ? [] : actions(nq).slice(0, 3);
+        if(!hits.length && !veutTexte && !acts.length){
           renderEmpty(q, false, sug);
           return;
         }
@@ -1212,6 +1334,7 @@
           groups[cat] = groups[cat] || [];
           if(groups[cat].length < PER_GROUP && total < MAX){ groups[cat].push(hh.it); total++; }
         });
+        if(acts.length) groups.action = acts;
         var n = paint(groups, q, veutTexte);
         announce(n + (n > 1 ? ' résultats' : ' résultat'));
         if(veutTexte) lancePlein(q, txq, seq, sug);
@@ -1258,6 +1381,12 @@
       if(rendre && openBtn && etroit.matches) openBtn.focus();
     }
     if(openBtn) openBtn.addEventListener('click', function(e){ e.stopPropagation(); deplie(); });
+    etroitReplie = function(){ replie(false); };
+    /* La palette (mission `affichage`) : ⌘K / Ctrl+K ouvre CE champ — il n'y a
+       pas de seconde recherche. mouvement.js lie la touche ; ici, l'API. */
+    var SR = (window.SHELL = window.SHELL || {}).recherche = window.SHELL.recherche || {};
+    SR.ouvrir = deplie;
+    SR.actions = actionsRecherche;
     if(closeBtn) closeBtn.addEventListener('click', function(e){ e.stopPropagation(); replie(true); });
     inp.addEventListener('keydown', function(e){ if(e.key === 'Escape') replie(true); });
     document.addEventListener('click', function(e){
