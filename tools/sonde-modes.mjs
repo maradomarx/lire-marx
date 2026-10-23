@@ -47,9 +47,19 @@ const puppeteer = require('puppeteer-core');
 
 let port = opt('port'), serveur = null;
 if (!port) {
-  port = String(8900 + Math.floor(Math.random() * 90));
+  /* ⚠️ un port tiré au hasard peut être tenu par le serveur d'un AUTRE
+     worktree : la sonde mesurait alors ses fichiers (387 faux échecs, oct.
+     2026). On demande au système un port libre, puis on vérifie que celui
+     qui répond sert bien NOTRE tools/sonde.js. */
+  const net = await import('node:net');
+  port = String(await new Promise(r => { const s = net.createServer(); s.listen(0, '127.0.0.1', () => { const p = s.address().port; s.close(() => r(p)); }); }));
   serveur = spawn(process.execPath, [path.join(SITE, 'tools/serveur.mjs'), port], { stdio: 'ignore' });
-  await new Promise(r => setTimeout(r, 600));
+  let ok = false;
+  for (let i = 0; i < 30 && !ok; i++) {
+    await new Promise(r => setTimeout(r, 150));
+    try { ok = (await (await fetch('http://127.0.0.1:' + port + '/tools/sonde.js')).text()) === fs.readFileSync(path.join(SITE, 'tools/sonde.js'), 'utf8'); } catch (e) { }
+  }
+  if (!ok) { console.error('✗ le serveur de test ne sert pas ce dépôt (' + SITE + ')'); serveur.kill(); process.exit(2); }
 }
 const ORIGIN = 'http://127.0.0.1:' + port;
 const SONDE = fs.readFileSync(path.join(SITE, 'tools/sonde.js'), 'utf8');
