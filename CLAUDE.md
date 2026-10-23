@@ -11388,3 +11388,34 @@ lecture, et seulement là :
 Pas de `nofollow` : c'est un site frère, le lien est voulu. Toutes les URL de
 thèse vérifiées en 200. Pour en ajouter une, relire d'abord la section « D'où
 elle vient » de la thèse sur liredebord.com.
+
+## La PR GEO Invader n° 5 annulée (oct. 2026)
+
+La PR #5 (« en-tête de 16 pages », fusionnée le 22 octobre) a été relue
+après sa mise en ligne, puis **annulée en bloc**. Elle raccourcissait des
+titres et des descriptions jugés trop longs, mais :
+
+- elle avait publié **deux titres coupés au couteau**
+  (« … ce qu'elle est » | », « … du Capital | Lire ») ;
+- elle modifiait **sept pages générées** par `gen-seo.mjs` (les cinq
+  commentaires, `agregation-2027`, `glossaire/fetichisme`) : `--check`
+  passait au rouge, et la prochaine régénération aurait tout remis en
+  silence. Sur une page générée, le titre et la description se changent
+  dans `meta.json`, et la description y alimente AUSSI l'index de la
+  recherche du site : la raccourcir appauvrit la recherche ;
+- elle posait une canonique et une description sur trois pages en
+  `noindex` (`404`, `hors-ligne`, `jeu/jouer`), où elles ne servent à rien
+  — la canonique de la 404 désignait `/404` ;
+- surtout, elle **retirait les repères précis** (« Préface de 1859 »,
+  « chapitre 7 », Bentham, Roy, Laura Lafargue, « 1818-1883 », « par où le
+  lire », le titre alternatif « Salaire, prix et profit ») pour gagner
+  quelques caractères. Une description longue est **tronquée à
+  l'affichage, pas pénalisée** ; ces repères sont ce qui fait trouver et
+  citer la page.
+
+Seul changement repris : le titre du XVIII brumaire, qui adopte la graphie
+cherchée (« Le 18 Brumaire de Louis Bonaparte — Marx, texte intégral »,
+`og:title` aligné ; « XVIII brumaire » reste dans la description et le
+`Book`). Règle pour les prochaines PR automatiques : refuser toute
+modification d'une page générée, toute balise ajoutée à une page en
+`noindex`, et toute réécriture qui perd un nom, un nombre ou un titre.
