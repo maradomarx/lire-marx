@@ -49,8 +49,8 @@ nav.tabs.worktabs .tab{font-family:var(--f-ui);font-weight:600;
   transition:color .16s,background .16s,border-color .16s;}
 nav.tabs.worktabs .tab:hover{color:var(--ink);background:var(--hover);}
 nav.tabs.worktabs .tab.active{color:var(--ink);
-  background:linear-gradient(150deg,#2c2117,#211a12,#1b150e);
-  border-color:rgba(216,173,76,.28);}
+  background:var(--emphase);
+  border-color:rgba(var(--gold-rgb),.28);}
 nav.tabs.worktabs .tab.active::after{display:none;}
 nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
 
@@ -111,9 +111,8 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);outline-offse
 .reader-content .sp-src{margin:3em 0 0;padding-top:1.2em;border-top:1px solid var(--line);
   font-family:var(--f-ui);font-size:.8rem;line-height:1.6;color:var(--muted);}
 .reader-content .sp-src a{color:var(--ink);text-decoration:underline;
-  text-decoration-color:rgba(216,173,76,.5);text-underline-offset:2px;}
+  text-decoration-color:rgba(var(--gold-rgb),.5);text-underline-offset:2px;}
 .reader-content .sp-src a:hover{color:var(--gold);}
-.reader.theme-sepia .reader-content h2.sp-part .sp-rn{color:var(--red-deep);}
 </style>
 <!-- Book : DÉRIVÉ de oeuvres/bibliotheque.json par tools/gen-seo.mjs.
      Ne pas éditer à la main — corriger la source, puis regénérer :
