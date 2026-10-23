@@ -23,6 +23,15 @@
   --f-ui:'Inter',system-ui,sans-serif;--f-serif:'Spectral',Georgia,serif;--f-hand:'Caveat',cursive;
   --candle:rgba(216,173,76,.18);
   --emphase:linear-gradient(150deg,#2c2117,#211a12,#1b150e);
+  /* jetons LOCAUX de la page de notion, redits pour le jour et l'édition en
+     fin de feuille (« LES TROIS MODES ») : la vitrine, les tirages, la
+     lumière d'ambiance. À la bougie, les valeurs d'avant, au chiffre près. */
+  --nt-nuit:#0d0a07;--nt-nuit-rgb:13,10,7;
+  --nt-photo:grayscale(1) sepia(.34) contrast(1.12) brightness(.76);
+  --nt-planche:grayscale(1) sepia(.32) contrast(1.06) brightness(.62);
+  --nt-planche-c:saturate(.8) brightness(.76) contrast(1.04);
+  --nt-fusion:normal;
+  --nt-amb-chaude:222,150,62;--nt-amb-aube:150,182,214;--nt-amb-aube2:120,150,180;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html{background:var(--bg);}
@@ -75,7 +84,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--f-ui);
   overflow:hidden;grid-template-columns:repeat(2,1fr);}
 .nt-bloc{background:var(--surface);padding:22px 22px 24px;}
 .nt-bloc--source{background:var(--emphase);position:relative;
-  box-shadow:inset 0 0 0 1px rgba(216,173,76,.20);}
+  box-shadow:inset 0 0 0 1px rgba(var(--gold-rgb),.20);}
 .nt-bloc--source::after{content:'';position:absolute;inset:0;pointer-events:none;
   background:radial-gradient(ellipse at 50% 118%,var(--candle) 0%,transparent 62%);}
 .nt-bloc>*{position:relative;z-index:1;}
@@ -116,7 +125,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--f-ui);
 /* ── pied ── */
 .nt-fin{margin-top:clamp(40px,6vh,60px);}
 .nt-btn{display:inline-flex;align-items:center;gap:9px;padding:11px 24px;
-  border-radius:999px;background:var(--accent);color:#fff;
+  border-radius:999px;background:var(--accent);color:var(--sur-red);
   font-family:var(--f-ui);font-size:14px;font-weight:600;text-decoration:none;
   transition:opacity .18s,transform .18s;}
 .nt-btn:hover{opacity:.86;transform:translateY(-1px);}
@@ -143,7 +152,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--f-ui);
 .nt-col{min-width:0;max-width:680px;}
 .nt-monde{order:-1;position:relative;margin:0 0 30px;
   aspect-ratio:16/10;border-radius:18px;overflow:hidden;
-  background:#0d0a07;border:1px solid var(--border);}
+  background:var(--nt-nuit);border:1px solid var(--border);}
 .nt-monde canvas,.nt-monde-still{position:absolute;inset:0;width:100%;height:100%;
   display:block;object-fit:cover;}
 /* L'IMAGE FIXE NE SE ROGNE JAMAIS. Dans la colonne collante, la boîte est
@@ -158,16 +167,16 @@ body{background:var(--bg);color:var(--text);font-family:var(--f-ui);
 .nt-monde-cap{position:absolute;left:0;right:0;bottom:0;margin:0;
   padding:38px 20px 16px;font-family:var(--f-serif);font-style:italic;
   font-size:.94rem;line-height:1.5;color:var(--ink-soft);
-  background:linear-gradient(to bottom,rgba(13,10,7,0),rgba(13,10,7,.92) 60%);
+  background:linear-gradient(to bottom,rgba(var(--nt-nuit-rgb),0),rgba(var(--nt-nuit-rgb),.92) 60%);
   transition:opacity .35s;}
 .nt-monde-cap.swap{opacity:0;}
 /* La ligne fixe : ce qu'on voit est DANS le livre, et l'on peut y aller. */
 .nt-monde-src{position:absolute;top:12px;left:14px;margin:0;z-index:2;}
 .nt-monde-src a{display:inline-block;padding:6px 11px;border-radius:999px;
-  background:rgba(13,10,7,.72);border:1px solid rgba(216,173,76,.35);
+  background:rgba(var(--nt-nuit-rgb),.72);border:1px solid rgba(var(--gold-rgb),.35);
   font-family:var(--f-ui);font-size:.7rem;font-weight:600;letter-spacing:.08em;
   text-transform:uppercase;color:var(--gold);text-decoration:none;}
-.nt-monde-src a:hover{border-color:var(--gold);background:rgba(13,10,7,.9);}
+.nt-monde-src a:hover{border-color:var(--gold);background:rgba(var(--nt-nuit-rgb),.9);}
 /* Vignette : la pénombre gagne les bords, comme partout où le site s'éclaire à la bougie. */
 .nt-monde canvas+.nt-monde-vignette,.nt-monde::before{content:'';position:absolute;inset:0;
   pointer-events:none;z-index:1;box-shadow:inset 0 0 90px 20px rgba(8,5,3,.55);}
@@ -205,7 +214,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--f-ui);
     transform:rotate(-135deg);pointer-events:none;transition:transform .2s;}
   .nt-monde.cap-fold.cap-open::after{transform:rotate(45deg);bottom:16px;}
   .nt-monde.cap-fold .nt-monde-cap.is-open{white-space:normal;overflow:auto;max-height:calc(100% - 46px);
-    padding:12px 40px 12px 12px;background:rgba(13,10,7,.94);}
+    padding:12px 40px 12px 12px;background:rgba(var(--nt-nuit-rgb),.94);}
   .nt-monde.cap-fold .nt-monde-cap:focus-visible{outline:2px solid var(--gold);outline-offset:-2px;}
 }
 @media(min-width:1100px){
@@ -237,7 +246,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--f-ui);
 .nt-sec-t{min-width:0;}
 .nt-sec h2+p{margin-top:0;}
 .nt-corps .nt-sec p a{color:var(--gold);text-decoration:none;
-  border-bottom:1px solid rgba(216,173,76,.45);}
+  border-bottom:1px solid rgba(var(--gold-rgb),.45);}
 .nt-corps .nt-sec p a:hover{border-bottom-color:var(--gold);}
 
 /* ── les citations mènent au passage ──
@@ -251,7 +260,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--f-ui);
 /* (0,3,1) et non (0,2,1) : la règle des liens de paragraphe, juste au-dessus,
    les repeignait en or — vécu à la première capture. */
 .nt-corps .nt-sec p a.nt-q{color:inherit;text-decoration:none;
-  border-bottom:1px dotted rgba(216,173,76,.6);}
+  border-bottom:1px dotted rgba(var(--gold-rgb),.6);}
 .nt-corps .nt-sec p a.nt-q:hover{border-bottom:1px solid var(--gold);color:var(--gold);}
 .nt-corps .nt-sec p a.nt-q q::before,.nt-corps .nt-sec p a.nt-q q::after{color:var(--gold);}
 .nt-corps blockquote p{font:inherit;color:inherit;margin:0;}
@@ -281,11 +290,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--f-ui);
     padding:0 40px 0 0;}
   html.js-monde .nt--plein .nt-col::before{content:'';position:fixed;inset:0;z-index:-1;
     pointer-events:none;
-    background:linear-gradient(to right,rgba(13,10,7,.94) 0,rgba(13,10,7,.9) 560px,rgba(13,10,7,.55) 820px,rgba(13,10,7,0) 1040px);}
+    background:linear-gradient(to right,rgba(var(--nt-nuit-rgb),.94) 0,rgba(var(--nt-nuit-rgb),.9) 560px,rgba(var(--nt-nuit-rgb),.55) 820px,rgba(var(--nt-nuit-rgb),0) 1040px);}
   /* la légende se pose en haut à droite, sous le lien de source : le bas du cadre est aux figures */
   html.js-monde .nt--plein .nt-monde-cap{left:auto;right:40px;top:104px;bottom:auto;max-width:380px;
-    padding:14px 18px;border-radius:12px;background:rgba(13,10,7,.72);
-    border:1px solid rgba(243,233,212,.12);}
+    padding:14px 18px;border-radius:12px;background:rgba(var(--nt-nuit-rgb),.72);
+    border:1px solid rgba(var(--ink-rgb),.12);}
   html.js-monde .nt--plein .nt-monde-src{left:auto;right:40px;top:64px;}
   html.js-monde .nt--plein .nt-monde-credit{position:absolute;right:40px;top:auto;bottom:14px;margin:0;
     font-family:var(--f-ui);font-size:.72rem;color:var(--muted);max-width:380px;text-align:right;}
@@ -395,7 +404,7 @@ html.js-monde .nt--plein .nt-monde-credit{display:block;}
 
 /* « En bref » : la surface d'emphase de la maison, la seule de la page */
 .nt-bref{position:relative;margin-top:24px;padding:20px 24px 22px;border-radius:16px;
-  background:var(--emphase);box-shadow:inset 0 0 0 1px rgba(216,173,76,.22);}
+  background:var(--emphase);box-shadow:inset 0 0 0 1px rgba(var(--gold-rgb),.22);}
 .nt-bref::after{content:'';position:absolute;inset:0;pointer-events:none;border-radius:inherit;
   background:radial-gradient(ellipse at 50% 120%,var(--candle) 0%,transparent 62%);}
 .nt-bref>*{position:relative;z-index:1;}
@@ -490,10 +499,10 @@ html.js-monde .nt--plein .nt-monde-credit{display:block;}
 .nt-fig-cadre canvas[hidden],.nt-fig-cadre .nt-monde-still[hidden]{display:none;}
 .nt-fig-go{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);display:inline-flex;
   align-items:center;gap:10px;padding:11px 20px 11px 16px;border-radius:999px;cursor:pointer;
-  background:rgba(13,10,7,.78);border:1px solid rgba(216,173,76,.5);color:var(--text);
+  background:rgba(var(--nt-nuit-rgb),.78);border:1px solid rgba(var(--gold-rgb),.5);color:var(--text);
   font-family:var(--f-ui);font-size:.9rem;font-weight:600;backdrop-filter:blur(4px);
   transition:background .18s,border-color .18s;}
-.nt-fig-go:hover{background:rgba(13,10,7,.92);border-color:var(--gold);}
+.nt-fig-go:hover{background:rgba(var(--nt-nuit-rgb),.92);border-color:var(--gold);}
 .nt-fig-go[hidden]{display:none;}
 /* l'icône de lecture et de pause, dessinée */
 .nt-fig-ic{display:inline-block;width:0;height:0;border-style:solid;border-width:6px 0 6px 10px;
@@ -512,7 +521,7 @@ html.js-monde .nt--plein .nt-monde-credit{display:block;}
   font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:.95rem;
   transition:border-color .18s,color .18s,background .18s;}
 .nt-fig-pas button:hover{border-color:var(--gold);color:var(--text);}
-.nt-fig-pas button[aria-pressed="true"]{background:var(--emphase);border-color:rgba(216,173,76,.55);color:var(--gold);}
+.nt-fig-pas button[aria-pressed="true"]{background:var(--emphase);border-color:rgba(var(--gold-rgb),.55);color:var(--gold);}
 .nt-fig figcaption{margin-top:10px;display:flex;flex-direction:column;gap:6px;}
 .nt-fig-cap{font-family:var(--f-serif);font-style:italic;font-size:.98rem;line-height:1.55;color:var(--ink-soft);
   transition:opacity .25s;}
@@ -536,29 +545,29 @@ html.js-monde .nt--plein .nt-monde-credit{display:block;}
      qu'on lit (monde-driver.js pose body[data-lumiere]). Rien ne bouge :
      la lumière change, en fondu, quand on change de section.
    ═══════════════════════════════════════════════════════════════════ */
-.nt-da ::selection{background:rgba(216,173,76,.32);color:var(--text);}
+.nt-da ::selection{background:rgba(var(--gold-rgb),.32);color:var(--text);}
 .nt-da main,.nt-da .lm-foot{position:relative;z-index:1;}
 .nt-ambiance{position:fixed;inset:0;z-index:0;pointer-events:none;}
 .nt-amb{position:absolute;inset:0;transition:opacity 1.8s ease;}
 .nt-amb--chaude{background:
-  radial-gradient(ellipse 58% 46% at 80% -4%,rgba(222,150,62,.11),transparent 70%),
-  radial-gradient(ellipse 42% 34% at 12% 104%,rgba(213,64,47,.06),transparent 70%);}
+  radial-gradient(ellipse 58% 46% at 80% -4%,rgba(var(--nt-amb-chaude),.11),transparent 70%),
+  radial-gradient(ellipse 42% 34% at 12% 104%,rgba(var(--red-rgb),.06),transparent 70%);}
 .nt-amb--aube{opacity:0;background:
-  radial-gradient(ellipse 66% 56% at 82% -6%,rgba(150,182,214,.19),transparent 72%),
-  linear-gradient(180deg,rgba(120,150,180,.07),transparent 50%);}
+  radial-gradient(ellipse 66% 56% at 82% -6%,rgba(var(--nt-amb-aube),.19),transparent 72%),
+  linear-gradient(180deg,rgba(var(--nt-amb-aube2),.07),transparent 50%);}
 body[data-lumiere="aube"] .nt-amb--aube{opacity:1;}
 body[data-lumiere="aube"] .nt-amb--chaude{opacity:0;}
 
 /* la vitrine */
 .nt-vitrine{position:relative;margin:0 0 6px;min-height:clamp(420px,58vh,560px);
   display:flex;flex-direction:column;justify-content:flex-end;border-radius:18px;overflow:hidden;
-  background:#0d0a07;isolation:isolate;}
+  background:var(--nt-nuit);isolation:isolate;}
 .nt-vitrine-photo{position:absolute;top:0;right:0;bottom:0;width:64%;z-index:-1;}
 .nt-vitrine-photo img{width:100%;height:100%;object-fit:cover;object-position:52% 34%;display:block;
-  filter:grayscale(1) sepia(.34) contrast(1.12) brightness(.76);
+  filter:var(--nt-photo);mix-blend-mode:var(--nt-fusion);
   -webkit-mask-image:linear-gradient(to right,transparent 0,#000 46%);mask-image:linear-gradient(to right,transparent 0,#000 46%);}
 .nt-vitrine-photo::after{content:'';position:absolute;inset:0;
-  background:linear-gradient(to top,#0d0a07 0,rgba(13,10,7,.55) 30%,rgba(13,10,7,0) 62%);}
+  background:linear-gradient(to top,var(--nt-nuit) 0,rgba(var(--nt-nuit-rgb),.55) 30%,rgba(var(--nt-nuit-rgb),0) 62%);}
 /* le reflet : une bande de lumière qui traverse la vitre, une fois */
 .nt-vitrine-reflet{position:absolute;inset:0;overflow:hidden;pointer-events:none;mix-blend-mode:screen;}
 .nt-vitrine-reflet::before{content:'';position:absolute;top:-20%;bottom:-20%;left:-45%;width:34%;
@@ -567,7 +576,7 @@ body[data-lumiere="aube"] .nt-amb--chaude{opacity:0;}
 @keyframes nt-reflet{from{transform:translateX(0) skewX(-16deg);}to{transform:translateX(560%) skewX(-16deg);}}
 .nt-vitrine-txt{position:relative;padding:28px clamp(24px,4vw,44px) 0;max-width:620px;}
 .nt-vitrine .nt-fil{margin-bottom:auto;width:max-content;max-width:100%;}
-.nt-vitrine .nt-h1{font-size:clamp(2.3rem,5.4vw,3.7rem);margin:0;text-shadow:0 2px 24px rgba(13,10,7,.7);}
+.nt-vitrine .nt-h1{font-size:clamp(2.3rem,5.4vw,3.7rem);margin:0;text-shadow:0 2px 24px rgba(var(--nt-nuit-rgb),.7);}
 .nt-vitrine-leg{position:relative;margin:22px clamp(24px,4vw,44px) 24px auto;max-width:400px;text-align:right;
   font-family:var(--f-serif);font-style:italic;font-size:.9rem;line-height:1.5;color:var(--ink-soft);}
 .nt-vitrine-leg a{display:block;margin-top:6px;padding:3px 0;font-family:var(--f-ui);font-style:normal;font-size:.74rem;
@@ -585,11 +594,11 @@ body[data-lumiere="aube"] .nt-amb--chaude{opacity:0;}
      piste et un titre long débordait à gauche (« omposition ») */
   .nt-vitrine{display:grid;grid-template-columns:minmax(0,1fr);min-height:0;border-radius:16px;}
   .nt-vitrine-photo{position:relative;grid-area:1/1;width:100%;height:min(48vh,380px);z-index:0;}
-  .nt-vitrine-photo::after{background:linear-gradient(to bottom,rgba(13,10,7,.82) 0,rgba(13,10,7,0) 24%),
-    linear-gradient(to top,#0d0a07 0,rgba(13,10,7,.55) 34%,rgba(13,10,7,0) 66%);}
+  .nt-vitrine-photo::after{background:linear-gradient(to bottom,rgba(var(--nt-nuit-rgb),.82) 0,rgba(var(--nt-nuit-rgb),0) 24%),
+    linear-gradient(to top,var(--nt-nuit) 0,rgba(var(--nt-nuit-rgb),.55) 34%,rgba(var(--nt-nuit-rgb),0) 66%);}
   .nt-vitrine .nt-h1{font-size:clamp(2rem,9vw,2.6rem);}
   /* sur la photo, le fil d'Ariane prend un fond : le haut du cliché est clair */
-  .nt-vitrine .nt-fil{padding:2px 12px;border-radius:999px;background:rgba(13,10,7,.78);margin-left:-6px;}
+  .nt-vitrine .nt-fil{padding:2px 12px;border-radius:999px;background:rgba(var(--nt-nuit-rgb),.78);margin-left:-6px;}
   .nt-vitrine-photo img{-webkit-mask-image:none;mask-image:none;}
   .nt-vitrine-txt{grid-area:1/1;z-index:1;display:flex;flex-direction:column;justify-content:space-between;
     padding:16px 20px 18px;max-width:none;}
@@ -601,8 +610,8 @@ body[data-lumiere="aube"] .nt-amb--chaude{opacity:0;}
 @media(min-width:900px) and (max-width:1279px){
   .nt-vitrine-photo{width:70%;}
   .nt-vitrine-photo img{-webkit-mask-image:linear-gradient(to right,transparent 0,#000 62%);mask-image:linear-gradient(to right,transparent 0,#000 62%);}
-  .nt-vitrine-photo::after{background:linear-gradient(to top,#0d0a07 0,rgba(13,10,7,.6) 34%,rgba(13,10,7,0) 66%),
-    linear-gradient(to right,rgba(13,10,7,.9) 0,rgba(13,10,7,.68) 50%,rgba(13,10,7,0) 80%);}
+  .nt-vitrine-photo::after{background:linear-gradient(to top,var(--nt-nuit) 0,rgba(var(--nt-nuit-rgb),.6) 34%,rgba(var(--nt-nuit-rgb),0) 66%),
+    linear-gradient(to right,rgba(var(--nt-nuit-rgb),.9) 0,rgba(var(--nt-nuit-rgb),.68) 50%,rgba(var(--nt-nuit-rgb),0) 80%);}
 }
 @media(prefers-reduced-motion:reduce){.nt-vitrine-reflet{display:none;}}
 
@@ -610,9 +619,9 @@ body[data-lumiere="aube"] .nt-amb--chaude{opacity:0;}
 .nt-planche{margin:34px 0 36px;}
 /* une planche en hauteur ne doit pas prendre tout l'écran : elle se plafonne et garde ses proportions */
 .nt-planche img{display:block;width:auto;max-width:100%;max-height:min(76vh,680px);height:auto;border-radius:12px;border:1px solid var(--border);
-  filter:grayscale(1) sepia(.32) contrast(1.06) brightness(.62);}
+  filter:var(--nt-planche);mix-blend-mode:var(--nt-fusion);}
 .nt-planche--couleur{max-width:540px;}
-.nt-planche--couleur img{filter:saturate(.8) brightness(.76) contrast(1.04);}
+.nt-planche--couleur img{filter:var(--nt-planche-c);}
 .nt-planche figcaption{margin-top:11px;display:flex;flex-direction:column;gap:4px;}
 .nt-planche-leg{font-family:var(--f-serif);font-style:italic;font-size:.96rem;line-height:1.55;color:var(--ink-soft);}
 .nt-corps .nt-planche a.nt-planche-src,.nt-planche-src{display:inline-block;padding:4px 0;font-family:var(--f-ui);font-size:.76rem;
@@ -621,3 +630,62 @@ body[data-lumiere="aube"] .nt-amb--chaude{opacity:0;}
 @media (pointer:coarse){.nt-vitrine-leg a,.nt-planche-src{padding:10px 0;margin:-6px 0;}}
 /* le fond animé (glossaire/fond.js) : sous les teintes de lumière, plein écran */
 .nt-fond{position:absolute;inset:0;width:100%;height:100%;display:block;}
+
+/* ═══════════════════════════════════════════════════════════════════
+   LES TROIS MODES (mission affichage, oct. 2026)
+   -------------------------------------------------------------------
+   La bougie est le :root ci-dessus, inchangé. Le jour et l'édition ne
+   redisent que les jetons LOCAUX de la page ; les couleurs de la maison
+   viennent d'assets/modes.css.
+   - LA VITRINE fond vers le papier et non plus vers la nuit : le tirage
+     d'archive s'imprime SUR le papier (multiply, filtre éclairci), et le
+     titre posé dessus prend un halo de papier au lieu d'une ombre noire.
+   - LES PLANCHES de l'essai s'impriment de même.
+   - LA FIGURE À LA DEMANDE garde sa nuit : c'est une planche encadrée, une
+     scène dessinée à la bougie, comme une photographie garde la sienne.
+     Son cadre, sa légende, ses boutons suivent le mode.
+   - L'ÉDITION est le mode de la longue lecture : pas de lumière
+     d'ambiance, pas de reflet, pas de lueur sous les cartes d'emphase.
+   ═══════════════════════════════════════════════════════════════════ */
+html[data-mode="jour"]{
+  --nt-nuit:var(--paper);--nt-nuit-rgb:var(--paper-rgb);
+  --nt-photo:grayscale(1) sepia(.3) contrast(.92) brightness(1.06);
+  --nt-planche:grayscale(1) sepia(.26) contrast(1) brightness(1.02);
+  --nt-planche-c:saturate(.85) contrast(1) brightness(1.02);
+  --nt-fusion:multiply;
+  --nt-amb-chaude:var(--gold-rgb);--nt-amb-aube:var(--blue-rgb);--nt-amb-aube2:var(--blue-rgb);
+}
+html[data-mode="edition"]{
+  --nt-nuit:var(--paper);--nt-nuit-rgb:var(--paper-rgb);
+  --nt-photo:grayscale(1) sepia(.12) contrast(.96) brightness(1.04);
+  --nt-planche:grayscale(1) sepia(.1) contrast(1.04) brightness(1.02);
+  --nt-planche-c:saturate(.7) contrast(1) brightness(1.02);
+  --nt-fusion:multiply;
+}
+html[data-mode="edition"] .nt-amb,
+html[data-mode="edition"] .nt-vitrine-reflet,
+html[data-mode="edition"] .nt-bref::after,
+html[data-mode="edition"] .nt-bloc--source::after{display:none;}
+/* le reflet se fait en « screen » : sur du papier il n'éclaire rien, il
+   blanchirait seulement le tirage */
+html[data-mode="jour"] .nt-vitrine-reflet{display:none;}
+/* LE TEXTE POSÉ SUR LE TIRAGE (mesuré : le titre allemand, le fil d'Ariane
+   et la légende tombaient de 2,9 à 4,4:1 sur les parties sombres du cliché).
+   Le jour, le papier remonte plus haut sous la légende et le titre, et ces
+   lignes prennent un halo de papier — pas une lueur : le blanc du feuillet
+   qui borde la lettre. La bougie garde ses fondus vers la nuit. */
+html:is([data-mode="jour"],[data-mode="edition"]) :is(.nt-vitrine .nt-de,.nt-vitrine-leg,.nt-vitrine-leg a){
+  text-shadow:0 0 3px rgba(var(--paper-rgb),.95),0 0 12px rgba(var(--paper-rgb),.9),0 0 22px rgba(var(--paper-rgb),.7);}
+html:is([data-mode="jour"],[data-mode="edition"]) .nt-vitrine-photo::after{
+  background:linear-gradient(to top,var(--paper) 0,rgba(var(--paper-rgb),.92) 24%,rgba(var(--paper-rgb),.6) 44%,rgba(var(--paper-rgb),0) 72%);}
+@media(min-width:900px) and (max-width:1279px){
+  html:is([data-mode="jour"],[data-mode="edition"]) .nt-vitrine-photo::after{
+    background:linear-gradient(to top,var(--paper) 0,rgba(var(--paper-rgb),.92) 24%,rgba(var(--paper-rgb),.6) 44%,rgba(var(--paper-rgb),0) 72%),
+      linear-gradient(to right,rgba(var(--paper-rgb),.9) 0,rgba(var(--paper-rgb),.68) 50%,rgba(var(--paper-rgb),0) 80%);}
+}
+@media(max-width:899px){
+  html:is([data-mode="jour"],[data-mode="edition"]) .nt-vitrine-photo::after{
+    background:linear-gradient(to bottom,rgba(var(--paper-rgb),.82) 0,rgba(var(--paper-rgb),0) 24%),
+      linear-gradient(to top,var(--paper) 0,rgba(var(--paper-rgb),.8) 30%,rgba(var(--paper-rgb),0) 66%);}
+  html:is([data-mode="jour"],[data-mode="edition"]) .nt-vitrine .nt-fil{background:rgba(var(--paper-rgb),.92);}
+}

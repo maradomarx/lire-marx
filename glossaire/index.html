@@ -273,8 +273,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--f-ui);
    jour-là, pas avant. */
 .gl-f{margin-top:10px;margin-right:8px;display:block;width:fit-content;font-family:var(--f-ui);
   font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--gold);background:rgba(216,173,76,.10);
-  border:1px solid rgba(216,173,76,.26);border-radius:999px;padding:3px 10px;}
+  color:var(--gold);background:rgba(var(--gold-rgb),.10);
+  border:1px solid rgba(var(--gold-rgb),.26);border-radius:999px;padding:3px 10px;}
 
 /* ── pied ── */
 .gl-fin{margin-top:clamp(56px,8vh,88px);padding-top:30px;
@@ -282,7 +282,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--f-ui);
 .gl-fin p{font-size:.93rem;line-height:1.72;color:var(--muted);max-width:60ch;
   margin-bottom:18px;}
 .gl-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;
-  border-radius:999px;background:var(--accent);color:#fff;font-size:14px;
+  border-radius:999px;background:var(--accent);color:var(--sur-red);font-size:14px;
   font-weight:600;text-decoration:none;transition:opacity .18s,transform .18s;}
 .gl-btn:hover{opacity:.86;transform:translateY(-1px);}
 
@@ -335,6 +335,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--f-ui);
   transform:translateY(calc(var(--lev,0) * -.15em)) scale(calc(1 + var(--lev,0) * .20));
   color:color-mix(in srgb, var(--muted) calc(var(--lev,0) * 100%), var(--gold));}
 .js-glm .gl-lettre::after{width:calc(var(--tir,1) * 34px);}
+/* En ÉDITION (le mode de la longue lecture, mission affichage), la lettre
+   est déjà imprimée : ni frappe ni filet qui se tire. La règle suit le mode
+   en direct, sans script. */
+html[data-mode="edition"].js-glm .gl-lettre .gl-l{transform:none;color:var(--gold);}
+html[data-mode="edition"].js-glm .gl-lettre::after{width:34px;}
 
 /* ── le pouce sur la tranche ──
    Le fil et le pouce vivent sur le bord EXTÉRIEUR de la tranche, côté écran,
