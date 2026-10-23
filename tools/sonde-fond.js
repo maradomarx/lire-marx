@@ -109,7 +109,23 @@
           st = document.createElement('style'); st.id = 'lm-sonde-fond-cache';
           st.textContent = '*,*::before,*::after{color:transparent!important;-webkit-text-fill-color:transparent!important;text-shadow:none!important;text-decoration-color:transparent!important;caret-color:transparent!important}';
           document.head.appendChild(st);
-        } else if (!oui && st) st.remove();
+          /* et la coquille posée PAR-DESSUS la page (barre du haut, filet de
+             progression, bouton « haut de page »…), si elle ne porte pas de
+             texte mesuré : un texte qui passe dessous
+             est mesuré sur ce qu'il y a vraiment derrière lui — le fond. Sans
+             cela, la barre de progression des gestes, de longueur différente
+             d'une photographie à l'autre, passait pour une chute de 27 %. */
+          for (const e of document.querySelectorAll('body *')) {
+            if (e.closest('.fond')) continue;
+            const p = getComputedStyle(e).position;
+            /* un élément fixe qui porte lui-même un texte mesuré (la tranche de
+               l'abécédaire) reste : c'est sur SON fond que ce texte se lit */
+            if (e.matches('.topbar') || (p === 'fixed' && !(e.textContent.trim() && !e.closest('.topbar,.sidebar')))) { e.dataset.lmSondeCache = e.style.visibility || '-'; e.style.visibility = 'hidden'; }
+          }
+        } else if (!oui && st) {
+          st.remove();
+          for (const e of document.querySelectorAll('[data-lm-sonde-cache]')) { e.style.visibility = e.dataset.lmSondeCache === '-' ? '' : e.dataset.lmSondeCache; delete e.dataset.lmSondeCache; }
+        }
       }
     };
     return;
@@ -286,7 +302,7 @@
                 const a = PA[k0], b = PB[k0]; k0++;
                 const ca = ratio(sur(P.fg, a), a), cb = ratio(sur(P.fg, b), b); n++;
                 if (ca < cMin) { cMin = ca; base = cb; }
-                const ch = 1 - ca / cb; if (ch > chute) { chute = ch; chuteOu = { ou: P.ou, texte: P.texte, avec: +ca.toFixed(2), sans: +cb.toFixed(2), x, y: yy }; }
+                const ch = 1 - ca / cb; if (ch > chute) { chute = ch; chuteOu = { ou: P.ou, texte: P.texte, avec: +ca.toFixed(2), sans: +cb.toFixed(2), x, y: yy, pa: a.join(','), pb: b.join(',') }; }
               }
               const seuil = P.grand ? 3 : 4.5;
               /* un échec DÛ AU FOND : sous le seuil avec lui, au-dessus sans lui */
@@ -296,7 +312,7 @@
             const k = mode + ' ' + largeur; bilan[k] = bilan[k] || { mesures: 0, chute: 0, echecs: 0 };
             bilan[k].mesures += n; bilan[k].chute = Math.max(bilan[k].chute, chute); bilan[k].echecs += ech;
             console.log((ech ? '✗ ' : '✓ ') + mode.padEnd(8) + String(largeur).padStart(5) + '  ' + p.padEnd(34) + ' y=' + String(y).padStart(5) + '  ' + n + ' points, chute max ' + (chute * 100).toFixed(1) + ' %' +
-              (chuteOu && chute > .02 ? '  (' + chuteOu.ou + ' « ' + chuteOu.texte + ' » ' + chuteOu.sans + ' → ' + chuteOu.avec + ')' : '') +
+              (chuteOu && chute > .02 ? '  (' + chuteOu.ou + ' « ' + chuteOu.texte + ' » ' + chuteOu.sans + ' → ' + chuteOu.avec + (flag('detail') ? ' en ' + chuteOu.x + ',' + chuteOu.y + ' : ' + chuteOu.pb + ' → ' + chuteOu.pa : '') + ')' : '') +
               (pire ? '  ÉCHEC ' + pire.c + ' < ' + pire.seuil + ' (sans fond ' + pire.sans + ') ' + pire.ou + ' « ' + pire.texte + ' »' : '') + (err.length ? '  JS: ' + err[0] : ''));
           }
           await page.close();
