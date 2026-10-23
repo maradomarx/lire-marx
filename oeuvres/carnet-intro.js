@@ -76,7 +76,7 @@
   var camera = new THREE.PerspectiveCamera(72, 1, 0.1, 100);
 
   var tableau = new THREE.Group(); scene.add(tableau);
-  scene.add(new THREE.AmbientLight(0x322615, 0.24));
+  var ambient = new THREE.AmbientLight(0x322615, 0.24); scene.add(ambient);
   var moon = new THREE.DirectionalLight(0x33506e, 0.16); moon.position.set(-6,8,-3); scene.add(moon);
   var candleLight = new THREE.PointLight(0xffb24d, 3.0, 14, 2); candleLight.position.set(1.4,0.7,1.2); scene.add(candleLight);
   var shelfGlow = new THREE.PointLight(0x6a4a26, 0.9, 24, 2); shelfGlow.position.set(0,3.4,-10.5); scene.add(shelfGlow);
@@ -221,22 +221,27 @@
   var DESK=-0.37, FLOOR=-2.2;
   var floor=new THREE.Mesh(new THREE.PlaneGeometry(70,70),
     new THREE.MeshStandardMaterial({color:0x1c130b, roughness:0.9}));
+  var floorMat=floor.material;
   floor.rotation.x=-Math.PI/2; floor.position.y=FLOOR; scene.add(floor);
   /* plateau du bureau (surélevé, remplit le premier plan) */
   var desk=new THREE.Mesh(new THREE.BoxGeometry(18,0.3,10),
     new THREE.MeshStandardMaterial({color:0x3a2616, roughness:0.72}));
   desk.position.set(0, DESK-0.15, 3.5); scene.add(desk);
+  var deskMat=desk.material;
   var wall=new THREE.Mesh(new THREE.PlaneGeometry(70,32),
     new THREE.MeshStandardMaterial({color:0x100b08, roughness:1}));
   wall.position.set(0,9,-13.4); scene.add(wall);
+  var wallMat=wall.material;
   var shelf=new THREE.Mesh(new THREE.PlaneGeometry(28,9),
     new THREE.MeshStandardMaterial({map:shelfTex(), roughness:0.92}));
   shelf.position.set(0,2.3,-13.0); scene.add(shelf);
+  var shelfMat=shelf.material;
 
   /* tapis */
   var rug=new THREE.Mesh(new THREE.PlaneGeometry(13,7),
     new THREE.MeshStandardMaterial({color:0x3a221c, roughness:0.95}));
   rug.rotation.x=-Math.PI/2; rug.position.set(0,FLOOR+0.02,-6); scene.add(rug);
+  var rugMat=rug.material;
 
   /* pile de livres au sol (droite) */
   var sc=[[0x3a2a18,0.42],[0x24402f,0.34],[0x4a2420,0.30]], yy=FLOOR;
@@ -307,6 +312,56 @@
   var dust=new THREE.Points(duGeo, new THREE.PointsMaterial({size:0.05,map:soft,transparent:true,opacity:0.42,color:0xffd9a0,depthWrite:false,sizeAttenuation:true}));
   scene.add(dust);
 
+  /* ---------- LES TROIS MODES (mission `affichage`) ----------
+     Le même bureau, trois lumières, repeint par RÔLE et en direct sur
+     `lm:mode` (l'entrée ne dure que quelques secondes, mais un lecteur
+     peut changer de mode pendant qu'elle joue).
+     — bougie : la scène de toujours, rien ne change.
+     — jour : les volets sont ouverts. Le mur sombre devient l'enduit
+       d'une pièce au matin, le bureau et le parquet prennent leur bois,
+       la lune devient le jour qui entre ; la bougie est SOUFFLÉE — on
+       n'ouvre pas un carnet à la chandelle en plein jour — et son filet
+       de fumée monte encore : on vient de l'éteindre.
+     — edition : une gravure. Lumière plate, ni flamme ni fumée ni
+       poussière, l'image tirée en monochrome bistre (filtre CSS sur
+       #cnScene, dans carnet.html).
+     Les hex sont des valeurs LINÉAIRES (outputEncoding sRGB, three r137) :
+     ils sortent nettement plus clairs qu'ils ne s'écrivent. */
+  var R=document.documentElement;
+  function modeCourant(){ var m=R.getAttribute('data-mode'); return (m==='jour'||m==='edition')?m:'bougie'; }
+  var ROLES=[ /* matériau, couleur au jour, en édition — la bougie est relevée telle quelle */
+    [wallMat,0x9c8154,0xa8906a],[floorMat,0x261105,0x3a2410],[deskMat,0x4a2810,0x5e4226],
+    [rugMat,0x440c06,0x4a2a1e]];
+  ROLES.forEach(function(r){ r.push(r[0].color.getHex()); });
+  var LUMS=[ /* lumière : [couleur, intensité] au jour, en édition */
+    [ambient,[0xfff6e8,0.55],[0xffffff,0.62]],[moon,[0xfff2dc,0.5],[0xffffff,0.2]],
+    [shelfGlow,[0xffe8c8,0.25],[0xffffff,0]],[deskLight,[0xfff2e0,0.3],[0xffffff,0.12]]];
+  LUMS.forEach(function(l){ l.push([l[0].color.getHex(), l[0].intensity]); });
+  var MODE='bougie', candleK=1;
+  function appliqueMode(){
+    if(gone) return;
+    MODE=modeCourant();
+    var i=MODE==='jour'?1:MODE==='edition'?2:3;
+    ROLES.forEach(function(r){ r[0].color.setHex(r[i]); });
+    LUMS.forEach(function(l){ var v=l[i]; l[0].color.setHex(v[0]); l[0].intensity=v[1]; });
+    shelfMat.color.setScalar(MODE==='bougie'?1:1.3);
+    candleK=MODE==='bougie'?1:0;
+    candleLight.visible=MODE==='bougie';
+    flame.visible=flameHalo.visible=MODE==='bougie';
+    smoke.visible=MODE!=='edition';
+    smoke.material.color.setHex(MODE==='jour'?0x7d7468:0xb8b2a6);
+    smoke.material.opacity=MODE==='jour'?0.16:0.10;
+    dust.visible=MODE!=='edition';
+    dust.material.color.setHex(MODE==='jour'?0xfff4e2:0xffd9a0);
+    dust.material.opacity=MODE==='jour'?0.3:0.42;
+    if(MODE==='bougie') scene.fog=null;
+    else {
+      var fond=getComputedStyle(R).getPropertyValue('--scene-fond').trim()||'#f6efe0';
+      scene.fog=new THREE.Fog(new THREE.Color(fond),12,40);
+    }
+  }
+  document.addEventListener('lm:mode',appliqueMode);
+
   /* ---------- caméra : établissement -> plongée sur page droite ---------- */
   var camA=new THREE.Vector3(0.3,3.0,8.2), lookA=new THREE.Vector3(0.4,0.6,-4.5);
   var camB=new THREE.Vector3(-0.4,3.4,0.02), lookB=new THREE.Vector3(-0.4,0,0);
@@ -368,7 +423,7 @@
     var t=now-start;
     /* vacillement de la bougie */
     var fl=3.0 + Math.sin(now*0.017)*0.22 + Math.sin(now*0.043)*0.12 + (Math.random()-0.5)*0.3;
-    candleLight.intensity=fl;
+    candleLight.intensity=fl*candleK;
     candleLight.position.x=1.5+Math.sin(now*0.021)*0.04;
     candleLight.position.z=1.25+Math.cos(now*0.019)*0.04;
     var fs=1+Math.sin(now*0.03)*0.12+(Math.random()-0.5)*0.12;
@@ -455,8 +510,10 @@
      mémoire GPU est rendue. Idempotent — frame() et le filet des 8 s peuvent
      tous deux y mener. */
   var gone=false;
+  appliqueMode();
   function teardown(){
     if(gone) return; gone=true;
+    document.removeEventListener('lm:mode',appliqueMode);
     try{ renderer.dispose(); }catch(e){}
     scene.traverse(function(o){
       if(o.geometry){ try{ o.geometry.dispose(); }catch(e){} }
