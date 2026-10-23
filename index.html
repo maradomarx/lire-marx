@@ -48,13 +48,13 @@
 <noscript><link rel="stylesheet" href="oeuvres/fonts/fonts.css?v=2"></noscript>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-body{background:radial-gradient(ellipse at 50% 46%,#1a1410 0%,#0d0b0a 60%,#070605 100%);
-  color:#efe6d6;
+body{background:var(--hw-body,radial-gradient(ellipse at 50% 46%,#1a1410 0%,#0d0b0a 60%,#070605 100%));
+  color:var(--hw-encre,#efe6d6);
   /* Inter est la police d'interface du site ; ce body gardait 'Bricolage
      Grotesque', vestige de l'intro cinématique retirée — 75 Ko de woff2
      téléchargés pour du texte qu'aucun élément visible n'affichait. */
   font-family:'Inter',system-ui,sans-serif;}
-body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:45;opacity:.04;
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:45;opacity:var(--grain,.04);
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 
 </style>
@@ -66,7 +66,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:45;opa
 :root{
   /* tokens homepage */
   --bg:#15100b;--surface:#1e1710;--text:#f3e9d4;
-  --muted:#b7a888;--accent:#d5402f;--border:rgba(243,233,212,.13);
+  --muted:#b7a888;--accent:#d5402f;--border:rgba(var(--ink-rgb),.13);
 
   /* shell.css → palette sombre */
   --paper:#15100b;--paper-2:#1e1710;--card:#221a12;
@@ -75,13 +75,57 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:45;opa
      plus aucun texte lisible dans les composants du shell qui l'emploient.
      Repointé, et les trois tokens que shell.css attend sont ajoutés. */
   --red:#d5402f;--red-deep:#e5644f;--red-text:#e5644f;--bright:#e5644f;
-  --line-strong:rgba(243,233,212,.34);--hover:rgba(243,233,212,.05);
+  --line-strong:rgba(var(--ink-rgb),.34);--hover:rgba(var(--ink-rgb),.05);
   --gold:#d8ad4c;--gold-deep:#bd8f38;--blue:#5c8aa3;--const:#9a8b72;
-  --line:rgba(243,233,212,.13);--line-soft:rgba(243,233,212,.07);--ok:#7fa855;
+  --line:rgba(var(--ink-rgb),.13);--line-soft:rgba(var(--ink-rgb),.07);--ok:#7fa855;
   --f-ui:'Inter',system-ui,sans-serif;--f-serif:'Spectral',Georgia,serif;--f-hand:'Caveat',cursive;
-  --candle:rgba(216,173,76,.18);
+  --candle:rgba(var(--gold-rgb),.18);
+
+  /* ── Jetons PROPRES À L'ACCUEIL (mission `affichage`). Leurs valeurs ici
+     sont celles de la bougie, à l'identique de ce qui était écrit en dur ;
+     le jour et l'édition les redisent plus bas. --lueur est le bouton des
+     halos, des lueurs et des text-shadow dorés : 1 à la bougie, atténué au
+     jour (une lueur ocre sur du clair fait une tache), nul dans l'édition
+     (un imprimé n'a pas de lumière propre). ── */
+  --lueur:1;
+  --hw-fond:#0d0a07;
+  --hw-body:radial-gradient(ellipse at 50% 46%,#1a1410 0%,#0d0b0a 60%,#070605 100%);
+  --hw-encre:#efe6d6;
+  --nuit-rgb:13,10,7;          /* le fond des cadres photo et leurs fondus */
+  --blanc-5:rgba(255,255,255,.05);--blanc-8:rgba(255,255,255,.08);
+  --sur-or:#1a130c;            /* le texte posé sur un aplat or */
+  --voile-acct:rgba(6,4,3,.7);--voile-ms:rgba(9,6,4,.82);
+  --halo-rouge:rgba(196,30,58,.07);--duo-rouge:rgba(196,30,58,.22);
+  --ok-fond:rgba(127,168,85,.18);--ok-texte:#a9cf82;
+  --grain:.04;
 }
-html,body{background:#0d0a07;}
+/* LE JOUR — le même bureau, volets ouverts. Les jetons partagés (--bg,
+   --text, --gold…) viennent de assets/modes.css ; ceux-ci sont à l'accueil. */
+html[data-mode="jour"]{
+  --lueur:.32;
+  --hw-fond:var(--bg);--hw-body:var(--bg);--hw-encre:var(--text);
+  --nuit-rgb:236,226,204;
+  --blanc-5:rgba(var(--ink-rgb),.035);--blanc-8:rgba(var(--ink-rgb),.06);
+  --sur-or:#fff;
+  --voile-acct:rgba(var(--voile-rgb),.42);--voile-ms:rgba(var(--voile-rgb),.55);
+  --halo-rouge:rgba(184,54,31,.05);--duo-rouge:rgba(184,54,31,.10);
+  --ok-fond:rgba(70,111,38,.12);--ok-texte:#3f6522;
+  --grain:.03;
+}
+/* L'ÉDITION DE 1872 — le papier de Roy, le noir d'imprimerie, la rubrique.
+   Pas de lueur, pas de grain photographique : une page imprimée. */
+html[data-mode="edition"]{
+  --lueur:0;
+  --hw-fond:var(--bg);--hw-body:var(--bg);--hw-encre:var(--text);
+  --nuit-rgb:221,208,178;
+  --blanc-5:rgba(var(--ink-rgb),.035);--blanc-8:rgba(var(--ink-rgb),.06);
+  --sur-or:#fff;
+  --voile-acct:rgba(var(--voile-rgb),.45);--voile-ms:rgba(var(--voile-rgb),.6);
+  --halo-rouge:transparent;--duo-rouge:rgba(156,42,26,.08);
+  --ok-fond:rgba(63,95,38,.12);--ok-texte:#36531f;
+  --grain:0;
+}
+html,body{background:var(--hw-fond);}
 
 /* ── Shell : masqué pendant l'animation, révélé à l'ouverture ── */
 header.topbar,aside.sidebar,#sbBackdrop{display:none;}
@@ -92,27 +136,27 @@ body.shell-active aside.sidebar{display:block;}
 header.topbar{position:fixed!important;top:0;left:0;right:0;z-index:140;
   background:transparent;border-bottom-color:transparent;
   transition:background .3s ease,border-color .3s ease,box-shadow .3s ease;}
-header.topbar.tb-solid{background:rgba(21,16,11,.92);
+header.topbar.tb-solid{background:rgba(var(--paper-rgb),.92);
   -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
-  border-bottom-color:var(--line);box-shadow:0 10px 30px -18px rgba(0,0,0,.9);}
+  border-bottom-color:var(--line);box-shadow:0 10px 30px -18px rgba(var(--ombre-rgb),.9);}
 
 /* ── Shell : correctifs de couleurs en dur pour le thème sombre ── */
 .brandmark{color:var(--ink);}
-.tb-btn,.acct-chip,#tbSearch,.tb-tabs{background:rgba(255,255,255,.05);border-color:var(--line);color:var(--ink);}
+.tb-btn,.acct-chip,#tbSearch,.tb-tabs{background:var(--blanc-5);border-color:var(--line);color:var(--ink);}
 .tb-btn:hover,.acct-chip:hover{border-color:var(--gold);}
-.acct-chip.guest{background:var(--gold-deep);border-color:var(--gold-deep);color:#1a130c;}
-.tb-tab.on{color:#1a130c;}
-.sidebar{background:rgba(21,16,11,.97);border-right-color:var(--line);}
+.acct-chip.guest{background:var(--gold-deep);border-color:var(--gold-deep);color:var(--sur-or);}
+.tb-tab.on{color:var(--sur-or);}
+.sidebar{background:rgba(var(--paper-rgb),.97);border-right-color:var(--line);}
 .sb-item{color:var(--ink);}
-.sb-item:hover{background:rgba(255,255,255,.05);}
-.sb-item.on{background:rgba(213,64,47,.16);color:var(--bright);}
-.tb-pop,.tb-results{background:var(--card);border-color:var(--line);box-shadow:0 18px 50px rgba(0,0,0,.7);}
+.sb-item:hover{background:var(--blanc-5);}
+.sb-item.on{background:rgba(var(--red-rgb),.16);color:var(--bright);}
+.tb-pop,.tb-results{background:var(--card);border-color:var(--line);box-shadow:0 18px 50px rgba(var(--ombre-rgb),.7);}
 .tb-res:hover,.tb-res.active{background:var(--paper-2);}
-.acct-modal{background:rgba(6,4,3,.7);}
+.acct-modal{background:var(--voile-acct);}
 .ac-card,.ac-card input,.msg-add input,.ac-bio{background:var(--paper);border-color:var(--line);color:var(--ink);}
-.ac-card code,.ac-p code,.ac-note code{background:rgba(255,255,255,.08);}
+.ac-card code,.ac-p code,.ac-note code{background:var(--blanc-8);}
 .fm-card{background:var(--paper-2);border-color:var(--line);}
-.fm-card:hover{background:var(--card);border-color:var(--red);box-shadow:0 6px 20px rgba(0,0,0,.5);}
+.fm-card:hover{background:var(--card);border-color:var(--red);box-shadow:0 6px 20px rgba(var(--ombre-rgb),.5);}
 
 /* ── Home wrapper (décalé de la sidebar + topbar fixées) ── */
 /* `clip` et NON `hidden` : la spec ne laisse pas `overflow-y:visible` à
@@ -138,7 +182,7 @@ body.sb-collapsed .hw{padding-left:0;}
   min-height:calc(100vh - 44px);}
 .hs-halo{position:absolute;top:50%;left:32%;transform:translate(-50%,-50%);
   width:700px;height:420px;pointer-events:none;
-  background:radial-gradient(ellipse at center,rgba(196,30,58,.07) 0%,transparent 68%);
+  background:radial-gradient(ellipse at center,var(--halo-rouge) 0%,transparent 68%);
   z-index:0;}
 .hs-left{position:relative;z-index:1;display:flex;flex-direction:column;gap:22px;}
 .hs-badge{display:inline-flex;align-items:center;font-size:12px;font-weight:500;
@@ -152,35 +196,35 @@ body.sb-collapsed .hw{padding-left:0;}
 .hs-desc{font-size:.97rem;line-height:1.72;color:var(--muted);max-width:44ch;}
 .hs-btns{display:flex;gap:11px;flex-wrap:wrap;margin-top:4px;}
 .btn-filled{display:inline-flex;align-items:center;padding:11px 24px;
-  border-radius:999px;background:var(--accent);color:#fff;
+  border-radius:999px;background:var(--accent);color:var(--sur-red);
   font-size:14px;font-weight:600;text-decoration:none;transition:opacity .18s;}
 .btn-filled:hover{opacity:.86;}
 .btn-outline{display:inline-flex;align-items:center;padding:11px 24px;
   border-radius:999px;background:transparent;
-  border:1px solid rgba(243,233,212,.28);color:var(--text);
+  border:1px solid rgba(var(--ink-rgb),.28);color:var(--text);
   font-size:14px;font-weight:500;text-decoration:none;
   transition:border-color .18s,background .18s;}
-.btn-outline:hover{border-color:var(--gold);background:rgba(243,233,212,.05);}
+.btn-outline:hover{border-color:var(--gold);background:rgba(var(--ink-rgb),.05);}
 
 /* Portrait + images d'archive */
 .hs-right{position:relative;z-index:1;display:flex;justify-content:center;}
 .hs-portrait{position:relative;width:100%;max-width:400px;aspect-ratio:4/5;
   border-radius:20px;overflow:hidden;
-  background:#1a1410;margin:0;}
+  background:rgb(var(--nuit-rgb));margin:0;}
 .hs-img-wrap{position:absolute;inset:0;}
 .hs-img-wrap img{width:100%;height:100%;object-fit:cover;
   filter:grayscale(1) contrast(1.08);display:block;}
 .hs-img-wrap::after{content:'';position:absolute;inset:0;
-  background:rgba(196,30,58,.22);mix-blend-mode:multiply;pointer-events:none;}
+  background:var(--duo-rouge);mix-blend-mode:multiply;pointer-events:none;}
 /* Le fac-similé n'est pas une photographie : sa matière est déjà celle de la
    DA (papier chaud, encre brune). Le duotone rouge des photos d'archive, pensé
    pour du noir et blanc, le virait au mauve. On garde son ton propre, juste
    assombri et contrasté pour qu'il tienne dans la nuit de la page. */
 .hs-img-ms img{filter:sepia(.46) saturate(1.02) brightness(.74) contrast(1.13);}
 .hs-img-ms::after{background:linear-gradient(155deg,
-  rgba(213,64,47,.10),rgba(13,10,7,.34) 70%);mix-blend-mode:multiply;}
+  rgba(var(--red-rgb),.10),rgba(var(--nuit-rgb),.34) 70%);mix-blend-mode:multiply;}
 .hs-img-caption{position:absolute;bottom:0;left:0;right:0;
-  padding:28px 14px 10px;font-size:10px;letter-spacing:.05em;
+  padding:28px 14px 10px;font-size:11px;letter-spacing:.05em;
   color:rgba(251,249,244,.82);line-height:1.45;
   background:linear-gradient(to top,rgba(23,22,20,.62),transparent);}
 
@@ -359,7 +403,7 @@ html:not(.no-anim) .hs-hero.lit .hs-hint{opacity:1;transition-delay:.62s;}
 .hs-gloss{position:relative;padding:clamp(56px,8vh,96px) clamp(24px,5vw,80px);
   border-top:1px solid var(--border);overflow:clip;}
 .hs-gloss::before{content:"";position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse 46% 52% at 8% 0%,rgba(216,173,76,.07),transparent 70%);}
+  background:radial-gradient(ellipse 46% 52% at 8% 0%,rgba(var(--gold-rgb),calc(.07*var(--lueur))),transparent 70%);}
 .hs-gloss>*{position:relative;}
 .hs-gl-head{display:flex;align-items:flex-end;justify-content:space-between;
   gap:14px 32px;flex-wrap:wrap;margin-bottom:30px;}
@@ -389,7 +433,7 @@ html:not(.no-anim) .hs-hero.lit .hs-hint{opacity:1;transition-delay:.62s;}
   padding:20px 22px 20px;background:var(--surface);border:1px solid var(--border);
   border-radius:16px;color:inherit;text-decoration:none;
   transition:border-color .22s ease,box-shadow .22s ease;}
-.hs-gl-entry:hover{border-color:var(--gold);box-shadow:0 22px 48px -20px rgba(0,0,0,.7);}
+.hs-gl-entry:hover{border-color:var(--gold);box-shadow:0 22px 48px -20px rgba(var(--ombre-rgb),.7);}
 .hs-gl-entry:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
 .hs-gl-L{grid-row:1/span 2;position:relative;align-self:start;min-width:.8em;
   padding-bottom:7px;font-family:'Fraunces',serif;font-weight:900;font-size:2.7rem;
@@ -427,7 +471,7 @@ html:not(.no-anim) .hs-hero.lit .hs-hint{opacity:1;transition-delay:.62s;}
 .hs-faq-list{display:flex;flex-direction:column;gap:10px;max-width:840px;}
 .hs-faq-item{background:var(--surface);border:1px solid var(--border);
   border-radius:16px;transition:border-color .2s ease;}
-.hs-faq-item:hover{border-color:rgba(216,173,76,.42);}
+.hs-faq-item:hover{border-color:rgba(var(--gold-rgb),.42);}
 .hs-faq-item>summary{display:flex;align-items:flex-start;gap:18px;
   justify-content:space-between;padding:19px 22px;cursor:pointer;
   list-style:none;border-radius:16px;}
@@ -484,13 +528,13 @@ html.js-faq .hs-faq-list::after{content:"";position:absolute;left:0;top:8px;widt
 html.js-faq .hs-faq-list::before{bottom:8px;background:var(--border);}
 /* la tête du tracé est la partie claire du dégradé : c'est elle qui éclaire */
 html.js-faq .hs-faq-list::after{height:calc(var(--draw) * (100% - 16px));
-  background:linear-gradient(180deg,rgba(216,173,76,.12),var(--gold));
-  box-shadow:0 0 9px rgba(216,173,76,.34);}
+  background:linear-gradient(180deg,rgba(var(--gold-rgb),.12),var(--gold));
+  box-shadow:0 0 9px rgba(var(--gold-rgb),calc(.34*var(--lueur)));}
 html.js-faq .hs-faq-item{--lit:1;--pass:0;position:relative;
-  border-color:color-mix(in srgb,rgba(216,173,76,.34) calc(var(--lit)*100%),var(--border));
-  box-shadow:0 0 0 1px rgba(216,173,76,calc(var(--pass)*.10)),
-             0 12px 36px -20px rgba(216,173,76,calc(var(--pass)*.85));}
-html.js-faq .hs-faq-item:hover{border-color:rgba(216,173,76,.46);}
+  border-color:color-mix(in srgb,rgba(var(--gold-rgb),.34) calc(var(--lit)*100%),var(--border));
+  box-shadow:0 0 0 1px rgba(var(--gold-rgb),calc(var(--pass)*.10*var(--lueur))),
+             0 12px 36px -20px rgba(var(--gold-rgb),calc(var(--pass)*.85*var(--lueur)));}
+html.js-faq .hs-faq-item:hover{border-color:rgba(var(--gold-rgb),.46);}
 /* la pastille : anneau tant que la lumière n'est pas passée, pleine ensuite */
 html.js-faq .hs-faq-item::before,
 html.js-faq .hs-faq-item::after{content:"";position:absolute;left:-38px;top:25px;
@@ -532,7 +576,7 @@ html.js-faq .hs-faq-mk::after{opacity:calc(.44 + var(--lit)*.56);}
 .hs-lib-head .hs-sec-h{margin-bottom:10px;}
 .hs-lib-count{font-family:'Inter',system-ui,sans-serif;font-size:.84rem;
   letter-spacing:.02em;color:var(--gold);}
-.hs-lib-sub{font-family:'Inter',system-ui,sans-serif;font-size:.68rem;font-weight:600;
+.hs-lib-sub{font-family:'Inter',system-ui,sans-serif;font-size:.72rem;font-weight:600;
   letter-spacing:.13em;text-transform:uppercase;color:var(--muted);
   margin:42px 0 16px;padding-bottom:9px;border-bottom:1px solid var(--line);}
 
@@ -543,28 +587,28 @@ html.js-faq .hs-faq-mk::after{opacity:calc(.44 + var(--lit)*.56);}
   border-radius:16px;overflow:hidden;background:var(--surface);color:inherit;
   text-decoration:none;transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .22s,border-color .22s;}
 .hs-w-card:hover{border-color:var(--gold);
-  box-shadow:0 22px 48px -20px rgba(0,0,0,.7);}
-.hs-w-img{height:186px;overflow:hidden;position:relative;background:#0d0a07;}
+  box-shadow:0 22px 48px -20px rgba(var(--ombre-rgb),.7);}
+.hs-w-img{height:186px;overflow:hidden;position:relative;background:rgb(var(--nuit-rgb));}
 .hs-w-img img{width:100%;height:100%;object-fit:cover;
   filter:grayscale(.7) sepia(.35) brightness(.82) contrast(1.05);}
 .hs-w-img::after{content:'';position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(13,10,7,.78),rgba(13,10,7,.05) 55%),
-             radial-gradient(ellipse at 72% 18%,rgba(216,173,76,.16),transparent 60%);}
+  background:linear-gradient(to top,rgba(var(--nuit-rgb),.78),rgba(var(--nuit-rgb),.05) 55%),
+             radial-gradient(ellipse at 72% 18%,rgba(var(--gold-rgb),calc(.16*var(--lueur))),transparent 60%);}
 .hs-w-body{padding:20px 22px 22px;display:flex;flex-direction:column;gap:8px;flex:1;}
 .hs-w-meta{display:flex;align-items:center;gap:10px;}
-.hs-w-status{font-family:'Inter',system-ui,sans-serif;font-size:.6rem;font-weight:700;
+.hs-w-status{font-family:'Inter',system-ui,sans-serif;font-size:.7rem;font-weight:700;
   letter-spacing:.09em;text-transform:uppercase;border-radius:999px;padding:3px 9px;}
-.hs-w-ok{background:rgba(127,168,85,.18);color:#a9cf82;}
+.hs-w-ok{background:var(--ok-fond);color:var(--ok-texte);}
 .hs-w-year{font-family:'Inter',system-ui,sans-serif;font-size:.78rem;font-weight:600;
   color:var(--gold);letter-spacing:.04em;}
 .hs-w-title{font-family:'Fraunces',serif;font-weight:900;font-size:1.4rem;
   letter-spacing:-.02em;color:var(--ink);line-height:1.08;}
-.hs-w-cat{font-family:'Inter',system-ui,sans-serif;font-size:.66rem;letter-spacing:.07em;
+.hs-w-cat{font-family:'Inter',system-ui,sans-serif;font-size:.7rem;letter-spacing:.07em;
   text-transform:uppercase;color:var(--muted);}
 .hs-w-desc{font-family:'Inter',system-ui,sans-serif;font-size:.86rem;line-height:1.6;color:var(--ink-soft);}
 .hs-w-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:2px;}
-.hs-w-tag{font-family:'Inter',system-ui,sans-serif;font-size:.62rem;color:var(--gold);
-  background:rgba(216,173,76,.12);border-radius:999px;padding:2px 8px;}
+.hs-w-tag{font-family:'Inter',system-ui,sans-serif;font-size:.72rem;color:var(--gold);
+  background:rgba(var(--gold-rgb),.12);border-radius:999px;padding:2px 8px;}
 .hs-w-go{margin-top:auto;padding-top:10px;font-family:'Inter',system-ui,sans-serif;
   font-size:.82rem;font-weight:600;color:var(--bright);}
 
@@ -578,7 +622,7 @@ html.js-faq .hs-faq-mk::after{opacity:calc(.44 + var(--lit)*.56);}
   background:linear-gradient(90deg,var(--gold-deep),var(--accent));}
 .hs-timeline-track{display:flex;gap:14px;overflow-x:auto;overflow-y:hidden;
   padding:8px 2px 14px;scroll-snap-type:x proximity;cursor:grab;
-  scrollbar-width:thin;scrollbar-color:rgba(216,173,76,.45) transparent;
+  scrollbar-width:thin;scrollbar-color:rgba(var(--gold-rgb),.45) transparent;
   overscroll-behavior-x:contain;}
 .hs-timeline-track:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px;}
 .hs-timeline-track.dragging{cursor:grabbing;scroll-snap-type:none;user-select:none;}
@@ -588,22 +632,22 @@ html.js-faq .hs-faq-mk::after{opacity:calc(.44 + var(--lit)*.56);}
 .hs-timeline-track.scrubbed{scroll-snap-type:none;}
 .hs-timeline-track::-webkit-scrollbar{height:5px;}
 .hs-timeline-track::-webkit-scrollbar-track{background:transparent;}
-.hs-timeline-track::-webkit-scrollbar-thumb{background:rgba(216,173,76,.45);border-radius:3px;}
+.hs-timeline-track::-webkit-scrollbar-thumb{background:rgba(var(--gold-rgb),.45);border-radius:3px;}
 .hs-tl-card{position:relative;flex:0 0 auto;width:min(64vw,222px);
   scroll-snap-align:start;padding:26px 6px 0;}
 .hs-tl-card::before{content:"";position:absolute;top:2px;left:6px;width:9px;height:9px;
   border-radius:50%;background:var(--gold-deep);
-  box-shadow:0 0 0 3px var(--bg),0 0 10px rgba(216,173,76,.45);
+  box-shadow:0 0 0 3px var(--bg),0 0 10px rgba(var(--gold-rgb),calc(.45*var(--lueur)));
   transition:background .18s,box-shadow .18s,transform .18s;}
 .hs-tl-card:hover::before{background:var(--accent);transform:scale(1.25);
-  box-shadow:0 0 0 3px var(--bg),0 0 12px rgba(213,64,47,.5);}
+  box-shadow:0 0 0 3px var(--bg),0 0 12px rgba(var(--red-rgb),calc(.5*var(--lueur)));}
 .hs-tl-card:hover .hs-tl-title{color:var(--bright);}
 .hs-tl-year{display:block;font-family:'Fraunces',serif;font-style:italic;font-weight:900;
   font-size:1.15rem;color:var(--gold);}
 .hs-tl-title{display:block;margin-top:5px;font-family:'Fraunces',serif;font-weight:600;
   font-size:1rem;line-height:1.18;color:var(--ink);letter-spacing:-.01em;transition:color .18s;}
 .hs-tl-cat{display:block;margin-top:7px;font-family:'Inter',system-ui,sans-serif;
-  font-size:.6rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);}
+  font-size:.7rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);}
 
 /* — bande « circuit du capital » — colonne centrée, le défilement déplie
    A→M→P→M′→A′ palier par palier (home.js : circuitScrub) — */
@@ -625,7 +669,7 @@ html.js-faq .hs-faq-mk::after{opacity:calc(.44 + var(--lit)*.56);}
 /* voile : garde le texte lisible par-dessus le quadrillage et le chariot */
 .circuit-veil{position:absolute;inset:0;z-index:2;pointer-events:none;
   background:radial-gradient(ellipse 62% 52% at 50% 42%,
-    rgba(30,23,16,.82) 0%,rgba(30,23,16,.56) 46%,rgba(30,23,16,0) 78%);}
+    rgba(var(--surface-rgb),.82) 0%,rgba(var(--surface-rgb),.56) 46%,rgba(var(--surface-rgb),0) 78%);}
 /* — « Prendre les rênes ». Le chariot du décor devient conduisible : une
    fiche se propose pendant qu'il passe, et le mode conduite sort le canvas
    de sa bande pour le poser en plein écran (home.js : chariotDrive).
@@ -649,24 +693,24 @@ html.js-faq .hs-faq-mk::after{opacity:calc(.44 + var(--lit)*.56);}
   display:flex;align-items:center;flex-wrap:wrap;justify-content:center;gap:10px;
   max-width:min(480px,86vw);text-align:left;
   padding:9px 9px 9px 18px;border-radius:100px;
-  background:rgba(30,23,16,.93);border:1px solid var(--border);
-  box-shadow:0 14px 34px -12px rgba(0,0,0,.72);
+  background:rgba(var(--surface-rgb),.93);border:1px solid var(--border);
+  box-shadow:0 14px 34px -12px rgba(var(--ombre-rgb),.72);
   opacity:0;visibility:hidden;
   transition:opacity .55s ease,transform .55s cubic-bezier(.16,1,.3,1),visibility .55s;}
 .circuit-reins.on{opacity:1;visibility:visible;transform:translate(-50%,0);}
 .circuit-reins-p{font-family:'Inter',system-ui,sans-serif;font-size:.72rem;
-  line-height:1.4;color:var(--muted);margin:0;flex:1 1 auto;min-width:180px;}
+  line-height:1.4;color:var(--muted);margin:0;flex:1 1 180px;min-width:180px;}
 .circuit-reins-p b{color:var(--text);font-weight:600;}
 .circuit-reins-go{display:inline-flex;align-items:center;gap:5px;flex:0 0 auto;
   font-family:'Inter',system-ui,sans-serif;font-weight:600;font-size:.7rem;
   color:var(--bg);background:var(--gold);border:0;border-radius:100px;
   white-space:nowrap;padding:7px 13px;cursor:pointer;transition:filter .16s,transform .16s;}
 .circuit-reins-go:hover{filter:brightness(1.12);transform:translateY(-1px);}
-.circuit-reins-x{flex:0 0 auto;width:22px;height:22px;display:inline-flex;
+.circuit-reins-x{flex:0 0 auto;width:26px;height:26px;display:inline-flex;
   align-items:center;justify-content:center;
   border:0;background:transparent;color:var(--muted);font-size:1rem;
   line-height:1;cursor:pointer;border-radius:50%;}
-.circuit-reins-x:hover{color:var(--text);background:rgba(243,233,212,.07);}
+.circuit-reins-x:hover{color:var(--text);background:rgba(var(--ink-rgb),.07);}
 
 /* mode conduite : le canvas quitte sa bande et prend tout l'écran, sous la
    topbar (140) et la sidebar (120), qui restent utilisables. */
@@ -679,22 +723,22 @@ body.lm-driving .circuit-veil{opacity:0;transition:opacity .4s ease;}
 .lm-drive-scrim{position:fixed;inset:0;z-index:99;pointer-events:none;opacity:0;
   transition:opacity .45s ease;
   background:radial-gradient(ellipse 74% 64% at 50% 56%,
-    rgba(21,16,11,0) 0%,rgba(21,16,11,.28) 62%,rgba(21,16,11,.5) 100%);}
+    rgba(var(--paper-rgb),0) 0%,rgba(var(--paper-rgb),.28) 62%,rgba(var(--paper-rgb),.5) 100%);}
 body.lm-driving .lm-drive-scrim{opacity:1;}
 .lm-drive-hud{position:fixed;left:50%;bottom:22px;z-index:150;
   display:flex;align-items:center;gap:12px;
   padding:9px 10px 9px 16px;border-radius:100px;
-  background:rgba(30,23,16,.94);border:1px solid var(--border);
-  box-shadow:0 16px 40px -14px rgba(0,0,0,.7);
+  background:rgba(var(--surface-rgb),.94);border:1px solid var(--border);
+  box-shadow:0 16px 40px -14px rgba(var(--ombre-rgb),.7);
   font-family:'Inter',system-ui,sans-serif;font-size:.74rem;color:var(--muted);
   opacity:0;visibility:hidden;transform:translate(-50%,12px);
   transition:opacity .35s ease,transform .35s cubic-bezier(.16,1,.3,1),visibility .35s;}
 body.lm-driving .lm-drive-hud{opacity:1;visibility:visible;transform:translate(-50%,0);}
 .lm-drive-hud b{color:var(--text);font-weight:600;}
 .lm-drive-off{font-family:inherit;font-size:.72rem;font-weight:600;
-  color:var(--text);background:rgba(243,233,212,.08);
+  color:var(--text);background:rgba(var(--ink-rgb),.08);
   border:1px solid var(--border);border-radius:100px;padding:6px 13px;cursor:pointer;}
-.lm-drive-off:hover{background:rgba(243,233,212,.15);}
+.lm-drive-off:hover{background:rgba(var(--ink-rgb),.15);}
 @media(max-width:767px){.circuit-reins,.lm-drive-hud,.lm-drive-scrim{display:none;}}
 .circuit-inner{position:relative;z-index:3;max-width:680px;margin:0 auto;text-align:center;}
 .circuit-inner .hs-sec-h{margin-bottom:14px;}
@@ -706,7 +750,7 @@ body.lm-driving .lm-drive-hud{opacity:1;visibility:visible;transform:translate(-
 .circuit-node{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:5px;}
 .circuit-node b{font-family:'Fraunces',serif;font-weight:900;font-size:1.25rem;color:var(--text);
   background:var(--surface);padding:0 10px;}
-.circuit-node i{font-family:'Inter',system-ui,sans-serif;font-style:normal;font-size:.56rem;
+.circuit-node i{font-family:'Inter',system-ui,sans-serif;font-style:normal;font-size:.7rem;
   letter-spacing:.07em;text-transform:uppercase;color:var(--muted);}
 .circuit-node--end b{color:var(--accent);}
 /* — B. le défilement fait circuler la valeur : --cp (0→1) posé par home.js — */
@@ -714,27 +758,27 @@ body.lm-driving .lm-drive-hud{opacity:1;visibility:visible;transform:translate(-
 .circuit-line-fill{position:absolute;left:8px;top:16px;height:2px;border-radius:2px;pointer-events:none;
   width:calc(var(--cp) * (100% - 16px));
   background:linear-gradient(90deg,var(--gold-deep),var(--accent));
-  box-shadow:0 0 12px rgba(216,173,76,.45);transition:width .18s linear;}
+  box-shadow:0 0 12px rgba(var(--gold-rgb),calc(.45*var(--lueur)));transition:width .18s linear;}
 /* curseur lumineux : la valeur en train de circuler sur la ligne */
 .circuit-spark{position:absolute;top:17px;left:calc(8px + var(--cp) * (100% - 16px));
   z-index:4;width:11px;height:11px;margin:-5.5px 0 0 -5.5px;border-radius:50%;
   pointer-events:none;opacity:0;will-change:left;
-  background:radial-gradient(circle,#fff4dc 0%,var(--gold) 40%,rgba(216,173,76,0) 72%);
-  box-shadow:0 0 10px 2px rgba(216,173,76,.7),0 0 26px 7px rgba(216,173,76,.3);
+  background:radial-gradient(circle,#fff4dc 0%,var(--gold) 40%,rgba(var(--gold-rgb),0) 72%);
+  box-shadow:0 0 10px 2px rgba(var(--gold-rgb),calc(.7*var(--lueur))),0 0 26px 7px rgba(var(--gold-rgb),calc(.3*var(--lueur)));
   transition:left .18s linear,opacity .5s ease,background .45s ease,box-shadow .45s ease;}
 /* traînée de comète, derrière la tête du curseur */
 .circuit-spark::before{content:"";position:absolute;right:5px;top:4.2px;height:2.6px;width:46px;
   border-radius:2px;transform-origin:100% 50%;
-  background:linear-gradient(270deg,rgba(216,173,76,.7),rgba(216,173,76,0));
+  background:linear-gradient(270deg,rgba(var(--gold-rgb),.7),rgba(var(--gold-rgb),0));
   transition:background .45s ease;}
 .circuit-band.in .circuit-spark{opacity:1;}
 /* après la production, ce qui circule porte la plus-value : la lueur vire au rouge */
-.circuit-spark.grown{background:radial-gradient(circle,#ffe6d6 0%,var(--accent) 44%,rgba(213,64,47,0) 74%);
-  box-shadow:0 0 12px 3px rgba(213,64,47,.75),0 0 34px 9px rgba(213,64,47,.35);}
-.circuit-spark.grown::before{background:linear-gradient(270deg,rgba(213,64,47,.7),rgba(213,64,47,0));}
+.circuit-spark.grown{background:radial-gradient(circle,#ffe6d6 0%,var(--accent) 44%,rgba(var(--red-rgb),0) 74%);
+  box-shadow:0 0 12px 3px rgba(var(--red-rgb),calc(.75*var(--lueur))),0 0 34px 9px rgba(var(--red-rgb),calc(.35*var(--lueur)));}
+.circuit-spark.grown::before{background:linear-gradient(270deg,rgba(var(--red-rgb),.7),rgba(var(--red-rgb),0));}
 .circuit-node b{transition:color .35s ease,text-shadow .35s ease;}
-.circuit-node.lit b{color:var(--gold);text-shadow:0 0 16px rgba(216,173,76,.5);}
-.circuit-node--end.lit b{color:var(--accent);text-shadow:0 0 20px rgba(213,64,47,.55);}
+.circuit-node.lit b{color:var(--gold);text-shadow:0 0 16px rgba(var(--gold-rgb),calc(.5*var(--lueur)));}
+.circuit-node--end.lit b{color:var(--accent);text-shadow:0 0 20px rgba(var(--red-rgb),calc(.55*var(--lueur)));}
 
 /* — aperçu Forum — */
 /* La place change de sol : aplat --surface + filet, comme la bande circuit
@@ -750,9 +794,20 @@ body.lm-driving .lm-drive-hud{opacity:1;visibility:visible;transform:translate(-
   gap:16px;flex-wrap:wrap;margin-bottom:26px;}
 .hs-forum-head .hs-sec-h{margin-bottom:0;}
 .hs-forum-more{font-family:'Inter',system-ui,sans-serif;font-size:.86rem;font-weight:600;
-  color:var(--accent);text-decoration:none;white-space:nowrap;}
+  color:var(--red-text);text-decoration:none;white-space:nowrap;
+  display:inline-block;padding:5px 0;margin:-5px 0;}
 .hs-forum-more:hover{text-decoration:underline;}
 #homeForum{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px;}
+/* Correctifs de la carte de note du shell (.fm-*, oeuvres/shell.css), LOCAUX à
+   l'accueil — signalés à la coquille. L'avatar porte en style INLINE l'une des
+   quatre teintes de section (accent() dans shell.js) et un texte #f7f1e2 : sur
+   l'ocre #9a7b35 cela faisait 3,5:1, et la teinte ne suit aucun mode. La
+   teinte reste, en ANNEAU (elle code la section) : un disque de --card la
+   recouvre au centre, et les initiales sont à l'encre de la page. La
+   pastille de section était à 10,2 px. */
+#homeForum .fm-av{color:var(--ink);
+  background-image:radial-gradient(circle,var(--card) 0 11px,transparent 11.5px)!important;}
+#homeForum .fm-tag{font-size:.72rem;white-space:nowrap;}
 
 /* — bande CTA finale — */
 .hs-closer{position:relative;overflow:hidden;
@@ -786,7 +841,7 @@ body.lm-driving .lm-drive-hud{opacity:1;visibility:visible;transform:translate(-
   right:var(--candle-r);transform:translateX(50%);
   width:min(760px,80vw);height:420px;pointer-events:none;z-index:1;
   background:radial-gradient(ellipse at center,
-    rgba(216,173,76,.20) 0%,rgba(213,64,47,.10) 42%,transparent 72%);}
+    rgba(var(--gold-rgb),calc(.20*var(--lueur))) 0%,rgba(var(--red-rgb),calc(.10*var(--lueur))) 42%,transparent 72%);}
 /* Elle est POSÉE JUSTE EN DESSOUS de la page : son pied passe sous le bord
    bas de la bande, que `.hs-closer{overflow:hidden}` coupe net. On ne voit
    d'elle que ce qui dépasse — la cire et la flamme sortent du pied de page
@@ -814,7 +869,7 @@ body.lm-driving .lm-drive-hud{opacity:1;visibility:visible;transform:translate(-
      croissant sous la face du dessus — c'est tout ce qu'il faut. */
   background:linear-gradient(90deg,#1d1505 0%,#4e3d13 17%,#856820 41%,
     #a3843a 50%,#7a5f1e 61%,#463710 84%,#1d1505 100%);
-  box-shadow:0 4px 10px -3px rgba(0,0,0,.85),0 12px 28px -9px rgba(0,0,0,.65);}
+  box-shadow:0 4px 10px -3px rgba(var(--ombre-rgb),.85),0 12px 28px -9px rgba(var(--ombre-rgb),.65);}
 .cd-pan::before{content:"";position:absolute;left:1px;right:1px;top:-4px;height:10px;
   border-radius:50%;
   /* L'éclat ne va PAS au centre : la douille l'occulte, et surtout elle
@@ -897,32 +952,32 @@ body.lm-driving .lm-drive-hud{opacity:1;visibility:visible;transform:translate(-
 .hs-ms-cartel{position:absolute;right:clamp(24px,5vw,80px);bottom:clamp(28px,5vh,54px);
   z-index:2;display:inline-flex;align-items:center;gap:7px;
   max-width:min(300px,44vw);padding:5px 11px 5px 8px;text-align:left;
-  background:rgba(30,23,16,.72);border:1px solid var(--border);border-radius:999px;
-  color:var(--muted);font-family:'Inter',system-ui,sans-serif;font-size:10.5px;
+  background:rgba(var(--surface-rgb),.72);border:1px solid var(--border);border-radius:999px;
+  color:var(--muted);font-family:'Inter',system-ui,sans-serif;font-size:11.5px;
   letter-spacing:.01em;line-height:1.3;cursor:pointer;
   transition:color .2s,border-color .2s,background .2s,transform .25s cubic-bezier(.16,1,.3,1);}
 .hs-ms-cartel em{font-style:italic;color:var(--text);}
 .hs-ms-dot{flex:0 0 auto;width:5px;height:5px;border-radius:50%;background:var(--gold);
-  box-shadow:0 0 0 0 rgba(216,173,76,.5);transition:box-shadow .3s;}
+  box-shadow:0 0 0 0 rgba(var(--gold-rgb),calc(.5*var(--lueur)));transition:box-shadow .3s;}
 .hs-ms-cartel:hover,.hs-ms-cartel.aim,.hs-ms-cartel:focus-visible{
-  color:var(--text);border-color:var(--gold);background:rgba(30,23,16,.92);
+  color:var(--text);border-color:var(--gold);background:rgba(var(--surface-rgb),.92);
   transform:translateY(-2px);}
 .hs-ms-cartel.aim .hs-ms-dot,.hs-ms-cartel:hover .hs-ms-dot{
-  box-shadow:0 0 0 5px rgba(216,173,76,.16);}
+  box-shadow:0 0 0 5px rgba(var(--gold-rgb),calc(.16*var(--lueur)));}
 html.no-motion .hs-ms-cartel{display:none;}
 
 .hs-ms-modal[hidden]{display:none;}
 .hs-ms-modal{position:fixed;inset:0;z-index:200;display:flex;align-items:center;
   justify-content:center;padding:clamp(16px,4vw,48px);}
-.hs-ms-back{position:absolute;inset:0;background:rgba(9,6,4,.82);
+.hs-ms-back{position:absolute;inset:0;background:var(--voile-ms);
   -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);}
 .hs-ms-box{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
   gap:clamp(18px,3vw,34px);align-items:center;
   width:min(980px,100%);max-height:92vh;overflow:auto;
   padding:clamp(20px,3vw,34px);border-radius:18px;
   background:var(--surface);border:1px solid var(--border);
-  box-shadow:0 40px 90px -30px rgba(0,0,0,.8);}
-.hs-ms-fig{border-radius:12px;overflow:hidden;background:#0d0a07;}
+  box-shadow:0 40px 90px -30px rgba(var(--ombre-rgb),.8);}
+.hs-ms-fig{border-radius:12px;overflow:hidden;background:rgb(var(--nuit-rgb));}
 .hs-ms-fig img{display:block;width:100%;height:auto;
   filter:sepia(.30) saturate(1.02) brightness(.94) contrast(1.06);}
 .hs-ms-txt h3{font-family:'Fraunces',serif;font-weight:900;
@@ -937,9 +992,9 @@ html.no-motion .hs-ms-cartel{display:none;}
 .hs-ms-link:hover{text-decoration:underline;}
 .hs-ms-x{position:absolute;top:10px;right:12px;z-index:1;
   width:32px;height:32px;border-radius:50%;border:1px solid var(--border);
-  background:rgba(13,10,7,.6);color:var(--text);font-size:19px;line-height:1;
+  background:rgba(var(--nuit-rgb),.6);color:var(--text);font-size:19px;line-height:1;
   cursor:pointer;transition:border-color .18s,background .18s;}
-.hs-ms-x:hover{border-color:var(--gold);background:rgba(13,10,7,.9);}
+.hs-ms-x:hover{border-color:var(--gold);background:rgba(var(--nuit-rgb),.9);}
 @media(max-width:760px){
   .hs-ms-box{grid-template-columns:1fr;}
   .hs-ms-fig{max-height:38vh;}
@@ -965,7 +1020,7 @@ html.no-motion .hs-ms-cartel{display:none;}
    par défaut. Et une extinction ne se dit pas par l'opacité : la lettre
    éteinte est en --muted (7,6:1), allumée en --gold (9:1). */
 html.js-gloss .hs-gl-alpha a{
-  text-shadow:0 0 calc(var(--pass,0) * 14px) rgba(216,173,76,calc(var(--pass,0) * .8));}
+  text-shadow:0 0 calc(var(--pass,0) * 14px) rgba(var(--gold-rgb),calc(var(--pass,0) * .8 * var(--lueur)));}
 @supports (color:color-mix(in srgb,red,blue)){
   html.js-gloss .hs-gl-alpha a{
     color:color-mix(in srgb,var(--gold) calc(var(--lit,1) * 100%),var(--muted));}
@@ -1030,7 +1085,7 @@ html.js-gloss .hs-gl-L{transform:scale(calc(1 + (1 - var(--strike,1)) * .24))
 .js-candle .hs-closer-inner{opacity:calc(.08 + .92 * var(--lum,1));
   transform:translateY(calc((1 - var(--lum,1)) * 14px));}
 .js-candle .hs-closer .btn-filled{opacity:calc(.18 + .82 * var(--lum,1));
-  filter:drop-shadow(0 0 calc(var(--lum,1) * 22px) rgba(216,173,76,.30));}
+  filter:drop-shadow(0 0 calc(var(--lum,1) * 22px) rgba(var(--gold-rgb),calc(.30*var(--lueur))));}
 
 /* G. Forum — les notes se déposent une à une, et le filet de
    leur citation se trace de haut en bas comme un trait de plume qu'on
@@ -1039,17 +1094,18 @@ html.js-gloss .hs-gl-L{transform:scale(calc(1 + (1 - var(--strike,1)) * .24))
   opacity:calc(.04 + .96 * var(--pin,1));
   transform:translate3d(calc((1 - var(--pin,1)) * -16px),
                         calc((1 - var(--pin,1)) * 12px),0);}
-.js-forum #homeForum .fm-quote{
-  border-left-color:transparent;
-  background-image:linear-gradient(var(--red),var(--red));
-  background-repeat:no-repeat;background-origin:border-box;
-  background-position:0 0;background-size:3px var(--trait,100%);}
+/* Le trait est un ::before et non une image de fond : la sonde de contraste
+   (et tout lecteur de la cascade) prenait l'image de fond de 3 px pour le
+   FOND de la citation — un rouge sous du texte crème, 3,78:1 annoncé à tort. */
+.js-forum #homeForum .fm-quote{position:relative;border-left-color:transparent;}
+.js-forum #homeForum .fm-quote::before{content:"";position:absolute;left:-3px;top:0;
+  width:3px;height:var(--trait,100%);background:var(--red);}
 
 /* E. Hero — halo « projecteur » depuis la bougie, derrière le portrait */
 .hs-right{will-change:transform;}
 .hs-right::before{content:"";position:absolute;top:-10%;left:50%;width:150%;height:150%;
   transform:translateX(-50%);pointer-events:none;z-index:0;
-  background:radial-gradient(ellipse 42% 38% at 40% 20%,rgba(216,173,76,.16),transparent 60%);}
+  background:radial-gradient(ellipse 42% 38% at 40% 20%,rgba(var(--gold-rgb),calc(.16*var(--lueur))),transparent 60%);}
 .hs-portrait{position:relative;z-index:1;}
 
 /* C. Chiffres clés — fond « carnet quadrillé » + chiffres tabulaires */
@@ -1077,8 +1133,8 @@ header.topbar.tb-solid{height:auto;background:transparent;border-bottom-color:tr
   box-shadow:none;padding:9px clamp(12px,3vw,28px);}
 header.topbar.tb-solid .topbar-in{max-width:1180px;margin:0 auto;height:46px;
   padding:0 8px 0 16px;border-radius:999px;border-color:var(--line);
-  background:rgba(21,16,11,.82);-webkit-backdrop-filter:blur(11px);backdrop-filter:blur(11px);
-  box-shadow:0 14px 38px -18px rgba(0,0,0,.92);}
+  background:rgba(var(--paper-rgb),.82);-webkit-backdrop-filter:blur(11px);backdrop-filter:blur(11px);
+  box-shadow:0 14px 38px -18px rgba(var(--ombre-rgb),.92);}
 @media(max-width:860px){
   header.topbar.tb-solid .topbar-in{max-width:none;margin:0 6px;}
 }
@@ -1105,7 +1161,7 @@ header.topbar.tb-solid .topbar-in{max-width:1180px;margin:0 auto;height:46px;
 .circuit-soon{margin:clamp(22px,4vh,40px) auto 0;max-width:46ch;
   font-family:'Inter',system-ui,sans-serif;font-size:.82rem;line-height:1.6;color:var(--muted);}
 .circuit-go{display:inline-flex;align-items:center;gap:8px;margin-top:18px;
-  padding:11px 24px;border-radius:999px;background:var(--accent);color:#fff;
+  padding:11px 24px;border-radius:999px;background:var(--accent);color:var(--sur-red);
   font-family:'Inter',system-ui,sans-serif;font-size:14px;font-weight:600;
   text-decoration:none;transition:opacity .18s,transform .18s;}
 .circuit-go:hover{opacity:.86;transform:translateY(-1px);}
@@ -1148,7 +1204,7 @@ header.topbar.tb-solid .topbar-in{max-width:1180px;margin:0 auto;height:46px;
   content:"";position:absolute;top:0;bottom:0;width:3px;z-index:5;pointer-events:none;
   left:calc(var(--dev,0) * 100% - 3px);opacity:var(--bar,0);
   background:linear-gradient(transparent,var(--gold) 28%,var(--gold) 72%,transparent);
-  box-shadow:0 0 18px 5px rgba(216,173,76,.5);}
+  box-shadow:0 0 18px 5px rgba(var(--gold-rgb),calc(.5*var(--lueur)));}
 /* la carte n'est qu'un cadre vide tant que rien n'est tiré : elle arrive en
    fantôme, puis prend corps dès les premiers pour cent du développement */
 .js-devscrub .hs-w-card{opacity:calc(.22 + .78 * var(--in,1));}
@@ -1217,6 +1273,99 @@ html.no-motion header.topbar,html.no-motion header.topbar .topbar-in{transition:
 }
 /* Au doigt (mission `cibles-tactiles`) : « Toutes les discussions » 16 px. */
 @media (pointer:coarse){ .hs-forum-more{display:inline-block;padding:14px 0;margin:-14px 0;} }
+
+/* ══════════════════════════════════════════════════════════════════════
+   LES TROIS MODES — ce que les jetons ne disent pas (mission `affichage`).
+   Tout ce qui précède est la BOUGIE et n'a pas bougé ; les couleurs écrites
+   en dur y sont passées par des jetons dont la valeur, à la bougie, est
+   celle d'avant. Ici, seulement le jour et l'édition.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* Les tirages ne sont plus « dans la nuit ». Le fac-similé du héros (cadre de
+   no-motion) et celui du panneau gardent leur papier, à pleine lumière ; les
+   photos du catalogue prennent le traitement d'archive du mode. */
+html[data-mode="jour"] .hs-img-ms img{filter:sepia(.16) contrast(1.04);}
+html[data-mode="edition"] .hs-img-ms img{filter:grayscale(.55) sepia(.24) contrast(1.08);}
+html:is([data-mode="jour"],[data-mode="edition"]) .hs-img-ms::after{background:none;}
+html:is([data-mode="jour"],[data-mode="edition"]) .hs-img-caption{
+  color:#fbf9f4;background:linear-gradient(to top,rgba(var(--ombre-rgb),.72),transparent);}
+html:is([data-mode="jour"],[data-mode="edition"]) .hs-w-img img{filter:var(--photo-filtre);}
+html:is([data-mode="jour"],[data-mode="edition"]) .hs-w-img::after{
+  background:linear-gradient(to top,rgba(var(--ombre-rgb),.22),transparent 50%);}
+html:is([data-mode="jour"],[data-mode="edition"]) .hs-ms-fig img{filter:var(--photo-filtre);}
+html[data-mode="jour"] .hs-ms-fig img{filter:sepia(.12) contrast(1.03);}
+
+/* Le curseur du circuit : à la bougie c'est une braise (cœur blanc, lueur).
+   Au jour un cœur blanc disparaît sur le crème : la valeur qui circule est
+   une pastille d'ocre, puis de rouge après P. Dans l'édition, un point
+   d'imprimerie, sans traînée lumineuse. */
+html:is([data-mode="jour"],[data-mode="edition"]) .circuit-spark{
+  background:radial-gradient(circle,var(--gold) 0 46%,rgba(var(--gold-rgb),0) 72%);}
+html:is([data-mode="jour"],[data-mode="edition"]) .circuit-spark.grown{
+  background:radial-gradient(circle,var(--accent) 0 46%,rgba(var(--red-rgb),0) 72%);}
+html[data-mode="edition"] .circuit-spark::before{display:none;}
+/* le chariot : à la bougie il est un décor à 62 % sur la nuit, qui s'y
+   fond ; sur du clair la même transparence en fait un fantôme délavé */
+html:is([data-mode="jour"],[data-mode="edition"]) #circuit-bg.on:not(.shifting):not(.driving){opacity:.9;}
+
+/* ── LA BOUGIE DE LA DERNIÈRE PAGE ──
+   Au JOUR elle est ÉTEINTE, et l'on voit sa fumée. Une flamme allumée en
+   plein jour ne dirait rien (on n'éclaire pas une pièce dont les volets
+   sont ouverts), et une flamme pâle serait une flamme ratée. Ce qui garde le
+   sens du geste, c'est la mèche qu'on vient de souffler : le défilement ne
+   l'allume plus, il fait MONTER LA FUMÉE (--lum pilote la fumée, plus la
+   flamme). On a lu à la bougie toute la nuit ; le jour est venu.
+   Dans l'ÉDITION elle n'est plus qu'une vignette d'imprimeur : la bougie
+   gravée, tirée au bistre, sans flamme ni fumée ni halo — un imprimé figure
+   la lumière, il n'en émet pas. */
+html:is([data-mode="jour"],[data-mode="edition"]) .cd-flame,
+html:is([data-mode="jour"],[data-mode="edition"]) .cd-glow,
+html:is([data-mode="jour"],[data-mode="edition"]) .hs-closer-halo{display:none;}
+html[data-mode="jour"] .cd-wick{height:9px;bottom:88px;
+  background:linear-gradient(to top,#2a2016 60%,#5a4a3a);}
+html[data-mode="jour"] .cd-smoke{bottom:95px;width:12px;height:118px;
+  background:linear-gradient(to top,rgba(var(--ink-rgb),.42),rgba(var(--ink-rgb),.16) 48%,transparent 92%);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 38%,#000 62%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 38%,#000 62%,transparent);
+  filter:blur(1.4px);opacity:calc(.22 + .78 * var(--lum,1));
+  transform:none;margin-left:-6px;transform-origin:50% 100%;}
+/* la fumée ondule (sans toucher à l'opacité, que le défilement occupe) */
+html[data-mode="jour"].js-candle .hs-closer.alight .cd-smoke{animation:lm-fumee 5.3s ease-in-out infinite;}
+@keyframes lm-fumee{
+  0%  {transform:skewX(0deg)  scaleY(1);}
+  33% {transform:skewX(-8deg) scaleY(1.08);}
+  66% {transform:skewX(6deg)  scaleY(.96);}
+  100%{transform:skewX(0deg)  scaleY(1);}}
+/* le laiton et la cire sont au jour : ils ne dépendent plus d'une flamme */
+html[data-mode="jour"].js-candle :is(.cd-pan,.cd-socket,.cd-wax){filter:none;}
+html[data-mode="edition"] .cd-smoke{display:none;}
+html[data-mode="edition"] .hs-closer-candle{filter:grayscale(1) sepia(.42) contrast(1.12) brightness(.86);}
+html[data-mode="edition"].js-candle :is(.cd-pan,.cd-socket,.cd-wax){filter:none;}
+/* le dernier feuillet : une matière de papier, pas une ombre dans la nuit */
+html[data-mode="jour"] .hs-closer-sheet{filter:sepia(.24) saturate(.9) contrast(1.04);opacity:.30;}
+html[data-mode="edition"] .hs-closer-sheet{filter:grayscale(.7) sepia(.22) contrast(1.1);opacity:.26;}
+html[data-mode="jour"].js-candle .hs-closer-sheet{opacity:calc(.08 + .24 * var(--lum,1));}
+html[data-mode="edition"].js-candle .hs-closer-sheet{opacity:calc(.08 + .2 * var(--lum,1));}
+@media(max-width:820px){
+  html:is([data-mode="jour"],[data-mode="edition"]) .hs-closer-sheet{opacity:.16;}
+}
+
+/* L'ÉDITION, mode de la longue lecture : plus de grain, plus de halo du
+   héros ni de lueur de bouton, plus d'ombre portée dorée. Le relief est fait
+   de filets, comme sur une page. */
+html[data-mode="edition"] .hs-halo,
+html[data-mode="edition"] .hs-gloss::before,
+html[data-mode="edition"] .hs-right::before{display:none;}
+html[data-mode="edition"] :is(.hs-btns .btn-filled,.hs-closer .btn-filled):hover{box-shadow:none;}
+html[data-mode="edition"] :is(.hs-w-card,.hs-gl-entry):hover{box-shadow:none;}
+
+/* Deux ombres du shell qui débordent dans le cadre alors que leur élément
+   est HORS champ : celle du lien d'évitement (posé au-dessus du haut de
+   page) et celle de la barre latérale repliée sur téléphone. Invisibles sur
+   la nuit, elles faisaient une tache sombre au coin d'une page claire.
+   Corrigées ici pour l'accueil, signalées à la coquille (shell.css). */
+.skip-link:not(:focus){box-shadow:none;}
+@media(max-width:860px){ body:not(.sb-open) .sidebar{box-shadow:none;} }
 </style>
 <link rel="preload" href="oeuvres/shell.css?v=13" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="oeuvres/shell.css?v=13"></noscript>
