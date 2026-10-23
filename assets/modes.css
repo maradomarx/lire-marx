@@ -38,6 +38,16 @@
      --emphase / --emphase-bord   la carte d'emphase (dégradé chaud + filet)
      --photo-filtre  le traitement des tirages d'archive
      --scene-fond  le fond d'une scène WebGL (et son brouillard)
+     --green-rgb   le vert des confirmations et des pastilles « texte »
+     --pastille-red / -gold / -blue / -green
+                   le texte posé sur une PASTILLE déjà teintée de sa couleur
+                   (catégories de la recherche, notifications, erreurs de
+                   Mon compte). À la bougie c'est la teinte ÉCLAIRCIE (#f0917f…,
+                   --red-text n'y fait que 4,33:1) ; sur papier clair c'est
+                   la teinte FONCÉE — l'inverse exact, d'où un jeton.
+     --creux       une surface en retrait d'une carte (la colonne de soutien
+                   du forum) : une ombre à la bougie, un lavis d'encre le jour
+                   — une ombre noire à 16 % sur du crème fait un gris sale.
    Tout nouveau jeton se déclare dans les TROIS modes, ici. */
 
 :root{
@@ -49,6 +59,9 @@
   --emphase-bord:rgba(216,173,76,.2);
   --photo-filtre:grayscale(1) contrast(1.06) sepia(.30) brightness(.66);
   --scene-fond:#15100b;
+  --green-rgb:127,168,85;
+  --pastille-red:#f0917f;--pastille-gold:#e5c176;--pastille-blue:#a8c9da;--pastille-green:#a9cd85;
+  --creux:rgba(0,0,0,.16);
   color-scheme:dark;
 }
 
@@ -73,6 +86,9 @@ html[data-mode="jour"]{
   --emphase-bord:rgba(124,90,27,.32);
   --photo-filtre:grayscale(1) contrast(1.02) sepia(.28) brightness(.97);
   --scene-fond:#f6efe0;
+  --green-rgb:70,111,38;
+  --pastille-red:#8e2415;--pastille-gold:#6e4f18;--pastille-blue:#2f5b74;--pastille-green:#3b6320;
+  --creux:rgba(34,25,15,.045);
 }
 
 html[data-mode="edition"]{
@@ -98,6 +114,9 @@ html[data-mode="edition"]{
   --emphase-bord:rgba(28,23,18,.28);
   --photo-filtre:grayscale(1) contrast(1.12) sepia(.14) brightness(.95);
   --scene-fond:#ebe1c9;
+  --green-rgb:63,95,38;
+  --pastille-red:#7a1f12;--pastille-gold:#5c441d;--pastille-blue:#2c4c60;--pastille-green:#3a5420;
+  --creux:rgba(28,23,18,.05);
 }
 
 /* Le mode de la longue lecture : chiffres elzéviriens, ligatures et crénage

@@ -397,7 +397,7 @@
     });
     pop.innerHTML = '<div class="anno-pop-q">« ' + esc(an.quote.slice(0, 140)) + (an.quote.length > 140 ? '…' : '') + ' »</div>'
       + '<div class="anno-pop-sw">' + sw + '</div>'
-      + '<textarea class="anno-pop-t" aria-label="Votre note privée sur ce passage" placeholder="Ta note…">' + esc(an.note || '') + '</textarea>'
+      + '<textarea class="anno-pop-t" aria-label="Votre note privée sur ce passage" placeholder="Votre note…">' + esc(an.note || '') + '</textarea>'
       + '<div class="anno-pop-act"><button class="btn red" data-act="save" type="button">Enregistrer</button><button class="lk" data-act="del" type="button">Supprimer</button></div>';
     var first = box ? box.querySelector('mark[data-anno="' + id + '"]') : null;
     pop.style.display = 'block';
@@ -490,7 +490,7 @@
       h += '<div class="np-warn">Sauvegarde locale indisponible ici (par ex. dans un aperçu) : les annotations ne seront pas conservées. Sur le site en ligne, elles le seront.</div>';
     }
     if(!items.length){
-      h += '<div class="np-empty">Aucune note sur cette section. Sélectionne un passage du texte pour commencer.</div>';
+      h += '<div class="np-empty">Aucune note sur cette section. Sélectionnez un passage du texte pour commencer.</div>';
     } else {
       h += '<ul class="np-list">';
       items.forEach(function(an){
@@ -583,7 +583,7 @@
     if(!isConfigured() || !sb){ toast('Le compte n\'est pas configuré.'); return false; }
     if(!user){ openAcctModal(); return false; }
     if(!(profile && profile.username)){
-      toast('Choisis d\'abord un pseudo (Mon compte).');
+      toast('Choisissez d\'abord un pseudo (Mon compte).');
       openAcctModal();
       return false;
     }
@@ -622,7 +622,7 @@
   async function addPublic(anchor, body){
     if(!ensurePoster()) return;
     body = (body || '').trim();
-    if(!body){ toast('Écris ta note.'); return; }
+    if(!body){ toast('Écrivez votre note.'); return; }
     var row = {
       id: uid(), author_id: user.id,
       work: curWork, section: curSection,
@@ -732,7 +732,7 @@
       document.body.appendChild(pubPop);
     }
     pubPop.innerHTML = '<div class="pub-q">« ' + esc(anchor.quote.slice(0, 160)) + (anchor.quote.length > 160 ? '…' : '') + ' »</div>'
-      + '<textarea class="pub-ta" aria-label="Votre note publique sur ce passage" placeholder="Ta note publique sur ce passage…"></textarea>'
+      + '<textarea class="pub-ta" aria-label="Votre note publique sur ce passage" placeholder="Votre note publique sur ce passage…"></textarea>'
       + '<div class="pub-compose-act"><button class="lk" data-act="cancel" type="button">Annuler</button><button class="btn red" data-act="publish" type="button">Publier</button></div>';
     var top = window.scrollY + 120, left = window.scrollX + 20;
     if(rect){ top = window.scrollY + rect.bottom + 8; left = Math.max(8, window.scrollX + rect.left); }
@@ -750,8 +750,8 @@
 
   function pubStatusHtml(){
     if(!isConfigured()) return '<div class="np-acct"><span class="dot"></span>Notes partagées indisponibles (compte non configuré).</div>';
-    if(!user) return '<div class="np-acct"><span class="dot"></span>Connecte-toi pour participer.<span style="margin-left:auto"></span><button class="lk" data-pa="login" type="button">Se connecter</button></div>';
-    if(!(profile && profile.username)) return '<div class="np-acct"><span class="dot"></span>Choisis un pseudo pour publier.<span style="margin-left:auto"></span><button class="lk" data-pa="login" type="button">Mon compte</button></div>';
+    if(!user) return '<div class="np-acct"><span class="dot"></span>Connectez-vous pour participer.<span style="margin-left:auto"></span><button class="lk" data-pa="login" type="button">Se connecter</button></div>';
+    if(!(profile && profile.username)) return '<div class="np-acct"><span class="dot"></span>Choisissez un pseudo pour publier.<span style="margin-left:auto"></span><button class="lk" data-pa="login" type="button">Mon compte</button></div>';
     return '<div class="np-acct on"><span class="dot"></span>Tu participes en tant que <b>' + esc(profile.username) + '</b>.</div>';
   }
 
@@ -798,7 +798,7 @@
       h += '</div>';
     }
     if(replyOpen === n.id){
-      h += '<div class="pub-replybox"><textarea class="pub-rta" aria-label="Votre réponse" placeholder="Ta réponse…"></textarea><div class="pub-compose-act"><button class="lk" data-replycancel="1" type="button">Annuler</button><button class="btn red" data-sendreply="' + n.id + '" type="button">Répondre</button></div></div>';
+      h += '<div class="pub-replybox"><textarea class="pub-rta" aria-label="Votre réponse" placeholder="Votre réponse…"></textarea><div class="pub-compose-act"><button class="lk" data-replycancel="1" type="button">Annuler</button><button class="btn red" data-sendreply="' + n.id + '" type="button">Répondre</button></div></div>';
     }
     h += '</div>';
     return h;
@@ -846,7 +846,7 @@
       + '<span class="np-tools"><button class="lk" id="pubClose" type="button">Fermer</button></span></div>'
       + pubStatusHtml();
     if(ensurePosterSilent()){
-      h += '<div class="pub-hint">Sélectionne un passage du texte, puis « Partager » pour ouvrir une note publique.</div>';
+      h += '<div class="pub-hint">Sélectionnez un passage du texte, puis « Partager » pour ouvrir une note publique.</div>';
     }
     if(!pubNotes.length){
       h += '<div class="pub-empty">Aucune note partagée sur cette section pour l’instant.</div>';
