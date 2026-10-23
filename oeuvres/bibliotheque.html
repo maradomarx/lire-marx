@@ -166,15 +166,14 @@ html[data-mode="edition"] #bib3d{filter:grayscale(1) sepia(.45) contrast(1.1);}
    remis en page à chaque image. */
 
 /* (mission `affichage`) CE TEXTE EST POSÉ SUR UNE IMAGE : la texture de papier
-   que le canvas dessine sous lui. On le déclare pour ce qu'il est — un pixel
-   transparent en image de fond — et la sonde le range parmi les textes sur
-   image au lieu de le comparer au fond de la PAGE (brun-nuit ou crème), qui
-   n'est jamais sous lui : elle déclarait 1,01:1 à la bougie dès que la feuille
-   était posée au moment de mesurer. Contraste RÉEL de chaque encre, calculé
-   contre les trois arrêts du papier (#ecdfc2, #e4d5b4, #d9c8a4) : rubrique
-   4,76 · chapô et légende 6,34 · comptes 5,33 · lien 5,17 · titre 9,35 ·
+   que le canvas dessine sous lui. Comparé au fond de la PAGE (brun-nuit ou
+   crème), qui n'est jamais sous lui, la sonde déclarait 1,01:1 à la bougie dès
+   que la feuille était posée. Les deux blocs portent donc `data-sonde-fond`
+   (les arrêts du papier), que tools/sonde.js lit pour mesurer contre le papier
+   réel. Contraste de chaque encre, contre les trois arrêts (#ecdfc2, #e4d5b4,
+   #d9c8a4) : rubrique 4,76 · chapô et légende 6,34 · comptes 5,33 · lien 5,17 · titre 9,35 ·
    « commencer » 3,76 (grand texte). */
-.bx3-intro,.bx3-end{background-image:url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7");}
+/* (la sonde lit data-sonde-fond, posé sur les deux blocs : le papier réel de la feuille) */
 
 /* La rubrique entre deux filets — l'en-tête d'une page de titre. */
 .bx3-intro .bx3-label,.bx3-end .bx3-label{font-family:'Spectral',Georgia,serif;
@@ -523,7 +522,7 @@ its provenance.
      display:none, donc ce bloc porte le SEUL texte de la page — le
      masquer laissait un lecteur d'écran devant une page vide. -->
 <div class="bx3-ui">
-  <div class="bx3-intro" id="bxIntro">
+  <div class="bx3-intro" id="bxIntro" data-sonde-fond="#ecdfc2,#e4d5b4,#d9c8a4">
     <div class="bx3-label">La bibliothèque</div>
     <h1 class="bx3-h1">Par où <em>commencer</em></h1>
     <div class="bx3-orn" aria-hidden="true">
@@ -554,7 +553,7 @@ its provenance.
   <nav class="bx3-rail" id="bxRail" aria-label="Rayons de la bibliothèque" style="opacity:0"></nav>
   <!-- étiquette de survol : redit ce que le cartel donne déjà -->
   <div class="bx3-tag" id="bxTag" aria-hidden="true"></div>
-  <div class="bx3-end" id="bxEnd" style="opacity:0">
+  <div class="bx3-end" id="bxEnd" style="opacity:0" data-sonde-fond="#ecdfc2,#e4d5b4,#d9c8a4">
     <div class="bx3-label">Au verso</div>
     <h2 class="bx3-h1">La dernière <em>travée</em></h2>
     <div class="bx3-orn" aria-hidden="true">

@@ -53,6 +53,13 @@ window.LM_SONDE = async function (opts) {
   function fondsDe(el) {
     let e = el; const pile = [];
     while (e && e !== document.documentElement && e !== document.body) {
+      /* un bloc posé sur une scène (WebGL, canvas) DÉCLARE le papier réel qui
+         est sous lui : data-sonde-fond="#ecdfc2,#e4d5b4" — on mesure contre
+         ces couleurs, la pire retenue (la feuille volante de la bibliothèque) */
+      if (e.dataset && e.dataset.sondeFond) {
+        const d = e.dataset.sondeFond.split(',').map(h => { h = h.trim().replace('#', ''); const n = parseInt(h.length === 3 ? h.replace(/./g, '$&$&') : h, 16); return [n >> 16, n >> 8 & 255, n & 255]; });
+        return pile.reduceRight((b, p) => p.grad ? b : b.map(x => p.a >= 1 ? p.c : blend(p, x)), d);
+      }
       const cs = getComputedStyle(e);
       const img = cs.backgroundImage;
       if (img && img !== 'none') {
