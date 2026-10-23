@@ -74,24 +74,32 @@ d.classList.add('no-anim');d.classList.add('no-motion');}})();</script>
    ═══════════════════════════════════════════════════════════════════ */
 :root{
   --bg:#15100b;--surface:#1e1710;--text:#f3e9d4;
-  --muted:#b7a888;--accent:#d5402f;--border:rgba(243,233,212,.13);
+  --muted:#b7a888;--accent:#d5402f;--border:rgba(var(--ink-rgb),.13);
 
   /* shell.css → palette sombre. --red-deep vaut le rouge FAIBLE sur
      brun-nuit (2,9:1) : repointé sur le rouge clair, comme sur l'accueil. */
   --paper:#15100b;--paper-2:#1e1710;--card:#221a12;
   --ink:#f3e9d4;--ink-soft:#c7b599;
   --red:#d5402f;--red-deep:#e5644f;--red-text:#e5644f;--bright:#e5644f;
-  --line-strong:rgba(243,233,212,.34);--hover:rgba(243,233,212,.05);
+  --line-strong:rgba(var(--ink-rgb),.34);--hover:rgba(var(--ink-rgb),.05);
   --gold:#d8ad4c;--gold-deep:#bd8f38;--blue:#5c8aa3;--const:#9a8b72;
-  --line:rgba(243,233,212,.13);--line-soft:rgba(243,233,212,.07);--ok:#7fa855;
+  --line:rgba(var(--ink-rgb),.13);--line-soft:rgba(var(--ink-rgb),.07);--ok:#7fa855;
   --f-ui:'Inter',system-ui,sans-serif;--f-serif:'Spectral',Georgia,serif;--f-hand:'Caveat',cursive;
-  --candle:rgba(216,173,76,.18);
+  --candle:rgba(var(--gold-rgb),.18);
 
   /* La surface d'emphase du socle : celle sur laquelle tombe la bougie. Sur
      brun-nuit, une emphase ne s'obtient JAMAIS en inversant vers le clair —
      ça donne un pavé crème en pleine page. */
   --emphase:linear-gradient(150deg,#2c2117,#211a12,#1b150e);
+
+  /* Mission `affichage` : le bouton des lueurs dorées, 1 à la bougie (la
+     valeur d'avant), atténué au jour, nul dans l'édition — un imprimé n'a
+     pas de lumière propre. Les autres jetons du jour et de l'édition
+     viennent de assets/modes.css. */
+  --lueur:1;
 }
+html[data-mode="jour"]{--lueur:.32;}
+html[data-mode="edition"]{--lueur:0;}
 *{box-sizing:border-box;margin:0;padding:0;}
 html{background:var(--bg);}
 body{background:var(--bg);color:var(--text);
@@ -133,11 +141,11 @@ body{background:var(--bg);color:var(--text);
    querySelectorAll. */
 .j-halo{position:absolute;top:50%;left:30%;transform:translate(-50%,-50%);
   width:660px;height:400px;pointer-events:none;z-index:0;
-  background:radial-gradient(ellipse at center,rgba(213,64,47,.10) 0%,transparent 68%);}
+  background:radial-gradient(ellipse at center,rgba(var(--red-rgb),.10) 0%,transparent 68%);}
 .j-left{position:relative;z-index:1;display:flex;flex-direction:column;gap:22px;}
 .j-badge{display:inline-flex;align-items:center;gap:7px;width:fit-content;
   font-size:12px;font-weight:500;color:var(--muted);
-  background:rgba(243,233,212,.04);border:1px solid var(--border);
+  background:rgba(var(--ink-rgb),.04);border:1px solid var(--border);
   border-radius:999px;padding:5px 14px;letter-spacing:.02em;}
 .j-badge i{width:5px;height:5px;border-radius:50%;background:var(--ok);
   flex:none;font-style:normal;}
@@ -151,17 +159,20 @@ body{background:var(--bg);color:var(--text);
   border-radius:999px;font-size:14px;font-weight:600;text-decoration:none;
   border:1px solid transparent;cursor:pointer;font-family:inherit;
   transition:opacity .18s,border-color .18s,background .18s,transform .18s;}
-.j-btn-plein{background:var(--accent);color:#fff;}
+.j-btn-plein{background:var(--accent);color:var(--sur-red);}
 .j-btn-plein:hover{opacity:.86;transform:translateY(-1px);}
-.j-btn-trait{border-color:rgba(243,233,212,.28);color:var(--text);font-weight:500;}
-.j-btn-trait:hover{border-color:var(--gold);background:rgba(243,233,212,.05);}
+.j-btn-trait{border-color:rgba(var(--ink-rgb),.28);color:var(--text);font-weight:500;}
+.j-btn-trait:hover{border-color:var(--gold);background:rgba(var(--ink-rgb),.05);}
 .j-btn svg{flex:none;}
 
 /* la vue du monde, à droite — le motif .hs-portrait */
 .j-right{position:relative;z-index:1;display:flex;justify-content:center;}
 .j-vue{position:relative;width:100%;max-width:540px;border-radius:18px;
+  /* Le cadre et la capture gardent LEUR NUIT dans les trois modes, comme
+     une photographie : c'est une planche, la vue du jeu tel qu'il se joue
+     (le jeu a sa propre direction artistique), pas un fond de page. */
   overflow:hidden;background:#0d0a07;margin:0;
-  box-shadow:0 30px 70px -34px rgba(0,0,0,.85);}
+  box-shadow:0 30px 70px -34px rgba(var(--ombre-rgb),.85);}
 .j-vue img{display:block;width:100%;height:auto;
   /* Le tirage est une capture du jeu, pas une photographie d'archive : pas
      de duotone. Juste assombri d'un souffle pour qu'il tienne dans la nuit
@@ -230,8 +241,8 @@ html.js-jeu .j-stations::after{content:"";position:absolute;left:0;top:10px;widt
 html.js-jeu .j-stations::before{bottom:10px;background:var(--border);}
 /* la tête du tracé est la partie claire du dégradé : c'est elle qui éclaire */
 html.js-jeu .j-stations::after{height:calc(var(--draw) * (100% - 20px));
-  background:linear-gradient(180deg,rgba(216,173,76,.12),var(--gold));
-  box-shadow:0 0 9px rgba(216,173,76,.34);}
+  background:linear-gradient(180deg,rgba(var(--gold-rgb),.12),var(--gold));
+  box-shadow:0 0 9px rgba(var(--gold-rgb),calc(.34*var(--lueur)));}
 html.js-jeu .j-station{--lit:1;--pass:0;}
 /* AUCUNE OPACITÉ sur le texte : une station éteinte reste en --muted, soit
    7,5:1 sur le fond. L'extinction se dit par la COULEUR et la pastille —
@@ -248,7 +259,7 @@ html.js-jeu .j-station::after{background:var(--gold);opacity:var(--lit);
    passent. Seule la lueur de passage joue en transparence, et c'est une
    ombre, pas du texte. */
 html.js-jeu .j-station-l{color:var(--muted);
-  text-shadow:0 0 18px rgba(216,173,76,calc(var(--pass)*.55));}
+  text-shadow:0 0 18px rgba(var(--gold-rgb),calc(var(--pass)*.55*var(--lueur)));}
 @supports (color:color-mix(in srgb,red,blue)){
   html.js-jeu .j-station-l{
     color:color-mix(in srgb,var(--gold) calc(var(--lit)*100%),var(--muted));}
@@ -269,7 +280,7 @@ html.js-jeu .j-station-l{color:var(--muted);
 /* La colonne du voile levé est la surface d'emphase du socle : le halo
    monte du BAS, une bougie n'éclaire pas du plafond. */
 .j-colonne--sous{background:var(--emphase);
-  box-shadow:inset 0 0 0 1px rgba(216,173,76,.20);}
+  box-shadow:inset 0 0 0 1px rgba(var(--gold-rgb),.20);}
 .j-colonne--sous::after{content:'';position:absolute;inset:0;pointer-events:none;
   background:radial-gradient(ellipse at 50% 118%,var(--candle) 0%,transparent 62%);}
 .j-colonne>*{position:relative;z-index:1;}
@@ -293,7 +304,7 @@ html.js-jeu .j-voile-rideau{display:block;position:absolute;inset:0;z-index:3;
 html.js-jeu .j-voile-rideau::after{content:"";position:absolute;
   left:0;right:0;bottom:0;height:2px;opacity:var(--bar);
   background:linear-gradient(90deg,transparent,var(--gold) 22%,var(--gold) 78%,transparent);
-  box-shadow:0 0 14px rgba(216,173,76,.5);}
+  box-shadow:0 0 14px rgba(var(--gold-rgb),calc(.5*var(--lueur)));}
 
 .j-voile-note{margin-top:24px;font-size:.94rem;line-height:1.72;
   color:var(--muted);max-width:60ch;}
@@ -302,7 +313,7 @@ html.js-jeu .j-voile-rideau::after{content:"";position:absolute;
   min-width:24px;height:24px;padding:0 7px;margin:0 2px;
   border:1px solid var(--line-strong);border-radius:5px;
   font-family:var(--f-ui);font-size:.74rem;font-weight:600;color:var(--text);
-  background:rgba(243,233,212,.06);vertical-align:baseline;}
+  background:rgba(var(--ink-rgb),.06);vertical-align:baseline;}
 
 /* ══ 4. CE QUE ÇA DEVIENT — les feuillets se posent ═════════════════ */
 .j-cartes{display:grid;grid-template-columns:repeat(3,1fr);
@@ -312,7 +323,7 @@ html.js-jeu .j-voile-rideau::after{content:"";position:absolute;
   padding:26px 24px 28px;
   transform:translateY(var(--drop)) rotate(var(--tilt));
   transition:border-color .22s,box-shadow .22s;}
-.j-carte:hover{border-color:var(--gold);box-shadow:0 22px 48px -20px rgba(0,0,0,.7);}
+.j-carte:hover{border-color:var(--gold);box-shadow:0 22px 48px -20px rgba(var(--ombre-rgb),.7);}
 /* le numéro prend l'encre une fois le feuillet posé — le traitement des
    années de la frise, encore */
 /* Même règle que la lettre de station : l'encre vient par la COULEUR et non
@@ -355,7 +366,7 @@ html.js-jeu .j-voile-rideau::after{content:"";position:absolute;
   font-size:clamp(1.7rem,3.4vw,2.5rem);letter-spacing:-.03em;line-height:1.1;
   margin-bottom:24px;max-width:20ch;}
 .j-fin-line em{font-style:italic;font-weight:500;color:var(--gold);}
-.j-fin .j-btn-plein{box-shadow:0 14px 34px -16px rgba(216,173,76,calc(var(--lum)*.7));}
+.j-fin .j-btn-plein{box-shadow:0 14px 34px -16px rgba(var(--gold-rgb),calc(var(--lum)*.7*var(--lueur)));}
 
 /* ══ le titre prend l'encre, mot à mot (scrubReveal) ════════════════ */
 html.js-jeu .j-h .rw,
@@ -399,6 +410,10 @@ html.no-motion .j-hero .j-hint{
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;}
 }
+/* ══ L'ÉDITION DE 1872 : plus de halo, plus de lueur de bougie ═══════ */
+html[data-mode="edition"] .j-halo,
+html[data-mode="edition"] .j-fin::before,
+html[data-mode="edition"] .j-colonne--sous::after{display:none;}
 </style>
 <link rel="preload" href="/oeuvres/shell.css?v=13" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=13"></noscript>
