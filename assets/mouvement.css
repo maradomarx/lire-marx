@@ -1,1 +1,204 @@
-/* Lire Marx — LES GESTES (mission `affichage`, volet « gestes »). Ébauche. */
+/* ============================================================
+   LIRE MARX — LES GESTES (mission `affichage`, volet « gestes », oct. 2026).
+
+   Chargée par le bloc AFFICHAGE en fin de <head>, donc APRÈS les feuilles de
+   page : ce sont des surcharges. Elle ne touche à AUCUNE valeur de jeton
+   (assets/modes.css les tient) : elle LIT les jetons, dans les trois modes.
+
+   Le geste dit la DA, il ne la décore pas. Les gestes de la maison existent
+   déjà là où ils ont un sens (les révélations de l'accueil, atelier-motion.js,
+   la tranche et le mot-guide de l'abécédaire, le sommaire collant des pages de
+   notion, les cartes .hs-w-card) : rien ici ne les double. On ajoute ce qui
+   manquait partout — le passage d'une page à l'autre, la bascule de mode, la
+   palette, un survol qui répond, et trois conforts de lecture.
+
+   Durées courtes (120–320 ms), la courbe de la maison cubic-bezier(.16,1,.3,1).
+   RIEN ne bouge sous prefers-reduced-motion : l'état fini, tout de suite.
+   ============================================================ */
+
+/* le trait qui se TIRE sous un lien : l'or à la bougie, l'encre au jour, le
+   rouge de rubrique dans l'édition de 1872 (un imprimé n'a pas d'or) */
+:root{--lm-trait:var(--gold);--lm-ombre:rgba(var(--ombre-rgb,0,0,0),.55);--lm-ombre-p:rgba(var(--ombre-rgb,0,0,0),.28);--lm-ease:cubic-bezier(.16,1,.3,1);}
+html[data-mode="jour"]{--lm-trait:var(--ink);--lm-ombre:rgba(var(--ombre-rgb),.22);--lm-ombre-p:rgba(var(--ombre-rgb),.10);}
+html[data-mode="edition"]{--lm-trait:var(--red-text);--lm-ombre:rgba(var(--ombre-rgb),.18);--lm-ombre-p:rgba(var(--ombre-rgb),.08);}
+
+/* ---------- 1. LES TRANSITIONS ENTRE PAGES ----------
+   La barre du haut et la barre latérale ne bougent pas : elles ont un nom,
+   donc leur propre groupe, identique d'une page à l'autre. Le reste se fond
+   (160 ms pour partir, 280 ms pour arriver, la nouvelle page montant de
+   quatre pixels). Le nom n'est posé QUE pendant un passage (html.vt-nav,
+   mouvement.js) : en permanence il ferait de la barre une racine
+   d'arrière-plan et éteindrait le verre dépoli de la pilule de l'accueil. */
+@media (prefers-reduced-motion: no-preference){
+  @view-transition{navigation:auto}
+  html.vt-nav:not(.vt-mode) .topbar{view-transition-name:lm-tb}
+  html.vt-nav:not(.vt-mode) .sidebar{view-transition-name:lm-sb}
+  ::view-transition-old(root){animation:lm-vt-sort .16s cubic-bezier(.4,0,1,1) both}
+  ::view-transition-new(root){animation:lm-vt-entre .28s cubic-bezier(.16,1,.3,1) both}
+  ::view-transition-group(lm-tb),::view-transition-group(lm-sb){animation-duration:.2s}
+}
+@keyframes lm-vt-sort{to{opacity:0}}
+@keyframes lm-vt-entre{from{opacity:0;transform:translateY(4px)}}
+
+/* ---------- 2. LA BASCULE DE MODE ----------
+   Une transition de MÊME document : la page entière est une seule image
+   (aucune barre ne garde son nom), et mouvement.js anime le clip-path de
+   l'une des deux images depuis le bouton — la nouvelle qui s'ouvre (le jour
+   qui entre), ou l'ancienne qui se resserre (vers la bougie : la lumière se
+   retire dans la flamme ; html.vt-ombre met alors l'ancienne au-dessus). */
+html.vt-mode::view-transition-old(root),html.vt-mode::view-transition-new(root){animation:none;mix-blend-mode:normal}
+html.vt-mode::view-transition-old(root){z-index:1}
+html.vt-mode::view-transition-new(root){z-index:2}
+html.vt-mode.vt-ombre::view-transition-old(root){z-index:3}
+
+/* ---------- 3. ⌘K — LA RECHERCHE EN PALETTE ----------
+   C'est le champ de la barre (#tbSearchWrap), présenté au centre, plus
+   large, sur un voile : mêmes résultats, même clavier. Le voile est le
+   pseudo-élément du conteneur, si bien qu'il recouvre aussi le reste de la
+   barre du haut. Les verres dépolis de la barre de l'accueil sont coupés le
+   temps de la palette : un backdrop-filter fait de l'élément le bloc
+   conteneur d'un enfant en position fixe, la palette se serait calée sur la
+   pilule. Aucune transform sur le conteneur, pour la même raison. */
+html.lm-palette header.topbar{z-index:300}
+html.lm-palette header.topbar,html.lm-palette header.topbar .topbar-in{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+html.lm-palette #tbSearchWrap{
+  display:flex;position:fixed;z-index:2;top:max(12px,12vh);
+  left:max(12px,calc(50vw - 320px));width:min(640px,calc(100vw - 24px));max-width:none;
+  margin:0;padding:10px;gap:8px;inset-inline-end:auto;bottom:auto;height:auto;
+  background:none;border:0;border-radius:16px;}
+/* deux calques sous le contenu : le voile (::before), puis la carte
+   (::after). Un fond posé sur le conteneur lui-même passerait SOUS le voile,
+   puisqu'un enfant à z-index négatif se peint au-dessus du fond de son
+   contexte d'empilement : la carte en sortait grisée. */
+html.lm-palette #tbSearchWrap::before{content:"";position:fixed;inset:0;z-index:-2;
+  background:rgba(var(--voile-rgb,10,7,4),.5);cursor:default}
+html.lm-palette #tbSearchWrap::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:var(--card);border:1px solid var(--line-strong);border-radius:16px;
+  box-shadow:0 1px 0 var(--lm-ombre-p),0 28px 60px -20px var(--lm-ombre)}
+html.lm-palette #tbSearchWrap .tb-search-ic{display:block;left:22px;font-size:1.1rem}
+html.lm-palette #tbSearch{height:44px;font-size:1rem;padding:0 12px 0 38px;border-radius:11px}
+html.lm-palette #tbSearchWrap .tb-search-close{display:inline-flex;align-items:center;justify-content:center;
+  flex:0 0 auto;width:40px;height:44px;border:0;border-radius:10px;background:transparent;color:var(--ink);
+  font-size:1rem;cursor:pointer}
+html.lm-palette #tbSearchWrap .tb-search-close:hover{background:var(--hover)}
+html.lm-palette #tbResults{top:calc(100% + 8px);left:0;right:0;max-height:min(62vh,calc(88vh - 90px));
+  border-color:var(--line-strong);border-radius:14px;box-shadow:0 28px 60px -24px var(--lm-ombre)}
+@media (max-width:520px){
+  html.lm-palette #tbSearchWrap{top:8px;padding:8px}
+  html.lm-palette #tbSearchWrap .tb-search-ic{display:none}
+  html.lm-palette #tbSearch{padding-left:12px}
+}
+@media (prefers-reduced-motion: no-preference){
+  html.lm-palette #tbSearchWrap{animation:lm-souffle .2s var(--lm-ease) both}
+  html.lm-palette #tbSearchWrap::before{animation:lm-voile .2s ease both}
+}
+/* le souffle n'anime NI translate NI scale : une animation de transform sur
+   le conteneur en ferait le bloc conteneur de son voile (position fixe), qui
+   se réduirait à la taille de la palette */
+@keyframes lm-souffle{from{opacity:0;margin-top:-6px}}
+@keyframes lm-voile{from{opacity:0}}
+
+/* ---------- 4. LES MICRO-GESTES ----------
+   Seuls transform, translate, opacity et des fonds bougent : rien ne décale
+   la page. Le survol n'existe que là où il y a un survol (hover:hover) : au
+   doigt, rien ne reste accroché. */
+@media (prefers-reduced-motion: no-preference){
+  /* LE LIEN DE PROSE : son soulignement pâle reste au repos (un lien se
+     reconnaît sans la couleur) ; au survol le filet de la page s'efface sous
+     un filet pâle de la couleur du lien, et un trait plein s'y TIRE de gauche
+     à droite, comme on souligne à la plume. Les deux fonds sont calés sur la
+     boîte de bordure : ils passent exactement à la place du filet, et un lien
+     qui passe à la ligne garde un trait continu. */
+  :is(.nt-corps .nt-sec p,.ap-corps,.ml-corps,.km-lede,.km-p,.tb-copy p,.hs-faq-a,.ag-points,.ag-fiche,.cm-rappel) a:not([class]),
+  .nt-corps .nt-sec p a.nt-q{
+    background-repeat:no-repeat;background-position:0 100%,0 100%;background-size:0 1px,100% 0;
+    background-origin:border-box;background-clip:border-box;
+    transition:background-size .32s var(--lm-ease),color .2s,border-color .2s,text-decoration-color .2s}
+
+  /* LA FLÈCHE D'UN RENVOI AVANCE (mouvement.js la sort du texte dans
+     .lm-fl) ; celle d'un retour recule */
+  .lm-fl{display:inline-block;transition:translate .24s var(--lm-ease)}
+
+  /* LE BOUTON S'ENFONCE d'un pixel au clic — `translate`, qui se compose
+     avec le transform d'un survol au lieu de le remplacer */
+  :is(.btn,.ac-btn,.nt-btn,.nt-fig-go,.nt-fig-lire,.tb-btn,.acct-chip,.lm-haut,.msg-send){transition-property:translate,background,background-color,border-color,color,box-shadow,opacity,transform;transition-duration:.18s;transition-timing-function:var(--lm-ease)}
+  :is(.btn,.ac-btn,.nt-btn,.nt-fig-go,.nt-fig-lire,.tb-btn,.acct-chip,.lm-haut,.msg-send):active{translate:0 1px;transition-duration:.05s}
+
+  /* UNE CARTE SE DÉCOLLE d'un pixel — l'ombre se creuse, longue et basse.
+     Seulement des cartes qui n'avaient AUCUN transform au survol (celles du
+     catalogue de l'accueil, .hs-w-card, ont le leur, et .res-card / .rss-card
+     aussi) : on leur donne `translate`, jamais `transform`. */
+  :is(a.ccard,.ag-com a,.fm-card:not(.fm-card-soon),.nt-puces a){transition:translate .26s var(--lm-ease),box-shadow .26s var(--lm-ease),border-color .2s,background .2s,color .2s}
+}
+@media (hover:hover) and (prefers-reduced-motion: no-preference){
+  :is(.nt-corps .nt-sec p,.ap-corps,.ml-corps,.km-lede,.km-p,.tb-copy p,.hs-faq-a,.ag-points,.ag-fiche,.cm-rappel) a:not([class]):hover,
+  .nt-corps .nt-sec p a.nt-q:hover{background-size:100% 1px,100% 1px;border-bottom-color:transparent;text-decoration-color:transparent;
+    /* les deux fonds n'existent qu'au survol : au repos le lien n'a que son
+       filet, et aucun outil ne prend le trait pour un fond sous le texte */
+    background-image:linear-gradient(var(--lm-trait),var(--lm-trait)),linear-gradient(color-mix(in srgb,currentColor 38%,transparent),color-mix(in srgb,currentColor 38%,transparent))}
+  a.lm-fl-a:hover .lm-fl,button.lm-fl-a:hover .lm-fl{translate:3px 0}
+  a.lm-fl-a:hover .lm-fl-r,button.lm-fl-a:hover .lm-fl-r{translate:-3px 0}
+  :is(a.ccard,.fm-card:not(.fm-card-soon),.nt-puces a):hover{translate:0 -1px;box-shadow:0 1px 0 var(--lm-ombre-p),0 12px 24px -14px var(--lm-ombre)}
+  .ag-com a:hover{translate:0 -1px}
+}
+
+/* ---------- 5. LE CONFORT DE LECTURE ---------- */
+/* Le trait de la part lue, sous la barre du haut, à droite de la barre
+   latérale, sur les pages longues de lecture seulement (mouvement.js). Ce
+   n'est pas un mouvement : il reste sous mouvement réduit. */
+.lm-prog{position:fixed;top:44px;left:208px;right:0;height:2px;z-index:139;pointer-events:none}
+.lm-prog[hidden]{display:none}
+.lm-prog i{display:block;height:100%;background:var(--lm-trait);transform:scaleX(0);transform-origin:0 50%;will-change:transform}
+html[data-mode="bougie"] .lm-prog i,html:not([data-mode]) .lm-prog i{box-shadow:0 0 6px rgba(var(--gold-rgb),.45)}
+body.sb-collapsed .lm-prog{left:0}
+@media (max-width:860px){.lm-prog{left:0}}
+body.at-plein .lm-prog{display:none}
+@media print{.lm-prog,.lm-haut,.lm-ancre,.lm-toast{display:none!important}}
+
+/* le retour en haut : il paraît après deux écrans, discret, 44 px */
+.lm-haut{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:110;
+  width:44px;height:44px;padding:0;display:inline-flex;align-items:center;justify-content:center;
+  border-radius:50%;border:1px solid var(--line-strong);background:var(--card);color:var(--ink);cursor:pointer;
+  box-shadow:0 10px 22px -14px var(--lm-ombre);visibility:hidden;opacity:0}
+.lm-haut svg{width:16px;height:18px;fill:none;stroke:var(--lm-trait);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.lm-haut:hover{border-color:var(--lm-trait)}
+.lm-haut:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.lm-haut.on{visibility:visible;opacity:1}
+@media (prefers-reduced-motion: no-preference){
+  .lm-haut{translate:0 8px;transition:opacity .2s,translate .26s var(--lm-ease),visibility 0s .26s,border-color .2s}
+  .lm-haut.on{translate:0 0;transition:opacity .2s,translate .26s var(--lm-ease),visibility 0s 0s,border-color .2s}
+  .lm-haut svg{transition:translate .2s var(--lm-ease)}
+}
+@media (hover:hover) and (prefers-reduced-motion: no-preference){.lm-haut:hover svg{translate:0 -2px}}
+body.at-plein .lm-haut{display:none}
+
+/* l'ancre « # » d'un titre de section : elle paraît au survol du titre ou au
+   focus, et copie l'adresse de la section. 28 px de cible. `flex:none` : les
+   titres de section des pages de notion sont en flex (numéro + titre), et
+   l'ancre y rétrécissait. */
+.lm-ancre{display:inline-flex;flex:none;align-items:center;justify-content:center;
+  width:28px;height:28px;margin-left:.2em;vertical-align:middle;border-radius:7px;
+  font-family:var(--f-ui,'Inter',system-ui,sans-serif);font-size:1rem;font-weight:600;font-style:normal;
+  letter-spacing:0;text-transform:none;line-height:1;color:var(--lm-trait);text-decoration:none;
+  opacity:0;align-self:center}
+h2:hover>.lm-ancre,.lm-ancre:focus-visible,.lm-ancre.lm-copie{opacity:1}
+.lm-ancre:hover{background:var(--hover)}
+.lm-ancre:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+@media (hover:none){.lm-ancre{opacity:1;color:var(--muted)}}
+@media (prefers-reduced-motion: no-preference){.lm-ancre{transition:opacity .15s,background .15s}}
+.lm-ancre.lm-copie{color:transparent;position:relative}
+.lm-ancre.lm-copie::after{content:"";position:absolute;inset:6px;background:var(--lm-trait);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.6l3.2 3.2L13 4.6' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+          mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.6l3.2 3.2L13 4.6' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
+
+/* ce qui a été copié se dit aussi à l'œil (SHELL.announce le dit à l'oreille) */
+.lm-toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));z-index:310;
+  translate:-50% 12px;max-width:calc(100vw - 32px);padding:10px 16px;border-radius:12px;
+  background:var(--card);color:var(--ink);border:1px solid var(--line-strong);
+  font-family:var(--f-ui,'Inter',system-ui,sans-serif);font-size:.86rem;line-height:1.35;
+  box-shadow:0 16px 36px -18px var(--lm-ombre);opacity:0;visibility:hidden;pointer-events:none}
+.lm-toast.on{opacity:1;visibility:visible;translate:-50% 0}
+@media (prefers-reduced-motion: no-preference){
+  .lm-toast{transition:opacity .2s,translate .26s var(--lm-ease),visibility 0s .26s}
+  .lm-toast.on{transition:opacity .2s,translate .26s var(--lm-ease),visibility 0s 0s}
+}
