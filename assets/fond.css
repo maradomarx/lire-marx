@@ -1,0 +1,85 @@
+/* ============================================================
+   LE FOND — « la journée » (mission `affichage`, volet fond, oct. 2026).
+   Le dessin est dans /assets/fond.js ; ici, sa place et ses jetons.
+
+   La page est une journée de travail, et le défilement est le temps qui
+   passe. Chaque mode la dit à sa façon :
+     bougie  — une flamme posée hors champ, dans la marge de droite : sa
+               lueur vacille, la poussière de la pièce ne se voit que dans
+               le halo, et la bougie BAISSE à mesure qu'on descend ;
+     jour    — un rai de lumière par la croisée : le dessin des carreaux
+               projeté en biais sur la page, la poussière qui scintille
+               dedans ; le matin en haut, le soir en bas — le rai tourne
+               et se réchauffe ;
+     edition — un imprimé ne bouge pas : les vergeures et les pontuseaux
+               du papier vergé de 1872, très pâles, immobiles, sans lueur.
+
+   Les couleurs propres au fond sont ici, PAR MODE, en composantes (le
+   canvas les assemble). Le papier vient des jetons de la maison.
+   ============================================================ */
+:root{
+  --fond-papier: var(--bg, var(--paper, #15100b));
+  /* bougie : la lueur, puis le cœur plus chaud près de la flamme */
+  --fond-lueur: 255,170,84;
+  --fond-lueur-a: .17;
+  --fond-coeur: 255,206,128;
+  --fond-coeur-a: .07;
+  --fond-grain: 255,218,160;
+  --fond-grain-a: .62;
+  /* jour : le rai du matin et celui du soir */
+  --fond-matin: 255,253,246;
+  --fond-soir: 255,214,150;
+  --fond-rai-a: 0;               /* l'éclat du rai du matin */
+  --fond-soir-a: 0;              /* celui du soir, plus chaud et plus bas */
+  --fond-ombre: 60,42,20;
+  --fond-ombre-a: 0;             /* la pièce hors du rai : un rien plus sombre que la page */
+  /* le voile doux : la part de la lumière qu'il retire sous un texte, et sous
+     une colonne de lecture */
+  --fond-doux: .62;
+  --fond-doux-calme: .8;
+  /* edition : l'encre du filigrane */
+  --fond-vergeure: 40,30,18;
+  --fond-vergeure-a: 0;
+}
+html[data-mode="jour"]{
+  --fond-rai-a: 1;
+  --fond-soir-a: .7;
+  --fond-ombre: 70,48,22;
+  --fond-ombre-a: .016;
+  --fond-soir: 255,228,186;
+  --fond-doux: .7;
+  --fond-doux-calme: .86;
+  --fond-grain: 150,104,40;
+  --fond-grain-a: .42;
+  --fond-lueur-a: 0;
+  --fond-coeur-a: 0;
+}
+html[data-mode="edition"]{
+  --fond-vergeure: 54,40,22;
+  --fond-vergeure-a: .05;
+  --fond-doux: .76;
+  --fond-doux-calme: .88;
+  --fond-lueur-a: 0;
+  --fond-coeur-a: 0;
+  --fond-grain-a: 0;
+  --fond-rai-a: 0;
+}
+
+/* la place : fixe, derrière TOUT, jamais une cible */
+.fond{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;contain:strict}
+/* le jour, la pièce hors du rai : un rien plus sombre que la page, partout et
+   immobile — c'est elle qui fait lire la tache de soleil sur du papier clair.
+   Posée AU-DESSUS du voile doux (une teinte égale ne dessine aucune forme). */
+.fond-ombre{position:absolute;inset:0;background:rgba(var(--fond-ombre),var(--fond-ombre-a))}
+.fond canvas{position:absolute;left:0;top:0;display:block}
+.fond-lumiere{transform-origin:0 0;will-change:transform,opacity}
+.fond-grain,.fond-voile{width:100%;height:100%}
+/* le canvas est SOUS le flux : le corps laisse voir au travers, html garde
+   le papier (les dégradés de body d'atelier.css et de la 404 sont remplacés
+   par la vraie lueur) */
+html.fond-on{background:var(--fond-papier)}
+html.fond-on body{background:transparent}
+/* l'édition : le papier vergé est le FOND DE html (tuile semée par fond.js),
+   il défile avec la feuille. La tuile fait 552 × 240 px. */
+html.fond-on[data-mode="edition"]{background-image:var(--fond-verge,none);background-size:552px 240px;background-repeat:repeat}
+@media print{.fond{display:none!important}html.fond-on{background-image:none!important}}

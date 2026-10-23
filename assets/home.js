@@ -85,6 +85,28 @@
     };
     document.head.appendChild(s);
   }
+  /* ── LES TROIS MODES (mission `affichage`) ─────────────────────────
+     Les deux décors WebGL lisent leurs couleurs dans les jetons de la page
+     et se repeignent sur `lm:mode` (émis par LM.mode, synchrone). La bougie
+     garde les valeurs d'avant, écrites ici telles quelles : rien n'y change.
+     `surMode(fn)` appelle fn tout de suite (le mode du premier rendu est
+     posé avant tout script) puis à chaque bascule. */
+  function modeCourant() {
+    var m = document.documentElement.getAttribute('data-mode');
+    return (m === 'jour' || m === 'edition') ? m : 'bougie';
+  }
+  function jeton(nom, defaut) {
+    var v = '';
+    try { v = getComputedStyle(document.documentElement).getPropertyValue(nom).trim(); } catch (e) { }
+    return v || defaut;
+  }
+  function surMode(fn) {
+    try { fn(modeCourant()); } catch (e) { /* jamais bloquer le décor */ }
+    document.addEventListener('lm:mode', function () {
+      try { fn(modeCourant()); } catch (e) { }
+    });
+  }
+
   /* Conteneur de défilement : .hw quand elle défile réellement (accueil
      immergé depuis l'intro), sinon le viewport (mode no-anim / mobile). */
   var scroller = null;
@@ -405,6 +427,19 @@
       camera.updateProjectionMatrix();
     }
     resize();
+
+    /* La brume est la seule couleur de la scène qui ne soit pas du papier :
+       elle noie le fond de pile dans la pièce. À la bougie, la nuit de la
+       pièce (BG) ; au jour et dans l'édition, le papier de la page
+       (--scene-fond) — le fond de pile s'efface alors dans la lumière au
+       lieu de s'enfoncer dans l'ombre. Les feuillets, eux, ne changent pas :
+       c'est la même page, sous un autre jour. */
+    surMode(function (m) {
+      if (!scene.fog) return;
+      if (m === 'bougie') scene.fog.color.setHex(BG);
+      else scene.fog.color.set(jeton('--scene-fond', '#f6efe0'));
+      if (!running && active) renderer.render(scene, camera);
+    });
 
     var last = performance.now();
     function frame(now) {
@@ -907,13 +942,45 @@
     if (THREE.Fog) scene.fog = new THREE.Fog(0x1e1710, 26, 49);
 
     /* lumière d'atelier à la bougie : clé chaude, contre-jour rouge drapeau */
-    scene.add(new THREE.AmbientLight(0x3d2c1b, 0.95));
+    var amb = new THREE.AmbientLight(0x3d2c1b, 0.95);
+    scene.add(amb);
     var key = new THREE.DirectionalLight(0xffb765, 1.45); key.position.set(7, 9, 8);
     scene.add(key);
     var rim = new THREE.DirectionalLight(0xd5402f, 0.75); rim.position.set(-8, 3.5, -6);
     scene.add(rim);
     var gold = new THREE.PointLight(0xd8ad4c, 1.25, 22, 2); gold.position.set(0, 4.5, 4);
     scene.add(gold);
+
+    /* L'ÉCLAIRAGE PAR MODE. À la bougie, la lumière d'atelier d'avant, à
+       l'identique (clé chaude, contre-jour rouge drapeau, et la lanterne du
+       chariot — le point doré — qui éclaire la caisse). Au JOUR, la
+       lanterne n'est plus la source : le soleil l'est (clé blanche, plus
+       haute), le ciel débouche les ombres (ambiante claire, contre-jour
+       froid), et la lanterne reste allumée mais pâle, comme une flamme en
+       plein jour. Dans l'ÉDITION, un éclairage d'atelier de gravure : plat,
+       blanc, sans contre-jour coloré ni lanterne — une figure, pas une scène
+       nocturne. La brume prend la couleur exacte de la section (--surface),
+       sinon le lointain ne disparaîtrait plus dans le fond. */
+    var lampK = 1;
+    var LUM = {
+      bougie:  { amb: [0x3d2c1b, 0.95], key: [0xffb765, 1.45, 7, 9, 8], rim: [0xd5402f, 0.75], gold: 1.25, lamp: 1 },
+      jour:    { amb: [0xf6ead6, 0.62], key: [0xfff4e4, 1.55, 4, 14, 9], rim: [0x9db4c6, 0.45], gold: 0.10, lamp: 0.30 },
+      edition: { amb: [0xf2e8d4, 0.85], key: [0xffffff, 1.05, 3, 14, 10], rim: [0x000000, 0], gold: 0, lamp: 0.08 }
+    };
+    surMode(function (m) {
+      var L = LUM[m] || LUM.bougie;
+      amb.color.setHex(L.amb[0]); amb.intensity = L.amb[1];
+      key.color.setHex(L.key[0]); key.intensity = L.key[1];
+      key.position.set(L.key[2], L.key[3], L.key[4]);
+      rim.color.setHex(L.rim[0]); rim.intensity = L.rim[1];
+      gold.intensity = L.gold;
+      lampK = L.lamp;
+      if (scene.fog) {
+        if (m === 'bougie') scene.fog.color.setHex(0x1e1710);
+        else scene.fog.color.set(jeton('--surface', '#fbf6ea'));
+      }
+      if (rig && !running) { place(performance.now()); renderer.render(scene, camera); }
+    });
 
     /* ombre portée douce : une tache radiale au sol, le chariot ne flotte pas */
     var shadow = null;
@@ -1044,7 +1111,7 @@
         wheels[i].obj.rotation.x = -spin / wheels[i].r;
       }
       if (lamp && lamp.material) {
-        lamp.material.emissiveIntensity = 1.0 + Math.sin(now * 0.006) * 0.28;
+        lamp.material.emissiveIntensity = lampK * (1.0 + Math.sin(now * 0.006) * 0.28);
       }
     }
 
@@ -1230,7 +1297,7 @@
         wheels[i].obj.rotation.x = -spin / wheels[i].r;
       }
       if (lamp && lamp.material) {
-        lamp.material.emissiveIntensity = 1.0 + Math.sin(now * 0.006) * 0.28;
+        lamp.material.emissiveIntensity = lampK * (1.0 + Math.sin(now * 0.006) * 0.28);
       }
     }
 

@@ -273,8 +273,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--f-ui);
    jour-là, pas avant. */
 .gl-f{margin-top:10px;margin-right:8px;display:block;width:fit-content;font-family:var(--f-ui);
   font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--gold);background:rgba(216,173,76,.10);
-  border:1px solid rgba(216,173,76,.26);border-radius:999px;padding:3px 10px;}
+  color:var(--gold);background:rgba(var(--gold-rgb),.10);
+  border:1px solid rgba(var(--gold-rgb),.26);border-radius:999px;padding:3px 10px;}
 
 /* ── pied ── */
 .gl-fin{margin-top:clamp(56px,8vh,88px);padding-top:30px;
@@ -282,7 +282,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--f-ui);
 .gl-fin p{font-size:.93rem;line-height:1.72;color:var(--muted);max-width:60ch;
   margin-bottom:18px;}
 .gl-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;
-  border-radius:999px;background:var(--accent);color:#fff;font-size:14px;
+  border-radius:999px;background:var(--accent);color:var(--sur-red);font-size:14px;
   font-weight:600;text-decoration:none;transition:opacity .18s,transform .18s;}
 .gl-btn:hover{opacity:.86;transform:translateY(-1px);}
 
@@ -335,6 +335,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--f-ui);
   transform:translateY(calc(var(--lev,0) * -.15em)) scale(calc(1 + var(--lev,0) * .20));
   color:color-mix(in srgb, var(--muted) calc(var(--lev,0) * 100%), var(--gold));}
 .js-glm .gl-lettre::after{width:calc(var(--tir,1) * 34px);}
+/* En ÉDITION (le mode de la longue lecture, mission affichage), la lettre
+   est déjà imprimée : ni frappe ni filet qui se tire. La règle suit le mode
+   en direct, sans script. */
+html[data-mode="edition"].js-glm .gl-lettre .gl-l{transform:none;color:var(--gold);}
+html[data-mode="edition"].js-glm .gl-lettre::after{width:34px;}
 
 /* ── le pouce sur la tranche ──
    Le fil et le pouce vivent sur le bord EXTÉRIEUR de la tranche, côté écran,
@@ -382,8 +387,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--f-ui);
    24 px ; le rembourrage monte, la marge négative rend la place. */
 @media (pointer:coarse){ .gl-t a{padding:11px 0;margin:-11px 0;} }
 </style>
-<link rel="preload" href="/oeuvres/shell.css?v=13" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=13"></noscript>
+<link rel="preload" href="/oeuvres/shell.css?v=14" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=14"></noscript>
 <!-- GLOSSAIRE:LD:DÉBUT — DÉRIVÉ, ne pas éditer à la main -->
 <script type="application/ld+json">
 {
@@ -1124,6 +1129,14 @@ body{background:var(--bg);color:var(--text);font-family:var(--f-ui);
 }
 </script>
 <!-- GLOSSAIRE:LD:FIN -->
+<!-- AFFICHAGE:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs (modes, fond, gestes), ne pas éditer à la main -->
+<script>(function(){var h=document.documentElement,K='liremarx.mode.v1',C=['auto','bougie','jour','edition'],T={'bougie':'#15100b','jour':'#f6efe0','edition':'#ebe1c9'},S=null,f=0;try{S=matchMedia('(prefers-color-scheme: light)')}catch(e){}function r(c){return c==='auto'?(S&&S.matches?'jour':'bougie'):c}function lu(){var c='';try{c=localStorage.getItem(K)||''}catch(e){}return C.indexOf(c)<0?'auto':c}function p(c){if(C.indexOf(c)<0)c='auto';var m=r(c),a=h.getAttribute('data-mode');h.setAttribute('data-mode-choix',c);if(m!==a){if(a){h.classList.add('lm-bascule');clearTimeout(f);f=setTimeout(function(){h.classList.remove('lm-bascule')},140)}h.setAttribute('data-mode',m);var x=document.getElementsByName('theme-color');for(var i=0;i<x.length;i++)x[i].setAttribute('content',T[m]);if(a)document.dispatchEvent(new CustomEvent('lm:mode',{detail:{mode:m,choix:c}}))}document.dispatchEvent(new CustomEvent('lm:choix',{detail:{mode:m,choix:c}}));return m}var L=window.LM=window.LM||{};L.MODES=C;L.TEINTES=T;L.resoudre=r;L.mode=function(m){if(m===undefined)return{mode:h.getAttribute('data-mode'),choix:h.getAttribute('data-mode-choix')};if(C.indexOf(m)<0)return null;try{localStorage.setItem(K,m)}catch(e){}return p(m)};p(lu());if(S&&S.addEventListener)S.addEventListener('change',function(){if(h.getAttribute('data-mode-choix')==='auto')p('auto')});addEventListener('storage',function(e){if(e.key===K)p(C.indexOf(e.newValue)<0?'auto':e.newValue)})})();</script>
+<link rel="stylesheet" href="/assets/modes.css?v=142992bc">
+<link rel="stylesheet" href="/assets/mouvement.css?v=eef765f7">
+<link rel="stylesheet" href="/assets/fond.css?v=c84bb7c6">
+<script src="/assets/mouvement.js?v=547fb98c" defer></script>
+<script src="/assets/fond.js?v=a97d2d23" defer></script>
+<!-- AFFICHAGE:FIN -->
 </head>
 <body>
 <main class="wrap" id="contenu" tabindex="-1">
@@ -1919,8 +1932,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--f-ui);
 <!-- PIED:FIN -->
 
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=22"></script>
-<script src="/oeuvres/shell-social.js"></script>
+<script src="/oeuvres/shell.js?v=23"></script>
+<script src="/oeuvres/shell-social.js?v=2"></script>
 <script>
 installShell({ workTitle: 'Glossaire', tabs: [] });
 

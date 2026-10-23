@@ -66,6 +66,11 @@ L'accueil du site est `oeuvres/index.html` (la bibliothèque), pilotée par
 
 ## Direction artistique — bascule « sombre-chaude » (août 2026)
 
+> **Depuis octobre 2026 le site a TROIS MODES** — bougie (cette DA), jour,
+> édition de 1872 — et toute couleur passe par les jetons de
+> `assets/modes.css`. Voir « L'AFFICHAGE : TROIS MODES, UN FOND, DES GESTES »
+> en fin de fichier avant d'écrire une seule couleur.
+
 **Historique.** Une première refonte « Rouge Internationale » (fond clair
 `#F7F5F0`, rouge drapeau, Inter/Fraunces) a été appliquée à tout le site
 entre juin et août 2026. Le propriétaire a ensuite tranché pour une DA
@@ -11419,3 +11424,218 @@ cherchée (« Le 18 Brumaire de Louis Bonaparte — Marx, texte intégral »,
 `Book`). Règle pour les prochaines PR automatiques : refuser toute
 modification d'une page générée, toute balise ajoutée à une page en
 `noindex`, et toute réécriture qui perd un nom, un nombre ou un titre.
+
+## L'AFFICHAGE : TROIS MODES, UN FOND, DES GESTES (mission `affichage`, oct. 2026)
+
+Demande du propriétaire, après la même refonte sur le site frère Lire Debord :
+« la même chose » pour Lire Marx, adaptée à son propos. Un socle commun
+(commit `85b9789`), puis sept missions en parallèle (coquille, ateliers,
+glossaire, accueil, scènes, fond, gestes), chacune dans son worktree, puis la
+fusion sur la branche `affichage`. Rien n'a été copié de Lire Debord sans être
+repensé : les deux dépôts divergent librement.
+
+### Les trois modes, et pourquoi ceux-là
+
+- **bougie** — « la pièce à la bougie » : la DA de toujours. C'est le `:root`
+  de chaque page ; **rien n'y a changé**, sauf des défauts corrigés.
+- **jour** — « le jour sur la liasse » : le même bureau, volets ouverts. Le
+  papier crème des manuscrits, l'encre ferro-gallique, **l'or devenu ocre**
+  (un or ne se lit pas sur du clair), le rouge assombri.
+- **edition** — « l'édition de 1872 » : le papier de la traduction Roy que la
+  liseuse sert, revue par Marx ; le noir d'imprimerie et le rouge de
+  rubrique ; **plus d'or** (un imprimé n'en a pas : l'or devient le bistre
+  d'une gravure), **aucune lueur, aucun halo**, chiffres elzéviriens sur la
+  prose. C'est le mode de la LONGUE lecture : plat et calme. Une lueur
+  « bougie » n'a rien à y faire, et toute nouvelle lueur doit s'y éteindre.
+
+« Automatique » suit le système : clair → jour, sombre → bougie. **C'est le
+choix par défaut** : un lecteur dont le système est clair arrive donc au jour.
+
+### Le contrat — ne pas le changer sans tout relire
+
+- `html[data-mode]` ∈ `bougie | jour | edition` (le mode RÉSOLU) et
+  `html[data-mode-choix]` ∈ `auto | bougie | jour | edition`, posés **avant le
+  premier rendu** par le script du bloc **AFFICHAGE**, depuis
+  `localStorage['liremarx.mode.v1']`. Sans script : aucun attribut, le site
+  reste à la bougie (pas de bloc de nuit à redire, à l'inverse de Debord).
+- `window.LM.mode()` → `{mode, choix}` ; `LM.mode(m)` choisit, mémorise,
+  applique — **SYNCHRONE, sans transition de vue**. `document` reçoit `lm:mode`
+  quand le mode résolu change et `lm:choix` à chaque choix. `html.lm-bascule`
+  coupe toutes les transitions pendant deux images (deux cents fondus décalés
+  font une page qui coule). **C'est le SEUL chemin** : le menu, la liseuse, la
+  palette passent par lui, ou par `LM.basculer(m, origine)` (gestes) qui
+  l'enveloppe.
+- **Le bloc AFFICHAGE est DÉRIVÉ** par `tools/gen-seo.mjs` en fin de `<head>` :
+  entre marqueurs `<!-- AFFICHAGE:DÉBUT … -->` / `<!-- AFFICHAGE:FIN -->`
+  dans les pages tenues à la main (`AFF_PAGES` = celles du pied de page + la
+  404 + hors-ligne), et par `${AFFICHAGE}` dans les quatre gabarits. Il porte
+  le script de mode puis `assets/modes.css`, `mouvement.css`, `fond.css`,
+  `mouvement.js`, `fond.js`, **avec des `?v=` hachés sur leur contenu** : ces
+  cinq actifs n'ont JAMAIS de version à monter à la main. `jeu/jouer.html`
+  n'a pas le bloc : le jeu garde sa DA.
+- **Les jetons** : `assets/modes.css` redit pour `jour` et `edition` les DEUX
+  vocabulaires de la maison (`--bg --surface --text --muted --accent --border`
+  ET `--paper --paper-2 --card --ink --ink-soft --red --bright --red-deep
+  --red-text --blue --blue-text --gold --gold-deep --const --line
+  --line-strong --line-soft --ok --hover --candle`). `html[data-mode=…]`
+  vaut (0,1,1) et passe devant les `:root` (0,1,0) des pages, quel que soit
+  l'ordre des feuilles : les `:root` restent la bougie. **Les noms ne
+  changent pas, seules les valeurs.**
+- **Les jetons DÉRIVÉS** (déclarés dans les trois modes, dans modes.css) sont
+  le chemin de toute couleur qui s'écrivait en dur : `--ink-rgb --paper-rgb
+  --surface-rgb --red-rgb --gold-rgb --blue-rgb --green-rgb`
+  (`rgba(var(--ink-rgb),.13)`), `--ombre-rgb` (les ombres, toujours SOMBRES :
+  en `--ink-rgb` une ombre deviendrait un halo clair à la bougie),
+  `--voile-rgb` (modales), `--sur-red` (texte SUR un aplat rouge),
+  `--pastille-red/-gold/-blue/-green` (texte sur une pastille teintée de sa
+  couleur), `--creux`, `--emphase` / `--emphase-bord` (la carte d'emphase),
+  `--photo-filtre` (tirages d'archive), `--scene-fond` (fond et brouillard
+  d'une scène WebGL). **Tout nouveau jeton se déclare dans les trois modes.**
+- Les pages ont en plus des **jetons locaux** redits par mode en fin de leur
+  feuille : l'accueil (`--hw-*`, `--nuit-rgb`, **`--lueur`** — le bouton de
+  toutes les lueurs dorées, 1 / .32 / 0 : toute nouvelle lueur s'écrit
+  `rgba(var(--gold-rgb),calc(.34*var(--lueur)))`), les ateliers (`--ok-rgb`,
+  `--asc-a/b`), le glossaire (`--nt-*`), Karl Marx (`--km-*`).
+- **Plus aucune couleur écrite en dur** hors des `:root` dans shell.css,
+  atelier.css, notion.css, agregation.css, reader-tools.*, manuscrits-1844.css
+  et les `<style>` des pages — sauf ce qui est juste dans les trois modes par
+  nature (les cachets d'auteur, les surligneurs, le papier de la feuille
+  volante, les tirages). Avant d'écrire une couleur : un jeton, ou une
+  surcharge `html[data-mode=…]`.
+
+### Le menu « Affichage » et la liseuse
+
+Dans la barre du haut (`boutonMode()` / `wireMode()` de shell.js) : un bouton
+à l'icône du CHOIX (automatique, une chandelle, un soleil, un livre ouvert),
+un menu en deux groupes de `menuitemradio` — Mode (Automatique · Bougie · Jour
+· Édition de 1872), puis Fond (Animé · Immobile · Aucun), caché tant que
+`window.LM_FOND` n'existe pas. Le choix est marqué d'une coche rouge en bout
+de ligne, pas d'un filet latéral. Clavier complet ; la barre tient sur une
+rangée de 44 px à 320 px.
+
+**La liseuse n'a plus de thème à elle.** « Thème » (Atelier/Papier/Nuit) est
+devenu « Fond » : Auto · Bougie · Jour · Édition, qui appelle `LM.basculer`
+(sinon `LM.mode`). Une seule nuit, un seul jour. Migration unique :
+`theme:'sepia'` → jour, `'dark'` → bougie, si aucun mode n'est choisi ; puis
+le champ est oublié. **Toute règle `.reader.theme-…` est morte.**
+
+### Ce que chaque partie du site fait dans chaque mode
+
+- **La coquille** (shell, modales, popovers, recherche, tiroir, 404,
+  hors-ligne, forum, messages, mentions, à propos) : jetons partout ; le
+  voile des modales recule sur papier clair ; l'édition n'a plus de halo.
+- **L'accueil** : la liasse garde son papier, sa brume prend `--scene-fond` ;
+  le chariot change d'**éclairage par mode** (table `LUM` de home.js : le
+  soleil au jour, la lanterne réduite ; un éclairage plat en édition) et son
+  canevas passe à 90 % d'opacité sur du clair (à 62 %, un fantôme). **La
+  bougie de la dernière page est SOUFFLÉE au jour** — le défilement fait
+  monter la fumée de la mèche — et n'est qu'une vignette gravée en édition.
+  Ne pas rallumer de flamme au jour. La capture de `/jeu/` garde sa nuit :
+  c'est une planche.
+- **Les ateliers** : au jour, le fond de page est un lavis ; en édition, rien
+  ne luit, et **les fonds de salle `.ds-bg` disent la même chose, immobiles et
+  à l'encre**. Les règles de fond de page sont scopées à `body.at-atelier`
+  (la bibliothèque, le forum, le carnet et la messagerie chargent aussi
+  atelier.css).
+- **Le glossaire** : la vitrine d'archive s'imprime SUR le papier
+  (`mix-blend-mode:multiply`) et fond vers `var(--paper)` ; **les 45 figures
+  3D gardent leur nuit** — ce sont des planches encadrées, pas des fonds —
+  mais leur cadre, leur légende et leurs boutons suivent le mode ;
+  `glossaire/fond.js` lit ses encres dans les jetons et s'immobilise en édition.
+- **Les scènes** se repeignent EN DIRECT, par rôle, sans rien reconstruire :
+  la **bibliothèque** au jour ouvre ses volets (un ciel de jour dans la baie,
+  la lune devenue le jour qui entre, des murs et un sol au-delà du meuble, la
+  bougie portée éteinte — un filet de fumée si l'on passe au jour sous ses
+  yeux), en édition devient une gravure (lumière plate, bistre, taille-douce) ;
+  le **carnet** garde son papier, c'est le bureau et son entrée cinématique
+  qui suivent ; la **carte de l'exil** relit `MODES_CARTE` à chaque tracé
+  (parchemin brun-nuit, parchemin clair, carte gravée à la route rouge de
+  rubrique).
+
+### Le fond « la journée » (`assets/fond.js`, `fond.css`)
+
+La page est une journée de travail, et **le défilement est le temps qui
+passe** (la journée de travail est le centre du *Capital*, la pièce à la
+bougie est le site). À la **bougie**, une flamme HORS CHAMP dans la marge de
+droite, un halo qui vacille (quatre sinus de périodes non multiples), la
+poussière de la pièce qui ne se voit que dans le halo, et la bougie qui BAISSE
+à mesure qu'on descend ; au **jour**, la croisée projetée en biais, la
+poussière qui scintille dans les carreaux, le rai qui tourne et se réchauffe du
+matin (haut de page) au soir (bas) ; en **édition**, un imprimé ne bouge pas :
+vergeures et pontuseaux du papier vergé, très pâles, en fond de html. Tout est
+semé (graine 1867), fonction de la position, donc réversible.
+
+**Où** : la liste `ICI` de fond.js — à propos, mentions, agrégation et
+commentaires, chapitres expliqués, forum, messages, l'INDEX du glossaire, la
+404. JAMAIS l'accueil, la bibliothèque, Karl Marx, le carnet, les ateliers, le
+jeu, les pages de notion (qui ont `glossaire/fond.js`). `body[data-fond="aucun"]`
+le refuse. API : `LM_FOND.regler/reglage/etat/remesurer/image/figer/mesure`,
+`localStorage['liremarx.fond.v1']`, événement `lm:fond`, `?fond=logiciel`.
+Immobile sous mouvement réduit et `saveData`, rien ne tourne onglet masqué,
+DPR plafonné à 1,5.
+
+⚠️ **DEUX VOILES, et c'est la leçon propre à ce fond.** Sur le plan de Debord
+un voile net sous le texte suffisait ; sur une LUMIÈRE lisse, il découpe des
+boîtes sombres cernées de clarté autour de chaque paragraphe. La lumière passe
+sous un voile DOUX (1/8 de résolution, flou, peint par le processeur — sur le
+GPU deux peintures identiques du flou différaient de 30 niveaux, et la
+réversibilité tombait) ; le voile NET n'est plus que le masque de la
+poussière, et se peint AVANT elle.
+
+### Les gestes (`assets/mouvement.js`, `mouvement.css`)
+
+- **Transitions entre pages** (`@view-transition{navigation:auto}`) : les deux
+  barres ne bougent pas, le reste se fond. ⚠️ Leur `view-transition-name`
+  n'existe que PENDANT le passage (`html.vt-nav`) : permanent, il ferait de la
+  barre une racine d'arrière-plan et éteindrait le verre dépoli de la pilule
+  de l'accueil. Le volet du navigateur ne joue pas les View Transitions.
+- **`LM.basculer(m, origine)`** : révélation circulaire depuis le bouton — vers
+  un mode clair la nouvelle image s'ouvre, vers la bougie l'ancienne se
+  resserre jusqu'à la flamme.
+- **⌘K / Ctrl+K ouvre LA recherche de la barre en palette** (`html.lm-palette`),
+  il n'y en a pas de seconde. Les **actions** sont des fournisseurs
+  (`SHELL.recherche.actions.push(fn → [{t, s, mots, act, reglage}])`), montrés
+  en groupe « Actions » dans l'état vide (les gestes d'abord, le mode et le
+  fond ensuite) et filtrés par la requête. `SHELL.recherche.ouvrir()` /
+  `.fermer()`. ⚠️ Le conteneur de la palette ne porte aucune transform : il
+  deviendrait le bloc conteneur de son voile fixe.
+- Micro-gestes (le trait qui se tire sous un lien de prose — or, encre, rouge
+  de rubrique —, la flèche qui avance, le bouton qui s'enfonce), trait de
+  lecture `.lm-prog` sur les pages longues de lecture, retour en haut
+  `.lm-haut`, ancres « # » sur les titres qui ont une adresse.
+
+### L'outillage, commité
+
+- **`tools/serveur.mjs`** imite Cloudflare (URL propres, fichier avant
+  dossier, 308) — repris de Lire Debord. `node tools/serveur.mjs 8840`.
+- **`tools/sonde.js`** (`await LM_SONDE({fini:true})`) : contraste, < 11 px,
+  cibles < 24 px, débordement. Elle lit `color(srgb …)`, remonte la
+  visibilité des ancêtres, ACHÈVE les animations au lieu de les couper, lit
+  le papier sur html puis body, mesure un fond en dégradé contre sa pire
+  couleur, compte à part le texte posé sur une photo (`surImage`), et lit
+  **`data-sonde-fond="#hex,#hex"`** : un bloc posé sur une scène y déclare le
+  papier réel qui est sous lui (la feuille volante de la bibliothèque — elle
+  se faisait d'abord passer pour « sur image » par un GIF transparent, ce qui
+  est tromper sa sonde).
+- **`tools/sonde-modes.mjs`** : pages × modes × largeurs dans un Chrome sans
+  interface, le mode posé dans localStorage avant le premier script.
+  `--defile`, `--captures=`, `--out=`, `--bref`. Elle lance son propre serveur
+  sur un port LIBRE et vérifie qu'il sert bien CE dépôt (un port tiré au
+  hasard a fait mesurer à un agent les fichiers d'un autre : 387 faux échecs).
+- **`tools/sonde-fond.js`** : le fond figé, la page photographiée texte masqué
+  avec et sans fond, le contraste comparé sur les deux pixels.
+
+### Pièges de l'assemblage, à relire avant toute mission parallèle
+
+1. **Un worktree d'agent part de `main`, pas de la branche courante.** Six
+   agents sur sept ont dû remettre le leur sur `affichage` avant de commencer.
+   Le dire dans le brief, et vérifier `merge-base` avant de fusionner.
+2. **Sous émulation mobile, `innerWidth` suit le débordement** : la sonde
+   compare désormais à la largeur demandée.
+3. **Une ombre posée sur un élément hors champ** (lien d'évitement, barre
+   latérale repliée) est invisible à la bougie et fait une tache sur le papier.
+4. **Changer un jeton de valeur fait apparaître des constats du détecteur**
+   qui n'en étaient pas (« bordure fine + large ombre ») : il voit l'ombre
+   quand elle passe par une variable. Faux positifs.
+5. Ne pas fusionner les pages dérivées des branches : fusionner les SOURCES,
+   puis régénérer une fois (`gen-seo`) et monter les `?v=` à la main une fois.

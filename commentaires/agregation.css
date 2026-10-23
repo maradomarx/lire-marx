@@ -15,7 +15,7 @@
    n'existent que sous html.js-ag.
    ═══════════════════════════════════════════════════════════════════ */
 
-::selection{background:rgba(216,173,76,.32);color:#fff8e8;}
+::selection{background:rgba(var(--gold-rgb),.32);color:#fff8e8;}
 
 .nt--ag,.nt--cm{--ag-sec:clamp(80px,11vh,132px);--ag-in:clamp(26px,3.6vh,38px);--ag-t:6.4em;}
 .nt--ag .nt-col,.nt--cm .nt-col{max-width:760px;}
@@ -38,7 +38,7 @@
 .ag-fiche dd small{display:block;margin-top:5px;font-family:var(--f-ui);font-size:.8rem;line-height:1.45;
   font-weight:400;color:var(--muted);}
 .ag-fiche .ag-attente dd{color:var(--gold);}
-.ag-fiche a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(216,173,76,.45);}
+.ag-fiche a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(var(--gold-rgb),.45);}
 .ag-fiche a:hover{border-bottom-color:var(--gold);}
 
 /* ── le rythme des sections ── */
@@ -54,7 +54,7 @@
 
 /* Le bouton dans un paragraphe : la règle des liens de paragraphe
    (.nt-corps .nt-sec p a, dorée et soulignée) le repeindrait. */
-.nt-corps .nt-sec p a.nt-btn{color:#fff;border-bottom:0;}
+.nt-corps .nt-sec p a.nt-btn{color:var(--sur-red);border-bottom:0;}
 .nt-corps p.ag-suite{margin-top:30px;}
 
 /* ── deux colonnes qui s'opposent ou se complètent ── */
@@ -67,15 +67,15 @@
 .ag-points li::before{content:'';position:absolute;left:2px;top:.64em;width:8px;height:8px;border-radius:50%;background:var(--gold);}
 .ag-points--non li{color:var(--ink-soft);}
 .ag-points--non li::before{top:.86em;width:10px;height:1.5px;border-radius:0;background:var(--muted);}
-.nt-corps .ag-points a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(216,173,76,.45);}
+.nt-corps .ag-points a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(var(--gold-rgb),.45);}
 .nt-corps .ag-points a:hover{border-bottom-color:var(--gold);}
-.nt-corps .ag-points a.nt-q{color:inherit;border-bottom:1px dotted rgba(216,173,76,.6);}
+.nt-corps .ag-points a.nt-q{color:inherit;border-bottom:1px dotted rgba(var(--gold-rgb),.6);}
 .nt-corps .ag-points a.nt-q:hover{color:var(--gold);border-bottom-style:solid;}
 .nt-corps .ag-points a.nt-q q::before,.nt-corps .ag-points a.nt-q q::after{color:var(--gold);}
 
 /* ── la citation mise en avant ── */
 .ag-citation{position:relative;overflow:hidden;margin:var(--ag-in) 0;padding:clamp(24px,3.4vw,38px) clamp(24px,3.4vw,40px);
-  background:var(--emphase);border-radius:18px;box-shadow:inset 0 0 0 1px rgba(216,173,76,.22);}
+  background:var(--emphase);border-radius:18px;box-shadow:inset 0 0 0 1px rgba(var(--gold-rgb),.22);}
 .ag-citation::after{content:'';position:absolute;inset:0;pointer-events:none;
   background:radial-gradient(ellipse at 20% 120%,var(--candle) 0%,transparent 60%);}
 .ag-citation>*{position:relative;z-index:1;}
@@ -135,9 +135,9 @@
 /* ── les commentaires guidés ── */
 .ag-com{list-style:none;display:flex;flex-direction:column;gap:12px;margin-top:var(--ag-in);}
 .ag-com a{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 20px;align-items:center;
-  padding:22px 24px;border-radius:16px;background:var(--emphase);box-shadow:inset 0 0 0 1px rgba(216,173,76,.22);
+  padding:22px 24px;border-radius:16px;background:var(--emphase);box-shadow:inset 0 0 0 1px rgba(var(--gold-rgb),.22);
   color:var(--text);text-decoration:none;transition:box-shadow .2s;}
-.ag-com a:hover,.ag-com a:focus-visible{box-shadow:inset 0 0 0 1px var(--gold),0 14px 34px -18px rgba(0,0,0,.7);}
+.ag-com a:hover,.ag-com a:focus-visible{box-shadow:inset 0 0 0 1px var(--gold),0 14px 34px -18px rgba(var(--ombre-rgb),.7);}
 .ag-com .k{grid-column:1;font-family:var(--f-ui);font-size:.8rem;line-height:1.45;color:var(--muted);}
 .ag-com .t{grid-column:1;font-family:'Fraunces',serif;font-weight:700;font-size:1.22rem;line-height:1.3;text-wrap:balance;}
 .ag-com .go{grid-column:2;grid-row:1/3;font-family:var(--f-ui);font-size:.86rem;font-weight:600;color:var(--gold);white-space:nowrap;}
@@ -152,7 +152,7 @@
 .ag-toc a:hover{color:var(--gold);}
 .ag-toc a.on{color:var(--text);}
 .ag-toc a.on::before{background:var(--gold);transform:translateY(-1px) scale(1.6);}
-.ch-marge{scrollbar-width:thin;scrollbar-color:rgba(216,173,76,.35) transparent;}
+.ch-marge{scrollbar-width:thin;scrollbar-color:rgba(var(--gold-rgb),.35) transparent;}
 .nt-som--plain a::before{content:none;}
 @media(min-width:1100px){
   .nt--ag .nt-som,.nt--cm .nt-som{display:none;}
@@ -174,12 +174,12 @@
 /* « Revoir ce moment dans l'extrait », en tête de chaque moment : le lien
    remonte à l'extrait et y éclaire le passage commenté (agregation.js). */
 .nt-corps .nt-sec p.cm-rappel{margin:-8px 0 20px;font-family:var(--f-ui);font-size:.82rem;line-height:1.5;}
-.nt-corps .nt-sec p.cm-rappel a{display:inline-block;padding:3px 0;color:var(--gold);border-bottom:1px solid rgba(216,173,76,.45);}
+.nt-corps .nt-sec p.cm-rappel a{display:inline-block;padding:3px 0;color:var(--gold);border-bottom:1px solid rgba(var(--gold-rgb),.45);}
 .nt-corps .nt-sec p.cm-rappel a:hover{border-bottom-color:var(--gold);}
 .cm-m{margin-right:.32em;font-family:'Fraunces',serif;font-style:italic;font-weight:500;color:var(--gold);font-variant-numeric:lining-nums;}
 .cm-seg{border-radius:3px;-webkit-box-decoration-break:clone;box-decoration-break:clone;
   transition:background-color .5s cubic-bezier(.16,1,.3,1),box-shadow .5s cubic-bezier(.16,1,.3,1);}
-.cm-seg.on{background:rgba(216,173,76,.14);box-shadow:0 0 0 3px rgba(216,173,76,.14);}
+.cm-seg.on{background:rgba(var(--gold-rgb),.14);box-shadow:0 0 0 3px rgba(var(--gold-rgb),.14);}
 .nt-corps .cm-extrait p.cm-note{margin:14px 0 0;font-family:var(--f-ui);font-size:.8rem;line-height:1.6;color:var(--muted);}
 
 /* le problème en deux questions, et la thèse */
@@ -189,7 +189,7 @@
 .nt-corps .cm-questions p.q{margin-bottom:10px;font-family:'Fraunces',serif;font-style:italic;font-weight:500;
   font-size:1.2rem;line-height:1.36;color:var(--text);text-wrap:balance;}
 .nt-corps p.cm-these{position:relative;overflow:hidden;margin:var(--ag-in) 0;padding:24px 26px;border-radius:16px;
-  background:var(--emphase);box-shadow:inset 0 0 0 1px rgba(216,173,76,.22);font-size:1.14rem;line-height:1.72;max-width:none;}
+  background:var(--emphase);box-shadow:inset 0 0 0 1px rgba(var(--gold-rgb),.22);font-size:1.14rem;line-height:1.72;max-width:none;}
 .cm-plan{list-style:none;margin:18px 0 0;}
 .cm-plan li{border-top:1px solid var(--border);}
 /* Pas de filet sous la dernière ligne : la section suivante ouvre déjà sur
@@ -232,3 +232,12 @@
 @media (pointer:coarse){
   .nt-corps .ag-frise p.ag-acces a,.nt-corps .nt-sec p.cm-rappel a{padding:11px 0;margin:-8px 0;}
 }
+
+/* ── LES TROIS MODES (mission affichage, oct. 2026) ──
+   Les couleurs viennent des jetons (assets/modes.css) ; ne restent ici que
+   ce qu'un jeton ne dit pas. Le jour et l'édition sont clairs : le texte
+   sélectionné garde l'encre de la page (le crème de la bougie y serait
+   invisible). L'édition, mode de la longue lecture, n'a pas de lueur sous
+   la citation mise en avant. */
+html[data-mode="jour"] ::selection,html[data-mode="edition"] ::selection{color:var(--text);}
+html[data-mode="edition"] .ag-citation::after{display:none;}

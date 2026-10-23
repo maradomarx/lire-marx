@@ -42,8 +42,10 @@ body{
   padding:32px 22px;line-height:1.6;
   /* la bougie de la maison : une lueur chaude qui monte du bas */
   background-image:radial-gradient(120% 74% at 50% 108%,
-    rgba(216,173,76,.10) 0%, rgba(213,64,47,.05) 42%, transparent 72%);
+    rgba(var(--gold-rgb),.10) 0%, rgba(var(--red-rgb),.05) 42%, transparent 72%);
 }
+/* l'édition de 1872 est un imprimé : pas de lueur de bougie */
+html[data-mode="edition"] body{background-image:none;}
 .e-wrap{width:100%;max-width:620px;}
 .e-code{
   font-family:'Fraunces',Georgia,serif;font-weight:900;font-size:.78rem;
@@ -84,6 +86,14 @@ a:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
   .e-list a{padding:14px 2px;}
 }
 </style>
+<!-- AFFICHAGE:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs (modes, fond, gestes), ne pas éditer à la main -->
+<script>(function(){var h=document.documentElement,K='liremarx.mode.v1',C=['auto','bougie','jour','edition'],T={'bougie':'#15100b','jour':'#f6efe0','edition':'#ebe1c9'},S=null,f=0;try{S=matchMedia('(prefers-color-scheme: light)')}catch(e){}function r(c){return c==='auto'?(S&&S.matches?'jour':'bougie'):c}function lu(){var c='';try{c=localStorage.getItem(K)||''}catch(e){}return C.indexOf(c)<0?'auto':c}function p(c){if(C.indexOf(c)<0)c='auto';var m=r(c),a=h.getAttribute('data-mode');h.setAttribute('data-mode-choix',c);if(m!==a){if(a){h.classList.add('lm-bascule');clearTimeout(f);f=setTimeout(function(){h.classList.remove('lm-bascule')},140)}h.setAttribute('data-mode',m);var x=document.getElementsByName('theme-color');for(var i=0;i<x.length;i++)x[i].setAttribute('content',T[m]);if(a)document.dispatchEvent(new CustomEvent('lm:mode',{detail:{mode:m,choix:c}}))}document.dispatchEvent(new CustomEvent('lm:choix',{detail:{mode:m,choix:c}}));return m}var L=window.LM=window.LM||{};L.MODES=C;L.TEINTES=T;L.resoudre=r;L.mode=function(m){if(m===undefined)return{mode:h.getAttribute('data-mode'),choix:h.getAttribute('data-mode-choix')};if(C.indexOf(m)<0)return null;try{localStorage.setItem(K,m)}catch(e){}return p(m)};p(lu());if(S&&S.addEventListener)S.addEventListener('change',function(){if(h.getAttribute('data-mode-choix')==='auto')p('auto')});addEventListener('storage',function(e){if(e.key===K)p(C.indexOf(e.newValue)<0?'auto':e.newValue)})})();</script>
+<link rel="stylesheet" href="/assets/modes.css?v=142992bc">
+<link rel="stylesheet" href="/assets/mouvement.css?v=eef765f7">
+<link rel="stylesheet" href="/assets/fond.css?v=c84bb7c6">
+<script src="/assets/mouvement.js?v=547fb98c" defer></script>
+<script src="/assets/fond.js?v=a97d2d23" defer></script>
+<!-- AFFICHAGE:FIN -->
 </head>
 <body>
 <main class="e-wrap">

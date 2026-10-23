@@ -28,7 +28,7 @@
 <link rel="preload" as="image" href="/assets/img/marx/face-1836.webp" fetchpriority="high">
 <link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2"></noscript>
-<link rel="stylesheet" href="/oeuvres/shell.css?v=13">
+<link rel="stylesheet" href="/oeuvres/shell.css?v=14">
 <script>
 /* Décision de tête, AVANT le premier rendu : `no-motion` coupe toute
    animation. Seul reduced-motion décide — la largeur ne coupe rien
@@ -69,12 +69,22 @@
   --candle:rgba(216,173,76,.18);
   --emphase:linear-gradient(150deg,#2c2117,#211a12,#1b150e);
   --km-top:44px;
+  /* jetons LOCAUX de la page (mission `affichage`) : la bougie ici, le jour
+     et l'édition dans le bloc « LES TROIS MODES » en fin de feuille. La
+     SCÈNE d'un tableau est le mur sur lequel l'archive est accrochée. */
+  --km-stage:#100c08;--km-stage-rgb:16,12,8;--km-face:#0e0a07;--km-face-rgb:14,10,7;
+  --km-halo-rgb:0,0,0;--km-copy:rgba(21,16,11,.80);--km-btn-hover:#fff8e8;
+  --km-photo:grayscale(1) contrast(1.05) sepia(.26) brightness(.78);
+  --km-photo-b:grayscale(1) contrast(1.05) sepia(.26) brightness(.84);
+  --km-face-f:grayscale(1) contrast(1.06) sepia(.28) brightness(.82);
+  --km-doc-f:sepia(.25) contrast(1.02) brightness(.92);--km-doc-bg:#e9dcc2;
+  --km-grain-o:1;
   --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.95 0 0 0 0 0.9 0 0 0 0 0.8 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 *{box-sizing:border-box;}
 html{scroll-behavior:auto;}
 body{margin:0;background:var(--bg);color:var(--text);font-family:var(--f-ui);overflow-x:clip;}
-::selection{background:rgba(216,173,76,.32);color:var(--text);}
+::selection{background:rgba(var(--gold-rgb),.32);color:var(--text);}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:3px;}
 main.wrap{position:relative;z-index:1;}
 .lm-foot{position:relative;z-index:2;}
@@ -89,7 +99,7 @@ main.wrap{position:relative;z-index:1;}
 .km-h em{font-style:italic;font-weight:500;color:var(--gold);}
 .km-lede{font-family:var(--f-serif);font-size:1.08rem;line-height:1.66;color:var(--muted);
   margin:0 0 34px;max-width:62ch;}
-.km-lede a,.km-p a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(216,173,76,.35);}
+.km-lede a,.km-p a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(var(--gold-rgb),.35);}
 .km-lede a:hover,.km-p a:hover{border-bottom-color:var(--gold);}
 .km-p{font-family:var(--f-serif);font-size:1.02rem;line-height:1.74;color:var(--muted);margin:0 0 15px;max-width:66ch;}
 .km-p b{color:var(--ink);font-weight:600;}
@@ -97,7 +107,7 @@ main.wrap{position:relative;z-index:1;}
   font-weight:600;border-radius:100px;padding:12px 22px;text-decoration:none;
   transition:transform .2s cubic-bezier(.16,1,.3,1),background .2s,border-color .2s,color .2s;}
 .km-btn.pri{background:var(--text);color:var(--bg);}
-.km-btn.pri:hover{transform:translateY(-1px);background:#fff8e8;}
+.km-btn.pri:hover{transform:translateY(-1px);background:var(--km-btn-hover);}
 .km-btn.out{border:1px solid var(--line-strong);color:var(--text);}
 .km-btn.out:hover{border-color:var(--gold);color:var(--gold);}
 .km-cta{display:flex;flex-wrap:wrap;gap:12px;margin:0;}
@@ -121,8 +131,10 @@ main.wrap{position:relative;z-index:1;}
 .hv h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(3.2rem,7.6vw,6.6rem);
   line-height:.94;letter-spacing:-.04em;color:var(--text);margin:0 0 24px;}
 .hv h1 .rw{display:inline-block;}
+/* jamais sous 24 px : à 375 px, .42em valait 23,6 px, et le rouge de la maison
+   (4,14:1) n'atteint que le seuil des GRANDS textes */
 .hv h1 em{font-style:italic;font-weight:500;color:var(--accent);display:block;
-  font-size:.42em;letter-spacing:-.02em;line-height:1.1;margin-top:14px;}
+  font-size:max(.42em,1.5rem);letter-spacing:-.02em;line-height:1.1;margin-top:14px;}
 .hv-lede{font-family:var(--f-serif);font-size:clamp(1.02rem,1.4vw,1.18rem);line-height:1.62;
   color:var(--muted);max-width:50ch;margin:0 0 30px;}
 .hv-lede b{color:var(--ink);font-weight:600;}
@@ -140,17 +152,17 @@ main.wrap{position:relative;z-index:1;}
 .hv-note h2 em{font-style:italic;font-weight:500;color:var(--accent);}
 .hv-note p.hv-n-p{font-family:var(--f-serif);font-size:1.04rem;line-height:1.7;color:var(--muted);margin:0 0 12px;max-width:48ch;}
 .hv-note p.hv-n-p b{color:var(--ink);font-weight:600;}
-.hv-note p.hv-n-p a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(216,173,76,.35);}
+.hv-note p.hv-n-p a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(var(--gold-rgb),.35);}
 .hv-note p.hv-n-p a:hover{border-bottom-color:var(--gold);}
 .hv-n-src{font-family:var(--f-ui);font-size:.74rem;color:var(--const);margin:0;letter-spacing:.02em;}
 .hv-n-src a{color:var(--gold);text-decoration:none;}
 .hv-face{position:relative;justify-self:center;width:min(100%,56vh,500px);aspect-ratio:1;margin-top:6vh;
-  border-radius:18px;overflow:hidden;background:#0e0a07;
-  box-shadow:0 50px 90px -40px rgba(0,0,0,.95),0 0 0 1px rgba(216,173,76,.10);}
+  border-radius:18px;overflow:hidden;background:var(--km-face);
+  box-shadow:0 50px 90px -40px rgba(var(--ombre-rgb),.95),0 0 0 1px rgba(var(--gold-rgb),.10);}
 .hv-face img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;
-  filter:grayscale(1) contrast(1.06) sepia(.28) brightness(.82);}
+  filter:var(--km-face-f);}
 .hv-face img:first-child{opacity:1;}
-.hv-face::after{content:"";position:absolute;inset:0;background:var(--grain);opacity:.16;mix-blend-mode:overlay;pointer-events:none;}
+.hv-face::after{content:"";position:absolute;inset:0;background:var(--grain);opacity:calc(.16 * var(--km-grain-o));mix-blend-mode:overlay;pointer-events:none;}
 /* LE COMPTEUR D'ANNÉES : il défile en continu avec le scroll (1836 → 1875)
    et RALENTIT JUSQU'À S'ARRÊTER sur l'année de chaque photographie — c'est
    le même rythme qui tient les portraits et les notices immobiles pendant
@@ -158,13 +170,13 @@ main.wrap{position:relative;z-index:1;}
 .hv-year{position:absolute;right:clamp(24px,5vw,80px);top:calc(2vh + 8px);z-index:3;margin:0;
   font-family:'Fraunces',serif;font-weight:900;font-size:clamp(4.6rem,9.5vw,8.6rem);line-height:1;
   letter-spacing:-.04em;color:var(--gold);font-variant-numeric:tabular-nums;
-  text-shadow:0 2px 24px rgba(216,173,76,.18);pointer-events:none;user-select:none;
+  text-shadow:0 2px 24px rgba(var(--gold-rgb),.18);pointer-events:none;user-select:none;
   transition:opacity .3s;}
 .hv-year small{display:block;font-family:var(--f-ui);font-weight:600;font-size:.72rem;letter-spacing:.14em;
   text-transform:uppercase;color:var(--const);margin-top:6px;text-align:right;}
 .hv-year.is-still small{color:var(--gold);}
 .hv-cartel{position:absolute;left:0;right:0;bottom:0;padding:16px 18px;z-index:1;
-  background:linear-gradient(180deg,rgba(14,10,7,0),rgba(14,10,7,.92));
+  background:linear-gradient(180deg,rgba(var(--km-face-rgb),0),rgba(var(--km-face-rgb),.92));
   font-size:.72rem;letter-spacing:.04em;color:var(--ink-soft);line-height:1.45;}
 .hv-cartel b{display:block;font-weight:600;color:var(--text);letter-spacing:.06em;text-transform:uppercase;font-size:.72rem;margin-bottom:2px;}
 .hv-cartel span{display:none;}
@@ -175,7 +187,7 @@ main.wrap{position:relative;z-index:1;}
   font-family:'Fraunces',serif;font-style:italic;font-size:.95rem;color:var(--const);}
 .hv-rule i{height:1px;background:var(--border);position:relative;}
 .hv-rule i::after{content:"";position:absolute;left:0;top:0;height:1px;width:calc(var(--p,0) * 100%);
-  background:linear-gradient(90deg,rgba(216,173,76,.2),var(--gold));box-shadow:0 0 8px rgba(216,173,76,.4);}
+  background:linear-gradient(90deg,rgba(var(--gold-rgb),.2),var(--gold));box-shadow:0 0 8px rgba(var(--gold-rgb),.4);}
 .hv-hint{position:absolute;left:clamp(24px,5vw,80px);bottom:64px;z-index:2;display:flex;align-items:center;gap:12px;
   font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
   opacity:calc(1 - var(--fade,0));}
@@ -195,7 +207,7 @@ html.js:not(.no-motion) .hv.lit .hv-face{animation:km-dev 1.6s cubic-bezier(.16,
 @keyframes km-dev{from{opacity:0;clip-path:inset(0 100% 0 0);}40%{opacity:1;}to{opacity:1;clip-path:inset(0 0 0 0);}}
 
 /* ── LE SOMMAIRE COLLANT */
-.km-nav{position:sticky;top:var(--km-top);z-index:40;background:rgba(21,16,11,.84);
+.km-nav{position:sticky;top:var(--km-top);z-index:40;background:rgba(var(--paper-rgb),.84);
   backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);}
 .km-nav ul{list-style:none;margin:0 auto;padding:0 clamp(24px,5vw,80px);max-width:1180px;
   display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;}
@@ -220,35 +232,35 @@ html.js:not(.no-motion) .hv.lit .hv-face{animation:km-dev 1.6s cubic-bezier(.16,
 .tb{position:relative;--q:0;--rev:1;padding-bottom:0;min-height:calc((100vh - var(--km-top)) * 1.7);}
 #vie-exil{min-height:calc((100vh - var(--km-top)) * 3.2);}
 .tb-stage{position:sticky;top:var(--km-top);height:calc(100vh - var(--km-top));overflow:hidden;
-  background:#100c08;}
-.tb-stage::after{content:"";position:absolute;inset:0;background:var(--grain);opacity:.10;mix-blend-mode:overlay;pointer-events:none;}
+  background:var(--km-stage);}
+.tb-stage::after{content:"";position:absolute;inset:0;background:var(--grain);opacity:calc(.10 * var(--km-grain-o));mix-blend-mode:overlay;pointer-events:none;}
 .tb-fig{position:absolute;margin:0;}
 .tb-fig img{display:block;width:100%;height:100%;object-fit:cover;}
 /* la photographie : cover, dans la moitié droite, développée au scroll */
 .tb-fig--photo{right:0;top:0;bottom:0;width:62%;
   clip-path:inset(0 0 calc((1 - var(--rev)) * 100%) 0);
   transform:scale(calc(1.08 - var(--rev) * .08));transform-origin:50% 100%;}
-.tb-fig--photo img{filter:grayscale(1) contrast(1.05) sepia(.26) brightness(.78);}
+.tb-fig--photo img{filter:var(--km-photo);}
 .tb-fig--photo::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:linear-gradient(90deg,#100c08 0,rgba(16,12,8,.55) 18%,rgba(16,12,8,0) 45%),
-             linear-gradient(180deg,rgba(16,12,8,0) 60%,rgba(16,12,8,.75) 100%);}
+  background:linear-gradient(90deg,var(--km-stage) 0,rgba(var(--km-stage-rgb),.55) 18%,rgba(var(--km-stage-rgb),0) 45%),
+             linear-gradient(180deg,rgba(var(--km-stage-rgb),0) 60%,rgba(var(--km-stage-rgb),.75) 100%);}
 /* le document : contenu entier, posé comme une feuille, jamais rogné */
 .tb-fig--doc{right:clamp(24px,6vw,96px);top:46%;transform:translateY(-50%) scale(calc(.94 + var(--rev) * .06));
   height:min(78%,calc((100vh - var(--km-top)) * .78));width:auto;aspect-ratio:var(--ar,.6);max-width:44%;
   clip-path:inset(0 0 calc((1 - var(--rev)) * 100%) 0);
-  box-shadow:0 50px 90px -40px rgba(0,0,0,.95),0 0 0 1px rgba(216,173,76,.12);border-radius:3px;
-  background:#e9dcc2;}
-.tb-fig--doc img{object-fit:contain;filter:sepia(.25) contrast(1.02) brightness(.92);}
+  box-shadow:0 50px 90px -40px rgba(var(--ombre-rgb),.95),0 0 0 1px rgba(var(--gold-rgb),.12);border-radius:3px;
+  background:var(--km-doc-bg);}
+.tb-fig--doc img{object-fit:contain;filter:var(--km-doc-f);}
 /* la seconde figure : une carte qui glisse au bord, à mi-course */
 .tb-fig--b{right:clamp(24px,5vw,72px);bottom:80px;width:clamp(150px,18vw,240px);aspect-ratio:var(--ar,.7);
-  border-radius:10px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(0,0,0,.95),0 0 0 1px rgba(216,173,76,.14);
+  border-radius:10px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(var(--ombre-rgb),.95),0 0 0 1px rgba(var(--gold-rgb),.14);
   --b:0;opacity:var(--b);transform:translate(calc((1 - var(--b)) * 40px),0) rotate(calc((1 - var(--b)) * 3deg));}
-.tb-fig--b img{filter:grayscale(1) contrast(1.05) sepia(.26) brightness(.84);}
+.tb-fig--b img{filter:var(--km-photo-b);}
 .tb-fig--b figcaption{position:absolute;left:0;right:0;bottom:0;padding:8px 10px;
-  background:linear-gradient(180deg,rgba(14,10,7,0),rgba(14,10,7,.9));font-size:.72rem;color:var(--ink-soft);line-height:1.4;}
+  background:linear-gradient(180deg,rgba(var(--km-face-rgb),0),rgba(var(--km-face-rgb),.9));font-size:.72rem;color:var(--ink-soft);line-height:1.4;}
 .tb-cap{position:absolute;right:clamp(24px,5vw,72px);bottom:26px;z-index:3;max-width:min(46%,420px);text-align:right;
   font-size:.72rem;letter-spacing:.03em;color:var(--ink-soft);line-height:1.45;
-  text-shadow:0 1px 3px rgba(0,0,0,.9);}
+  text-shadow:0 1px 3px rgba(var(--km-halo-rgb),.9);}
 .tb-cap b{display:block;font-weight:600;color:var(--text);letter-spacing:.06em;text-transform:uppercase;font-size:.72rem;margin-bottom:2px;}
 .tb-cap a{color:var(--ink-soft);}
 /* l'année, géante, derrière tout : elle glisse en entrant */
@@ -256,8 +268,8 @@ html.js:not(.no-motion) .hv.lit .hv-face{animation:km-dev 1.6s cubic-bezier(.16,
 .tb-copy{position:relative;z-index:2;max-width:540px;
   margin:calc(-100vh + var(--km-top) + 16vh) 0 0 clamp(24px,6vw,96px);
   padding:30px 32px 32px;border-radius:18px;
-  background:rgba(21,16,11,.80);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  border:1px solid var(--border);box-shadow:0 30px 70px -40px rgba(0,0,0,.9);}
+  background:var(--km-copy);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid var(--border);box-shadow:0 30px 70px -40px rgba(var(--ombre-rgb),.9);}
 .tb-copy>*{--n:1;opacity:var(--n);transform:translateY(calc((1 - var(--n)) * 10px));}
 /* L'ANNÉE VIT DANS LE FEUILLET, en tête, grande et or — posée sur la scène
    elle recouvrait tôt ou tard l'image (la maison de Trèves, le Manifeste,
@@ -269,23 +281,28 @@ html.js:not(.no-motion) .hv.lit .hv-face{animation:km-dev 1.6s cubic-bezier(.16,
 .tb-copy p{font-family:var(--f-serif);font-size:1.02rem;line-height:1.72;color:var(--muted);margin:0 0 14px;}
 .tb-copy p:last-child{margin-bottom:0;}
 .tb-copy p b{color:var(--ink);font-weight:600;}
-.tb-copy p a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(216,173,76,.35);}
+.tb-copy p a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(var(--gold-rgb),.35);}
 .tb-copy p a:hover{border-bottom-color:var(--gold);}
 /* le tableau typographique : la phrase géante s'encre mot à mot */
-.tb-quote{position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-end;padding:0 clamp(24px,5vw,72px) 0 57%;}
+/* colonne : la citation, puis sa source DESSOUS (en ligne, la source tombait
+   à droite du texte, coincée contre le bord — défaut antérieur, vu à 1280) */
+.tb-quote{position:absolute;inset:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:0 clamp(24px,5vw,72px) 0 57%;}
 .tb-quote p{margin:0;font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:clamp(1.5rem,3vw,2.7rem);line-height:1.18;letter-spacing:-.02em;color:var(--text);text-wrap:balance;}
-.tb-quote .rw{display:inline-block;--wp:1;color:color-mix(in srgb,var(--text) calc(var(--wp)*100%),rgba(243,233,212,.16));}
+/* l'encre prend de --muted vers --text, jamais depuis le transparent : un mot
+   « éteint » à 16 % d'encre tombait à 1,4:1 (mesuré au jour, à 375 px) — une
+   extinction ne se dit pas par l'opacité, règle de la maison */
+.tb-quote .rw{display:inline-block;--wp:1;color:color-mix(in srgb,var(--text) calc(var(--wp)*100%),var(--muted));}
 @supports not (color:color-mix(in srgb,red,blue)){.tb-quote .rw{color:var(--text);}}
 .tb-quote cite{display:block;margin-top:18px;font-family:var(--f-ui);font-style:normal;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--const);}
 .tb-quote cite a{color:var(--gold);text-decoration:none;}
 /* la séquence : plusieurs images fondues par la position, cartel qui suit */
 .tb-seq{position:absolute;right:0;top:0;bottom:0;width:62%;}
 .tb-seq img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;
-  filter:grayscale(1) contrast(1.05) sepia(.26) brightness(.78);}
+  filter:var(--km-photo);}
 .tb-seq img:first-child{opacity:1;}
 .tb-seq::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:linear-gradient(90deg,#100c08 0,rgba(16,12,8,.55) 18%,rgba(16,12,8,0) 45%),
-             linear-gradient(180deg,rgba(16,12,8,0) 60%,rgba(16,12,8,.75) 100%);}
+  background:linear-gradient(90deg,var(--km-stage) 0,rgba(var(--km-stage-rgb),.55) 18%,rgba(var(--km-stage-rgb),0) 45%),
+             linear-gradient(180deg,rgba(var(--km-stage-rgb),0) 60%,rgba(var(--km-stage-rgb),.75) 100%);}
 .tb-cap span{display:none;}
 .tb-cap span.on{display:block;}
 /* la carte de l'exil : la scène 3D remplit la scène du tableau */
@@ -294,7 +311,7 @@ html.js:not(.no-motion) .hv.lit .hv-face{animation:km-dev 1.6s cubic-bezier(.16,
 .km-lbl{position:absolute;left:0;top:0;transform:translate(-50%,-100%);
   font-family:'Fraunces',serif;font-weight:500;font-style:italic;font-size:.92rem;
   color:var(--const);letter-spacing:.01em;white-space:nowrap;opacity:0;
-  text-shadow:0 1px 3px rgba(0,0,0,.9);transition:color .5s,opacity .5s;pointer-events:none;}
+  text-shadow:0 1px 3px rgba(var(--km-halo-rgb),.9);transition:color .5s,opacity .5s;pointer-events:none;}
 .km-lbl.is-lit{opacity:1;color:var(--ink-soft);}
 .km-lbl.is-on{color:var(--gold);}
 .km-lbl small{display:block;font-family:var(--f-ui);font-style:normal;font-weight:500;
@@ -311,7 +328,7 @@ html.js:not(.no-motion) .hv.lit .hv-face{animation:km-dev 1.6s cubic-bezier(.16,
   transform:translateY(calc(var(--drop) * 30px)) rotate(var(--tilt));
   opacity:calc(1 - var(--drop) * .55);
   transition:border-color .25s,box-shadow .35s;}
-.km-idee:hover{border-color:rgba(216,173,76,.42);box-shadow:0 22px 44px -30px rgba(0,0,0,.9);}
+.km-idee:hover{border-color:rgba(var(--gold-rgb),.42);box-shadow:0 22px 44px -30px rgba(var(--ombre-rgb),.9);}
 .km-idee .km-n{font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:1.3rem;
   color:color-mix(in srgb,var(--gold) calc(var(--ink)*100%),var(--muted));margin:0 0 12px;}
 @supports not (color:color-mix(in srgb,red,blue)){.km-idee .km-n{color:var(--gold);}}
@@ -324,7 +341,7 @@ html.js:not(.no-motion) .hv.lit .hv-face{animation:km-dev 1.6s cubic-bezier(.16,
 .km-idee-go span{transition:transform .2s;}
 .km-idee-go:hover span{transform:translateX(3px);}
 .km-methode{margin-top:40px;padding:26px 28px;border-radius:16px;background:var(--emphase);
-  border:1px solid rgba(216,173,76,.20);box-shadow:0 18px 40px -26px rgba(0,0,0,.85);max-width:840px;}
+  border:1px solid var(--emphase-bord);box-shadow:0 18px 40px -26px rgba(var(--ombre-rgb),.85);max-width:840px;}
 .km-methode .km-label{color:var(--gold);}
 .km-methode p{margin-bottom:0;}
 
@@ -334,7 +351,7 @@ html.js:not(.no-motion) .hv.lit .hv-face{animation:km-dev 1.6s cubic-bezier(.16,
 .km-livs::before,.km-livs::after{content:"";position:absolute;left:0;top:14px;width:1px;}
 .km-livs::before{bottom:14px;background:var(--border);}
 .km-livs::after{height:calc(var(--draw) * (100% - 28px));
-  background:linear-gradient(180deg,rgba(216,173,76,.12),var(--gold));box-shadow:0 0 9px rgba(216,173,76,.34);}
+  background:linear-gradient(180deg,rgba(var(--gold-rgb),.12),var(--gold));box-shadow:0 0 9px rgba(var(--gold-rgb),.34);}
 .km-liv{position:relative;display:grid;grid-template-columns:64px 1fr;gap:14px;align-items:baseline;
   padding:12px 0;border-top:1px solid var(--line-soft);--lit:1;}
 .km-liv:first-child{border-top:0;}
@@ -346,7 +363,7 @@ html.js:not(.no-motion) .hv.lit .hv-face{animation:km-dev 1.6s cubic-bezier(.16,
 @supports not (color:color-mix(in srgb,red,blue)){.km-liv-y{color:var(--gold);}}
 .km-liv-t{font-family:'Fraunces',serif;font-weight:600;font-size:1.06rem;letter-spacing:-.01em;color:var(--text);text-decoration:none;}
 a.km-liv-t{border-bottom:1px solid transparent;}
-a.km-liv-t:hover{color:var(--gold);border-bottom-color:rgba(216,173,76,.5);}
+a.km-liv-t:hover{color:var(--gold);border-bottom-color:rgba(var(--gold-rgb),.5);}
 .km-liv-s{display:block;font-family:var(--f-ui);font-size:.74rem;color:var(--const);margin-top:3px;letter-spacing:.02em;}
 .km-liv-s.ok{color:var(--gold);}
 .km-livres-note{position:sticky;top:calc(var(--km-top) + 70px);}
@@ -359,11 +376,11 @@ a.km-liv-t:hover{color:var(--gold);border-bottom-color:rgba(216,173,76,.5);}
 .km-vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
 .km-vid-b{position:absolute;inset:0;width:100%;height:100%;display:flex;flex-direction:column;justify-content:flex-end;
   align-items:flex-start;gap:6px;padding:18px;text-align:left;cursor:pointer;border:0;color:var(--text);
-  background:radial-gradient(120% 90% at 20% 100%,rgba(213,64,47,.22),transparent 55%),var(--emphase);
+  background:radial-gradient(120% 90% at 20% 100%,rgba(var(--red-rgb),.22),transparent 55%),var(--emphase);
   font-family:var(--f-ui);transition:filter .25s;}
 .km-vid-b:hover{filter:brightness(1.12);}
 .km-vid-play{position:absolute;right:18px;top:18px;width:44px;height:44px;border-radius:50%;
-  border:1px solid var(--line-strong);display:grid;place-items:center;background:rgba(21,16,11,.4);}
+  border:1px solid var(--line-strong);display:grid;place-items:center;background:rgba(var(--paper-rgb),.4);}
 .km-vid-play::before{content:"";width:0;height:0;border-left:13px solid var(--text);border-top:8px solid transparent;border-bottom:8px solid transparent;margin-left:3px;}
 .km-vid-t{font-family:'Fraunces',serif;font-weight:900;font-size:1.05rem;letter-spacing:-.02em;line-height:1.25;max-width:26ch;}
 .km-vid-m{font-size:.72rem;color:var(--ink-soft);letter-spacing:.02em;}
@@ -379,7 +396,7 @@ a.km-liv-t:hover{color:var(--gold);border-bottom-color:rgba(216,173,76,.5);}
 .km-portes{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
 .km-porte{display:block;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px 24px 22px;
   text-decoration:none;color:var(--text);transition:border-color .25s,transform .25s cubic-bezier(.16,1,.3,1),box-shadow .35s;}
-.km-porte:hover{border-color:rgba(216,173,76,.46);transform:translateY(-2px);box-shadow:0 22px 44px -30px rgba(0,0,0,.9);}
+.km-porte:hover{border-color:rgba(var(--gold-rgb),.46);transform:translateY(-2px);box-shadow:0 22px 44px -30px rgba(var(--ombre-rgb),.9);}
 .km-porte-g{display:block;font-size:.72rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--gold);margin:0 0 10px;}
 .km-porte-q{display:block;font-family:'Fraunces',serif;font-weight:900;font-size:1.28rem;letter-spacing:-.02em;line-height:1.3;margin:0 0 10px;}
 .km-porte-t{display:block;font-family:var(--f-serif);font-size:.96rem;color:var(--muted);}
@@ -389,7 +406,7 @@ a.km-liv-t:hover{color:var(--gold);border-bottom-color:rgba(216,173,76,.5);}
       est dérivé par gen-seo), même fil et même lumière. */
 .hs-faq-list{display:flex;flex-direction:column;gap:10px;max-width:840px;}
 .hs-faq-item{background:var(--surface);border:1px solid var(--border);border-radius:16px;transition:border-color .2s ease;}
-.hs-faq-item:hover{border-color:rgba(216,173,76,.42);}
+.hs-faq-item:hover{border-color:rgba(var(--gold-rgb),.42);}
 .hs-faq-item>summary{display:flex;align-items:flex-start;gap:18px;justify-content:space-between;padding:19px 22px;cursor:pointer;list-style:none;border-radius:16px;}
 .hs-faq-item>summary::-webkit-details-marker{display:none;}
 .hs-faq-item>summary:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
@@ -406,10 +423,10 @@ a.km-liv-t:hover{color:var(--gold);border-bottom-color:rgba(216,173,76,.5);}
 html.js-faq .hs-faq-list{position:relative;padding-left:34px;--draw:1;}
 html.js-faq .hs-faq-list::before,html.js-faq .hs-faq-list::after{content:"";position:absolute;left:0;top:8px;width:1px;}
 html.js-faq .hs-faq-list::before{bottom:8px;background:var(--border);}
-html.js-faq .hs-faq-list::after{height:calc(var(--draw) * (100% - 16px));background:linear-gradient(180deg,rgba(216,173,76,.12),var(--gold));box-shadow:0 0 9px rgba(216,173,76,.34);}
+html.js-faq .hs-faq-list::after{height:calc(var(--draw) * (100% - 16px));background:linear-gradient(180deg,rgba(var(--gold-rgb),.12),var(--gold));box-shadow:0 0 9px rgba(var(--gold-rgb),.34);}
 html.js-faq .hs-faq-item{--lit:1;--pass:0;position:relative;
-  border-color:color-mix(in srgb,rgba(216,173,76,.34) calc(var(--lit)*100%),var(--border));
-  box-shadow:0 0 0 1px rgba(216,173,76,calc(var(--pass)*.10)),0 12px 36px -20px rgba(216,173,76,calc(var(--pass)*.85));}
+  border-color:color-mix(in srgb,rgba(var(--gold-rgb),.34) calc(var(--lit)*100%),var(--border));
+  box-shadow:0 0 0 1px rgba(var(--gold-rgb),calc(var(--pass)*.10)),0 12px 36px -20px rgba(var(--gold-rgb),calc(var(--pass)*.85));}
 html.js-faq .hs-faq-item::before,html.js-faq .hs-faq-item::after{content:"";position:absolute;left:-38px;top:25px;width:9px;height:9px;border-radius:50%;box-sizing:border-box;}
 html.js-faq .hs-faq-item::before{border:1px solid var(--border);background:var(--surface);}
 html.js-faq .hs-faq-item::after{background:var(--gold);opacity:var(--lit);transform:scale(calc(.3 + var(--lit)*.7));}
@@ -419,9 +436,9 @@ html.js-faq .hs-faq-q{color:var(--muted);}
 
 /* ── LA DERNIÈRE PAGE */
 .km-fin{position:relative;overflow:hidden;padding:clamp(72px,12vh,140px) clamp(24px,5vw,80px);
-  background:linear-gradient(180deg,rgba(21,16,11,.92),rgba(21,16,11,.98));}
+  background:linear-gradient(180deg,rgba(var(--paper-rgb),.92),rgba(var(--paper-rgb),.98));}
 .km-fin::before{content:"";position:absolute;left:clamp(24px,5vw,80px);bottom:-160px;width:520px;height:420px;
-  background:radial-gradient(circle,rgba(216,173,76,calc(.22 * var(--lum,1))),transparent 62%);pointer-events:none;}
+  background:radial-gradient(circle,rgba(var(--gold-rgb),calc(.22 * var(--lum,1))),transparent 62%);pointer-events:none;}
 .km-fin-in{max-width:1180px;margin:0 auto;position:relative;opacity:calc(.35 + .65 * var(--lum,1));}
 .km-fin-line{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(1.7rem,3.4vw,2.5rem);letter-spacing:-.03em;line-height:1.08;margin:0 0 26px;max-width:22ch;color:var(--text);}
 .km-fin-line em{font-style:italic;font-weight:500;color:var(--gold);}
@@ -447,14 +464,14 @@ html.js-faq .hs-faq-q{color:var(--muted);}
   .tb{padding-bottom:0;}
   .tb-stage{height:min(52vh,460px);border-radius:0 0 16px 16px;}
   .tb-fig--photo{width:100%;}
-  .tb-fig--photo::before{background:linear-gradient(180deg,rgba(16,12,8,0) 55%,rgba(16,12,8,.7) 100%);}
+  .tb-fig--photo::before{background:linear-gradient(180deg,rgba(var(--km-stage-rgb),0) 55%,rgba(var(--km-stage-rgb),.7) 100%);}
   .tb-fig--doc{right:auto;left:50%;transform:translate(-50%,-50%) scale(calc(.94 + var(--rev) * .06));max-width:70%;}
   .tb-fig--b{width:120px;bottom:52px;}
   .tb-cap{max-width:70%;right:16px;bottom:12px;}
   /* le texte passe SOUS la bande épinglée (z-index inversé), comme sous un
      en-tête fixe : la scène reste visible pendant qu'on lit dessous. Un
      dégradé au pied de la bande adoucit la ligne de coupe. */
-  .tb-stage{z-index:3;box-shadow:0 18px 30px -12px rgba(0,0,0,.85);}
+  .tb-stage{z-index:3;box-shadow:0 18px 30px -12px rgba(var(--ombre-rgb),.85);}
   .tb-copy{z-index:1;margin:18px clamp(16px,4vw,32px) 0;max-width:none;padding:22px 20px 24px;background:var(--surface);backdrop-filter:none;}
   .tb-quote{padding:0 20px;align-items:center;justify-content:center;text-align:center;}
   .tb-seq{width:100%;}
@@ -483,6 +500,46 @@ html.no-motion .km-scene{display:none;}
   .km-idee-go,.km-ecoute a,.km-vie-src a{display:inline-block;padding:8px 0;margin:-8px 0;}
 }
 @media print{.km-nav,.hv-hint,.km-vids,.km-scene{display:none;}.tb-stage{position:relative;height:auto;}}
+
+/* ══ LES TROIS MODES (mission `affichage`) ═══════════════════════════
+   Une page d'ARCHIVES : au jour, on les regarde accrochées sur un mur clair
+   — le mur de chaque scène devient un enduit chaud, les tirages gardent leur
+   sépia mais sortent de la pénombre, les légendes posées sur l'image ont un
+   voile de papier au lieu d'un voile de nuit. En ÉDITION, plus de lueurs :
+   ni halo doré sous l'année, ni traînée lumineuse sur les fils, ni grain
+   (un imprimé est plat) ; les tirages prennent le traitement de l'édition.
+   La carte de l'exil suit dans le script (`MODES_CARTE`). */
+html[data-mode="jour"]{
+  --km-stage:#ece2cd;--km-stage-rgb:236,226,205;--km-face:#e4d8c0;--km-face-rgb:240,232,214;
+  --km-halo-rgb:var(--paper-rgb);--km-copy:rgba(var(--paper-rgb),.9);--km-btn-hover:#3e2f1f;
+  --km-photo:grayscale(1) contrast(1.04) sepia(.26) brightness(.98);
+  --km-photo-b:grayscale(1) contrast(1.04) sepia(.26) brightness(1);
+  --km-face-f:grayscale(1) contrast(1.05) sepia(.28) brightness(.98);
+  --km-doc-f:sepia(.15) contrast(1.03);--km-doc-bg:#eadcbf;
+  --km-grain-o:.6;
+}
+html[data-mode="edition"]{
+  --km-stage:#e2d6bb;--km-stage-rgb:226,214,187;--km-face:#ddd0b3;--km-face-rgb:238,229,208;
+  --km-halo-rgb:var(--paper-rgb);--km-copy:rgba(var(--paper-rgb),.94);--km-btn-hover:#3d3428;
+  --km-photo:var(--photo-filtre);--km-photo-b:var(--photo-filtre);--km-face-f:var(--photo-filtre);
+  --km-doc-f:grayscale(.6) contrast(1.08);--km-doc-bg:#e8dcc0;
+  --km-grain-o:0;
+}
+/* au jour et en édition, un document d'archive n'est pas un écran blanc : le
+   scan, presque blanc, se MULTIPLIE avec son papier (le blanc devient papier,
+   l'encre reste encre) */
+html:is([data-mode="jour"],[data-mode="edition"]) .tb-fig--doc img{mix-blend-mode:multiply;}
+/* une légende posée sur un tirage clair : un halo de papier serré, pas une ombre */
+html:is([data-mode="jour"],[data-mode="edition"]) :is(.tb-cap,.km-lbl){text-shadow:0 0 2px rgba(var(--paper-rgb),1),0 0 7px rgba(var(--paper-rgb),.95),0 0 14px rgba(var(--paper-rgb),.7);}
+/* un imprimé n'a pas de lueur */
+html[data-mode="edition"] .hv-year{text-shadow:none;}
+html[data-mode="edition"] .hv-rule i::after,html[data-mode="edition"] .km-livs::after,
+html[data-mode="edition"].js-faq .hs-faq-list::after{box-shadow:none;}
+html[data-mode="edition"].js-faq .hs-faq-item{box-shadow:none;}
+html[data-mode="edition"] .km-fin::before{display:none;}
+/* au jour, la lueur dorée de la dernière page deviendrait une tache d'ocre */
+html[data-mode="jour"] .km-fin::before{opacity:.4;}
+html[data-mode="edition"] :is(.tb-copy,.km-nav){backdrop-filter:none;-webkit-backdrop-filter:none;}
 </style>
 <!-- KARL-MARX:LD:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main -->
 <script type="application/ld+json">
@@ -625,6 +682,14 @@ html.no-motion .km-scene{display:none;}
   ]
 }
 </script>
+<!-- AFFICHAGE:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs (modes, fond, gestes), ne pas éditer à la main -->
+<script>(function(){var h=document.documentElement,K='liremarx.mode.v1',C=['auto','bougie','jour','edition'],T={'bougie':'#15100b','jour':'#f6efe0','edition':'#ebe1c9'},S=null,f=0;try{S=matchMedia('(prefers-color-scheme: light)')}catch(e){}function r(c){return c==='auto'?(S&&S.matches?'jour':'bougie'):c}function lu(){var c='';try{c=localStorage.getItem(K)||''}catch(e){}return C.indexOf(c)<0?'auto':c}function p(c){if(C.indexOf(c)<0)c='auto';var m=r(c),a=h.getAttribute('data-mode');h.setAttribute('data-mode-choix',c);if(m!==a){if(a){h.classList.add('lm-bascule');clearTimeout(f);f=setTimeout(function(){h.classList.remove('lm-bascule')},140)}h.setAttribute('data-mode',m);var x=document.getElementsByName('theme-color');for(var i=0;i<x.length;i++)x[i].setAttribute('content',T[m]);if(a)document.dispatchEvent(new CustomEvent('lm:mode',{detail:{mode:m,choix:c}}))}document.dispatchEvent(new CustomEvent('lm:choix',{detail:{mode:m,choix:c}}));return m}var L=window.LM=window.LM||{};L.MODES=C;L.TEINTES=T;L.resoudre=r;L.mode=function(m){if(m===undefined)return{mode:h.getAttribute('data-mode'),choix:h.getAttribute('data-mode-choix')};if(C.indexOf(m)<0)return null;try{localStorage.setItem(K,m)}catch(e){}return p(m)};p(lu());if(S&&S.addEventListener)S.addEventListener('change',function(){if(h.getAttribute('data-mode-choix')==='auto')p('auto')});addEventListener('storage',function(e){if(e.key===K)p(C.indexOf(e.newValue)<0?'auto':e.newValue)})})();</script>
+<link rel="stylesheet" href="/assets/modes.css?v=142992bc">
+<link rel="stylesheet" href="/assets/mouvement.css?v=eef765f7">
+<link rel="stylesheet" href="/assets/fond.css?v=c84bb7c6">
+<script src="/assets/mouvement.js?v=547fb98c" defer></script>
+<script src="/assets/fond.js?v=a97d2d23" defer></script>
+<!-- AFFICHAGE:FIN -->
 </head>
 <body>
 
@@ -1535,6 +1600,8 @@ html.no-motion .km-scene{display:none;}
     renderer.outputEncoding = T.sRGBEncoding;
     var sc = new T.Scene();
     sc.fog = new T.Fog(0x100c08, 14, 40);
+    /* une couleur CSS vers l'espace linéaire de la scène (outputEncoding sRGB) */
+    function lin(css) { return new T.Color(css).convertSRGBToLinear(); }
     var cam = new T.PerspectiveCamera(38, 1, 0.1, 120);
     sc.add(cam);
 
@@ -1553,19 +1620,44 @@ html.no-motion .km-scene{display:none;}
     var mapTex = new T.CanvasTexture(mapCanvas); mapTex.encoding = T.sRGBEncoding; mapTex.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
     var px = function (lon) { return (lon - BB.x0) * PPU; }, py = function (lat) { return (BB.y1 - lat) * 1.6 * PPU; };
 
+    /* ═══ LES TROIS MODES DE LA CARTE (mission `affichage`) ═══
+       Le dessin RELIT sa palette à chaque tracé, et se refait sur `lm:mode`.
+       — bougie : le parchemin brun-nuit, l'or des cartes anciennes.
+       — jour : un parchemin CLAIR, l'or devenu l'ocre d'une encre de
+         carte, les fleuves au bleu de Prusse, le trait de côte à l'encre.
+       — edition : une carte GRAVÉE — un seul noir d'imprimerie pour tout
+         le trait, le bistre pour les noms secondaires, le rouge de rubrique
+         pour la route, pas de vignette ni de grain, et dans la scène ni
+         halo ni comète ni poussière. */
+    var MODES_CARTE = {
+      bougie: { fond: ['#221a12', '#1a1410', '#0f0b08'], or: '216,173,76', cote: '216,173,76', creme: '243,233,212',
+        bleu: '120,165,190', terre: ['#3a2d1f', '#2c2218'], lac: '#17120d', ombre: '0,0,0', sous: 'rgba(0,0,0,.35)',
+        route: 'rgba(213,64,47,.55)', cart: 'rgba(21,16,11,.55)', grain: .10, bistre: '216,173,76' },
+      jour: { fond: ['#f7efdc', '#efe4ca', '#dccba5'], or: '124,90,27', cote: '75,55,30', creme: '34,25,15',
+        bleu: '47,91,116', terre: ['#e9dab6', '#dcc89f'], lac: '#d2dbd6', ombre: '96,70,36', sous: 'rgba(255,250,236,.7)',
+        route: 'rgba(184,54,31,.72)', cart: 'rgba(251,246,234,.78)', grain: .07, bistre: '124,90,27' },
+      edition: { fond: ['#f2ead6', '#ece2ca', '#e4d8bd'], or: '28,23,18', cote: '28,23,18', creme: '28,23,18',
+        bleu: '44,58,70', terre: ['#e6dbc1', '#dfd2b4'], lac: '#e9e2d0', ombre: '28,23,18', sous: 'rgba(242,234,214,.8)',
+        route: 'rgba(156,42,26,.8)', cart: 'rgba(245,237,219,.85)', grain: 0, bistre: '106,79,34' }
+    };
+    function modeCarte() { var m = root.getAttribute('data-mode'); return MODES_CARTE[m] ? m : 'bougie'; }
+    var carteData = null;
     function dessine(data) {
+      carteData = data;
+      var P = MODES_CARTE[modeCarte()];
       var x = mapCanvas.getContext('2d');
-      var GOLD = '216,173,76', CREME = '243,233,212', BLEU = '120,165,190';
-      /* le parchemin : brun-nuit, un peu plus chaud au centre, vignetté */
+      x.setTransform(1, 0, 0, 1, 0, 0); x.globalAlpha = 1; x.globalCompositeOperation = 'source-over'; x.setLineDash([]);
+      var GOLD = P.or, CREME = P.creme, BLEU = P.bleu;
+      /* le parchemin, un peu plus chaud au centre, vignetté */
       var g0 = x.createRadialGradient(CW * .5, CH * .5, CH * .2, CW * .5, CH * .5, CW * .7);
-      g0.addColorStop(0, '#221a12'); g0.addColorStop(.6, '#1a1410'); g0.addColorStop(1, '#0f0b08');
+      g0.addColorStop(0, P.fond[0]); g0.addColorStop(.6, P.fond[1]); g0.addColorStop(1, P.fond[2]);
       x.fillStyle = g0; x.fillRect(0, 0, CW, CH);
       /* le grain */
       var gr = doc.createElement('canvas'); gr.width = gr.height = 256; var gx = gr.getContext('2d');
       var im = gx.createImageData(256, 256), d = im.data;
       for (var i = 0; i < d.length; i += 4) { var v = 128 + (Math.random() - .5) * 70; d[i] = v; d[i+1] = v * .92; d[i+2] = v * .8; d[i+3] = 255; }
       gx.putImageData(im, 0, 0);
-      x.globalAlpha = .10; x.globalCompositeOperation = 'overlay'; x.fillStyle = x.createPattern(gr, 'repeat'); x.fillRect(0, 0, CW, CH);
+      x.globalAlpha = P.grain; x.globalCompositeOperation = 'overlay'; x.fillStyle = x.createPattern(gr, 'repeat'); if (P.grain) x.fillRect(0, 0, CW, CH);
       x.globalAlpha = 1; x.globalCompositeOperation = 'source-over';
       /* les ondes de la mer : de fines lignes horizontales, à peine là */
       x.strokeStyle = 'rgba(' + CREME + ',.045)'; x.lineWidth = 1;
@@ -1589,25 +1681,26 @@ html.no-motion .km-scene{display:none;}
       /* les hachures côtières : trois anneaux ténus côté mer, jamais un néon */
       [[30, .028], [17, .045], [7, .08]].forEach(function (w) { traceTerres(); x.lineWidth = w[0]; x.strokeStyle = 'rgba(' + GOLD + ',' + w[1] + ')'; x.stroke(); });
       traceTerres();
-      var g1 = x.createLinearGradient(0, 0, CW, CH); g1.addColorStop(0, '#3a2d1f'); g1.addColorStop(1, '#2c2218');
+      var g1 = x.createLinearGradient(0, 0, CW, CH); g1.addColorStop(0, P.terre[0]); g1.addColorStop(1, P.terre[1]);
       x.fillStyle = g1; x.fill('evenodd');
       /* les hachures du sol : un semis de traits obliques, retenu par la terre */
       x.save(); traceTerres(); x.clip('evenodd');
       x.strokeStyle = 'rgba(' + CREME + ',.05)'; x.lineWidth = 1;
       for (var k = -CH; k < CW; k += 7) { x.beginPath(); x.moveTo(k, 0); x.lineTo(k + CH, CH); x.stroke(); }
       /* l'ombre intérieure de la côte : la terre s'assombrit vers l'eau */
-      traceTerres(); x.lineWidth = 26; x.strokeStyle = 'rgba(0,0,0,.28)'; x.stroke();
-      traceTerres(); x.lineWidth = 9; x.strokeStyle = 'rgba(0,0,0,.30)'; x.stroke();
+      var oa = P.ombre === '0,0,0' ? 1 : .32;   /* sur un papier clair l'ombre intérieure se fait discrète */
+      traceTerres(); x.lineWidth = 26; x.strokeStyle = 'rgba(' + P.ombre + ',' + (.28 * oa) + ')'; x.stroke();
+      traceTerres(); x.lineWidth = 9; x.strokeStyle = 'rgba(' + P.ombre + ',' + (.30 * oa) + ')'; x.stroke();
       x.restore();
-      traceTerres(); x.lineWidth = 1.7; x.strokeStyle = 'rgba(' + GOLD + ',.8)'; x.stroke();
+      traceTerres(); x.lineWidth = 1.7; x.strokeStyle = 'rgba(' + P.cote + ',.8)'; x.stroke();
       /* les lacs */
-      x.fillStyle = '#17120d';
+      x.fillStyle = P.lac;
       data.lacs.forEach(function (ring) { x.beginPath(); ring.forEach(function (p, k) { k ? x.lineTo(px(p[0]), py(p[1])) : x.moveTo(px(p[0]), py(p[1])); }); x.closePath(); x.fill(); x.lineWidth = 1.2; x.strokeStyle = 'rgba(' + GOLD + ',.5)'; x.stroke(); });
       /* les fleuves : le rang fait l'épaisseur ; un liseré sombre dessous */
       data.fleuves.forEach(function (f) {
         var w = f.r <= 4 ? 3.2 : f.r <= 6 ? 2.2 : 1.4;
         x.beginPath(); f.p.forEach(function (p, k) { k ? x.lineTo(px(p[0]), py(p[1])) : x.moveTo(px(p[0]), py(p[1])); });
-        x.lineWidth = w + 2; x.strokeStyle = 'rgba(0,0,0,.35)'; x.stroke();
+        x.lineWidth = w + 2; x.strokeStyle = P.sous; x.stroke();
         x.lineWidth = w; x.strokeStyle = 'rgba(' + BLEU + ',' + (f.r <= 6 ? .8 : .6) + ')'; x.stroke();
       });
       /* les noms de fleuves : UNE fois chacun, sur le plus long tronçon,
@@ -1628,12 +1721,13 @@ html.no-motion .km-scene{display:none;}
         var t = txt.toUpperCase().split('').join(' ');  /* l'espacement, à la main */
         x.fillText(t, 0, 0); x.restore();
       }
-      cap('Mer du Nord', 3.2, 55.2, 44, .38, -.12); cap('La Manche', -1.6, 49.9, 34, .38, -.14); cap('Mer Baltique', 13.3, 55.6, 30, .34, 0);
-      cap('Océan Atlantique', -5.2, 47.6, 30, .30, -1.2);
-      [['Angleterre', -1.6, 52.6], ['France', 1.6, 47.9], ['Royaume de Belgique', 4.2, 50.2], ['Pays-Bas', 5.4, 52.55], ['Prusse rhénane', 7.9, 50.05], ['Royaume de Prusse', 12.2, 52.9], ['États allemands', 9.8, 51.4], ['Danemark', 9.4, 56.05]].forEach(function (c) { cap(c[0], c[1], c[2], 26, .45); });
+      var am = P.or === '216,173,76' ? 1 : 1.45;   /* sur le clair, les noms veulent plus d'encre */
+      cap('Mer du Nord', 3.2, 55.2, 44, .38 * am, -.12); cap('La Manche', -1.6, 49.9, 34, .38 * am, -.14); cap('Mer Baltique', 13.3, 55.6, 30, .34 * am, 0);
+      cap('Océan Atlantique', -5.2, 47.6, 30, .30 * am, -1.2);
+      [['Angleterre', -1.6, 52.6], ['France', 1.6, 47.9], ['Royaume de Belgique', 4.2, 50.2], ['Pays-Bas', 5.4, 52.55], ['Prusse rhénane', 7.9, 50.05], ['Royaume de Prusse', 12.2, 52.9], ['États allemands', 9.8, 51.4], ['Danemark', 9.4, 56.05]].forEach(function (c) { cap(c[0], c[1], c[2], 26, .45 * am); });
       /* la route entière, en pointillé rouge : l'itinéraire tel qu'on le
          porte sur une carte, avant que la lumière ne le parcoure */
-      x.setLineDash([12, 10]); x.lineWidth = 3; x.strokeStyle = 'rgba(213,64,47,.55)'; x.beginPath();
+      x.setLineDash([12, 10]); x.lineWidth = 3; x.strokeStyle = P.route; x.beginPath();
       ROUTE.forEach(function (id, k) { var v = VILLES[id]; k ? x.lineTo(px(v.lon), py(v.lat)) : x.moveTo(px(v.lon), py(v.lat)); });
       x.stroke(); x.setLineDash([]);
       /* les villes : un cercle et un point, comme sur une carte gravée */
@@ -1652,14 +1746,14 @@ html.no-motion .km-scene{display:none;}
       /* le cartouche, dans l'Atlantique */
       (function cartouche(lon, lat) {
         var X = px(lon), Y = py(lat), w = 560, h = 190; x.save(); x.translate(X, Y);
-        x.fillStyle = 'rgba(21,16,11,.55)'; x.strokeStyle = 'rgba(' + GOLD + ',.7)'; x.lineWidth = 2;
+        x.fillStyle = P.cart; x.strokeStyle = 'rgba(' + GOLD + ',.7)'; x.lineWidth = 2;
         x.beginPath(); x.rect(-w / 2, -h / 2, w, h); x.fill(); x.stroke();
         x.beginPath(); x.rect(-w / 2 + 10, -h / 2 + 10, w - 20, h - 20); x.lineWidth = 1; x.stroke();
         x.textAlign = 'center'; x.fillStyle = 'rgba(' + CREME + ',.92)';
         x.font = '600 20px Inter, system-ui, sans-serif'; x.fillText('L A   R O U T E   D E   L ’ E X I L', 0, -46);
         x.font = '900 46px Fraunces, Georgia, serif'; x.fillText('Karl Marx, 1843 – 1849', 0, 6);
-        x.font = 'italic 500 24px Fraunces, Georgia, serif'; x.fillStyle = 'rgba(' + GOLD + ',.9)'; x.fillText('de Trèves à Londres, par Paris, Bruxelles et Cologne', 0, 44);
-        x.font = '500 16px Inter, system-ui, sans-serif'; x.fillStyle = 'rgba(' + CREME + ',.55)'; x.fillText('Côtes et fleuves : Natural Earth · dessiné pour liremarx.com', 0, 76);
+        x.font = 'italic 500 24px Fraunces, Georgia, serif'; x.fillStyle = 'rgba(' + P.bistre + ',.9)'; x.fillText('de Trèves à Londres, par Paris, Bruxelles et Cologne', 0, 44);
+        x.font = '500 16px Inter, system-ui, sans-serif'; x.fillStyle = 'rgba(' + CREME + ',' + (am > 1 ? .72 : .55) + ')'; x.fillText('Côtes et fleuves : Natural Earth · dessiné pour liremarx.com', 0, 76);
         x.restore();
       })(-4.2, 47.55);
       mapTex.needsUpdate = true;
@@ -1669,7 +1763,8 @@ html.no-motion .km-scene{display:none;}
     var plan = new T.Mesh(new T.PlaneGeometry(MW, MH), new T.MeshStandardMaterial({ map: mapTex, roughness: .92, metalness: 0 }));
     plan.rotation.x = -Math.PI / 2; plan.position.set((BB.x0 + BB.x1) / 2 - 4, 0, -((BB.y0 + BB.y1) / 2 - 51) * 1.6); sc.add(plan);
     /* le sol au-delà de la carte : la table sombre */
-    var table = new T.Mesh(new T.PlaneGeometry(200, 200), new T.MeshStandardMaterial({ color: 0x0b0806, roughness: 1 }));
+    var tableMat = new T.MeshStandardMaterial({ color: 0x0b0806, roughness: 1 });
+    var table = new T.Mesh(new T.PlaneGeometry(200, 200), tableMat);
     table.rotation.x = -Math.PI / 2; table.position.y = -0.01; sc.add(table);
     /* la carte se charge, les polices d'abord (les noms sont en Fraunces) */
     var dataP = fetch('/assets/img/marx/carte-exil.json').then(function (r) { return r.json(); });
@@ -1678,8 +1773,8 @@ html.no-motion .km-scene{display:none;}
 
     /* la lumière : le ciel d'une pièce à la bougie, et la bougie elle-même,
        qui suit ce qu'on regarde et vacille */
-    sc.add(new T.AmbientLight(0xffe0b8, .42));
-    sc.add(new T.HemisphereLight(0xffd7a0, 0x1a120b, .55));
+    var ambiante = new T.AmbientLight(0xffe0b8, .42); sc.add(ambiante);
+    var hemi = new T.HemisphereLight(0xffd7a0, 0x1a120b, .55); sc.add(hemi);
     var bougie = new T.PointLight(0xffb36b, .75, 16, 1.6); bougie.position.set(2, 3.4, 0); sc.add(bougie);
     var lune = new T.DirectionalLight(0x6f8fb0, .14); lune.position.set(-6, 8, -4); sc.add(lune);
 
@@ -1773,7 +1868,7 @@ html.no-motion .km-scene{display:none;}
       var head = pts[Math.min(N, Math.round(u * N))];
       comete.position.copy(head); comete.position.y += 0.03;
       var moving = tn > 4 && tn < nodes.length - 1 && Math.abs(tn - Math.round(tn)) > 0.02;
-      comete.material.opacity += ((moving ? .9 : 0) - comete.material.opacity) * .15;
+      comete.material.opacity += ((moving ? .9 * MK.halo : 0) - comete.material.opacity) * .15;
       Object.keys(lampes).forEach(function (id) { if (id === 'manchester') return; lampes[id].target = tn + 0.02 >= ROUTE.indexOf(id) ? 1 : (ROUTE.indexOf(id) < 4 ? .45 : 0); });
     }
     function resize() {
@@ -1800,15 +1895,15 @@ html.no-motion .km-scene{display:none;}
         pos.lerp(tPos, k); aim.lerp(tAim, k);
         cam.position.copy(pos); cam.lookAt(aim);
         var fl = 1 + Math.sin(now * 0.0031) * .06 + Math.sin(now * 0.0117) * .035 + Math.sin(now * 0.0233) * .02;
-        bougie.position.set(aim.x + 0.8, 3.2 + (pos.y - 3) * .35, aim.z + 1.2); bougie.intensity = .75 * fl;
+        bougie.position.set(aim.x + 0.8, 3.2 + (pos.y - 3) * .35, aim.z + 1.2); bougie.intensity = .75 * fl * MK.bougie;
         var w = host.clientWidth, h = host.clientHeight;
         var onId = (g >= 0 && g < ids.length) ? ids[Math.floor(g)] : (g >= ids.length ? 'londres' : null); if (onId === 'cologne2') onId = 'cologne';
         Object.keys(lampes).forEach(function (id) {
           var L = lampes[id];
           L.lit += (L.target - L.lit) * (1 - Math.exp(-dt * 3));
           var lf = L.lit * (id === 'manchester' ? 1 : fl);
-          L.m.material.emissiveIntensity = 1.4 * lf;
-          L.sp.material.opacity = .5 * lf;
+          L.m.material.emissiveIntensity = 1.4 * lf * MK.lampe;
+          L.sp.material.opacity = .5 * lf * MK.halo;
           L.sp.scale.set(.7 + .4 * lf, .7 + .4 * lf, 1);
           tmp.copy(L.p); tmp.y = 0.3; tmp.project(cam);
           var lb = labels[id];
@@ -1828,14 +1923,39 @@ html.no-motion .km-scene{display:none;}
     }
     function start() { if (!running && !doc.hidden) { running = true; requestAnimationFrame(frame); } }
     doc.addEventListener('visibilitychange', function () { last = performance.now(); start(); });
+    /* le reste de la scène par RÔLE : l'air, la table, les lumières, ce qui luit */
+    var MK = { bougie: 1, lampe: 1, halo: 1 };
+    var LUM = {
+      bougie:  { amb: [0xffe0b8, .42], hemi: [0xffd7a0, 0x1a120b, .55], lune: .14, bougie: 1, lampe: 1, halo: 1, route: 0xffd27a, pous: true, table: null },
+      jour:    { amb: [0xffffff, .88], hemi: [0xfff8ec, 0xd8c8a8, .22], lune: 0, bougie: 0, lampe: .7, halo: 0, route: '#a5301c', pous: false, table: '#e2d5ba' },
+      edition: { amb: [0xffffff, 1.0], hemi: [0xffffff, 0xffffff, 0], lune: 0, bougie: 0, lampe: 0, halo: 0, route: '#8e2415', pous: false, table: '#dbcfb4' }
+    };
+    function appliqueMode() {
+      var m = modeCarte(), L = LUM[m];
+      var stage = getComputedStyle(root).getPropertyValue('--km-stage').trim() || '#100c08';
+      if (m === 'bougie') { renderer.setClearColor(0x100c08, 1); sc.fog.color.setHex(0x100c08); tableMat.color.setHex(0x0b0806); }
+      else { renderer.setClearColor(new T.Color(stage), 1); sc.fog.color.copy(lin(stage)); tableMat.color.copy(lin(L.table)); }
+      ambiante.color.setHex(L.amb[0]); ambiante.intensity = L.amb[1];
+      hemi.color.setHex(L.hemi[0]); hemi.groundColor.setHex(L.hemi[1]); hemi.intensity = L.hemi[2];
+      lune.intensity = L.lune;
+      MK.bougie = L.bougie; MK.lampe = L.lampe; MK.halo = L.halo;
+      if (typeof L.route === 'number') route.material.color.setHex(L.route); else route.material.color.copy(lin(L.route));
+      /* en édition une ville est un point d'encre, pas une lampe */
+      Object.keys(lampes).forEach(function (id) { lampes[id].m.material.color.copy(m === 'edition' ? lin('#1c1712') : new T.Color(0x3a2a18)); });
+      pous.visible = L.pous;
+      if (carteData) dessine(carteData);
+      start();
+    }
+    doc.addEventListener('lm:mode', appliqueMode);
+    appliqueMode();
     renderer.compile(sc, cam);
     start();
   }
 })();
 </script>
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=22"></script>
-<script src="/oeuvres/shell-social.js"></script>
+<script src="/oeuvres/shell.js?v=23"></script>
+<script src="/oeuvres/shell-social.js?v=2"></script>
 <script>installShell({ workTitle: 'Karl Marx', tabs: [] });</script>
 </body>
 </html>

@@ -31,7 +31,7 @@
    maîtresses. Le reste vient au fil des visites. */
 'use strict';
 
-var VERSION = 'lm-1';
+var VERSION = 'lm-2';  /* lm-2 : la page hors ligne a ses trois modes (mission `affichage`) */
 var SOCLE   = VERSION + '-socle';    /* précache, remplacé à chaque VERSION */
 var VISITES = VERSION + '-visites';  /* ce que le lecteur a ouvert */
 /* L'URL PROPRE, sans extension — et ce n'est pas une coquetterie : Cloudflare

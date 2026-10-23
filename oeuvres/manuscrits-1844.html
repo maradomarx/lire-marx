@@ -26,10 +26,10 @@
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="fonts/fonts.css?v=2">
-<link rel="stylesheet" href="atelier.css?v=18">
-<link rel="stylesheet" href="shell.css?v=13">
-<link rel="stylesheet" href="reader-tools.css">
-<link rel="stylesheet" href="manuscrits-1844.css?v=4">
+<link rel="stylesheet" href="atelier.css?v=19">
+<link rel="stylesheet" href="shell.css?v=14">
+<link rel="stylesheet" href="reader-tools.css?v=2">
+<link rel="stylesheet" href="manuscrits-1844.css?v=5">
 <style>
 /* Aucun :root ici. La palette sombre-chaude est le système de record
    d'atelier.css — la redéclarer en tête de page est ce qui a fait diverger
@@ -79,8 +79,8 @@ nav.tabs.worktabs .tab{font-family:var(--f-ui);font-weight:600;
   transition:color .16s,background .16s,border-color .16s;}
 nav.tabs.worktabs .tab:hover{color:var(--ink);background:var(--hover);}
 nav.tabs.worktabs .tab.active{color:var(--ink);
-  background:linear-gradient(150deg,#2c2117,#211a12,#1b150e);
-  border-color:rgba(216,173,76,.28);}
+  background:var(--emphase);
+  border-color:rgba(var(--gold-rgb),.28);}
 /* La pilule EST la marque : le filet d'accent n'a plus lieu d'être. */
 nav.tabs.worktabs .tab.active::after{display:none;}
 nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);
@@ -95,15 +95,15 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);
 .cap-lire-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-bottom:28px;}
 .cap-card{background:var(--surface);border-radius:18px;padding:22px 22px 20px;
   border:1px solid transparent;transition:transform .2s,box-shadow .2s;}
-.cap-card:hover{transform:translateY(-2px);box-shadow:0 12px 30px -10px rgba(0,0,0,.6);border-color:rgba(243,233,212,.16);}
-.cap-card-icon{width:38px;height:38px;border-radius:10px;background:rgba(213,64,47,.11);
+.cap-card:hover{transform:translateY(-2px);box-shadow:0 12px 30px -10px rgba(var(--ombre-rgb),.6);border-color:rgba(var(--ink-rgb),.16);}
+.cap-card-icon{width:38px;height:38px;border-radius:10px;background:rgba(var(--red-rgb),.11);
   display:flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:1rem;}
 .cap-card-title{font-family:'Fraunces',serif;font-weight:700;font-size:1.08rem;
   color:var(--ink);margin-bottom:8px;letter-spacing:-.01em;line-height:1.2;}
 .cap-card-desc{font-size:.87rem;line-height:1.6;color:var(--ink-soft);
   margin-bottom:18px;font-family:'Spectral',Georgia,serif;}
 .cap-prog-wrap{margin-bottom:14px;}
-.cap-prog-bg{height:4px;border-radius:999px;background:rgba(243,233,212,.12);margin-bottom:6px;}
+.cap-prog-bg{height:4px;border-radius:999px;background:rgba(var(--ink-rgb),.12);margin-bottom:6px;}
 .cap-prog-fill{height:100%;border-radius:999px;background:var(--accent);
   transition:width .55s cubic-bezier(.16,1,.3,1);}
 .cap-prog-txt{font-size:.74rem;color:var(--muted);font-family:var(--f-ui);}
@@ -115,7 +115,7 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);
   border-radius:999px;background:transparent;color:var(--ink);font-size:.8rem;font-weight:700;
   border:1px solid var(--border);cursor:pointer;transition:border-color .15s,background .15s;
   font-family:var(--f-ui);}
-.cap-btn-outline:hover{border-color:rgba(243,233,212,.32);background:rgba(243,233,212,.06);}
+.cap-btn-outline:hover{border-color:rgba(var(--ink-rgb),.32);background:rgba(var(--ink-rgb),.06);}
 /* ── Trois idées ── */
 .cap-section-label{font-size:.72rem;font-weight:700;letter-spacing:.22em;
   text-transform:uppercase;color:var(--muted);margin-bottom:16px;
@@ -123,11 +123,11 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);
 /* ── Blocs d'action ── */
 .cap-actions-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px;}
 .cap-action{border-radius:18px;padding:26px 26px 24px;}
-.cap-action-dark{background:linear-gradient(150deg,#2c2117 0%,#211a12 58%,#1b150e 100%);
-  border:1px solid rgba(216,173,76,.20);position:relative;overflow:hidden;}
+.cap-action-dark{background:var(--emphase);
+  border:1px solid rgba(var(--gold-rgb),.20);position:relative;overflow:hidden;}
 .cap-action-dark::before{content:'';position:absolute;top:40%;left:30%;width:360px;height:220px;
   transform:translate(-50%,-50%);
-  background:radial-gradient(ellipse at center,rgba(216,173,76,.16) 0%,transparent 65%);pointer-events:none;}
+  background:radial-gradient(ellipse at center,rgba(var(--gold-rgb),.16) 0%,transparent 65%);pointer-events:none;}
 .cap-action-light{background:var(--surface);border:1px solid var(--line);}
 .cap-action-eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
   margin-bottom:10px;display:block;font-family:var(--f-ui);}
@@ -140,9 +140,9 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);
 .cap-action-dark .cap-action-desc{color:var(--muted);}
 .cap-action-light .cap-action-desc{color:var(--ink-soft);}
 .cap-btn-light{display:inline-flex;align-items:center;gap:5px;padding:9px 20px;
-  border-radius:999px;background:rgba(247,245,240,.14);color:#F7F5F0;font-size:.82rem;font-weight:700;
+  border-radius:999px;background:rgba(var(--ink-rgb),.14);color:var(--text);font-size:.82rem;font-weight:700;
   border:none;cursor:pointer;transition:background .15s;font-family:var(--f-ui);}
-.cap-btn-light:hover{background:rgba(247,245,240,.24);}
+.cap-btn-light:hover{background:rgba(var(--ink-rgb),.24);}
 /* ── Atelier : cartes sections ── */
 /* L'ancien en-tête géant du panneau Atelier (.atl-header : titre 3.4rem
    + « 0 % » en 3.2rem) est remplacé par la grammaire commune .panel-head
@@ -178,20 +178,20 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);
   stroke-linecap:round;stroke-linejoin:round;fill:none;}
 .atl-done-toggle:hover{color:var(--red-text);}
 .atl-card.atl-current{align-items:center;
-  background:linear-gradient(150deg,#2c2117 0%,#211a12 58%,#1b150e 100%);
-  border:1px solid rgba(216,173,76,.20);border-radius:14px;
+  background:var(--emphase);
+  border:1px solid rgba(var(--gold-rgb),.20);border-radius:14px;
   padding:22px;margin:16px 0;transition:transform .2s,box-shadow .2s;}
 .atl-card.atl-current:hover{transform:translateY(-2px);
-  box-shadow:0 14px 34px -12px rgba(0,0,0,.55);
-  background:linear-gradient(150deg,#2c2117 0%,#211a12 58%,#1b150e 100%);}
+  box-shadow:0 14px 34px -12px rgba(var(--ombre-rgb),.55);
+  background:var(--emphase);}
 .atl-current .atl-num{font-size:1.6rem;}
 .atl-current .atl-card-title{font-size:1.3rem;font-weight:700;}
 .atl-current .atl-card-status{color:var(--red-text);}
 .atl-current .atl-card-desc-line{font-size:.9rem;font-style:italic;color:var(--ink-soft);margin-top:2px;}
 .atl-continue{font-family:var(--f-ui);font-size:.8rem;font-weight:700;
-  padding:8px 20px;border-radius:999px;border:none;background:rgba(247,245,240,.13);
+  padding:8px 20px;border-radius:999px;border:none;background:rgba(var(--ink-rgb),.13);
   color:var(--text);cursor:pointer;transition:background .15s;white-space:nowrap;}
-.atl-continue:hover,.atl-card.atl-current:hover .atl-continue{background:rgba(247,245,240,.22);}
+.atl-continue:hover,.atl-card.atl-current:hover .atl-continue{background:rgba(var(--ink-rgb),.22);}
 /* ── Ressources ── */
 /* Les ressources : la bibliographie vit dans atelier.css depuis que
    les deux ateliers ont la même forme. */
@@ -271,6 +271,14 @@ nav.tabs.worktabs .tab:focus-visible{outline:2px solid var(--gold);
 <script src="sommaire.js?v=1"></script>
 <script src="dossier.js?v=1"></script>
 <script src="ascension.js?v=2"></script>
+<!-- AFFICHAGE:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs (modes, fond, gestes), ne pas éditer à la main -->
+<script>(function(){var h=document.documentElement,K='liremarx.mode.v1',C=['auto','bougie','jour','edition'],T={'bougie':'#15100b','jour':'#f6efe0','edition':'#ebe1c9'},S=null,f=0;try{S=matchMedia('(prefers-color-scheme: light)')}catch(e){}function r(c){return c==='auto'?(S&&S.matches?'jour':'bougie'):c}function lu(){var c='';try{c=localStorage.getItem(K)||''}catch(e){}return C.indexOf(c)<0?'auto':c}function p(c){if(C.indexOf(c)<0)c='auto';var m=r(c),a=h.getAttribute('data-mode');h.setAttribute('data-mode-choix',c);if(m!==a){if(a){h.classList.add('lm-bascule');clearTimeout(f);f=setTimeout(function(){h.classList.remove('lm-bascule')},140)}h.setAttribute('data-mode',m);var x=document.getElementsByName('theme-color');for(var i=0;i<x.length;i++)x[i].setAttribute('content',T[m]);if(a)document.dispatchEvent(new CustomEvent('lm:mode',{detail:{mode:m,choix:c}}))}document.dispatchEvent(new CustomEvent('lm:choix',{detail:{mode:m,choix:c}}));return m}var L=window.LM=window.LM||{};L.MODES=C;L.TEINTES=T;L.resoudre=r;L.mode=function(m){if(m===undefined)return{mode:h.getAttribute('data-mode'),choix:h.getAttribute('data-mode-choix')};if(C.indexOf(m)<0)return null;try{localStorage.setItem(K,m)}catch(e){}return p(m)};p(lu());if(S&&S.addEventListener)S.addEventListener('change',function(){if(h.getAttribute('data-mode-choix')==='auto')p('auto')});addEventListener('storage',function(e){if(e.key===K)p(C.indexOf(e.newValue)<0?'auto':e.newValue)})})();</script>
+<link rel="stylesheet" href="/assets/modes.css?v=142992bc">
+<link rel="stylesheet" href="/assets/mouvement.css?v=eef765f7">
+<link rel="stylesheet" href="/assets/fond.css?v=c84bb7c6">
+<script src="/assets/mouvement.js?v=547fb98c" defer></script>
+<script src="/assets/fond.js?v=a97d2d23" defer></script>
+<!-- AFFICHAGE:FIN -->
 </head>
 <body class="at-atelier">
 <!-- NOTIONS:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main.
@@ -1532,6 +1540,10 @@ function syncTabsA11y(pid){
     });
     CONCEPTS.forEach(function(c){
       nodes += '<g class="carte-node'+(c.core?' core':'')+'" data-id="'+esc(c.id)+'" tabindex="0" role="button" aria-label="'+esc(c.t)+'">'
+        /* La carte est réduite à 46 % sous 400 px : la case de 40 unités n'y
+           faisait que 17 px de haut. Une zone de toucher transparente de 56
+           unités la porte à 24 px (WCAG 2.5.8), sans rien changer au dessin. */
+        + '<rect x="'+(c.x-75)+'" y="'+(c.y-28)+'" width="150" height="56" fill="transparent" class="carte-node-hit"/>'
         + '<rect x="'+(c.x-75)+'" y="'+(c.y-20)+'" width="150" height="40" rx="6" class="carte-node-box"/>'
         + '<text x="'+c.x+'" y="'+(c.y+5)+'" text-anchor="middle" class="carte-node-label">'+esc(c.t)+'</text>'
         + '</g>';
@@ -1912,11 +1924,11 @@ function syncTabsA11y(pid){
 })();
 </script>
 <script src="../config.js"></script>
-<script src="shell.js?v=22"></script>
-<script src="shell-social.js"></script>
-<script src="shell-annotations.js?v=3"></script>
+<script src="shell.js?v=23"></script>
+<script src="shell-social.js?v=2"></script>
+<script src="shell-annotations.js?v=4"></script>
 <script src="shell-progress.js"></script>
-<script src="reader-tools.js?v=6" defer></script>
+<script src="reader-tools.js?v=7" defer></script>
 <script src="atelier-motion.js?v=5" defer></script>
 <script>
 installShell({

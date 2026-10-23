@@ -31,7 +31,7 @@
 <!-- shell.css : la coquille (topbar, sidebar, modales) ET le pied de page.
      Elle porte un `?v=` parce qu'elle est mise en cache 4 h alors que le
      HTML ne l'est pas — voir le bloc du pied de page dans la feuille. -->
-<link rel="stylesheet" href="/oeuvres/shell.css?v=13">
+<link rel="stylesheet" href="/oeuvres/shell.css?v=14">
 <style>
 /* ═══════════════════════════════════════════════════════════════════
    /a-propos — LA PAGE FAIT CE QU'ELLE DÉCRIT
@@ -69,7 +69,7 @@
 body{margin:0;background:var(--bg);color:var(--text);font-family:var(--f-ui);}
 /* Les surfaces que le navigateur dessine à notre place portent le thème
    comme le reste — la bibliothèque et le carnet le font déjà. */
-::selection{background:rgba(216,173,76,.32);color:var(--text);}
+::selection{background:rgba(var(--gold-rgb),.32);color:var(--text);}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:3px;}
 
 .ap{max-width:1000px;margin:0 auto;padding:56px clamp(20px,5vw,44px) 0;}
@@ -102,7 +102,7 @@ h2{font-family:'Fraunces',serif;font-weight:900;letter-spacing:-.015em;
 .ap p b{color:var(--ink);font-weight:600;}
 .ap p em{color:var(--ink-soft);}
 .ap-corps a{color:var(--red-text);text-decoration:none;
-  border-bottom:1px solid rgba(229,100,79,.34);}
+  border-bottom:1px solid rgba(var(--red-rgb),.38);}
 .ap-corps a:hover{color:var(--gold);border-bottom-color:var(--gold);}
 
 /* ── La marginalia. Petite, en Inter (c'est de l'appareil, pas du texte),
@@ -138,12 +138,17 @@ h2{font-family:'Fraunces',serif;font-weight:900;letter-spacing:-.015em;
 .ap-src a{font-family:var(--f-ui);font-size:.8rem;color:var(--gold);
   text-decoration:none;border-bottom:1px solid transparent;white-space:nowrap;}
 .ap-src a:hover{border-bottom-color:var(--gold);}
+/* en nowrap, le titre de la Contribution (« Contribution à la critique de
+   l'économie politique ») faisait 415 px : la page débordait de 40 px sur un
+   téléphone. La sonde ne le voyait pas — sous émulation mobile, le viewport
+   s'élargit au contenu et innerWidth suit. */
+@media (max-width:600px){.ap-src a{white-space:normal;}}
 
 /* ── Le contact : la surface d'emphase du socle, la seule de la page.
       La bougie éclaire d'en bas — jamais un aplat plus clair. */
-.ap-contact{background:var(--emphase);border:1px solid rgba(216,173,76,.20);
+.ap-contact{background:var(--emphase);border:1px solid rgba(var(--gold-rgb),.20);
   border-radius:16px;padding:24px 26px;margin-top:20px;
-  box-shadow:0 18px 40px -26px rgba(0,0,0,.85);}
+  box-shadow:0 18px 40px -26px rgba(var(--ombre-rgb),.85);}
 .ap-contact p{font-size:.98rem;margin-bottom:16px;}
 .ap-liens{display:flex;flex-wrap:wrap;gap:10px;margin:0;}
 .ap-mail{display:inline-flex;align-items:center;font-family:var(--f-ui);font-size:.88rem;
@@ -211,6 +216,14 @@ h2{font-family:'Fraunces',serif;font-weight:900;letter-spacing:-.015em;
 }
 </script>
 <!-- A-PROPOS:LD:FIN -->
+<!-- AFFICHAGE:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs (modes, fond, gestes), ne pas éditer à la main -->
+<script>(function(){var h=document.documentElement,K='liremarx.mode.v1',C=['auto','bougie','jour','edition'],T={'bougie':'#15100b','jour':'#f6efe0','edition':'#ebe1c9'},S=null,f=0;try{S=matchMedia('(prefers-color-scheme: light)')}catch(e){}function r(c){return c==='auto'?(S&&S.matches?'jour':'bougie'):c}function lu(){var c='';try{c=localStorage.getItem(K)||''}catch(e){}return C.indexOf(c)<0?'auto':c}function p(c){if(C.indexOf(c)<0)c='auto';var m=r(c),a=h.getAttribute('data-mode');h.setAttribute('data-mode-choix',c);if(m!==a){if(a){h.classList.add('lm-bascule');clearTimeout(f);f=setTimeout(function(){h.classList.remove('lm-bascule')},140)}h.setAttribute('data-mode',m);var x=document.getElementsByName('theme-color');for(var i=0;i<x.length;i++)x[i].setAttribute('content',T[m]);if(a)document.dispatchEvent(new CustomEvent('lm:mode',{detail:{mode:m,choix:c}}))}document.dispatchEvent(new CustomEvent('lm:choix',{detail:{mode:m,choix:c}}));return m}var L=window.LM=window.LM||{};L.MODES=C;L.TEINTES=T;L.resoudre=r;L.mode=function(m){if(m===undefined)return{mode:h.getAttribute('data-mode'),choix:h.getAttribute('data-mode-choix')};if(C.indexOf(m)<0)return null;try{localStorage.setItem(K,m)}catch(e){}return p(m)};p(lu());if(S&&S.addEventListener)S.addEventListener('change',function(){if(h.getAttribute('data-mode-choix')==='auto')p('auto')});addEventListener('storage',function(e){if(e.key===K)p(C.indexOf(e.newValue)<0?'auto':e.newValue)})})();</script>
+<link rel="stylesheet" href="/assets/modes.css?v=142992bc">
+<link rel="stylesheet" href="/assets/mouvement.css?v=eef765f7">
+<link rel="stylesheet" href="/assets/fond.css?v=c84bb7c6">
+<script src="/assets/mouvement.js?v=547fb98c" defer></script>
+<script src="/assets/fond.js?v=a97d2d23" defer></script>
+<!-- AFFICHAGE:FIN -->
 </head>
 <body>
 
@@ -514,8 +527,8 @@ h2{font-family:'Fraunces',serif;font-weight:900;letter-spacing:-.015em;
 })();
 </script>
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=22"></script>
-<script src="/oeuvres/shell-social.js"></script>
+<script src="/oeuvres/shell.js?v=23"></script>
+<script src="/oeuvres/shell-social.js?v=2"></script>
 <script>installShell({ workTitle: 'À propos', tabs: [] });</script>
 </body>
 </html>

@@ -44,11 +44,14 @@
      (l'ancien --paper-2) creusait la carte au lieu de la lever. */
   --hover:rgba(243,233,212,.05);
   --candle:rgba(216,173,76,.18);
+  /* Jetons LOCAUX aux ateliers, redits par mode en fin de feuille : le vert
+     « lu » en composantes, et les deux bouts du fil du cheminement. */
+  --ok-rgb:127,168,85;--asc-a:#39596b;--asc-b:#d5402f;
   --f-ui:'Inter',system-ui,sans-serif;--f-serif:'Spectral',Georgia,serif;--f-hand:'Caveat',cursive;}
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{font-family:'Spectral',Georgia,serif;background:var(--paper);position:relative;
-  background-image:radial-gradient(circle at 16% 8%,rgba(213,64,47,.08),transparent 42%),radial-gradient(circle at 88% 94%,rgba(216,173,76,.07),transparent 46%),radial-gradient(ellipse at 50% 42%,rgba(216,173,76,.035),transparent 62%);
+  background-image:radial-gradient(circle at 16% 8%,rgba(var(--red-rgb),.08),transparent 42%),radial-gradient(circle at 88% 94%,rgba(var(--gold-rgb),.07),transparent 46%),radial-gradient(ellipse at 50% 42%,rgba(var(--gold-rgb),.035),transparent 62%);
   background-attachment:fixed;
   color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;}
 body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9;opacity:.02;
@@ -74,8 +77,8 @@ nav.subnav{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;margin:16p
 @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
 h2.sec{font-family:'Fraunces',serif;font-weight:900;font-size:1.8rem;margin-bottom:6px;letter-spacing:-.01em;}
 .lead{font-size:1.06rem;color:var(--ink-soft);max-width:730px;margin-bottom:22px;font-style:italic;}
-.method-note{border:1px solid rgba(216,173,76,.28);background:rgba(216,173,76,.07);padding:16px 20px;margin-bottom:30px;font-size:.98rem;color:var(--ink-soft);border-radius:12px;}.method-note b{color:var(--ink);}
-.edition-note{border:1px solid rgba(216,173,76,.28);background:rgba(216,173,76,.07);padding:14px 18px;margin:0 0 20px;font-size:.94rem;color:var(--ink-soft);border-radius:12px;}
+.method-note{border:1px solid rgba(var(--gold-rgb),.28);background:rgba(var(--gold-rgb),.07);padding:16px 20px;margin-bottom:30px;font-size:.98rem;color:var(--ink-soft);border-radius:12px;}.method-note b{color:var(--ink);}
+.edition-note{border:1px solid rgba(var(--gold-rgb),.28);background:rgba(var(--gold-rgb),.07);padding:14px 18px;margin:0 0 20px;font-size:.94rem;color:var(--ink-soft);border-radius:12px;}
 .edition-note b{color:var(--ink);}
 .howto{display:flex;gap:12px;align-items:flex-start;background:var(--paper-2);border:1px solid var(--line-soft);border-radius:12px;padding:14px 18px;margin-bottom:22px;font-size:.95rem;color:var(--ink-soft);}
 .howto b{color:var(--ink);}
@@ -150,9 +153,9 @@ h2.sec{font-family:'Fraunces',serif;font-weight:900;font-size:1.8rem;margin-bott
 .lk{font-family:var(--f-ui);font-size:.78rem;font-weight:600;padding:5px 12px;border-radius:5px;cursor:pointer;border:1px solid;background:none;color:var(--ink);transition:all .16s;}/* La couleur était absente : un <button> retombait sur le noir de l'agent
    utilisateur. Invisible sur fond sombre — le défaut existait déjà, la
    page claire le cachait. */
-.lk.read{color:var(--ok);border-color:var(--ok);background:rgba(127,168,85,.12);}.lk.read:hover{background:var(--ok);color:var(--bg);}
-.lk.labo{color:var(--red-text);border-color:var(--red);background:rgba(213,64,47,.12);}.lk.labo:hover{background:var(--red);color:#fff;}
-.lk.deriv{color:var(--blue-text);border-color:var(--blue);background:rgba(92,138,163,.14);}.lk.deriv:hover{background:var(--blue);color:var(--bg);}
+.lk.read{color:var(--ok);border-color:var(--ok);background:rgba(var(--ok-rgb),.12);}.lk.read:hover{background:var(--ok);color:var(--bg);}
+.lk.labo{color:var(--red-text);border-color:var(--red);background:rgba(var(--red-rgb),.12);}.lk.labo:hover{background:var(--red);color:#fff;}
+.lk.deriv{color:var(--blue-text);border-color:var(--blue);background:rgba(var(--blue-rgb),.14);}.lk.deriv:hover{background:var(--blue);color:var(--bg);}
 .cta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;}
 .btn{font-family:var(--f-ui);font-weight:600;font-size:.85rem;cursor:pointer;border:1px solid var(--ink);background:none;color:var(--ink);padding:9px 18px;border-radius:999px;transition:all .18s;}
 .btn:hover{background:var(--ink);color:var(--paper);}
@@ -175,7 +178,7 @@ h2.sec{font-family:'Fraunces',serif;font-weight:900;font-size:1.8rem;margin-bott
 .res-section small{font-family:var(--f-ui);font-weight:600;font-size:.72rem;color:var(--ink-soft);margin-left:9px;}
 .res-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:14px;margin-bottom:6px;}
 .res-card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 17px;text-decoration:none;color:inherit;transition:transform .15s,box-shadow .15s,border-color .15s;}
-.res-card:hover{transform:translateY(-2px);box-shadow:0 10px 28px -10px rgba(0,0,0,.6);border-color:rgba(243,233,212,.22);}
+.res-card:hover{transform:translateY(-2px);box-shadow:0 10px 28px -10px rgba(var(--ombre-rgb),.6);border-color:rgba(var(--ink-rgb),.22);}
 .res-kind{font-family:var(--f-ui);font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:7px;}
 .res-card h3{font-family:'Fraunces',Georgia,serif;font-size:1.04rem;line-height:1.3;margin:0 0 8px;color:var(--ink);}
 .res-meta{font-family:var(--f-ui);font-size:.8rem;color:var(--ink-soft);margin-top:auto;}
@@ -195,10 +198,10 @@ footer b{font-family:'Fraunces',serif;font-style:normal;color:var(--ink);}
 .prog-no-auth-btn{background:var(--accent);color:#fff;border:none;padding:6px 16px;border-radius:100px;font-family:var(--f-ui);font-size:.82rem;font-weight:600;cursor:pointer;white-space:nowrap;}
 .prog-no-auth-btn:hover{opacity:.87;}
 /* Bandeau invite fixe en bas d'écran (scroll à 90%) */
-#progInvite{position:fixed;bottom:72px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--text);color:var(--bg);padding:10px 14px 10px 18px;border-radius:100px;font-family:var(--f-ui);font-size:.875rem;z-index:9999;box-shadow:0 4px 22px rgba(0,0,0,.32);display:flex;align-items:center;gap:10px;white-space:nowrap;opacity:0;transition:opacity .4s,transform .4s;pointer-events:none;}
+#progInvite{position:fixed;bottom:72px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--text);color:var(--bg);padding:10px 14px 10px 18px;border-radius:100px;font-family:var(--f-ui);font-size:.875rem;z-index:9999;box-shadow:0 4px 22px rgba(var(--ombre-rgb),.32);display:flex;align-items:center;gap:10px;white-space:nowrap;opacity:0;transition:opacity .4s,transform .4s;pointer-events:none;}
 #progInvite.pi-visible{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto;}
 .pi-btn{background:var(--accent);color:#fff;border:none;padding:5px 14px;border-radius:100px;font-family:var(--f-ui);font-size:.82rem;font-weight:600;cursor:pointer;}
-.pi-close{background:transparent;color:rgba(21,16,11,.55);border:none;font-size:1.1rem;cursor:pointer;padding:0 2px;line-height:1;flex:none;}
+.pi-close{background:transparent;color:rgba(var(--paper-rgb),.55);border:none;font-size:1.1rem;cursor:pointer;padding:0 2px;line-height:1;flex:none;}
 
 
 /* ══════════════════════════════════════════════════════════════════════
@@ -227,9 +230,9 @@ footer b{font-family:'Fraunces',serif;font-style:normal;color:var(--ink);}
 /* La démonstration des commandes qui ne sont pas des curseurs : elles
    s'allument l'une après l'autre — on ne clique à la place de personne. */
 @keyframes lm-instpulse{
-  0%{box-shadow:0 0 0 0 rgba(216,173,76,0);}
-  22%{box-shadow:0 0 0 3px rgba(216,173,76,.34);}
-  100%{box-shadow:0 0 0 0 rgba(216,173,76,0);}}
+  0%{box-shadow:0 0 0 0 rgba(var(--gold-rgb),0);}
+  22%{box-shadow:0 0 0 3px rgba(var(--gold-rgb),.34);}
+  100%{box-shadow:0 0 0 0 rgba(var(--gold-rgb),0);}}
 .inst-pulse>*{animation:lm-instpulse .95s cubic-bezier(.16,1,.3,1) both;}
 .inst-pulse>*:nth-child(2){animation-delay:.13s;}
 .inst-pulse>*:nth-child(3){animation-delay:.26s;}
@@ -249,10 +252,10 @@ footer b{font-family:'Fraunces',serif;font-style:normal;color:var(--ink);}
   filter:grayscale(1) contrast(1.04) sepia(.28) brightness(.62);
   transform:scale(1.04);transition:transform 1.1s cubic-bezier(.16,1,.3,1),opacity .5s;}
 .x-real::after{content:'';position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(to top,rgba(21,16,11,.72),rgba(21,16,11,.06) 62%);}
+  background:linear-gradient(to top,rgba(var(--paper-rgb),.72),rgba(var(--paper-rgb),.06) 62%);}
 .x-real .hs-img-caption{position:absolute;left:0;right:0;bottom:0;z-index:2;
   padding:16px 14px 8px;font-family:var(--f-ui);font-size:11px;letter-spacing:.04em;
-  color:rgba(243,233,212,.74);line-height:1.3;}
+  color:rgba(var(--ink-rgb),.74);line-height:1.3;}
 .x-real-in img{animation:lm-xreal 1.15s cubic-bezier(.16,1,.3,1) both;}
 @keyframes lm-xreal{from{opacity:0;transform:scale(1.09);}to{opacity:1;transform:scale(1.04);}}
 /* Dans la frise des Manuscrits l'image n'est pas sous un schéma : elle
@@ -389,7 +392,7 @@ h2.sec em{font-style:italic;font-weight:500;color:var(--red-text);}
 .panel-meta{flex:none;min-width:216px;display:flex;flex-direction:column;align-items:flex-end;padding-bottom:4px;}
 .panel-meta .prog-no-auth{align-items:flex-end;text-align:right;}
 .pg-prog{width:100%;max-width:216px;text-align:right;}
-.pg-bar{height:4px;border-radius:999px;background:rgba(243,233,212,.12);overflow:hidden;}
+.pg-bar{height:4px;border-radius:999px;background:rgba(var(--ink-rgb),.12);overflow:hidden;}
 .pg-fill{height:100%;width:0;border-radius:999px;background:var(--accent);transition:width .55s cubic-bezier(.16,1,.3,1);}
 .pg-count{font-family:var(--f-ui);font-size:.76rem;color:var(--muted);margin-top:8px;}
 @media(max-width:860px){
@@ -422,7 +425,7 @@ h2.sec em{font-style:italic;font-weight:500;color:var(--red-text);}
 .js-atlum .cap-start{position:relative;overflow:hidden;}
 .js-atlum .cap-start::after{content:'';position:absolute;left:8%;bottom:-40%;
   width:min(560px,80%);height:180%;pointer-events:none;z-index:0;
-  background:radial-gradient(ellipse at center,rgba(216,173,76,.20) 0%,rgba(213,64,47,.09) 42%,transparent 68%);
+  background:radial-gradient(ellipse at center,rgba(var(--gold-rgb),.20) 0%,rgba(var(--red-rgb),.09) 42%,transparent 68%);
   opacity:var(--lum,1);
   transform:translateY(calc((1 - var(--lum,1)) * 40px));}
 .js-atlum .cap-start-main,.js-atlum .cap-start-side{position:relative;z-index:1;
@@ -632,8 +635,8 @@ a.btn,a.lk,a.cap-btn-dark,a.cap-btn-light,a.cap-btn-outline,a.prog-no-auth-btn{
 .sm-solo .sm-it-t{font-weight:600;color:var(--ink);}
 .sm-it-st{align-self:center;color:var(--gold-deep);}
 .sm-it-st svg{display:block;width:12px;height:12px;}
-.sm-it.is-cur{background:linear-gradient(150deg,#2c2117,#211a12,#1b150e);color:var(--ink);
-  box-shadow:inset 0 0 0 1px rgba(216,173,76,.22);}
+.sm-it.is-cur{background:var(--emphase);color:var(--ink);
+  box-shadow:inset 0 0 0 1px rgba(var(--gold-rgb),.22);}
 .sm-it.is-cur .sm-it-t{color:var(--ink);font-weight:600;}
 .sm-it.is-cur .sm-it-n{color:var(--gold);}
 .sm-it.is-cur .sm-it-st:empty::before{content:"";display:block;width:6px;height:6px;
@@ -720,8 +723,8 @@ a.btn,a.lk,a.cap-btn-dark,a.cap-btn-light,a.cap-btn-outline,a.prog-no-auth-btn{
 a.mg-row:hover .mg-ic,a.mg-row:focus-visible .mg-ic{transform:translateX(3px);}
 /* La page qui explique le chapitre : la ligne qui compte le plus, sur la
    surface éclairée du socle. */
-.mg-lead{margin-top:10px;background:linear-gradient(150deg,#2c2117,#211a12,#1b150e);
-  border-color:rgba(216,173,76,.26);}
+.mg-lead{margin-top:10px;background:var(--emphase);
+  border-color:rgba(var(--gold-rgb),.26);}
 .mg-lead:hover,.mg-lead:focus-visible{border-color:var(--gold);}
 
 /* LA PASTILLE DE NOTION — elles se lisent d'un coup, et six lignes de liste
@@ -739,11 +742,11 @@ a.mg-row:hover .mg-ic,a.mg-row:focus-visible .mg-ic{transform:translateX(3px);}
    et il est toujours à l'écran. La surface éclairée du socle, et le halo
    qui monte du bas. */
 .mg-notes{flex:none;position:relative;overflow:hidden;margin-top:10px;
-  padding:12px 13px 13px;border:1px solid rgba(216,173,76,.22);border-radius:14px;
-  background:linear-gradient(150deg,#2c2117,#211a12,#1b150e);}
+  padding:12px 13px 13px;border:1px solid rgba(var(--gold-rgb),.22);border-radius:14px;
+  background:var(--emphase);}
 .mg-notes::before{content:"";position:absolute;left:-10%;top:-60%;width:120%;
   height:130%;pointer-events:none;
-  background:radial-gradient(ellipse at 50% 100%,rgba(216,173,76,.13),rgba(216,173,76,0) 62%);}
+  background:radial-gradient(ellipse at 50% 100%,rgba(var(--gold-rgb),.13),rgba(var(--gold-rgb),0) 62%);}
 .mg-notes>*{position:relative;}
 .mg-notes-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px;}
 .mg-notes .mg-grp-h{margin:0 0 6px;}
@@ -757,7 +760,7 @@ a.mg-row:hover .mg-ic,a.mg-row:focus-visible .mg-ic{transform:translateX(3px);}
 .mg-pass-item{display:grid;grid-template-columns:3px minmax(0,1fr);column-gap:9px;
   width:100%;text-align:left;font:inherit;color:inherit;background:none;border:none;
   padding:5px 6px 5px 0;border-radius:8px;cursor:pointer;transition:background .16s;}
-.mg-pass-item:hover{background:rgba(243,233,212,.06);}
+.mg-pass-item:hover{background:rgba(var(--ink-rgb),.06);}
 .atl3-pass-bar{grid-row:1 / span 2;width:3px;min-height:18px;align-self:stretch;
   border-radius:2px;background:var(--gold);}
 .atl3-pass-bar.c-red{background:var(--red);}
@@ -776,7 +779,7 @@ a.mg-row:hover .mg-ic,a.mg-row:focus-visible .mg-ic{transform:translateX(3px);}
 .atl3-m-nb{display:inline-flex;align-items:center;justify-content:center;gap:6px;
   flex:1 1 0;min-height:32px;padding:5px 10px;cursor:pointer;
   font-family:var(--f-ui);font-size:.78rem;color:var(--ink);
-  background:rgba(243,233,212,.05);border:1px solid var(--line-strong);border-radius:100px;
+  background:rgba(var(--ink-rgb),.05);border:1px solid var(--line-strong);border-radius:100px;
   transition:border-color .16s,background .16s;}
 .atl3-m-nb:hover,.atl3-m-nb:focus-visible{border-color:var(--gold-deep);background:var(--hover);}
 .mg-nb-n{font-weight:600;color:var(--gold);}
@@ -846,8 +849,8 @@ a.mg-row:hover .mg-ic,a.mg-row:focus-visible .mg-ic{transform:translateX(3px);}
 .atl-dnav:hover{color:var(--ink);border-color:var(--gold-deep);}
 /* L'actif prend la surface éclairée du socle — la même que partout
    ailleurs sur ce site quand une chose est « celle-ci ». */
-.atl-dnav.active{color:var(--ink);border-color:rgba(216,173,76,.42);
-  background:linear-gradient(150deg,#2c2117,#211a12,#1b150e);}
+.atl-dnav.active{color:var(--ink);border-color:rgba(var(--gold-rgb),.42);
+  background:var(--emphase);}
 .atl-dnav.active .dos-pn{color:var(--gold);}
 /* « III / V » : dans un couloir de 7 655 px, rien ne disait combien il
    restait. Une salle à l'écran, et le compte tient en trois signes. */
@@ -921,23 +924,23 @@ a.mg-row:hover .mg-ic,a.mg-row:focus-visible .mg-ic{transform:translateX(3px);}
    l'accueil), et sous le plan elles barraient les libellés. C'est la
    LUMIÈRE DE LECTURE qui descend le long du fil, avec la position (--sp). */
 .ds-bg[data-bg="deriv"]{
-  background:radial-gradient(38% 30% at 6% calc(var(--sp,0) * 100%),rgba(216,173,76,.10),rgba(216,173,76,0) 70%);
+  background:radial-gradient(38% 30% at 6% calc(var(--sp,0) * 100%),rgba(var(--gold-rgb),.10),rgba(var(--gold-rgb),0) 70%);
 }
 /* II — la chronologie : le jour passe sur la page, d'un acte à l'autre. */
 .ds-bg[data-bg="chrono"]{
-  background:linear-gradient(101deg,rgba(213,64,47,.11),rgba(216,173,76,.10) 46%,rgba(33,26,18,0) 82%);
+  background:linear-gradient(101deg,rgba(var(--red-rgb),.11),rgba(var(--gold-rgb),.10) 46%,rgba(var(--surface-rgb),0) 82%);
   background-size:230% 100%;
   background-position:calc(var(--sp,0) * 100%) 0;}
 /* III — le laboratoire : la lueur de l'établi monte avec la lecture. */
 .ds-bg[data-bg="labo"]{
   background:radial-gradient(62% 42% at 50% calc(100% - var(--sp,0) * 72%),
-    rgba(216,173,76,.11),rgba(216,173,76,0) 72%);}
+    rgba(var(--gold-rgb),.11),rgba(var(--gold-rgb),0) 72%);}
 /* IV — les explorations : la trame se croise là où se porte le regard.
    Mesurée d'abord à .05/.04, elle ne touchait que 1,4 % des pixels — une
    matière qu'on ne voit pas ne vaut pas sa complexité. */
 .ds-bg[data-bg="explore"]{
-  background:repeating-linear-gradient(45deg,rgba(243,233,212,.085) 0 1px,transparent 1px 15px),
-             repeating-linear-gradient(-45deg,rgba(243,233,212,.07) 0 1px,transparent 1px 23px);
+  background:repeating-linear-gradient(45deg,rgba(var(--ink-rgb),.085) 0 1px,transparent 1px 15px),
+             repeating-linear-gradient(-45deg,rgba(var(--ink-rgb),.07) 0 1px,transparent 1px 23px);
   -webkit-mask:radial-gradient(150% 90% at 50% calc(var(--sp,0) * 100%),#000,transparent 78%);
   mask:radial-gradient(150% 90% at 50% calc(var(--sp,0) * 100%),#000,transparent 78%);}
 /* V — les ressources n'ont PAS de fond, et c'est mesuré : le lavis essayé
@@ -967,7 +970,7 @@ a.mg-row:hover .mg-ic,a.mg-row:focus-visible .mg-ic{transform:translateX(3px);}
 .atl-drawer{position:fixed;top:var(--atl-top);right:0;bottom:0;width:min(620px,52vw);
   z-index:110;display:flex;flex-direction:column;
   background:var(--paper);border-left:1px solid var(--line-strong);
-  box-shadow:-24px 0 60px rgba(0,0,0,.45);animation:atlDrawerIn .22s ease;}
+  box-shadow:-24px 0 60px rgba(var(--ombre-rgb),.45);animation:atlDrawerIn .22s ease;}
 .atl-drawer[hidden]{display:none;}
 @keyframes atlDrawerIn{from{transform:translateX(24px);opacity:0}to{transform:none;opacity:1}}
 @media (prefers-reduced-motion:reduce){.atl-drawer{animation:none;}}
@@ -1146,14 +1149,14 @@ body.at-plein .notes-fab{display:inline-flex!important;}
      interface générée (et que le détecteur signale à juste titre). */
   color:var(--paper);background:var(--ink);border:0;
   border-radius:999px;padding:9px 16px;
-  box-shadow:0 12px 32px rgba(0,0,0,.32);transition:background .15s;}
+  box-shadow:0 12px 32px rgba(var(--ombre-rgb),.32);transition:background .15s;}
 /* Sur un aplat --red, c'est le BLANC qui passe (4,56:1) : le texte sombre
    n'y donne que 4,1:1. Piège déjà consigné, on ne le rejoue pas. */
 .atl3-full-exit:hover{background:var(--red);color:#fff;}
-.atl3-full-exit:hover kbd{color:#fff;background:rgba(0,0,0,.22);}
+.atl3-full-exit:hover kbd{color:#fff;background:rgba(var(--ombre-rgb),.22);}
 .atl3-full-exit[hidden]{display:none;}
 .atl3-full-exit kbd{font-family:var(--f-ui);font-size:.72rem;
-  color:var(--paper);background:rgba(21,16,11,.22);
+  color:var(--paper);background:rgba(var(--paper-rgb),.22);
   border-radius:5px;padding:1px 6px;}
 
 
@@ -1169,7 +1172,7 @@ body.at-plein .notes-fab{display:inline-flex!important;}
 .atl3-marge-fade{position:sticky;bottom:0;height:62px;margin-top:-62px;
   pointer-events:none;display:flex;align-items:flex-end;justify-content:center;
   padding-bottom:5px;opacity:0;transition:opacity .22s;
-  background:linear-gradient(to bottom,rgba(21,16,11,0),var(--paper) 78%);}
+  background:linear-gradient(to bottom,rgba(var(--paper-rgb),0),var(--paper) 78%);}
 .atl3-marge.is-scrollable .atl3-marge-fade{opacity:1;}
 .atl3-marge.is-scrollable.is-end .atl3-marge-fade{opacity:0;}
 .atl3-marge-fade span{font-family:var(--f-ui);font-size:.72rem;font-weight:600;
@@ -1334,12 +1337,12 @@ html:has(body.at-plein){scroll-padding-top:90px;}
 @media (max-width:1240px){
   .atl3-marge{display:none;}
   .atl3-sheet-scrim:not([hidden]){display:block;position:fixed;inset:0;z-index:129;
-    background:rgba(8,5,3,.62);}
+    background:rgba(var(--voile-rgb),.62);}
   .atl3-sheet:not([hidden]){display:flex;flex-direction:column;position:fixed;
     left:0;right:0;bottom:0;margin:0 auto;width:min(680px,100%);z-index:130;
     max-height:calc(100dvh - 64px);background:var(--bg);
     border:1px solid var(--line-strong);border-bottom:0;border-radius:18px 18px 0 0;
-    box-shadow:0 -18px 50px rgba(0,0,0,.5);animation:at3Sheet .28s cubic-bezier(.2,.75,.3,1) both;}
+    box-shadow:0 -18px 50px rgba(var(--ombre-rgb),.5);animation:at3Sheet .28s cubic-bezier(.2,.75,.3,1) both;}
   .atl3-sheet-bar{position:relative;flex:none;display:flex;justify-content:flex-end;
     padding:12px 14px 4px;}
   .atl3-sheet-grip{position:absolute;left:50%;top:9px;width:42px;height:4px;margin-left:-21px;
@@ -1402,12 +1405,12 @@ html:has(body.at-plein){scroll-padding-top:90px;}
 .asc-thread{position:absolute;left:var(--axis);top:20px;bottom:0;width:2px;margin-left:-1px;
   pointer-events:none;border-radius:2px;background:var(--line);}
 .asc-thread::before{content:"";position:absolute;inset:0 0 auto 0;height:100%;border-radius:2px;
-  background:linear-gradient(to bottom,#39596b,#d5402f);}
+  background:linear-gradient(to bottom,var(--asc-a),var(--asc-b));}
 .js-asc .asc-thread::before{height:max(0px,calc(var(--draw,0px) - 20px));}
 .asc-head{position:absolute;left:50%;top:calc(var(--draw,0px) - 20px);width:12px;height:12px;
   margin:-6px 0 0 -6px;border-radius:50%;opacity:0;
-  background:radial-gradient(circle,#fff1d0 0,var(--gold) 45%,rgba(216,173,76,0) 72%);
-  box-shadow:0 0 18px 6px rgba(216,173,76,.38);transition:opacity .25s;}
+  background:radial-gradient(circle,#fff1d0 0,var(--gold) 45%,rgba(var(--gold-rgb),0) 72%);
+  box-shadow:0 0 18px 6px rgba(var(--gold-rgb),.38);transition:opacity .25s;}
 .js-asc .asc-head{opacity:var(--head,0);}
 
 /* la marche */
@@ -1442,16 +1445,16 @@ html:has(body.at-plein){scroll-padding-top:90px;}
 /* le nœud : ce qui fait passer à la suivante. Une carte posée SUR le fil,
    marquée d'un losange à l'endroit où le fil la traverse. */
 .asc-knot{position:relative;margin:20px 0 34px;padding:16px 20px 6px;border-radius:14px;
-  border:1px solid var(--line);background:rgba(243,233,212,.025);
-  box-shadow:0 0 0 1px rgba(216,173,76,calc(var(--pass,0) * .42)),
-             0 22px 44px -30px rgba(216,173,76,calc(var(--pass,0) * .55));
+  border:1px solid var(--line);background:rgba(var(--ink-rgb),.025);
+  box-shadow:0 0 0 1px rgba(var(--gold-rgb),calc(var(--pass,0) * .42)),
+             0 22px 44px -30px rgba(var(--gold-rgb),calc(var(--pass,0) * .55));
 }
 .asc-knot::before{content:"";position:absolute;left:calc(var(--axis) - 58px - 5px);top:24px;
   width:10px;height:10px;transform:rotate(45deg);border-radius:2px;
   background:var(--bg);box-shadow:inset 0 0 0 1.5px var(--red-text);}
 .asc-knot::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
   opacity:var(--pass,0);
-  background:radial-gradient(120% 90% at 0% 0%,rgba(216,173,76,.10),rgba(216,173,76,0) 60%);}
+  background:radial-gradient(120% 90% at 0% 0%,rgba(var(--gold-rgb),.10),rgba(var(--gold-rgb),0) 60%);}
 .asc-motor{margin:0 0 10px;font-family:'Fraunces',serif;font-style:italic;font-weight:500;
   font-size:1.06rem;line-height:1.3;color:var(--gold);}
 .asc-motor span{font-style:normal;}
@@ -1490,7 +1493,7 @@ html:has(body.at-plein){scroll-padding-top:90px;}
 .asc-plan-list::before,.asc-plan-list::after{content:"";position:absolute;left:10px;top:13px;bottom:13px;
   width:2px;margin-left:-1px;border-radius:2px;background:var(--line);}
 .asc-plan-list::after{transform-origin:top;transform:scaleY(var(--plan,0));
-  background:linear-gradient(to bottom,#39596b,#d5402f);transition:transform .3s cubic-bezier(.16,1,.3,1);}
+  background:linear-gradient(to bottom,var(--asc-a),var(--asc-b));transition:transform .3s cubic-bezier(.16,1,.3,1);}
 .asc-pl{position:relative;z-index:1;display:grid;grid-template-columns:20px 1fr;gap:10px;align-items:center;
   width:100%;min-height:26px;padding:1px 6px 1px 0;border:0;background:none;cursor:pointer;
   text-align:left;font:500 .84rem/1.25 var(--f-ui);color:var(--muted);border-radius:6px;
@@ -1501,7 +1504,7 @@ html:has(body.at-plein){scroll-padding-top:90px;}
 .asc-pl.is-past .asc-pl-dot{background:var(--rung);}
 .asc-pl.is-here{color:var(--ink);font-weight:600;}
 .asc-pl.is-here .asc-pl-dot{background:var(--rung);transform:scale(1.45);
-  box-shadow:0 0 0 3px var(--bg),0 0 0 4.5px rgba(216,173,76,.55);}
+  box-shadow:0 0 0 3px var(--bg),0 0 0 4.5px rgba(var(--gold-rgb),.55);}
 .asc-pl:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
 
 /* dans le tiroir la marche est seule : pastille pleine, pas de fil */
@@ -1545,7 +1548,7 @@ html:has(body.at-plein){scroll-padding-top:90px;}
   gap:clamp(28px,4.5vw,64px);align-items:start;margin-top:6px;}
 .chr-fig{position:sticky;top:168px;margin:0;}
 .chr-fig img{display:block;width:100%;height:auto;border-radius:4px;
-  box-shadow:0 26px 48px -26px rgba(0,0,0,.85);
+  box-shadow:0 26px 48px -26px rgba(var(--ombre-rgb),.85);
   filter:sepia(.16) brightness(.84) contrast(1.03);}
 .chr-fig figcaption{font-family:var(--f-ui);font-size:.8rem;line-height:1.45;
   color:var(--muted);margin-top:12px;}
@@ -1581,7 +1584,7 @@ html:has(body.at-plein){scroll-padding-top:90px;}
 .chr-ev--act2 .chr-y{color:var(--red-text);}
 .chr-ev--relais .chr-y{color:var(--blue-text);}
 .chr-ev{position:relative;transition:background .25s;}
-.chr-ev.is-current{background:linear-gradient(90deg,rgba(216,173,76,.08),rgba(216,173,76,0) 70%);}
+.chr-ev.is-current{background:linear-gradient(90deg,rgba(var(--gold-rgb),.08),rgba(var(--gold-rgb),0) 70%);}
 .chr-ev.is-current .chr-y{font-weight:700;}
 .chr-ref{margin-top:8px!important;font-family:var(--f-ui)!important;font-size:.8rem!important;color:var(--muted)!important;}
 .chr-ref a{color:var(--ink-soft);text-decoration:underline;text-decoration-color:var(--line-strong);
@@ -1594,7 +1597,7 @@ html:has(body.at-plein){scroll-padding-top:90px;}
    la colonne des faits (une seule image tient la colonne collante). */
 .chr-inset{display:grid;grid-template-columns:92px minmax(0,1fr);gap:16px;align-items:end;margin:0 0 16px;}
 .chr-inset img{display:block;width:100%;height:auto;border-radius:3px;
-  box-shadow:0 18px 34px -22px rgba(0,0,0,.85);filter:sepia(.16) brightness(.84) contrast(1.03);}
+  box-shadow:0 18px 34px -22px rgba(var(--ombre-rgb),.85);filter:sepia(.16) brightness(.84) contrast(1.03);}
 .chr-inset figcaption{font-family:var(--f-ui);font-size:.8rem;line-height:1.45;color:var(--muted);}
 @media(prefers-reduced-motion:reduce){.chr-ev,.chr-y-go{transition:none;}}
 
@@ -1623,9 +1626,9 @@ html:has(body.at-plein){scroll-padding-top:90px;}
   transition:color .15s,border-color .15s,background .15s;}
 .fiche-pick span{display:block;font-family:var(--f-ui);font-weight:600;font-size:.72rem;
   letter-spacing:.11em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
-.fiche-pick:hover{color:var(--ink);border-color:rgba(216,173,76,.45);background:var(--hover);}
+.fiche-pick:hover{color:var(--ink);border-color:rgba(var(--gold-rgb),.45);background:var(--hover);}
 .fiche-pick[aria-pressed="true"]{color:var(--ink);
-  background:linear-gradient(150deg,#2c2117,#211a12,#1b150e);border-color:rgba(216,173,76,.4);}
+  background:var(--emphase);border-color:rgba(var(--gold-rgb),.4);}
 .fiche-pick[aria-pressed="true"] span{color:var(--gold);}
 .fiche-pick:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
 .fiche-detail{position:sticky;top:calc(var(--atl-top,88px) + 80px);}
@@ -1696,3 +1699,62 @@ html:has(body.at-plein){scroll-padding-top:90px;}
 .carte-sortie a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--line-strong);
   text-underline-offset:3px;transition:color .16s,text-decoration-color .16s;}
 .carte-sortie a:hover,.carte-sortie a:focus-visible{color:var(--gold);text-decoration-color:var(--gold);}
+
+/* ══════════════════════════════════════════════════════════════════════
+   LES TROIS MODES DANS LES ATELIERS (mission `affichage`, oct. 2026)
+   Les couleurs écrites en dur de cette feuille passent désormais par les
+   jetons de assets/modes.css (--ink-rgb, --gold-rgb, --emphase…) : à la
+   bougie elles valent ce qu'elles valaient. Ici, ce que les jetons ne
+   disent pas tout seuls.
+     jour    — le même bureau, volets ouverts : le papier crème, l'or devenu
+               ocre, la lumière d'établi devenue un lavis.
+     edition — l'imprimé de 1872 : plat, sans lueur ni halo doré. Les fonds
+               de salle disent la même chose, mais IMMOBILES et à l'encre.
+   ══════════════════════════════════════════════════════════════════════ */
+html[data-mode="jour"]{--ok-rgb:70,111,38;--asc-a:#3d6880;--asc-b:#b8361f;}
+html[data-mode="edition"]{--ok-rgb:63,95,38;--asc-a:#3a5b6e;--asc-b:#9c2a1a;}
+
+/* Le papier de la page : à la bougie deux lueurs (le rouge en haut, l'or en
+   bas) ; au jour un lavis à peine teinté ; dans l'édition, le papier nu. */
+html[data-mode="jour"] body.at-atelier{
+  background-image:radial-gradient(circle at 16% 8%,rgba(var(--red-rgb),.045),transparent 42%),radial-gradient(circle at 88% 94%,rgba(var(--gold-rgb),.06),transparent 46%);}
+html[data-mode="edition"] body.at-atelier{background-image:none;}
+
+/* Les tirages d'archive : le traitement du mode, plus celui de la pénombre. */
+html[data-mode="jour"] .x-real,html[data-mode="edition"] .x-real{background:var(--paper-2);}
+html[data-mode="jour"] .x-real img,html[data-mode="edition"] .x-real img,
+html[data-mode="edition"] .chr-fig img,html[data-mode="edition"] .chr-inset img{filter:var(--photo-filtre);}
+html[data-mode="jour"] .chr-fig img,html[data-mode="jour"] .chr-inset img{filter:sepia(.12) contrast(1.02);}
+html[data-mode="jour"] .x-real .hs-img-caption,html[data-mode="edition"] .x-real .hs-img-caption{color:var(--ink);}
+
+/* ── L'ÉDITION : rien ne luit ─────────────────────────────────────────── */
+html[data-mode="edition"] .asc-head,
+html[data-mode="edition"] .asc-knot::after,
+html[data-mode="edition"] .mg-notes::before,
+html[data-mode="edition"] .js-atlum .cap-start::after,
+html[data-mode="edition"] .rdr-halo{display:none;}
+/* le nœud traversé se dit par son filet, à l'encre, pas par une lueur */
+html[data-mode="edition"] .asc-knot{background:transparent;
+  box-shadow:0 0 0 1px rgba(var(--ink-rgb),calc(var(--pass,0) * .5));}
+html[data-mode="edition"] .asc-pl.is-here .asc-pl-dot{box-shadow:0 0 0 3px var(--bg),0 0 0 4.5px var(--ink);}
+html[data-mode="edition"] .chr-ev.is-current{background:rgba(var(--ink-rgb),.045);}
+html[data-mode="edition"] .inst-pulse>*{animation:none;}
+
+/* Les fonds de salle, immobiles : ils ne lisent plus --sp. */
+/* au jour, le passage d'un acte à l'autre est un lavis : à .11 le rouge
+   virait au rose sur le crème */
+html[data-mode="jour"] .ds-bg[data-bg="chrono"]{
+  background-image:linear-gradient(101deg,rgba(var(--red-rgb),.055),rgba(var(--gold-rgb),.07) 46%,rgba(var(--surface-rgb),0) 82%);}
+html[data-mode="edition"] .ds-bg[data-bg="deriv"]{
+  background:linear-gradient(90deg,rgba(var(--ink-rgb),.03),rgba(var(--ink-rgb),0) 7%);}
+html[data-mode="edition"] .ds-bg[data-bg="chrono"]{
+  background:linear-gradient(101deg,rgba(var(--red-rgb),.05),rgba(var(--ink-rgb),.025) 46%,rgba(var(--ink-rgb),0) 82%);
+  background-size:auto;background-position:0 0;}
+html[data-mode="edition"] .ds-bg[data-bg="labo"]{
+  background:linear-gradient(to top,rgba(var(--ink-rgb),.035),rgba(var(--ink-rgb),0) 40%);}
+/* la trame des explorations est un motif de GRAVURE : elle reste, posée */
+html[data-mode="edition"] .ds-bg[data-bg="explore"]{
+  background:repeating-linear-gradient(45deg,rgba(var(--ink-rgb),.06) 0 1px,transparent 1px 15px),
+             repeating-linear-gradient(-45deg,rgba(var(--ink-rgb),.045) 0 1px,transparent 1px 23px);
+  -webkit-mask:radial-gradient(150% 90% at 50% 30%,#000,transparent 78%);
+  mask:radial-gradient(150% 90% at 50% 30%,#000,transparent 78%);}
