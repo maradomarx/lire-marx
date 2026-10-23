@@ -81,7 +81,7 @@ try {
     let b;
     try {
       await page.evaluate(SONDE);
-      b = await page.evaluate(() => LM_SONDE({ fini: true, garder: true }));
+      b = await page.evaluate(l => LM_SONDE({ fini: true, garder: true, largeur: l }), largeur);
     } catch (e) { b = { page: p, echecs: 1, erreur: e.message.slice(0, 120) }; }
     b.largeur = largeur; b.modeDemande = mode; b.erreursJS = erreurs;
     if (b.mode && b.mode !== mode) { b.echecs++; b.modeFaux = b.mode; }

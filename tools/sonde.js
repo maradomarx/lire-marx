@@ -118,13 +118,17 @@ window.LM_SONDE = async function (opts) {
     if (enLigne) return;
     if (r.width < 23.5 || r.height < 23.5) cibles.push({ ou: ou(el), texte: (el.textContent || el.getAttribute('aria-label') || '').trim().slice(0, 24), l: Math.round(r.width), h: Math.round(r.height) });
   });
-  const debord = document.documentElement.scrollWidth > innerWidth + 1;
+  /* ⚠️ sous émulation mobile, le viewport S'ÉLARGIT avec le contenu :
+     innerWidth suit le débordement et ne le voit plus. On compare donc à la
+     largeur demandée (opts.largeur), sinon à screen.width. */
+  const L = opts.largeur || Math.min(innerWidth, screen.width || innerWidth);
+  const debord = Math.max(document.documentElement.scrollWidth, document.body.scrollWidth) > L + 1;
   if (opts.fini) { const st = document.getElementById('lm-sonde-fini'); if (st && !opts.garder) st.remove(); }
   return {
     page: location.pathname, mode: document.documentElement.getAttribute('data-mode'), largeur: innerWidth,
     mesures, min: +min.toFixed(2), minSur: ouMin,
     echecs: contraste.length + petits.length + cibles.length + (debord ? 1 : 0),
     contraste, petits, cibles, surImage: surImage.length, surImageEx: surImage.slice(0, 6),
-    debordement: debord ? document.documentElement.scrollWidth + ' px pour ' + innerWidth : false,
+    debordement: debord ? Math.max(document.documentElement.scrollWidth, document.body.scrollWidth) + ' px pour ' + L : false,
   };
 };
