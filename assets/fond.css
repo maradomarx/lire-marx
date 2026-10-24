@@ -2,17 +2,17 @@
    LE FOND — « la circulation » (mission `fond-circulation`, oct. 2026).
    Le dessin est dans /assets/fond.js ; ici, sa place et ses jetons.
 
-   La poussière d'or (un champ semé en trois profondeurs, qui dérive et
-   scintille ; un mot de Marx monte parfois d'un grain, dans un blanc de la
-   page) et les pièces A, A′, A″… dans la marge, qui s'allument quand la
-   lecture les atteint (le fil et les marchandises ont été retirés).
+   La poussière d'or (le ciel, semé en trois profondeurs) et LE MARCHÉ, la
+   scène du premier écran de GeoInvader dite dans la langue du livre : une
+   formation de marchandises en points, la pièce A qui tire, « A′ » qui monte
+   à chaque vente.
 
    Les couleurs propres au fond sont ici, PAR MODE, en composantes (le canvas
    les assemble). Le papier vient des jetons de la maison.
    ============================================================ */
 :root{
   --fond-papier: var(--bg, var(--paper, #15100b));
-  /* bougie : l'or qui luit ; --fond-fil ne colore plus que le « + Δ » des pièces */
+  /* bougie : l'or qui luit ; --fond-fil : les marchandises vendues de l'édition ; --fond-mot : « A′ » */
   --fond-or: 216,173,76;
   --fond-or-a: .72;
   --fond-eclat: 255,222,160;
