@@ -4,23 +4,21 @@
 
    La poussière d'or (un champ semé en trois profondeurs, qui dérive et
    scintille ; un mot de Marx monte parfois d'un grain, dans un blanc de la
-   page) et le circuit A — M — A′ dans la marge, dont le fil rouge se trace
-   jusqu'à la ligne de lecture.
+   page) et les pièces A, A′, A″… dans la marge, qui s'allument quand la
+   lecture les atteint (le fil et les marchandises ont été retirés).
 
    Les couleurs propres au fond sont ici, PAR MODE, en composantes (le canvas
    les assemble). Le papier vient des jetons de la maison.
    ============================================================ */
 :root{
   --fond-papier: var(--bg, var(--paper, #15100b));
-  /* bougie : l'or qui luit, le fil rouge avec sa lueur, les marchandises en crème */
+  /* bougie : l'or qui luit ; --fond-fil ne colore plus que le « + Δ » des pièces */
   --fond-or: 216,173,76;
   --fond-or-a: .72;
   --fond-eclat: 255,222,160;
   --fond-lueur: 1;                 /* la part de lueur : halos des grains, du fil, des nœuds */
   --fond-fil: 213,64,47;
   --fond-fil-a: .9;
-  --fond-trait: 243,233,212;
-  --fond-trait-a: .55;
   --fond-mot: 216,173,76;
   --fond-mot-a: .9;
   --fond-vit: 1;                   /* la montée de la poussière dans l'air chaud */
@@ -36,8 +34,6 @@ html[data-mode="jour"]{
   --fond-lueur: 0;
   --fond-fil: 184,54,31;
   --fond-fil-a: .82;
-  --fond-trait: 34,25,15;
-  --fond-trait-a: .58;
   --fond-mot: 110,79,24;
   --fond-mot-a: .85;
   --fond-vit: .6;
@@ -51,8 +47,6 @@ html[data-mode="edition"]{
   --fond-lueur: 0;
   --fond-fil: 156,42,26;
   --fond-fil-a: .85;
-  --fond-trait: 28,23,18;
-  --fond-trait-a: .62;
   --fond-mot-a: 0;
   --fond-vergeure: 54,40,22;
   --fond-vergeure-a: .05;

@@ -5,31 +5,29 @@
 
    CE QU'IL DIT. Le Capital s'ouvre sur une « immense accumulation de
    marchandises » et se démontre par un circuit : A — M — A′, l'argent qui
-   devient marchandise et revient GROSSI. Deux choses, donc :
+   revient GROSSI. Deux choses, donc :
      LA POUSSIÈRE D'OR — un champ de grains semés en trois profondeurs, à la
        façon du fond étoilé de GeoInvader : ils dérivent lentement, glissent
        en parallaxe au défilement, scintillent ; de temps en temps l'un d'eux
        s'allume dans un blanc de la page et un mot de Marx monte de lui
        (valeur, travail, marchandise…), puis s'efface.
-     LE CIRCUIT — dans la marge la plus large, une chaîne qui descend avec la
-       page : une pièce (A), une marchandise (la toile, l'habit, le fer, le
-       froment, le thé), une pièce plus grande (A′), une autre marchandise,
-       A″… Un FIL ROUGE les relie et se trace jusqu'à la ligne de lecture :
-       on lit, le capital circule. Chaque nœud atteint s'allume, et à chaque
-       retour de l'argent un « + Δ » monte : la plus-value.
+     LES PIÈCES — dans la marge la plus large, une colonne qui descend avec
+       la page : A, A′, A″…, chaque pièce un peu plus grande que la
+       précédente. Pâles tant que la lecture ne les a pas atteintes, elles
+       s'allument quand elle y arrive, et un « + Δ » monte : la plus-value.
+       (Le fil rouge qui les reliait et les marchandises entre elles ont été
+       retirés le lendemain, à la demande du propriétaire.)
    Tout ce qui dépend du défilement est une FONCTION de la position (on
-   remonte, le fil se rembobine, les nœuds s'éteignent) ; seuls le
-   scintillement, la dérive et les mots qui montent sont du temps.
+   remonte, les pièces s'éteignent) ; seuls le scintillement, la dérive et
+   les mots qui montent sont du temps.
 
    LES MODES (html[data-mode], événement `lm:mode`) :
-     bougie  — grains d'or qui luisent, fil rouge avec sa lueur, pièces
-               dorées : la pièce à la bougie.
-     jour    — la poussière dans le jour : des grains d'ocre, sans lueur ;
-               le fil rouge et les traits à l'encre.
+     bougie  — grains d'or qui luisent, pièces dorées et leur lueur.
+     jour    — la poussière dans le jour : des grains d'ocre, sans lueur.
      edition — un imprimé : la poussière devient un pointillé d'imprimerie,
                IMMOBILE (ni dérive, ni scintillement, ni mots), sur le papier
-               vergé ; le fil, en rouge de rubrique, se trace toujours au fil
-               de la lecture — c'est le lecteur qui le fait avancer.
+               vergé ; les pièces s'allument toujours au fil de la lecture —
+               c'est le lecteur qui les atteint.
 
    LE HASARD EST SEMÉ (graine 1867, l'édition allemande du Livre I) : même
    champ, même chaîne, mêmes mots à chaque visite. Aucun Math.random.
@@ -38,9 +36,9 @@
    passerait sous un texte : presque entièrement sous les colonnes de
    lecture, aux trois quarts sous tout bloc qui porte du texte. Les mots ne
    naissent que dans un blanc. Mouvement réduit, économie de données,
-   réglage « immobile » : une image fixe à l'état FINI (le fil entier, aucun
-   mot). Onglet masqué : rien ne tourne. Densité de pixels plafonnée à 1,5.
-   Le circuit ne se pose que s'il trouve une marge d'au moins 46 px et une
+   réglage « immobile » : une image fixe à l'état FINI (toutes les pièces
+   allumées, aucun mot). Onglet masqué : rien ne tourne. Densité de pixels plafonnée à 1,5.
+   Les pièces ne se posent que si elles trouvent une marge d'au moins 46 px et une
    fenêtre d'au moins 700 px ; sinon il reste la poussière.
 
    OÙ. Liste ICI : à propos, mentions, l'agrégation et les commentaires, les
@@ -96,7 +94,7 @@
     if (mode === 'edition') return { reglage, effectif: 'fixe', raison: 'un imprimé ne bouge pas', mode };
     return { reglage, effectif: 'anime', raison: '', mode };
   }
-  /* le fil suit-il la lecture ? Oui quand le fond s'anime, et dans l'édition
+  /* les pièces suivent-elles la lecture ? Oui quand le fond s'anime, et dans l'édition
      (c'est le lecteur qui le fait avancer, rien ne bouge seul) ; non sous un
      réglage « immobile », le mouvement réduit ou l'économie : état fini. */
   const filSuit = () => { const e = etat(); return e.effectif === 'anime' || e.raison === 'un imprimé ne bouge pas'; };
@@ -153,7 +151,6 @@
       or: rgb(g('--fond-or'), [216, 173, 76]), orA: num('--fond-or-a', .7),
       eclat: rgb(g('--fond-eclat'), [255, 222, 160]), lueur: num('--fond-lueur', 1),
       fil: rgb(g('--fond-fil'), [213, 64, 47]), filA: num('--fond-fil-a', .85),
-      trait: rgb(g('--fond-trait'), [243, 233, 212]), traitA: num('--fond-trait-a', .5),
       mot: rgb(g('--fond-mot'), [216, 173, 76]), motA: num('--fond-mot-a', .9),
       vit: num('--fond-vit', 1),
       vergeure: rgb(g('--fond-vergeure'), [40, 30, 18]), vergeureA: num('--fond-vergeure-a', 0),
@@ -171,7 +168,7 @@
   const ctx = cv.getContext('2d', LOGICIEL ? { willReadFrequently: true } : undefined);
   const vtx = vv.getContext('2d', { willReadFrequently: true });
   let masque = null;
-  let W = 0, H = 0, D = 1, dessin = 'bougie', grains = [], calmes = [], voiles = [], noeuds = [], fil = [], bande = null, docH = 0;
+  let W = 0, H = 0, D = 1, dessin = 'bougie', grains = [], calmes = [], voiles = [], noeuds = [], bande = null, docH = 0;
   let sL = window.scrollY, raf = 0, repos = 0, dernier = 0, actif = false, mode = 'anime', voileY = NaN, zonesMs = 0;
   const DPR = 1.5, VOILE = .25, LIGNE = .58;                 /* la ligne de lecture : 58 % de la hauteur */
   let spriteEclat = null;
@@ -308,73 +305,31 @@
     return b;
   }
 
-  /* LE CIRCUIT : les nœuds et le fil, en coordonnées du DOCUMENT (le circuit
-     descend avec la page), le long de la marge. A, M, A′, M, A″… : une pièce
-     sur deux, et la pièce grossit à chaque retour. */
-  const MARCH = ['toile', 'habit', 'fer', 'froment', 'the'];
+  /* LES PIÈCES, en coordonnées du DOCUMENT (elles descendent avec la page),
+     le long de la marge : A, A′, A″… chacune un peu plus grande que la
+     précédente — l'argent qui revient grossi. (Le fil rouge qui les reliait
+     et les marchandises entre elles ont été retirés, à la demande du
+     propriétaire : la chaîne s'est faite plus simple.) */
   const PRIMES = ['', '′', '″', '‴'];
   function tracerCircuit() {
-    noeuds = []; fil = [];
+    noeuds = [];
     bande = trouverBande();
     docH = document.documentElement.scrollHeight;
     if (!bande) return;
-    const l = bande.x1 - bande.x0, xi = bande.x0 + l * .3, xe = bande.x0 + l * .7;
-    const y0 = 150, y1 = Math.max(y0 + 400, docH - 140);
-    const n = Math.max(3, Math.round((y1 - y0) / 420) + 1);
+    const l = bande.x1 - bande.x0, xm = bande.x0 + l * .55;
+    const y0 = 170, y1 = Math.max(y0 + 600, docH - 160);
+    const n = Math.max(2, Math.round((y1 - y0) / 820) + 1);
     const pas = (y1 - y0) / (n - 1);
     const rmin = Math.min(10, l * .2), rmax = Math.min(24, l * .44);
-    const nPieces = Math.ceil(n / 2);
-    for (let k = 0; k < n; k++) {
-      const r = semis(hache(5, k));
-      const piece = k % 2 === 0, j = k >> 1;
+    for (let j = 0; j < n; j++) {
+      const r = semis(hache(5, j));
       noeuds.push({
-        y: y0 + k * pas + (r() - .5) * pas * .18,
-        x: (k % 2 === 0 ? xe : xi) + (r() - .5) * l * .08,
-        piece, j,
-        r: piece ? lerp(rmin, rmax, nPieces > 1 ? j / (nPieces - 1) : 0) : Math.min(13, l * .26),
-        nom: piece ? 'A' + (j < 4 ? PRIMES[j] : '⁽' + j + '⁾') : MARCH[j % MARCH.length]
+        y: y0 + j * pas + (r() - .5) * pas * .16,
+        x: xm + (r() - .5) * l * .2,
+        j, r: lerp(rmin, rmax, n > 1 ? j / (n - 1) : 0),
+        nom: 'A' + (j < 4 ? PRIMES[j] : '⁽' + j + '⁾')
       });
     }
-    /* le fil : une S entre deux nœuds, échantillonnée tous les 6 px de document */
-    for (let k = 0; k < n - 1; k++) {
-      const A = noeuds[k], B = noeuds[k + 1];
-      const ya = A.y + (A.piece ? A.r : 12) + 4, yb = B.y - (B.piece ? B.r : 12) - 4;
-      const m = Math.max(2, Math.ceil((yb - ya) / 6));
-      for (let i = 0; i <= m; i++) {
-        const t = i / m, e = lisse(t);
-        const ondule = Math.sin(t * Math.PI * 2) * l * .08 * (k % 2 ? 1 : -1);
-        fil.push({ x: lerp(A.x, B.x, e) + ondule, y: lerp(ya, yb, t), k });
-      }
-      fil.push(null);                          /* une coupure : le fil passe derrière le nœud */
-    }
-  }
-
-  /* les marchandises, en traits fins (u = l'unité, en px) */
-  function marchandise(g, nom, x, y, u) {
-    g.beginPath();
-    if (nom === 'toile') {                    /* le rouleau de toile : les vingt aunes */
-      g.rect(x - 1.1 * u, y - .55 * u, 2.2 * u, 1.1 * u);
-      g.moveTo(x + 1.1 * u, y - .55 * u); g.ellipse(x + 1.1 * u, y, .26 * u, .55 * u, 0, -Math.PI / 2, Math.PI / 2);
-      for (let i = -1; i <= 1; i++) { g.moveTo(x - 1.1 * u, y + i * .28 * u); g.lineTo(x + .8 * u, y + i * .28 * u); }
-    } else if (nom === 'habit') {             /* l'habit */
-      g.moveTo(x - .35 * u, y - 1 * u); g.lineTo(x - 1.05 * u, y - .6 * u); g.lineTo(x - .85 * u, y + .1 * u); g.lineTo(x - .6 * u, y);
-      g.lineTo(x - .6 * u, y + 1 * u); g.lineTo(x + .6 * u, y + 1 * u); g.lineTo(x + .6 * u, y); g.lineTo(x + .85 * u, y + .1 * u);
-      g.lineTo(x + 1.05 * u, y - .6 * u); g.lineTo(x + .35 * u, y - 1 * u); g.lineTo(x, y - .45 * u); g.closePath();
-      g.moveTo(x, y - .45 * u); g.lineTo(x, y + 1 * u);
-    } else if (nom === 'fer') {               /* la demi-tonne de fer : un lingot */
-      g.moveTo(x - 1.1 * u, y + .5 * u); g.lineTo(x - .75 * u, y - .4 * u); g.lineTo(x + .75 * u, y - .4 * u); g.lineTo(x + 1.1 * u, y + .5 * u); g.closePath();
-      g.moveTo(x - .75 * u, y - .4 * u); g.lineTo(x - .55 * u, y - .7 * u); g.lineTo(x + .95 * u, y - .7 * u); g.lineTo(x + .75 * u, y - .4 * u);
-      g.moveTo(x + .95 * u, y - .7 * u); g.lineTo(x + 1.3 * u, y + .2 * u); g.lineTo(x + 1.1 * u, y + .5 * u);
-    } else if (nom === 'froment') {           /* le quarteron de froment : un épi */
-      g.moveTo(x, y + 1.1 * u); g.lineTo(x, y - 1.1 * u);
-      for (let i = 0; i < 4; i++) { const yy = y - .9 * u + i * .42 * u; g.moveTo(x, yy + .2 * u); g.quadraticCurveTo(x - .5 * u, yy, x - .42 * u, yy - .25 * u); g.moveTo(x, yy + .2 * u); g.quadraticCurveTo(x + .5 * u, yy, x + .42 * u, yy - .25 * u); }
-    } else {                                  /* les dix livres de thé : une caisse */
-      g.rect(x - .85 * u, y - .55 * u, 1.7 * u, 1.3 * u);
-      g.moveTo(x - .85 * u, y - .55 * u); g.lineTo(x - .55 * u, y - .85 * u); g.lineTo(x + 1.15 * u, y - .85 * u); g.lineTo(x + .85 * u, y - .55 * u);
-      g.moveTo(x + 1.15 * u, y - .85 * u); g.lineTo(x + 1.15 * u, y + .45 * u); g.lineTo(x + .85 * u, y + .75 * u);
-      g.moveTo(x - .85 * u, y + .05 * u); g.lineTo(x + .85 * u, y + .05 * u);
-    }
-    g.stroke();
   }
 
   /* la couverture du voile au point (0 : blanc de page, 1 : sous un texte) */
@@ -401,11 +356,9 @@
     ctx.setTransform(D, 0, 0, D, 0, 0);
     ctx.clearRect(0, 0, W, H);
     const lueur = J.lueur;
-    /* la tête du fil, à l'écran : la poussière s'y allume (la circulation
-       remue l'or autour d'elle) */
-    let teteX = -1e4, teteY = -1e4;
+    /* la ligne de lecture, en coordonnées du document : une pièce s'allume
+       quand on l'atteint (état fini : toutes) */
     const tete = filSuit() ? sy + H * LIGNE : docH + 1e5;
-    if (bande && fil.length && filSuit()) { let q = null; for (const p of fil) { if (!p) continue; if (p.y > tete) break; q = p; } if (q) { teteX = q.x; teteY = q.y - sy; } }
 
     /* 1. la poussière */
     if (grains.length) {
@@ -416,8 +369,7 @@
         /* sous un texte, la poussière ne s'atténue pas : elle s'efface */
         const cache = sousTexte(x, y); if (cache > .5) continue;
         const sc = fixe ? .55 : .5 + .5 * Math.sin(tt / G.tw + G.a);
-        const pres = cloche(Math.hypot(x - teteX, y - teteY) / 170);
-        let a = J.orA * [.34, .58, .9][G.couche] * (.45 + .55 * sc) * (1 + 1.4 * pres) * (1 - cache * 1.8);
+        let a = J.orA * [.34, .58, .9][G.couche] * (.45 + .55 * sc) * (1 - cache * 1.8);
         if (a < .02) continue;
         if (G.luit && lueur > 0 && !fixe) {
           ctx.globalAlpha = Math.min(1, a * lueur * (.35 + .65 * sc * sc));
@@ -432,66 +384,38 @@
       ctx.globalAlpha = 1;
     }
 
-    /* 2. le circuit */
-    if (bande && fil.length) {
-      /* le fil : une lueur large et pâle (la bougie), puis le trait */
-      const passes = lueur > 0 ? [[5, .18 * lueur], [1.5, 1]] : [[1.5, 1]];
-      for (const [lw, f] of passes) {
-        ctx.lineWidth = lw; ctx.lineCap = 'round';
-        let prev = null;
-        for (const p of fil) {
-          if (!p) { prev = null; continue; }
-          if (p.y > tete) break;
-          const y = p.y - sy;
-          if (prev && y > -10 && prev.y - sy < H + 10) {
-            const cache = sousTexte(p.x, y);
-            const a = J.filA * f * (1 - cache * .95);
-            if (a > .015) { ctx.strokeStyle = rgba(J.fil, a); ctx.beginPath(); ctx.moveTo(prev.x, prev.y - sy); ctx.lineTo(p.x, y); ctx.stroke(); }
-          }
-          prev = p;
-        }
-      }
-      /* la tête du fil : un point vif là où on lit */
-      if (filSuit() && tete < docH) {
-        let q = null; for (const p of fil) { if (!p) continue; if (p.y > tete) break; q = p; }
-        if (q) {
-          const y = q.y - sy, a = J.filA * (1 - sousTexte(q.x, y) * .95);
-          if (lueur > 0) { ctx.globalAlpha = a * .5 * lueur; ctx.drawImage(spriteEclat, q.x - 13, y - 13, 26, 26); ctx.globalAlpha = 1; }
-          ctx.fillStyle = rgba(J.fil, a); ctx.beginPath(); ctx.arc(q.x, y, 2.4, 0, 6.2832); ctx.fill();
-        }
-      }
+    /* 2. les pièces */
+    if (bande && noeuds.length) {
       /* les nœuds */
       ctx.lineWidth = 1.2;
       for (const N of noeuds) {
         const y = N.y - sy;
         if (y < -60 || y > H + 60) continue;
-        const atteint = tete >= N.y - (N.piece ? N.r : 12);
-        const pres = cloche((tete - N.y) / 160);                       /* l'instant où le fil y arrive */
+        const atteint = tete >= N.y - N.r;
+        const pres = cloche((tete - N.y) / 160);                       /* l'instant où la lecture l'atteint */
         const cache = sousTexte(N.x, y), vis = 1 - cache * .95;
         const base = (atteint ? 1 : .42) * vis;
         if (base < .03) continue;
         if (atteint && lueur > 0 && pres > .02) {
           ctx.globalAlpha = Math.min(1, .8 * pres * lueur * vis);
-          const R = (N.piece ? N.r : 14) * 3.2; ctx.drawImage(spriteEclat, N.x - R, y - R, 2 * R, 2 * R); ctx.globalAlpha = 1;
+          const R = N.r * 3.2; ctx.drawImage(spriteEclat, N.x - R, y - R, 2 * R, 2 * R); ctx.globalAlpha = 1;
         }
-        const coul = N.piece ? J.or : J.trait, ca = N.piece ? Math.min(1, J.orA * 1.15) : J.traitA;
+        const coul = J.or, ca = Math.min(1, J.orA * 1.15);
         ctx.strokeStyle = rgba(coul, ca * base * (atteint ? 1 + .3 * pres : 1));
-        if (N.piece) {
+        {
           ctx.beginPath(); ctx.arc(N.x, y, N.r, 0, 6.2832); ctx.stroke();
           ctx.beginPath(); ctx.arc(N.x, y, N.r * .78, 0, 6.2832); ctx.stroke();
           ctx.fillStyle = rgba(coul, ca * base);
           ctx.font = 'italic 600 ' + Math.round(N.r * .9) + 'px ' + J.serif;
           ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
           ctx.fillText(N.nom, N.x, y + N.r * .04);
-          /* le retour de l'argent : « + Δ » monte au passage du fil */
+          /* le retour de l'argent : « + Δ » monte quand la lecture l'atteint */
           if (N.j > 0 && atteint && pres > .03) {
             const m = (tete - N.y) / 160;
             ctx.fillStyle = rgba(J.fil, Math.min(1, pres * vis * J.filA));
             ctx.font = 'italic 600 ' + Math.max(12, Math.round(N.r * .7)) + 'px ' + J.serif;
             ctx.fillText('+ Δ', N.x, y - N.r - 10 - Math.max(0, m) * 18);
           }
-        } else {
-          marchandise(ctx, N.nom, N.x, y, N.r * .95);
         }
       }
     }
@@ -566,7 +490,7 @@
   }
 
   /* ---------- la boucle ----------
-     Pendant le défilement une image par image (la parallaxe et le fil suivent
+     Pendant le défilement une image par image (la parallaxe et les pièces suivent
      un défilement LISSÉ) ; au repos, une toutes les 50 ms suffit à la
      poussière et aux mots — le navigateur dort entre deux. */
   let besoin = false, fige = false, tFige = 0;
