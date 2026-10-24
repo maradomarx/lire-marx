@@ -191,11 +191,42 @@
     );
   }
 
+  /* ── LES ICÔNES DE LA BARRE LATÉRALE (mission `barre-icones`, oct. 2026) ──
+     Une icône au trait par entrée, dans la langue de la maison : la bougie de
+     la pièce (l'accueil), la médaille de profil (Karl Marx), le rayon dont on tire un
+     livre (la bibliothèque), la lettrine (le glossaire), la plume (le
+     commentaire d'agrégation), la réponse (le forum), le signet rouge (le
+     carnet), la lettre cachetée (les messages), la roue du chariot (le jeu),
+     les lunettes du lecteur (à propos), le tampon (les règles), la pièce
+     dans la fente (nous soutenir), la flèche qui descend (installer).
+     Chaque icône est faite de PARTIES nommées (i-…) : au survol ou au focus
+     clavier, chacune fait UN geste qui dit ce qu'elle montre
+     (assets/mouvement.css, « les icônes de la barre »). La page courante a
+     la sienne en rouge. Le libellé vit dans span.sb-l : barre repliée en
+     RAIL sur écran large, il paraît en bulle. */
+  var SB_IC = {
+    home: '<path d="M6.8 17.5h6.4"/><rect x="8" y="9.2" width="4" height="8.3" rx=".6"/><path class="i-flamme" d="M10 2.4c1.6 1.8 2 3.1 1.2 4.3-.6.8-1.8.8-2.4 0-.8-1.2-.4-2.5 1.2-4.3z"/>',
+    marx: '<g class="i-medaille"><circle cx="10" cy="10" r="7.6"/><path d="M6.4 15.6c.3-1.5 1-2.3 2-2.7-.6-.6-1-1.5-1-2.6 0-2.2 1.6-3.9 3.6-3.9 1.7 0 3 1.2 3.3 2.8l-.2 1.1.9 1.3-.9.3c-.1 1.1-.6 1.8-1.4 2.1.4.5.6 1.1.7 1.8"/><path d="M8.4 12.9c.8.9 1.9 1.3 3.1 1.1"/></g>',
+    biblio: '<path d="M2.5 17.5h15"/><path d="M4 6v11.5M6.6 6v11.5M4 6h2.6"/><path class="i-tire" d="M8.8 3.5h3v14h-3z"/><path d="M13.6 6.4l2.5-.6 2.4 11.1-2.5.6z"/>',
+    glossaire: '<rect x="3" y="3" width="14" height="14" rx="1.6"/><path class="i-lettre" d="M6.6 14.2L10 5.8l3.4 8.4M7.9 11.1h4.2"/>',
+    agregation: '<path d="M3.5 17h7.5"/><g class="i-plume"><path d="M16.8 3c-4.1.4-7.8 3.9-9.2 9.2l-.8 3.3 3.3-1.2c4.5-1.8 6.7-5.9 6.7-11.3z"/><path d="M6.9 15.4l6.1-6.6"/></g>',
+    forum: '<path d="M2.5 4h10v6.6H7.2L4 13.2v-2.6H2.5z"/><path class="i-reponse" d="M15 7.6h2.5v5.8H16v2.4l-3-2.4H9.5v-1.6"/>',
+    carnet: '<rect x="4" y="2.5" width="12.5" height="15" rx="1.4"/><path d="M6.6 2.5v15"/><path class="i-signet" d="M11.6 2.5v7.4l1.6-1.3 1.6 1.3V2.5"/>',
+    messages: '<rect x="2.5" y="4.5" width="15" height="11" rx="1.4"/><path class="i-rabat" d="M3 5.3l7 5.5 7-5.5"/>',
+    jeu: '<g class="i-roue"><circle cx="10" cy="10" r="7.2"/><circle cx="10" cy="10" r="1.6"/><path d="M10 2.8v5.6M10 11.6v5.6M2.8 10h5.6M11.6 10h5.6M4.9 4.9l4 4M11.1 11.1l4 4M15.1 4.9l-4 4M8.9 11.1l-4 4"/></g>',
+    apropos: '<g class="i-lunettes"><circle cx="6" cy="11.6" r="3.2"/><circle cx="14" cy="11.6" r="3.2"/><path d="M9.2 11.2c.5-.6 1.1-.6 1.6 0M2.8 11.3L1.9 8.4M17.2 11.3l.9-2.9"/></g>',
+    cgu: '<path d="M3.5 17h13"/><g class="i-tampon"><path d="M8.2 3h3.6v4.6H8.2z"/><path d="M4.8 10.4c0-1.5 1.2-2.8 2.8-2.8h4.8c1.6 0 2.8 1.3 2.8 2.8v1.8H4.8z"/></g>',
+    soutenir: '<path d="M3.5 15h13v2.5h-13z"/><path d="M7.6 15V13.4h4.8V15"/><g class="i-piece"><circle cx="10" cy="7.2" r="3.6"/><path d="M10 5.6v3.2"/></g>',
+    installer: '<path d="M3.5 12.8v3.7h13v-3.7"/><path class="i-fleche" d="M10 3v9.2M6.5 8.8l3.5 3.5 3.5-3.5"/>',
+    tab: '<path d="M5 3.5h7l3 3v10H5z"/><path d="M7.5 9.5h5M7.5 12.5h5"/>'
+  };
+  function IC(k){ return '<svg class="sb-ic" viewBox="0 0 20 20" aria-hidden="true" focusable="false">' + (SB_IC[k] || '') + '</svg>'; }
+
   function buildSidebar(cfg){
     var tabs = cfg.tabs || [];
     var workTitle = cfg.workTitle || '';
     var tabsHtml = tabs.map(function(t){
-      return '<button class="sb-item" type="button" data-act="tab:' + esc(t.id) + '"><span class="sb-dot"></span>' + esc(t.label) + '</button>';
+      return '<button class="sb-item" type="button" data-act="tab:' + esc(t.id) + '">' + IC('tab') + '<span class="sb-l">' + esc(t.label) + '</span></button>';
     }).join('');
     var sbWork = tabs.length
       ? '<div class="sb-work" id="sbWork"><div class="sb-h">' + esc(workTitle) + '</div>' + tabsHtml + '</div>'
@@ -206,53 +237,53 @@
          landmarks « navigation », pas « complementary ». Le CSS ne vise
          que la classe. Mission `atelier-a11y-2`. */
       '<nav class="sidebar" id="sidebar" aria-label="Navigation du site">' +
-        '<a class="sb-item" href="/" data-act="home"><span class="sb-dot" style="background:var(--gold)"></span>Accueil</a>' +
+        '<a class="sb-item" href="/" data-act="home">' + IC('home') + '<span class="sb-l">Accueil</span></a>' +
         /* « Karl Marx » — la page-pilier sur l'homme (mission karl-marx) :
            qui il était, ce qu'il a pensé, ce qu'il a écrit, par où le lire.
            Juste sous l'accueil : c'est la première question qu'on pose. */
-        '<a class="sb-item" href="/karl-marx" data-act="marx"><span class="sb-dot" style="background:var(--red)"></span>Karl Marx</a>' +
-        '<a class="sb-item" href="/oeuvres/bibliotheque" data-act="biblio"><span class="sb-dot" style="background:var(--ink-soft)"></span>Bibliothèque</a>' +
+        '<a class="sb-item" href="/karl-marx" data-act="marx">' + IC('marx') + '<span class="sb-l">Karl Marx</span></a>' +
+        '<a class="sb-item" href="/oeuvres/bibliotheque" data-act="biblio">' + IC('biblio') + '<span class="sb-l">Bibliothèque</span></a>' +
                 /* Le glossaire suit la Bibliothèque : ce sont les deux outils du
            CORPUS, l'un qui dit quelles œuvres existent, l'autre les mots
            qu'elles construisent. C'est un ABÉCÉDAIRE GLOBAL, toutes œuvres
            confondues, et il vit à la racine (/glossaire) et non sous
            /oeuvres/ — arbitrage du propriétaire : il ne dépend d'aucune
            œuvre en particulier. */
-        '<a class="sb-item" href="/glossaire/" data-act="glossaire"><span class="sb-dot" style="background:var(--ink-soft)"></span>Glossaire</a>' +
+        '<a class="sb-item" href="/glossaire/" data-act="glossaire">' + IC('glossaire') + '<span class="sb-l">Glossaire</span></a>' +
         /* « Agrégation 2027 » — la page-carrefour et ses commentaires guidés
            (mission agregation-2027). Sans cette entrée la section n'était
            atteignable que par le pied de page. Elle suit les deux outils du
            corpus parce qu'elle en est un usage : lire l'œuvre pour l'épreuve. */
-        '<a class="sb-item" href="/agregation-2027" data-act="agregation"><span class="sb-dot" style="background:var(--red)"></span>Agrégation 2027</a>' +
-'<a class="sb-item" href="/oeuvres/forum" data-act="forum"><span class="sb-dot" style="background:var(--red)"></span>Forum</a>' +
+        '<a class="sb-item" href="/agregation-2027" data-act="agregation">' + IC('agregation') + '<span class="sb-l">Agrégation 2027</span></a>' +
+'<a class="sb-item" href="/oeuvres/forum" data-act="forum">' + IC('forum') + '<span class="sb-l">Forum</span></a>' +
         /* le carnet est le pendant PRIVÉ du forum : là-bas
            les notes partagées, ici les vôtres — d'où sa place juste en
            dessous. */
-        '<a class="sb-item" href="/oeuvres/carnet" data-act="carnet"><span class="sb-dot" style="background:var(--gold)"></span>Mon carnet</a>' +
+        '<a class="sb-item" href="/oeuvres/carnet" data-act="carnet">' + IC('carnet') + '<span class="sb-l">Mon carnet</span></a>' +
         /* « Messages », et non « Contacts » : la même chose portait deux
            noms — l'icône de la barre du haut et son popover disent
            « Messages » depuis toujours. C'est le pendant PRIVÉ du
            forum, comme « Mon carnet » l'est pour les notes. */
-        '<a class="sb-item" href="/oeuvres/messages" data-act="messages"><span class="sb-dot" style="background:var(--blue)"></span>Messages</a>' +
+        '<a class="sb-item" href="/oeuvres/messages" data-act="messages">' + IC('messages') + '<span class="sb-l">Messages</span></a>' +
         /* « Le jeu » et non « Jeux » : il y en a un, et l'entrée dit son
            nom au singulier comme le fait la section de l'accueil. Elle
            mène à /jeu — la page qui le présente — et non à /jeu/jouer :
            le jeu prend tout l'écran, on ne l'ouvre pas d'un clic de
            sidebar sans avoir dit ce que c'est. */
-        '<a class="sb-item" href="/jeu/" data-act="jeu"><span class="sb-dot" style="background:var(--gold)"></span>Le jeu</a>' +
+        '<a class="sb-item" href="/jeu/" data-act="jeu">' + IC('jeu') + '<span class="sb-l">Le jeu</span></a>' +
         /* « À propos » revient — l'entrée avait été retirée (92c43ee) parce
            qu'elle était un bouton `disabled` annonçant une page que personne
            n'écrivait. La page existe : c'est une ANCRE, comme toute
            destination. */
-        '<a class="sb-item" href="/a-propos" data-act="apropos"><span class="sb-dot" style="background:var(--ink-soft)"></span>À propos</a>' +
+        '<a class="sb-item" href="/a-propos" data-act="apropos">' + IC('apropos') + '<span class="sb-l">À propos</span></a>' +
         /* « CGU & règles » mène désormais à une vraie page — mentions
            légales, conditions d'utilisation et confidentialité en un seul
            document — et non plus à une modale. C'est donc une ANCRE. */
-        '<a class="sb-item" href="/mentions-legales" data-act="cgu"><span class="sb-dot" style="background:var(--ink-soft)"></span>CGU &amp; règles</a>' +
+        '<a class="sb-item" href="/mentions-legales" data-act="cgu">' + IC('cgu') + '<span class="sb-l">CGU &amp; règles</span></a>' +
         /* « Nous soutenir » : sous 520 px le bouton de la barre du haut n'a
            plus de place ; l'entrée ouvre le même popover. C'est une ACTION,
            donc un <button>, et sans data-act — elle n'est pas une destination. */
-        '<button class="sb-item sb-support" id="sbSupport" type="button"><span class="sb-dot" style="background:var(--red)"></span>Nous soutenir</button>' +
+        '<button class="sb-item sb-support" id="sbSupport" type="button">' + IC('soutenir') + '<span class="sb-l">Nous soutenir</span></button>' +
         sbWork +
         /* « Installer l'application » — masqué tant que rien ne dit qu'on
            peut l'installer (voir wireInstall) : sur Chrome/Android le
@@ -261,7 +292,7 @@
            ACTION, donc un <button>. Jamais affiché quand la page tourne déjà
            en application (display-mode: standalone). */
         '<div class="sb-app" id="sbApp" hidden>' +
-          '<button class="sb-item sb-install" type="button" data-act="installer" aria-expanded="false" aria-controls="sbAppAide"><span class="sb-dot" style="background:var(--gold)"></span>Installer l\'application</button>' +
+          '<button class="sb-item sb-install" type="button" data-act="installer" aria-expanded="false" aria-controls="sbAppAide">' + IC('installer') + '<span class="sb-l">Installer l\'application</span></button>' +
           '<p class="sb-app-aide" id="sbAppAide" hidden>Dans Safari&nbsp;: bouton Partager, puis «&nbsp;Sur l\'écran d\'accueil&nbsp;».</p>' +
         '</div>' +
       '</nav>'
@@ -339,15 +370,31 @@
     document.getElementById('sbToggle').addEventListener('click', function(){
       var narrow = window.matchMedia('(max-width:860px)').matches;
       if(narrow) document.body.classList.toggle('sb-open');
-      else       document.body.classList.toggle('sb-collapsed');
-      /* L'état n'était exposé nulle part : même bouton, même libellé,
-         ouvert comme fermé. WCAG 4.1.2. */
-      var open = narrow ? document.body.classList.contains('sb-open')
-                        : !document.body.classList.contains('sb-collapsed');
-      this.setAttribute('aria-expanded', open ? 'true' : 'false');
-      this.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+      else {
+        /* Sur écran large la barre ne disparaît plus : elle se replie en
+           RAIL d'icônes de 64 px (html.sb-rail), et le choix est retenu —
+           le script de tête le repose avant le premier rendu. */
+        var rail = document.documentElement.classList.toggle('sb-rail');
+        try { if(rail) localStorage.setItem('liremarx.rail.v1', '1'); else localStorage.removeItem('liremarx.rail.v1'); } catch(e){}
+      }
+      direBascule();
     });
-    bk.addEventListener('click', function(){ document.body.classList.remove('sb-open'); });
+    /* L'état n'était exposé nulle part : même bouton, même libellé, ouvert
+       comme fermé. WCAG 4.1.2. Sur écran large le bouton replie ou déplie la
+       barre ; en dessous, il ouvre ou ferme le tiroir. */
+    function direBascule(){
+      var t = document.getElementById('sbToggle'); if(!t) return;
+      var narrow = window.matchMedia('(max-width:860px)').matches;
+      var open = narrow ? document.body.classList.contains('sb-open')
+                        : !document.documentElement.classList.contains('sb-rail');
+      t.setAttribute('aria-expanded', open ? 'true' : 'false');
+      t.setAttribute('aria-label', narrow ? (open ? 'Fermer le menu' : 'Ouvrir le menu')
+                                          : (open ? 'Replier la barre latérale' : 'Déplier la barre latérale'));
+    }
+    direBascule();
+    var mqBascule = window.matchMedia('(max-width:860px)');
+    if(mqBascule.addEventListener) mqBascule.addEventListener('change', direBascule);
+    bk.addEventListener('click', function(){ document.body.classList.remove('sb-open'); direBascule(); });
 
     // Brandmark → accueil. C'est une ANCRE, pas un bouton : plus rien à
     // câbler ici. Plus de ?skip-anim non plus — depuis que l'intro
