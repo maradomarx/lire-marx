@@ -11552,35 +11552,54 @@ le champ est oublié. **Toute règle `.reader.theme-…` est morte.**
   (parchemin brun-nuit, parchemin clair, carte gravée à la route rouge de
   rubrique).
 
-### Le fond « la journée » (`assets/fond.js`, `fond.css`)
+### Le fond « la circulation » (`assets/fond.js`, `fond.css`)
 
-La page est une journée de travail, et **le défilement est le temps qui
-passe** (la journée de travail est le centre du *Capital*, la pièce à la
-bougie est le site). À la **bougie**, une flamme HORS CHAMP dans la marge de
-droite, un halo qui vacille (quatre sinus de périodes non multiples), la
-poussière de la pièce qui ne se voit que dans le halo, et la bougie qui BAISSE
-à mesure qu'on descend ; au **jour**, la croisée projetée en biais, la
-poussière qui scintille dans les carreaux, le rai qui tourne et se réchauffe du
-matin (haut de page) au soir (bas) ; en **édition**, un imprimé ne bouge pas :
-vergeures et pontuseaux du papier vergé, très pâles, en fond de html. Tout est
-semé (graine 1867), fonction de la position, donc réversible.
+> Il a remplacé « la journée » (une lueur de bougie dans la marge, un rai de
+> croisée le jour) le lendemain de sa mise en ligne : **on ne le voyait pas**.
+> Le propriétaire a choisi « le circuit A–M–A′ plus la poussière d'or », bien
+> visible dans les marges. Ne pas revenir à une lumière diffuse.
 
-**Où** : la liste `ICI` de fond.js — à propos, mentions, agrégation et
-commentaires, chapitres expliqués, forum, messages, l'INDEX du glossaire, la
-404. JAMAIS l'accueil, la bibliothèque, Karl Marx, le carnet, les ateliers, le
-jeu, les pages de notion (qui ont `glossaire/fond.js`). `body[data-fond="aucun"]`
-le refuse. API : `LM_FOND.regler/reglage/etat/remesurer/image/figer/mesure`,
-`localStorage['liremarx.fond.v1']`, événement `lm:fond`, `?fond=logiciel`.
-Immobile sous mouvement réduit et `saveData`, rien ne tourne onglet masqué,
-DPR plafonné à 1,5.
+Le *Capital* s'ouvre sur une « immense accumulation de marchandises » et se
+démontre par un circuit, A — M — A′. Deux choses, donc :
+- **La poussière d'or**, à la façon du fond étoilé de GeoInvader : un champ
+  semé (graine 1867, aucun `Math.random`) en trois profondeurs, qui dérive,
+  glisse en parallaxe au défilement et scintille ; quelques grains luisent
+  (un halo pré-rendu, pas de `shadowBlur`). La poussière **s'allume autour de
+  la tête du fil**. Toutes les 2,3 s environ, un mot de Marx (valeur,
+  travail, marchandise, plus-value…) monte d'un grain — **seulement dans un
+  blanc de la page**, jamais sous un texte ni sous la barre latérale.
+- **Le circuit**, dans la marge la plus large (trouvée au 9e décile des bords
+  droits des blocs de texte, ou à gauche entre la barre latérale et la
+  colonne ; au moins 46 px, et une fenêtre d'au moins 700 px) : une chaîne en
+  coordonnées du DOCUMENT, qui descend avec la page — une pièce A, une
+  marchandise (la toile, l'habit, le fer, le froment, le thé), une pièce plus
+  grande A′, A″… Un **fil rouge** les relie et se trace jusqu'à la ligne de
+  lecture (58 % de la hauteur) ; chaque nœud atteint s'allume, et à chaque
+  retour de l'argent un « + Δ » monte. Fonction de la position : on remonte,
+  le fil se rembobine.
 
-⚠️ **DEUX VOILES, et c'est la leçon propre à ce fond.** Sur le plan de Debord
-un voile net sous le texte suffisait ; sur une LUMIÈRE lisse, il découpe des
-boîtes sombres cernées de clarté autour de chaque paragraphe. La lumière passe
-sous un voile DOUX (1/8 de résolution, flou, peint par le processeur — sur le
-GPU deux peintures identiques du flou différaient de 30 niveaux, et la
-réversibilité tombait) ; le voile NET n'est plus que le masque de la
-poussière, et se peint AVANT elle.
+Par mode : à la **bougie** l'or luit et le fil a sa lueur ; au **jour** des
+grains d'ocre sans lueur, le fil et les traits à l'encre ; en **édition** un
+pointillé d'encre IMMOBILE (ni dérive, ni scintillement, ni mots) sur le
+papier vergé, et le fil en rouge de rubrique qui se trace toujours — c'est le
+lecteur qui le fait avancer (`filSuit()`). Sous un réglage « immobile », le
+mouvement réduit ou l'économie de données : l'état FINI, le fil entier.
+
+**Où** : la liste `ICI` — à propos, mentions, agrégation et commentaires,
+chapitres expliqués, forum, messages, l'INDEX du glossaire, la 404. JAMAIS
+l'accueil, la bibliothèque, Karl Marx, le carnet, les ateliers, le jeu, les
+pages de notion. `body[data-fond="aucun"]` le refuse. API inchangée :
+`LM_FOND.regler/reglage/etat/remesurer/image/figer/mesure`,
+`localStorage['liremarx.fond.v1']`, `lm:fond`, `?fond=logiciel`.
+
+**Le voile** est un masque à un quart de résolution (jamais affiché) :
+**sous un texte, la poussière ne s'atténue pas, elle s'efface** (coupée dès
+que le masque dépasse la moitié) ; le fil et les nœuds y tombent à 5 %.
+Mesuré par `tools/sonde-fond.js` : **0,0 % de contraste perdu sous le texte
+à la bougie et au jour**, 7,3 % au plus en édition — le pontuseau du papier
+vergé, qui passe sous les lettres (il a fallu le ramener à moitié de sa force :
+12,6 % d'abord). Graine et réversibilité vérifiées ; une image coûte 0,6 à
+1,4 ms au repos, 2,6 ms au plus en défilement (rendu logiciel forcé).
 
 ### Les gestes (`assets/mouvement.js`, `mouvement.css`)
 
