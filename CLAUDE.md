@@ -11564,26 +11564,28 @@ démontre par un circuit, A — M — A′. Deux choses, donc :
 - **La poussière d'or**, à la façon du fond étoilé de GeoInvader : un champ
   semé (graine 1867, aucun `Math.random`) en trois profondeurs, qui dérive,
   glisse en parallaxe au défilement et scintille ; quelques grains luisent
-  (un halo pré-rendu, pas de `shadowBlur`). La poussière **s'allume autour de
-  la tête du fil**. Toutes les 2,3 s environ, un mot de Marx (valeur,
+  (un halo pré-rendu, pas de `shadowBlur`). Toutes les 2,3 s environ, un mot de Marx (valeur,
   travail, marchandise, plus-value…) monte d'un grain — **seulement dans un
   blanc de la page**, jamais sous un texte ni sous la barre latérale.
-- **Le circuit**, dans la marge la plus large (trouvée au 9e décile des bords
+- **Les pièces**, dans la marge la plus large (trouvée au 9e décile des bords
   droits des blocs de texte, ou à gauche entre la barre latérale et la
-  colonne ; au moins 46 px, et une fenêtre d'au moins 700 px) : une chaîne en
-  coordonnées du DOCUMENT, qui descend avec la page — une pièce A, une
-  marchandise (la toile, l'habit, le fer, le froment, le thé), une pièce plus
-  grande A′, A″… Un **fil rouge** les relie et se trace jusqu'à la ligne de
-  lecture (58 % de la hauteur) ; chaque nœud atteint s'allume, et à chaque
-  retour de l'argent un « + Δ » monte. Fonction de la position : on remonte,
-  le fil se rembobine.
+  colonne ; au moins 46 px, et une fenêtre d'au moins 700 px) : une colonne
+  en coordonnées du DOCUMENT, qui descend avec la page — A, A′, A″…, chaque
+  pièce un peu plus grande que la précédente, une tous les 820 px environ.
+  Pâles tant que la lecture (58 % de la hauteur) ne les a pas atteintes,
+  elles s'allument quand elle y arrive, et un « + Δ » monte. Fonction de la
+  position : on remonte, elles s'éteignent.
+  ⚠️ **Le fil rouge qui les reliait et les marchandises entre elles ont été
+  RETIRÉS le lendemain**, à la demande du propriétaire (« enlève le trait et
+  les marchandises ») : ne pas les remettre. Les pièces sont restées parce
+  qu'elles n'étaient pas nommées et disent seules l'argent qui revient grossi.
 
-Par mode : à la **bougie** l'or luit et le fil a sa lueur ; au **jour** des
-grains d'ocre sans lueur, le fil et les traits à l'encre ; en **édition** un
-pointillé d'encre IMMOBILE (ni dérive, ni scintillement, ni mots) sur le
-papier vergé, et le fil en rouge de rubrique qui se trace toujours — c'est le
-lecteur qui le fait avancer (`filSuit()`). Sous un réglage « immobile », le
-mouvement réduit ou l'économie de données : l'état FINI, le fil entier.
+Par mode : à la **bougie** l'or luit, les pièces ont leur lueur ; au **jour**
+des grains d'ocre sans lueur ; en **édition** un pointillé d'encre IMMOBILE
+(ni dérive, ni scintillement, ni mots) sur le papier vergé, et les pièces qui
+s'allument toujours au fil de la lecture — c'est le lecteur qui les atteint
+(`filSuit()`). Sous un réglage « immobile », le mouvement réduit ou
+l'économie de données : l'état FINI, toutes les pièces allumées.
 
 **Où** : la liste `ICI` — à propos, mentions, agrégation et commentaires,
 chapitres expliqués, forum, messages, l'INDEX du glossaire, la 404. JAMAIS
@@ -11594,7 +11596,7 @@ pages de notion. `body[data-fond="aucun"]` le refuse. API inchangée :
 
 **Le voile** est un masque à un quart de résolution (jamais affiché) :
 **sous un texte, la poussière ne s'atténue pas, elle s'efface** (coupée dès
-que le masque dépasse la moitié) ; le fil et les nœuds y tombent à 5 %.
+que le masque dépasse la moitié) ; les pièces y tombent à 5 %.
 Mesuré par `tools/sonde-fond.js` : **0,0 % de contraste perdu sous le texte
 à la bougie et au jour**, 7,3 % au plus en édition — le pontuseau du papier
 vergé, qui passe sous les lettres (il a fallu le ramener à moitié de sa force :
