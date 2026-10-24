@@ -1,59 +1,59 @@
 /* ============================================================
-   LE FOND — « la journée ». Mission `affichage`, volet fond, oct. 2026.
+   LE FOND — « la circulation ». Mission `fond-circulation`, oct. 2026
+   (remplace « la journée », jugé trop discret : on ne le voyait pas).
    Canvas 2D, vanille, sans dépendance. Ses jetons : /assets/fond.css.
 
-   CE QU'IL DIT. La page est une journée de travail, et le défilement est
-   le temps qui passe — la journée de travail est le centre du *Capital*,
-   et le site s'éclaire à la bougie. Trois façons de le dire, une par mode
-   (html[data-mode], événement `lm:mode`) :
-     bougie  — une flamme posée HORS CHAMP, dans la marge de droite. Sa
-               lueur vacille (une somme de sinus aux périodes non
-               multiples : une flamme ne bat jamais la mesure), et la
-               poussière de la pièce ne se voit que dans son halo. À mesure
-               qu'on descend, la bougie BAISSE : le halo descend et faiblit
-               un peu. C'est une FONCTION de la position : on remonte, elle
-               se relève.
-     jour    — un rai de lumière par la croisée : le dessin des carreaux
-               projeté en biais sur la page, la poussière qui scintille
-               dedans. Matin en haut, soir en bas : le rai tourne, s'allonge
-               et se réchauffe. Fonction de la position, donc réversible.
-     edition — un imprimé ne bouge pas. Le papier vergé de 1872 : les
-               vergeures serrées et les pontuseaux espacés, très pâles,
-               IMMOBILES sur la feuille (ils défilent avec elle), sans lueur.
+   CE QU'IL DIT. Le Capital s'ouvre sur une « immense accumulation de
+   marchandises » et se démontre par un circuit : A — M — A′, l'argent qui
+   devient marchandise et revient GROSSI. Deux choses, donc :
+     LA POUSSIÈRE D'OR — un champ de grains semés en trois profondeurs, à la
+       façon du fond étoilé de GeoInvader : ils dérivent lentement, glissent
+       en parallaxe au défilement, scintillent ; de temps en temps l'un d'eux
+       s'allume dans un blanc de la page et un mot de Marx monte de lui
+       (valeur, travail, marchandise…), puis s'efface.
+     LE CIRCUIT — dans la marge la plus large, une chaîne qui descend avec la
+       page : une pièce (A), une marchandise (la toile, l'habit, le fer, le
+       froment, le thé), une pièce plus grande (A′), une autre marchandise,
+       A″… Un FIL ROUGE les relie et se trace jusqu'à la ligne de lecture :
+       on lit, le capital circule. Chaque nœud atteint s'allume, et à chaque
+       retour de l'argent un « + Δ » monte : la plus-value.
+   Tout ce qui dépend du défilement est une FONCTION de la position (on
+   remonte, le fil se rembobine, les nœuds s'éteignent) ; seuls le
+   scintillement, la dérive et les mots qui montent sont du temps.
 
-   LE HASARD EST SEMÉ. Les grains de poussière, les irrégularités du papier
-   naissent d'un hachage de leur rang et d'une graine fixe (1867) : même
-   image à chaque visite. Aucun Math.random.
+   LES MODES (html[data-mode], événement `lm:mode`) :
+     bougie  — grains d'or qui luisent, fil rouge avec sa lueur, pièces
+               dorées : la pièce à la bougie.
+     jour    — la poussière dans le jour : des grains d'ocre, sans lueur ;
+               le fil rouge et les traits à l'encre.
+     edition — un imprimé : la poussière devient un pointillé d'imprimerie,
+               IMMOBILE (ni dérive, ni scintillement, ni mots), sur le papier
+               vergé ; le fil, en rouge de rubrique, se trace toujours au fil
+               de la lecture — c'est le lecteur qui le fait avancer.
 
-   LES ÉGARDS. Un VOILE repeint le papier par-dessus tout bloc qui porte un
-   texte (92 % du fond effacé) et presque entièrement sous les colonnes de
-   lecture (99 %, en quatre paliers de fondu) : on ne lit jamais à travers
-   une lumière qui bouge. Mouvement réduit, économie de données, réglage
-   « immobile » : une image fixe, redessinée seulement pour que le voile
-   suive le texte. Onglet masqué : rien ne tourne.
+   LE HASARD EST SEMÉ (graine 1867, l'édition allemande du Livre I) : même
+   champ, même chaîne, mêmes mots à chaque visite. Aucun Math.random.
 
-   OÙ. Seulement là où il ne gâche pas le propos (liste ICI) : à propos,
-   mentions, l'agrégation et les commentaires, les chapitres expliqués, le
-   forum, la messagerie, l'index du glossaire, la 404. JAMAIS sur l'accueil,
-   la bibliothèque, /karl-marx, le carnet, les ateliers, le jeu, les pages
-   de notion (elles ont glossaire/fond.js). Une page le refuse par
-   body[data-fond="aucun"]. Ailleurs, l'API existe (le menu mémorise le
-   réglage) mais etat().effectif vaut 'absent'.
+   LES ÉGARDS. Un VOILE (masque à un quart de résolution) éteint tout ce qui
+   passerait sous un texte : presque entièrement sous les colonnes de
+   lecture, aux trois quarts sous tout bloc qui porte du texte. Les mots ne
+   naissent que dans un blanc. Mouvement réduit, économie de données,
+   réglage « immobile » : une image fixe à l'état FINI (le fil entier, aucun
+   mot). Onglet masqué : rien ne tourne. Densité de pixels plafonnée à 1,5.
+   Le circuit ne se pose que s'il trouve une marge d'au moins 46 px et une
+   fenêtre d'au moins 700 px ; sinon il reste la poussière.
 
-   L'API :
+   OÙ. Liste ICI : à propos, mentions, l'agrégation et les commentaires, les
+   chapitres expliqués, le forum, la messagerie, l'index du glossaire, la
+   404. JAMAIS l'accueil, la bibliothèque, /karl-marx, le carnet, les
+   ateliers, le jeu, les pages de notion (glossaire/fond.js). Une page le
+   refuse par body[data-fond="aucun"].
+
+   L'API (inchangée) :
      LM_FOND.regler('anime' | 'fixe' | 'aucun')   mémorisé (liremarx.fond.v1)
-     LM_FOND.reglage()
-     LM_FOND.etat()      { reglage, effectif, raison, mode }
-     LM_FOND.remesurer() les zones de texte (après une mise en page qu'aucun
-                         événement ne dit)
-     LM_FOND.image(t)    une image tout de suite, à l'instant t (un onglet
-                         piloté ne fait pas tourner requestAnimationFrame) ;
-                         même t + même position = même image
-     LM_FOND.figer(t)    arrête la boucle et peint l'instant t (sonde) ; figer(null) rend la main
-     LM_FOND.mesure()    { images, ms_moyen, ms_max, grains, zones… }
-     ?fond=logiciel      chaque image forcée jusqu'au pixel : la seule façon
-                         de mesurer ce qu'elle coûte (le canvas accéléré
-                         n'enregistre que des ordres)
+     LM_FOND.reglage()   LM_FOND.etat()   { reglage, effectif, raison, mode }
+     LM_FOND.remesurer() LM_FOND.image(t)   LM_FOND.figer(t) / figer(null)
+     LM_FOND.mesure()    ?fond=logiciel (chaque image forcée jusqu'au pixel)
    Chaque changement émet `lm:fond` sur document, detail = etat().
    ============================================================ */
 (function () {
@@ -61,9 +61,8 @@
   if (window.LM_FOND) return;
   const html = document.documentElement;
   const CLE = 'liremarx.fond.v1';
-  const GRAINE = 1867;                         /* l'édition allemande du Livre I */
+  const GRAINE = 1867;
   const LOGICIEL = /[?&]fond=logiciel/.test(location.search);
-  const ctx2d = c => c.getContext('2d', LOGICIEL ? { willReadFrequently: true } : undefined);
 
   /* ---------- où il se monte ---------- */
   const ICI = [
@@ -71,21 +70,18 @@
     /^\/commentaires\/[^/]+\/?$/, /^\/oeuvres\/capital-1\/chapitre-\d+\/?$/,
     /^\/oeuvres\/(forum|messages)\/?$/, /^\/glossaire\/?$/, /^\/glossaire\/index$/
   ];
-  /* une page qui porte déjà sa scène ou son fond ne reçoit rien, même si une
-     adresse future la mettait dans la liste */
   const SCENES = '[data-fond="aucun"],.nt-ambiance,.nt-fond,#hero-bg,#circuit-bg,.monde';
   const CALMES = '.nt-essai,.ap-corps,.ml-corps,.reader-content,[data-fond="calme"]';
   const HORS = '.topbar,.sidebar,.fond,script,style,noscript,template,svg,canvas,[hidden],.sr-only';
-
   function ici() {
     const p = location.pathname.replace(/\.html$/, '');
     if (ICI.some(r => r.test(p))) return true;
-    return !!document.querySelector('.e-wrap .e-code');     /* la 404, servie à n'importe quelle adresse */
+    return !!document.querySelector('.e-wrap .e-code');
   }
 
   const lire = () => { try { const v = localStorage.getItem(CLE); return v === 'fixe' || v === 'aucun' ? v : 'anime'; } catch (e) { return 'anime'; } };
   let reglage = lire();
-  let absent = true;                                         /* décidé quand le corps est là */
+  let absent = true;
   const reduit = matchMedia('(prefers-reduced-motion: reduce)');
   const econome = !!(navigator.connection && navigator.connection.saveData);
   const modeDe = () => { const m = html.getAttribute('data-mode'); return m === 'jour' || m === 'edition' ? m : 'bougie'; };
@@ -100,6 +96,10 @@
     if (mode === 'edition') return { reglage, effectif: 'fixe', raison: 'un imprimé ne bouge pas', mode };
     return { reglage, effectif: 'anime', raison: '', mode };
   }
+  /* le fil suit-il la lecture ? Oui quand le fond s'anime, et dans l'édition
+     (c'est le lecteur qui le fait avancer, rien ne bouge seul) ; non sous un
+     réglage « immobile », le mouvement réduit ou l'économie : état fini. */
+  const filSuit = () => { const e = etat(); return e.effectif === 'anime' || e.raison === 'un imprimé ne bouge pas'; };
   const annonce = () => document.dispatchEvent(new CustomEvent('lm:fond', { detail: etat() }));
   const stats = { n: 0, tot: 0, max: 0 };
   const api = {
@@ -116,11 +116,10 @@
     remesurer() { if (absent || !actif) return null; mesurerZones(); voileY = NaN; rendre(performance.now(), true); return api.mesure(); },
     mesure: () => ({
       images: stats.n, ms_moyen: stats.n ? +(stats.tot / stats.n).toFixed(3) : 0, ms_max: +stats.max.toFixed(3),
-      mode: dessin, grains: grains.length, dessines: boites.length, zones: [calmes.length, voiles.length], zones_ms: +zonesMs.toFixed(1), collants: voiles.filter(z => z.el).length,
-      p: +pDe(sL).toFixed(4)
+      mode: dessin, grains: grains.length, noeuds: noeuds.length, marge: bande ? [Math.round(bande.x0), Math.round(bande.x1)] : null,
+      zones: [calmes.length, voiles.length], zones_ms: +zonesMs.toFixed(1), collants: voiles.filter(z => z.el).length
     }),
     image(t) { if (absent || !actif) return null; sL = window.scrollY; rendre(t == null ? performance.now() : t, true); return api.mesure(); },
-    /* pour une sonde : arrêter la boucle et peindre l'instant t (null rend la main) */
     figer(t) {
       if (absent || !actif) return null;
       if (t == null) { fige = false; dernier = 0; relancer(); return api.mesure(); }
@@ -129,7 +128,7 @@
   };
   window.LM_FOND = api;
 
-  /* ---------- le hasard SEMÉ : mulberry32, et un hachage de rang ---------- */
+  /* ---------- le hasard SEMÉ ---------- */
   function semis(a) {
     return function () {
       a |= 0; a = a + 0x6D2B79F5 | 0;
@@ -142,6 +141,7 @@
   const lerp = (a, b, t) => a + (b - a) * t;
   const lisse = t => t * t * (3 - 2 * t);
   const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+  const cloche = x => { x = clamp(x, -1, 1); return .5 + .5 * Math.cos(Math.PI * x); };   /* 1 en 0, 0 en ±1 */
 
   /* ---------- les jetons ---------- */
   let J = {};
@@ -150,174 +150,76 @@
     const cs = getComputedStyle(html), g = n => cs.getPropertyValue(n), num = (n, d) => { const x = parseFloat(g(n)); return isFinite(x) ? x : d; };
     J = {
       papier: rgb(cs.backgroundColor, [21, 16, 11]),
-      lueur: rgb(g('--fond-lueur'), [255, 170, 84]), lueurA: num('--fond-lueur-a', .13),
-      coeur: rgb(g('--fond-coeur'), [255, 206, 128]), coeurA: num('--fond-coeur-a', .07),
-      grain: rgb(g('--fond-grain'), [255, 218, 160]), grainA: num('--fond-grain-a', .6),
-      matin: rgb(g('--fond-matin'), [255, 253, 246]), soir: rgb(g('--fond-soir'), [255, 214, 150]),
-      raiA: num('--fond-rai-a', 0), soirA: num('--fond-soir-a', 0), ombre: rgb(g('--fond-ombre'), [60, 42, 20]),
+      or: rgb(g('--fond-or'), [216, 173, 76]), orA: num('--fond-or-a', .7),
+      eclat: rgb(g('--fond-eclat'), [255, 222, 160]), lueur: num('--fond-lueur', 1),
+      fil: rgb(g('--fond-fil'), [213, 64, 47]), filA: num('--fond-fil-a', .85),
+      trait: rgb(g('--fond-trait'), [243, 233, 212]), traitA: num('--fond-trait-a', .5),
+      mot: rgb(g('--fond-mot'), [216, 173, 76]), motA: num('--fond-mot-a', .9),
+      vit: num('--fond-vit', 1),
       vergeure: rgb(g('--fond-vergeure'), [40, 30, 18]), vergeureA: num('--fond-vergeure-a', 0),
-      doux: num('--fond-doux', .55), douxCalme: num('--fond-doux-calme', .7),
+      serif: "'Fraunces',Georgia,serif",
       sbw: (() => { const s = document.querySelector('.sidebar'); if (!s) return 0; const r = s.getBoundingClientRect(); return r.right > 0 && r.left < 1 && getComputedStyle(s).visibility !== 'hidden' ? Math.round(r.right) : 0; })()
     };
   }
   const rgba = (c, a) => 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + (+a).toFixed(4) + ')';
 
-  /* ---------- l'état ----------
-     Les lumières (le halo, les deux rais) et le papier vergé sont peints UNE
-     fois et DÉPLACÉS par transform et opacity CSS : le compositeur les fait
-     bouger sans rien repeindre. Il ne reste à redessiner à chaque image que
-     les grains de poussière (et seulement leurs petites boîtes) et, quand la
-     page a défilé, le voile. */
+  /* ---------- l'état ---------- */
   const boite = document.createElement('div');
   boite.className = 'fond'; boite.setAttribute('aria-hidden', 'true');
-  const sv = document.createElement('canvas'), gv = document.createElement('canvas'), vv = document.createElement('canvas');
-  const ombre = document.createElement('div'); ombre.className = 'fond-ombre';
-  sv.className = 'fond-voile'; gv.className = 'fond-grain';
-  /* le voile doux est minuscule (un huitième de la fenêtre) : il est peint par
-     le processeur, où le flou est le même à chaque fois — sur le GPU, deux
-     peintures identiques différaient de 30 niveaux par endroits (mesuré sur
-     téléphone par tools/sonde-fond.js --reversible) */
-  const stx = sv.getContext('2d', { willReadFrequently: true }), gtx = ctx2d(gv), vtx = vv.getContext('2d', { willReadFrequently: true });
-  let masque = null;                                  /* la couverture du voile net, lue une fois par voile */
-  let lumieres = [];
-  let W = 0, H = 0, dT = 1, dessin = 'bougie', grains = [], boites = [], calmes = [], voiles = [];
+  const cv = document.createElement('canvas'), vv = document.createElement('canvas');
+  cv.className = 'fond-champ';
+  const ctx = cv.getContext('2d', LOGICIEL ? { willReadFrequently: true } : undefined);
+  const vtx = vv.getContext('2d', { willReadFrequently: true });
+  let masque = null;
+  let W = 0, H = 0, D = 1, dessin = 'bougie', grains = [], calmes = [], voiles = [], noeuds = [], fil = [], bande = null, docH = 0;
   let sL = window.scrollY, raf = 0, repos = 0, dernier = 0, actif = false, mode = 'anime', voileY = NaN, zonesMs = 0;
-  const DPR_GRAIN = 1.5, VOILE = .25, DOUX = .125, FLOU = 56, ECH_LUM = .5, PERIODE = 240;
-
-  /* la position dans la journée : 0 en haut de page (le matin, la bougie
-     neuve), 1 en bas (le soir, la bougie usée) */
-  function pDe(y) {
-    const max = Math.max(1, document.documentElement.scrollHeight - H);
-    return max < 40 ? 0 : clamp(y / max, 0, 1);
-  }
+  const DPR = 1.5, VOILE = .25, LIGNE = .58;                 /* la ligne de lecture : 58 % de la hauteur */
+  let spriteEclat = null;
 
   function construire() {
     jetons();
     dessin = modeDe();
     W = window.innerWidth; H = window.innerHeight;
-    dT = Math.min(DPR_GRAIN, window.devicePixelRatio || 1);
-    lumieres.forEach(c => c.remove()); lumieres = [];
-    if (dessin === 'bougie') lumieres = [halo()];
-    else if (dessin === 'jour') lumieres = [rai(J.matin), rai(J.soir)];
-    for (const c of lumieres) boite.insertBefore(c, sv);
-    if (dessin === 'edition' && J.vergeureA > 0) html.style.setProperty('--fond-verge', 'url(' + vergé() + ')');
-    else html.style.removeProperty('--fond-verge');
-    gv.width = Math.round(W * dT); gv.height = Math.round(H * dT);
-    gtx.setTransform(1, 0, 0, 1, 0, 0); gtx.clearRect(0, 0, gv.width, gv.height); boites = [];
+    D = Math.min(DPR, window.devicePixelRatio || 1);
+    cv.width = Math.round(W * D); cv.height = Math.round(H * D);
     vv.width = Math.ceil(W * VOILE); vv.height = Math.ceil(H * VOILE);
-    sv.width = Math.ceil(W * DOUX); sv.height = Math.ceil(H * DOUX);
+    if (dessin === 'edition' && J.vergeureA > 0) html.style.setProperty('--fond-verge', 'url(' + verge() + ')');
+    else html.style.removeProperty('--fond-verge');
+    spriteEclat = eclat();
     semer(); mesurerZones();
   }
 
-  /* LE HALO. Peint une fois, à demi-résolution (un dégradé n'y perd rien),
-     centré sur la flamme ; la flamme est hors champ, à droite. */
-  const rayon = () => Math.max(.92 * W, .86 * H, 420);
-  function halo() {
-    const R = rayon(), n = Math.ceil(2 * R * ECH_LUM);
-    const c = document.createElement('canvas'); c.className = 'fond-lumiere';
-    c.width = c.height = n; c.style.width = c.style.height = (n / ECH_LUM) + 'px';
-    const g = c.getContext('2d'), m = n / 2;
-    let gr = g.createRadialGradient(m, m, 0, m, m, m);
-    const a = J.lueurA;
-    gr.addColorStop(0, rgba(J.lueur, a)); gr.addColorStop(.16, rgba(J.lueur, a * .78));
-    gr.addColorStop(.38, rgba(J.lueur, a * .38)); gr.addColorStop(.62, rgba(J.lueur, a * .13));
-    gr.addColorStop(.84, rgba(J.lueur, a * .03)); gr.addColorStop(1, rgba(J.lueur, 0));
-    g.fillStyle = gr; g.fillRect(0, 0, n, n);
-    /* le cœur : là où la flamme éclaire de près, plus chaud, plus jaune */
-    gr = g.createRadialGradient(m, m, 0, m, m, m * .34);
-    gr.addColorStop(0, rgba(J.coeur, J.coeurA)); gr.addColorStop(.5, rgba(J.coeur, J.coeurA * .35)); gr.addColorStop(1, rgba(J.coeur, 0));
+  /* L'ÉCLAT d'un grain qui luit : un petit halo pré-rendu, posé sans mise à
+     l'échelle (shadowBlur coûte plus cher pour la même lueur) */
+  function eclat() {
+    const n = Math.ceil(26 * D), c = document.createElement('canvas'); c.width = c.height = n;
+    const g = c.getContext('2d'), m = n / 2, gr = g.createRadialGradient(m, m, 0, m, m, m);
+    gr.addColorStop(0, rgba(J.eclat, .9)); gr.addColorStop(.18, rgba(J.or, .45)); gr.addColorStop(.5, rgba(J.or, .1)); gr.addColorStop(1, rgba(J.or, 0));
     g.fillStyle = gr; g.fillRect(0, 0, n, n);
     return c;
   }
-  /* la flamme à la position p, à l'instant t : sa place, son éclat */
-  function flamme(p, t, vit) {
-    const R = rayon(), e = lisse(p);
-    const x = W + (W < 700 ? .14 : .035) * W + (vit ? 2.4 * Math.sin(t / 1930 + .6) + 1.1 * Math.sin(t / 610 + 2.3) : 0);
-    const y = H * lerp(.16, .74, e) + (vit ? 1.8 * Math.sin(t / 2290 + 1.1) : 0);
-    /* elle faiblit un peu en baissant : la cire est presque usée le soir */
-    let k = lerp(1, .7, e) * (W < 700 ? .55 : 1);           /* sur un téléphone, le texte va jusqu'au bord : la flamme y est plus loin */
-    if (vit) k *= 1 + .046 * Math.sin(t / 1130 + .3) + .031 * Math.sin(t / 467 + 1.7) + .02 * Math.sin(t / 2731 + 4.1) + .012 * Math.sin(t / 191 + 2.2);
-    return { x, y, R, k };
-  }
 
-  /* LE RAI. La croisée : deux battants de trois carreaux, leurs petits bois.
-     Peint une fois par teinte (matin, soir), flou comme un jour qui passe
-     par une vitre ancienne ; le soir est le même dessin plus chaud. */
-  const CROISEE = { w: 1, h: 1.42, cols: 2, rangs: 3, bois: .045, dormant: .06 };
-  const tailleRai = () => Math.max(150, Math.min(.36 * W, .5 * H));
-  function rai(teinte) {
-    const S = tailleRai(), w = S * CROISEE.w, h = S * CROISEE.h, pad = S * .18;
-    const c = document.createElement('canvas'); c.className = 'fond-lumiere';
-    const cw = Math.ceil((w + 2 * pad) * ECH_LUM), ch = Math.ceil((h + 2 * pad) * ECH_LUM);
-    c.width = cw; c.height = ch; c.style.width = (cw / ECH_LUM) + 'px'; c.style.height = (ch / ECH_LUM) + 'px';
-    c._w = cw / ECH_LUM; c._h = ch / ECH_LUM;
-    const g = c.getContext('2d'); g.scale(ECH_LUM, ECH_LUM);
-    const flou = Math.max(2, S * .028);
-    try { g.filter = 'blur(' + (flou * ECH_LUM).toFixed(1) + 'px)'; } catch (e) {}
-    /* la lumière, carreau par carreau */
-    g.fillStyle = rgba(teinte, 1);
-    const b = S * CROISEE.bois, d = S * CROISEE.dormant;
-    const iw = (w - 2 * d - (CROISEE.cols - 1) * b * 1.6) / CROISEE.cols, ih = (h - 2 * d - (CROISEE.rangs - 1) * b) / CROISEE.rangs;
-    const carreaux = [];
-    for (let i = 0; i < CROISEE.cols; i++) for (let j = 0; j < CROISEE.rangs; j++) {
-      const x = pad + d + i * (iw + b * 1.6), y = pad + d + j * (ih + b);
-      carreaux.push([x, y, iw, ih]); g.fillRect(x, y, iw, ih);
-    }
-    /* l'ombre du dormant et du meneau : un rien plus sombre que la page */
-    g.filter = 'none';
-    try { g.filter = 'blur(' + (flou * 1.6 * ECH_LUM).toFixed(1) + 'px)'; } catch (e) {}
-    g.globalCompositeOperation = 'destination-over';
-    g.fillStyle = rgba(J.ombre, .045);
-    g.fillRect(pad + d * .3, pad + d * .3, w - d * .6, h - d * .6);
-    c._carreaux = carreaux;
-    return c;
-  }
-  /* la matrice du rai à la position p : le soleil tourne, la tache s'allonge */
-  function matriceRai(p) {
-    const e = lisse(p), S = tailleRai();
-    const c = lumieres[0]; const cw = c._w, ch = c._h;
-    const x0 = J.sbw + (W - J.sbw) * lerp(.84, .7, e), y0 = H * lerp(.3, .6, e);
-    const ang = lerp(-26, 20, e) * Math.PI / 180, sk = lerp(22, -30, e) * Math.PI / 180;
-    const sx = lerp(.94, 1.1, e), sy = lerp(.92, 1.34, e);
-    const m = new DOMMatrix().translateSelf(x0, y0).rotateSelf(ang * 180 / Math.PI)
-      .multiplySelf(new DOMMatrix([1, 0, Math.tan(sk), 1, 0, 0])).scaleSelf(sx, sy).translateSelf(-cw / 2, -ch / 2);
-    return { m, S };
-  }
-
-  /* LE PAPIER VERGÉ. Les vergeures (les fils serrés de la forme, ici tous les
-     4 px) et les pontuseaux (les fils qui les tiennent, tous les 92 px),
-     comme on les voit en levant la feuille au jour. Une tuile semée, posée en
-     FOND DE html : elle défile avec la feuille, sans le moindre décalage, et
-     sans qu'aucune image soit repeinte (un canvas fixe recalé à chaque image
-     glisserait d'une image en retard sur le texte). */
-  const TW = 552;                                              /* six pontuseaux */
-  function vergé() {
+  /* LE PAPIER VERGÉ (l'édition) : vergeures et pontuseaux, une tuile semée
+     posée en fond de html — elle défile avec la feuille sans rien repeindre. */
+  const TW = 552, PERIODE = 240;
+  function verge() {
     const te = Math.min(2, window.devicePixelRatio || 1);
     const tuile = document.createElement('canvas');
     tuile.width = Math.round(TW * te); tuile.height = Math.round(PERIODE * te);
     const t = tuile.getContext('2d'); t.scale(te, te);
     const r = semis(hache(9, 0)), a = J.vergeureA;
-    /* la feuille n'est pas égale : quelques nuées plus claires dans la pâte (l'épair) */
-    for (let q = 0; q < 5; q++) {
-      const cx = r() * TW, cy = r() * PERIODE, rr = 50 + r() * 90;
-      for (const ox of [-TW, 0, TW]) for (const oy of [-PERIODE, 0, PERIODE]) {
-        const gr = t.createRadialGradient(cx + ox, cy + oy, 0, cx + ox, cy + oy, rr);
-        gr.addColorStop(0, rgba(J.vergeure, a * .22)); gr.addColorStop(1, rgba(J.vergeure, 0));
-        t.fillStyle = gr; t.fillRect(cx + ox - rr, cy + oy - rr, 2 * rr, 2 * rr);
-      }
-    }
-    /* les vergeures : chacune son poids, et une ondulation à peine sensible
-       (périodique sur la tuile, pour que la répétition ne se voie pas) */
     for (let y = 2; y < PERIODE; y += 4) {
       const w = .55 + r() * .5, al = a * (.3 + r() * .25), ph = r() * 6.283;
       t.strokeStyle = rgba(J.vergeure, al); t.lineWidth = w; t.beginPath();
       for (let x = 0; x <= TW; x += 12) { const yy = y + .35 * Math.sin(x / TW * 6.283 * 4 + ph); if (x) t.lineTo(x, yy); else t.moveTo(x, yy); }
       t.stroke();
     }
-    /* les pontuseaux : plus marqués, flanqués d'une ombre d'épaisseur de pâte */
     for (let k = 0; k < 6; k++) {
       const x = 46 + k * 92 + (r() - .5) * 5;
-      for (const [dx, lw, f] of [[0, 1.1, 1], [-2.4, 2.6, .28], [2.4, 2.6, .28]]) {
+      /* le pontuseau : à moitié de la force qu'il avait dans « la journée »,
+         dont le voile doux l'atténuait sous le texte ; ici il passe dessous
+         tel quel (mesuré : 12,6 % de contraste perdu sous une lettre) */
+      for (const [dx, lw, f] of [[0, 1, .45], [-2.4, 2.6, .16], [2.4, 2.6, .16]]) {
         t.strokeStyle = rgba(J.vergeure, a * f * (.8 + r() * .3)); t.lineWidth = lw; t.beginPath();
         for (let y = 0; y <= PERIODE; y += 10) { const xx = x + dx + .6 * Math.sin(y / PERIODE * 6.283 * 2 + k); if (y) t.lineTo(xx, y); else t.moveTo(xx, y); }
         t.stroke();
@@ -326,29 +228,38 @@
     return tuile.toDataURL('image/png');
   }
 
-  /* LA POUSSIÈRE. Semée par rang, dans la fenêtre ; chaque grain a sa
-     profondeur (il défile plus ou moins avec la page), sa taille, sa dérive
-     lente (deux sinus et une montée — l'air chaud de la flamme). */
+  /* LA POUSSIÈRE D'OR. Trois profondeurs : le lointain (petit, pâle, lent),
+     le milieu, le proche (plus gros, plus vif, quelques-uns luisent). Chaque
+     grain glisse en parallaxe au défilement (z × la position), dérive en
+     deux sinus et monte doucement dans l'air chaud ; la fenêtre est un tore,
+     un grain qui sort en haut revient en bas. */
   function semer() {
     grains = [];
-    if (dessin === 'edition' || !(J.grainA > 0)) return;
-    const n = Math.round(clamp(W * H / 6200, 60, 240));
+    if (!(J.orA > 0)) return;
+    const n = Math.round(clamp(W * H / 2900, 130, 480));
     for (let i = 0; i < n; i++) {
-      const r = semis(hache(3, i));
-      grains.push({ u: r(), v: r(), z: .35 + r() * .65, s: .7 + r() * 1.3, a: r() * 6.283, b: r() * 6.283, c: r() * 6.283, tw: 700 + r() * 1400, mont: .002 + r() * .006 });
+      const r = semis(hache(3, i)), c = r();
+      const couche = c < .5 ? 0 : (c < .85 ? 1 : 2);
+      const z = [.18, .42, .8][couche];
+      grains.push({
+        u: r(), v: r(), couche, z,
+        s: [1, 1.5, 2.2][couche] * (.75 + r() * .6),
+        a: r() * 6.283, b: r() * 6.283, c: r() * 6.283,
+        tw: 900 + r() * 2600, mont: (.003 + r() * .007) * (.5 + z),
+        luit: couche === 2 && r() < .32, k: r()
+      });
     }
   }
   function placer(G, t, s) {
-    const HH = H + 40;
-    const x = G.u * W + 16 * G.z * Math.sin(t / 8900 + G.a) + 6 * Math.sin(t / 3170 + G.b);
-    let y = G.v * HH - s * .1 * G.z + 12 * G.z * Math.sin(t / 7300 + G.c) - t * G.mont;
+    const HH = H + 40, WW = W + 40;
+    let x = G.u * WW - 20 + 18 * G.z * Math.sin(t / 9100 + G.a) + 7 * Math.sin(t / 3330 + G.b);
+    let y = G.v * HH - s * .28 * G.z + 14 * G.z * Math.sin(t / 7700 + G.c) - t * G.mont * J.vit;
     y = ((y % HH) + HH) % HH - 20;
+    x = ((x + 20) % WW + WW) % WW - 20;
     return [x, y];
   }
 
-  /* LES ZONES : les colonnes de lecture et chaque bloc qui porte un texte,
-     en coordonnées du document. Un bloc dans un ancêtre collant ou fixe est
-     remesuré à chaque voile. */
+  /* LES ZONES de texte (le voile), et LA MARGE du circuit. */
   function mesurerZones() {
     const t0 = performance.now();
     const sy = window.scrollY, sx = window.scrollX, memo = new Map();
@@ -360,8 +271,6 @@
       }
       return false;
     };
-    /* au pixel entier : un défilement fractionnaire (téléphone) ne doit pas
-       changer le voile d'un rien à chaque passage */
     const rect = e => { const b = e.getBoundingClientRect(); return { x: Math.round(b.left + sx), y: Math.round(b.top + sy), w: Math.round(b.width), h: Math.round(b.height), el: collant(e) ? e : null }; };
     const els = [...document.querySelectorAll(CALMES)].filter(e => !e.parentElement.closest(CALMES) && !e.closest(HORS));
     calmes = els.map(rect).filter(b => b.w > 0 && b.h > 0);
@@ -377,109 +286,264 @@
     voiles = [...blocs].map(rect).filter(b => b.w > 0 && b.h > 0);
     for (const e of document.querySelectorAll('main svg, main canvas, main img')) { const b = rect(e); if (b.w > 120 && b.h > 80) voiles.push(b); }
     zonesMs = performance.now() - t0; voileY = NaN;
+    tracerCircuit();
   }
+
+  /* LA MARGE : le bord droit de ce qu'on lit (le 9e décile des bords droits
+     des blocs, colonne et marge collante comprises) et son bord gauche ; on
+     prend la plus large des deux marges qui restent. */
+  function trouverBande() {
+    if (W < 700) return null;
+    const blocs = calmes.concat(voiles).filter(b => b.w >= 200 && b.x + b.w > J.sbw + 40);
+    if (!blocs.length) return null;
+    const dec = (arr, q) => { const s = arr.slice().sort((a, b) => a - b); return s[Math.min(s.length - 1, Math.floor(q * s.length))]; };
+    const droite = dec(blocs.map(b => b.x + b.w - window.scrollX), .92);
+    const gauche = dec(blocs.map(b => b.x - window.scrollX), .08);
+    const D_ = { x0: droite + 18, x1: W - 12 }, G_ = { x0: J.sbw + 12, x1: gauche - 18 };
+    const lD = D_.x1 - D_.x0, lG = G_.x1 - G_.x0;
+    const b = lD >= lG ? D_ : G_, l = Math.max(lD, lG);
+    if (l < 46) return null;
+    /* trop large, la chaîne flotterait : on la tient près du texte */
+    if (l > 230) { if (b === D_) b.x1 = b.x0 + 230; else b.x0 = b.x1 - 230; }
+    return b;
+  }
+
+  /* LE CIRCUIT : les nœuds et le fil, en coordonnées du DOCUMENT (le circuit
+     descend avec la page), le long de la marge. A, M, A′, M, A″… : une pièce
+     sur deux, et la pièce grossit à chaque retour. */
+  const MARCH = ['toile', 'habit', 'fer', 'froment', 'the'];
+  const PRIMES = ['', '′', '″', '‴'];
+  function tracerCircuit() {
+    noeuds = []; fil = [];
+    bande = trouverBande();
+    docH = document.documentElement.scrollHeight;
+    if (!bande) return;
+    const l = bande.x1 - bande.x0, xi = bande.x0 + l * .3, xe = bande.x0 + l * .7;
+    const y0 = 150, y1 = Math.max(y0 + 400, docH - 140);
+    const n = Math.max(3, Math.round((y1 - y0) / 420) + 1);
+    const pas = (y1 - y0) / (n - 1);
+    const rmin = Math.min(10, l * .2), rmax = Math.min(24, l * .44);
+    const nPieces = Math.ceil(n / 2);
+    for (let k = 0; k < n; k++) {
+      const r = semis(hache(5, k));
+      const piece = k % 2 === 0, j = k >> 1;
+      noeuds.push({
+        y: y0 + k * pas + (r() - .5) * pas * .18,
+        x: (k % 2 === 0 ? xe : xi) + (r() - .5) * l * .08,
+        piece, j,
+        r: piece ? lerp(rmin, rmax, nPieces > 1 ? j / (nPieces - 1) : 0) : Math.min(13, l * .26),
+        nom: piece ? 'A' + (j < 4 ? PRIMES[j] : '⁽' + j + '⁾') : MARCH[j % MARCH.length]
+      });
+    }
+    /* le fil : une S entre deux nœuds, échantillonnée tous les 6 px de document */
+    for (let k = 0; k < n - 1; k++) {
+      const A = noeuds[k], B = noeuds[k + 1];
+      const ya = A.y + (A.piece ? A.r : 12) + 4, yb = B.y - (B.piece ? B.r : 12) - 4;
+      const m = Math.max(2, Math.ceil((yb - ya) / 6));
+      for (let i = 0; i <= m; i++) {
+        const t = i / m, e = lisse(t);
+        const ondule = Math.sin(t * Math.PI * 2) * l * .08 * (k % 2 ? 1 : -1);
+        fil.push({ x: lerp(A.x, B.x, e) + ondule, y: lerp(ya, yb, t), k });
+      }
+      fil.push(null);                          /* une coupure : le fil passe derrière le nœud */
+    }
+  }
+
+  /* les marchandises, en traits fins (u = l'unité, en px) */
+  function marchandise(g, nom, x, y, u) {
+    g.beginPath();
+    if (nom === 'toile') {                    /* le rouleau de toile : les vingt aunes */
+      g.rect(x - 1.1 * u, y - .55 * u, 2.2 * u, 1.1 * u);
+      g.moveTo(x + 1.1 * u, y - .55 * u); g.ellipse(x + 1.1 * u, y, .26 * u, .55 * u, 0, -Math.PI / 2, Math.PI / 2);
+      for (let i = -1; i <= 1; i++) { g.moveTo(x - 1.1 * u, y + i * .28 * u); g.lineTo(x + .8 * u, y + i * .28 * u); }
+    } else if (nom === 'habit') {             /* l'habit */
+      g.moveTo(x - .35 * u, y - 1 * u); g.lineTo(x - 1.05 * u, y - .6 * u); g.lineTo(x - .85 * u, y + .1 * u); g.lineTo(x - .6 * u, y);
+      g.lineTo(x - .6 * u, y + 1 * u); g.lineTo(x + .6 * u, y + 1 * u); g.lineTo(x + .6 * u, y); g.lineTo(x + .85 * u, y + .1 * u);
+      g.lineTo(x + 1.05 * u, y - .6 * u); g.lineTo(x + .35 * u, y - 1 * u); g.lineTo(x, y - .45 * u); g.closePath();
+      g.moveTo(x, y - .45 * u); g.lineTo(x, y + 1 * u);
+    } else if (nom === 'fer') {               /* la demi-tonne de fer : un lingot */
+      g.moveTo(x - 1.1 * u, y + .5 * u); g.lineTo(x - .75 * u, y - .4 * u); g.lineTo(x + .75 * u, y - .4 * u); g.lineTo(x + 1.1 * u, y + .5 * u); g.closePath();
+      g.moveTo(x - .75 * u, y - .4 * u); g.lineTo(x - .55 * u, y - .7 * u); g.lineTo(x + .95 * u, y - .7 * u); g.lineTo(x + .75 * u, y - .4 * u);
+      g.moveTo(x + .95 * u, y - .7 * u); g.lineTo(x + 1.3 * u, y + .2 * u); g.lineTo(x + 1.1 * u, y + .5 * u);
+    } else if (nom === 'froment') {           /* le quarteron de froment : un épi */
+      g.moveTo(x, y + 1.1 * u); g.lineTo(x, y - 1.1 * u);
+      for (let i = 0; i < 4; i++) { const yy = y - .9 * u + i * .42 * u; g.moveTo(x, yy + .2 * u); g.quadraticCurveTo(x - .5 * u, yy, x - .42 * u, yy - .25 * u); g.moveTo(x, yy + .2 * u); g.quadraticCurveTo(x + .5 * u, yy, x + .42 * u, yy - .25 * u); }
+    } else {                                  /* les dix livres de thé : une caisse */
+      g.rect(x - .85 * u, y - .55 * u, 1.7 * u, 1.3 * u);
+      g.moveTo(x - .85 * u, y - .55 * u); g.lineTo(x - .55 * u, y - .85 * u); g.lineTo(x + 1.15 * u, y - .85 * u); g.lineTo(x + .85 * u, y - .55 * u);
+      g.moveTo(x + 1.15 * u, y - .85 * u); g.lineTo(x + 1.15 * u, y + .45 * u); g.lineTo(x + .85 * u, y + .75 * u);
+      g.moveTo(x - .85 * u, y + .05 * u); g.lineTo(x + .85 * u, y + .05 * u);
+    }
+    g.stroke();
+  }
+
+  /* la couverture du voile au point (0 : blanc de page, 1 : sous un texte) */
+  const sousTexte = (x, y) => {
+    if (!masque) return 0;
+    const mx = Math.min(vv.width - 1, Math.max(0, x * VOILE | 0)), my = Math.min(vv.height - 1, Math.max(0, y * VOILE | 0));
+    return masque[(my * vv.width + mx) * 4 + 3] / 255;
+  };
+
+  /* LES MOTS qui montent : un calendrier semé (instant, mot, grain). */
+  const MOTS = ['valeur', 'travail', 'marchandise', 'argent', 'capital', 'plus-value', 'échange', 'surtravail',
+    'force de travail', 'valeur d’usage', 'circulation', 'temps de travail', 'accumulation', 'salaire'];
+  const PERIODE_MOT = 2300, VIE_MOT = 3400;
 
   /* ---------- une image ---------- */
   function rendre(t, force) {
     const t0 = performance.now();
     if (fige) { t = tFige; force = true; sL = window.scrollY; }
-    /* une fenêtre qui a changé de taille sans le dire (sur téléphone, la
-       première mesure peut précéder la mise en page, et une page qui déborde
-       élargit le viewport sans événement « resize ») */
     if (window.innerWidth !== W || window.innerHeight !== H) { if (force) construire(); else reconstruire(); }
-    const vit = mode === 'anime' && (force || !document.hidden);
-    const s = vit ? sL : 0, p = vit ? pDe(sL) : .3, tt = vit ? t : 0;
-    /* la lumière : placée et dosée par le compositeur */
-    let lit = null;
-    if (dessin === 'bougie' && lumieres[0]) {
-      const F = flamme(p, tt, vit), c = lumieres[0];
-      c.style.transform = 'translate3d(' + (F.x - F.R).toFixed(1) + 'px,' + (F.y - F.R).toFixed(1) + 'px,0)';
-      c.style.opacity = clamp(F.k, 0, 1).toFixed(3);
-      lit = (x, y) => { const d = Math.hypot(x - F.x, y - F.y) / F.R; return d >= 1 ? 0 : Math.pow(1 - d, 1.7) * F.k; };
-    } else if (dessin === 'jour' && lumieres.length === 2) {
-      const { m, S } = matriceRai(p), e = lisse(p);
-      const tr = m.toString();
-      lumieres[0].style.transform = tr; lumieres[1].style.transform = tr;
-      lumieres[0].style.opacity = (J.raiA * (1 - e)).toFixed(3);
-      lumieres[1].style.opacity = (J.soirA * e).toFixed(3);
-      const inv = m.inverse(), car = lumieres[0]._carreaux, bord = S * .05;
-      lit = (x, y) => {
-        const q = inv.transformPoint(new DOMPoint(x, y));
-        let best = 0;
-        for (const [cx, cy, cw, ch] of car) {
-          const dx = Math.min(q.x - cx, cx + cw - q.x), dy = Math.min(q.y - cy, cy + ch - q.y);
-          const v = Math.min(dx, dy) / bord; if (v > best) best = v;
-        }
-        return clamp(best, 0, 1);
-      };
-    }
-    /* le voile AVANT la poussière : c'est lui qui la masque. Posé après, il
-       laissait les grains de cette image sous le masque de l'image d'avant —
-       à la même position, deux images différentes selon d'où l'on venait
-       (trouvé par tools/sonde-fond.js --reversible) */
-    if (window.scrollY !== voileY) voiler();
-    /* la poussière : on n'efface que les boîtes de l'image d'avant */
-    gtx.setTransform(dT, 0, 0, dT, 0, 0);
-    for (const [x, y, z] of boites) gtx.clearRect(x - 1, y - 1, z + 2, z + 2);
-    boites = [];
-    if (lit && grains.length) {
-      const jour = dessin === 'jour';
-      gtx.fillStyle = rgba(J.grain, 1);
+    const anime = mode === 'anime' && (force || !document.hidden);
+    const tt = anime ? t : 0, s = anime ? sL : window.scrollY;
+    const sy = window.scrollY;
+    if (sy !== voileY) voiler();
+    ctx.setTransform(D, 0, 0, D, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    const lueur = J.lueur;
+    /* la tête du fil, à l'écran : la poussière s'y allume (la circulation
+       remue l'or autour d'elle) */
+    let teteX = -1e4, teteY = -1e4;
+    const tete = filSuit() ? sy + H * LIGNE : docH + 1e5;
+    if (bande && fil.length && filSuit()) { let q = null; for (const p of fil) { if (!p) continue; if (p.y > tete) break; q = p; } if (q) { teteX = q.x; teteY = q.y - sy; } }
+
+    /* 1. la poussière */
+    if (grains.length) {
+      const fixe = dessin === 'edition' || !anime;
       for (const G of grains) {
-        const [x, y] = placer(G, tt, s);
-        if (x < -4 || x > W + 4 || y < -4 || y > H + 4) continue;
-        const l = lit(x, y); if (l < .02) continue;
-        const sc = vit ? Math.sin(tt / G.tw + G.a) : .5;
-        /* le jour, un grain ne se voit que quand il accroche le soleil : il scintille ;
-           à la bougie, il flotte et luit doucement */
-        const tw = jour ? .25 + .75 * Math.pow(Math.max(0, sc), 2) : .62 + .38 * sc;
-        let a = J.grainA * l * tw * (.5 + .5 * G.z);
-        if (masque) { const mx = Math.min(vv.width - 1, Math.max(0, x * VOILE | 0)), my = Math.min(vv.height - 1, Math.max(0, y * VOILE | 0)); a *= 1 - masque[(my * vv.width + mx) * 4 + 3] / 255; }
-        if (a < .012) continue;
-        gtx.globalAlpha = Math.min(1, a);
-        const z = G.s * (jour ? 1 : .9 + .25 * G.z);
-        gtx.fillRect(x, y, z, z); boites.push([x, y, z]);
+        const [x, y] = placer(G, fixe ? 0 : tt, s);
+        if (x < -6 || x > W + 6 || y < -6 || y > H + 6) continue;
+        /* sous un texte, la poussière ne s'atténue pas : elle s'efface */
+        const cache = sousTexte(x, y); if (cache > .5) continue;
+        const sc = fixe ? .55 : .5 + .5 * Math.sin(tt / G.tw + G.a);
+        const pres = cloche(Math.hypot(x - teteX, y - teteY) / 170);
+        let a = J.orA * [.34, .58, .9][G.couche] * (.45 + .55 * sc) * (1 + 1.4 * pres) * (1 - cache * 1.8);
+        if (a < .02) continue;
+        if (G.luit && lueur > 0 && !fixe) {
+          ctx.globalAlpha = Math.min(1, a * lueur * (.35 + .65 * sc * sc));
+          ctx.drawImage(spriteEclat, x - spriteEclat.width / D / 2, y - spriteEclat.height / D / 2, spriteEclat.width / D, spriteEclat.height / D);
+        }
+        ctx.globalAlpha = Math.min(1, a);
+        ctx.fillStyle = rgba(G.luit && lueur > 0 ? J.eclat : J.or, 1);
+        const z = G.s;
+        if (dessin === 'edition') ctx.fillRect(x - z * .4, y - z * .4, z * .8, z * .8);
+        else { ctx.beginPath(); ctx.arc(x, y, z * .5, 0, 6.2832); ctx.fill(); }
       }
-      gtx.globalAlpha = 1;
+      ctx.globalAlpha = 1;
     }
-    if (LOGICIEL) { gtx.getImageData(0, 0, 1, 1); stx.getImageData(0, 0, 1, 1); }
+
+    /* 2. le circuit */
+    if (bande && fil.length) {
+      /* le fil : une lueur large et pâle (la bougie), puis le trait */
+      const passes = lueur > 0 ? [[5, .18 * lueur], [1.5, 1]] : [[1.5, 1]];
+      for (const [lw, f] of passes) {
+        ctx.lineWidth = lw; ctx.lineCap = 'round';
+        let prev = null;
+        for (const p of fil) {
+          if (!p) { prev = null; continue; }
+          if (p.y > tete) break;
+          const y = p.y - sy;
+          if (prev && y > -10 && prev.y - sy < H + 10) {
+            const cache = sousTexte(p.x, y);
+            const a = J.filA * f * (1 - cache * .95);
+            if (a > .015) { ctx.strokeStyle = rgba(J.fil, a); ctx.beginPath(); ctx.moveTo(prev.x, prev.y - sy); ctx.lineTo(p.x, y); ctx.stroke(); }
+          }
+          prev = p;
+        }
+      }
+      /* la tête du fil : un point vif là où on lit */
+      if (filSuit() && tete < docH) {
+        let q = null; for (const p of fil) { if (!p) continue; if (p.y > tete) break; q = p; }
+        if (q) {
+          const y = q.y - sy, a = J.filA * (1 - sousTexte(q.x, y) * .95);
+          if (lueur > 0) { ctx.globalAlpha = a * .5 * lueur; ctx.drawImage(spriteEclat, q.x - 13, y - 13, 26, 26); ctx.globalAlpha = 1; }
+          ctx.fillStyle = rgba(J.fil, a); ctx.beginPath(); ctx.arc(q.x, y, 2.4, 0, 6.2832); ctx.fill();
+        }
+      }
+      /* les nœuds */
+      ctx.lineWidth = 1.2;
+      for (const N of noeuds) {
+        const y = N.y - sy;
+        if (y < -60 || y > H + 60) continue;
+        const atteint = tete >= N.y - (N.piece ? N.r : 12);
+        const pres = cloche((tete - N.y) / 160);                       /* l'instant où le fil y arrive */
+        const cache = sousTexte(N.x, y), vis = 1 - cache * .95;
+        const base = (atteint ? 1 : .42) * vis;
+        if (base < .03) continue;
+        if (atteint && lueur > 0 && pres > .02) {
+          ctx.globalAlpha = Math.min(1, .8 * pres * lueur * vis);
+          const R = (N.piece ? N.r : 14) * 3.2; ctx.drawImage(spriteEclat, N.x - R, y - R, 2 * R, 2 * R); ctx.globalAlpha = 1;
+        }
+        const coul = N.piece ? J.or : J.trait, ca = N.piece ? Math.min(1, J.orA * 1.15) : J.traitA;
+        ctx.strokeStyle = rgba(coul, ca * base * (atteint ? 1 + .3 * pres : 1));
+        if (N.piece) {
+          ctx.beginPath(); ctx.arc(N.x, y, N.r, 0, 6.2832); ctx.stroke();
+          ctx.beginPath(); ctx.arc(N.x, y, N.r * .78, 0, 6.2832); ctx.stroke();
+          ctx.fillStyle = rgba(coul, ca * base);
+          ctx.font = 'italic 600 ' + Math.round(N.r * .9) + 'px ' + J.serif;
+          ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+          ctx.fillText(N.nom, N.x, y + N.r * .04);
+          /* le retour de l'argent : « + Δ » monte au passage du fil */
+          if (N.j > 0 && atteint && pres > .03) {
+            const m = (tete - N.y) / 160;
+            ctx.fillStyle = rgba(J.fil, Math.min(1, pres * vis * J.filA));
+            ctx.font = 'italic 600 ' + Math.max(12, Math.round(N.r * .7)) + 'px ' + J.serif;
+            ctx.fillText('+ Δ', N.x, y - N.r - 10 - Math.max(0, m) * 18);
+          }
+        } else {
+          marchandise(ctx, N.nom, N.x, y, N.r * .95);
+        }
+      }
+    }
+
+    /* 3. les mots qui montent : dans un blanc de la page, jamais sous un texte */
+    if (anime && dessin !== 'edition' && J.motA > 0 && grains.length) {
+      const k0 = Math.floor((tt - VIE_MOT) / PERIODE_MOT);
+      ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+      for (let k = Math.max(0, k0); k <= Math.floor(tt / PERIODE_MOT); k++) {
+        const r = semis(hache(11, k)), naissance = k * PERIODE_MOT + r() * 900, age = (tt - naissance) / VIE_MOT;
+        if (age < 0 || age > 1) continue;
+        const mot = MOTS[Math.floor(r() * MOTS.length)];
+        /* le grain qui l'émet : le premier, dans l'ordre semé, qui est proche,
+           visible, dans un blanc — décidé à la NAISSANCE (position d'alors) */
+        let G = null, depart = Math.floor(r() * grains.length);
+        for (let i = 0; i < grains.length && !G; i++) {
+          const g2 = grains[(depart + i * 7) % grains.length];
+          if (g2.couche !== 2) continue;
+          const [x, y] = placer(g2, naissance, s);
+          if (x < J.sbw + 80 || x > W - 70 || y < 90 || y > H - 40) continue;
+          if (sousTexte(x, y) > .02 || sousTexte(x, y - 40) > .02 || sousTexte(x - 50, y - 20) > .02 || sousTexte(x + 50, y - 20) > .02) continue;
+          G = [x, y];
+        }
+        if (!G) continue;
+        const f = Math.sin(Math.PI * age);                              /* paraît, puis s'efface */
+        ctx.globalAlpha = Math.min(1, f * J.motA);
+        if (lueur > 0) ctx.drawImage(spriteEclat, G[0] - 16, G[1] - 16, 32, 32);
+        ctx.fillStyle = rgba(J.mot, 1);
+        ctx.font = 'italic 500 15px ' + J.serif;
+        ctx.fillText(mot, G[0], G[1] - 14 - age * 30);
+        ctx.globalAlpha = 1;
+      }
+    }
+    if (LOGICIEL) ctx.getImageData(0, 0, 1, 1);
     const ms = performance.now() - t0;
     stats.n++; stats.tot += ms; if (ms > stats.max) stats.max = ms;
   }
 
-  /* LES DEUX VOILES. Le papier repeint par-dessus le fond là où l'on lit.
-     — Le voile NET (un quart de la résolution, jamais affiché) est un MASQUE
-       pour la poussière : elle bouge, on ne lit pas à travers elle. Presque
-       entier sous les colonnes de lecture, aux trois quarts sous tout bloc qui
-       porte un texte, en paliers de fondu. Peint en papier par-dessus le halo,
-       il y découpait des boîtes ; il ne fait plus qu'éteindre les grains.
-     — Le voile DOUX (un huitième de la résolution, flou de 56 px) atténue la
-       lumière et le papier vergé. Un voile net sur une lueur lisse y DÉCOUPAIT
-       des rectangles sombres, cernés d'un liseré de lumière : le texte se lisait
-       dans une boîte (vu à la première capture). Flou, il ne dessine rien ; il
-       baisse seulement la lumière là où il y a du texte.
-     Chaque palier est UNE union de rectangles, un seul remplissage, pour que
-     deux paragraphes voisins ne se cumulent pas. */
+  /* LE VOILE : un masque (un quart de la résolution, jamais affiché) — presque
+     entier sous les colonnes de lecture, aux trois quarts sous tout bloc qui
+     porte un texte, en paliers de fondu. Chaque palier est UNE union de
+     rectangles, un seul remplissage : deux paragraphes voisins ne se cumulent
+     pas. */
   function voiler() {
     voileY = window.scrollY;
     vtx.setTransform(VOILE, 0, 0, VOILE, 0, 0);
     vtx.clearRect(0, 0, W, H);
-    masque = null;
-    if (grains.length) {
-      vtx.fillStyle = '#000';
-      poser(vtx, calmes, [[44, .35], [26, .5], [10, .7], [-6, .9]]);
-      poser(vtx, voiles, [[20, .35], [9, .5], [0, .75]]);
-      vtx.globalAlpha = 1;
-      masque = vtx.getImageData(0, 0, vv.width, vv.height).data;
-    }
-    stx.setTransform(DOUX, 0, 0, DOUX, 0, 0);
-    stx.filter = 'none';
-    stx.clearRect(0, 0, W, H);
-    stx.fillStyle = rgba(J.papier, 1);
-    try { stx.filter = 'blur(' + (FLOU * DOUX).toFixed(2) + 'px)'; } catch (e) {}
-    poser(stx, voiles, [[24, J.doux]]);
-    poser(stx, calmes, [[40, J.douxCalme]]);
-    stx.filter = 'none'; stx.globalAlpha = 1;
+    vtx.fillStyle = '#000';
+    poser(vtx, calmes, [[44, .35], [26, .5], [10, .7], [-6, .95]]);
+    poser(vtx, voiles, [[22, .35], [10, .55], [0, .85]]);
+    vtx.globalAlpha = 1;
+    masque = vtx.getImageData(0, 0, vv.width, vv.height).data;
   }
   function poser(c2, liste, paliers) {
     if (!liste.length) return;
@@ -502,10 +566,9 @@
   }
 
   /* ---------- la boucle ----------
-     La flamme vacille toujours : la boucle tourne tant que la page est vue.
-     Pendant le défilement, une image par image ; au repos, une toutes les
-     50 ms suffit à une flamme et à de la poussière — le navigateur dort
-     entre deux. */
+     Pendant le défilement une image par image (la parallaxe et le fil suivent
+     un défilement LISSÉ) ; au repos, une toutes les 50 ms suffit à la
+     poussière et aux mots — le navigateur dort entre deux. */
   let besoin = false, fige = false, tFige = 0;
   function boucle(t) {
     raf = 0;
@@ -526,8 +589,6 @@
   let fixeRaf = 0, finDefil = 0;
   const auDefilement = () => {
     if (!actif) return;
-    /* au repos, on remesure : les révélations et les gestes au défilement
-       déplacent des blocs sans qu'aucun événement le dise */
     clearTimeout(finDefil); finDefil = setTimeout(() => { if (actif) { mesurerZones(); voileY = NaN; if (mode !== 'anime') rendre(0); } }, 220);
     if (mode === 'anime') { besoin = true; relancer(); return; }
     if (!fixeRaf && !fige) fixeRaf = requestAnimationFrame(() => { fixeRaf = 0; rendre(0); });
@@ -540,18 +601,17 @@
       arreter(); boite.remove(); return;
     }
     mode = e;
-    if (!boite.isConnected) { boite.append(sv, ombre, gv); document.body.insertBefore(boite, document.body.firstChild); }
+    if (!boite.isConnected) { boite.append(cv); document.body.insertBefore(boite, document.body.firstChild); }
     html.classList.add('fond-on');
     if (!actif) { actif = true; construire(); signature = signer(); }
     else if (dessin !== modeDe()) { construire(); signature = signer(); }
     sL = window.scrollY;
-    rendre(performance.now());                 /* le filet : une image tout de suite, même onglet masqué */
+    rendre(performance.now());
     if (mode === 'anime') { dernier = 0; relancer(); } else arreter();
   }
 
   let attente = 0;
   const reconstruire = () => { clearTimeout(attente); attente = setTimeout(() => { if (!actif) return; construire(); rendre(performance.now()); }, 120); };
-  /* un changement de classe sur html ne repeint que si les jetons ont changé */
   let signature = '';
   const signer = () => { jetons(); const { sbw, ...k } = J; return modeDe() + JSON.stringify(k); };
   const aRepeindre = () => {
@@ -576,7 +636,6 @@
     if (window.ResizeObserver) {
       let t = 0; const ro = new ResizeObserver(() => { clearTimeout(t); t = setTimeout(() => { if (actif) { mesurerZones(); auDefilement(); } }, 60); });
       ro.observe(document.body);
-      /* la barre latérale se replie : le rai se recadre sur ce qui reste */
       const sb = document.querySelector('.sidebar'); if (sb) ro.observe(sb);
     }
     let fin = 0; const apres = () => { clearTimeout(fin); fin = setTimeout(() => { if (actif) { mesurerZones(); voileY = NaN; rendre(performance.now()); } }, 80); };

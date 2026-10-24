@@ -2,8 +2,8 @@
 
    tools/sonde.js lit `color` et `background-color` : elle ne voit pas un
    canvas. Celle-ci mesure ce que le lecteur voit vraiment SOUS chaque texte
-   posé sur le fond « la journée » (assets/fond.js) : la lueur de la bougie,
-   le rai de la croisée, la poussière, le papier vergé, le voile.
+   posé sur le fond (assets/fond.js, « la circulation » depuis oct. 2026) : la
+   poussière d'or, le circuit et son fil, le papier vergé, le voile.
 
    LA MÉTHODE n'est pas celle de Lire Debord, qui recomposait les couches à
    la main : ici les lumières sont transformées par le compositeur (rotation,
