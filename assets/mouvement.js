@@ -276,8 +276,8 @@
     var tg = document.getElementById('sbToggle');
     if(vuSurPage(tg)){
       var etroit = matchMedia('(max-width:860px)').matches;
-      var ouverte = etroit ? document.body.classList.contains('sb-open') : !document.body.classList.contains('sb-collapsed');
-      out.push({ t: ouverte ? 'Replier la barre latérale' : 'Ouvrir la barre latérale', s: 'la navigation du site', mots: 'barre laterale menu navigation sidebar replier ouvrir masquer', act: function(){ apres(function(){ tg.click(); }); } });
+      var ouverte = etroit ? document.body.classList.contains('sb-open') : !document.documentElement.classList.contains('sb-rail');
+      out.push({ t: ouverte ? (etroit ? 'Fermer le menu' : 'Replier la barre latérale') : (etroit ? 'Ouvrir le menu' : 'Déplier la barre latérale'), s: 'la navigation du site', mots: 'barre laterale menu navigation sidebar replier ouvrir masquer', act: function(){ apres(function(){ tg.click(); }); } });
     }
     if(!/\/oeuvres\/carnet\/?$/.test(ici))
       out.push({ t: 'Ouvrir mon carnet', s: 'vos passages et vos notes', mots: 'carnet notes passages surlignages', act: function(){ location.href = '/oeuvres/carnet'; } });

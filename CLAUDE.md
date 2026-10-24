@@ -11658,3 +11658,58 @@ vergé, qui passe sous les lettres (il a fallu le ramener à moitié de sa force
    quand elle passe par une variable. Faux positifs.
 5. Ne pas fusionner les pages dérivées des branches : fusionner les SOURCES,
    puis régénérer une fois (`gen-seo`) et monter les `?v=` à la main une fois.
+
+## La barre latérale à icônes, et le rail (mission `barre-icones`, oct. 2026)
+
+Demande du propriétaire, après le même travail sur Lire Debord : « fais ce
+système de logo et leur animation pour Lire Marx ». Repensé dans la langue de
+la maison, pas recopié.
+
+**Une icône au trait par entrée** (`SB_IC` et `IC(k)` dans `buildSidebar()`
+d'oeuvres/shell.js), chacune faite de PARTIES nommées (`i-…`) : la **bougie**
+de la pièce (Accueil), la **médaille de profil** (Karl Marx), le **rayon dont
+on tire un livre** (Bibliothèque), la **lettrine** (Glossaire), la **plume**
+du commentaire (Agrégation 2027), la **réponse** qui suit une bulle (Forum),
+le **signet rouge** (Mon carnet), la **lettre** et son rabat (Messages), la
+**roue du chariot** (Le jeu), les **lunettes du lecteur** (À propos), le
+**tampon** (CGU & règles), la **pièce dans la fente** (Nous soutenir), la
+**flèche qui descend** (Installer l'application). Les anciennes pastilles de
+couleur (`.sb-dot`) n'existent plus. Le libellé vit dans `span.sb-l`. La page
+courante a son icône en rouge (`--red-text`).
+
+**Au survol ou au focus clavier, chaque icône fait UN geste qui dit ce
+qu'elle montre** (fin d'assets/mouvement.css) : la flamme vacille, la médaille
+se retourne comme une pièce, on tire le livre du rayon, la lettrine frappe le
+papier, la plume écrit, la réponse paraît, le signet tombe, le rabat s'ouvre,
+la roue tourne d'un quart, les lunettes s'ajustent, le tampon s'imprime, la
+pièce tombe dans la fente, la flèche descend. ≤ 600 ms, une fois, transform
+seulement, la courbe de la maison (le rebond est DANS les keyframes, pas dans
+la courbe — le détecteur relève les `cubic-bezier` qui dépassent 1), rien sous
+`prefers-reduced-motion`. Plus de flèche au survol.
+
+**Repliée sur écran large, la barre ne disparaît plus : elle devient un RAIL
+de 64 px** (`html.sb-rail`), icônes seules, le libellé en bulle (encre sur
+papier) au survol et au focus. Le choix est RETENU
+(`localStorage['liremarx.rail.v1']`) et reposé AVANT le premier rendu par le
+script du bloc AFFICHAGE. Le bouton dit « Replier / Déplier la barre
+latérale » sur écran large, « Ouvrir / Fermer le menu » en dessous de 861 px,
+où rien ne change : c'est le tiroir. **`--sb-w` porte la largeur réelle de la
+barre** (208 / 64 / 0) : `.wrap`, le héros de l'accueil (`.hw`), le trait de
+lecture (`.lm-prog`) s'y calent ; le fond lit la barre par son rectangle.
+`body.sb-collapsed` n'existe plus — toute règle qui le visait doit viser
+`html.sb-rail` (le cartouche de la bibliothèque, déplacé).
+
+⚠️ **La bulle ne s'anime qu'en PARAISSANT.** Avec la transition d'opacité sur
+la règle de base, une transition 1 → 0 partait au chargement, et Chrome sans
+interface la laissait à mi-course : douze bulles grises à demi visibles, alors
+que `getComputedStyle` rendait 0. La transition vit sur l'état `:hover` /
+`:focus-visible` seulement.
+⚠️ Le titre d'œuvre (`.sb-h`) dans le rail garde sa taille, poussé hors de sa
+boîte (`text-indent`), et son filet est une BORDURE : la leçon de Lire Debord
+(un texte caché se mesure quand même).
+
+**Mesuré** : sonde 0 échec sur 45 configurations (3 modes × barre ouverte,
+rail, tiroir à 375 × l'accueil, une notion, Capital, à propos, la
+bibliothèque) ; icônes regardées au triple de la taille, au repos et figées
+au milieu de leur geste ; détecteur au niveau d'avant (24 constats sur
+shell.css et mouvement.css). `shell.css?v=15`, `shell.js?v=24`.
