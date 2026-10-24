@@ -11556,36 +11556,43 @@ le champ est oublié. **Toute règle `.reader.theme-…` est morte.**
 
 > Il a remplacé « la journée » (une lueur de bougie dans la marge, un rai de
 > croisée le jour) le lendemain de sa mise en ligne : **on ne le voyait pas**.
-> Le propriétaire a choisi « le circuit A–M–A′ plus la poussière d'or », bien
-> visible dans les marges. Ne pas revenir à une lumière diffuse.
+> Ne pas revenir à une lumière diffuse.
+>
+> **24 oct. 2026 — « le marché », sur demande du propriétaire** (« comme sur
+> la page d'accueil de GEO Invader ») : arbitré « le marché joué », « fixe
+> derrière toute la page ». Les pièces A, A′, A″ de la marge et les mots qui
+> montaient seuls de la poussière sont PARTIS : la pièce est devenue la pièce
+> qui tire, les mots sont devenus « A′ ». Ne pas remettre la colonne de marge
+> à côté de la scène (deux circuits pour un).
 
-Le *Capital* s'ouvre sur une « immense accumulation de marchandises » et se
-démontre par un circuit, A — M — A′. Deux choses, donc :
-- **La poussière d'or**, à la façon du fond étoilé de GeoInvader : un champ
-  semé (graine 1867, aucun `Math.random`) en trois profondeurs, qui dérive,
-  glisse en parallaxe au défilement et scintille ; quelques grains luisent
-  (un halo pré-rendu, pas de `shadowBlur`). Toutes les 2,3 s environ, un mot de Marx (valeur,
-  travail, marchandise, plus-value…) monte d'un grain — **seulement dans un
-  blanc de la page**, jamais sous un texte ni sous la barre latérale.
-- **Les pièces**, dans la marge la plus large (trouvée au 9e décile des bords
-  droits des blocs de texte, ou à gauche entre la barre latérale et la
-  colonne ; au moins 46 px, et une fenêtre d'au moins 700 px) : une colonne
-  en coordonnées du DOCUMENT, qui descend avec la page — A, A′, A″…, chaque
-  pièce un peu plus grande que la précédente, une tous les 820 px environ.
-  Pâles tant que la lecture (58 % de la hauteur) ne les a pas atteintes,
-  elles s'allument quand elle y arrive, et un « + Δ » monte. Fonction de la
-  position : on remonte, elles s'éteignent.
-  ⚠️ **Le fil rouge qui les reliait et les marchandises entre elles ont été
-  RETIRÉS le lendemain**, à la demande du propriétaire (« enlève le trait et
-  les marchandises ») : ne pas les remettre. Les pièces sont restées parce
-  qu'elles n'étaient pas nommées et disent seules l'argent qui revient grossi.
+- **La poussière d'or** reste le ciel, à la façon du fond étoilé de
+  GeoInvader : un champ semé (graine 1867) en trois profondeurs, qui dérive,
+  glisse en parallaxe et scintille ; quelques grains luisent.
+- **Le marché** (`~/Desktop/atum-geo/src/marketing/InvaderField.tsx`, dit
+  dans la langue du livre) : une formation de marchandises du chapitre I
+  dessinées en points (table qui danse, habit, toile, froment, fer, diamant,
+  montre, souliers — deux poses chacune, `SPR`) glisse d'un bord à l'autre et
+  descend lentement. En bas, **la pièce A** suit le curseur (souris seulement,
+  2,2 s), sinon vise la marchandise libre et VISIBLE la plus proche, et tire.
+  La marchandise atteinte passe à l'or, une onde part, « A′ » monte, et la
+  pièce grossit d'un cran par vente (l'argent qui revient grossi). Aux trois
+  quarts vendue — ou quatre secondes sans rien à acheter à la vue —, la
+  formation s'efface et la génération suivante se pose. **Toute la scène passe
+  deux fois au masque du voile en destination-out** : elle n'existe que dans
+  les marges et les blancs, et l'on ne tire que sur ce qu'on voit. Pas de
+  scène sous 760 px.
+- **La position est une fonction du temps, la vente est un état.** Figée
+  (`figer`, réglage immobile, mouvement réduit, édition), l'image redevient
+  une fonction de t : la formation semée de la génération 0, la pièce au
+  centre, aucun tir — c'est ce qui garde la sonde « graine » et
+  « réversible » au vert. La boucle tourne à chaque image tant que la scène
+  joue (elle dormait à 20 images/s au repos).
 
-Par mode : à la **bougie** l'or luit, les pièces ont leur lueur ; au **jour**
-des grains d'ocre sans lueur ; en **édition** un pointillé d'encre IMMOBILE
-(ni dérive, ni scintillement, ni mots) sur le papier vergé, et les pièces qui
-s'allument toujours au fil de la lecture — c'est le lecteur qui les atteint
-(`filSuit()`). Sous un réglage « immobile », le mouvement réduit ou
-l'économie de données : l'état FINI, toutes les pièces allumées.
+Par mode : à la **bougie** l'or luit, les marchandises vendues ont leur halo ;
+au **jour** de l'ocre sans lueur ; en **édition** un pointillé d'encre
+IMMOBILE sur le papier vergé, et c'est le LECTEUR qui vend : la part de
+marchandises passées au rouge de rubrique suit la lecture (jusqu'aux quatre
+cinquièmes en bas de page).
 
 **Où** : la liste `ICI` — à propos, mentions, agrégation et commentaires,
 chapitres expliqués, forum, messages, l'INDEX du glossaire, la 404. JAMAIS
@@ -11596,12 +11603,13 @@ pages de notion. `body[data-fond="aucun"]` le refuse. API inchangée :
 
 **Le voile** est un masque à un quart de résolution (jamais affiché) :
 **sous un texte, la poussière ne s'atténue pas, elle s'efface** (coupée dès
-que le masque dépasse la moitié) ; les pièces y tombent à 5 %.
-Mesuré par `tools/sonde-fond.js` : **0,0 % de contraste perdu sous le texte
-à la bougie et au jour**, 7,3 % au plus en édition — le pontuseau du papier
+que le masque dépasse la moitié) ; le marché y est effacé à ~99 %.
+Mesuré par `tools/sonde-fond.js` avec le marché : **0,0 % de contraste perdu
+sous le texte à la bougie, 0,9 % au plus au jour** (deux hauts de page où la
+première rangée frôle le fil d'Ariane), 7,3 % au plus en édition — le pontuseau du papier
 vergé, qui passe sous les lettres (il a fallu le ramener à moitié de sa force :
-12,6 % d'abord). Graine et réversibilité vérifiées ; une image coûte 0,6 à
-1,4 ms au repos, 2,6 ms au plus en défilement (rendu logiciel forcé).
+12,6 % d'abord). Graine et réversibilité vérifiées ; avec le marché une image
+coûte 1,1 à 2,2 ms au repos, 6 ms au plus en défilement (rendu logiciel forcé).
 
 ### Les gestes (`assets/mouvement.js`, `mouvement.css`)
 
