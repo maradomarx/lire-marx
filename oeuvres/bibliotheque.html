@@ -269,7 +269,7 @@ html.sb-rail .bx3-caption{left:clamp(92px,10vw,160px);}
 .ct-guide{font-family:'Spectral',Georgia,serif;font-size:.9rem;line-height:1.62;
   color:var(--ink-soft);border-left:2px solid var(--gold);padding-left:13px;}
 .ct-source{font-size:.78rem;line-height:1.6;color:var(--const);margin-top:10px;}
-.ct-open{display:inline-block;margin-top:20px;font:600 .88rem/1 var(--f-ui);
+.ct-open{display:inline-block;margin:4px 0 18px;font:600 .88rem/1 var(--f-ui);
   background:var(--text);color:var(--bg);text-decoration:none;
   border-radius:100px;padding:12px 22px;}
 .ct-open:hover{opacity:.9;}
@@ -1781,6 +1781,8 @@ installShell({ workTitle: 'Bibliothèque', tabs: [] });
         '<h2 class="ct-t">' + esc(w.title) + '</h2>' +
         '<div class="ct-meta"><span>' + esc(w.author) + ' · ' + esc(w.year) + '</span>' +
           '<span class="ct-status ' + (ok ? 'ok">Disponible' : 'soon">En préparation') + '</span></div>' +
+        /* le geste qu'on vient faire, en haut du panneau et non sous la fiche */
+        (ok ? '<a class="ct-open" href="' + esc(href(w)) + '">Ouvrir l\'atelier →</a>' : '') +
         '<p class="ct-d">' + esc(w.description) + '</p>' +
         '<div class="ct-cx">' + (w.concepts || []).map(function(c){
           return '<span>' + esc(c) + '</span>'; }).join('') + '</div>' +
@@ -1795,8 +1797,7 @@ installShell({ workTitle: 'Bibliothèque', tabs: [] });
         '<div class="ct-h">Comment le lire</div>' +
         '<p class="ct-guide">' + esc(w.readingGuide) + '</p>' +
         '<p class="ct-source"><b>D\'où vient le texte —</b> ' + esc(w.sourceNote) + '</p>' +
-        (ok
-          ? '<a class="ct-open" href="' + esc(href(w)) + '">Ouvrir l\'atelier →</a>'
+        (ok ? ''
           : '<p class="ct-soon-note">L\'atelier de ce texte est en préparation. ' +
             'Le jour où il ouvrira, ce volume prendra sa reliure.</p>');
       elCartel.hidden = false;
