@@ -136,102 +136,32 @@ html[data-mode="edition"] #bib3d{filter:grayscale(1) sepia(.45) contrast(1.1);}
    (left/top/width/height/font-size en ligne, tout l'intérieur en em) —
    le DOM reste net et cliquable, la feuille fournit le papier. Encre
    sur papier, donc : plus de crème sur sombre ni d'ombre portée. */
-/* TYPOGRAPHIE DE LA FEUILLE. Ce texte est imprimé sur un vieux papier
-   plié : il se compose donc comme un document, pas comme une interface.
-   Spectral (la serif de lecture de la maison) pour tout le courant,
-   Fraunces pour le titre — l'Inter de l'UI n'a rien à faire là.
-   Filet sous le titre, capitales espacées pour la rubrique : c'est la
-   grammaire d'une page de titre. */
-.bx3-intro{position:fixed;z-index:10;left:0;top:0;pointer-events:none;
-  box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;
-  align-items:center;text-align:center;
-  /* MARGES EN `em`, JAMAIS EN %. Un pourcentage de padding se résout sur
-     le bloc conteneur — et la feuille est en `position:fixed`, donc sur
-     le VIEWPORT : `10%` valait 144 px sur une feuille de 500, le texte
-     était comprimé dans un tiers de la page. Le `em`, lui, suit la
-     taille de police que sheetRect() dérive de la largeur de la
-     feuille : la marge reste proportionnelle au papier. */
-  padding:2.6em 2.4em;color:#2b1c0e;opacity:0;
-  font-family:'Spectral',Georgia,serif;
+/* L'INTRODUCTION, posée sur la scène (oct. 2026). Elle était imprimée sur une
+   feuille volante entrée par la fenêtre ; le propriétaire l'a fait retirer,
+   avec son verso de fin et le pied de page : la page en était trop pleine.
+   Il reste un titre discret en haut à gauche, à la grammaire du cartouche de
+   travée (même gauche, même halo), qui s'efface au premier défilement. */
+.bx3-intro{position:fixed;z-index:10;left:clamp(232px,18vw,320px);top:clamp(72px,13vh,140px);
+  max-width:34ch;pointer-events:none;opacity:0;color:var(--text);
   transition:opacity .2s linear;}
-
-/* L'ENCRE PREND LE GRAIN — c'est ce qui INCRUSTE le texte dans la
-   feuille au lieu de le poser dessus. Toutes les encres sont en alpha :
-   le papier transparaît DANS la lettre, qui hérite donc de son grain,
-   de ses pliures et de la lumière de la pièce, et fonce dans les creux.
-   Ne PAS chercher à faire ça en `mix-blend-mode:multiply` : `.bx3-intro`
-   porte un `z-index`, donc crée un contexte d'empilement, et le mélange
-   ne verrait que son propre fond transparent — jamais le canvas. Et
-   c'est une lecture de l'arrière-plan à chaque image, sur un bloc déjà
-   remis en page à chaque image. */
-
-/* (mission `affichage`) CE TEXTE EST POSÉ SUR UNE IMAGE : la texture de papier
-   que le canvas dessine sous lui. Comparé au fond de la PAGE (brun-nuit ou
-   crème), qui n'est jamais sous lui, la sonde déclarait 1,01:1 à la bougie dès
-   que la feuille était posée. Les deux blocs portent donc `data-sonde-fond`
-   (les arrêts du papier), que tools/sonde.js lit pour mesurer contre le papier
-   réel. Contraste de chaque encre, contre les trois arrêts (#ecdfc2, #e4d5b4,
-   #d9c8a4) : rubrique 4,76 · chapô et légende 6,34 · comptes 5,33 · lien 5,17 · titre 9,35 ·
-   « commencer » 3,76 (grand texte). */
-/* (la sonde lit data-sonde-fond, posé sur les deux blocs : le papier réel de la feuille) */
-
-/* La rubrique entre deux filets — l'en-tête d'une page de titre. */
-.bx3-intro .bx3-label,.bx3-end .bx3-label{font-family:'Spectral',Georgia,serif;
-  display:flex;align-items:center;justify-content:center;gap:.85em;
-  align-self:stretch;
-  font-size:max(.62em,11px);font-weight:600;letter-spacing:.24em;
-  text-transform:uppercase;color:rgba(96,66,16,.92);margin-bottom:1.1em;}
-.bx3-intro .bx3-label::before,.bx3-intro .bx3-label::after,
-.bx3-end .bx3-label::before,.bx3-end .bx3-label::after{
-  content:"";flex:1 1 auto;max-width:5em;height:1px;background:rgba(90,64,34,.42);}
-
-/* Le titre se pose sur deux lignes, comme un frontispice : l'appel
-   droit, puis le mot en italique, plus grand. */
-.bx3-h1{font-family:'Fraunces',serif;font-weight:900;
-  font-size:1.6em;line-height:1.06;letter-spacing:.01em;
-  margin:0;color:rgba(28,16,4,.9);}
-.bx3-h1 em{display:block;font-style:italic;font-weight:500;
-  font-size:1.62em;line-height:1;letter-spacing:-.02em;color:rgba(112,80,24,.9);
-  margin-top:.06em;}
-
-/* Le fleuron : un filet rompu par un losange, dessiné à l'encre.
-   Il remplace le trait plein sous le titre, qui entrait en concurrence
-   avec les pliures du papier. */
-.bx3-orn{margin:1.05em auto;color:rgba(95,67,34,.85);line-height:0;}
-.bx3-orn svg{width:8.2em;height:auto;display:block;margin:0 auto;}
-
-.bx3-lede{font-size:.95em;line-height:1.62;color:rgba(58,42,22,.88);
-  max-width:34ch;margin:0 auto;text-wrap:pretty;}
-
-/* Les comptes en capitales espacées, et les nombres en toutes lettres :
-   un document ne chiffre pas ce qui peut s'écrire. */
-.bx3-count{margin-top:1.15em;font-size:max(.62em,11px);letter-spacing:.16em;
-  text-transform:uppercase;color:rgba(80,60,36,.92);}
-.bx3-count b{color:rgba(28,16,4,.92);font-weight:600;}
-
-/* La légende : des marques imprimées, pas des pastilles d'interface —
-   angles vifs, tracé à l'encre, et le bloc centré mais aligné à
-   gauche à l'intérieur, comme la légende d'une planche. */
-.bx3-legend{margin-top:1.15em;display:flex;flex-direction:column;
-  align-items:flex-start;gap:.5em;width:max-content;max-width:100%;
-  font-size:max(.76em,11px);color:rgba(58,42,22,.88);text-align:left;}
-.bx3-legend span{display:inline-flex;align-items:center;gap:.7em;}
-.bx3-legend i{flex:0 0 auto;display:block;border-radius:0;}
-.bx3-legend .lg-book{width:.52em;height:1.15em;
-  background:linear-gradient(90deg,#3d2410,#6b4520 55%,#43290f);
-  box-shadow:inset 0 0 0 1px rgba(160,120,40,.75);}
-.bx3-legend .lg-bundle{width:.72em;height:1.05em;background:#a08a63;
-  box-shadow:inset 0 0 0 1px rgba(74,50,24,.6),
-             inset 0 -.3em 0 -.22em rgba(48,32,14,.8),
-             inset 0 .34em 0 -.26em rgba(48,32,14,.8);}
-.bx3-legend .lg-ribbon{width:.24em;height:1.25em;background:#9d2a1c;
-  box-shadow:inset 0 0 0 1px rgba(74,20,12,.5);}
-
-.bx3-alt{margin-top:1.35em;pointer-events:auto;}
-.bx3-alt button{font:italic 500 .82em/1 'Spectral',Georgia,serif;color:rgba(130,32,18,.92);
-  background:none;border:0;border-bottom:1px solid rgba(140,36,21,.42);
-  padding:.5em 0 .45em;min-height:24px;cursor:pointer;}
-.bx3-alt button:hover{color:#5e1508;border-color:#8c2415;}
+html.sb-rail .bx3-intro{left:clamp(92px,10vw,160px);}
+@media(max-width:860px){.bx3-intro{left:20px;right:20px;}}
+.bx3-intro .bx3-label{font:600 .72rem/1 var(--f-ui);letter-spacing:.11em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:12px;
+  text-shadow:0 1px 12px rgba(var(--bx-halo-rgb),.95);}
+.bx3-h1{font-family:'Fraunces',serif;font-weight:900;letter-spacing:-.02em;
+  font-size:clamp(2.1rem,3.6vw,3.2rem);line-height:1.02;margin:0;
+  text-shadow:0 2px 26px rgba(var(--bx-halo-rgb),.9);}
+.bx3-h1 em{font-style:italic;font-weight:500;color:var(--gold);}
+.bx3-lede{margin:14px 0 0;font-family:'Spectral',Georgia,serif;font-size:1.06rem;
+  line-height:1.55;color:var(--muted);text-wrap:pretty;
+  text-shadow:0 1px 14px rgba(var(--bx-halo-rgb),.95);}
+.bx3-alt{margin-top:14px;pointer-events:auto;}
+.bx3-alt button{font:italic 500 .92rem/1 'Spectral',Georgia,serif;color:var(--gold);
+  background:none;border:0;border-bottom:1px solid rgba(var(--gold-rgb),.45);
+  padding:.5em 0 .45em;min-height:24px;cursor:pointer;
+  text-shadow:0 1px 12px rgba(var(--bx-halo-rgb),.95);}
+.bx3-alt button:hover{color:var(--text);border-color:currentColor;}
 
 /* L'invite à descendre : bas de l'écran, disparaît avec l'intro. */
 .bx3-hint{position:fixed;z-index:10;left:50%;bottom:26px;transform:translateX(-50%);
@@ -258,9 +188,8 @@ html.sb-rail .bx3-caption{left:clamp(92px,10vw,160px);}
   font-style:italic;font-size:.84rem;line-height:1.5;color:var(--gold);
   opacity:.9;text-shadow:0 1px 12px rgba(var(--bx-halo-rgb),.9);}
 
-/* L'encre prend sur la feuille : les lignes se posent l'une après
-   l'autre, déclenchées quand la feuille S'EST POSÉE (.lit, ajoutée par
-   le JS), pas au chargement. `backwards` et jamais `both` — l'opacité
+/* Les lignes de l'introduction se posent l'une après l'autre (.lit,
+   ajoutée par le JS au premier rendu de la scène). `backwards` et jamais `both` — l'opacité
    du conteneur est pilotée par le JS au défilement, un fill-mode
    persistant la lui volerait. */
 @keyframes bx3-rise{from{opacity:0;transform:translateY(16px)}
@@ -269,9 +198,6 @@ html.sb-rail .bx3-caption{left:clamp(92px,10vw,160px);}
 .bx3-intro.lit>*:nth-child(2){animation-delay:.1s}
 .bx3-intro.lit>*:nth-child(3){animation-delay:.2s}
 .bx3-intro.lit>*:nth-child(4){animation-delay:.32s}
-.bx3-intro.lit>*:nth-child(5){animation-delay:.44s}
-.bx3-intro.lit>*:nth-child(6){animation-delay:.56s}
-.bx3-intro.lit>*:nth-child(7){animation-delay:.68s}
 .js-bib3d .bx3-hint{animation:bx3-rise .8s .9s cubic-bezier(.2,.9,.25,1) backwards;}
 
 /* Le rail : les quatre rayons, pour sauter de l'un à l'autre. */
@@ -297,25 +223,6 @@ html.sb-rail .bx3-caption{left:clamp(92px,10vw,160px);}
 .bx3-tag .tg-q{margin-top:5px;font-family:'Fraunces',serif;font-style:italic;
   font-weight:500;font-size:.86rem;color:var(--gold);
   text-shadow:0 1px 12px rgba(var(--bx-halo-rgb),.95);}
-
-/* La fin de l'allée : le VERSO de la même feuille, revenue se poser
-   devant nous. Posée elle aussi sur le rectangle projeté. */
-.bx3-end{position:fixed;z-index:10;left:0;top:0;pointer-events:none;
-  box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;
-  padding:2.6em 2.4em;text-align:center;color:#2b1c0e;opacity:0;
-  font-family:'Spectral',Georgia,serif;
-  transition:opacity .25s linear;}
-.bx3-end .bx3-h1{font-size:1.42em;}
-.bx3-end .bx3-lede{margin:0 auto;}
-.bx3-end-acts{margin-top:1.4em;display:flex;gap:.7em;justify-content:center;
-  flex-wrap:wrap;pointer-events:auto;}
-.bx3-btn{display:inline-block;font:600 .84em/1 'Spectral',Georgia,serif;
-  text-decoration:none;
-  border-radius:100px;padding:.85em 1.5em;cursor:pointer;transition:transform .15s,opacity .15s;}
-.bx3-btn.full{background:#2b1c0e;color:#e8dcc0;border:0;}
-.bx3-btn.ghost{background:transparent;color:#4a3826;border:1px solid #8a7454;}
-.bx3-btn:hover{transform:translateY(-1px);}
-.bx3-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
 
 /* ── Le cartel : la fiche du livre qu'on a tiré ── */
 .bx3-cartel{position:fixed;z-index:90;top:60px;right:16px;bottom:16px;
@@ -487,9 +394,9 @@ html[data-mode="edition"] .bx3-rail button{backdrop-filter:none;}
 <script>(function(){var h=document.documentElement,K='liremarx.mode.v1',C=['auto','bougie','jour','edition'],T={'bougie':'#15100b','jour':'#f6efe0','edition':'#ebe1c9'},S=null,f=0;try{S=matchMedia('(prefers-color-scheme: light)')}catch(e){}function r(c){return c==='auto'?(S&&S.matches?'jour':'bougie'):c}function lu(){var c='';try{c=localStorage.getItem(K)||''}catch(e){}return C.indexOf(c)<0?'auto':c}function p(c){if(C.indexOf(c)<0)c='auto';var m=r(c),a=h.getAttribute('data-mode');h.setAttribute('data-mode-choix',c);if(m!==a){if(a){h.classList.add('lm-bascule');clearTimeout(f);f=setTimeout(function(){h.classList.remove('lm-bascule')},140)}h.setAttribute('data-mode',m);var x=document.getElementsByName('theme-color');for(var i=0;i<x.length;i++)x[i].setAttribute('content',T[m]);if(a)document.dispatchEvent(new CustomEvent('lm:mode',{detail:{mode:m,choix:c}}))}document.dispatchEvent(new CustomEvent('lm:choix',{detail:{mode:m,choix:c}}));return m}var L=window.LM=window.LM||{};L.MODES=C;L.TEINTES=T;L.resoudre=r;L.mode=function(m){if(m===undefined)return{mode:h.getAttribute('data-mode'),choix:h.getAttribute('data-mode-choix')};if(C.indexOf(m)<0)return null;try{localStorage.setItem(K,m)}catch(e){}return p(m)};try{if(localStorage.getItem('liremarx.rail.v1')==='1')h.classList.add('sb-rail')}catch(e){}p(lu());if(S&&S.addEventListener)S.addEventListener('change',function(){if(h.getAttribute('data-mode-choix')==='auto')p('auto')});addEventListener('storage',function(e){if(e.key===K)p(C.indexOf(e.newValue)<0?'auto':e.newValue)})})();</script>
 <link rel="stylesheet" href="/assets/modes.css?v=142992bc">
 <link rel="stylesheet" href="/assets/mouvement.css?v=12aa4bcb">
-<link rel="stylesheet" href="/assets/fond.css?v=93cd8282">
+<link rel="stylesheet" href="/assets/fond.css?v=6f05a8a5">
 <script src="/assets/mouvement.js?v=e2121199" defer></script>
-<script src="/assets/fond.js?v=f63f08d0" defer></script>
+<script src="/assets/fond.js?v=13b709ac" defer></script>
 <!-- AFFICHAGE:FIN -->
 </head>
 <body>
@@ -522,25 +429,11 @@ its provenance.
      display:none, donc ce bloc porte le SEUL texte de la page — le
      masquer laissait un lecteur d'écran devant une page vide. -->
 <div class="bx3-ui">
-  <div class="bx3-intro" id="bxIntro" data-sonde-fond="#ecdfc2,#e4d5b4,#d9c8a4">
+  <div class="bx3-intro" id="bxIntro">
     <div class="bx3-label">La bibliothèque</div>
     <h1 class="bx3-h1">Par où <em>commencer</em></h1>
-    <div class="bx3-orn" aria-hidden="true">
-      <svg viewBox="0 0 120 12" fill="none">
-        <path d="M2 6h40M78 6h40" stroke="currentColor" stroke-width="1" opacity=".45"/>
-        <path d="M60 1.6 65 6l-5 4.4L55 6z" fill="currentColor" opacity=".62"/>
-        <circle cx="48.5" cy="6" r="1.15" fill="currentColor" opacity=".42"/>
-        <circle cx="71.5" cy="6" r="1.15" fill="currentColor" opacity=".42"/>
-      </svg>
-    </div>
     <p class="bx3-lede">Marx ne se lit pas dans l'ordre des dates. Ces rayons suivent
       l'ordre de lecture — longez-les, tirez un volume.</p>
-    <div class="bx3-count" id="bx3Count"></div>
-    <div class="bx3-legend">
-      <span><i class="lg-book"></i> Livre relié — se lit aujourd'hui</span>
-      <span><i class="lg-bundle"></i> Liasse ficelée — en préparation</span>
-      <span><i class="lg-ribbon"></i> Signet rouge — porte d'entrée</span>
-    </div>
     <div class="bx3-alt"><button type="button" id="bx3ToFlat">Préférer la version liste</button></div>
   </div>
   <div class="bx3-hint" id="bxHint"><i aria-hidden="true"></i>Descendre</div>
@@ -553,23 +446,6 @@ its provenance.
   <nav class="bx3-rail" id="bxRail" aria-label="Rayons de la bibliothèque" style="opacity:0"></nav>
   <!-- étiquette de survol : redit ce que le cartel donne déjà -->
   <div class="bx3-tag" id="bxTag" aria-hidden="true"></div>
-  <div class="bx3-end" id="bxEnd" style="opacity:0" data-sonde-fond="#ecdfc2,#e4d5b4,#d9c8a4">
-    <div class="bx3-label">Au verso</div>
-    <h2 class="bx3-h1">La dernière <em>travée</em></h2>
-    <div class="bx3-orn" aria-hidden="true">
-      <svg viewBox="0 0 120 12" fill="none">
-        <path d="M2 6h40M78 6h40" stroke="currentColor" stroke-width="1" opacity=".45"/>
-        <path d="M60 1.6 65 6l-5 4.4L55 6z" fill="currentColor" opacity=".62"/>
-        <circle cx="48.5" cy="6" r="1.15" fill="currentColor" opacity=".42"/>
-        <circle cx="71.5" cy="6" r="1.15" fill="currentColor" opacity=".42"/>
-      </svg>
-    </div>
-    <p class="bx3-lede" id="bxEndLede"></p>
-    <div class="bx3-end-acts">
-      <button class="bx3-btn full" type="button" id="bx3Back">Revenir à l'entrée</button>
-      <a class="bx3-btn ghost" href="/#catalogue">Le catalogue de l'accueil</a>
-    </div>
-  </div>
 </div>
 
 <!-- Le cartel (vit hors de .bx3-ui : il porte du contenu réel) -->
@@ -602,50 +478,6 @@ its provenance.
 <section class="fl-group"><h2 class="fl-gh">Les seuils</h2><p class="fl-gn">Textes courts, sans prérequis — par où l'on peut entrer sans rien connaître.</p><div class="fl-list"><article class="fl-work"><span class="fl-y">1848</span><div class="fl-col"><div class="fl-head"><h3 class="fl-t">Manifeste du parti communiste</h3><span class="fl-status ok">Disponible</span></div><p class="fl-entry">Porte d'entrée — Comprendre les classes et la politique</p><p class="fl-d">Texte politique majeur sur la bourgeoisie, le prolétariat, la lutte des classes et le mouvement communiste.</p><div class="fl-cx"><span>lutte des classes</span><span>bourgeoisie</span><span>prolétariat</span><span>révolution</span><span>internationalisme</span><span>communisme</span></div><details class="fl-more"><summary>Comment le lire</summary><div class="fl-more-in"><p class="fl-guide">Lecture courte mais dense : suivre les quatre parties et distinguer l'analyse historique du programme politique.</p><p class="fl-source"><b>D'où vient le texte —</b> Texte publié à Londres en février 1848. Le texte servi ici est la traduction française de Laura Lafargue, publiée en 1897 chez V. Giard et E. Brière, et chargée depuis Wikisource. Elle est dans le domaine public : sa traductrice est morte en 1911.</p></div></details><a class="fl-open" href="/oeuvres/manifeste">Ouvrir l'atelier →</a></div></article><article class="fl-work"><span class="fl-y">1849</span><div class="fl-col"><div class="fl-head"><h3 class="fl-t">Travail salarié et capital</h3><span class="fl-status soon">En préparation</span></div><p class="fl-d">Exposé accessible sur le salaire, la force de travail, le capital et les rapports entre travail salarié et accumulation.</p><div class="fl-cx"><span>salaire</span><span>travail salarié</span><span>capital</span><span>force de travail</span><span>accumulation</span><span>concurrence</span></div><details class="fl-more"><summary>Comment le lire</summary><div class="fl-more-in"><p class="fl-guide">Texte court et introductif, utile avant Le Capital pour poser les rapports fondamentaux entre salaire et capital.</p><p class="fl-source"><b>D'où vient le texte —</b> Texte issu de conférences publiées en 1849. Domaine public.</p></div></details></div></article><article class="fl-work"><span class="fl-y">1865</span><div class="fl-col"><div class="fl-head"><h3 class="fl-t">Salaires, prix, profits</h3><span class="fl-status ok">Disponible</span></div><p class="fl-entry">Porte d'entrée — Comprendre d’où vient le profit</p><p class="fl-d">Deux séances devant le Conseil général de l’Internationale, en juin 1865, pour répondre à un collègue qui soutenait qu’une hausse des salaires ne sert à rien. Marx y expose la valeur, la force de travail et la plus-value deux ans avant Le Capital. L’ouvrage est aussi connu sous le titre « Salaire, prix et profit ».</p><div class="fl-cx"><span>valeur</span><span>force de travail</span><span>plus-value</span><span>salaire</span><span>taux de profit</span><span>lutte salariale</span></div><details class="fl-more"><summary>Comment le lire</summary><div class="fl-more-in"><p class="fl-guide">La porte d’entrée la plus courte du corpus : Marx y dit en quinze sections, et devant un auditoire d’ouvriers, ce que Le Capital démontrera en huit cents pages. Les cinq premières sections réfutent un contradicteur, l’exposé commence à la sixième — on peut l’ouvrir là, et revenir au débat ensuite.</p><p class="fl-source"><b>D'où vient le texte —</b> Exposé lu devant le Conseil général de l’Association internationale des travailleurs en juin 1865, resté inédit du vivant de Marx et publié en 1898 par sa fille Eleanor. Le texte servi ici est la traduction française de Charles Longuet, deuxième édition, publiée en 1912 chez M. Giard et É. Brière, chargée depuis Wikisource. Elle est dans le domaine public : son traducteur est mort en 1903.</p></div></details><a class="fl-open" href="/oeuvres/salaire-prix-profit">Ouvrir l'atelier →</a></div></article></div></section><section class="fl-group"><h2 class="fl-gh">Le jeune Marx</h2><p class="fl-gn">Le laboratoire philosophique : l'aliénation, la conception matérialiste de l'histoire, la rupture avec l'idéalisme.</p><div class="fl-list"><article class="fl-work"><span class="fl-y">1844</span><div class="fl-col"><div class="fl-head"><h3 class="fl-t">Manuscrits de 1844</h3><span class="fl-status ok">Disponible</span></div><p class="fl-entry">Porte d'entrée — Comprendre ce que le travail fait à l'homme</p><p class="fl-d">Lecture des Manuscrits économico-philosophiques : travail aliéné, propriété privée, communisme, besoins, argent et critique de Hegel.</p><div class="fl-cx"><span>aliénation</span><span>travail aliéné</span><span>propriété privée</span><span>argent</span><span>humanisme</span><span>émancipation</span></div><details class="fl-more"><summary>Comment le lire</summary><div class="fl-more-in"><p class="fl-guide">Commencer par le travail aliéné, puis lire les passages sur la propriété privée, le communisme et l'argent comme un laboratoire du jeune Marx.</p><p class="fl-source"><b>D'où vient le texte —</b> Manuscrits rédigés en 1844, publiés pour la première fois en 1932. Le texte servi ici est la traduction d'Émile Bottigelli (Éditions sociales, 1962), importée de l'archive du Marxists Internet Archive. Elle n'est pas dans le domaine public — Bottigelli est mort en 1975 — quoi qu'il en soit de l'original de Marx, qui l'est. Aucune traduction française libre n'existe : la plus ancienne est celle de 1962.</p></div></details><a class="fl-open" href="/oeuvres/manuscrits-1844">Ouvrir l'atelier →</a></div></article><article class="fl-work"><span class="fl-y">1846</span><div class="fl-col"><div class="fl-head"><h3 class="fl-t">L'Idéologie allemande</h3><span class="fl-status soon">En préparation</span></div><p class="fl-d">Critique de la philosophie allemande post-hégélienne et formulation décisive de la conception matérialiste de l'histoire.</p><div class="fl-cx"><span>idéologie</span><span>matérialisme historique</span><span>division du travail</span><span>production</span><span>conscience</span><span>classe</span></div><p class="fl-rel"><b>Préparé par</b> Manuscrits de 1844</p><details class="fl-more"><summary>Comment le lire</summary><div class="fl-more-in"><p class="fl-guide">Commencer par la partie sur Feuerbach pour saisir la rupture avec l'idéalisme et le rôle central de la production sociale.</p><p class="fl-source"><b>D'où vient le texte —</b> Manuscrit de 1845-1846 publié après la mort des auteurs. Texte à intégrer depuis une édition fiable.</p></div></details></div></article></div></section><section class="fl-group"><h2 class="fl-gh">La critique de l'économie politique</h2><p class="fl-gn">L'œuvre maîtresse et son atelier — des carnets de recherche aux trois livres du Capital.</p><div class="fl-list"><article class="fl-work"><span class="fl-y">1857</span><div class="fl-col"><div class="fl-head"><h3 class="fl-t">Grundrisse</h3><span class="fl-status soon">En préparation</span></div><p class="fl-d">Manuscrits préparatoires de 1857-1858 : argent, capital, circulation, machines, temps de travail et méthode.</p><div class="fl-cx"><span>argent</span><span>capital</span><span>circulation</span><span>machines</span><span>temps de travail</span><span>general intellect</span><span>méthode</span></div><p class="fl-rel"><b>À lire après</b> Le Capital — Livre I</p><details class="fl-more"><summary>Comment le lire</summary><div class="fl-more-in"><p class="fl-guide">À lire comme carnet de recherche : privilégier des parcours thématiques plutôt qu'une lecture linéaire immédiate.</p><p class="fl-source"><b>D'où vient le texte —</b> Manuscrits publiés après la mort de Marx. Texte à intégrer depuis une édition du domaine public ou autorisée.</p></div></details></div></article><article class="fl-work"><span class="fl-y">1859</span><div class="fl-col"><div class="fl-head"><h3 class="fl-t">Contribution à la critique de l'économie politique</h3><span class="fl-status ok">Disponible</span></div><p class="fl-entry">Porte d'entrée — Comprendre la méthode matérialiste</p><p class="fl-d">Première mise en forme publiée de la critique de l'économie politique. Elle contient la préface où Marx formule le fil conducteur de ses recherches — la base économique et la superstructure —, deux chapitres que Le Capital reprendra, et l'introduction de 1857 restée manuscrite.</p><div class="fl-cx"><span>base et superstructure</span><span>rapports de production</span><span>forces productives</span><span>marchandise</span><span>monnaie</span><span>méthode</span></div><details class="fl-more"><summary>Comment le lire</summary><div class="fl-more-in"><p class="fl-guide">La préface se lit seule, en vingt minutes : c'est le texte le plus cité de Marx. Le corps du livre est plus technique — la marchandise, puis la monnaie —, et l'appendice de 1857 expose la méthode.</p><p class="fl-source"><b>D'où vient le texte —</b> Texte publié à Berlin en 1859. Le texte servi ici est la traduction française de Laura Lafargue, établie sur la deuxième édition de Karl Kautsky et publiée en 1909 chez V. Giard et E. Brière, chargée depuis Wikisource. Elle est dans le domaine public : sa traductrice est morte en 1911.</p></div></details><a class="fl-open" href="/oeuvres/contribution-1859">Ouvrir l'atelier →</a></div></article><article class="fl-work"><span class="fl-y">1867</span><div class="fl-col"><div class="fl-head"><h3 class="fl-t">Le Capital — Livre I</h3><span class="fl-status ok">Disponible</span></div><p class="fl-entry">Porte d'entrée — Comprendre comment marche le capitalisme</p><p class="fl-d">Le développement de la production capitaliste : marchandise, monnaie, plus-value, journée de travail, machinisme, salaire, accumulation et accumulation primitive.</p><div class="fl-cx"><span>marchandise</span><span>valeur</span><span>argent</span><span>capital</span><span>plus-value</span><span>force de travail</span><span>journée de travail</span><span>accumulation primitive</span></div><p class="fl-rel"><b>Préparé par</b> Travail salarié et capital · Salaires, prix, profits</p><details class="fl-more"><summary>Comment le lire</summary><div class="fl-more-in"><p class="fl-guide">Commencer par le chapitre I avec patience, puis utiliser le parcours par sections pour suivre la progression de la marchandise jusqu'à l'accumulation primitive.</p><p class="fl-source"><b>D'où vient le texte —</b> Texte du domaine public, traduction Joseph Roy (1872) revue par Marx. L'atelier charge le texte intégral depuis Wikisource.</p></div></details><a class="fl-open" href="/oeuvres/capital-1">Ouvrir l'atelier →</a></div></article><article class="fl-work"><span class="fl-y">1885</span><div class="fl-col"><div class="fl-head"><h3 class="fl-t">Le Capital — Livre II</h3><span class="fl-status soon">En préparation</span></div><p class="fl-d">Le procès de circulation du capital : métamorphoses, rotation, temps de circulation et reproduction du capital social.</p><div class="fl-cx"><span>circulation</span><span>rotation du capital</span><span>capital fixe</span><span>capital circulant</span><span>reproduction simple</span><span>reproduction élargie</span></div><p class="fl-rel"><b>À lire après</b> Le Capital — Livre I</p><details class="fl-more"><summary>Comment le lire</summary><div class="fl-more-in"><p class="fl-guide">À lire après le Livre I pour comprendre comment le capital se reproduit dans le temps et dans l'ensemble social.</p><p class="fl-source"><b>D'où vient le texte —</b> Édition posthume établie par Friedrich Engels en 1885. Texte à intégrer depuis une source du domaine public.</p></div></details></div></article><article class="fl-work"><span class="fl-y">1894</span><div class="fl-col"><div class="fl-head"><h3 class="fl-t">Le Capital — Livre III</h3><span class="fl-status soon">En préparation</span></div><p class="fl-d">Le procès d'ensemble de la production capitaliste : profit, prix de production, intérêt, rente foncière et formule trinitaire.</p><div class="fl-cx"><span>profit</span><span>prix de production</span><span>taux de profit</span><span>intérêt</span><span>rente</span><span>capital fictif</span><span>formule trinitaire</span></div><p class="fl-rel"><b>À lire après</b> Le Capital — Livre I · Le Capital — Livre II</p><details class="fl-more"><summary>Comment le lire</summary><div class="fl-more-in"><p class="fl-guide">À aborder après les Livres I et II : le texte montre les formes apparentes que prend la plus-value dans la concurrence.</p><p class="fl-source"><b>D'où vient le texte —</b> Édition posthume établie par Friedrich Engels en 1894. Texte à intégrer depuis une source du domaine public.</p></div></details></div></article></div></section><section class="fl-group"><h2 class="fl-gh">Les interventions politiques</h2><p class="fl-gn">L'histoire en train de se faire : un coup d'État, un programme de parti.</p><div class="fl-list"><article class="fl-work"><span class="fl-y">1852</span><div class="fl-col"><div class="fl-head"><h3 class="fl-t">Le XVIII brumaire de Louis Bonaparte</h3><span class="fl-status ok">Disponible</span></div><p class="fl-entry">Porte d'entrée — Voir une classe abandonner le pouvoir pour garder sa fortune</p><p class="fl-d">Le récit du coup d’État du 2 décembre 1851, écrit six semaines après, et le texte où Marx montre comment un État peut se détacher de la société qu’il gouverne. On le trouve aussi sous le titre « Le 18 Brumaire de Louis Bonaparte ».</p><div class="fl-cx"><span>lutte des classes</span><span>pouvoir exécutif</span><span>parti de l’ordre</span><span>paysans parcellaires</span><span>représentation politique</span><span>coup d’État</span></div><p class="fl-rel"><b>Préparé par</b> Manifeste du parti communiste</p><details class="fl-more"><summary>Comment le lire</summary><div class="fl-more-in"><p class="fl-guide">Les vingt premières pages du chapitre premier se lisent seules : c’est là que se trouvent la tragédie et la farce, et la phrase sur les conditions que les hommes trouvent toutes faites. Le récit qui suit suppose de connaître un peu la Deuxième République — le dossier en donne le calendrier, avec les dates que Marx retient lui-même. Le chapitre VII, qui porte la thèse sur l’État et sur la paysannerie parcellaire, peut se lire directement après le premier.</p><p class="fl-source"><b>D'où vient le texte —</b> Écrit de décembre 1851 à février 1852 pour une revue d’émigrés allemands de New York, Die Revolution, dont le deuxième numéro le publia au printemps de 1852. Le texte servi ici est la traduction française de Léon Remy, parue en 1900 chez Schleicher frères dans un volume qui contient aussi La Lutte des classes en France, et chargée depuis Wikisource. Elle est dans le domaine public : son traducteur est mort en 1910.</p></div></details><a class="fl-open" href="/oeuvres/18-brumaire">Ouvrir l'atelier →</a></div></article><article class="fl-work"><span class="fl-y">1875</span><div class="fl-col"><div class="fl-head"><h3 class="fl-t">Critique du programme de Gotha</h3><span class="fl-status soon">En préparation</span></div><p class="fl-d">Critique du programme socialiste allemand de Gotha, avec des remarques centrales sur l'État, le droit et la transition communiste.</p><div class="fl-cx"><span>programme</span><span>État</span><span>droit</span><span>transition</span><span>distribution</span><span>communisme</span></div><p class="fl-rel"><b>Préparé par</b> Manifeste du parti communiste</p><details class="fl-more"><summary>Comment le lire</summary><div class="fl-more-in"><p class="fl-guide">Texte bref à lire ligne à ligne, en tenant compte du contexte du mouvement ouvrier allemand.</p><p class="fl-source"><b>D'où vient le texte —</b> Texte rédigé en 1875 et publié plus tard par Engels. Domaine public.</p></div></details></div></article></div></section>
 </div>
 </main>
-<!-- PIED:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main -->
-<footer class="lm-foot wrap">
-  <div class="lm-foot-in">
-    <div class="lm-foot-id">
-      <p class="lm-foot-mark">Lire<span class="d">.</span>Marx</p>
-      <p class="lm-foot-lede">Marx en texte intégral, l&rsquo;appareil critique en marge du chapitre.</p>
-    </div>
-    <nav class="lm-foot-nav" aria-label="Pied de page">
-      <div class="lm-foot-col">
-        <p class="lm-foot-h">Le corpus</p>
-        <ul>
-        <li><a href="/oeuvres/capital-1">Le Capital — Livre I</a></li>
-        <li><a href="/oeuvres/contribution-1859">Contribution à la critique de l'économie politique</a></li>
-        <li><a href="/oeuvres/manuscrits-1844">Manuscrits de 1844</a></li>
-        <li><a href="/oeuvres/manifeste">Manifeste du parti communiste</a></li>
-        <li><a href="/oeuvres/18-brumaire">Le XVIII brumaire de Louis Bonaparte</a></li>
-        <li><a href="/oeuvres/salaire-prix-profit">Salaires, prix, profits</a></li>
-        <li><a href="/oeuvres/bibliotheque">Toute la bibliothèque</a></li>
-        </ul>
-      </div>
-      <div class="lm-foot-col">
-        <p class="lm-foot-h">Comprendre</p>
-        <ul>
-        <li><a href="/karl-marx">Qui était Karl Marx</a></li>
-        <li><a href="/glossaire/">L’abécédaire de Marx</a></li>
-        <li><a href="/jeu/">Le circuit du capital</a></li>
-        <li><a href="/agregation-2027">Marx à l’agrégation 2027</a></li>
-        </ul>
-      </div>
-      <div class="lm-foot-col">
-        <p class="lm-foot-h">Le site</p>
-        <ul>
-        <li><a href="/">Accueil</a></li>
-        <li><a href="/oeuvres/forum">Forum</a></li>
-        <li><a href="/a-propos">À propos</a></li>
-        <li><a href="https://liredebord.com/">Lire Debord, le site frère</a></li>
-        <li><a href="/mentions-legales">CGU &amp; confidentialité</a></li>
-        </ul>
-      </div>
-    </nav>
-  </div>
-</footer>
-<!-- PIED:FIN -->
-
 <script src="../config.js"></script>
 <script src="shell.js?v=24"></script>
 <script src="shell-social.js?v=2"></script>
@@ -1075,58 +907,9 @@ installShell({ workTitle: 'Bibliothèque', tabs: [] });
     carried.position.set(0.55, -0.43, -1.15);  /* x et y recalés par focale dans la boucle */
     camera.add(carried);
 
-    /* ── La feuille volante ─────────────────────────────────────────
-       Elle entre par la fenêtre au chargement, portée par le courant
-       d'air, et vient se figer devant nous : c'est ELLE qui porte le
-       texte d'introduction (le DOM se pose sur son rectangle projeté —
-       le papier est à la 3D, l'encre au DOM, qui reste net et
-       cliquable). Le défilement la relance pendant que la caméra
-       plonge — réversible — et elle revient à la fin, RETOURNÉE : le
-       texte de fin est à son verso. Enfant de la caméra : toute sa
-       chorégraphie est écrite en espace-caméra. */
-    var SHEET_W = 1.42, SHEET_H = 1.86;
-    var SHEET_FRZ = { x: -0.18, y: 0.02, z: -1.62 };
-    function paperTexture(){
-      var W = 256, H = 336;
-      var cv = document.createElement('canvas'); cv.width = W; cv.height = H;
-      var g = cv.getContext('2d');
-      var gr = g.createLinearGradient(0, 0, W, H);
-      gr.addColorStop(0, '#ecdfc2'); gr.addColorStop(0.5, '#e4d5b4');
-      gr.addColorStop(1, '#d9c8a4');
-      g.fillStyle = gr; g.fillRect(0, 0, W, H);
-      for(var i = 0; i < 260; i++){
-        g.fillStyle = 'rgba(120,90,50,' + (0.02 + Math.random() * 0.05) + ')';
-        g.fillRect(Math.random() * W, Math.random() * H, 1.3, 1.3);
-      }
-      /* LES PLIURES d'une lettre pliée en trois. Une pliure n'est pas un
-         filet : c'est une ombre DOUBLÉE d'un reflet, le creux puis
-         l'arête que la lumière accroche. Tracée en trait simple, elle se
-         lisait comme une règle typographique de plus — et venait doubler
-         le filet du titre. */
-      [1 / 3, 2 / 3].forEach(function(f){
-        var y = H * f;
-        var band = g.createLinearGradient(0, y - 7, 0, y + 7);
-        band.addColorStop(0, 'rgba(96,68,36,0)');
-        band.addColorStop(0.42, 'rgba(96,68,36,.13)');
-        band.addColorStop(0.5, 'rgba(74,50,24,.20)');
-        band.addColorStop(0.62, 'rgba(255,248,228,.34)');
-        band.addColorStop(1, 'rgba(96,68,36,0)');
-        g.fillStyle = band; g.fillRect(0, y - 7, W, 14);
-      });
-      /* bords fatigués */
-      g.strokeStyle = 'rgba(90,64,34,.22)'; g.lineWidth = 5;
-      g.strokeRect(1, 1, W - 2, H - 2);
-      return tex(cv);
-    }
-    /* MeshBasic et non Lambert : à 50 cm de la flamme, un matériau
-       éclairé brûlait au jaune uniforme et le grain disparaissait — le
-       papier porte sa lumière dans sa texture */
-    var sheet = new THREE.Mesh(
-      new THREE.PlaneGeometry(SHEET_W, SHEET_H, 1, 1),
-      new THREE.MeshBasicMaterial({ map: paperTexture(), side: THREE.DoubleSide,
-        fog: false }));
-    sheet.visible = false;
-    camera.add(sheet);
+    /* (La feuille volante qui portait l'introduction, puis son verso à la fin
+       de l'allée, a été retirée en oct. 2026 : la page en était trop pleine.
+       La croisée s'ouvre toujours à l'arrivée.) */
     var bV = new THREE.Vector3();
 
     /* Cuirs par rayon : une famille brun / rouge / or, jamais criarde.
@@ -1869,7 +1652,6 @@ installShell({ workTitle: 'Bibliothèque', tabs: [] });
       'interventions': '« L\'histoire au présent : un coup d\'État analysé à chaud, un programme repris ligne à ligne. »'
     };
     var elRail  = document.getElementById('bxRail');
-    var elEnd   = document.getElementById('bxEnd');
     var elTag   = document.getElementById('bxTag');
     var curBay = -1;
 
@@ -1885,50 +1667,18 @@ installShell({ workTitle: 'Bibliothèque', tabs: [] });
       scrollToX(bays[+b.dataset.bay].cx - LEAD, true);
     });
 
-    /* Pose un bloc DOM sur le rectangle projeté de la feuille : le
-       papier est à la 3D, l'encre au DOM. Recalculé à chaque image —
-       le texte suit la respiration de la feuille. La taille de police
-       est quantifiée au demi-pixel, sinon le texte se recompose en
-       permanence. */
-    function sheetRect(el){
-      camera.updateMatrixWorld(true);
-      var minX = 2, minY = 2, maxX = -2, maxY = -2;
-      for(var ci = 0; ci < 4; ci++){
-        bV.set(SHEET_W / 2 * (ci % 2 ? 1 : -1),
-               SHEET_H / 2 * (ci < 2 ? 1 : -1), 0);
-        sheet.localToWorld(bV); bV.project(camera);
-        if(bV.x < minX) minX = bV.x;
-        if(bV.x > maxX) maxX = bV.x;
-        if(bV.y < minY) minY = bV.y;
-        if(bV.y > maxY) maxY = bV.y;
-      }
-      var vw = window.innerWidth, vh = window.innerHeight;
-      var L = (minX * 0.5 + 0.5) * vw, T2 = (-maxY * 0.5 + 0.5) * vh;
-      var Wd = (maxX - minX) * 0.5 * vw, Hd = (maxY - minY) * 0.5 * vh;
-      el.style.left = L.toFixed(1) + 'px';
-      el.style.top = T2.toFixed(1) + 'px';
-      el.style.width = Wd.toFixed(1) + 'px';
-      el.style.height = Hd.toFixed(1) + 'px';
-      el.style.fontSize = (Math.round(Wd / 13) / 2) + 'px';
-    }
-
     function updateUI(){
-      /* l'encre n'apparaît que quand la feuille s'est posée */
-      var introO = landK;
+      /* l'introduction : posée d'emblée, elle s'efface au premier défilement */
+      var introO = 1 - sstep(0.004, 0.04, p);
       elIntro.style.opacity = introO.toFixed(3);
       elIntro.style.pointerEvents = introO > 0.4 ? '' : 'none';
       if(introO > 0.85) elIntro.classList.add('lit');
-      if(introO > 0.01) sheetRect(elIntro);
       elHint.style.opacity = cl01(1 - p / 0.09).toFixed(3);
 
-      var endO = sstep(0.96, 0.995, p) * endK;
-      elEnd.style.opacity = endO.toFixed(3);
-      elEnd.style.pointerEvents = endO > 0.5 ? '' : 'none';
-      if(endO > 0.01) sheetRect(elEnd);
-
-      var midO = sstep(0.1, 0.17, p) * (1 - sstep(0.88, 0.94, p));
-      elRail.style.opacity = Math.max(midO, endO * 0.9).toFixed(3);
-      elRail.style.pointerEvents = (midO > 0.2 || endO > 0.2) ? '' : 'none';
+      /* le rail reste jusqu'au bout : c'est lui qui ramène à l'entrée */
+      var midO = sstep(0.1, 0.17, p);
+      elRail.style.opacity = midO.toFixed(3);
+      elRail.style.pointerEvents = midO > 0.2 ? '' : 'none';
 
       /* travée courante = celle que le regard traverse */
       var look = camera.position.x + LEAD, bi = -1;
@@ -2099,10 +1849,6 @@ installShell({ workTitle: 'Bibliothèque', tabs: [] });
       if(ev.key === 'Escape' && selected) closeCartel();
     });
 
-    document.getElementById('bx3Back').addEventListener('click', function(){
-      try { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-      catch(e){ window.scrollTo(0, 0); }
-    });
     document.getElementById('bx3ToFlat').addEventListener('click', function(){
       teardown();
     });
@@ -2110,7 +1856,6 @@ installShell({ workTitle: 'Bibliothèque', tabs: [] });
     /* ── Boucle ── */
     var raf = null, lastT = 0, hidden = false, lastCamX = null, tilt = 0;
     var sheetT = 0, sheetPlaying = false, sheetDone = false;
-    var landK = 0, endK = 0;   /* la feuille est posée (recto / verso) */
     function frame(now){
       raf = requestAnimationFrame(frame);
       var dt = Math.min(0.05, (now - lastT) / 1000 || 0.016);
@@ -2139,7 +1884,7 @@ installShell({ workTitle: 'Bibliothèque', tabs: [] });
       if(moonLight) moonLight.intensity = MP.moon[1] + MP.moon[2] * wideK;
       souffle(dt);
 
-      /* ── la feuille volante ── */
+      /* ── l'arrivée : la croisée s'ouvre ── */
       if(!sheetDone){
         if(!sheetPlaying){
           /* on n'ouvre la fenêtre que si l'on arrive en haut de page ;
@@ -2157,61 +1902,6 @@ installShell({ workTitle: 'Bibliothèque', tabs: [] });
          En positif il pivotait dans le mur, et l'ouverture était
          invisible — c'est exactement le bug qu'on a corrigé. */
       if(sash) sash.rotation.y = -(sheetDone ? 1 : sstep(0.04, 0.3, sheetT)) * 1.35;
-
-      var inZone = p < T_IN * 0.95, endZone = p > T_TRAVEL;
-      sheet.visible = (inZone && (sheetPlaying || sheetDone)) || endZone;
-      landK = 0; endK = 0;
-      if(sheet.visible){
-        /* Mission vivant-sur-mobile : en PORTRAIT, le champ horizontal est
-           plus étroit que la feuille posée à 1,62 devant l'objectif — elle
-           débordait des deux côtés (mesuré : 515 px pour un écran de 390).
-           On la recule d'autant qu'il faut pour qu'elle tienne, et les deux
-           autres coordonnées suivent pour garder le même cadrage. */
-        var kFit = Math.max(1, (SHEET_W * 0.56) /
-          (Math.abs(SHEET_FRZ.z) * Math.tan(camera.fov * Math.PI / 360) * Math.max(0.2, camera.aspect)));
-        /* reculée, elle est aussi CENTRÉE : le décalage à gauche du grand écran
-           laisse voir la pièce à droite de la feuille ; en portrait il n'y a
-           plus de place à droite, et elle sortait du cadre de ce côté-là. */
-        var fx = (kFit > 1 ? 0 : SHEET_FRZ.x), fy = SHEET_FRZ.y * kFit, fz = SHEET_FRZ.z * kFit;
-        var srx = 0.05, sry = 0, srz = -0.035;
-        if(endZone){
-          /* elle revient de face et se RETOURNE : le verso vers nous */
-          var ep = sstep(T_TRAVEL + 0.02, 0.985, p);
-          fx = -0.06 * kFit + (1 - ep) * 2.1;
-          fy = 0.02 * kFit + (1 - ep) * 1.9;
-          fz = -1.62 * kFit - (1 - ep) * 3.8;
-          sry = Math.PI + (1 - ep) * 5.2;
-          srz = -0.03 + (1 - ep) * 2.3;
-          srx = 0.04 + (1 - ep) * 1.4;
-          endK = ep;
-        } else {
-          var fs = sheetDone ? 1 : sstep(0.28, 1, sheetT);
-          if(fs < 1){
-            /* du rebord de la fenêtre jusque devant nous, en
-               tourbillonnant — bézier en espace-caméra */
-            camera.updateMatrixWorld();
-            bV.set(winX + 0.35, winY - 0.3, 0.5);
-            camera.worldToLocal(bV);
-            var a = 1 - fs;
-            var mx = bV.x * 0.4 + fx * 0.6,
-                my = Math.max(bV.y, fy) + 1.4,
-                mz = bV.z * 0.45 + fz * 0.55;
-            fx = a * a * bV.x + 2 * a * fs * mx + fs * fs * fx;
-            fy = a * a * bV.y + 2 * a * fs * my + fs * fs * fy;
-            fz = a * a * bV.z + 2 * a * fs * mz + fs * fs * fz;
-            srx += a * 4.6; sry += a * 6.4; srz += a * 3.1;
-          }
-          /* le défilement la relance — fonction de la position, réversible */
-          var dp2 = sstep(0.006, T_IN * 0.7, p);
-          fx += dp2 * 0.7; fy += dp2 * 2.7; fz -= dp2 * 0.9;
-          srx += dp2 * 1.6; srz += dp2 * 2.6;
-          landK = (fs >= 1 ? 1 : 0) * (1 - sstep(0.004, 0.04, p));
-        }
-        /* une feuille tenue en l'air respire */
-        sheet.position.set(fx, fy + Math.sin(tsec * 1.35) * 0.006, fz);
-        sheet.rotation.set(srx + Math.sin(tsec * 1.05) * 0.012, sry,
-                           srz + Math.sin(tsec * 0.8) * 0.009);
-      }
 
       /* tout ce qui brûle vacille — la flamme portée, celle du bureau.
          Sommes de sinus à périodes non multiples : une flamme ne bat pas
@@ -2320,23 +2010,6 @@ installShell({ workTitle: 'Bibliothèque', tabs: [] });
     p = pT;
     lastT = performance.now();
     raf = requestAnimationFrame(frame);
-
-    /* compte + fin, dérivés des données */
-    var nOk = WORKS.filter(isOk).length;
-    var NUM = ['zéro','un','deux','trois','quatre','cinq','six','sept',
-               'huit','neuf','dix','onze','douze'];
-    var numFr = function(n){ return NUM[n] || String(n); };
-    /* En toutes lettres : un document n'écrit pas « 12 ». Virgule et non
-       tiret : la ligne se coupe en deux à cette largeur, et un tiret en
-       tête de seconde ligne se lit comme une entrée de liste. */
-    document.getElementById('bx3Count').innerHTML =
-      '<b>' + numFr(WORKS.length) + '</b> œuvres sur les rayons, <b>' +
-      numFr(nOk) + '</b> lisibles aujourd\'hui';
-    document.getElementById('bxEndLede').textContent =
-      'Vous avez longé les ' + numFr(bays.length) + ' rayons — ' +
-      numFr(WORKS.length) + ' œuvres, dont ' + numFr(nOk) +
-      ' se lisent dès aujourd\'hui. Les liasses ficelées prendront leur ' +
-      'reliure au fur et à mesure.';
 
     return { teardown: teardown };
   }
