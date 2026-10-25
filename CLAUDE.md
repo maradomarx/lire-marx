@@ -467,6 +467,24 @@ l'inclinaison au curseur de `cardFx()` ne concernent plus que `.hs-w-card`,
 les cartes du catalogue ; `.hs-do-item` a son propre `transform`, réduit à
 `--drop` et `--tilt`.
 
+**Les œuvres disponibles sont un RAYON, plus des cartes (oct. 2026).** Les six
+grandes cartes à photo (1 150 px sur deux rangées, des pages de titre rognées en
+pavés clairs, des descriptions de page entière) ont été remplacées, sur arbitrage
+du propriétaire (« le rayon »), par des DOS RELIÉS debout sur une tablette, dans
+le cuir de leur rayon (`CUIR`, les couleurs de `LEATHERS` de la bibliothèque 3D),
+titre court au dos de bas en haut, année en pied, nerfs dorés — et à côté le
+CARTEL du livre désigné (rayon · année, titre, porte d'entrée, trois lignes de
+description, « Ouvrir l'atelier »). Une rangée d'environ 370 px. Chaque dos est
+un lien (nom accessible complet en `.sr-only`) ; le cartel est `aria-hidden` et
+son bouton hors tabulation. Survol ou focus : le livre sort du rayon et le
+cartel change. **Le geste** (`libraryScrub`, `html.js-rayon`, position donc
+réversible) : la tablette se trace (`--plank`), les livres s'y posent un à un,
+descendant penchés et se redressant (`--pose`), puis une lueur de bougie passe
+DERRIÈRE les dos et fait briller l'or de chacun à son passage (`--sweep`,
+`--gl`), et le cartel s'écrit (`--cart`). Les couleurs du dos (cuir, dorure,
+bois) ne suivent pas le mode : c'est un objet. Le paragraphe qui suit décrit
+l'ancien révélateur de photos : seule sa moitié « frise » vit encore.
+
 **Section « La bibliothèque » — elle se constitue au défilement
 (`libraryScrub()`).** Une idée pour les deux moitiés : ce qui existe se
 développe, ce qui vient s'écrit. En haut, le « révélateur » des photos

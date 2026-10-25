@@ -584,37 +584,102 @@ html.js-faq .hs-faq-mk::after{opacity:calc(.44 + var(--lit)*.56);}
   letter-spacing:.13em;text-transform:uppercase;color:var(--muted);
   margin:42px 0 16px;padding-bottom:9px;border-bottom:1px solid var(--line);}
 
-/* Disponibles — cartes riches */
-.hs-lib-avail{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;}
+/* Disponibles — LE RAYON (oct. 2026 ; remplace six grandes cartes à photo
+   qui faisaient 1 150 px de haut). Les œuvres sont des dos reliés debout sur
+   une tablette, dans le cuir de leur rayon — les couleurs de la bibliothèque
+   en trois dimensions. À côté, le cartel du livre désigné. Construit par
+   catalogue() (home.js), scrubbé par libraryScrub() : la tablette se trace,
+   les livres s'y posent un à un, une lueur longe les dos, le cartel s'écrit.
+   Le dos est un objet : ses couleurs (cuir, dorure, bois) ne suivent pas le
+   mode, comme les tirages d'archive. */
+.hs-lib-avail{display:block;}
 .hs-w-loading{color:var(--muted);font-size:.9rem;padding:8px 0;}
-.hs-w-card{display:flex;flex-direction:column;border:1px solid var(--line);
-  border-radius:16px;overflow:hidden;background:var(--surface);color:inherit;
-  text-decoration:none;transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .22s,border-color .22s;}
-.hs-w-card:hover{border-color:var(--gold);
-  box-shadow:0 22px 48px -20px rgba(var(--ombre-rgb),.7);}
-.hs-w-img{height:186px;overflow:hidden;position:relative;background:rgb(var(--nuit-rgb));}
-.hs-w-img img{width:100%;height:100%;object-fit:cover;
-  filter:grayscale(.7) sepia(.35) brightness(.82) contrast(1.05);}
-.hs-w-img::after{content:'';position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(var(--nuit-rgb),.78),rgba(var(--nuit-rgb),.05) 55%),
-             radial-gradient(ellipse at 72% 18%,rgba(var(--gold-rgb),calc(.16*var(--lueur))),transparent 60%);}
-.hs-w-body{padding:20px 22px 22px;display:flex;flex-direction:column;gap:8px;flex:1;}
-.hs-w-meta{display:flex;align-items:center;gap:10px;}
-.hs-w-status{font-family:'Inter',system-ui,sans-serif;font-size:.7rem;font-weight:700;
-  letter-spacing:.09em;text-transform:uppercase;border-radius:999px;padding:3px 9px;}
-.hs-w-ok{background:var(--ok-fond);color:var(--ok-texte);}
-.hs-w-year{font-family:'Inter',system-ui,sans-serif;font-size:.78rem;font-weight:600;
-  color:var(--gold);letter-spacing:.04em;}
-.hs-w-title{font-family:'Fraunces',serif;font-weight:900;font-size:1.4rem;
-  letter-spacing:-.02em;color:var(--ink);line-height:1.08;}
-.hs-w-cat{font-family:'Inter',system-ui,sans-serif;font-size:.7rem;letter-spacing:.07em;
-  text-transform:uppercase;color:var(--muted);}
-.hs-w-desc{font-family:'Inter',system-ui,sans-serif;font-size:.86rem;line-height:1.6;color:var(--ink-soft);}
-.hs-w-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:2px;}
-.hs-w-tag{font-family:'Inter',system-ui,sans-serif;font-size:.72rem;color:var(--gold);
-  background:rgba(var(--gold-rgb),.12);border-radius:999px;padding:2px 8px;}
-.hs-w-go{margin-top:auto;padding-top:10px;font-family:'Inter',system-ui,sans-serif;
-  font-size:.82rem;font-weight:600;color:var(--bright);}
+.hs-shelf{--dore:#e8c97a;display:grid;grid-template-columns:auto minmax(0,1fr);
+  gap:clamp(32px,5vw,80px);align-items:end;}
+.hs-sh-rayon{position:relative;padding:0 14px;}
+.hs-sh-livres{--s:1;--hl:330px;position:relative;z-index:1;display:flex;align-items:flex-end;
+  gap:5px;height:calc(var(--hl) + 24px);}
+/* la lueur de la bougie, DERRIÈRE les dos : elle les découpe en ombre
+   chinoise en passant, pendant que l'or de chacun s'allume (--gl) */
+.hs-sh-lumiere{position:absolute;z-index:0;bottom:16px;width:300px;height:380px;
+  left:calc(var(--sweep,0) * 100% - 150px);pointer-events:none;
+  opacity:calc(var(--lum,0) * (.35 + .65 * var(--lueur)));
+  background:radial-gradient(ellipse 50% 46% at 50% 62%,rgba(255,196,110,.42),rgba(216,150,60,.12) 55%,transparent 72%);}
+.hs-bk{--pose:1;--gl:0;position:relative;display:block;flex:0 0 auto;
+  width:calc(var(--bw) * var(--s));height:calc(var(--hl) * var(--bh));
+  text-decoration:none;color:inherit;outline:none;transform-origin:50% 100%;
+  opacity:calc(.15 + .85 * var(--pose,1));
+  transform:translateY(calc((1 - var(--pose,1)) * -150px))
+    rotate(calc((1 - var(--pose,1)) * var(--pk,8deg)));}
+.hs-bk:nth-child(even){--pk:-7deg;}
+.hs-bk:nth-child(3n){--pk:11deg;}
+.hs-bk-dos{position:absolute;inset:0;overflow:hidden;border-radius:3px 3px 1px 1px;
+  display:flex;flex-direction:column;align-items:center;justify-content:space-between;
+  padding:30px 0 12px;
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.5) 0%,rgba(0,0,0,0) 13%,rgba(255,236,204,.09) 30%,
+      rgba(255,236,204,.17) 40%,rgba(0,0,0,0) 58%,rgba(0,0,0,.2) 84%,rgba(0,0,0,.55) 100%),
+    var(--cuir);
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.4),
+    inset 0 0 calc(var(--gl) * 30px) rgba(255,206,128,calc(var(--gl) * .32 * var(--lueur))),
+    0 22px 26px -20px rgba(var(--ombre-rgb),.95);
+  transform:translateY(var(--pull,0px));
+  transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .3s;}
+/* les nerfs : deux paires de filets dorés, en tête et en pied */
+.hs-bk-dos::before,.hs-bk-dos::after{content:"";position:absolute;left:5px;right:5px;height:8px;
+  border-top:1.5px solid var(--dore);border-bottom:1.5px solid var(--dore);
+  opacity:calc(.7 + .3 * var(--gl));}
+.hs-bk-dos::before{top:12px;}
+.hs-bk-dos::after{bottom:36px;}
+.hs-bk-t{writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;max-height:calc(100% - 78px);
+  font-family:'Fraunces',serif;font-weight:600;letter-spacing:.07em;
+  font-size:calc(clamp(12px,calc(var(--bw) * var(--s) * .3),17px) * var(--tf,1));color:var(--dore);
+  filter:brightness(calc(1 + var(--gl) * .55));
+  text-shadow:0 0 calc(var(--gl) * 12px) rgba(255,214,140,calc(var(--gl) * .9 * var(--lueur)));}
+.hs-bk-y{font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:12px;
+  color:var(--dore);letter-spacing:.02em;filter:brightness(calc(1 + var(--gl) * .55));}
+/* désigné (survol, focus, ou le livre du cartel) : il sort du rayon */
+.hs-bk:hover,.hs-bk:focus-visible,.hs-bk.is-on{--pull:-20px;}
+.hs-bk.is-on .hs-bk-dos{box-shadow:inset 0 0 0 1px rgba(0,0,0,.4),
+  inset 0 0 26px rgba(255,206,128,calc(.22 * var(--lueur))),0 30px 30px -20px rgba(var(--ombre-rgb),.95);}
+.hs-bk:focus-visible .hs-bk-dos{outline:2px solid var(--gold);outline-offset:3px;}
+/* la tablette se trace de gauche à droite */
+.hs-sh-tablette{position:relative;z-index:2;height:16px;margin:0 -14px;border-radius:2px;
+  transform-origin:0 50%;transform:scaleX(var(--plank,1));
+  background:linear-gradient(#6a4526,#46291a 45%,#2a190e);
+  box-shadow:inset 0 1px 0 rgba(232,201,122,.35),0 14px 22px -10px rgba(var(--ombre-rgb),.9);}
+/* le cartel */
+.hs-sh-cartel{max-width:46ch;padding-bottom:30px;
+  opacity:var(--cart,1);transform:translateY(calc((1 - var(--cart,1)) * 18px));}
+.hs-sh-k{font-family:'Inter',system-ui,sans-serif;font-size:.72rem;font-weight:600;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--gold);margin:0 0 12px;}
+.hs-sh-t{font-family:'Fraunces',serif;font-weight:900;letter-spacing:-.02em;line-height:1.05;
+  font-size:clamp(1.7rem,2.7vw,2.45rem);color:var(--ink);margin:0;text-wrap:balance;}
+.hs-sh-e{font-family:'Spectral',Georgia,serif;font-style:italic;font-size:1.14rem;
+  line-height:1.45;color:var(--gold);margin:12px 0 0;}
+.hs-sh-d{font-family:'Inter',system-ui,sans-serif;font-size:.9rem;line-height:1.65;
+  color:var(--ink-soft);margin:14px 0 0;display:-webkit-box;-webkit-line-clamp:3;
+  -webkit-box-orient:vertical;overflow:hidden;}
+.hs-sh-go{display:inline-flex;align-items:center;gap:8px;margin-top:22px;
+  font-family:'Inter',system-ui,sans-serif;font-size:.88rem;font-weight:600;
+  background:var(--text);color:var(--bg);text-decoration:none;border-radius:100px;padding:12px 22px;
+  transition:transform .2s cubic-bezier(.16,1,.3,1);}
+.hs-sh-go:hover{transform:translateY(-1px);}
+.hs-sh-cartel.is-in>*{animation:hs-sh-in .55s cubic-bezier(.16,1,.3,1) backwards;}
+.hs-sh-cartel.is-in>*:nth-child(2){animation-delay:.04s;}
+.hs-sh-cartel.is-in>*:nth-child(3){animation-delay:.08s;}
+.hs-sh-cartel.is-in>*:nth-child(4){animation-delay:.12s;}
+.hs-sh-cartel.is-in>*:nth-child(5){animation-delay:.16s;}
+@keyframes hs-sh-in{from{opacity:0;transform:translateY(8px);}}
+@media(max-width:900px){
+  .hs-shelf{grid-template-columns:minmax(0,1fr);gap:26px;}
+  .hs-sh-livres{--s:.74;--hl:262px;justify-content:center;}
+  .hs-bk-dos{padding:24px 0 10px;}
+  .hs-bk-dos::after{bottom:32px;}
+  .hs-bk-t{font-size:11px;letter-spacing:.03em;max-height:calc(100% - 62px);}
+  .hs-sh-cartel{padding-bottom:0;}
+}
 
 /* En préparation — frise chronologique horizontale (défilement natif :
    trackpad, molette↔, glisser, flèches clavier). home.js : timelineStrip() */
@@ -938,15 +1003,6 @@ body.lm-driving .lm-drive-hud{opacity:1;visibility:visible;transform:translate(-
   transition:opacity .12s linear,filter .12s linear,transform .12s linear;
   will-change:opacity,filter,transform;}
 
-/* D. Cartes du catalogue — inclinaison qui suit le curseur + lueur de bougie.
-   (Les trois fiches « Ce que vous pouvez faire » ne sont plus des cartes :
-   elles ne sont plus concernées.) */
-.hs-w-card{--rx:0deg;--ry:0deg;--lift:0px;--drop:0px;--tilt:0deg;
-  transform:perspective(950px) translateY(var(--drop)) rotate(var(--tilt))
-    rotateX(var(--rx)) rotateY(var(--ry)) translateY(var(--lift));}
-.hs-w-card:hover{--lift:-4px;}
-.hs-w-card.tilting{transition:box-shadow .22s,border-color .22s;}
-
 /* E bis. La page réelle : cartel + panneau de référence.
    Le canvas redevient cliquable (il est en z-index 0, sous le texte et les
    boutons : il n'intercepte que le vide). home.js vise les feuillets qui
@@ -1196,26 +1252,6 @@ header.topbar.tb-solid .topbar-in{max-width:1180px;margin:0 auto;height:46px;
   .js-circuit .circuit-step{position:static;opacity:1;visibility:visible;transform:none;}
 }
 
-/* 2. Photos d'archive du catalogue : « développement » — balayage clip-path
-   + barre de révélateur dorée — mais au SCROLL, pas en un coup : la barre
-   se tient à la limite exacte du tirage, c'est le geste du lecteur qui
-   développe la photo. html.js-devscrub posée par home.js (libraryScrub).
-   Le portrait du héros garde son entrée orchestrée propre. */
-.js-devscrub .hs-w-img{clip-path:inset(0 calc((1 - var(--dev,1)) * 100%) 0 0);}
-.js-devscrub .hs-w-img::before{
-  /* 3 px EN DEÇÀ du bord : le clip-path rogne aussi ce ::before, une barre
-     posée pile sur la limite du tirage disparaîtrait entièrement. */
-  content:"";position:absolute;top:0;bottom:0;width:3px;z-index:5;pointer-events:none;
-  left:calc(var(--dev,0) * 100% - 3px);opacity:var(--bar,0);
-  background:linear-gradient(transparent,var(--gold) 28%,var(--gold) 72%,transparent);
-  box-shadow:0 0 18px 5px rgba(var(--gold-rgb),calc(.5*var(--lueur)));}
-/* la carte n'est qu'un cadre vide tant que rien n'est tiré : elle arrive en
-   fantôme, puis prend corps dès les premiers pour cent du développement */
-.js-devscrub .hs-w-card{opacity:calc(.22 + .78 * var(--in,1));}
-/* le corps de la carte arrive derrière la barre */
-.js-devscrub .hs-w-body{opacity:var(--txt,1);
-  transform:translateY(calc((1 - var(--txt,1)) * 14px));}
-
 /* 2 bis. « En préparation » : la frise s'écrit — le filet se trace de gauche
    à droite et chaque année s'allume à son passage. html.js-frise + --draw
    (sur .hs-timeline) et --lit (par carte), posés par home.js. */
@@ -1256,7 +1292,7 @@ html.no-motion .circuit-band{--cp:1;}
 html.no-motion .circuit-band .circuit-spark{opacity:0!important;}
 html.no-motion #circuit-bg,html.no-motion .circuit-veil{display:none!important;}
 html.no-motion #hero-bg{display:none!important;}
-html.no-motion .hs-w-card{transform:none!important;}
+html.no-motion .hs-bk{transform:none!important;opacity:1!important;}
 html.no-motion header.topbar,html.no-motion header.topbar .topbar-in{transition:none!important;}
 
 @media(prefers-reduced-motion:reduce){
@@ -1264,7 +1300,8 @@ html.no-motion header.topbar,html.no-motion header.topbar .topbar-in{transition:
   .circuit-band{--cp:1;}
   .circuit-band.in .circuit-spark{opacity:0!important;}
   #hero-bg,#circuit-bg,.circuit-veil{display:none!important;}
-  .hs-w-card{transform:none!important;}
+  .hs-bk{transform:none!important;opacity:1!important;}
+  .hs-sh-lumiere{display:none!important;}
   .hs-sec-h .rw{opacity:1!important;filter:none!important;transform:none!important;}
   header.topbar,header.topbar .topbar-in{transition:none!important;}
   .circuit-pin{height:auto!important;}
@@ -1272,7 +1309,8 @@ html.no-motion header.topbar,html.no-motion header.topbar .topbar-in{transition:
     padding-bottom:clamp(56px,10vh,120px)!important;}
   .circuit-step{position:static!important;opacity:1!important;visibility:visible!important;transform:none!important;}
   .circuit-node.lit b{transform:none!important;}
-  .hs-w-img{clip-path:none!important;animation:none!important;}
+  .hs-sh-tablette{transform:none!important;}
+  .hs-sh-cartel{opacity:1!important;transform:none!important;}
   .btn-mag{transition:none!important;}
 }
 /* Au doigt (mission `cibles-tactiles`) : « Toutes les discussions » 16 px. */
@@ -1293,9 +1331,6 @@ html[data-mode="edition"] .hs-img-ms img{filter:grayscale(.55) sepia(.24) contra
 html:is([data-mode="jour"],[data-mode="edition"]) .hs-img-ms::after{background:none;}
 html:is([data-mode="jour"],[data-mode="edition"]) .hs-img-caption{
   color:#fbf9f4;background:linear-gradient(to top,rgba(var(--ombre-rgb),.72),transparent);}
-html:is([data-mode="jour"],[data-mode="edition"]) .hs-w-img img{filter:var(--photo-filtre);}
-html:is([data-mode="jour"],[data-mode="edition"]) .hs-w-img::after{
-  background:linear-gradient(to top,rgba(var(--ombre-rgb),.22),transparent 50%);}
 html:is([data-mode="jour"],[data-mode="edition"]) .hs-ms-fig img{filter:var(--photo-filtre);}
 html[data-mode="jour"] .hs-ms-fig img{filter:sepia(.12) contrast(1.03);}
 
@@ -1361,7 +1396,7 @@ html[data-mode="edition"] .hs-halo,
 html[data-mode="edition"] .hs-gloss::before,
 html[data-mode="edition"] .hs-right::before{display:none;}
 html[data-mode="edition"] :is(.hs-btns .btn-filled,.hs-closer .btn-filled):hover{box-shadow:none;}
-html[data-mode="edition"] :is(.hs-w-card,.hs-gl-entry):hover{box-shadow:none;}
+html[data-mode="edition"] .hs-gl-entry:hover{box-shadow:none;}
 
 /* Deux ombres du shell qui débordent dans le cadre alors que leur élément
    est HORS champ : celle du lien d'évitement (posé au-dessus du haut de
@@ -1933,7 +1968,7 @@ html[data-mode="edition"] :is(.hs-w-card,.hs-gl-entry):hover{box-shadow:none;}
      la balise three.min.js a quitté cette page alors que withThree() vivait
      dans home.js : décor mort jusqu'à expiration du cache.
      BUMPER CE NUMÉRO à chaque fois que les deux fichiers sont solidaires. -->
-<script src="assets/home.js?v=10" defer></script>
+<script src="assets/home.js?v=11" defer></script>
 
 <!-- Shell de navigation (topbar + sidebar + auth + social) -->
 <script src="config.js"></script>
