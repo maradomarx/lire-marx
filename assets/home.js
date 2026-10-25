@@ -633,26 +633,77 @@
       return p.indexOf('oeuvres/') === 0 ? p : ('oeuvres/' + p);
     }
 
-    function availCard(w) {
-      var img = IMG[w.id];
-      var concepts = (w.concepts || []).slice(0, 4).map(function (c) {
-        return '<span class="hs-w-tag">' + esc(c) + '</span>';
-      }).join('');
-      var pic = img
-        ? '<div class="hs-w-img"><picture>' +
-            '<source srcset="assets/img/archive/' + img + '.webp" type="image/webp">' +
-            '<img src="assets/img/archive/' + img + '.jpg" alt="" loading="lazy"></picture></div>'
-        : '';
-      return '<a class="hs-w-card" href="' + esc(localPath(w.path)) + '">' + pic +
-        '<div class="hs-w-body">' +
-          '<div class="hs-w-meta"><span class="hs-w-status hs-w-ok">Disponible</span>' +
-            '<span class="hs-w-year">' + esc(w.year) + '</span></div>' +
-          '<h4 class="hs-w-title">' + esc(w.title) + '</h4>' +
-          '<div class="hs-w-cat">' + esc(catLabel(w.category)) + '</div>' +
-          (w.description ? '<p class="hs-w-desc">' + esc(w.description) + '</p>' : '') +
-          (concepts ? '<div class="hs-w-tags">' + concepts + '</div>' : '') +
-          '<span class="hs-w-go">Ouvrir l’atelier →</span>' +
-        '</div></a>';
+    /* LE RAYON (oct. 2026, remplace les six grandes cartes à photo) : les
+       œuvres disponibles sont des DOS RELIÉS debout sur une tablette, dans
+       le cuir de leur rayon — les mêmes couleurs que la bibliothèque en
+       trois dimensions (LEATHERS de bibliotheque.html, par readingGroup).
+       Le titre court se lit au dos de bas en haut (convention française),
+       l'année sur la pièce de pied. À côté, le CARTEL du livre qu'on
+       désigne (survol, focus) : rayon, titre, porte d'entrée, description,
+       « Ouvrir l'atelier ». Chaque dos est un lien. */
+    var CUIR = { 'seuils': '#6d2418', 'jeune-marx': '#7a4a1e', 'critique': '#4a1a12', 'interventions': '#33261a' };
+    /* l'épaisseur dit à peu près la taille du livre ; la hauteur varie
+       d'un format à l'autre, comme sur un vrai rayon */
+    var DOS = {
+      'capital-1': [84, 1], 'contribution-critique-economie-politique': [68, .9],
+      'dix-huit-brumaire': [62, .93], 'salaire-prix-profit': [54, .9],
+      'manifeste-parti-communiste': [44, .8], 'manuscrits-1844': [58, .95]
+    };
+    var GROUPE = { 'seuils': 'Les seuils', 'jeune-marx': 'Le jeune Marx', 'critique': "La critique de l'économie politique", 'interventions': 'Les interventions politiques' };
+    function dos(w, i) {
+      var r = w.reading || {}, d = DOS[w.id] || [56, .9];
+      var court = w.shortTitle || w.title;
+      return '<a class="hs-bk" href="' + esc(localPath(w.path)) + '" data-i="' + i + '"' +
+        ' style="--cuir:' + (CUIR[r.group] || '#4a1a12') + ';--bw:' + d[0] + 'px;--bh:' + d[1] + ';--k:' + i +
+        /* un titre long se compose plus petit, comme sur un dos étroit */
+        (court.length > 16 ? ';--tf:.8' : '') + '">' +
+        '<span class="hs-bk-dos" aria-hidden="true">' +
+          '<span class="hs-bk-t">' + esc(court) + '</span>' +
+          '<span class="hs-bk-y">' + esc(w.year) + '</span>' +
+        '</span>' +
+        '<span class="sr-only">' + esc(w.title) + ', ' + esc(w.year) +
+          (r.entry ? '. ' + esc(r.entry) : '') + '. Ouvrir l’atelier</span>' +
+      '</a>';
+    }
+    function cartel(w) {
+      var r = w.reading || {};
+      return '<p class="hs-sh-k">' + esc(GROUPE[r.group] || catLabel(w.category)) + ' · ' + esc(w.year) + '</p>' +
+        '<h3 class="hs-sh-t">' + esc(w.title) + '</h3>' +
+        (r.entry ? '<p class="hs-sh-e">' + esc(r.entry) + '</p>' : '') +
+        (w.description ? '<p class="hs-sh-d">' + esc(w.description) + '</p>' : '') +
+        '<a class="hs-sh-go" href="' + esc(localPath(w.path)) + '" tabindex="-1">Ouvrir l’atelier <span aria-hidden="true">→</span></a>';
+    }
+    function rayon(avail) {
+      return '<div class="hs-shelf">' +
+          '<div class="hs-sh-rayon">' +
+            '<div class="hs-sh-lumiere" aria-hidden="true"></div>' +
+            '<div class="hs-sh-livres">' +
+              avail.map(dos).join('') +
+            '</div>' +
+            '<div class="hs-sh-tablette" aria-hidden="true"></div>' +
+          '</div>' +
+          '<div class="hs-sh-cartel" aria-hidden="true">' + (avail[0] ? cartel(avail[0]) : '') + '</div>' +
+        '</div>';
+    }
+    /* désigner un livre : il sort du rayon, le cartel change */
+    function wireRayon(avail) {
+      var root = availEl && availEl.querySelector('.hs-shelf');
+      if (!root) return;
+      var books = [].slice.call(root.querySelectorAll('.hs-bk'));
+      var cart = root.querySelector('.hs-sh-cartel'), cur = -1;
+      function montrer(i) {
+        if (i === cur || !avail[i]) return;
+        cur = i;
+        books.forEach(function (b, k) { b.classList.toggle('is-on', k === i); });
+        cart.classList.remove('is-in'); void cart.offsetWidth;
+        cart.innerHTML = cartel(avail[i]);
+        cart.classList.add('is-in');
+      }
+      books.forEach(function (b, i) {
+        b.addEventListener('pointerenter', function () { montrer(i); });
+        b.addEventListener('focus', function () { montrer(i); });
+      });
+      montrer(0);
     }
     function planRow(w) {
       return '<div class="hs-tl-card" role="listitem">' +
@@ -670,7 +721,7 @@
                        .sort(function (a, b) { return b.year - a.year; });
       var plan = works.filter(function (w) { return w.status !== 'available'; })
                       .sort(function (a, b) { return a.year - b.year; });
-      if (availEl) { availEl.innerHTML = avail.map(availCard).join(''); }
+      if (availEl) { availEl.innerHTML = rayon(avail); wireRayon(avail); }
       if (planEl) { planEl.innerHTML = plan.map(planRow).join(''); try { timelineStrip(); } catch (e) {} }
       try { libraryScrub(); } catch (e) { /* non bloquant */ }
       if (countEl) {
@@ -1513,7 +1564,8 @@
   function libraryScrub() {
     if (REDUCE) return;
     var grid = document.getElementById('lib-available');
-    var cards = grid ? [].slice.call(grid.querySelectorAll('.hs-w-card')) : [];
+    var shelf = grid && grid.querySelector('.hs-shelf');
+    var cards = shelf ? [].slice.call(shelf.querySelectorAll('.hs-bk')) : [];
     var band = document.querySelector('.hs-timeline');
     var track = band && band.querySelector('.hs-timeline-track');
     var rows = track ? [].slice.call(track.querySelectorAll('.hs-tl-card')) : [];
@@ -1536,7 +1588,7 @@
     /* le développement possède la révélation des cartes : sans ça, le fondu
        .reveal-stagger (déclenché plus tard que la course) les ferait apparaître
        d'un coup en plein milieu du tirage. */
-    if (cards.length) { grid.classList.remove('reveal-stagger'); root.classList.add('js-devscrub'); }
+    if (cards.length) { grid.classList.remove('reveal-stagger'); root.classList.add('js-rayon'); }
     if (rows.length) root.classList.add('js-frise');
 
     function cl01(v) { return v < 0 ? 0 : (v > 1 ? 1 : v); }
@@ -1544,20 +1596,29 @@
 
     addScrollSub(function (y, vh) {
       var i;
-      /* — les tirages se développent — */
+      /* — le rayon se range —
+         La tablette se trace de gauche à droite ; les livres y sont posés
+         l'un après l'autre (ils descendent, penchés, et se redressent en se
+         posant) ; puis une lueur de bougie longe les dos et fait briller
+         l'or de chacun à son passage ; enfin le cartel s'écrit. Tout est
+         fonction de la position : on remonte, le rayon se défait. */
       if (cards.length) {
-        var gr = grid.getBoundingClientRect();
-        var q = cl01((vh * 0.90 - gr.top) / (vh * 0.52));
-        for (i = 0; i < cards.length; i++) {
-          var c = cards[i];
-          var e = ease(cl01((q - i * 0.14) / 0.72));
-          c.style.setProperty('--dev', e.toFixed(4));
-          /* la barre n'existe que pendant le développement */
-          c.style.setProperty('--bar',
-            (e <= 0.001 || e >= 0.999) ? '0' : Math.min(1, 4 * e * (1 - e) * 1.9).toFixed(3));
-          c.style.setProperty('--in', ease(cl01(e / 0.18)).toFixed(4));
-          c.style.setProperty('--txt', ease(cl01((e - 0.35) / 0.5)).toFixed(4));
+        var sr = shelf.getBoundingClientRect(), n = cards.length;
+        var q = cl01((vh * 0.92 - sr.top) / (vh * 0.62));
+        shelf.style.setProperty('--plank', ease(cl01(q / 0.22)).toFixed(4));
+        for (i = 0; i < n; i++) {
+          var pose = ease(cl01((q - 0.12 - i * 0.07) / 0.26));
+          cards[i].style.setProperty('--pose', pose.toFixed(4));
         }
+        /* la lueur : de 0 (avant le premier dos) à 1 (après le dernier) */
+        var sw = cl01((q - 0.62) / 0.3);
+        shelf.style.setProperty('--sweep', sw.toFixed(4));
+        shelf.style.setProperty('--lum', (sw > 0 && sw < 1 ? Math.sin(Math.PI * sw) : 0).toFixed(3));
+        for (i = 0; i < n; i++) {
+          var dd = sw * (n + 1) - (i + 1);
+          cards[i].style.setProperty('--gl', Math.max(0, 1 - Math.abs(dd) / 1.1).toFixed(3));
+        }
+        shelf.style.setProperty('--cart', ease(cl01((q - 0.55) / 0.3)).toFixed(4));
       }
       /* — la frise s'écrit ET défile — */
       if (rows.length) {
