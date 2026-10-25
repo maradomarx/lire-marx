@@ -1,55 +1,38 @@
 /* ============================================================
-   LE FOND — « la circulation ». Mission `fond-circulation`, oct. 2026
-   (remplace « la journée », jugé trop discret : on ne le voyait pas).
-   Canvas 2D, vanille, sans dépendance. Ses jetons : /assets/fond.css.
+   LE FOND — le ciel étoilé. Canvas 2D, vanille, sans dépendance.
+   Ses jetons : /assets/fond.css.
 
-   CE QU'IL DIT. Le Capital s'ouvre sur une « immense accumulation de
-   marchandises » et se démontre par un circuit : A — M — A′, l'argent qui
-   revient GROSSI. La scène est celle du premier écran de GeoInvader, dite
-   dans la langue du livre (demande du propriétaire, 24 oct. 2026) :
-     LA POUSSIÈRE D'OR — le ciel : un champ de grains semés en trois
-       profondeurs, qui dérivent, glissent en parallaxe et scintillent.
-     LE MARCHÉ — une formation de marchandises dessinées en points (l'habit,
-       la toile, le froment, le fer, le diamant, la table qui danse, la
-       montre, les souliers) glisse d'un bord à l'autre en deux poses et
-       descend lentement. En bas, LA PIÈCE A suit le curseur, sinon vise la
-       marchandise libre la plus proche, et tire. La marchandise atteinte
-       passe à l'or, une onde part, « A′ » monte, et la pièce grossit d'un
-       cran à chaque vente. Aux trois quarts vendue, la formation s'efface et
-       le cycle recommence. Elle vit derrière TOUTE la page et s'efface sous
-       le texte : on la voit passer dans les marges et les blancs, et l'on ne
-       tire que sur ce qu'on voit. Pas sous 760 px : il n'y a pas de marge.
-   (Avant elle : les pièces A, A′, A″ dans la marge, et des mots qui
-   montaient seuls de la poussière. Elles sont devenues la pièce qui tire, les
-   mots sont devenus « A′ ».) La position de la formation est une fonction du
-   temps ; ce qui est vendu, les tirs et les éclats sont un état. Figée
-   (figer, réglage immobile, mouvement réduit), l'image redevient une
-   fonction de t : la formation semée, la pièce au centre, aucun tir.
+   CE QU'IL EST. Le fond étoilé de GeoInvader (son StarField), repris à la
+   demande du propriétaire (25 oct. 2026 : « seulement le fond étoilé dont on
+   a l'impression qu'il traverse l'écran ») : des étoiles en perspective qui
+   viennent vers le lecteur et traversent l'écran. On voyage d'un pas lent
+   tant qu'on lit, plus vite quand on descend, à rebours quand on remonte ;
+   un défilement vif étire les étoiles en traînées. Quelques étoiles sont
+   d'or (et luisent à la bougie), plus rares de rouge.
+   Il a remplacé « la circulation » (poussière d'or, pièces A, A′ dans la
+   marge) puis « le marché » (le mini-jeu, un jour en ligne) : ne pas
+   remettre de scène jouée derrière le texte.
 
    LES MODES (html[data-mode], événement `lm:mode`) :
-     bougie  — grains d'or qui luisent ; vendues, les marchandises passent
-               de l'éclat à l'or, avec leur halo.
-     jour    — des grains et des marchandises d'ocre, sans lueur.
-     edition — un imprimé : poussière et formation IMMOBILES, en pointillé
-               d'encre, sur le papier vergé ; c'est le LECTEUR qui vend —
-               la part de marchandises passées au rouge de rubrique suit la
-               lecture (jusqu'aux quatre cinquièmes en bas de page).
+     bougie  — étoiles crème, quelques-unes d'or qui luisent.
+     jour    — étoiles d'encre brune, plus présentes (un fond clair les
+               mange), sans lueur ; on voyage plus lentement.
+     edition — un imprimé : rien ne bouge seul, ni scintillement ni
+               traînée ; c'est le LECTEUR qui fait avancer le ciel en
+               descendant la page. Sur le papier vergé.
 
    LE HASARD EST SEMÉ (graine 1867, l'édition allemande du Livre I) : même
-   champ, même chaîne, mêmes mots à chaque visite. Aucun Math.random.
+   ciel à chaque visite. Aucun Math.random.
 
    LES ÉGARDS. Un VOILE (masque à un quart de résolution) éteint tout ce qui
    passerait sous un texte : presque entièrement sous les colonnes de
-   lecture, aux trois quarts sous tout bloc qui porte du texte ; la scène
-   est passée deux fois au masque en destination-out (~99 % effacé).
+   lecture, aux trois quarts sous tout bloc qui porte du texte ; le ciel
+   est passé deux fois au masque en destination-out (~99 % effacé).
    Mouvement réduit, économie de données, réglage « immobile » : une image
    fixe. Onglet masqué : rien ne tourne. Densité de pixels plafonnée à 1,5.
 
-   OÙ. Liste ICI : à propos, mentions, l'agrégation et les commentaires, les
-   chapitres expliqués, le forum, la messagerie, l'index du glossaire, la
-   404. JAMAIS l'accueil, la bibliothèque, /karl-marx, le carnet, les
-   ateliers, le jeu, les pages de notion (glossaire/fond.js). Une page le
-   refuse par body[data-fond="aucun"].
+   OÙ. Sur toutes les pages qui portent le bloc AFFICHAGE, l'accueil compris,
+   SAUF la bibliothèque. Une page le refuse par body[data-fond="aucun"].
 
    L'API (inchangée) :
      LM_FOND.regler('anime' | 'fixe' | 'aucun')   mémorisé (liremarx.fond.v1)
@@ -66,19 +49,17 @@
   const GRAINE = 1867;
   const LOGICIEL = /[?&]fond=logiciel/.test(location.search);
 
-  /* ---------- où il se monte ---------- */
-  const ICI = [
-    /^\/a-propos\/?$/, /^\/mentions-legales\/?$/, /^\/agregation-2027\/?$/,
-    /^\/commentaires\/[^/]+\/?$/, /^\/oeuvres\/capital-1\/chapitre-\d+\/?$/,
-    /^\/oeuvres\/(forum|messages)\/?$/, /^\/glossaire\/?$/, /^\/glossaire\/index$/
-  ];
-  const SCENES = '[data-fond="aucun"],.nt-ambiance,.nt-fond,#hero-bg,#circuit-bg,.monde';
+  /* ---------- où il se monte ----------
+     Partout où le bloc AFFICHAGE est posé, SAUF la bibliothèque (sa pièce en
+     trois dimensions est déjà un ciel à elle). Une page le refuse par
+     body[data-fond="aucun"]. */
+  const SAUF = [/^\/oeuvres\/bibliotheque\/?$/];
+  const SCENES = '[data-fond="aucun"]';
   const CALMES = '.nt-essai,.ap-corps,.ml-corps,.reader-content,[data-fond="calme"]';
   const HORS = '.topbar,.sidebar,.fond,script,style,noscript,template,svg,canvas,[hidden],.sr-only';
   function ici() {
     const p = location.pathname.replace(/\.html$/, '');
-    if (ICI.some(r => r.test(p))) return true;
-    return !!document.querySelector('.e-wrap .e-code');
+    return !SAUF.some(r => r.test(p));
   }
 
   const lire = () => { try { const v = localStorage.getItem(CLE); return v === 'fixe' || v === 'aucun' ? v : 'anime'; } catch (e) { return 'anime'; } };
@@ -114,7 +95,7 @@
     remesurer() { if (absent || !actif) return null; mesurerZones(); voileY = NaN; rendre(performance.now(), true); return api.mesure(); },
     mesure: () => ({
       images: stats.n, ms_moyen: stats.n ? +(stats.tot / stats.n).toFixed(3) : 0, ms_max: +stats.max.toFixed(3),
-      mode: dessin, grains: grains.length, marchandises: lit.length, scene, vendues: Array.prototype.reduce.call(vendu, (a, b) => a + b, 0), generation: gen,
+      mode: dessin, etoiles: etoiles.length,
       zones: [calmes.length, voiles.length], zones_ms: +zonesMs.toFixed(1), collants: voiles.filter(z => z.el).length
     }),
     image(t) { if (absent || !actif) return null; sL = window.scrollY; rendre(t == null ? performance.now() : t, true); return api.mesure(); },
@@ -151,6 +132,7 @@
       fil: rgb(g('--fond-fil'), [213, 64, 47]), filA: num('--fond-fil-a', .85),
       mot: rgb(g('--fond-mot'), [216, 173, 76]), motA: num('--fond-mot-a', .9),
       vit: num('--fond-vit', 1),
+      etoile: rgb(g('--fond-etoile'), [183, 168, 136]), etoileA: num('--fond-etoile-a', 1),
       vergeure: rgb(g('--fond-vergeure'), [40, 30, 18]), vergeureA: num('--fond-vergeure-a', 0),
       serif: "'Fraunces',Georgia,serif",
       sbw: (() => { const s = document.querySelector('.sidebar'); if (!s) return 0; const r = s.getBoundingClientRect(); return r.right > 0 && r.left < 1 && getComputedStyle(s).visibility !== 'hidden' ? Math.round(r.right) : 0; })()
@@ -166,7 +148,7 @@
   const ctx = cv.getContext('2d', LOGICIEL ? { willReadFrequently: true } : undefined);
   const vtx = vv.getContext('2d', { willReadFrequently: true });
   let masque = null;
-  let W = 0, H = 0, D = 1, dessin = 'bougie', grains = [], calmes = [], voiles = [], docH = 0;
+  let W = 0, H = 0, D = 1, dessin = 'bougie', etoiles = [], calmes = [], voiles = [], docH = 0, vitesse = 0;
   let sL = window.scrollY, raf = 0, repos = 0, dernier = 0, actif = false, mode = 'anime', voileY = NaN, zonesMs = 0;
   const DPR = 1.5, VOILE = .25;
   let spriteEclat = null;
@@ -181,7 +163,7 @@
     if (dessin === 'edition' && J.vergeureA > 0) html.style.setProperty('--fond-verge', 'url(' + verge() + ')');
     else html.style.removeProperty('--fond-verge');
     spriteEclat = eclat();
-    semer(); mesurerZones(); mesurerScene();
+    semer(); mesurerZones();
   }
 
   /* L'ÉCLAT d'un grain qui luit : un petit halo pré-rendu, posé sans mise à
@@ -223,35 +205,27 @@
     return tuile.toDataURL('image/png');
   }
 
-  /* LA POUSSIÈRE D'OR. Trois profondeurs : le lointain (petit, pâle, lent),
-     le milieu, le proche (plus gros, plus vif, quelques-uns luisent). Chaque
-     grain glisse en parallaxe au défilement (z × la position), dérive en
-     deux sinus et monte doucement dans l'air chaud ; la fenêtre est un tore,
-     un grain qui sort en haut revient en bas. */
+  /* LE CIEL — le fond étoilé de GeoInvader (son StarField), dans nos couleurs :
+     des étoiles en perspective qui viennent vers le lecteur et traversent
+     l'écran. On voyage d'un pas lent tant qu'on lit, plus vite quand on
+     descend, À REBOURS quand on remonte ; un défilement vif étire les étoiles
+     en traînées. Le trajet est une FONCTION de l'instant et de la position,
+     jamais un état : figer(t) redonne l'image au pixel, et remonter la page
+     ramène exactement le même ciel. Chaque étoile parcourt la profondeur de
+     z = 1 (au fond) à z = 0,04 (contre la vitre), puis renaît ailleurs : sa
+     place à chaque passage est semée par (étoile, passage). */
+  const V_TEMPS = .000012, V_DEFIL = .00055;          /* z parcouru par ms, par px défilé */
   function semer() {
-    grains = [];
-    if (!(J.orA > 0)) return;
-    const n = Math.round(clamp(W * H / 2900, 130, 480));
-    for (let i = 0; i < n; i++) {
-      const r = semis(hache(3, i)), c = r();
-      const couche = c < .5 ? 0 : (c < .85 ? 1 : 2);
-      const z = [.18, .42, .8][couche];
-      grains.push({
-        u: r(), v: r(), couche, z,
-        s: [1, 1.5, 2.2][couche] * (.75 + r() * .6),
-        a: r() * 6.283, b: r() * 6.283, c: r() * 6.283,
-        tw: 900 + r() * 2600, mont: (.003 + r() * .007) * (.5 + z),
-        luit: couche === 2 && r() < .32, k: r()
-      });
-    }
+    etoiles = [];
+    if (!(J.etoileA > 0)) return;
+    const n = Math.round(clamp(W * H / 5200, 140, 320));
+    for (let i = 0; i < n; i++) { const r = semis(hache(3, i)); etoiles.push({ o: r(), tw: r() * 6.283 }); }
   }
-  function placer(G, t, s) {
-    const HH = H + 40, WW = W + 40;
-    let x = G.u * WW - 20 + 18 * G.z * Math.sin(t / 9100 + G.a) + 7 * Math.sin(t / 3330 + G.b);
-    let y = G.v * HH - s * .28 * G.z + 14 * G.z * Math.sin(t / 7700 + G.c) - t * G.mont * J.vit;
-    y = ((y % HH) + HH) % HH - 20;
-    x = ((x + 20) % WW + WW) % WW - 20;
-    return [x, y];
+  /* l'étoile i au trajet donné : position à l'écran, profondeur, passage, teinte */
+  function etoile(E, i, trajet) {
+    const u = E.o + trajet, c = Math.floor(u), f = u - c, r = semis(hache(4001 + c, i));
+    const z = 1 - f * .96, fo = Math.max(W, H) * .42, x = r() * 2 - 1, y = r() * 2 - 1, a = r();
+    return { x: W / 2 + x / z * fo, y: H / 2 + y / z * fo, z, c, teinte: a < .08 ? 1 : a < .1 ? 2 : 0 };
   }
 
   /* LES ZONES de texte (le voile), et LA MARGE du circuit. */
@@ -291,271 +265,60 @@
     return masque[(my * vv.width + mx) * 4 + 3] / 255;
   };
 
-  /* LE MARCHÉ — la scène, reprise du premier écran de GeoInvader et dite
-     dans la langue du livre. Une formation de marchandises dessinées en
-     points (celles du chapitre I : l'habit, la toile, le froment, le fer, le
-     diamant, la table — qui danse —, la montre, les souliers) glisse d'un
-     bord à l'autre, deux poses qui alternent, et descend lentement. En bas,
-     LA PIÈCE A : elle suit le curseur, sinon vise la marchandise libre la plus
-     proche, et tire une pièce. La marchandise atteinte passe à l'or, une
-     onde part, « A′ » monte — et la pièce A grossit d'un cran à chaque vente :
-     l'argent qui revient grossi. Aux trois quarts vendue, la formation
-     s'efface et le cycle recommence, la pièce revenue à sa taille.
-     Elle vit derrière toute la page, et comme la poussière elle s'efface sous
-     le texte (le voile, en destination-out) : on la voit passer dans les
-     marges et les blancs. On ne tire que sur ce qu'on voit. */
-  const SPR = {
-    table: [['00000000000', '11111111111', '11111111111', '01000000010', '01000000010', '01000000010', '01000000010', '01000000010'],
-            ['11111111111', '11111111111', '01000000010', '01000000010', '01000000010', '00100000100', '00100000100', '00000000000']],
-    habit: [['00110001100', '01111011110', '11111111111', '11011111011', '11011111011', '11011111011', '00011111000', '00011011000'],
-            ['00110001100', '01111011110', '11111111111', '11011111011', '01011111010', '01011111010', '00011111000', '00011011000']],
-    toile: [['00111111100', '01000000010', '10011111001', '10000000001', '01000000010', '00111111100', '00000111111', '00000111111'],
-            ['00111111100', '01000000010', '10011111001', '10000000001', '01000000010', '00111111100', '00000111110', '00000011111']],
-    froment: [['00010001000', '00001010000', '00000100000', '00111111100', '01111111110', '11111111111', '11111111111', '01111111110'],
-              ['00100010000', '00010100000', '00000100000', '00111111100', '01111111110', '11111111111', '11111111111', '01111111110']],
-    fer: [['00000000000', '11111111100', '01111111111', '00011111000', '00001110000', '00001110000', '00011111000', '00111111100'],
-          ['00000010100', '11111111100', '01111111111', '00011111000', '00001110000', '00001110000', '00011111000', '00111111100']],
-    diamant: [['00111111100', '01101010110', '11111111111', '01110101110', '00111011100', '00011111000', '00001110000', '00000100000'],
-              ['00111111101', '01101010110', '11111111111', '01110101110', '00111011100', '00011111000', '00001110000', '00000100000']],
-    montre: [['00001110000', '00000100000', '00111111100', '01100100110', '01000100010', '01000011010', '01100000110', '00111111100'],
-             ['00001110000', '00000100000', '00111111100', '01100000110', '01011100010', '01000100010', '01100000110', '00111111100']],
-    souliers: [['01100001100', '01100001100', '01100001100', '01100001100', '01110001110', '01111001111', '01111001111', '00000000000'],
-               ['01100000000', '01100001100', '01100001100', '01110001100', '01111001100', '01111001110', '00000001111', '00000001111']]
-  };
-  const NOMS = Object.keys(SPR);
-  const SW = 11, SH = 8;
-  let px = 4, cols = 0, rangs = 0, x0z = 0, x1z = 0, sprites = {}, scene = false;
-  let gen = 0, genT0 = 0, lit = new Float32Array(0), vendu = new Uint8Array(0), sortes = [];
-  let fondu = 1, efface = false, tirA = 0, shipX = 0, cibleX = 0, sourisX = null, sourisT = -1e9, eclair = -1e9, ventes = 0, vide = 0, tPrec = 0;
-  const tirs = [], eclats = [], ondes = [], etiquettes = [];
-  const cw = () => 16 * px, chh = () => 13 * px;
-
-  function sprite(rows, coul, lueur, dot) {
-    const pad = lueur ? 6 * px : 0;
-    const c = document.createElement('canvas');
-    c.width = Math.ceil((SW * px + pad * 2) * D); c.height = Math.ceil((SH * px + pad * 2) * D);
-    const g = c.getContext('2d'); g.scale(D, D);
-    if (lueur) {
-      g.shadowColor = rgba(J.or, .6 * J.lueur); g.shadowBlur = 3 * px * J.lueur;
-      const gr = g.createLinearGradient(pad, pad, pad + SW * px, pad + SH * px);
-      gr.addColorStop(0, rgba(coul[0], 1)); gr.addColorStop(1, rgba(coul[1], 1)); g.fillStyle = gr;
-    } else g.fillStyle = rgba(coul, 1);
-    const d = Math.max(1, px * dot), o = (px - d) / 2;
-    for (let y = 0; y < SH; y++) for (let x = 0; x < SW; x++) if (rows[y][x] === '1') {
-      if (dessin === 'edition' || !lueur) { g.beginPath(); g.arc(pad + x * px + px / 2, pad + y * px + px / 2, d / 2, 0, 6.2832); g.fill(); }
-      else g.fillRect(pad + x * px + o, pad + y * px + o, d, d);
-    }
-    return c;
-  }
-  function peindreSprites() {
-    sprites = {};
-    if (!scene) return;
-    /* vendue : l'éclat vers l'or (bougie), l'ocre (jour), le rouge de rubrique (édition) */
-    const vend = dessin === 'edition' ? [J.fil, J.fil] : [J.eclat, J.or];
-    for (const n of NOMS) for (let p = 0; p < 2; p++) {
-      sprites[n + p] = sprite(SPR[n][p], J.or, false, dessin === 'jour' ? .5 : .42);
-      sprites[n + p + 'v'] = sprite(SPR[n][p], vend, J.lueur > 0, .8);
-    }
-  }
-  /* la formation d'une génération : les sortes et les marchandises déjà
-     vendues au départ, semées (même formation au même rang) */
-  function formation(g) {
-    const N = cols * rangs, f = { lit: new Float32Array(N), vendu: new Uint8Array(N), sortes: [] };
-    const r = semis(hache(21, g));
-    for (let i = 0; i < N; i++) f.sortes.push(NOMS[(Math.floor(r() * NOMS.length) + i) % NOMS.length]);
-    const graines = Math.max(2, Math.round(N * .1));
-    for (let k = 0; k < graines; k++) { const i = Math.floor(r() * N); f.lit[i] = 1; f.vendu[i] = 1; }
-    return f;
-  }
-  let F0 = null;                       /* la formation semée, pour les images figées */
-  function poserFormation(g) {
-    gen = g;
-    const f = formation(g);
-    lit = f.lit; vendu = f.vendu; sortes = f.sortes;
-    ventes = 0; vide = 0; efface = false;
-  }
-  function mesurerScene() {
-    scene = W >= 760 && J.orA > 0;
-    if (!scene) { cols = rangs = 0; return; }
-    px = W < 1100 ? 3.4 : 4;
-    x0z = J.sbw + 14; x1z = W - 14;
-    cols = Math.max(5, Math.floor(((x1z - x0z) * .97) / cw()));
-    rangs = H < 720 ? 3 : 4;
-    shipX = cibleX = (x0z + x1z) / 2;
-    if (!genT0) genT0 = performance.now();
-    peindreSprites();
-    F0 = formation(0);
-    poserFormation(gen);
-  }
-
-  /* la position est une FONCTION du temps (glissement en sinus, ralenti aux
-     bords ; descente plafonnée) : figer(t) la redonne au pixel */
-  const ampl = () => Math.max(px * 3, ((x1z - x0z) * .995 - cols * cw()) / 2);
-  const BASE = 66;
-  const descente = (t, t0) => Math.min(Math.max(0, t - t0) * .003, Math.max(0, H * .42 - (BASE + rangs * chh())));
-  const posM = (i, t, t0 = genT0) => ({
-    x: x0z + ((x1z - x0z) - cols * cw()) / 2 + Math.sin(t * .00032) * ampl() + (i % cols) * cw() + 2.5 * px,
-    y: BASE + descente(t, t0) + Math.floor(i / cols) * chh()
-  });
-  const shipY = () => H * .9;
-  const rayonA = () => 11 + 1.5 * Math.min(ventes, 8);
-  /* une marchandise se voit-elle ? (centre et deux coins hors du voile) */
-  const voit = (x, y) => sousTexte(x + SW * px / 2, y + SH * px / 2) < .3 && sousTexte(x, y) < .5 && sousTexte(x + SW * px, y + SH * px) < .5;
-
-  function avancer(t, dt) {
-    for (let i = 0; i < lit.length; i++) if (vendu[i] && lit[i] < 1) lit[i] = Math.min(1, lit[i] + dt / 420);
-    let n = 0; for (let i = 0; i < vendu.length; i++) n += vendu[i];
-    if (!efface && n / vendu.length > .75) efface = true;
-    if (efface) { fondu = Math.max(0, fondu - dt / 700); if (fondu === 0) { genT0 = t; poserFormation(gen + 1); } }
-    else if (fondu < 1) fondu = Math.min(1, fondu + dt / 900);
-
-    /* la cible : la marchandise libre, visible, la plus proche de la pièce */
-    let vise = -1, bd = Infinity;
-    for (let i = 0; i < lit.length; i++) {
-      if (vendu[i]) continue;
-      const p = posM(i, t); if (!voit(p.x, p.y)) continue;
-      const d = Math.abs(p.x + SW * px / 2 - shipX) + (rangs - Math.floor(i / cols)) * 30;
-      if (d < bd) { bd = d; vise = i; }
-    }
-    /* plus rien à acheter à la vue : au bout de quatre secondes, la formation se renouvelle */
-    if (vise < 0 && !efface) { vide += dt; if (vide > 4000) efface = true; } else vide = 0;
-    if (sourisX != null && t - sourisT < 2200) cibleX = sourisX;
-    else if (vise >= 0) cibleX = posM(vise, t).x + SW * px / 2;
-    cibleX = clamp(cibleX, x0z + 20, x1z - 20);
-    shipX += (cibleX - shipX) * Math.min(1, dt * .004);
-
-    const libre = sousTexte(shipX, shipY()) < .3;
-    if (!efface && libre && t > tirA && tirs.length < 2 && vise >= 0 && Math.abs(cibleX - shipX) < 30) {
-      tirA = t + 1300 + semis(hache(23, Math.floor(t)))() * 900;
-      tirs.push({ x: shipX, y: shipY() - rayonA() });
-      eclair = t;
-    }
-    for (let s = tirs.length - 1; s >= 0; s--) {
-      const T = tirs[s]; T.y -= dt * .55;
-      let touche = -1;
-      for (let i = lit.length - 1; i >= 0; i--) {
-        if (vendu[i]) continue;
-        const p = posM(i, t);
-        if (T.x >= p.x - px && T.x <= p.x + (SW + 1) * px && T.y >= p.y && T.y <= p.y + SH * px && voit(p.x, p.y)) { touche = i; break; }
-      }
-      if (touche >= 0) {
-        vendu[touche] = 1; ventes++;
-        const p = posM(touche, t), cx = p.x + SW * px / 2, cy = p.y + SH * px / 2, r = semis(hache(29, ventes + gen * 97));
-        for (let k = 0; k < 12; k++) { const a = r() * 6.2832, v = .03 + r() * .08; eclats.push({ x: cx, y: cy, vx: Math.cos(a) * v, vy: Math.sin(a) * v, vie: 1 }); }
-        ondes.push({ x: cx, y: cy, vie: 1 }); etiquettes.push({ x: cx, y: p.y - 4, vie: 1 });
-        tirs.splice(s, 1);
-      } else if (T.y < -20) tirs.splice(s, 1);
-    }
-    for (let k = eclats.length - 1; k >= 0; k--) { const P = eclats[k]; P.x += P.vx * dt; P.y += P.vy * dt; P.vy += .00008 * dt; P.vie -= dt / 900; if (P.vie <= 0) eclats.splice(k, 1); }
-    for (let k = ondes.length - 1; k >= 0; k--) { ondes[k].vie -= dt / 600; if (ondes[k].vie <= 0) ondes.splice(k, 1); }
-    for (let k = etiquettes.length - 1; k >= 0; k--) { etiquettes[k].vie -= dt / 1500; if (etiquettes[k].vie <= 0) etiquettes.splice(k, 1); }
-  }
-
-  function peindreMarche(t, vivant) {
-    const pad = 6 * px, master = dessin === 'bougie' ? .78 : .9, pose = Math.floor(t / 620) & 1;
-    /* figée (réglage immobile, mouvement réduit, édition, sonde) : la formation
-       semée, la pièce au centre — l'image est une fonction de t */
-    const L = vivant ? lit : F0.lit, SO = vivant ? sortes : F0.sortes, t0 = vivant ? genT0 : 0, fo = vivant ? fondu : 1;
-    /* l'édition : c'est le LECTEUR qui vend — la part vendue suit la lecture */
-    let part = -1;
-    if (dessin === 'edition') { const max = Math.max(1, docH - H); part = clamp(window.scrollY / max, 0, 1) * .8; }
-    for (let i = 0; i < L.length; i++) {
-      const p = posM(i, t, t0), rg = Math.floor(i / cols), prof = .55 + (rg / Math.max(1, rangs - 1)) * .45;
-      let l = L[i];
-      if (part >= 0) l = semis(hache(31, i))() < part ? 1 : 0;
-      const k = SO[i] + ((pose + i) & 1);
-      if (l < 1) { ctx.globalAlpha = fo * master * (dessin === 'bougie' ? .6 : .58) * prof * (1 - l); ctx.drawImage(sprites[k], p.x, p.y, SW * px, SH * px); }
-      if (l > 0) {
-        const s = sprites[k + 'v'], pp = J.lueur > 0 ? pad : 0;
-        ctx.globalAlpha = fo * master * .9 * (.7 + prof * .3) * l;
-        ctx.drawImage(s, p.x - pp, p.y - pp, SW * px + pp * 2, SH * px + pp * 2);
-      }
-    }
-    ctx.globalAlpha = 1;
-    if (!vivant) { peindrePiece(t, (x0z + x1z) / 2, 0); return; }
-    /* l'onde : un anneau de pièce qui s'élargit */
-    ctx.strokeStyle = rgba(J.or, 1); ctx.lineWidth = 1;
-    for (const O of ondes) { ctx.globalAlpha = O.vie * .6 * master; ctx.beginPath(); ctx.arc(O.x, O.y, (1 - O.vie) * 26 + 8, 0, 6.2832); ctx.stroke(); }
-    /* les pièces tirées, leur traînée */
-    for (const T of tirs) {
-      const g = ctx.createLinearGradient(0, T.y, 0, T.y + 14 * px);
-      g.addColorStop(0, rgba(J.eclat, .9)); g.addColorStop(1, rgba(J.or, 0));
-      ctx.globalAlpha = master; ctx.fillStyle = g; ctx.fillRect(T.x - px * .35, T.y, px * .7, 14 * px);
-      ctx.fillStyle = rgba(J.eclat, 1); ctx.beginPath(); ctx.arc(T.x, T.y, px * .9, 0, 6.2832); ctx.fill();
-    }
-    ctx.fillStyle = rgba(J.or, 1);
-    for (const P of eclats) { ctx.globalAlpha = Math.max(0, P.vie) * master; ctx.fillRect(Math.round(P.x / px) * px, Math.round(P.y / px) * px, px * .8, px * .8); }
-    /* « A′ » monte au-dessus de la marchandise vendue */
-    ctx.font = 'italic 600 ' + Math.max(13, Math.round(px * 3.6)) + 'px ' + J.serif;
-    ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic'; ctx.fillStyle = rgba(J.mot, 1);
-    for (const E of etiquettes) { ctx.globalAlpha = Math.min(1, E.vie * 1.6) * J.motA; ctx.fillText('A′', E.x, E.y - (1 - E.vie) * 28); }
-    ctx.globalAlpha = 1;
-    peindrePiece(t, shipX, ventes);
-  }
-  /* LA PIÈCE A : deux anneaux et sa lettre ; elle s'éclaire à chaque tir */
-  function peindrePiece(t, x, v) {
-    const R = 11 + 1.5 * Math.min(v, 8), y = shipY(), fl = Math.max(0, 1 - (t - eclair) / 500);
-    if (J.lueur > 0 && fl > .02) { ctx.globalAlpha = .9 * fl * J.lueur; ctx.drawImage(spriteEclat, x - R * 2.6, y - R * 2.6, R * 5.2, R * 5.2); }
-    ctx.globalAlpha = Math.min(1, J.orA * 1.25) * (.85 + .15 * fl);
-    ctx.strokeStyle = rgba(J.or, 1); ctx.lineWidth = 1.2;
-    ctx.beginPath(); ctx.arc(x, y, R, 0, 6.2832); ctx.stroke();
-    ctx.beginPath(); ctx.arc(x, y, R * .78, 0, 6.2832); ctx.stroke();
-    ctx.fillStyle = rgba(J.or, 1);
-    ctx.font = 'italic 600 ' + Math.round(R * .9) + 'px ' + J.serif;
-    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillText(v ? 'A′' : 'A', x, y + R * .04);
-    ctx.globalAlpha = 1;
-  }
-
   /* ---------- une image ---------- */
   function rendre(t, force) {
     const t0 = performance.now();
     if (fige) { t = tFige; force = true; sL = window.scrollY; }
     if (window.innerWidth !== W || window.innerHeight !== H) { if (force) construire(); else reconstruire(); }
     const anime = mode === 'anime' && (force || !document.hidden);
-    const tt = anime ? t : 0, s = anime ? sL : window.scrollY;
     const sy = window.scrollY;
     if (sy !== voileY) voiler();
     ctx.setTransform(D, 0, 0, D, 0, 0);
     ctx.clearRect(0, 0, W, H);
-    const lueur = J.lueur;
-    /* la ligne de lecture, en coordonnées du document : une pièce s'allume
-       quand on l'atteint (état fini : toutes) */
-
-    /* 1. la poussière */
-    if (grains.length) {
-      const fixe = dessin === 'edition' || !anime;
-      for (const G of grains) {
-        const [x, y] = placer(G, fixe ? 0 : tt, s);
-        if (x < -6 || x > W + 6 || y < -6 || y > H + 6) continue;
-        /* sous un texte, la poussière ne s'atténue pas : elle s'efface */
-        const cache = sousTexte(x, y); if (cache > .5) continue;
-        const sc = fixe ? .55 : .5 + .5 * Math.sin(tt / G.tw + G.a);
-        let a = J.orA * [.34, .58, .9][G.couche] * (.45 + .55 * sc) * (1 - cache * 1.8);
-        if (a < .02) continue;
-        if (G.luit && lueur > 0 && !fixe) {
-          ctx.globalAlpha = Math.min(1, a * lueur * (.35 + .65 * sc * sc));
-          ctx.drawImage(spriteEclat, x - spriteEclat.width / D / 2, y - spriteEclat.height / D / 2, spriteEclat.width / D, spriteEclat.height / D);
+    /* le temps fait avancer quand le fond s'anime ; la lecture aussi dans
+       l'édition (rien ne bouge seul, c'est le lecteur qui avance) ; immobile
+       sinon (réglage, mouvement réduit, économie) */
+    const edition = etat().raison === 'un imprimé ne bouge pas';
+    const tt = anime ? t : 0, s = anime ? sL : (edition ? sy : 0);
+    const trajet = tt * V_TEMPS * J.vit + s * V_DEFIL;
+    const sombre = dessin === 'bougie', lueur = J.lueur;
+    const traine = anime && !fige ? Math.min(sombre ? .7 : .4, Math.abs(vitesse) / 45) : 0;
+    const retour = vitesse * V_DEFIL;                    /* le trajet d'une image en arrière */
+    const coul = [J.etoile, J.or, J.fil];
+    for (let i = 0; i < etoiles.length; i++) {
+      const E = etoiles[i], p = etoile(E, i, trajet);
+      if (p.x < -20 || p.x > W + 20 || p.y < -20 || p.y > H + 20) continue;
+      /* sous un texte, l'étoile ne s'atténue pas : elle s'efface */
+      const cache = sousTexte(p.x, p.y); if (cache > .5) continue;
+      const pres = 1 - p.z;                                         /* 0 au fond, 1 tout près */
+      const sc = anime && !edition ? .75 + .25 * Math.sin(tt / 700 + E.tw) : 1;
+      let a = (sombre ? .2 : .22) + pres * (sombre ? .45 : .5);
+      a = Math.min(sombre ? .75 : .85, a * sc * (p.teinte ? 1.3 : 1)) * J.etoileA * (1 - cache * 1.8);
+      if (a < .02) continue;
+      const c = coul[p.teinte], taille = (sombre ? 1 : 1.3) + pres * 2.2;
+      if (traine > .08) {
+        const q = etoile(E, i, trajet - retour);
+        if (q.c === p.c) {
+          ctx.globalAlpha = a * (sombre ? .45 : .22);
+          ctx.strokeStyle = rgba(c, 1); ctx.lineWidth = Math.max(.5, taille * .55);
+          ctx.beginPath(); ctx.moveTo(q.x + (q.x - p.x) * traine * 1.2, q.y + (q.y - p.y) * traine * 1.2); ctx.lineTo(p.x, p.y); ctx.stroke();
         }
-        ctx.globalAlpha = Math.min(1, a);
-        ctx.fillStyle = rgba(G.luit && lueur > 0 ? J.eclat : J.or, 1);
-        const z = G.s;
-        if (dessin === 'edition') ctx.fillRect(x - z * .4, y - z * .4, z * .8, z * .8);
-        else { ctx.beginPath(); ctx.arc(x, y, z * .5, 0, 6.2832); ctx.fill(); }
       }
-      ctx.globalAlpha = 1;
+      /* les étoiles d'or luisent à la bougie */
+      if (p.teinte === 1 && lueur > 0) {
+        const R = 4 + taille * 2;
+        ctx.globalAlpha = Math.min(1, a * lueur * .9);
+        ctx.drawImage(spriteEclat, p.x - R, p.y - R, 2 * R, 2 * R);
+      }
+      ctx.globalAlpha = a; ctx.fillStyle = rgba(c, 1);
+      ctx.fillRect(Math.round(p.x), Math.round(p.y), taille, taille);
     }
-
-    /* 2. le marché, puis le voile : tout ce qui est dessiné s'efface sous le
-       texte (le masque posé deux fois en destination-out : ~99 %) */
-    if (scene && lit.length) {
-      const vivant = anime && !fige && dessin !== 'edition';
-      if (vivant) { const dt = Math.min(64, tPrec ? t - tPrec : 16); tPrec = t; avancer(t, dt); } else tPrec = 0;
-      peindreMarche(vivant ? t : tt, vivant);
-      ctx.globalCompositeOperation = 'destination-out';
-      ctx.drawImage(vv, 0, 0, W, H); ctx.drawImage(vv, 0, 0, W, H);
-      ctx.globalCompositeOperation = 'source-over';
-    }
+    ctx.globalAlpha = 1;
+    /* le voile, deux fois en destination-out : une traînée qui passerait sous
+       un texte y est effacée (~99 %) */
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.drawImage(vv, 0, 0, W, H); ctx.drawImage(vv, 0, 0, W, H);
+    ctx.globalCompositeOperation = 'source-over';
     if (LOGICIEL) ctx.getImageData(0, 0, 1, 1);
     const ms = performance.now() - t0;
     stats.n++; stats.tot += ms; if (ms > stats.max) stats.max = ms;
@@ -600,16 +363,17 @@
      Pendant le défilement une image par image (la parallaxe et les pièces suivent
      un défilement LISSÉ) ; au repos, une toutes les 50 ms suffit à la
      poussière et aux mots — le navigateur dort entre deux. */
-  let besoin = false, fige = false, tFige = 0;
+  let besoin = false, fige = false, tFige = 0, yPrec = window.scrollY;
   function boucle(t) {
     raf = 0;
     if (!actif || fige || document.hidden || mode !== 'anime') return;
     const dt = Math.min(64, dernier ? t - dernier : 16);
     const ecart = window.scrollY - sL, bouge = Math.abs(ecart) > .4;
+    const dy = window.scrollY - yPrec; yPrec = window.scrollY;
+    vitesse += (dy * 16.7 / dt - vitesse) * .12; if (Math.abs(vitesse) < .01) vitesse = 0;
     if (bouge) sL += ecart * (1 - Math.pow(.86, dt / 16.7)); else sL = window.scrollY;
     rendre(t); dernier = t;
-    if (bouge || besoin || (scene && dessin !== 'edition')) { besoin = false; raf = requestAnimationFrame(boucle); }
-    else repos = setTimeout(() => { repos = 0; if (!raf) raf = requestAnimationFrame(boucle); }, 50);
+    besoin = false; raf = requestAnimationFrame(boucle);
   }
   const arreter = () => { if (raf) cancelAnimationFrame(raf); if (repos) clearTimeout(repos); raf = 0; repos = 0; };
   const relancer = () => {
@@ -660,8 +424,6 @@
     appliquer(); annonce();
     addEventListener('scroll', auDefilement, { passive: true });
     addEventListener('resize', reconstruire);
-    addEventListener('pointermove', e => { if (e.pointerType === 'mouse') { sourisX = e.clientX; sourisT = performance.now(); } }, { passive: true });
-    document.addEventListener('pointerleave', () => { sourisX = null; });
     document.addEventListener('visibilitychange', () => { if (document.hidden) arreter(); else if (actif) { rendre(performance.now()); dernier = 0; relancer(); } });
     document.addEventListener('lm:mode', aRepeindre);
     new MutationObserver(aRepeindre).observe(html, { attributes: true, attributeFilter: ['data-mode'] });
