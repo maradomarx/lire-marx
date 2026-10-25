@@ -1,18 +1,16 @@
 /* ============================================================
-   LE FOND — « la circulation » (mission `fond-circulation`, oct. 2026).
+   LE FOND — le ciel étoilé (le StarField de GeoInvader, oct. 2026).
    Le dessin est dans /assets/fond.js ; ici, sa place et ses jetons.
-
-   La poussière d'or (le ciel, semé en trois profondeurs) et LE MARCHÉ, la
-   scène du premier écran de GeoInvader dite dans la langue du livre : une
-   formation de marchandises en points, la pièce A qui tire, « A′ » qui monte
-   à chaque vente.
+   Partout sauf la bibliothèque.
 
    Les couleurs propres au fond sont ici, PAR MODE, en composantes (le canvas
    les assemble). Le papier vient des jetons de la maison.
    ============================================================ */
 :root{
   --fond-papier: var(--bg, var(--paper, #15100b));
-  /* bougie : l'or qui luit ; --fond-fil : les marchandises vendues de l'édition ; --fond-mot : « A′ » */
+  /* bougie : étoiles crème ; --fond-or : les étoiles d'or (et leur lueur) ; --fond-fil : les rares rouges */
+  --fond-etoile: 183,168,136;
+  --fond-etoile-a: 1;
   --fond-or: 216,173,76;
   --fond-or-a: .72;
   --fond-eclat: 255,222,160;
@@ -26,8 +24,10 @@
   --fond-vergeure: 40,30,18;
   --fond-vergeure-a: 0;
 }
-/* jour : la poussière dans le jour — des grains d'ocre, sans lueur */
+/* jour : des étoiles d'encre brune, sans lueur, un voyage plus lent */
 html[data-mode="jour"]{
+  --fond-etoile: 96,78,52;
+  --fond-etoile-a: .8;
   --fond-or: 124,90,27;
   --fond-or-a: .62;
   --fond-eclat: 124,90,27;
@@ -38,9 +38,11 @@ html[data-mode="jour"]{
   --fond-mot-a: .85;
   --fond-vit: .6;
 }
-/* edition : un imprimé — pointillé d'encre immobile, fil en rouge de rubrique,
-   et le papier vergé */
+/* edition : un imprimé — le ciel à l'encre, que seule la lecture fait avancer,
+   sur le papier vergé */
 html[data-mode="edition"]{
+  --fond-etoile: 40,32,22;
+  --fond-etoile-a: .7;
   --fond-or: 28,23,18;
   --fond-or-a: .34;
   --fond-eclat: 28,23,18;
@@ -58,7 +60,7 @@ html[data-mode="edition"]{
 /* le canvas est SOUS le flux : le corps laisse voir au travers, html garde le
    papier */
 html.fond-on{background:var(--fond-papier)}
-html.fond-on body{background:transparent}
+html.fond-on body{background-color:transparent}
 /* l'édition : le papier vergé est le FOND DE html (tuile semée par fond.js),
    il défile avec la feuille. La tuile fait 552 × 240 px. */
 html.fond-on[data-mode="edition"]{background-image:var(--fond-verge,none);background-size:552px 240px;background-repeat:repeat}

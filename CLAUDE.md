@@ -11552,64 +11552,55 @@ le champ est oublié. **Toute règle `.reader.theme-…` est morte.**
   (parchemin brun-nuit, parchemin clair, carte gravée à la route rouge de
   rubrique).
 
-### Le fond « la circulation » (`assets/fond.js`, `fond.css`)
+### Le fond : le ciel étoilé (`assets/fond.js`, `fond.css`)
 
-> Il a remplacé « la journée » (une lueur de bougie dans la marge, un rai de
-> croisée le jour) le lendemain de sa mise en ligne : **on ne le voyait pas**.
-> Ne pas revenir à une lumière diffuse.
->
-> **24 oct. 2026 — « le marché », sur demande du propriétaire** (« comme sur
-> la page d'accueil de GEO Invader ») : arbitré « le marché joué », « fixe
-> derrière toute la page ». Les pièces A, A′, A″ de la marge et les mots qui
-> montaient seuls de la poussière sont PARTIS : la pièce est devenue la pièce
-> qui tire, les mots sont devenus « A′ ». Ne pas remettre la colonne de marge
-> à côté de la scène (deux circuits pour un).
+> **Historique, à ne pas refaire.** « La journée » (une lueur dans la marge :
+> on ne la voyait pas) → « la circulation » (poussière d'or, pièces A, A′
+> dans la marge) → « le marché » (24 oct. 2026 : le MINI-JEU du premier écran
+> de GEO Invader, marchandises en points et pièce qui tire — un jour en ligne,
+> retiré : le propriétaire ne voulait QUE « le fond étoilé dont on a
+> l'impression qu'il traverse l'écran »). Ne remettre ni scène jouée, ni
+> pièces de marge, ni mots qui montent.
 
-- **La poussière d'or** reste le ciel, à la façon du fond étoilé de
-  GeoInvader : un champ semé (graine 1867) en trois profondeurs, qui dérive,
-  glisse en parallaxe et scintille ; quelques grains luisent.
-- **Le marché** (`~/Desktop/atum-geo/src/marketing/InvaderField.tsx`, dit
-  dans la langue du livre) : une formation de marchandises du chapitre I
-  dessinées en points (table qui danse, habit, toile, froment, fer, diamant,
-  montre, souliers — deux poses chacune, `SPR`) glisse d'un bord à l'autre et
-  descend lentement. En bas, **la pièce A** suit le curseur (souris seulement,
-  2,2 s), sinon vise la marchandise libre et VISIBLE la plus proche, et tire.
-  La marchandise atteinte passe à l'or, une onde part, « A′ » monte, et la
-  pièce grossit d'un cran par vente (l'argent qui revient grossi). Aux trois
-  quarts vendue — ou quatre secondes sans rien à acheter à la vue —, la
-  formation s'efface et la génération suivante se pose. **Toute la scène passe
-  deux fois au masque du voile en destination-out** : elle n'existe que dans
-  les marges et les blancs, et l'on ne tire que sur ce qu'on voit. Pas de
-  scène sous 760 px.
-- **La position est une fonction du temps, la vente est un état.** Figée
-  (`figer`, réglage immobile, mouvement réduit, édition), l'image redevient
-  une fonction de t : la formation semée de la génération 0, la pièce au
-  centre, aucun tir — c'est ce qui garde la sonde « graine » et
-  « réversible » au vert. La boucle tourne à chaque image tant que la scène
-  joue (elle dormait à 20 images/s au repos).
+**C'est le `StarField` de GEO Invader**
+(`~/Desktop/atum-geo/src/components/SiteControls.tsx`), dans nos couleurs :
+environ 250 étoiles en perspective qui viennent vers le lecteur et
+traversent l'écran. On voyage d'un pas lent tant qu'on lit, plus vite quand
+on descend, **à rebours quand on remonte** ; un défilement vif étire les
+étoiles en traînées qui rayonnent du centre. Huit pour cent d'étoiles d'or
+(qui luisent à la bougie), deux pour cent de rouges, le reste crème (bougie)
+ou encre brune (jour). En **édition**, rien ne bouge seul : c'est la lecture
+qui fait avancer le ciel, sans scintillement ni traînée.
 
-Par mode : à la **bougie** l'or luit, les marchandises vendues ont leur halo ;
-au **jour** de l'ocre sans lueur ; en **édition** un pointillé d'encre
-IMMOBILE sur le papier vergé, et c'est le LECTEUR qui vend : la part de
-marchandises passées au rouge de rubrique suit la lecture (jusqu'aux quatre
-cinquièmes en bas de page).
-
-**Où** : la liste `ICI` — à propos, mentions, agrégation et commentaires,
-chapitres expliqués, forum, messages, l'INDEX du glossaire, la 404. JAMAIS
-l'accueil, la bibliothèque, Karl Marx, le carnet, les ateliers, le jeu, les
-pages de notion. `body[data-fond="aucun"]` le refuse. API inchangée :
-`LM_FOND.regler/reglage/etat/remesurer/image/figer/mesure`,
-`localStorage['liremarx.fond.v1']`, `lm:fond`, `?fond=logiciel`.
+- **Le trajet est une FONCTION** (`t × V_TEMPS + défilement × V_DEFIL`),
+  jamais un état : chaque étoile parcourt z de 1 à 0,04 puis renaît, sa place
+  à chaque passage étant semée par (étoile, passage). D'où une image figée
+  reproductible (la sonde « graine » et « réversible ») et le même ciel
+  quand on remonte. Seule la vitesse lissée du défilement (les traînées) est
+  un état.
+- **Partout où le bloc AFFICHAGE est posé, SAUF la bibliothèque** (`SAUF`
+  dans fond.js) : l'accueil, Karl Marx, les ateliers, le carnet, le jeu, les
+  pages de notion compris. `body[data-fond="aucun"]` le refuse encore.
+- **Le corps ne perd que sa COULEUR** (`html.fond-on body{background-color:
+  transparent}`), jamais son image : avec le raccourci `background`, le lavis
+  du jour des ateliers disparaissait — mesuré au pixel avant correction.
+- **L'accueil** : `.hw` peignait son propre fond opaque par-dessus le ciel ;
+  `html.fond-on .hw{background-color:transparent}` et
+  `html:root{--fond-papier:var(--bg)}` dans `index.html`.
+- Le ciel ne se voit que là où la page est transparente : les cartes, les
+  colonnes de l'atelier, la vitrine des notions le recouvrent, et c'est voulu.
 
 **Le voile** est un masque à un quart de résolution (jamais affiché) :
-**sous un texte, la poussière ne s'atténue pas, elle s'efface** (coupée dès
-que le masque dépasse la moitié) ; le marché y est effacé à ~99 %.
-Mesuré par `tools/sonde-fond.js` avec le marché : **0,0 % de contraste perdu
-sous le texte à la bougie, 0,9 % au plus au jour** (deux hauts de page où la
-première rangée frôle le fil d'Ariane), 7,3 % au plus en édition — le pontuseau du papier
-vergé, qui passe sous les lettres (il a fallu le ramener à moitié de sa force :
-12,6 % d'abord). Graine et réversibilité vérifiées ; avec le marché une image
-coûte 1,1 à 2,2 ms au repos, 6 ms au plus en défilement (rendu logiciel forcé).
+**sous un texte, une étoile ne s'atténue pas, elle s'efface**, et tout le
+ciel passe encore deux fois au masque en destination-out (les traînées qui
+croiseraient un texte). Mesuré par `tools/sonde-fond.js` : 0,0 % de
+contraste perdu à la bougie et au jour sur les pages d'avant ; en édition
+jusqu'à 10,5 % sous la liseuse, le pontuseau du papier vergé (13,5:1 restent).
+⚠️ Sur les ateliers, Karl Marx et le Manifeste, la sonde signale de fortes
+« chutes » qui ne sont PAS le ciel : la marge qui se recompose, la carte de
+l'exil qui bouge, entre ses deux passages. Le contrôle qui tranche : figer le
+fond, photographier, `regler('aucun')`, rephotographier À LA MÊME POSITION et
+compter les pixels différents (66 à 144, tous des étoiles dans les gouttières).
 
 ### Les gestes (`assets/mouvement.js`, `mouvement.css`)
 
