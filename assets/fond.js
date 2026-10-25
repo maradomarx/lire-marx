@@ -132,7 +132,7 @@
       fil: rgb(g('--fond-fil'), [213, 64, 47]), filA: num('--fond-fil-a', .85),
       mot: rgb(g('--fond-mot'), [216, 173, 76]), motA: num('--fond-mot-a', .9),
       vit: num('--fond-vit', 1),
-      etoile: rgb(g('--fond-etoile'), [183, 168, 136]), etoileA: num('--fond-etoile-a', 1),
+      etoile: rgb(g('--fond-etoile'), [214, 199, 166]), etoileA: num('--fond-etoile-a', 1),
       vergeure: rgb(g('--fond-vergeure'), [40, 30, 18]), vergeureA: num('--fond-vergeure-a', 0),
       serif: "'Fraunces',Georgia,serif",
       sbw: (() => { const s = document.querySelector('.sidebar'); if (!s) return 0; const r = s.getBoundingClientRect(); return r.right > 0 && r.left < 1 && getComputedStyle(s).visibility !== 'hidden' ? Math.round(r.right) : 0; })()
@@ -292,10 +292,10 @@
       const cache = sousTexte(p.x, p.y); if (cache > .5) continue;
       const pres = 1 - p.z;                                         /* 0 au fond, 1 tout près */
       const sc = anime && !edition ? .75 + .25 * Math.sin(tt / 700 + E.tw) : 1;
-      let a = (sombre ? .2 : .22) + pres * (sombre ? .45 : .5);
-      a = Math.min(sombre ? .75 : .85, a * sc * (p.teinte ? 1.3 : 1)) * J.etoileA * (1 - cache * 1.8);
+      let a = (sombre ? .3 : .3) + pres * (sombre ? .52 : .55);
+      a = Math.min(sombre ? .88 : .92, a * sc * (p.teinte ? 1.3 : 1)) * J.etoileA * (1 - cache * 1.8);
       if (a < .02) continue;
-      const c = coul[p.teinte], taille = (sombre ? 1 : 1.3) + pres * 2.2;
+      const c = coul[p.teinte], taille = (sombre ? 1.2 : 1.4) + pres * 2.3;
       if (traine > .08) {
         const q = etoile(E, i, trajet - retour);
         if (q.c === p.c) {

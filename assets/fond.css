@@ -9,7 +9,7 @@
 :root{
   --fond-papier: var(--bg, var(--paper, #15100b));
   /* bougie : étoiles crème ; --fond-or : les étoiles d'or (et leur lueur) ; --fond-fil : les rares rouges */
-  --fond-etoile: 183,168,136;
+  --fond-etoile: 214,199,166;
   --fond-etoile-a: 1;
   --fond-or: 216,173,76;
   --fond-or-a: .72;
@@ -27,7 +27,7 @@
 /* jour : des étoiles d'encre brune, sans lueur, un voyage plus lent */
 html[data-mode="jour"]{
   --fond-etoile: 96,78,52;
-  --fond-etoile-a: .8;
+  --fond-etoile-a: .95;
   --fond-or: 124,90,27;
   --fond-or-a: .62;
   --fond-eclat: 124,90,27;
@@ -42,7 +42,7 @@ html[data-mode="jour"]{
    sur le papier vergé */
 html[data-mode="edition"]{
   --fond-etoile: 40,32,22;
-  --fond-etoile-a: .7;
+  --fond-etoile-a: .85;
   --fond-or: 28,23,18;
   --fond-or-a: .34;
   --fond-eclat: 28,23,18;

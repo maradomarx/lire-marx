@@ -492,13 +492,16 @@ const PIED_FIN = '<!-- PIED:FIN -->';
    sortir comme d'ailleurs — le pied de page est d'abord une navigation.
    `404.html` en est EXCLUE, et c'est déjà écrit dans sa mission : elle est
    autonome, elle ne charge ni shell.js ni shell.css, et une page d'erreur ne
-   doit pas dépendre de ce qu'on n'a pas réussi à servir. */
+   doit pas dépendre de ce qu'on n'a pas réussi à servir.
+   La BIBLIOTHÈQUE en est exclue depuis oct. 2026, à la demande du
+   propriétaire : sa scène en trois dimensions se termine sur le rail des
+   rayons, et le pied de page venait s'y superposer. Elle garde le bloc
+   AFFICHAGE (voir AFF_PAGES). */
 const PIED_PAGES = [
   'index.html',
   'karl-marx.html',
   'a-propos.html',
   'mentions-legales.html',
-  'oeuvres/bibliotheque.html',
   'oeuvres/capital-1.html',
   'oeuvres/manuscrits-1844.html',
   'oeuvres/manifeste.html',
@@ -561,7 +564,7 @@ const AFFICHAGE = AFF_DEB + blocAffichage() + AFF_FIN;
    mais elles ont un mode — le lecteur qui a choisi le jour ne doit pas
    tomber dans le noir sur une erreur). `jeu/jouer.html` n'y est PAS : le jeu
    garde sa propre direction artistique. */
-const AFF_PAGES = [...PIED_PAGES, '404.html', 'hors-ligne.html'];
+const AFF_PAGES = [...PIED_PAGES, 'oeuvres/bibliotheque.html', '404.html', 'hors-ligne.html'];
 /* Dans une page tenue à la main : entre ses marqueurs s'ils existent, sinon
    posés une première fois juste avant </head>. */
 function avecAffichage(src, fichier) {

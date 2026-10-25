@@ -3164,6 +3164,19 @@ large), texte d'intro raccourci, et de la vie — objets, lore, animations.
 
 ### La feuille volante (mission `feuille-volante`, août 2026)
 
+> **RETIRÉE en octobre 2026, à la demande du propriétaire** (« pour que tout
+> soit cohérent et pas trop plein »), avec son verso de fin et le pied de page
+> de la bibliothèque. L'introduction n'est plus imprimée sur une feuille : c'est
+> un titre discret posé sur la scène en haut à gauche (même gauche et même halo
+> que le cartouche de travée — rubrique, titre, une phrase, « Préférer la
+> version liste »), qui s'efface au premier défilement. Plus de comptes ni de
+> légende, plus de « Revenir à l'entrée » : le rail des rayons reste visible
+> jusqu'au bout de l'allée et ramène à l'entrée. La croisée s'ouvre toujours à
+> l'arrivée. `PIED_PAGES` de gen-seo n'inclut plus la bibliothèque (elle reste
+> dans `AFF_PAGES`). Les deux sections qui suivent (la feuille volante, le texte
+> incrusté) décrivent un dispositif qui n'existe plus : ne pas le
+> réintroduire.
+
 À l'ouverture de la page, **le vantail de la fenêtre s'ouvre** (groupe
 `sash` à charnière gauche — le dormant reste fixe) et un courant d'air
 fait s'envoler une feuille qui vient **se figer devant la caméra** :
@@ -11569,7 +11582,9 @@ traversent l'écran. On voyage d'un pas lent tant qu'on lit, plus vite quand
 on descend, **à rebours quand on remonte** ; un défilement vif étire les
 étoiles en traînées qui rayonnent du centre. Huit pour cent d'étoiles d'or
 (qui luisent à la bougie), deux pour cent de rouges, le reste crème (bougie)
-ou encre brune (jour). En **édition**, rien ne bouge seul : c'est la lecture
+ou encre brune (jour). Éclairci le lendemain de sa mise en ligne (« on le
+voit pas assez ») : opacité .3 + .52 × proximité (plafond .88), taille 1,2 à
+3,5 px, crème #d6c7a6. En **édition**, rien ne bouge seul : c'est la lecture
 qui fait avancer le ciel, sans scintillement ni traînée.
 
 - **Le trajet est une FONCTION** (`t × V_TEMPS + défilement × V_DEFIL`),
