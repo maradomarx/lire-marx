@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Cartes — planche d'échantillons</title>
+<link rel="stylesheet" href="/oeuvres/fonts/fonts.css">
+<link rel="stylesheet" href="/cartes/carte.css">
+<style>
+  body { margin: 0; background: #15100b; color: #f3e9d4; font: 15px/1.5 Inter, sans-serif; padding: 28px; }
+  h1 { font: 900 30px/1.1 Fraunces, serif; margin: 0 0 4px; }
+  h2 { font: 600 12px/1 Inter, sans-serif; letter-spacing: .14em; text-transform: uppercase; color: #d8ad4c; margin: 34px 0 14px; }
+  p { color: #b7a888; margin: 0 0 8px; }
+  .rang { display: flex; flex-wrap: wrap; gap: 22px; }
+  .ct { cursor: pointer; }
+</style>
+</head>
+<body>
+<h1>Planche d'échantillons</h1>
+<p id="info">Chargement du catalogue…</p>
+<div id="planche"></div>
+<script src="/cartes/carte.js"></script>
+<script>
+(async function () {
+  const cat = await fetch('/cartes/catalogue.json').then(r => r.json());
+  const cs = cat.cartes;
+  document.getElementById('info').textContent = cat.n + ' cartes au catalogue. Cliquer une carte la retourne.';
+  const pl = document.getElementById('planche');
+  const prm = new URLSearchParams(location.search);
+  // ?ids=a,b,c : une planche choisie ; sinon une par époque × rang.
+  let groupes;
+  if (prm.get('ids')) {
+    // « id* » : le tirage de tête de la carte
+    groupes = [['Choix', prm.get('ids').split(',').map(id => { const c = cs.find(x => x.id === id.replace('*', ''));
+      return c && Object.assign({}, c, { _tete: id.endsWith('*') }); }).filter(Boolean)]];
+  } else {
+    groupes = Object.keys(Carte.EPOQUES).map(e => {
+      const de = cs.filter(c => c.e === e);
+      const pick = [];
+      for (let r = 4; r >= 0; r--) {
+        const avecImg = de.filter(c => c.r === r && c.i), sans = de.filter(c => c.r === r && !c.i);
+        if (avecImg[0]) pick.push(avecImg[Math.floor(avecImg.length / 3)]);
+        if (r === 1 && sans.length) pick.push(sans[0]);
+      }
+      return [e + ' — ' + Carte.EPOQUES[e] + ' (' + de.length + ')', pick];
+    });
+    for (const f of ['not', 'oeu', 'evt', 'org']) {
+      groupes.push([Carte.FAMILLES[f].pl, cs.filter(c => c.f === f).sort((a, b) => b.r - a.r).filter((c, i) => i % 7 === 0).slice(0, 6)]);
+    }
+  }
+  pl.innerHTML = groupes.map(([t, l]) => '<h2>' + t + '</h2><div class="rang">' + l.map(c => Carte.html(c, { verso: true, tete: !!c._tete })).join('') + '</div>').join('');
+  if (prm.get('verso')) prm.get('verso').split(',').forEach(id => { const el = pl.querySelector('[data-id="' + id + '"]'); if (el) el.classList.add('retournee'); });
+  pl.addEventListener('click', e => { const c = e.target.closest('.ct'); if (c && !e.target.closest('a')) c.classList.toggle('retournee'); });
+  pl.addEventListener('pointermove', e => {
+    const c = e.target.closest('.ct'); if (!c) return;
+    const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+    c.style.setProperty('--mx', (x * 100).toFixed(1) + '%'); c.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+    c.style.setProperty('--ry', ((x - .5) * 14).toFixed(2) + 'deg'); c.style.setProperty('--rx', ((.5 - y) * 12).toFixed(2) + 'deg');
+  });
+  pl.addEventListener('pointerout', e => { const c = e.target.closest('.ct'); if (c && !c.contains(e.relatedTarget)) { c.style.setProperty('--rx', '0deg'); c.style.setProperty('--ry', '0deg'); } });
+  window.__pret = true;
+})();
+</script>
+</body>
+</html>

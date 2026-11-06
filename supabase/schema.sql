@@ -215,3 +215,188 @@ do $$ begin
       using (voter_id = auth.uid())';
   end if;
 end $$;
+
+-- ═══════════════════════════════════════════════════════════════════
+-- Les cartes à collectionner (mission `cartes`, nov. 2026)
+--
+-- Le compte est OBLIGATOIRE et le tirage se fait ICI, jamais dans la page :
+-- la page ne choisit pas ses cartes et ne peut pas ouvrir un quatrième
+-- booster en changeant l'heure de l'appareil. Aucune policy d'écriture sur
+-- les trois tables du joueur : tout passe par les fonctions ci-dessous
+-- (security definer), qui ne touchent qu'aux lignes de auth.uid().
+--
+-- Le catalogue (6 000+ lignes) est rempli par supabase/cartes-catalogue.sql,
+-- que tools/cartes.mjs écrit à partir de cartes/catalogue.json : la base ne
+-- connaît que l'identifiant et le rang de chaque carte, le reste est servi
+-- par le site.
+-- ═══════════════════════════════════════════════════════════════════
+
+create table if not exists public.cartes_catalogue (
+  id    text     primary key,
+  r     smallint not null check (r between 0 and 4),
+  actif boolean  not null default true
+);
+create index if not exists cartes_catalogue_tirage on public.cartes_catalogue (r) where actif;
+
+create table if not exists public.cartes_collection (
+  user_id  uuid    not null default auth.uid() references auth.users(id) on delete cascade,
+  carte    text    not null references public.cartes_catalogue(id),
+  n        integer not null default 1 check (n > 0),
+  premiere bigint  not null,
+  primary key (user_id, carte)
+);
+-- Le tirage de tête (le « shiny ») : une carte sur cinquante sort sur papier
+-- Japon nacré. On compte ces exemplaires à part.
+alter table public.cartes_collection add column if not exists tetes integer not null default 0 check (tetes >= 0);
+
+create table if not exists public.cartes_jours (
+  user_id uuid     not null default auth.uid() references auth.users(id) on delete cascade,
+  jour    date     not null,
+  ouverts smallint not null default 0,
+  bonus   smallint not null default 0,
+  primary key (user_id, jour)
+);
+
+create table if not exists public.cartes_missions (
+  user_id uuid   not null default auth.uid() references auth.users(id) on delete cascade,
+  mission text   not null,
+  jour    date   not null,
+  created bigint not null,
+  primary key (user_id, mission, jour)
+);
+
+alter table public.cartes_catalogue  enable row level security;
+alter table public.cartes_collection enable row level security;
+alter table public.cartes_jours      enable row level security;
+alter table public.cartes_missions   enable row level security;
+
+do $$ begin
+  if not exists (select 1 from pg_policies where schemaname = 'public'
+    and tablename = 'cartes_catalogue' and policyname = 'cc_select_all') then
+    execute 'create policy cc_select_all on public.cartes_catalogue for select using (true)';
+  end if;
+  if not exists (select 1 from pg_policies where schemaname = 'public'
+    and tablename = 'cartes_collection' and policyname = 'ccol_select_own') then
+    execute 'create policy ccol_select_own on public.cartes_collection for select using (user_id = auth.uid())';
+  end if;
+  if not exists (select 1 from pg_policies where schemaname = 'public'
+    and tablename = 'cartes_jours' and policyname = 'cj_select_own') then
+    execute 'create policy cj_select_own on public.cartes_jours for select using (user_id = auth.uid())';
+  end if;
+  if not exists (select 1 from pg_policies where schemaname = 'public'
+    and tablename = 'cartes_missions' and policyname = 'cm_select_own') then
+    execute 'create policy cm_select_own on public.cartes_missions for select using (user_id = auth.uid())';
+  end if;
+end $$;
+
+-- Le jour du jeu est celui de Paris : les boosters reviennent à minuit, heure
+-- française, pour tout le monde.
+create or replace function public.cartes_jour() returns date
+  language sql stable as $$ select (now() at time zone 'Europe/Paris')::date $$;
+
+-- Trois boosters par jour, et au plus trois de plus par les missions.
+create or replace function public.cartes_etat() returns json
+  language plpgsql security definer set search_path = public as $$
+declare
+  u uuid := auth.uid();
+  o smallint := 0; b smallint := 0;
+begin
+  if u is null then raise exception 'connexion requise' using errcode = '28000'; end if;
+  select ouverts, bonus into o, b from cartes_jours where user_id = u and jour = cartes_jour();
+  return json_build_object(
+    'jour', cartes_jour(), 'parJour', 3, 'ouverts', coalesce(o, 0), 'bonus', coalesce(b, 0),
+    'restants', greatest(0, 3 + coalesce(b, 0) - coalesce(o, 0)),
+    'missions', (select coalesce(json_agg(mission), '[]'::json) from cartes_missions
+                 where user_id = u and jour = cartes_jour()),
+    'possedees', (select count(*) from cartes_collection where user_id = u));
+end $$;
+
+-- Ouvrir un booster : cinq cartes. Les quatre premières : tract 60 %,
+-- brochure 26 %, reliure 10 %, originale 3,5 %, manuscrit 0,5 % ; la
+-- cinquième est au moins une brochure (manuscrit 1,5 %, originale 6,5 %,
+-- reliure 22 %). Chacune, quel que soit son rang, a une chance sur cinquante
+-- de sortir en tirage de tête : environ un tous les trois jours.
+create or replace function public.cartes_ouvrir() returns json
+  language plpgsql security definer set search_path = public as $$
+declare
+  u uuid := auth.uid();
+  jr date := cartes_jour();
+  lig cartes_jours;
+  tirage text[] := '{}';
+  brill boolean[] := '{}';   -- pas « tetes » : ce serait le nom d'une colonne
+  rang int; x float8; c text; i int;
+  res json;
+begin
+  if u is null then raise exception 'connexion requise' using errcode = '28000'; end if;
+  insert into cartes_jours (user_id, jour) values (u, jr) on conflict do nothing;
+  select * into lig from cartes_jours where user_id = u and jour = jr for update;
+  if lig.ouverts >= 3 + lig.bonus then
+    raise exception 'plus de booster aujourd''hui' using errcode = 'P0001';
+  end if;
+  for i in 1..5 loop
+    x := random() * 100;
+    if i < 5 then
+      rang := case when x < 0.5 then 4 when x < 4 then 3 when x < 14 then 2 when x < 40 then 1 else 0 end;
+    else
+      rang := case when x < 1.5 then 4 when x < 8 then 3 when x < 30 then 2 else 1 end;
+    end if;
+    select id into c from cartes_catalogue where actif and r = rang order by random() limit 1;
+    if c is null then
+      select id into c from cartes_catalogue where actif order by random() limit 1;
+    end if;
+    tirage := tirage || c;
+    brill := brill || (random() < 0.02);
+  end loop;
+
+  -- « nouvelle » : absente de la collection avant ce booster, et seulement à
+  -- sa première apparition dans le booster.
+  select json_agg(json_build_object('id', t.id, 'tete', t.tete,
+           'nouvelle', cc.carte is null and t.k = 1,
+           'nouvelleTete', t.tete and coalesce(cc.tetes, 0) = 0 and t.kt = 1) order by t.o)
+    into res
+    from (select id, tete, o,
+                 row_number() over (partition by id order by o) as k,
+                 row_number() over (partition by id, tete order by o) as kt
+          from unnest(tirage, brill) with ordinality as z(id, tete, o)) t
+    left join cartes_collection cc on cc.user_id = u and cc.carte = t.id;
+
+  insert into cartes_collection (user_id, carte, n, tetes, premiere)
+    select u, id, count(*), count(*) filter (where tete), (extract(epoch from now()) * 1000)::bigint
+      from unnest(tirage, brill) as z(id, tete) group by id
+    on conflict (user_id, carte) do update
+      set n = cartes_collection.n + excluded.n, tetes = cartes_collection.tetes + excluded.tetes;
+
+  update cartes_jours set ouverts = ouverts + 1 where user_id = u and jour = jr;
+  return json_build_object('cartes', res, 'restants', 3 + lig.bonus - lig.ouverts - 1);
+end $$;
+
+-- Une mission accomplie rapporte un booster, une fois par jour et par mission,
+-- trois au plus par jour. La page déclare la mission (elle est seule à savoir
+-- qu'on a fini un chapitre) : la borne de trois est ce qui la rend sans enjeu.
+create or replace function public.cartes_mission(m text) returns json
+  language plpgsql security definer set search_path = public as $$
+declare
+  u uuid := auth.uid();
+  jr date := cartes_jour();
+  n int;
+begin
+  if u is null then raise exception 'connexion requise' using errcode = '28000'; end if;
+  if m not in ('lecture', 'notion', 'annotation', 'questions', 'circuit', 'forum', 'commentaire') then
+    raise exception 'mission inconnue' using errcode = '22023';
+  end if;
+  insert into cartes_missions (user_id, mission, jour, created)
+    values (u, m, jr, (extract(epoch from now()) * 1000)::bigint) on conflict do nothing;
+  get diagnostics n = row_count;
+  if n > 0 then
+    insert into cartes_jours (user_id, jour, bonus) values (u, jr, 1)
+      on conflict (user_id, jour) do update set bonus = least(3, cartes_jours.bonus + 1);
+  end if;
+  return cartes_etat();
+end $$;
+
+revoke all on function public.cartes_etat()        from public, anon;
+revoke all on function public.cartes_ouvrir()      from public, anon;
+revoke all on function public.cartes_mission(text) from public, anon;
+grant execute on function public.cartes_etat()        to authenticated;
+grant execute on function public.cartes_ouvrir()      to authenticated;
+grant execute on function public.cartes_mission(text) to authenticated;
