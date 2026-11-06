@@ -294,18 +294,38 @@ end $$;
 create or replace function public.cartes_jour() returns date
   language sql stable as $$ select (now() at time zone 'Europe/Paris')::date $$;
 
--- Trois boosters par jour, et au plus trois de plus par les missions.
+-- LA RÉSERVE : des boosters qui ne périment pas (cadeaux, lancement,
+-- compensation). Les boosters du jour s'ouvrent d'abord — ils expirent à
+-- minuit —, la réserve ensuite. Créditée à la main, par SQL :
+--   insert into cartes_reserve (user_id, boosters) values (…, 50)
+--     on conflict (user_id) do update set boosters = cartes_reserve.boosters + 50;
+create table if not exists public.cartes_reserve (
+  user_id  uuid    primary key references auth.users(id) on delete cascade,
+  boosters integer not null default 0 check (boosters >= 0),
+  maj      bigint
+);
+alter table public.cartes_reserve enable row level security;
+do $$ begin
+  if not exists (select 1 from pg_policies where schemaname = 'public'
+    and tablename = 'cartes_reserve' and policyname = 'cr_select_own') then
+    execute 'create policy cr_select_own on public.cartes_reserve for select using (user_id = auth.uid())';
+  end if;
+end $$;
+
+-- Trois boosters par jour, au plus trois de plus par les missions, et la réserve.
 create or replace function public.cartes_etat() returns json
   language plpgsql security definer set search_path = public as $$
 declare
   u uuid := auth.uid();
-  o smallint := 0; b smallint := 0;
+  o smallint := 0; b smallint := 0; res int := 0;
 begin
   if u is null then raise exception 'connexion requise' using errcode = '28000'; end if;
   select ouverts, bonus into o, b from cartes_jours where user_id = u and jour = cartes_jour();
+  select boosters into res from cartes_reserve where user_id = u;
   return json_build_object(
     'jour', cartes_jour(), 'parJour', 3, 'ouverts', coalesce(o, 0), 'bonus', coalesce(b, 0),
-    'restants', greatest(0, 3 + coalesce(b, 0) - coalesce(o, 0)),
+    'reserve', coalesce(res, 0),
+    'restants', greatest(0, 3 + coalesce(b, 0) - coalesce(o, 0)) + coalesce(res, 0),
     'missions', (select coalesce(json_agg(mission), '[]'::json) from cartes_missions
                  where user_id = u and jour = cartes_jour()),
     'possedees', (select count(*) from cartes_collection where user_id = u));
@@ -322,15 +342,20 @@ declare
   u uuid := auth.uid();
   jr date := cartes_jour();
   lig cartes_jours;
+  res int := 0;
+  du_jour boolean;
   tirage text[] := '{}';
   brill boolean[] := '{}';   -- pas « tetes » : ce serait le nom d'une colonne
   rang int; x float8; c text; i int;
-  res json;
+  out_json json;
 begin
   if u is null then raise exception 'connexion requise' using errcode = '28000'; end if;
   insert into cartes_jours (user_id, jour) values (u, jr) on conflict do nothing;
   select * into lig from cartes_jours where user_id = u and jour = jr for update;
-  if lig.ouverts >= 3 + lig.bonus then
+  select boosters into res from cartes_reserve where user_id = u for update;
+  res := coalesce(res, 0);
+  du_jour := lig.ouverts < 3 + lig.bonus;
+  if not du_jour and res <= 0 then
     raise exception 'plus de booster aujourd''hui' using errcode = 'P0001';
   end if;
   for i in 1..5 loop
@@ -353,7 +378,7 @@ begin
   select json_agg(json_build_object('id', t.id, 'tete', t.tete,
            'nouvelle', cc.carte is null and t.k = 1,
            'nouvelleTete', t.tete and coalesce(cc.tetes, 0) = 0 and t.kt = 1) order by t.o)
-    into res
+    into out_json
     from (select id, tete, o,
                  row_number() over (partition by id order by o) as k,
                  row_number() over (partition by id, tete order by o) as kt
@@ -366,8 +391,15 @@ begin
     on conflict (user_id, carte) do update
       set n = cartes_collection.n + excluded.n, tetes = cartes_collection.tetes + excluded.tetes;
 
-  update cartes_jours set ouverts = ouverts + 1 where user_id = u and jour = jr;
-  return json_build_object('cartes', res, 'restants', 3 + lig.bonus - lig.ouverts - 1);
+  if du_jour then
+    update cartes_jours set ouverts = ouverts + 1 where user_id = u and jour = jr;
+    return json_build_object('cartes', out_json, 'reserve', res,
+      'restants', 3 + lig.bonus - lig.ouverts - 1 + res);
+  else
+    update cartes_reserve set boosters = boosters - 1,
+      maj = (extract(epoch from now()) * 1000)::bigint where user_id = u;
+    return json_build_object('cartes', out_json, 'reserve', res - 1, 'restants', res - 1);
+  end if;
 end $$;
 
 -- Une mission accomplie rapporte un booster, une fois par jour et par mission,

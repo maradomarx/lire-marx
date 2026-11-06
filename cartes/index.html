@@ -481,9 +481,11 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     }
     if (!etat) { msg.textContent = 'Chargement…'; return; }
     var r = etat.restants;
-    n.innerHTML = r + '<small>' + (r > 1 ? 'boosters à ouvrir' : r === 1 ? 'booster à ouvrir' : 'booster à ouvrir') + ' aujourd\'hui</small>';
+    n.innerHTML = r + '<small>' + (r > 1 ? 'boosters à ouvrir' : 'booster à ouvrir') + (etat.reserve ? '' : ' aujourd\'hui') + '</small>';
+    var res = etat.reserve || 0;
     msg.innerHTML = r > 0
-      ? 'Cinq cartes par booster. La cinquième est au moins une <b>brochure</b>, et chacune a une chance sur cinquante de sortir en <b>tirage de tête</b>.'
+      ? (res ? 'Dont <b>' + res + ' en réserve</b> : ils ne périment pas, les boosters du jour s\'ouvrent d\'abord. ' : '') +
+        'Cinq cartes par booster. La cinquième est au moins une <b>brochure</b>, et chacune a une chance sur cinquante de sortir en <b>tirage de tête</b>.'
       : 'Vous avez ouvert vos boosters du jour. Les missions en rapportent jusqu\'à trois de plus ; sinon, ils reviennent à minuit.';
     acts.innerHTML = '<button class="btn-p" type="button" id="cptOuvrir"' + (r > 0 ? '' : ' disabled') + '>Ouvrir un booster</button>';
     $('cptOuvrir').onclick = ouvrirBooster;
