@@ -11801,23 +11801,77 @@ l'imprimé : **tract, brochure (agrafes), édition reliée (filet d'or),
 édition originale (fers dorés aux angles), manuscrit**. Une graine tirée de
 l'identifiant fait varier rosace, angles, encre.
 
-- **Le manuscrit est le seul animé** : feuille d'or qui tourne
-  (`@property --ct-ang`), lumière qui passe, aura, éclats, nom à la feuille
-  d'or, sceau de cire. **Le tirage de tête** (le shiny, une carte sur
-  cinquante) : nacre irisée qui dérive, filet arc-en-ciel, étoile, pastille.
-  Tout est coupé sous reduced-motion.
-- **La dorure du nom reste dans des tons foncés** : un reflet clair effaçait
-  les lettres sur papier crème (« KARL M RX »).
+- **La couleur ne dit que la rareté et le tirage de tête** (refonte du
+  7 nov. 2026, voir plus bas). **Seuls l'originale, le manuscrit et le tirage
+  de tête s'animent**, tout est coupé sous reduced-motion.
+- **Un nom ne se dore pas par un reflet clair** : sur papier crème, il
+  effaçait les lettres qu'il traversait (« KARL M RX »). Sur la feuille d'or
+  du manuscrit, le nom est à l'encre brune.
 - **`backface-visibility` ne tient pas dans Chrome** dès qu'une face contient
   un mode de fusion : chaque face se masque par `visibility` à mi-rotation.
 - **Une carte se protège de la page qui l'accueille** (`.ct p{color:inherit}`) :
   le `p{color}` d'une page passait sur les sous-titres.
-- **Le dos est commun à toutes** et passe devant le fond d'époque
-  (spécificité 0,3,0) : un dos rouge trahissait l'époque avant le retournement.
+- **Le dos est commun à toutes** et passe devant le papier d'un rang
+  (spécificité 0,3,0) : il ne doit rien trahir avant le retournement.
 - **Le poids compte** : la rosace est à 84 points par tour et la trame
   sérigraphique est un `<pattern>` (47 → 12 Ko et 25 → 1,5 Ko par carte).
 - `cartes/echantillons.html` (noindex) : la planche de design.
   `?ids=a,b*` (l'étoile = tirage de tête), `&verso=id`.
+
+### Le code couleur (mission `cartes-couleurs`, 7 nov. 2026)
+
+Retour du propriétaire : « du rouge pour je ne sais plus quoi, du blanc pour
+autre chose » ; une commune rouge passait pour une rare, une commune noire
+pour un tirage de tête, et la large bordure dorée des manuscrits ne lui
+plaisait pas. Trois planches soumises, trois arbitrages : communes sobres,
+**tirage de tête en cyanotype**, **manuscrit en feuille d'or**.
+
+- **Toutes les cartes sont tirées sur le même papier, à la même encre.**
+  L'époque se dit par la FORME et le caractère : médaillon ovale et
+  taille-douce (gravure), image en cartouche aux angles coupés et guilloché
+  (internationale), diagonale et barre (constructivisme), fenêtre cintrée et
+  soleil (affiche), trame de points et pochoir incliné (sérigraphie), filets
+  et réseau (contemporain). Les motifs sont tirés en `currentColor`, ton sur
+  ton, l'opacité réglée par époque. **Les photographies sont toutes en noir
+  et blanc.** Plus de fond rouge (affiche), de bandeau noir
+  (constructivisme), d'encres de couleur (sérigraphie) : **ne pas les
+  réintroduire** — ni aucune couleur qui ne dise pas la rareté.
+- **Le rang monte par la matière** : le tract est un papier journal gris, la
+  brochure a ses agrafes, **l'or n'apparaît qu'à la reliure** (filet fin),
+  l'originale a un filet plus large qui chatoie, ses fers et sa lueur.
+- **Le manuscrit est une feuille d'or entière** : fond doré qui chatoie,
+  encre brune, la page de *L'Idéologie allemande* en filigrane
+  (`.ct-filigrane`, `manuscrit-ideologie-1846.webp`), double filet sombre
+  qu'une lumière parcourt (`.ct-ecrin`), fers, éclats, sceau. **Pas de
+  bordure latérale** (rejetée), ni de reliure de cuir sombre (essayée sur la
+  planche : c'était encore une bordure). Aucune autre carte n'a de fond doré.
+- **Le tirage de tête est le seul BLEU du jeu** : l'image vire au bleu de
+  Prusse (`.ct-tirage`, deux calques fondus dans la photographie : `screen`
+  bleu, `multiply` bleu pâle), sa teinte glisse, **l'image respire** (lent
+  zoom et glissement, et suit la main par `--mx`/`--my`), un filet d'argent
+  bleuté tourne autour (`.ct-argent`), une lumière froide traverse
+  (`.ct-nacre`). Sans image, l'emblème est tiré au bleu. Il se combine avec
+  tout, manuscrit compris (le bleu sur l'or). Écartés : la rubrique
+  vermillon (le rouge redevenait un signal ambigu) et le prisme
+  arc-en-ciel. **Ne plus utiliser de nacre rose et bleu.**
+- ⚠️ `.ct-tirage` n'a **pas** de `z-index` : il ferait écran, et ses
+  calques ne verraient plus la photographie. Ce sont ses pseudo-éléments qui
+  portent le `z-index`.
+- ⚠️ L'image d'un manuscrit garde `overflow:hidden` (le tirage de tête la
+  fait respirer) : l'aura des rares vit donc sur `.ct-cadre::before`.
+- La pastille « Tirage de tête » se pose au bas de l'image, au haut sur le
+  constructivisme (la diagonale la coupait).
+
+**Le paquet** (`cartes/index.html`, `.paquet` > `.pq-corps`) n'est plus une
+liasse de kraft : c'est un sachet métallisé, serti en dents de scie en haut et
+en bas (masque `conic-gradient`), le portrait de Marx tramé (masque de points
+de `.17em` : plus gros, on ne le reconnaît plus), le filet et la pastille
+« 5 cartes » au rouge de la maison, un reflet qui glisse. Le paquet n'est pas
+une carte : le rouge y est permis, l'or et le bleu restent aux rangs et au
+tirage de tête. ⚠️ Le masque coupe une ombre portée : l'ombre est un `filter`
+sur `.paquet`, le masque sur `.pq-corps`. La bande à arracher (`.bst-bande`)
+reprend le sertissage. Dans l'ouverture, les signaux du tirage de tête
+(lueur du dos, éclair, badge) sont passés au bleu.
 
 ### Le serveur (Supabase, appliqué le 6 nov. 2026)
 

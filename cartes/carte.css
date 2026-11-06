@@ -158,8 +158,9 @@
 .ct--e-internationale .ct-top { padding-left: .3em; padding-right: .3em; }
 
 /* --- constructivisme (1917-1939) : la diagonale, le disque, la grotesque */
-.ct--e-constructivisme .ct-cadre { inset: 0; padding: 1em; }
-.ct--e-constructivisme .ct-top { border-bottom: .3em solid var(--encre-t); margin: -1em -1em .8em; padding: .9em 1em .55em; }
+.ct--e-constructivisme .ct-cadre { inset: .4em; padding: .75em; }
+.ct--r2.ct--e-constructivisme .ct-cadre, .ct--r3.ct--e-constructivisme .ct-cadre { inset: .8em; }
+.ct--e-constructivisme .ct-top { border-bottom: .3em solid var(--encre-t); margin: -.75em -.75em .8em; padding: .7em .75em .55em; }
 .ct--e-constructivisme .ct-art:not(.ct-art--em) { clip-path: polygon(0 0, 100% 0, 100% 84%, 0 100%); height: 16.4em; }
 .ct--e-constructivisme .ct-img { filter: grayscale(1) contrast(1.4) brightness(1.04); }
 .ct--e-constructivisme .ct-nom { font-family: 'Bricolage Grotesque', Inter, sans-serif; font-weight: 800; text-transform: uppercase; letter-spacing: -.01em; transform: rotate(-3deg); transform-origin: left; }
@@ -285,7 +286,7 @@
   filter: drop-shadow(0 0 .25em #ffe9a6);
   animation: ct-tourne 5s linear infinite; }
 .ct--r4 .ct-cadre { inset: 1.35em; }
-.ct--r4.ct--e-constructivisme .ct-cadre { inset: 1.1em; padding: 0; }
+.ct--r4.ct--e-constructivisme .ct-cadre { inset: 1.35em; padding: 0; }
 .ct--r4.ct--e-constructivisme .ct-top { margin: 0 0 .8em; padding: .2em .1em .55em; }
 .ct--r4 .ct-fers { inset: 1em; }
 .ct--r4 .ct-fers i { width: 2.4em; height: 2.4em; filter: brightness(.45) drop-shadow(0 .05em 0 rgba(255, 240, 190, .6)); }
@@ -417,12 +418,6 @@
   background: radial-gradient(circle, #21180f 60%, transparent 61%); }
 .ct-dos-l { font: 600 1.1em/1 Inter, sans-serif; letter-spacing: .32em; text-transform: uppercase; color: #e8c66a; padding-left: .32em; }
 .ct-dos-s { font: italic 500 1.15em/1 Fraunces, Georgia, serif; color: #b7a888; }
-
-/* Le pressentiment du booster (cartes/index.html) : un dos qui luit de bleu
-   annonce le tirage de tête. Écrit ici pour que la couleur du tirage de tête
-   n'ait qu'un seul endroit ; (0,4,0) passe devant la règle de la page. */
-.bst-c.tete .ct .ct-dos { box-shadow: 0 0 0 3px rgba(207, 224, 246, .9), 0 0 46px rgba(80, 140, 230, .65); }
-.bst-c.vue .ct .ct-dos { box-shadow: none; }
 
 /* une carte qu'on n'a pas encore : sa silhouette dans l'album */
 .ct--manque .ct-face { filter: grayscale(1) brightness(.35) contrast(.8); }
