@@ -10,3 +10,7 @@
 # garde à travers la redirection) doivent continuer de mener au forum.
 /oeuvres/place-publique /oeuvres/forum 301
 /oeuvres/place-publique.html /oeuvres/forum 301
+
+# Marx TCG : des adresses courtes pour les affiches, les réseaux et les vidéos.
+/marx-tcg   /cartes/   301
+/tcg        /cartes/   301

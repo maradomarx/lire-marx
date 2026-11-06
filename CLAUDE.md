@@ -11857,7 +11857,7 @@ requête de tirage sur des données fictives, les droits et la RLS.
   (`&force=4` force la cinquième carte, `&tetes` multiplie les tirages de
   tête). N'existe pas en ligne.
 - Entrée de barre latérale « Les cartes » (éventail qui s'ouvre), sous « Le
-  jeu ». `shell.js?v=25`, `shell.css?v=16`, `shell-annotations.js?v=5`,
+  jeu ». `shell.js?v=26`, `shell.css?v=16`, `shell-annotations.js?v=5`,
   `shell-progress.js?v=2`.
 
 ### La suite, le même jour : missions complètes et intégration au site

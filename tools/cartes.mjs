@@ -618,6 +618,7 @@ async function build() {
   // CONTENU du fichier (règle du projet : un actif qui change avec un
   // balisage change d'URL) — sans geste à la main.
   accueil(sortie, main);
+  pageTCG(sortie);
   versionner();
   const cpt = k => sortie.filter(c => c.f === k).length;
   const ci = sortie.filter(c => c.i).length;
@@ -648,6 +649,72 @@ function accueil(sortie, main) {
   fs.writeFileSync(f, src);
 }
 
+// /cartes/ — Marx TCG : ce qu'un moteur lit. Tout ce qui est chiffré est
+// dérivé du catalogue ; le FAQPage est dérivé des <details> de la page (le
+// balisage est la source, comme pour la FAQ de l'accueil).
+// Les taux sont ceux de cartes_ouvrir (supabase/schema.sql) : les quatre
+// premières cartes, puis la cinquième, qui est au moins une brochure.
+const TAUX4 = [60, 26, 10, 3.5, 0.5], TAUX5 = [0, 70, 22, 6.5, 1.5];
+function pageTCG(sortie) {
+  const f = path.join(ROOT, 'cartes/index.html');
+  let src = fs.readFileSync(f, 'utf8');
+  const tous = (nom, contenu) => {
+    const deb = `<!-- ${nom}:DÉBUT`, fin = `<!-- ${nom}:FIN -->`;
+    let i = src.indexOf(deb), n = 0;
+    while (i >= 0) {
+      const fd = src.indexOf('-->', i) + 3, j = src.indexOf(fin, fd);
+      if (j < 0) throw new Error('marqueur de fin ' + nom + ' absent');
+      src = src.slice(0, fd) + contenu + src.slice(j);
+      i = src.indexOf(deb, fd + contenu.length + fin.length); n++;
+    }
+    if (!n) throw new Error('marqueurs ' + nom + ' absents de cartes/index.html');
+  };
+  const nf = n => new Intl.NumberFormat('fr-FR').format(n).replace(/\s/g, '&#8239;');
+  const pc = x => (Math.round(x * 10) / 10).toLocaleString('fr-FR') + '&nbsp;%';
+  const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  const NOMS = ['Tract', 'Brochure', 'Édition reliée', 'Édition originale', 'Manuscrit'];
+  const DIT = ['un papier pauvre, très grainé', 'deux agrafes sur la tranche', 'un filet d’or', 'des fers dorés aux angles', 'animé : feuille d’or, lumière, éclats, sceau de cire'];
+  tous('MARX-TCG:N', nf(sortie.length));
+  const man = sortie.filter(c => c.r === 4);
+  tous('MARX-TCG:NM', String(man.length));
+  let t = '\n<table class="rangs"><thead><tr><th>Rang</th><th>Ce qui le distingue</th><th>Cartes</th><th>Chance par carte</th></tr></thead><tbody>\n';
+  for (let r = 4; r >= 0; r--)
+    t += `<tr><td>${NOMS[r]}</td><td>${DIT[r]}</td><td>${nf(sortie.filter(c => c.r === r).length)}</td><td>${pc((4 * TAUX4[r] + TAUX5[r]) / 5)}</td></tr>\n`;
+  t += '<tr><td>Tirage de tête</td><td>la version brillante, sur papier nacré, de n’importe quelle carte</td><td>' + nf(sortie.length) + '</td><td>2&nbsp;%</td></tr>\n</tbody></table>\n';
+  tous('MARX-TCG:RANGS', t);
+  const FAM = { fig: 'Figures', oeu: 'Œuvres', evt: 'Événements', org: 'Organisations', not: 'Notions' };
+  let m = '\n<div class="manu">\n';
+  for (const k of Object.keys(FAM)) {
+    const l = man.filter(c => c.f === k).sort((a, b) => (a.a ?? 0) - (b.a ?? 0));
+    if (!l.length) continue;
+    m += `<h3>${FAM[k]}</h3><ul>\n` + l.map(c => {
+      const nom = c.href ? `<a href="${esc(c.href)}">${esc(c.n)}</a>` : esc(c.n);
+      const an = c.f === 'fig' ? [c.a, c.b].filter(Boolean).join('–') : (c.a || '');
+      return `<li>${nom}${an ? `<span>${an}</span>` : ''}</li>`;
+    }).join('\n') + '\n</ul>\n';
+  }
+  tous('MARX-TCG:MANUSCRITS', m + '</div>\n');
+  // Le FAQPage, tiré des <details> de la section #questions.
+  const sec = src.slice(src.indexOf('id="questions"'));
+  const qr = [...sec.matchAll(/<details[^>]*><summary>([\s\S]*?)<\/summary><div class="faq-r">([\s\S]*?)<\/div><\/details>/g)];
+  if (qr.length < 3) throw new Error('FAQ de /cartes/ introuvable');
+  const txt = h => h.replace(/<!--[\s\S]*?-->/g, '').replace(/<[^>]+>/g, '').replace(/&nbsp;|&#8239;/g, ' ').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
+  const ld = [
+    { '@context': 'https://schema.org', '@type': 'Game', name: 'Marx TCG', alternateName: 'Les cartes à collectionner de Lire Marx',
+      url: 'https://liremarx.com/cartes/', inLanguage: 'fr', isAccessibleForFree: true, genre: 'Jeu de cartes à collectionner',
+      image: 'https://liremarx.com/assets/img/cartes/marx-tcg-og.jpg',
+      description: `Jeu de cartes à collectionner gratuit sur Marx et le mouvement ouvrier : ${sortie.length} cartes (figures, œuvres, organisations, événements, notions), trois boosters par jour.`,
+      publisher: { '@id': 'https://liremarx.com/#organisation' } },
+    { '@context': 'https://schema.org', '@type': 'FAQPage',
+      mainEntity: qr.map(([, q, r]) => ({ '@type': 'Question', name: txt(q), acceptedAnswer: { '@type': 'Answer', text: txt(r) } })) },
+    { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Lire Marx', item: 'https://liremarx.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Marx TCG', item: 'https://liremarx.com/cartes/' }] },
+  ];
+  tous('MARX-TCG:LD', '\n' + ld.map(o => '<script type="application/ld+json">' + JSON.stringify(o).replace(/</g, '\\u003c') + '</script>').join('\n') + '\n');
+  fs.writeFileSync(f, src);
+}
+
 function versionner() {
   const h = f => createHash('sha1').update(fs.readFileSync(path.join(ROOT, f))).digest('hex').slice(0, 8);
   const v = { 'catalogue.json': h('cartes/catalogue.json'), 'carte.js': h('cartes/carte.js'), 'carte.css': h('cartes/carte.css') };
@@ -661,5 +728,6 @@ function versionner() {
 }
 
 if (cmd === 'versions') versionner();
+if (cmd === 'page') { pageTCG(JSON.parse(fs.readFileSync(path.join(OUTDIR, 'catalogue.json'), 'utf8')).cartes); versionner(); }
 if (cmd === 'fetch' || cmd === 'tout') await fetchTout();
 if (cmd === 'build' || cmd === 'images' || cmd === 'tout') await build();
