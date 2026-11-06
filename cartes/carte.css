@@ -6,16 +6,16 @@
  * l'échelle, de la vignette d'album au plein écran du booster.
  *
  * LA RÈGLE DES COULEURS (refonte de novembre 2026) : la couleur et la lumière
- * ne disent QUE deux choses, la rareté et le tirage de tête.
+ * ne disent QUE deux choses, le rang et l'holographie.
  *   - Toutes les cartes sont imprimées sur le même papier, à la même encre.
  *     L'époque se dit par la typographie, la forme du cadre et de l'image, le
  *     motif (ton sur ton) et la trame de la photographie ; la famille par son
  *     emblème. Plus de fond rouge, plus de cadre noir, plus d'encres de couleur
  *     sur une carte banale : une commune ne doit jamais passer pour une rare.
- *   - Le rang monte par la MATIÈRE : papier journal, brochure agrafée, filet
- *     d'or, fers dorés, manuscrit.
- *   - Le tirage de tête est le seul BLEU du jeu : un cyanotype, tirage au bleu
- *     de Prusse, dont l'image respire et dont la teinte glisse.
+ *   - Le rang a son MÉTAL : papier nu, cuivre, argent, or ; le manuscrit est
+ *     noir, or et rouge, comme le paquet.
+ *   - L'holographique (une carte sur cinquante) est le seul ARC-EN-CIEL du
+ *     jeu : feuille irisée, paillettes, image qui bouge.
  */
 
 .ct {
@@ -166,7 +166,6 @@
 .ct--e-constructivisme .ct-nom { font-family: 'Bricolage Grotesque', Inter, sans-serif; font-weight: 800; text-transform: uppercase; letter-spacing: -.01em; transform: rotate(-3deg); transform-origin: left; }
 .ct--e-constructivisme .ct-sub { font-family: Inter, sans-serif; font-size: .98em; }
 .ct--e-constructivisme .ct-foot { border-top: .08em solid var(--encre-t); }
-.ct--e-constructivisme .ct-tete-l { bottom: auto; top: .6em; }
 
 /* --- affiche (1940-1967) : le soleil levant ton sur ton, la fenêtre cintrée */
 .ct--e-affiche .ct-cadre { border: .1em solid var(--filet); padding: .7em; inset: 1em; }
@@ -195,45 +194,45 @@
 .ct--e-contemporain .ct-foot { border-top: .08em solid var(--encre-t); }
 
 /* ============================================================ LES RANGS
- * Le rang se dit par la MATIÈRE, comme l'état d'un imprimé : le tract est un
- * papier journal, la brochure est agrafée, la reliure prend un filet d'or,
- * l'édition originale une tranche dorée et ses fers aux angles, et le
- * manuscrit est une feuille d'or entière. L'or n'apparaît qu'à partir de la
- * reliure ; seuls l'originale, le manuscrit et le tirage de tête s'animent. */
+ * Chaque rang a SON métal, et on le lit d'un coup d'œil sur le bord de la
+ * carte et dans les losanges du pied : le tract est un papier nu, la brochure
+ * prend un filet de cuivre, la reliure un filet d'argent, l'originale l'or
+ * (filet large qui chatoie, fers aux angles), et le manuscrit est une carte
+ * NOIRE, dorée et rubriquée de rouge — la livrée du paquet. Seuls l'originale,
+ * le manuscrit et l'holographique s'animent. */
 
 @property --ct-ang { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
 
-/* tract : le papier journal, plus gris, plus grainé, à peine d'ombre */
+/* le métal du rang : sombre, clair, moyen */
+.ct--r1 { --m1: #6b3a1c; --m2: #f2b98c; --m3: #b06a3c; }
+.ct--r2 { --m1: #5d636c; --m2: #f4f6f8; --m3: #9aa3ad; }
+.ct--r3 { --m1: #6e5216; --m2: #fbe7a6; --m3: #c9952a; }
+.ct--r1 .ct-recto::after, .ct--r2 .ct-recto::after, .ct--r3 .ct-recto::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 4;
+  padding: var(--mw, .2em);
+  background: linear-gradient(135deg, var(--m1), var(--m2) 22%, var(--m3) 40%, var(--m2) 60%, var(--m1) 82%, var(--m3)) 0 0 / 200% 200%;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+}
+.ct--r1 .ct-rang i, .ct--r2 .ct-rang i, .ct--r3 .ct-rang i { border-color: var(--m1); opacity: .55; }
+.ct--r1 .ct-rang i.on, .ct--r2 .ct-rang i.on, .ct--r3 .ct-rang i.on { background: linear-gradient(135deg, var(--m2), var(--m3) 45%, var(--m1)); opacity: 1; }
+
+/* tract : le papier nu, plus gris, plus grainé, à peine d'ombre */
 .ct--r0 .ct-face.ct-recto { --papier: #e3ded3; }
 .ct--r0 .ct-face::before { opacity: .36; }
 .ct--r0 .ct-face { box-shadow: 0 .5em 1.2em -.5em rgba(0, 0, 0, .5); }
 .ct--r0 .ct-img { opacity: .9; }
 
-/* brochure : un filet intérieur et deux agrafes */
-.ct--r1 .ct-recto { box-shadow: inset 0 0 0 .32em rgba(0, 0, 0, .1), 0 .8em 1.8em -.6em rgba(0, 0, 0, .55); }
-.ct--r1 .ct-recto::after {
-  content: ""; position: absolute; left: .32em; top: 30%; width: .26em; height: 40%; z-index: 4; pointer-events: none;
-  background: linear-gradient(#a7a39b, #e9e6df 40%, #8d8981) 0 0 / 100% 1.6em no-repeat,
-              linear-gradient(#a7a39b, #e9e6df 40%, #8d8981) 0 100% / 100% 1.6em no-repeat;
-  border-radius: .1em; filter: drop-shadow(.06em .06em .05em rgba(0, 0, 0, .4));
-}
-
-/* à partir de la reliure, le papier est plus beau, plus chaud */
+/* brochure : le cuivre, fin */
+.ct--r1 { --mw: .2em; }
+/* reliure : l'argent, plus large */
+.ct--r2 { --mw: .3em; }
+.ct--r2 .ct-recto { box-shadow: 0 0 0 .08em #3f444b, 0 .8em 1.8em -.6em rgba(0, 0, 0, .55); }
+/* originale : l'or, large, qui chatoie, des fers aux angles et une lueur */
+.ct--r3 { --mw: .44em; }
 .ct--r2 .ct-face.ct-recto, .ct--r3 .ct-face.ct-recto { --papier: #efe5cd; }
-.ct--r2 .ct-recto::after, .ct--r3 .ct-recto::after {
-  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 4;
-  padding: .2em;
-  background: linear-gradient(135deg, var(--or-3), var(--or-1) 22%, var(--or-2) 40%, var(--or-1) 60%, var(--or-3) 82%, var(--or-2)) 0 0 / 200% 200%;
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor; mask-composite: exclude;
-}
-.ct--r2 .ct-rang i.on, .ct--r3 .ct-rang i.on { background: linear-gradient(135deg, #f0d27a, #9a7420); border-color: #9a7420; }
-.ct--r2 .ct-rang i, .ct--r3 .ct-rang i { border-color: #9a7420; }
-
-/* édition originale : la tranche dorée, des fers aux angles, le filet qui
-   chatoie lentement, et la lumière qui suit la main */
-.ct--r3 .ct-recto::after { padding: .42em; animation: ct-chatoie 7s ease-in-out infinite; }
-.ct--r3 .ct-recto { box-shadow: 0 0 0 .1em #5d4512, 0 0 1.4em rgba(232, 186, 80, .28), 0 .9em 1.9em -.6em rgba(0, 0, 0, .6); }
+.ct--r3 .ct-recto::after { animation: ct-chatoie 7s ease-in-out infinite; }
+.ct--r3 .ct-recto { box-shadow: 0 0 0 .1em #5d4512, 0 0 1.6em rgba(232, 186, 80, .35), 0 .9em 1.9em -.6em rgba(0, 0, 0, .6); }
 .ct-fers { position: absolute; inset: .5em; z-index: 5; pointer-events: none; }
 .ct-fers i { position: absolute; width: 3.1em; height: 3.1em;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23f6e3a0'/%3E%3Cstop offset='.5' stop-color='%23b8902f'/%3E%3Cstop offset='1' stop-color='%23f2d98a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M2 2h14c-6 1.5-10 5.5-11.5 11.5L2 16z' fill='url(%23g)'/%3E%3Cpath d='M7 7c6 0 9 3 9 9-3-1-5-2.5-6.2-4.3C8.4 10.4 7.3 8.8 7 7z' fill='url(%23g)'/%3E%3Ccircle cx='19.5' cy='4.5' r='1.6' fill='url(%23g)'/%3E%3Ccircle cx='4.5' cy='19.5' r='1.6' fill='url(%23g)'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
@@ -250,36 +249,35 @@
 .ct--r3:hover .ct-foil { opacity: 1; }
 
 /* ---------------------------------------------------------------- MANUSCRIT
- * La FEUILLE D'OR. Plus de large bordure : c'est tout le feuillet qui est
- * doré, et son reflet chatoie lentement. L'encre devient brune, la page
- * manuscrite de 1846 transparaît dans l'or, un double filet sombre cerne la
- * carte et une lumière en fait le tour ; les fers aux angles, les éclats, le
- * sceau de cire. Aucune autre carte n'a de fond doré : c'est le sommet. */
-.ct--r4 { --or-1: #fff0b8; --or-2: #d4a73a; --or-3: #7a5612; }
-.ct--r4 .ct-face.ct-recto { --papier: #e3be66; --encre-t: #2a1904; --filet: rgba(42, 25, 4, .6); --art-fond: #3a2606;
-  background: linear-gradient(125deg, #a9781f, #e9c56a 22%, #fbe7a6 34%, #d3a640 50%, #f6dc8f 66%, #b8892c 82%, #e3bd5e) 0 0 / 260% 260%;
-  animation: ct-chatoie 9s ease-in-out infinite;
-  box-shadow: 0 0 0 .1em #4a3509, 0 0 2.4em rgba(232, 186, 80, .5), 0 1.2em 2.4em -.6em rgba(0, 0, 0, .7); }
-/* le filigrane : la page de L'Idéologie allemande, dans l'or */
+ * NOIR, OR ET ROUGE, la livrée du paquet : la nuit du sachet avec sa lueur
+ * rouge, la page manuscrite de 1846 en filigrane d'or, un double filet d'or
+ * qu'une lumière parcourt, un filet rouge intérieur, le nom à la feuille d'or
+ * (sur le noir, un reflet clair se lit), les fers, les éclats, le sceau. */
+.ct--r4 .ct-face.ct-recto { --papier: #15100b; --encre-t: #f3e9d4; --filet: rgba(216, 173, 76, .55); --art-fond: #0c0907;
+  background: radial-gradient(85% 55% at 62% 30%, #4a1810, transparent 74%), linear-gradient(172deg, #211a14, #0c0907);
+  box-shadow: 0 0 0 .1em #8a6116, 0 0 2.4em rgba(232, 186, 80, .45), 0 1.2em 2.4em -.6em rgba(0, 0, 0, .75); }
+.ct--r4 .ct-face.ct-recto::before { mix-blend-mode: screen; opacity: .06; }
+.ct--r4 .ct-motif { color: #d4a73a; }
+/* le filigrane : la page de L'Idéologie allemande, l'encre devenue or */
 .ct-filigrane { position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background: url("/assets/img/archive/manuscrit-ideologie-1846.webp") 50% 30% / cover;
-  filter: grayscale(1) sepia(.6) contrast(1.4); mix-blend-mode: multiply; opacity: .32;
+  filter: grayscale(1) invert(1) contrast(1.7) sepia(1) saturate(1.8) brightness(.9); mix-blend-mode: screen; opacity: .2;
   -webkit-mask-image: radial-gradient(120% 85% at 50% 45%, #000 40%, transparent 92%);
           mask-image: radial-gradient(120% 85% at 50% 45%, #000 40%, transparent 92%); }
-/* le double filet, sombre sur l'or */
+/* le double filet d'or */
 .ct--r4 .ct-recto::after {
   content: ""; position: absolute; inset: .45em; border-radius: .55em; pointer-events: none; z-index: 4;
-  border: .16em solid transparent;
-  background: linear-gradient(135deg, #3a2606, #7a5612 50%, #3a2606) border-box;
+  border: .18em solid transparent;
+  background: linear-gradient(135deg, #7a5612, #fff0b8 25%, #c9952a 45%, #fff6d2 60%, #9c6f1c 80%, #f6dc8a) border-box;
   -webkit-mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor; mask-composite: exclude;
 }
 .ct-ecrin { position: absolute; inset: 0; z-index: 5; pointer-events: none; border-radius: inherit; }
-/* le filet intérieur, plus fin */
-.ct-ecrin::before { content: ""; position: absolute; inset: .85em; border-radius: .3em;
-  border: .06em solid rgba(58, 38, 6, .55); }
-/* la lumière qui fait le tour : un éclat sur le filet, masqué au filet seul */
-.ct-ecrin::after { content: ""; position: absolute; inset: .45em; border-radius: .55em; padding: .16em;
+/* le filet rouge, à l'intérieur */
+.ct-ecrin::before { content: ""; position: absolute; inset: .88em; border-radius: .3em;
+  border: .08em solid #d5402f; box-shadow: 0 0 .4em rgba(213, 64, 47, .35); }
+/* la lumière qui fait le tour du filet d'or */
+.ct-ecrin::after { content: ""; position: absolute; inset: .45em; border-radius: .55em; padding: .18em;
   background: conic-gradient(from var(--ct-ang), transparent 0 78%, rgba(255, 252, 235, .2) 84%, #fffbe9 90%, rgba(255, 252, 235, .2) 95%, transparent 100%);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor; mask-composite: exclude;
@@ -287,24 +285,33 @@
   animation: ct-tourne 5s linear infinite; }
 .ct--r4 .ct-cadre { inset: 1.35em; }
 .ct--r4.ct--e-constructivisme .ct-cadre { inset: 1.35em; padding: 0; }
-.ct--r4.ct--e-constructivisme .ct-top { margin: 0 0 .8em; padding: .2em .1em .55em; }
+.ct--r4.ct--e-constructivisme .ct-top { margin: 0 0 .8em; padding: .2em .1em .55em; border-color: #c9952a; }
+.ct--r4.ct--e-constructivisme .ct-foot, .ct--r4.ct--e-contemporain .ct-foot, .ct--r4.ct--e-contemporain .ct-top { border-color: rgba(216, 173, 76, .6); }
 .ct--r4 .ct-fers { inset: 1em; }
-.ct--r4 .ct-fers i { width: 2.4em; height: 2.4em; filter: brightness(.45) drop-shadow(0 .05em 0 rgba(255, 240, 190, .6)); }
-/* l'image, sertie d'un filet brun, posée sur l'or */
-.ct--r4 .ct-art:not(.ct-art--em) { border: .14em solid #3a2606;
-  box-shadow: 0 0 0 .1em rgba(255, 240, 190, .6), 0 .4em 1em -.3em rgba(40, 25, 0, .6); }
+.ct--r4 .ct-fers i { width: 2.4em; height: 2.4em; }
+.ct--r4 .ct-top { color: #d8ad4c; }
+.ct--r4 .ct-foot { color: #e8d9b8; }
+/* l'image, sertie d'or, posée sur la nuit */
+.ct--r4 .ct-art:not(.ct-art--em) { border: .14em solid #c9952a;
+  box-shadow: 0 0 0 .08em #3a2606, 0 0 1.4em rgba(244, 204, 110, .3); }
 .ct--r4 .ct-art:not(.ct-art--em)::after { box-shadow: none; }
+.ct--r4.ct--e-gravure .ct-art:not(.ct-art--em)::after { mix-blend-mode: multiply; }
 .ct--r4 .ct-img, .ct--r4 .ct-em { position: relative; z-index: 1; }
-/* le nom, frappé à l'encre brune : sur l'or, c'est l'encre qui se lit */
-.ct--r4 .ct-nom { filter: drop-shadow(0 .04em 0 rgba(255, 246, 210, .75)); }
+/* le nom à la feuille d'or : sur le noir, le reflet se lit */
+.ct--r4 .ct-nom, .ct--r4 .ct-art--em .ct-em, .ct--r4 .ct-tp-t {
+  background: linear-gradient(100deg, #b8862a 0%, #e9c56a 25%, #fff3c6 48%, #f6dc8a 55%, #c9952a 75%, #b8862a 100%) 0 0 / 250% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 .05em 0 rgba(0, 0, 0, .6));
+  animation: ct-dorure 6s ease-in-out infinite; }
+.ct--r4 .ct-em-de, .ct--r4 .ct-tp-au, .ct--r4 .ct-tp-an { color: #d8ad4c; }
 .ct--r4.ct--e-serigraphie .ct-nom, .ct--r4.ct--e-constructivisme .ct-nom { transform: none; }
 /* la lumière qui traverse la carte, une fois toutes les huit secondes */
 .ct--r4 .ct-foil { position: absolute; inset: 0; z-index: 6; pointer-events: none; border-radius: inherit; overflow: hidden; }
 .ct--r4 .ct-foil::before { content: ""; position: absolute; top: -30%; bottom: -30%; width: 38%; left: -60%;
-  background: linear-gradient(100deg, transparent, rgba(255, 249, 220, 0) 20%, rgba(255, 249, 220, .5) 50%, rgba(255, 249, 220, 0) 80%, transparent);
-  transform: skewX(-18deg); mix-blend-mode: overlay; animation: ct-passe 8s cubic-bezier(.45, .05, .25, 1) infinite; }
-.ct--r4 .ct-foil::after { content: ""; position: absolute; inset: 0; opacity: 0; transition: opacity .4s; mix-blend-mode: soft-light;
-  background: radial-gradient(28em 22em at var(--mx) var(--my), rgba(255, 236, 170, .6), transparent 60%); }
+  background: linear-gradient(100deg, transparent, rgba(255, 236, 180, .22) 50%, transparent);
+  transform: skewX(-18deg); mix-blend-mode: screen; animation: ct-passe 8s cubic-bezier(.45, .05, .25, 1) infinite; }
+.ct--r4 .ct-foil::after { content: ""; position: absolute; inset: 0; opacity: 0; transition: opacity .4s; mix-blend-mode: screen;
+  background: radial-gradient(22em 18em at var(--mx) var(--my), rgba(255, 220, 140, .18), transparent 60%); }
 .ct--r4:hover .ct-foil::after { opacity: 1; }
 /* les éclats */
 .ct-eclats { position: absolute; inset: 0; z-index: 7; pointer-events: none; }
@@ -316,73 +323,71 @@
 /* le sceau de cire */
 .ct-sceau { position: relative; width: 2.5em; height: 2.5em; margin: -.9em -.2em -.4em 0; display: grid; place-items: center;
   font: italic 900 1.15em/1 Fraunces, Georgia, serif; color: #f5d9a8; letter-spacing: 0;
-  background: radial-gradient(circle at 38% 32%, #b23526, #84190f 55%, #560e08);
+  background: radial-gradient(circle at 38% 32%, #d4402e, #94200f 55%, #5e0f09);
   border-radius: 47% 53% 50% 50% / 52% 48% 52% 48%;
-  box-shadow: inset 0 0 0 .2em rgba(0, 0, 0, .18), inset .12em .12em .25em rgba(255, 180, 160, .35), 0 .15em .3em rgba(0, 0, 0, .5); }
+  box-shadow: inset 0 0 0 .2em rgba(0, 0, 0, .18), inset .12em .12em .25em rgba(255, 180, 160, .35), 0 0 0 .08em #c9952a, 0 .15em .3em rgba(0, 0, 0, .5); }
 .ct--r4 .ct-rang { display: none; }
 
 @keyframes ct-tourne { to { --ct-ang: 360deg; } }
 @keyframes ct-chatoie { 0%, 100% { background-position: 0 0; } 50% { background-position: 100% 100%; } }
 @keyframes ct-passe { 0%, 60% { left: -60%; } 100% { left: 130%; } }
-@keyframes ct-aura { 0%, 100% { opacity: .55; transform: scale(.94); } 50% { opacity: 1; transform: scale(1.05); } }
+@keyframes ct-dorure { 0%, 100% { background-position: 0 0; } 50% { background-position: 100% 0; } }
 @keyframes ct-eclat { 0%, 100% { opacity: 0; transform: scale(.3) rotate(0deg); } 45% { opacity: 1; transform: scale(1) rotate(45deg); } 60% { opacity: 0; transform: scale(.5) rotate(70deg); } }
 
-/* ---------------------------------------------------------------- TIRAGE DE TÊTE
- * Le « shiny » : une carte sur cinquante sort en tirage de tête. C'est le seul
- * BLEU du jeu — un cyanotype, le tirage au bleu de Prusse des premiers
- * photographes et des plans d'ingénieur. L'image vire au bleu, sa teinte
- * glisse lentement, l'image respire (elle s'approche, se déplace) et suit la
- * main ; un filet d'argent bleuté cerne la carte, une lumière froide la
- * traverse. Il se combine avec tous les rangs, manuscrit compris. */
-.ct--tete { --bleu-1: #0a2257; --bleu-2: #2f6fc4; --bleu-3: #b6cdee; --eclat: rgba(214, 232, 255, .95); }
-/* l'image au bleu de Prusse : l'ombre devient bleue, la lumière reste papier */
-.ct--tete .ct-img { filter: grayscale(1) contrast(1.3) brightness(1.08);
-  animation: ct-respire 16s ease-in-out infinite alternate;
+/* ---------------------------------------------------------------- HOLOGRAPHIQUE
+ * Le « shiny » : une carte sur cinquante. Une feuille holographique
+ * arc-en-ciel couvre toute la carte : ses couleurs coulent en diagonale et
+ * suivent la main, des paillettes scintillent, un filet irisé tourne autour,
+ * et l'image bouge (elle s'approche lentement, glisse, suit la main). Il se
+ * combine avec tous les rangs, manuscrit compris. Pas de pastille : l'effet
+ * se voit, l'étoile irisée du numéro suffit à le signer. */
+.ct--tete { --eclat: rgba(255, 255, 255, .95); }
+.ct--tete .ct-img { animation: ct-respire 16s ease-in-out infinite alternate;
   translate: calc((var(--mx) - 50%) * -.08) calc((var(--my) - 30%) * -.06);
   transition: translate .5s ease-out; }
+/* l'arc-en-ciel sur l'image : il la colore sans en effacer le dessin */
 .ct-tirage { position: absolute; inset: 0; pointer-events: none; border-radius: inherit; }
-/* deux calques qui se fondent dans l'image (la tirage, sans z-index, ne fait
-   pas écran : ses deux calques voient la photographie) */
-.ct-tirage::before, .ct-tirage::after { content: ""; position: absolute; inset: 0; z-index: 2; border-radius: inherit; }
-.ct-tirage::before {
-  background: linear-gradient(115deg, var(--bleu-1) 0%, #1c4a96 30%, var(--bleu-2) 48%, #1c4a96 62%, var(--bleu-1) 100%) 0 0 / 300% 100%;
-  mix-blend-mode: screen; animation: ct-glisse 9s ease-in-out infinite alternate; }
-/* les blancs du cyanotype sont froids */
-.ct-tirage::after { background: var(--bleu-3); mix-blend-mode: multiply; }
-.ct--tete .ct-art::after { background: none !important; box-shadow: none !important; }
-/* sans image : l'emblème est tiré au bleu, et sa teinte glisse aussi */
-.ct--tete .ct-art--em .ct-em, .ct--tete.ct--r4 .ct-art--em .ct-em {
-  background: linear-gradient(115deg, var(--bleu-1), var(--bleu-2) 45%, #6ea3e6 52%, var(--bleu-2) 60%, var(--bleu-1)) 0 0 / 300% 100%;
-  -webkit-background-clip: text; background-clip: text; color: transparent; filter: none;
-  animation: ct-glisse 9s ease-in-out infinite alternate; }
-.ct--tete .ct-art--em .ct-tp-an { border-color: var(--bleu-2); }
-/* le filet d'argent bleuté, dont le reflet tourne */
-.ct-argent { position: absolute; inset: 0; z-index: 4; pointer-events: none; border-radius: inherit; padding: .26em;
-  background: conic-gradient(from var(--ct-ang), #6f7f99, #eef4ff, #8fa6c8, #ffffff, #5c6f8e, #dce8fb, #6f7f99);
+.ct-tirage::before { content: ""; position: absolute; inset: 0; z-index: 2; border-radius: inherit;
+  background: linear-gradient(115deg, #ff2d75, #ff9f1c 14%, #ffe600 28%, #3ddc84 42%, #1fb6ff 56%, #7b5cff 70%, #ff2d75 84%, #ff9f1c) 0 0 / 300% 300%;
+  mix-blend-mode: color; opacity: .65;
+  background-position: calc(var(--mx) * 1.2) calc(var(--my) * 1.2);
+  animation: ct-arc 7s linear infinite; }
+/* la feuille holographique, sur toute la carte */
+.ct-holo { position: absolute; inset: 0; z-index: 6; pointer-events: none; border-radius: inherit; overflow: hidden;
+  background:
+    repeating-linear-gradient(115deg, #ff2d75 0, #ff9f1c 2.2em, #ffe600 4.4em, #3ddc84 6.6em, #1fb6ff 8.8em, #7b5cff 11em, #ff2d75 13.2em) 0 0 / 200% 200%;
+  background-position: var(--mx) var(--my);
+  mix-blend-mode: color-dodge; opacity: .32;
+  animation: ct-arc 9s linear infinite; }
+/* les paillettes et la lumière blanche qui passe */
+.ct-holo::before { content: ""; position: absolute; inset: 0;
+  background: radial-gradient(circle, rgba(255, 255, 255, .9) 0 .05em, transparent .09em) 0 0 / 1.1em 1.3em,
+              radial-gradient(circle, rgba(255, 255, 255, .7) 0 .04em, transparent .08em) .55em .7em / 1.7em 1.5em;
+  mix-blend-mode: overlay; opacity: .9; animation: ct-paillettes 2.6s ease-in-out infinite alternate; }
+.ct-holo::after { content: ""; position: absolute; top: -30%; bottom: -30%; width: 34%; left: -60%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .85) 50%, transparent);
+  transform: skewX(-18deg); mix-blend-mode: overlay; animation: ct-passe 5s cubic-bezier(.45, .05, .25, 1) .8s infinite; }
+/* le filet irisé qui tourne */
+.ct-argent { position: absolute; inset: 0; z-index: 7; pointer-events: none; border-radius: inherit; padding: .3em;
+  background: conic-gradient(from var(--ct-ang), #ff2d75, #ff9f1c, #ffe600, #3ddc84, #1fb6ff, #7b5cff, #ff2d75);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor; mask-composite: exclude;
-  animation: ct-tourne 7s linear infinite; }
-.ct--tete:not(.ct--r4) .ct-recto::after { inset: .26em; border-radius: .7em; }
-/* la lumière froide qui traverse */
-.ct-nacre { position: absolute; inset: 0; z-index: 6; pointer-events: none; border-radius: inherit; overflow: hidden; }
-.ct-nacre::before { content: ""; position: absolute; top: -30%; bottom: -30%; width: 30%; left: -60%;
-  background: linear-gradient(100deg, transparent, rgba(220, 236, 255, .55) 50%, transparent);
-  transform: skewX(-18deg); mix-blend-mode: soft-light; animation: ct-passe 6.5s cubic-bezier(.45, .05, .25, 1) 1.2s infinite; }
-.ct-etoile { font-size: 1.2em; line-height: 1; margin-right: .2em;
-  background: linear-gradient(135deg, var(--bleu-2), var(--bleu-1)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.ct-tete-l { position: absolute; left: 50%; bottom: 1.1em; translate: -50% 0; z-index: 3; white-space: nowrap; padding: .38em .7em .34em; border-radius: 100px;
-  font: 600 .82em/1 Inter, system-ui, sans-serif; letter-spacing: .12em; text-transform: uppercase; color: #eef4ff;
-  background: linear-gradient(110deg, var(--bleu-1), #1c4a96 60%, var(--bleu-2)); box-shadow: 0 0 0 .08em rgba(220, 232, 251, .8), 0 .1em .4em rgba(0, 0, 0, .35); }
-.ct--tete:not(.ct--r4) .ct-recto { box-shadow: 0 0 1.6em rgba(120, 170, 240, .35), 0 .8em 1.8em -.6em rgba(0, 0, 0, .55); }
-/* les marques du rang, au bleu */
-.ct--tete .ct-rang i { border-color: var(--bleu-1); }
-.ct--tete .ct-rang i.on { background: linear-gradient(135deg, var(--bleu-2), var(--bleu-1)); }
-/* un manuscrit en tirage de tête : son or reste, son image vire au bleu, et
-   le filet d'argent se pose dehors, autour de l'or */
-.ct--tete.ct--r4 .ct-argent { padding: .2em; }
+  animation: ct-tourne 4s linear infinite; }
+.ct--tete:not(.ct--r4) .ct-recto::after { inset: .3em; border-radius: .7em; }
+.ct--tete .ct-recto { box-shadow: 0 0 1.4em rgba(255, 80, 160, .35), 0 0 2.6em rgba(60, 170, 255, .3), 0 .8em 1.8em -.6em rgba(0, 0, 0, .55); }
+.ct--tete .ct-art--em .ct-em, .ct--tete.ct--r4 .ct-art--em .ct-em {
+  background: linear-gradient(115deg, #e0115f, #e88a00 18%, #c9b400 32%, #1f9e5a 46%, #0b84c8 60%, #6440d8 74%, #e0115f) 0 0 / 300% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent; filter: none;
+  animation: ct-glisse 6s linear infinite; }
+.ct--tete .ct-art--em .ct-tp-an { border-color: #6440d8; }
+.ct-etoile { font-size: 1.25em; line-height: 1; margin-right: .2em;
+  background: linear-gradient(135deg, #ff2d75, #ffe600, #1fb6ff, #7b5cff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.ct--tete .ct-rang i.on { background: linear-gradient(135deg, #ff2d75, #ffe600, #1fb6ff, #7b5cff); border-color: #7b5cff; }
 
 @keyframes ct-respire { 0% { transform: scale(1.04) translate(-1.2%, .6%); } 100% { transform: scale(1.14) translate(1.6%, -1.4%); } }
-@keyframes ct-glisse { 0% { background-position: 0 0; } 100% { background-position: 100% 0; } }
+@keyframes ct-glisse { 0% { background-position: 0 0; } 100% { background-position: 300% 0; } }
+@keyframes ct-arc { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
+@keyframes ct-paillettes { 0% { opacity: .35; } 100% { opacity: .95; } }
 
 /* ============================================================ LE VERSO */
 .ct-verso { background: #1b1510; color: #efe3c8; }
@@ -428,4 +433,5 @@
   .ct--tete .ct-img { translate: none; transition: none; }
   .ct-eclats { display: none; }
   .ct-ecrin::after { display: none; }
+  .ct-holo::before { opacity: .6; }
 }

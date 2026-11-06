@@ -147,7 +147,7 @@
 
   // Tous les motifs sont tirés à l'encre de la carte (currentColor), ton sur
   // ton : l'opacité de chaque époque est réglée dans carte.css. La couleur ne
-  // dit que la rareté et le tirage de tête.
+  // dit que la rareté et l'holographie.
   function motif(c, R) {
     switch (c.e) {
       case 'gravure': return hachures(R, 'currentColor');
@@ -214,7 +214,7 @@
 
   var IMG = '/assets/img/cartes/';
 
-  // Les éclats d'un manuscrit ou d'un tirage de tête : leur place vient de la
+  // Les éclats d'un manuscrit ou d'une carte irisée : leur place vient de la
   // graine, jamais sur le nom (la bande 60-85 % de la hauteur reste libre).
   function eclats(c, n) {
     var R = rnd(graine(c.id + '·éclats')), out = '';
@@ -243,9 +243,9 @@
       '<svg class="ct-motif" viewBox="0 0 100 140" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' + motif(c, R) + '</svg>' +
       '<div class="ct-cadre">' +
         '<header class="ct-top"><span class="ct-fam">' + FAMILLES[c.f].l + '</span><span class="ct-no">' +
-          (o.tete ? '<span class="ct-etoile" aria-label="tirage de tête">✦</span>' : '') + no(c) + '</span></header>' +
+          (o.tete ? '<span class="ct-etoile" aria-label="irisée">✦</span>' : '') + no(c) + '</span></header>' +
         '<div class="ct-art' + (c.i ? '' : ' ct-art--em') + '">' + art +
-          (o.tete ? '<span class="ct-tete-l">✦ Tirage de tête</span>' : '') + '</div>' +
+          '</div>' +
         '<div class="ct-txt">' +
           '<h3 class="ct-nom ct-nom--' + taille(c.n) + '">' + esc(c.n) + '</h3>' +
           (sousTitre(c) ? '<p class="ct-sub">' + esc(sousTitre(c)) + '</p>' : '') +
@@ -255,7 +255,7 @@
       '</div>' +
       (c.r === 4 ? '<div class="ct-ecrin" aria-hidden="true"></div>' : '') +
       (c.r >= 3 ? '<div class="ct-fers" aria-hidden="true"><i></i><i></i><i></i><i></i></div>' : '') +
-      (o.tete ? '<div class="ct-argent" aria-hidden="true"></div><div class="ct-nacre" aria-hidden="true"></div>' : '') +
+      (o.tete ? '<div class="ct-holo" aria-hidden="true"></div><div class="ct-argent" aria-hidden="true"></div>' : '') +
       '<div class="ct-foil" aria-hidden="true"></div>' +
       (c.r === 4 ? eclats(c, 8) : o.tete ? eclats(c, 5) : '') +
     '</div>';
@@ -316,7 +316,7 @@
     R(); // (l'ancien tirage de l'encre : consommé pour garder la même inclinaison)
     var style = '--tilt:' + f2(R() * 2 - 1);
     return '<article class="' + cls + '" style="' + style + '" data-id="' + c.id + '" aria-label="' +
-      esc(c.n + ', ' + FAMILLES[c.f].l.toLowerCase() + ', ' + RANGS[c.r || 0].l.toLowerCase() + (o.tete ? ', tirage de tête' : '')) + '">' +
+      esc(c.n + ', ' + FAMILLES[c.f].l.toLowerCase() + ', ' + RANGS[c.r || 0].l.toLowerCase() + (o.tete ? ', irisée' : '')) + '">' +
       '<div class="ct-corps">' + recto(c, o) + (o.dos ? dos() : o.verso ? verso(c) : '') + '</div></article>';
   }
 

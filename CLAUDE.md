@@ -11818,60 +11818,61 @@ l'identifiant fait varier rosace, angles, encre.
 - `cartes/echantillons.html` (noindex) : la planche de design.
   `?ids=a,b*` (l'étoile = tirage de tête), `&verso=id`.
 
-### Le code couleur (mission `cartes-couleurs`, 7 nov. 2026)
+### Le code couleur (mission `cartes-couleurs`, 7 nov. 2026, deux passes)
 
 Retour du propriétaire : « du rouge pour je ne sais plus quoi, du blanc pour
 autre chose » ; une commune rouge passait pour une rare, une commune noire
-pour un tirage de tête, et la large bordure dorée des manuscrits ne lui
-plaisait pas. Trois planches soumises, trois arbitrages : communes sobres,
-**tirage de tête en cyanotype**, **manuscrit en feuille d'or**.
+pour une brillante. **La couleur ne dit plus que le rang et l'holographie.**
+Une première passe (manuscrit en feuille d'or, brillante en cyanotype bleu) a
+été mise en ligne puis reprise le même jour : il voulait le manuscrit « en
+noir et doré et un peu rouge, comme le paquet », une couleur par rang, un
+brillant bien plus voyant, et plus du tout le mot « tirage de tête ».
 
-- **Toutes les cartes sont tirées sur le même papier, à la même encre.**
-  L'époque se dit par la FORME et le caractère : médaillon ovale et
-  taille-douce (gravure), image en cartouche aux angles coupés et guilloché
-  (internationale), diagonale et barre (constructivisme), fenêtre cintrée et
-  soleil (affiche), trame de points et pochoir incliné (sérigraphie), filets
-  et réseau (contemporain). Les motifs sont tirés en `currentColor`, ton sur
-  ton, l'opacité réglée par époque. **Les photographies sont toutes en noir
-  et blanc.** Plus de fond rouge (affiche), de bandeau noir
-  (constructivisme), d'encres de couleur (sérigraphie) : **ne pas les
-  réintroduire** — ni aucune couleur qui ne dise pas la rareté.
-- **Le rang monte par la matière** : le tract est un papier journal gris, la
-  brochure a ses agrafes, **l'or n'apparaît qu'à la reliure** (filet fin),
-  l'originale a un filet plus large qui chatoie, ses fers et sa lueur.
-- **Le manuscrit est une feuille d'or entière** : fond doré qui chatoie,
-  encre brune, la page de *L'Idéologie allemande* en filigrane
-  (`.ct-filigrane`, `manuscrit-ideologie-1846.webp`), double filet sombre
-  qu'une lumière parcourt (`.ct-ecrin`), fers, éclats, sceau. **Pas de
-  bordure latérale** (rejetée), ni de reliure de cuir sombre (essayée sur la
-  planche : c'était encore une bordure). Aucune autre carte n'a de fond doré.
-- **Le tirage de tête est le seul BLEU du jeu** : l'image vire au bleu de
-  Prusse (`.ct-tirage`, deux calques fondus dans la photographie : `screen`
-  bleu, `multiply` bleu pâle), sa teinte glisse, **l'image respire** (lent
-  zoom et glissement, et suit la main par `--mx`/`--my`), un filet d'argent
-  bleuté tourne autour (`.ct-argent`), une lumière froide traverse
-  (`.ct-nacre`). Sans image, l'emblème est tiré au bleu. Il se combine avec
-  tout, manuscrit compris (le bleu sur l'or). Écartés : la rubrique
-  vermillon (le rouge redevenait un signal ambigu) et le prisme
-  arc-en-ciel. **Ne plus utiliser de nacre rose et bleu.**
-- ⚠️ `.ct-tirage` n'a **pas** de `z-index` : il ferait écran, et ses
-  calques ne verraient plus la photographie. Ce sont ses pseudo-éléments qui
-  portent le `z-index`.
-- ⚠️ L'image d'un manuscrit garde `overflow:hidden` (le tirage de tête la
-  fait respirer) : l'aura des rares vit donc sur `.ct-cadre::before`.
-- La pastille « Tirage de tête » se pose au bas de l'image, au haut sur le
-  constructivisme (la diagonale la coupait).
+- **Toutes les communes sur le même papier, à la même encre.** L'époque se
+  dit par la FORME et le caractère : médaillon ovale et taille-douce
+  (gravure), image aux angles coupés et guilloché (internationale), diagonale
+  et barre (constructivisme), fenêtre cintrée et soleil (affiche), trame de
+  points et pochoir incliné (sérigraphie), filets et réseau (contemporain).
+  Motifs en `currentColor`, ton sur ton. Photographies en noir et blanc. Plus
+  de fond rouge, de bandeau noir, d'encres de couleur : **ne pas les
+  réintroduire**.
+- **Chaque rang a son MÉTAL** (variables `--m1/--m2/--m3` et `--mw`, la
+  largeur du filet) : papier nu (tract), **cuivre** (brochure), **argent**
+  (reliure), **or** large qui chatoie, fers et lueur (originale). Les losanges
+  du pied prennent le métal. Écartée : l'échelle vert-bleu-violet des jeux
+  vidéo.
+- **Le manuscrit est NOIR, OR ET ROUGE**, la livrée du paquet : la nuit du
+  sachet avec sa lueur rouge, la page de 1846 en filigrane d'or (image
+  inversée, `screen`), double filet d'or parcouru d'une lumière, filet ROUGE
+  intérieur (`.ct-ecrin::before`), nom à la feuille d'or (sur le noir un
+  reflet clair se lit ; sur papier crème il effaçait les lettres), image
+  sertie d'or, sceau. Pas de bordure latérale, pas de feuille d'or entière,
+  pas de reliure de cuir : **les trois ont été essayées et écartées**.
+- **La brillante est HOLOGRAPHIQUE** (une sur cinquante, `.ct--tete`) :
+  arc-en-ciel sur l'image (`.ct-tirage::before`, `mix-blend-mode: color`),
+  feuille irisée sur toute la carte (`.ct-holo`, `color-dodge`, suit
+  `--mx/--my`, teinte qui tourne), paillettes, lumière blanche qui passe,
+  filet irisé qui tourne (`.ct-argent`), image qui respire et suit la main.
+  Écartés : la nacre rose-bleu, le cyanotype bleu, la rubrique vermillon.
+- **Elle n'a PAS DE NOM** (arbitrage) : plus de pastille sur la carte, plus
+  de « tirage de tête » nulle part à l'écran — seulement l'étoile irisée
+  devant le numéro, et l'adjectif « irisée » quand une phrase doit la
+  désigner (« 2 cartes irisées », filtre « Les irisées », tableau des rangs).
+  Le code garde ses noms internes (`tete`, `.ct--tete`, `tetes` en base).
+- ⚠️ `.ct-tirage` n'a **pas** de `z-index` : il ferait écran, et son calque
+  ne verrait plus la photographie. C'est le pseudo-élément qui le porte.
+- ⚠️ L'image d'une rare garde `overflow:hidden` (la brillante la fait
+  respirer).
 
 **Le paquet** (`cartes/index.html`, `.paquet` > `.pq-corps`) n'est plus une
 liasse de kraft : c'est un sachet métallisé, serti en dents de scie en haut et
 en bas (masque `conic-gradient`), le portrait de Marx tramé (masque de points
 de `.17em` : plus gros, on ne le reconnaît plus), le filet et la pastille
 « 5 cartes » au rouge de la maison, un reflet qui glisse. Le paquet n'est pas
-une carte : le rouge y est permis, l'or et le bleu restent aux rangs et au
-tirage de tête. ⚠️ Le masque coupe une ombre portée : l'ombre est un `filter`
+une carte : le rouge y est permis ; le manuscrit en reprend la livrée. ⚠️ Le masque coupe une ombre portée : l'ombre est un `filter`
 sur `.paquet`, le masque sur `.pq-corps`. La bande à arracher (`.bst-bande`)
-reprend le sertissage. Dans l'ouverture, les signaux du tirage de tête
-(lueur du dos, éclair, badge) sont passés au bleu.
+reprend le sertissage. Dans l'ouverture, les signaux d'une carte irisée
+(lueur du dos, éclair, badge « ✦ Nouvelle ») sont à l'arc-en-ciel.
 
 ### Le serveur (Supabase, appliqué le 6 nov. 2026)
 

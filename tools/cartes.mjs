@@ -673,14 +673,14 @@ function pageTCG(sortie) {
   const pc = x => (Math.round(x * 10) / 10).toLocaleString('fr-FR') + '&nbsp;%';
   const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   const NOMS = ['Tract', 'Brochure', 'Édition reliée', 'Édition originale', 'Manuscrit'];
-  const DIT = ['un papier journal, gris et grainé', 'deux agrafes sur la tranche', 'un filet d’or', 'un filet d’or qui chatoie, des fers dorés aux angles', 'animé : toute la carte en feuille d’or, une lumière, des éclats, un sceau de cire'];
+  const DIT = ['un papier nu, gris et grainé', 'un filet de cuivre', 'un filet d’argent', 'un large filet d’or qui chatoie, des fers dorés aux angles', 'animé : une carte noire, dorée et rubriquée de rouge, une lumière, des éclats, un sceau de cire'];
   tous('MARX-TCG:N', nf(sortie.length));
   const man = sortie.filter(c => c.r === 4);
   tous('MARX-TCG:NM', String(man.length));
   let t = '\n<table class="rangs"><thead><tr><th>Rang</th><th>Ce qui le distingue</th><th>Cartes</th><th>Chance par carte</th></tr></thead><tbody>\n';
   for (let r = 4; r >= 0; r--)
     t += `<tr><td>${NOMS[r]}</td><td>${DIT[r]}</td><td>${nf(sortie.filter(c => c.r === r).length)}</td><td>${pc((4 * TAUX4[r] + TAUX5[r]) / 5)}</td></tr>\n`;
-  t += '<tr><td>Tirage de tête</td><td>la version brillante de n’importe quelle carte : un cyanotype bleu dont l’image bouge, cerné d’argent</td><td>' + nf(sortie.length) + '</td><td>2&nbsp;%</td></tr>\n</tbody></table>\n';
+  t += '<tr><td>Irisée</td><td>n’importe quelle carte, couverte d’une feuille holographique arc-en-ciel dont l’image bouge</td><td>' + nf(sortie.length) + '</td><td>2&nbsp;%</td></tr>\n</tbody></table>\n';
   tous('MARX-TCG:RANGS', t);
   const FAM = { fig: 'Figures', oeu: 'Œuvres', evt: 'Événements', org: 'Organisations', not: 'Notions' };
   let m = '\n<div class="manu">\n';

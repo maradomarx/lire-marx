@@ -1737,7 +1737,7 @@ html[data-mode="edition"] .hs-gl-entry:hover{box-shadow:none;}
         <ul class="hs-cartes-faits">
           <li><b>3</b><span>boosters de cinq cartes chaque jour, avec un compte gratuit.</span></li>
           <li><b>+3</b><span>de plus en lisant&nbsp;: un chapitre achevé, un passage surligné, une notion, un cycle du jeu.</span></li>
-          <li><b><!-- CARTES-MANUSCRITS:DÉBUT -->73<!-- CARTES-MANUSCRITS:FIN --></b><span>manuscrits, les classiques les plus rares, et une carte sur cinquante en tirage de tête.</span></li>
+          <li><b><!-- CARTES-MANUSCRITS:DÉBUT -->73<!-- CARTES-MANUSCRITS:FIN --></b><span>manuscrits, les classiques les plus rares, et une carte sur cinquante qui sort irisée.</span></li>
         </ul>
         <a class="hs-cartes-go" href="/cartes/">Ouvrir vos boosters<span aria-hidden="true">→</span></a>
       </div>
@@ -2022,11 +2022,11 @@ html[data-mode="edition"] .hs-gl-entry:hover{box-shadow:none;}
 <script src="assets/home.js?v=11" defer></script>
 
 <!-- Shell de navigation (topbar + sidebar + auth + social) -->
-<link rel="stylesheet" href="/cartes/carte.css?v=a5995876" media="print" onload="this.media='all'">
-<script src="/cartes/carte.js?v=b8c4e872" defer></script>
+<link rel="stylesheet" href="/cartes/carte.css?v=8aff24b7" media="print" onload="this.media='all'">
+<script src="/cartes/carte.js?v=49c6ee34" defer></script>
 <script>
 /* La vitrine des cartes : cinq manuscrits en éventail ; la dernière est en
-   tirage de tête. Toutes mènent à /cartes/. */
+   carte irisée. Toutes mènent à /cartes/. */
 document.addEventListener('DOMContentLoaded', function () {
   var el = document.getElementById('hsEventail'), d;
   try { d = JSON.parse(document.getElementById('hsCartesData').textContent); } catch (e) { d = []; }
