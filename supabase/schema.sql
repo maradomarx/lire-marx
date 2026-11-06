@@ -379,6 +379,7 @@ declare
   u uuid := auth.uid();
   jr date := cartes_jour();
   n int;
+  avant smallint;
 begin
   if u is null then raise exception 'connexion requise' using errcode = '28000'; end if;
   if m not in ('lecture', 'notion', 'annotation', 'questions', 'circuit', 'forum', 'commentaire') then
@@ -387,11 +388,15 @@ begin
   insert into cartes_missions (user_id, mission, jour, created)
     values (u, m, jr, (extract(epoch from now()) * 1000)::bigint) on conflict do nothing;
   get diagnostics n = row_count;
+  select coalesce(bonus, 0) into avant from cartes_jours where user_id = u and jour = jr;
   if n > 0 then
     insert into cartes_jours (user_id, jour, bonus) values (u, jr, 1)
       on conflict (user_id, jour) do update set bonus = least(3, cartes_jours.bonus + 1);
   end if;
-  return cartes_etat();
+  -- « gagne » : la mission a-t-elle vraiment rapporté un booster ? (non si
+  -- elle était déjà faite aujourd'hui, ou si les trois bonus sont pris)
+  return (cartes_etat()::jsonb || jsonb_build_object('gagne',
+    n > 0 and coalesce(avant, 0) < 3))::json;
 end $$;
 
 revoke all on function public.cartes_etat()        from public, anon;

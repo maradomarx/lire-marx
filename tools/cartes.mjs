@@ -407,27 +407,31 @@ async function images(cartes) {
   if (IDS) avec = avec.filter(c => IDS.split(',').includes(c.id));
   avec = avec.slice(0, MAXIMG);
   let fait = 0, deja = 0, rate = 0;
-  for (const c of avec) {
+  // Quatre téléchargements à la fois : poli pour Commons, quatre fois plus
+  // rapide qu'à la file (4 500 images).
+  async function une(c) {
     const dest = path.join(IMGDIR, c.id + '.webp');
-    if (fs.existsSync(dest)) { deja++; continue; }
+    if (fs.existsSync(dest)) { deja++; return; }
     const src = c.img.replace(/^http:/, 'https:') + '?width=420';
     const tmp = path.join(CACHE, 'tmp-' + c.id);
     try {
       const r = await fetch(src, { headers: { 'User-Agent': UA } });
+      if (r.status === 429) { await sleep(20000); throw new Error('429'); }
       if (!r.ok) throw new Error('HTTP ' + r.status);
       fs.writeFileSync(tmp, Buffer.from(await r.arrayBuffer()));
-      // ffmpeg lit aussi le SVG ? non : on n'accepte que les formats bitmap,
-      // que cwebp ne lit pas tous (GIF, TIFF) — ffmpeg normalise d'abord.
+      // ffmpeg normalise d'abord (cwebp ne lit ni le GIF ni le TIFF).
       const png = tmp + '.png';
-      execFileSync('ffmpeg', ['-v', 'error', '-y', '-i', tmp, '-vf', 'scale=320:-2', '-frames:v', '1', png]);
+      execFileSync('ffmpeg', ['-v', 'quiet', '-y', '-i', tmp, '-vf', 'scale=320:-2', '-frames:v', '1', png]);
       execFileSync('cwebp', ['-quiet', '-q', '62', '-m', '6', png, '-o', dest]);
       fs.rmSync(png, { force: true });
       fait++;
     } catch (e) { rate++; }
     fs.rmSync(tmp, { force: true });
     if ((fait + rate) % 20 === 0) process.stdout.write(`\r  images : ${fait} neuves, ${deja} déjà là, ${rate} ratées`);
-    await sleep(120);
+    await sleep(150);
   }
+  let i = 0;
+  await Promise.all([0, 1, 2, 3].map(async () => { while (i < avec.length) await une(avec[i++]); }));
   process.stdout.write(`\r  images : ${fait} neuves, ${deja} déjà là, ${rate} ratées\n`);
 }
 

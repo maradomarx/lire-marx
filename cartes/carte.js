@@ -67,16 +67,18 @@
   // Le guilloché d'un billet ou d'un titre : une rosace de courbes de
   // Lissajous. Ses paramètres viennent de la graine.
   function guilloche(R, couleur, op) {
-    var k = 3 + Math.floor(R() * 6), m = 5 + Math.floor(R() * 9), tours = 18 + Math.floor(R() * 14);
+    var k = 3 + Math.floor(R() * 6), m = 5 + Math.floor(R() * 9), tours = 11 + Math.floor(R() * 7);
     var cx = 50, cy = 70, r1 = 34 + R() * 10, r2 = 6 + R() * 8, d = '';
     for (var j = 0; j < tours; j++) {
       var ph = j / tours * Math.PI * 2 / k, pts = [];
-      for (var i = 0; i <= 160; i++) {
-        var t = i / 160 * Math.PI * 2;
+      // 84 points par tour : au-delà, l'œil ne voit rien de plus à cette
+      // taille, et l'album affiche des dizaines de cartes à la fois.
+      for (var i = 0; i <= 84; i++) {
+        var t = i / 84 * Math.PI * 2;
         var r = r1 + r2 * Math.sin(m * t + ph);
-        pts.push(f2(cx + r * Math.cos(t)) + ',' + f2(cy + r * Math.sin(t) * 1.05));
+        pts.push(Math.round((cx + r * Math.cos(t)) * 10) / 10 + ',' + Math.round((cy + r * Math.sin(t) * 1.05) * 10) / 10);
       }
-      d += 'M' + pts.join('L');
+      d += 'M' + pts.join(' ');
     }
     return '<path d="' + d + '" fill="none" stroke="' + couleur + '" stroke-width=".18" opacity="' + op + '"/>';
   }
@@ -117,15 +119,17 @@
     return out + '<circle cx="50" cy="' + f2(cy) + '" r="' + f2(16 + R() * 10) + '" fill="' + c1 + '" opacity=".9"/>';
   }
 
-  // La sérigraphie : une trame de points dont la taille suit une pente.
+  // La sérigraphie : une trame de points, fondue le long d'une pente. Un motif
+  // répété et un dégradé, plutôt que neuf cents cercles.
+  var NTRAME = 0;
   function trame(R, couleur) {
-    var out = '', a = R() * Math.PI * 2, vx = Math.cos(a), vy = Math.sin(a);
-    for (var y = 2; y < 140; y += 4) for (var x = 2; x < 100; x += 4) {
-      var t = ((x - 50) * vx + (y - 70) * vy) / 85 + .5;
-      var r = Math.max(0, Math.min(1.9, t * 1.9));
-      if (r > .15) out += '<circle cx="' + x + '" cy="' + y + '" r="' + f2(r) + '"/>';
-    }
-    return '<g fill="' + couleur + '" opacity=".55">' + out + '</g>';
+    var id = 'ctT' + (++NTRAME) + Math.floor(R() * 1e6), a = R() * 360;
+    return '<defs><pattern id="' + id + 'p" width="4" height="4" patternUnits="userSpaceOnUse">' +
+      '<circle cx="2" cy="2" r="1.35" fill="' + couleur + '"/></pattern>' +
+      '<linearGradient id="' + id + 'g" gradientTransform="rotate(' + f2(a) + ' .5 .5)">' +
+      '<stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff"/></linearGradient>' +
+      '<mask id="' + id + 'm"><rect width="100" height="140" fill="url(#' + id + 'g)"/></mask></defs>' +
+      '<rect width="100" height="140" fill="url(#' + id + 'p)" mask="url(#' + id + 'm)" opacity=".6"/>';
   }
 
   // Le contemporain : un réseau clairsemé de points reliés.
@@ -288,6 +292,20 @@
     '</div>';
   }
 
+  // Le dos : le même pour toutes les cartes, comme le revers d'un jeu. Une
+  // rosace d'or tirée d'une graine fixe, le monogramme, le nom du site.
+  var DOS = null;
+  function dos() {
+    if (!DOS) {
+      var R = rnd(graine('dos·lire-marx'));
+      DOS = '<div class="ct-face ct-dos" aria-hidden="true">' +
+        '<svg class="ct-motif" viewBox="0 0 100 140" preserveAspectRatio="xMidYMid slice">' + guilloche(R, '#d8ad4c', .5) + '</svg>' +
+        '<div class="ct-dos-cadre"><span class="ct-dos-m">LM</span><span class="ct-dos-l">Lire Marx</span><span class="ct-dos-s">les cartes</span></div>' +
+      '</div>';
+    }
+    return DOS;
+  }
+
   function html(c, o) {
     o = o || {};
     var cls = 'ct ct--' + c.f + ' ct--e-' + c.e + ' ct--r' + (c.r || 0) + (o.tete ? ' ct--tete' : '');
@@ -295,7 +313,7 @@
     var style = '--encre:' + ENCRES[Math.floor(R() * ENCRES.length)] + ';--tilt:' + f2(R() * 2 - 1);
     return '<article class="' + cls + '" style="' + style + '" data-id="' + c.id + '" aria-label="' +
       esc(c.n + ', ' + FAMILLES[c.f].l.toLowerCase() + ', ' + RANGS[c.r || 0].l.toLowerCase() + (o.tete ? ', tirage de tête' : '')) + '">' +
-      '<div class="ct-corps">' + recto(c, o) + (o.verso ? verso(c) : '') + '</div></article>';
+      '<div class="ct-corps">' + recto(c, o) + (o.dos ? dos() : o.verso ? verso(c) : '') + '</div></article>';
   }
 
   window.Carte = { html: html, FAMILLES: FAMILLES, RANGS: RANGS, EPOQUES: EPOQUES, graine: graine, rnd: rnd };
