@@ -116,7 +116,7 @@
       out += '<polygon points="' + cx + ',' + f2(cy) + ' ' + f2(cx + 220 * Math.cos(a0)) + ',' + f2(cy + 220 * Math.sin(a0)) +
         ' ' + f2(cx + 220 * Math.cos(a1)) + ',' + f2(cy + 220 * Math.sin(a1)) + '" fill="' + (i % 2 ? c1 : c2) + '"/>';
     }
-    return out + '<circle cx="50" cy="' + f2(cy) + '" r="' + f2(16 + R() * 10) + '" fill="' + c1 + '" opacity=".9"/>';
+    return out + '<circle cx="50" cy="' + f2(cy) + '" r="' + f2(16 + R() * 10) + '" fill="' + c1 + '"/>';
   }
 
   // La sérigraphie : une trame de points, fondue le long d'une pente. Un motif
@@ -145,17 +145,17 @@
     return out;
   }
 
-  // Les encres de la sérigraphie : l'atelier populaire n'avait que quelques pots.
-  var ENCRES = ['#c5281c', '#1d3d8f', '#14140f', '#1f6b3a', '#d4582a', '#6a2a7a'];
-
+  // Tous les motifs sont tirés à l'encre de la carte (currentColor), ton sur
+  // ton : l'opacité de chaque époque est réglée dans carte.css. La couleur ne
+  // dit que la rareté et le tirage de tête.
   function motif(c, R) {
     switch (c.e) {
-      case 'gravure': return hachures(R, '#4a3216');
-      case 'internationale': return guilloche(R, '#7b1d14', .55);
-      case 'constructivisme': return compo(R, '#c8281e', '#141210');
-      case 'affiche': return rayons(R, '#c42a1d', '#a8221a');
+      case 'gravure': return hachures(R, 'currentColor');
+      case 'internationale': return guilloche(R, 'currentColor', 1);
+      case 'constructivisme': return compo(R, 'currentColor', 'currentColor');
+      case 'affiche': return rayons(R, 'currentColor', 'transparent');
       case 'serigraphie': return trame(R, 'currentColor');
-      default: return reseau(R, '#16130f');
+      default: return reseau(R, 'currentColor');
     }
   }
 
@@ -229,15 +229,17 @@
   function recto(c, o) {
     o = o || {};
     var R = rnd(graine(c.id));
-    var encre = ENCRES[Math.floor(R() * ENCRES.length)];
+    R(); // (la graine gardait jadis une encre : on consomme son tirage pour que les motifs ne changent pas)
     var art = c.i
-      ? '<img class="ct-img" src="' + IMG + c.id + '.webp" alt="" loading="lazy" decoding="async" width="360" height="450">'
+      ? '<img class="ct-img" src="' + IMG + c.id + '.webp" alt="" loading="lazy" decoding="async" width="360" height="450">' +
+        (o.tete ? '<span class="ct-tirage" aria-hidden="true"></span>' : '')
       : embleme(c);
     var rang = RANGS[c.r || 0];
     var marques = '';
     for (var i = 0; i < 5; i++) marques += '<i' + (i <= (c.r || 0) ? ' class="on"' : '') + '></i>';
     var sceau = c.r === 4 ? '<span class="ct-sceau" title="Manuscrit" aria-label="Manuscrit">M</span>' : '';
     return '<div class="ct-face ct-recto">' +
+      (c.r === 4 ? '<div class="ct-filigrane" aria-hidden="true"></div>' : '') +
       '<svg class="ct-motif" viewBox="0 0 100 140" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' + motif(c, R) + '</svg>' +
       '<div class="ct-cadre">' +
         '<header class="ct-top"><span class="ct-fam">' + FAMILLES[c.f].l + '</span><span class="ct-no">' +
@@ -251,8 +253,9 @@
         '<footer class="ct-foot"><span class="ct-dates">' + esc(dates(c)) + '</span>' +
           '<span class="ct-rang" title="' + rang.l + '" aria-label="' + rang.l + '">' + marques + '</span>' + sceau + '</footer>' +
       '</div>' +
-      (c.r === 3 ? '<div class="ct-fers" aria-hidden="true"><i></i><i></i><i></i><i></i></div>' : '') +
-      (o.tete ? '<div class="ct-nacre" aria-hidden="true"></div>' : '') +
+      (c.r === 4 ? '<div class="ct-ecrin" aria-hidden="true"></div>' : '') +
+      (c.r >= 3 ? '<div class="ct-fers" aria-hidden="true"><i></i><i></i><i></i><i></i></div>' : '') +
+      (o.tete ? '<div class="ct-argent" aria-hidden="true"></div><div class="ct-nacre" aria-hidden="true"></div>' : '') +
       '<div class="ct-foil" aria-hidden="true"></div>' +
       (c.r === 4 ? eclats(c, 8) : o.tete ? eclats(c, 5) : '') +
     '</div>';
@@ -310,7 +313,8 @@
     o = o || {};
     var cls = 'ct ct--' + c.f + ' ct--e-' + c.e + ' ct--r' + (c.r || 0) + (o.tete ? ' ct--tete' : '');
     var R = rnd(graine(c.id + '·encre'));
-    var style = '--encre:' + ENCRES[Math.floor(R() * ENCRES.length)] + ';--tilt:' + f2(R() * 2 - 1);
+    R(); // (l'ancien tirage de l'encre : consommé pour garder la même inclinaison)
+    var style = '--tilt:' + f2(R() * 2 - 1);
     return '<article class="' + cls + '" style="' + style + '" data-id="' + c.id + '" aria-label="' +
       esc(c.n + ', ' + FAMILLES[c.f].l.toLowerCase() + ', ' + RANGS[c.r || 0].l.toLowerCase() + (o.tete ? ', tirage de tête' : '')) + '">' +
       '<div class="ct-corps">' + recto(c, o) + (o.dos ? dos() : o.verso ? verso(c) : '') + '</div></article>';
