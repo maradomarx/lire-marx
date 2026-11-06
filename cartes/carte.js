@@ -277,7 +277,7 @@
     }
     var texte = c.f === 'not' ? c.d : (c.d || '');
     var lien = c.href
-      ? '<a class="ct-lien" href="' + esc(c.href) + '">Lire la page</a>'
+      ? '<a class="ct-lien" href="' + esc(c.href) + '">' + (c.f === 'oeu' ? 'Lire le texte' : 'Lire la page') + '</a>'
       : c.q ? '<a class="ct-lien" href="https://www.wikidata.org/wiki/' + c.q + '" rel="noopener">Fiche Wikidata</a>' : '';
     return '<div class="ct-face ct-verso">' +
       '<div class="ct-cadre">' +

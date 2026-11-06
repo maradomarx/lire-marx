@@ -19,7 +19,7 @@
 //   node tools/import-jeu.mjs             # construit et importe
 //   node tools/import-jeu.mjs --no-build  # importe un dist/ déjà construit
 //
-// DEUX GREFFES sont faites sur jouer.html au passage — un `noindex` et un
+// TROIS GREFFES sont faites sur jouer.html au passage — la mission des cartes, un `noindex` et un
 // lien de retour vers le site. Elles n'ont de sens que sur liremarx.com et
 // n'ont donc rien à faire dans le dépôt du jeu ; voir leur commentaire.
 //
@@ -121,6 +121,26 @@ const RETOUR = `
 </style>
 <a class="lm-retour" href="/jeu/">&#8592;&nbsp;Lire Marx</a>
 `;
+//  3. La MISSION des cartes à collectionner (mission cartes, nov. 2026).
+//     Le jeu émet 'circuit:cycle' à chaque tour bouclé (v71) ; la page du
+//     jeu ne charge pas la coquille du site, donc pas SHELL.cartes : on
+//     écrit la mission dans la file d'attente que shell.js rejoue dès que
+//     la session est connue, sur n'importe quelle page du site. Même clé,
+//     même forme ({j: jour de Paris, m: [...]}) que dans shell.js.
+const MISSION = `
+<script>
+addEventListener('circuit:cycle', function(){
+  try {
+    var K = 'liremarx.cartes.attente.v1', j;
+    try { j = new Intl.DateTimeFormat('fr-CA', { timeZone: 'Europe/Paris' }).format(new Date()); }
+    catch (e) { j = new Date().toISOString().slice(0, 10); }
+    var o = JSON.parse(localStorage.getItem(K) || '{}');
+    var l = o.j === j ? (o.m || []) : [];
+    if (l.indexOf('circuit') < 0) { l.push('circuit'); localStorage.setItem(K, JSON.stringify({ j: j, m: l })); }
+  } catch (e) {}
+});
+</script>
+`;
 let jouer = fs.readFileSync(path.join(DIST, 'index.html'), 'utf8');
 if (!/<\/head>/i.test(jouer) || !/<\/body>/i.test(jouer))
   die('jouer.html n\'a pas de </head> ou de </body> — impossible d\'y greffer\n'
@@ -128,7 +148,7 @@ if (!/<\/head>/i.test(jouer) || !/<\/body>/i.test(jouer))
 jouer = jouer
   .replace(/<\/head>/i,
     '<meta name="robots" content="noindex, follow">\n</head>')
-  .replace(/<\/body>/i, RETOUR + '</body>');
+  .replace(/<\/body>/i, RETOUR + MISSION + '</body>');
 fs.writeFileSync(path.join(OUT, 'jouer.html'), jouer);
 copied.push('jouer.html');
 
@@ -157,8 +177,11 @@ if (!bundle.includes(`"${BASE}"`))
     + '  Voir la branche `servir-sous-un-chemin` du dépôt du jeu.');
 for (const need of ['draco/draco_decoder.js', 'assets/hdri', 'assets/models'])
   if (!fs.existsSync(path.join(OUT, need.split('/')[0]))) die(`Actif manquant : jeu/${need}`);
-if (!/noindex/.test(html) || !/class="lm-retour"/.test(html))
-  die('Les greffes (noindex, lien de retour) ne sont pas dans jouer.html.');
+if (!/noindex/.test(html) || !/class="lm-retour"/.test(html) || !/circuit:cycle/.test(html))
+  die('Les greffes (noindex, lien de retour, mission) ne sont pas dans jouer.html.');
+if (!bundle.includes('circuit:cycle'))
+  die('Le jeu n\'émet pas « circuit:cycle » : il faut la v71 du dépôt du jeu\n'
+    + '  (la mission « circuit » des cartes ne partirait jamais).');
 if (!fs.existsSync(path.join(OUT, 'index.html')))
   console.warn('  ⚠ jeu/index.html (la page de présentation) est absent —\n'
     + '    le lien de retour du jeu pointera vers du vide.');

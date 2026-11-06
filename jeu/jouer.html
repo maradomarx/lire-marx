@@ -1050,7 +1050,7 @@
   }
 </style>
 <!-- v24: panneaux repositionnés, circuit nettoyé, animation drone avec chariot, ouvriers, argent et marchandises. -->
-  <script type="module" crossorigin src="/jeu/assets/index-D5kR7_iW.js"></script>
+  <script type="module" crossorigin src="/jeu/assets/index-CZmjEQb7.js"></script>
 <meta name="robots" content="noindex, follow">
 </head>
 <body>
@@ -1417,5 +1417,18 @@
   @media (max-width:760px){.lm-retour{right:8px;bottom:8px;padding:5px 9px;font-size:11px;}}
 </style>
 <a class="lm-retour" href="/jeu/">&#8592;&nbsp;Lire Marx</a>
+
+<script>
+addEventListener('circuit:cycle', function(){
+  try {
+    var K = 'liremarx.cartes.attente.v1', j;
+    try { j = new Intl.DateTimeFormat('fr-CA', { timeZone: 'Europe/Paris' }).format(new Date()); }
+    catch (e) { j = new Date().toISOString().slice(0, 10); }
+    var o = JSON.parse(localStorage.getItem(K) || '{}');
+    var l = o.j === j ? (o.m || []) : [];
+    if (l.indexOf('circuit') < 0) { l.push('circuit'); localStorage.setItem(K, JSON.stringify({ j: j, m: l })); }
+  } catch (e) {}
+});
+</script>
 </body>
 </html>

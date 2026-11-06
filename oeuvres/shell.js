@@ -2987,7 +2987,8 @@
     notion:      'Lire une page du glossaire',
     questions:   'Vérifier sa compréhension sur une notion',
     commentaire: 'Lire un commentaire guidé',
-    forum:       'Écrire sur le forum'
+    forum:       'Écrire sur le forum',
+    circuit:     'Boucler un cycle du Circuit du capital'
   };
   var local = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
   var demo = local && /[?&]demo\b/.test(location.search);
@@ -3031,9 +3032,31 @@
     return r.data;
   }
 
+  // LA FILE D'ATTENTE : une mission faite hors connexion (on lit une notion,
+  // puis on se connecte dans la journée) ou hors de la coquille (le jeu,
+  // /jeu/jouer, qui ne charge pas shell.js : la greffe de tools/import-jeu.mjs
+  // y écrit la même clé) attend ici, et part dès que la session est connue.
+  // Une mission d'un autre jour est oubliée : le serveur compte par jour.
+  var ATTENTE = 'liremarx.cartes.attente.v1';
+  function attenteLire(){
+    try { var o = JSON.parse(localStorage.getItem(ATTENTE) || '{}'); return o.j === jour() ? (o.m || []) : []; }
+    catch(e){ return []; }
+  }
+  function attenteMettre(m){
+    try { var l = attenteLire(); if(l.indexOf(m) < 0) l.push(m); localStorage.setItem(ATTENTE, JSON.stringify({ j: jour(), m: l })); }
+    catch(e){}
+  }
+  function attenteVider(){
+    if(!connecte()) return;
+    var l = attenteLire();
+    try { localStorage.removeItem(ATTENTE); } catch(e){}
+    l.forEach(function(m){ mission(m); });
+  }
+
   // Une mission : un appel au serveur par mission et par jour au plus.
   async function mission(m){
-    if(!MISSIONS[m] || !connecte()) return null;
+    if(!MISSIONS[m]) return null;
+    if(!connecte()){ if(faites().indexOf(m) < 0) attenteMettre(m); return null; }
     if(faites().indexOf(m) >= 0) return null;
     noter(m);
     var r;
@@ -3108,7 +3131,7 @@
   function suivreSession(){
     if(!SHELL.auth || !SHELL.auth.onChange) return false;
     // Jamais d'appel Supabase dans le rappel de GoTrue (verrou) : on diffère.
-    SHELL.auth.onChange(function(){ setTimeout(function(){ dernier = 0; rafraichir(); }, 0); });
+    SHELL.auth.onChange(function(){ setTimeout(function(){ dernier = 0; rafraichir(); attenteVider(); }, 0); });
     return true;
   }
   if(!suivreSession()) document.addEventListener('DOMContentLoaded', suivreSession, { once: true });

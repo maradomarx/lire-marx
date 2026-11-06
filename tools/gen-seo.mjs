@@ -604,6 +604,7 @@ ${lien('/oeuvres/bibliotheque', 'Toute la bibliothèque')}
 ${lien('/karl-marx', 'Qui était Karl Marx')}
 ${lien('/glossaire/', 'L’abécédaire de Marx')}
 ${lien('/jeu/', 'Le circuit du capital')}
+${lien('/cartes/', 'Les cartes à collectionner')}
 ${lien('/agregation-2027', 'Marx à l’agrégation 2027')}
         </ul>
       </div>
@@ -2711,6 +2712,7 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
     ["Le glossaire — l'abécédaire de Marx", 'Les notions, de A à Z', '/glossaire/', 'définitions concepts vocabulaire lexique'],
     ['Forum', 'Les discussions des lecteurs', '/oeuvres/forum', 'discussions notes partagées forum'],
     ['Le circuit du capital', 'Le jeu de la plus-value', '/jeu/', 'jeu jouer simulation chariot'],
+    ['Les cartes à collectionner', 'Près de sept mille cartes, trois boosters par jour', '/cartes/', 'cartes collection collectionner booster boosters manuscrit tirage de tête missions album'],
     ['Mon carnet', 'Vos passages et vos notes', '/oeuvres/carnet', 'surlignages annotations notes'],
     ['Messages', 'Vos conversations privées', '/oeuvres/messages', 'messagerie contacts'],
     ['Karl Marx', 'Sa vie, ses idées, ses livres, par où le lire', '/karl-marx', 'biographie vie exil trèves londres idées principales théorie philosophie livres œuvres commencer'],

@@ -26,7 +26,7 @@
 <link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2"></noscript>
 <link rel="stylesheet" href="/oeuvres/shell.css?v=16">
-<link rel="stylesheet" href="/cartes/carte.css?v=1">
+<link rel="stylesheet" href="/cartes/carte.css?v=7c9d2c79">
 <style>
 /* ═══════════════════════════════════════════════════════════════════
    /cartes/ — LA COLLECTION (mission `cartes`)
@@ -359,6 +359,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
         <li><a href="/karl-marx">Qui était Karl Marx</a></li>
         <li><a href="/glossaire/">L’abécédaire de Marx</a></li>
         <li><a href="/jeu/">Le circuit du capital</a></li>
+        <li><a href="/cartes/">Les cartes à collectionner</a></li>
         <li><a href="/agregation-2027">Marx à l’agrégation 2027</a></li>
         </ul>
       </div>
@@ -377,7 +378,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
 </footer>
 <!-- PIED:FIN -->
 
-<script src="/cartes/carte.js?v=1"></script>
+<script src="/cartes/carte.js?v=bfbe26f8"></script>
 <script>
 (function () {
   'use strict';
@@ -388,7 +389,8 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     notion: ['/glossaire/', 'Le glossaire'],
     questions: ['/glossaire/fetichisme#nt-quiz-t', 'Une notion'],
     commentaire: ['/agregation-2027', 'Les commentaires'],
-    forum: ['/oeuvres/forum', 'Le forum']
+    forum: ['/oeuvres/forum', 'Le forum'],
+    circuit: ['/jeu/', 'Le jeu']
   };
   var $ = function (id) { return document.getElementById(id); };
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
@@ -439,7 +441,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
 
   /* ---------------------------------------------------------- données */
   async function chargerCatalogue() {
-    var r = await fetch('/cartes/catalogue.json?v=1');
+    var r = await fetch('/cartes/catalogue.json?v=2cd636b2');
     var d = await r.json();
     cat = d.cartes; parId = {};
     cat.forEach(function (c) { parId[c.id] = c; });

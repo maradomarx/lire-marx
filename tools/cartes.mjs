@@ -8,6 +8,8 @@
 //   node tools/cartes.mjs images     télécharge et convertit les images
 //   node tools/cartes.mjs build      écrit cartes/catalogue.json
 //   node tools/cartes.mjs tout       les trois, dans l'ordre
+//   node tools/cartes.mjs versions   repose les ?v= de /cartes/ (après une
+//                                    retouche de carte.js ou carte.css)
 //   options : --refresh (ignore le cache), --max-img=N
 //
 // Règles, les mêmes que pour le reste du site :
@@ -23,6 +25,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const CACHE = path.join(os.tmpdir(), 'liremarx-cartes');
@@ -551,6 +554,13 @@ async function build() {
   for (const [id, r] of Object.entries(main.rang || {})) {
     const c = toutes.find(x => x.id === id); if (c) c.r = r;
   }
+  // Les cartes qui ont une page sur le site y mènent (la carte de Marx, les
+  // œuvres servies) ; le générateur échoue si l'identifiant n'existe pas.
+  for (const [id, href] of Object.entries(main.liens || {})) {
+    const c = toutes.find(x => x.id === id);
+    if (!c) throw new Error('lien vers une carte absente du catalogue : ' + id);
+    c.href = href;
+  }
   const absents = [];
   for (const nom of main.legendaires || []) {
     const [, f, n] = /^(?:(fig|org|evt|oeu|not):)?(.*)$/.exec(nom);
@@ -603,11 +613,53 @@ async function build() {
   sql += 'update public.cartes_catalogue set actif = false where id not in (' +
     sortie.map(c => `'${c.id.replace(/'/g, "''")}'`).join(',') + ');\ncommit;\n';
   fs.writeFileSync(path.join(ROOT, 'supabase/cartes-catalogue.sql'), sql);
+  // Les versions : la page /cartes/ n'est jamais mise en cache, le catalogue,
+  // carte.js et carte.css le sont. Chaque URL porte donc un ?v= tiré du
+  // CONTENU du fichier (règle du projet : un actif qui change avec un
+  // balisage change d'URL) — sans geste à la main.
+  accueil(sortie, main);
+  versionner();
   const cpt = k => sortie.filter(c => c.f === k).length;
   const ci = sortie.filter(c => c.i).length;
   console.log(`catalogue : ${sortie.length} cartes — figures ${cpt('fig')}, organisations ${cpt('org')}, événements ${cpt('evt')}, œuvres ${cpt('oeu')}, notions ${cpt('not')} ; ${ci} avec image`);
   for (let r = 0; r < 5; r++) console.log(`  ${RANGS[r]} : ${sortie.filter(c => c.r === r).length}`);
 }
 
+// La vitrine de l'accueil : cinq cartes inscrites dans la page (pas de
+// catalogue à charger), le décompte et le nombre de manuscrits.
+function accueil(sortie, main) {
+  const f = path.join(ROOT, 'index.html');
+  let src = fs.readFileSync(f, 'utf8');
+  const entre = (nom, contenu) => {
+    const deb = `<!-- ${nom}:DÉBUT -->`, fin = `<!-- ${nom}:FIN -->`;
+    const i = src.indexOf(deb), j = src.indexOf(fin, i + deb.length);
+    if (i < 0 || j < 0) throw new Error('marqueurs ' + nom + ' absents de index.html');
+    src = src.slice(0, i + deb.length) + contenu + src.slice(j);
+  };
+  const vit = (main.vitrine || []).map(id => {
+    const c = sortie.find(x => x.id === id);
+    if (!c) throw new Error('carte de la vitrine absente du catalogue : ' + id);
+    return c;
+  });
+  entre('CARTES-VITRINE', '\n<script type="application/json" id="hsCartesData">' +
+    JSON.stringify(vit).replace(/</g, '\\u003c') + '</script>\n');
+  entre('CARTES-COMPTE', new Intl.NumberFormat('fr-FR').format(sortie.length).replace(/\s/g, '&#8239;'));
+  entre('CARTES-MANUSCRITS', String(sortie.filter(c => c.r === 4).length));
+  fs.writeFileSync(f, src);
+}
+
+function versionner() {
+  const h = f => createHash('sha1').update(fs.readFileSync(path.join(ROOT, f))).digest('hex').slice(0, 8);
+  const v = { 'catalogue.json': h('cartes/catalogue.json'), 'carte.js': h('cartes/carte.js'), 'carte.css': h('cartes/carte.css') };
+  for (const page of ['cartes/index.html', 'cartes/echantillons.html', 'index.html']) {
+    const f = path.join(ROOT, page);
+    let src = fs.readFileSync(f, 'utf8');
+    for (const [nom, hash] of Object.entries(v))
+      src = src.replace(new RegExp('(/cartes/' + nom.replace('.', '\\.') + ')(\\?v=[0-9a-z]+)?', 'g'), '$1?v=' + hash);
+    fs.writeFileSync(f, src);
+  }
+}
+
+if (cmd === 'versions') versionner();
 if (cmd === 'fetch' || cmd === 'tout') await fetchTout();
 if (cmd === 'build' || cmd === 'images' || cmd === 'tout') await build();

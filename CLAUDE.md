@@ -11859,3 +11859,35 @@ requête de tirage sur des données fictives, les droits et la RLS.
 - Entrée de barre latérale « Les cartes » (éventail qui s'ouvre), sous « Le
   jeu ». `shell.js?v=25`, `shell.css?v=16`, `shell-annotations.js?v=5`,
   `shell-progress.js?v=2`.
+
+### La suite, le même jour : missions complètes et intégration au site
+
+- **La mission `circuit` est branchée.** Le jeu (v71, dépôt séparé) émet
+  `window` `circuit:cycle` à chaque tour bouclé (`runCycle`) et à la naissance
+  du capital ; il ne sait rien des cartes. `tools/import-jeu.mjs` greffe dans
+  `jouer.html` un écouteur (troisième greffe, à côté du `noindex` et du lien
+  de retour) qui écrit la mission dans la FILE D'ATTENTE, et l'import échoue
+  si le bundle n'émet pas l'événement.
+- **La file d'attente** (`liremarx.cartes.attente.v1`, `{j: jour de Paris,
+  m: [...]}`) : une mission faite hors connexion ou hors de la coquille (le
+  jeu ne charge pas shell.js) attend là, et `SHELL.cartes` la rejoue dès que
+  la session est connue, sur n'importe quelle page. Une mission d'un autre
+  jour est oubliée. Éprouvé : événement dans /jeu/jouer → file → /cartes/
+  (démo) → mission cochée, booster gagné.
+- **Les cartes qui ont une page y mènent** (`liens` de `cartes/main.json` :
+  Marx → /karl-marx, les six œuvres servies → leur atelier) ; le verso dit
+  « Lire le texte » pour une œuvre.
+- **Les versions sont tirées du contenu** : `tools/cartes.mjs` (build, ou
+  `versions` après une retouche de carte.js/carte.css) pose les `?v=` de
+  `catalogue.json`, `carte.js` et `carte.css` dans `/cartes/`, la planche et
+  l'accueil. Ne plus les écrire à la main.
+- **L'accueil a sa vitrine** (`.hs-cartes`, après la bande du jeu) : un
+  éventail de cinq manuscrits (`vitrine` de main.json, le dernier en tirage
+  de tête) et le décompte, inscrits par `tools/cartes.mjs` entre marqueurs
+  `CARTES-*` — l'accueil ne charge pas le catalogue. ⚠️ `carte.css` pose
+  `--ct-l:252px` SUR la carte : une page qui veut une autre taille passe par
+  sa propre variable (`.hs-eventail .ct{--ct-l:var(--ev-l)}`), jamais par
+  l'héritage — les cartes faisaient 252 px au lieu de 145.
+- Pied de page commun (« Les cartes à collectionner », colonne Comprendre),
+  recherche du site (entrée `page`), À propos (une phrase) et /jeu/ (un
+  cycle bouclé rapporte un booster) en parlent.

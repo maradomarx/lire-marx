@@ -1,5 +1,5 @@
 {
-  "_": "Ce que le catalogue des cartes ne peut pas dériver seul. Les dates clés et les ajouts sont désignés par le TITRE de leur article dans la Wikipédia française : tools/cartes.mjs les résout en entités Wikidata et signale ceux qu'il ne trouve pas. « legendaires » est la liste FERMÉE des manuscrits (rang 4) : le classement automatique s'arrête à l'édition originale, parce que la notoriété seule y faisait entrer Medvedev ou Loukachenko. Un nom ambigu se préfixe de sa famille (« fig:… »). « exclure » retire une carte, « rang » fixe un rang à la main.",
+  "_": "Ce que le catalogue des cartes ne peut pas dériver seul. Les dates clés et les ajouts sont désignés par le TITRE de leur article dans la Wikipédia française : tools/cartes.mjs les résout en entités Wikidata et signale ceux qu'il ne trouve pas. « legendaires » est la liste FERMÉE des manuscrits (rang 4) : le classement automatique s'arrête à l'édition originale, parce que la notoriété seule y faisait entrer Medvedev ou Loukachenko. Un nom ambigu se préfixe de sa famille (« fig:… »). « exclure » retire une carte, « rang » fixe un rang à la main. « liens » : les cartes qui ont une page sur le site (Marx, les œuvres servies) y mènent. « vitrine » : les cinq cartes de l'accueil, dans l'ordre de l'éventail (la dernière y est montrée en tirage de tête).",
   "dates": [
     "Révolution française",
     "Prise de la Bastille",
@@ -275,5 +275,21 @@
     "Union soviétique",
     "Ligue des communistes",
     "Journée internationale des travailleurs"
+  ],
+  "liens": {
+    "fig-Q9061": "/karl-marx",
+    "oeu-Q58784": "/oeuvres/capital-1",
+    "oeu-Q40591": "/oeuvres/manifeste",
+    "oeu-Q295347": "/oeuvres/manuscrits-1844",
+    "oeu-Q230317": "/oeuvres/contribution-1859",
+    "oeu-Q692392": "/oeuvres/salaire-prix-profit",
+    "oeu-Q1198259": "/oeuvres/18-brumaire"
+  },
+  "vitrine": [
+    "fig-Q7231",
+    "evt-Q133132",
+    "fig-Q9061",
+    "oeu-Q40591",
+    "fig-Q5809"
   ]
 }

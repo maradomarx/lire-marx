@@ -1405,6 +1405,36 @@ html[data-mode="edition"] .hs-gl-entry:hover{box-shadow:none;}
    Corrigées ici pour l'accueil, signalées à la coquille (shell.css). */
 .skip-link:not(:focus){box-shadow:none;}
 @media(max-width:860px){ body:not(.sb-open) .sidebar{box-shadow:none;} }
+
+/* ═══ LA COLLECTION — vitrine des cartes à collectionner (mission cartes)
+   Le texte à gauche, un éventail de cinq manuscrits à droite. Les cinq
+   cartes et le décompte sont DÉRIVÉS par tools/cartes.mjs (marqueurs
+   CARTES-*) : l'accueil ne charge pas le catalogue de 1,7 Mo. Les cartes
+   sont des objets — leurs couleurs ne suivent pas le mode. */
+.hs-cartes{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(28px,5vw,72px);align-items:center;
+  padding:clamp(56px,9vh,110px) clamp(24px,5vw,80px);position:relative;overflow:clip;}
+.hs-cartes::before{content:"";position:absolute;right:-10%;top:10%;width:70%;height:80%;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(var(--gold-rgb),calc(.16*var(--lueur,1))),transparent);}
+.hs-cartes-lede{font-family:'Spectral',Georgia,serif;font-size:clamp(1.02rem,1.4vw,1.14rem);line-height:1.6;color:var(--muted);max-width:34em;margin:14px 0 0;}
+.hs-cartes-faits{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:10px;max-width:34em;}
+.hs-cartes-faits li{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:baseline;font-family:'Inter',system-ui,sans-serif;font-size:.92rem;color:var(--text);}
+.hs-cartes-faits b{font-family:'Fraunces',Georgia,serif;font-weight:900;font-size:1.15rem;color:var(--gold);font-variant-numeric:lining-nums;}
+.hs-cartes-go{display:inline-flex;align-items:center;gap:8px;margin-top:26px;padding:12px 24px;border-radius:999px;
+  background:var(--text);color:var(--bg);font-family:'Inter',system-ui,sans-serif;font-size:14px;font-weight:600;text-decoration:none;
+  transition:transform .2s cubic-bezier(.16,1,.3,1),opacity .2s;}
+.hs-cartes-go:hover{transform:translateY(-1px);opacity:.9;}
+.hs-eventail{position:relative;height:clamp(290px,30vw,380px);--ev-l:clamp(130px,11.5vw,172px);--fan:.4;--tour:7deg;}
+.hs-eventail .ct{--ct-l:var(--ev-l);position:absolute;left:50%;top:50%;margin:calc(var(--ct-l) * -.7) 0 0 calc(var(--ct-l) * -.5);
+  --dx:calc(var(--ct-l) * var(--k) * var(--fan));--dy:calc(var(--ka) * 12px);--rot:calc(var(--k) * var(--tour));
+  transform:translateX(var(--dx)) translateY(var(--dy)) rotate(var(--rot));transform-origin:50% 120%;
+  transition:transform .55s cubic-bezier(.16,1,.3,1);}
+.hs-eventail a{display:contents;}
+.hs-eventail .ct:hover{transform:translateX(var(--dx)) translateY(calc(var(--dy) - 26px)) rotate(var(--rot)) scale(1.04);z-index:9;}
+@media (max-width:860px){
+  .hs-cartes{grid-template-columns:1fr;}
+  .hs-eventail{height:250px;--ev-l:clamp(96px,26vw,128px);--fan:.34;--tour:6deg;}
+}
+@media (prefers-reduced-motion:reduce){ .hs-eventail .ct{transition:none;} }
 </style>
 <link rel="preload" href="oeuvres/shell.css?v=16" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="oeuvres/shell.css?v=16"></noscript>
@@ -1697,6 +1727,26 @@ html[data-mode="edition"] .hs-gl-entry:hover{box-shadow:none;}
     </section>
     </div>
 
+    <!-- ②bis La collection — les cartes à collectionner. Les cinq cartes et
+         le décompte sont DÉRIVÉS par tools/cartes.mjs (marqueurs CARTES-*). -->
+    <section class="hs-cartes" aria-labelledby="cartes-h">
+      <div class="hs-cartes-txt reveal">
+        <p class="hs-sec-label">La collection</p>
+        <h2 class="hs-sec-h" id="cartes-h">Les cartes à collectionner</h2>
+        <p class="hs-cartes-lede"><!-- CARTES-COMPTE:DÉBUT -->6&#8239;804<!-- CARTES-COMPTE:FIN --> cartes sur Marx et le mouvement ouvrier&nbsp;: ses penseurs et ses militants, ses livres et ses films, ses partis, ses révolutions et ses grèves, et les notions du glossaire.</p>
+        <ul class="hs-cartes-faits">
+          <li><b>3</b><span>boosters de cinq cartes chaque jour, avec un compte gratuit.</span></li>
+          <li><b>+3</b><span>de plus en lisant&nbsp;: un chapitre achevé, un passage surligné, une notion, un cycle du jeu.</span></li>
+          <li><b><!-- CARTES-MANUSCRITS:DÉBUT -->73<!-- CARTES-MANUSCRITS:FIN --></b><span>manuscrits, les classiques les plus rares, et une carte sur cinquante en tirage de tête.</span></li>
+        </ul>
+        <a class="hs-cartes-go" href="/cartes/">Ouvrir vos boosters<span aria-hidden="true">→</span></a>
+      </div>
+      <div class="hs-eventail" id="hsEventail" aria-hidden="true"></div>
+<!-- CARTES-VITRINE:DÉBUT -->
+<script type="application/json" id="hsCartesData">[{"id":"fig-Q7231","no":2507,"f":"fig","r":4,"e":"internationale","n":"Rosa Luxemburg","d":"Militante communiste et révolutionnaire allemande","a":1871,"b":1919,"pays":"Empire russe","lieu":"Zamość","q":"Q7231","occ":["théoricien ou théoricienne politique","philosophe","publiciste"],"i":1,"cr":"auteur inconnu · domaine public"},{"id":"evt-Q133132","no":221,"f":"evt","r":4,"e":"internationale","n":"Commune de Paris","d":"Période insurrectionnelle de l'histoire de Paris, 1871","a":1871,"b":1871,"pays":"France","lieu":"Paris","q":"Q133132","classe":"date clé","i":1,"cr":"auteur inconnu , photographe · CC0"},{"id":"fig-Q9061","no":2288,"f":"fig","r":4,"e":"internationale","n":"Karl Marx","d":"Philosophe, sociologue, historien et économiste allemand","a":1818,"b":1883,"pays":"apatride","lieu":"Trèves","href":"/karl-marx","q":"Q9061","occ":["philosophe","révolutionnaire","sociologue"],"cour":["marxisme","communisme"],"i":1,"cr":"John Jabez Edwin Mayall · domaine public"},{"id":"oeu-Q40591","no":6614,"f":"oeu","r":4,"e":"internationale","n":"Manifeste du Parti communiste","d":"Essai politico-philosophique de Karl Marx et Friedrich Engels","a":1848,"auteur":"Karl Marx","langue":"allemand","href":"/oeuvres/manifeste","q":"Q40591","types":["œuvre littéraire","manifeste"],"g":"ecrit","i":1,"cr":"Friedrich Engels , Karl Marx · domaine public"},{"id":"fig-Q5809","no":4752,"f":"fig","r":4,"e":"affiche","n":"Che Guevara","d":"Révolutionnaire marxiste et internationaliste argentin","a":1928,"b":1967,"pays":"Argentine","lieu":"Rosario","q":"Q5809","occ":["révolutionnaire","partisan","médecin"],"i":1,"cr":"Alberto Korda, restored by Adam Cuerden · domaine public"}]</script>
+<!-- CARTES-VITRINE:FIN -->
+    </section>
+
     <!-- ③ La bibliothèque — piloté par oeuvres/bibliotheque.json -->
     <section class="hs-lib" id="catalogue">
       <div class="hs-lib-head reveal">
@@ -1890,6 +1940,7 @@ html[data-mode="edition"] .hs-gl-entry:hover{box-shadow:none;}
         <li><a href="/karl-marx">Qui était Karl Marx</a></li>
         <li><a href="/glossaire/">L’abécédaire de Marx</a></li>
         <li><a href="/jeu/">Le circuit du capital</a></li>
+        <li><a href="/cartes/">Les cartes à collectionner</a></li>
         <li><a href="/agregation-2027">Marx à l’agrégation 2027</a></li>
         </ul>
       </div>
@@ -1971,6 +2022,30 @@ html[data-mode="edition"] .hs-gl-entry:hover{box-shadow:none;}
 <script src="assets/home.js?v=11" defer></script>
 
 <!-- Shell de navigation (topbar + sidebar + auth + social) -->
+<link rel="stylesheet" href="/cartes/carte.css?v=7c9d2c79" media="print" onload="this.media='all'">
+<script src="/cartes/carte.js?v=bfbe26f8" defer></script>
+<script>
+/* La vitrine des cartes : cinq manuscrits en éventail ; la dernière est en
+   tirage de tête. Toutes mènent à /cartes/. */
+document.addEventListener('DOMContentLoaded', function () {
+  var el = document.getElementById('hsEventail'), d;
+  try { d = JSON.parse(document.getElementById('hsCartesData').textContent); } catch (e) { d = []; }
+  if (!el || !window.Carte || !d.length) return;
+  var n = d.length;
+  el.innerHTML = d.map(function (c, i) {
+    var k = i - (n - 1) / 2;
+    // l'écart et la rotation sont portés par le CSS (--fan, --tour), réglés par largeur
+    return '<a href="/cartes/" tabindex="-1">' + Carte.html(c, { tete: i === n - 1 })
+      .replace('style="', 'style="--k:' + k + ';--ka:' + Math.abs(k) + ';') + '</a>';
+  }).join('');
+  el.addEventListener('pointermove', function (e) {
+    var c = e.target.closest('.ct'); if (!c) return;
+    var r = c.getBoundingClientRect();
+    c.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
+    c.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
+  });
+});
+</script>
 <script src="config.js"></script>
 <script src="oeuvres/shell.js?v=25"></script>
 <script src="oeuvres/shell-social.js?v=2"></script>
