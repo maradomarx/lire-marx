@@ -276,7 +276,7 @@
            Juste sous le jeu, parce que c'en est un. La pastille dit combien
            de boosters restent à ouvrir aujourd'hui — SHELL.cartes la remplit
            une fois la session connue, et la laisse vide sinon. */
-        '<a class="sb-item" href="/cartes/" data-act="cartes">' + IC('cartes') + '<span class="sb-l">Les cartes</span><span class="sb-badge" id="sbCartesN" hidden></span></a>' +
+        '<a class="sb-item" href="/cartes/" data-act="cartes">' + IC('cartes') + '<span class="sb-l">Marx TCG</span><span class="sb-badge" id="sbCartesN" hidden></span></a>' +
         /* « À propos » revient — l'entrée avait été retirée (92c43ee) parce
            qu'elle était un bouton `disabled` annonçant une page que personne
            n'écrivait. La page existe : c'est une ANCRE, comme toute
