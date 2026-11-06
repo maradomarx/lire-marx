@@ -257,6 +257,8 @@ const SITE_PAGES = [
   { file: 'jeu/index.html',             url: '/jeu/',                   priority: '0.8', changefreq: 'monthly' },
   /* Le glossaire — page dérivée, voir plus bas. */
   { file: 'glossaire/index.html',      url: '/glossaire/',             priority: '0.7', changefreq: 'monthly' },
+  /* /cartes/ — la collection : index d'un DOSSIER, donc AVEC son slash. */
+  { file: 'cartes/index.html',         url: '/cartes/',                priority: '0.6', changefreq: 'weekly' },
   /* /a-propos — page-FICHIER, donc SANS extension et SANS slash final.
      C'est l'autre moitié de la règle du slash rappelée juste au-dessus :
      un dossier prend son slash, un fichier n'en prend pas. */
@@ -512,7 +514,8 @@ const PIED_PAGES = [
   'oeuvres/carnet.html',
   'oeuvres/messages.html',
   'glossaire/index.html',
-  'jeu/index.html'
+  'jeu/index.html',
+  'cartes/index.html'
 ];
 
 /* ── L'AFFICHAGE : LES TROIS MODES, LE FOND, LES GESTES (mission `affichage`) ──
@@ -1605,8 +1608,8 @@ ${meta.questions.map((x) => `    <details>
 <link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2"></noscript>
 <link rel="stylesheet" href="/glossaire/notion.css?v=${hashV('glossaire/notion.css')}">
-<link rel="preload" href="/oeuvres/shell.css?v=15" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=15"></noscript>
+<link rel="preload" href="/oeuvres/shell.css?v=16" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=16"></noscript>
 ${ld}
 ${AFFICHAGE}
 </head>
@@ -1678,7 +1681,7 @@ ${neuf ? '' : monde}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=24"></script>
+<script src="/oeuvres/shell.js?v=25"></script>
 <script src="/oeuvres/shell-social.js?v=2"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 ${da && da.fond ? `<script src="/glossaire/fond.js?v=${hashV('glossaire/fond.js')}" defer></script>\n` : ''}${aScene || neuf ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-driver.js')}" defer></script>` : ''}
@@ -1782,8 +1785,8 @@ ${da && da.fond ? `<script src="/glossaire/fond.js?v=${hashV('glossaire/fond.js'
 <link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2"></noscript>
 <link rel="stylesheet" href="/glossaire/notion.css">
-<link rel="preload" href="/oeuvres/shell.css?v=15" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=15"></noscript>
+<link rel="preload" href="/oeuvres/shell.css?v=16" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=16"></noscript>
 ${ld}
 ${AFFICHAGE}
 </head>
@@ -1841,7 +1844,7 @@ ${voisines.map((v) => `      <a href="${v.href}">${v.nom}</a>`).join('\n')}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=24"></script>
+<script src="/oeuvres/shell.js?v=25"></script>
 <script src="/oeuvres/shell-social.js?v=2"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 </body>
@@ -2029,8 +2032,8 @@ ${PIED}
 <link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2"></noscript>
 <link rel="stylesheet" href="/glossaire/notion.css?v=${hashV('glossaire/notion.css')}">
-<link rel="preload" href="/oeuvres/shell.css?v=15" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=15"></noscript>
+<link rel="preload" href="/oeuvres/shell.css?v=16" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=16"></noscript>
 ${ld}
 ${AFFICHAGE}
 </head>
@@ -2079,7 +2082,7 @@ ${marge}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=24"></script>
+<script src="/oeuvres/shell.js?v=25"></script>
 <script src="/oeuvres/shell-social.js?v=2"></script>
 <script>installShell({ workTitle: 'Le Capital', tabs: [] });</script>
 </body>
@@ -2138,14 +2141,14 @@ ${PIED}
 <noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2"></noscript>
 <link rel="stylesheet" href="/glossaire/notion.css?v=${hashV('glossaire/notion.css')}">
 <link rel="stylesheet" href="/commentaires/agregation.css?v=${hashV('commentaires/agregation.css')}">
-<link rel="preload" href="/oeuvres/shell.css?v=15" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=15"></noscript>
+<link rel="preload" href="/oeuvres/shell.css?v=16" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/oeuvres/shell.css?v=16"></noscript>
 ${o.ld}
 ${AFFICHAGE}
 </head>`;
   const piedCm = (workTitle) => `${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=24"></script>
+<script src="/oeuvres/shell.js?v=25"></script>
 <script src="/oeuvres/shell-social.js?v=2"></script>
 <script>installShell({ workTitle: '${workTitle}', tabs: [] });</script>
 <script src="/commentaires/agregation.js?v=${hashV('commentaires/agregation.js')}" defer></script>

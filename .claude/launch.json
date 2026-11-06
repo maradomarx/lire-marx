@@ -1,0 +1,68 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "karl-marx",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "/Users/fche/Desktop/lire-marx/.claude/serve.py",
+        "8811"
+      ],
+      "port": 8811
+    },
+    {
+      "name": "site",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "/Users/fche/Desktop/lire-marx/.claude/serve.py",
+        "8766"
+      ],
+      "port": 8766
+    },
+    {
+      "name": "jeu",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": [
+        "-c",
+        "cd /Users/fche/Desktop/circuit-du-capital && npx vite --port 5173 --strictPort"
+      ],
+      "port": 5173
+    },
+    {
+      "name": "manifeste",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "/Users/fche/Desktop/lire-marx/.claude/serve.py",
+        "8793"
+      ],
+      "port": 8793
+    },
+    {
+      "name": "recherche",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "/Users/fche/Desktop/lire-marx/.claude/serve.py",
+        "8801"
+      ],
+      "port": 8801
+    },
+    {
+      "name": "lire-debord",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "/Users/fche/Desktop/lire-debord/tools/serveur.mjs",
+        "8787"
+      ],
+      "port": 8787
+    },
+    {
+      "name": "cartes",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "/Users/fche/Desktop/lire-marx/tools/serveur.mjs",
+        "8850"
+      ],
+      "port": 8850
+    }
+  ]
+}

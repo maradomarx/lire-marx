@@ -94,3 +94,15 @@
   X-Robots-Tag: noindex
 /commentaires/carrefour/*
   X-Robots-Tag: noindex
+
+# Les cartes à collectionner : le catalogue (données de la page /cartes/), le
+# registre des numéros, et la planche d'échantillons (outil de design). Seule
+# la page /cartes/ est faite pour être trouvée.
+/cartes/catalogue.json
+  X-Robots-Tag: noindex
+/cartes/numeros.json
+  X-Robots-Tag: noindex
+/cartes/main.json
+  X-Robots-Tag: noindex
+/cartes/echantillons
+  X-Robots-Tag: noindex

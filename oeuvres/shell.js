@@ -213,6 +213,7 @@
     forum: '<path d="M2.5 4h10v6.6H7.2L4 13.2v-2.6H2.5z"/><path class="i-reponse" d="M15 7.6h2.5v5.8H16v2.4l-3-2.4H9.5v-1.6"/>',
     carnet: '<rect x="4" y="2.5" width="12.5" height="15" rx="1.4"/><path d="M6.6 2.5v15"/><path class="i-signet" d="M11.6 2.5v7.4l1.6-1.3 1.6 1.3V2.5"/>',
     messages: '<rect x="2.5" y="4.5" width="15" height="11" rx="1.4"/><path class="i-rabat" d="M3 5.3l7 5.5 7-5.5"/>',
+    cartes: '<path class="i-c1" d="M3.4 6.9l5.6-1.5 2.4 9.3-5.6 1.5z"/><path class="i-c3" d="M11 5.4l5.6 1.5-2.4 9.3-5.6-1.5z"/><rect class="i-c2" x="7.1" y="3.4" width="5.8" height="10.6" rx=".9"/>',
     jeu: '<g class="i-roue"><circle cx="10" cy="10" r="7.2"/><circle cx="10" cy="10" r="1.6"/><path d="M10 2.8v5.6M10 11.6v5.6M2.8 10h5.6M11.6 10h5.6M4.9 4.9l4 4M11.1 11.1l4 4M15.1 4.9l-4 4M8.9 11.1l-4 4"/></g>',
     apropos: '<g class="i-lunettes"><circle cx="6" cy="11.6" r="3.2"/><circle cx="14" cy="11.6" r="3.2"/><path d="M9.2 11.2c.5-.6 1.1-.6 1.6 0M2.8 11.3L1.9 8.4M17.2 11.3l.9-2.9"/></g>',
     cgu: '<path d="M3.5 17h13"/><g class="i-tampon"><path d="M8.2 3h3.6v4.6H8.2z"/><path d="M4.8 10.4c0-1.5 1.2-2.8 2.8-2.8h4.8c1.6 0 2.8 1.3 2.8 2.8v1.8H4.8z"/></g>',
@@ -271,6 +272,11 @@
            le jeu prend tout l'écran, on ne l'ouvre pas d'un clic de
            sidebar sans avoir dit ce que c'est. */
         '<a class="sb-item" href="/jeu/" data-act="jeu">' + IC('jeu') + '<span class="sb-l">Le jeu</span></a>' +
+        /* « Les cartes » : la collection et ses boosters (mission cartes).
+           Juste sous le jeu, parce que c'en est un. La pastille dit combien
+           de boosters restent à ouvrir aujourd'hui — SHELL.cartes la remplit
+           une fois la session connue, et la laisse vide sinon. */
+        '<a class="sb-item" href="/cartes/" data-act="cartes">' + IC('cartes') + '<span class="sb-l">Les cartes</span><span class="sb-badge" id="sbCartesN" hidden></span></a>' +
         /* « À propos » revient — l'entrée avait été retirée (92c43ee) parce
            qu'elle était un bouton `disabled` annonçant une page que personne
            n'écrivait. La page existe : c'est une ANCRE, comme toute
@@ -448,6 +454,8 @@
     if(/^\/mentions-legales$/.test(here)) mark(cguBtn);
     var jeuBtn = sb.querySelector('[data-act="jeu"]');
     if(/^\/jeu\/?$/.test(here) || /^\/jeu\/jouer$/.test(here)) mark(jeuBtn);
+    var cartesBtn = sb.querySelector('[data-act="cartes"]');
+    if(/^\/cartes\/?$/.test(here)) mark(cartesBtn);
 
     // Items de navigation inter-pages.
     // Les destinations sont des ANCRES : leur href fait la navigation, et
@@ -2952,4 +2960,164 @@
   /* shell.js définit SHELL.auth plus haut dans ce même fichier, mais on
      se protège d'un ordre de chargement inattendu */
   if(!arm()) document.addEventListener('DOMContentLoaded', arm, { once: true });
+})();
+
+/* ===== SHELL.cartes — les cartes à collectionner : missions et serveur
+   ----------------------------------------------------------------
+   Vit dans shell.js parce que les missions se gagnent sur TOUTES les pages
+   (finir un chapitre, surligner, lire une notion…). La page /cartes/ porte le
+   reste (album, boosters) et ne charge le catalogue que chez elle.
+
+   Le compte est obligatoire et le TIRAGE se fait dans Supabase (fonctions
+   cartes_etat, cartes_ouvrir, cartes_mission de supabase/schema.sql) : la page
+   ne choisit jamais ses cartes. Une mission est DÉCLARÉE par la page — elle
+   seule sait qu'on a fini un chapitre — et le serveur la plafonne à trois
+   boosters de plus par jour, ce qui la rend sans enjeu.
+
+   Mode démo : sur localhost avec ?demo, la page /cartes/ installe
+   window.LM_CARTES_DEMO, qui imite les trois fonctions dans le navigateur.
+   Il ne sert qu'à vérifier l'interface sans base ; il n'existe pas en ligne. */
+(function(){
+  var SHELL = window.SHELL = window.SHELL || {};
+  if(SHELL.cartes) return;
+
+  var MISSIONS = {
+    lecture:     'Lire un chapitre jusqu’au bout',
+    annotation:  'Surligner un passage',
+    notion:      'Lire une page du glossaire',
+    questions:   'Vérifier sa compréhension sur une notion',
+    commentaire: 'Lire un commentaire guidé',
+    forum:       'Écrire sur le forum'
+  };
+  var local = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+  var demo = local && /[?&]demo\b/.test(location.search);
+  var subs = [];
+
+  // Le jour du jeu est celui de Paris, comme côté serveur (cartes_jour()).
+  function jour(){
+    try { return new Intl.DateTimeFormat('fr-CA', { timeZone: 'Europe/Paris' }).format(new Date()); }
+    catch(e){ return new Date().toISOString().slice(0, 10); }
+  }
+  var CLE = 'liremarx.cartes.missions.v1';
+  function faites(){
+    try { var o = JSON.parse(localStorage.getItem(CLE) || '{}'); return o.j === jour() ? (o.m || []) : []; }
+    catch(e){ return []; }
+  }
+  function noter(m){
+    try { var l = faites(); if(l.indexOf(m) < 0) l.push(m); localStorage.setItem(CLE, JSON.stringify({ j: jour(), m: l })); }
+    catch(e){}
+  }
+  function emit(etat){ subs.forEach(function(f){ try { f(etat); } catch(e){} }); }
+
+  function connecte(){ return demo || !!(SHELL.auth && SHELL.auth.user); }
+
+  async function rpc(nom, args){
+    if(demo && window.LM_CARTES_DEMO) return window.LM_CARTES_DEMO[nom](args || {});
+    var c = SHELL.auth && SHELL.auth.getClient ? await SHELL.auth.getClient() : null;
+    if(!c) return { error: { message: 'Compte non configuré.' } };
+    return c.rpc(nom, args || {});
+  }
+
+  async function etat(){
+    if(!connecte()) return null;
+    var r = await rpc('cartes_etat');
+    if(r.error) throw r.error;
+    return r.data;
+  }
+  async function ouvrir(){
+    var r = await rpc('cartes_ouvrir');
+    if(r.error) throw r.error;
+    emit(null);
+    return r.data;
+  }
+
+  // Une mission : un appel au serveur par mission et par jour au plus.
+  async function mission(m){
+    if(!MISSIONS[m] || !connecte()) return null;
+    if(faites().indexOf(m) >= 0) return null;
+    noter(m);
+    var r;
+    try { r = await rpc('cartes_mission', { m: m }); } catch(e){ return null; }
+    if(!r || r.error || !r.data) return null;
+    if(r.data.gagne) annoncer(m);
+    emit(r.data);
+    return r.data;
+  }
+
+  // L'annonce : une pastille qu'on peut cliquer, à la différence du toast du
+  // shell (pointer-events:none).
+  var minuteur = null;
+  function annoncer(m){
+    var t = document.getElementById('lmCarteGain');
+    if(!t){
+      t = document.createElement('a');
+      t.id = 'lmCarteGain'; t.className = 'lm-carte-gain'; t.href = '/cartes/';
+      document.body.appendChild(t);
+    }
+    t.innerHTML = '<span class="lm-carte-gain-ic" aria-hidden="true"></span><span><b>Un booster de plus</b>' +
+      '<span>' + MISSIONS[m] + '</span></span><span class="lm-carte-gain-go">Ouvrir →</span>';
+    if(SHELL.announce) SHELL.announce('Mission accomplie : un booster de plus. ' + MISSIONS[m] + '.');
+    requestAnimationFrame(function(){ t.classList.add('on'); });
+    clearTimeout(minuteur);
+    minuteur = setTimeout(function(){ t.classList.remove('on'); }, 7000);
+  }
+
+  // ---- Les missions qu'on reconnaît sans l'aide de la page ----
+  function attendre(ms, m){
+    // On compte le temps passé onglet VISIBLE : une page ouverte en arrière-
+    // plan ne lit rien.
+    var reste = ms, t0 = null, id = null;
+    function go(){ t0 = Date.now(); id = setTimeout(function(){ mission(m); }, reste); }
+    function stop(){ if(id){ clearTimeout(id); id = null; reste -= Date.now() - t0; } }
+    document.addEventListener('visibilitychange', function(){ document.hidden ? stop() : (reste > 0 && go()); });
+    if(!document.hidden) go();
+  }
+  function armer(){
+    var p = location.pathname;
+    if(/^\/glossaire\/[^\/]+$/.test(p) && !/\/index(\.html)?$/.test(p)) attendre(40000, 'notion');
+    if(/^\/commentaires\/[^\/]+$/.test(p)) attendre(60000, 'commentaire');
+    // Ouvrir la réponse d'une question de compréhension.
+    document.addEventListener('toggle', function(e){
+      var d = e.target;
+      if(d && d.open && d.closest && d.closest('.nt-quiz')) mission('questions');
+    }, true);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', armer, { once: true });
+  else armer();
+
+  // La pastille de la barre latérale : le nombre de boosters à ouvrir.
+  function pastille(e, essai){
+    var b = document.getElementById('sbCartesN');
+    // La barre latérale peut ne pas être encore montée (installShell vient
+    // après shell.js) : on réessaie un peu plus tard.
+    if(!b){ if((essai || 0) < 10) setTimeout(function(){ pastille(e, (essai || 0) + 1); }, 300); return; }
+    var n = e && e.restants;
+    if(n > 0){ b.textContent = n; b.hidden = false; b.title = n + (n > 1 ? ' boosters à ouvrir' : ' booster à ouvrir'); }
+    else b.hidden = true;
+  }
+  var dernier = 0;
+  function rafraichir(){
+    if(!connecte()){ pastille(null); return; }
+    if(Date.now() - dernier < 5000) return;
+    dernier = Date.now();
+    etat().then(pastille, function(){ pastille(null); });
+  }
+  subs.push(function(e){ if(e && e.restants != null) pastille(e); else { dernier = 0; rafraichir(); } });
+  // Une fois la session connue (le premier rappel d'onChange est immédiat et
+  // arrive avant getSession : on le laisse passer, rafraichir() le saura).
+  function suivreSession(){
+    if(!SHELL.auth || !SHELL.auth.onChange) return false;
+    // Jamais d'appel Supabase dans le rappel de GoTrue (verrou) : on diffère.
+    SHELL.auth.onChange(function(){ setTimeout(function(){ dernier = 0; rafraichir(); }, 0); });
+    return true;
+  }
+  if(!suivreSession()) document.addEventListener('DOMContentLoaded', suivreSession, { once: true });
+  document.addEventListener('visibilitychange', function(){ if(!document.hidden) rafraichir(); });
+
+  SHELL.cartes = {
+    MISSIONS: MISSIONS, demo: demo, jour: jour, rafraichir: rafraichir,
+    etat: etat, ouvrir: ouvrir, mission: mission, connecte: connecte,
+    onChange: function(cb){ if(typeof cb === 'function') subs.push(cb); },
+    _rpc: rpc
+  };
 })();

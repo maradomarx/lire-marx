@@ -11747,3 +11747,115 @@ rail, tiroir à 375 × l'accueil, une notion, Capital, à propos, la
 bibliothèque) ; icônes regardées au triple de la taille, au repos et figées
 au milieu de leur geste ; détecteur au niveau d'avant (24 constats sur
 shell.css et mouvement.css). `shell.css?v=15`, `shell.js?v=24`.
+
+## Les cartes à collectionner (mission `cartes`, nov. 2026)
+
+Demande du propriétaire : « rendre le site plus fun et pédagogique », en
+commençant par des cartes à collectionner sur le marxisme au sens large,
+**plusieurs milliers**, avec des **boosters** quotidiens et des **missions**.
+Arbitrages rendus : **3 boosters de 5 cartes par jour** ; **compte
+obligatoire, tirage côté serveur** ; **faits Wikidata + nos textes** pour le
+dos des cartes ; **politiquement lourd accepté** (Staline, Trotski, Pol Pot
+sont au catalogue) ; les plus rares = des **classiques choisis à la main**,
+animés ; un **tirage brillant** (« shiny ») pour toutes les cartes.
+
+### Le catalogue est DÉRIVÉ : `tools/cartes.mjs`
+
+`fetch` (Wikidata, cache dans le dossier temporaire), `images` (Commons →
+WebP 320 px dans `assets/img/cartes/`, quatre à la fois), `build` (écrit
+`cartes/catalogue.json` ET `supabase/cartes-catalogue.sql`). Pas une étape de
+build : on le lance à la main. **6 804 cartes** : figures 4 275, organisations
+897, événements 558, œuvres 982, notions 92 ; 4 540 avec image (57 Mo).
+
+- **Une requête qui fait tout d'un coup dépasse le délai de Wikidata** : on
+  relève d'abord la LISTE des entités, puis les DÉTAILS par lots de 200 ;
+  les militants se cherchent parti par parti (40 partis à la fois), et un
+  lien d'œuvre (auteur, créateur, réalisateur, compositeur) par requête.
+- **La description se demande EN FRANÇAIS SEULEMENT** (`schema:description`
+  filtré) : le service de libellés rend l'anglais en repli.
+- **Les filtres de pertinence sont nécessaires** : les identifiants de
+  « coup d'État » et « insurrection » ramenaient des attentats et des
+  conquêtes (retirés) ; rébellions, massacres et événements « auxquels une
+  figure a participé » passent par `PERTINENT`, et le sport (`SPORT`) est
+  exclu. Les œuvres n'admettent que le genre de leur lien (`GENRES`) : un
+  compositeur fait entrer une symphonie, pas le film qui l'a reprise.
+- `cartes/main.json` : les **dates clés** et les **ajouts** désignés par le
+  titre de leur article sur la Wikipédia française (Jaurès, Brecht, Allende,
+  Blanqui… que Wikidata ne rattache à aucun courant), et **`legendaires`, la
+  liste FERMÉE des 73 manuscrits**. Le classement automatique (notoriété =
+  nombre de Wikipédias) s'arrête à l'édition originale : seul, il faisait
+  entrer Medvedev, Loukachenko et *Le Bras de diamant*. Ne pas rouvrir.
+- **Identifiants stables** (`fig-Q9061`) et **numéros attribués une fois**
+  (`cartes/numeros.json`, registre qui ne fait que grandir) : regénérer ne
+  fait perdre aucune carte à personne. Une carte retirée est DÉSACTIVÉE en
+  base, jamais effacée.
+
+### Le design : `cartes/carte.js` + `cartes/carte.css`
+
+Une carte est un OBJET (ses couleurs ne suivent pas le mode). Trois axes :
+l'**époque** (gravure < 1848, internationale, constructivisme 1917-1939,
+affiche 1940-1967, sérigraphie 1968-1991, contemporain), la **famille**
+(l'emblème quand il n'y a pas d'image : l'année, la lettrine, la page de
+titre, le sigle, les initiales) et le **rang**, nommé comme un état de
+l'imprimé : **tract, brochure (agrafes), édition reliée (filet d'or),
+édition originale (fers dorés aux angles), manuscrit**. Une graine tirée de
+l'identifiant fait varier rosace, angles, encre.
+
+- **Le manuscrit est le seul animé** : feuille d'or qui tourne
+  (`@property --ct-ang`), lumière qui passe, aura, éclats, nom à la feuille
+  d'or, sceau de cire. **Le tirage de tête** (le shiny, une carte sur
+  cinquante) : nacre irisée qui dérive, filet arc-en-ciel, étoile, pastille.
+  Tout est coupé sous reduced-motion.
+- **La dorure du nom reste dans des tons foncés** : un reflet clair effaçait
+  les lettres sur papier crème (« KARL M RX »).
+- **`backface-visibility` ne tient pas dans Chrome** dès qu'une face contient
+  un mode de fusion : chaque face se masque par `visibility` à mi-rotation.
+- **Une carte se protège de la page qui l'accueille** (`.ct p{color:inherit}`) :
+  le `p{color}` d'une page passait sur les sous-titres.
+- **Le dos est commun à toutes** et passe devant le fond d'époque
+  (spécificité 0,3,0) : un dos rouge trahissait l'époque avant le retournement.
+- **Le poids compte** : la rosace est à 84 points par tour et la trame
+  sérigraphique est un `<pattern>` (47 → 12 Ko et 25 → 1,5 Ko par carte).
+- `cartes/echantillons.html` (noindex) : la planche de design.
+  `?ids=a,b*` (l'étoile = tirage de tête), `&verso=id`.
+
+### Le serveur (Supabase, appliqué le 6 nov. 2026)
+
+`supabase/schema.sql`, bloc « Les cartes à collectionner » : tables
+`cartes_catalogue`, `cartes_collection` (n, tetes), `cartes_jours`,
+`cartes_missions` ; RLS en lecture sur ses lignes, **aucune écriture
+directe** ; fonctions `security definer` `cartes_etat`, `cartes_ouvrir`,
+`cartes_mission(m)` (exécutables par `authenticated` seulement), jour de
+Paris. Taux par carte : tract 60 %, brochure 26 %, reliure 10 %, originale
+3,5 %, manuscrit 0,5 % ; la cinquième est au moins une brochure. Missions :
++1 booster chacune, une fois par jour, **3 au plus** (`gagne` dit si elle a
+rapporté). Après une regénération du catalogue, **rejouer
+`supabase/cartes-catalogue.sql`**.
+
+⚠️ Le parcours complet avec un vrai compte n'a pas été éprouvé par l'agent
+(se faire passer pour un compte réel a été refusé, à raison) : vérifié la
+requête de tirage sur des données fictives, les droits et la RLS.
+
+### Le site : `/cartes/` et `SHELL.cartes`
+
+- `cartes/index.html` → `/cartes/` (index de dossier, AVEC son slash) :
+  le comptoir (paquet ficelé, boosters du jour, missions), la progression,
+  l'album (filtres, fiche d'une carte, emplacements numérotés pour celles
+  qui manquent — une carte manquante ne se cherche que par son numéro).
+  L'ouverture : paquet qui tremble, bande qui s'arrache, cinq cartes face
+  cachée dont le dos LUIT selon la rareté, rangées de la moins rare à la
+  plus rare, éclair sur un manuscrit ou un tirage de tête.
+- **`SHELL.cartes` vit dans `shell.js`** (les missions se gagnent partout) :
+  `etat/ouvrir/mission`, la pastille de la barre latérale (boosters
+  restants), l'annonce cliquable « Un booster de plus ». Missions branchées :
+  `lecture` (shell-progress.js, partie marquée lue), `annotation`
+  (shell-annotations.js), `forum` (forum.html), `notion` (40 s visibles sur
+  une page de notion), `commentaire` (60 s), `questions` (ouvrir une réponse
+  de « Vérifier sa compréhension »). `circuit` est prévu côté serveur, pas
+  branché (dépôt du jeu).
+- **Mode démo** : `localhost` + `?demo` imite le serveur dans le navigateur
+  (`&force=4` force la cinquième carte, `&tetes` multiplie les tirages de
+  tête). N'existe pas en ligne.
+- Entrée de barre latérale « Les cartes » (éventail qui s'ouvre), sous « Le
+  jeu ». `shell.js?v=25`, `shell.css?v=16`, `shell-annotations.js?v=5`,
+  `shell-progress.js?v=2`.

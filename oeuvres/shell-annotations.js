@@ -379,6 +379,8 @@
     (store[k] = store[k] || []).push(an);
     persist();
     syncUpsert(an);
+    // Un passage surligné : la mission « annotation » des cartes.
+    if(window.SHELL && SHELL.cartes) SHELL.cartes.mission('annotation');
     try { wrapByOffsets(box, off.start, off.end, 'anno c-' + color, an.id); } catch(e){}
     window.getSelection().removeAllRanges();
     hideBar();

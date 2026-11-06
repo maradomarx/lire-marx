@@ -59,6 +59,8 @@
                 { onConflict: 'user_id,work,section' });
       if(res.error && !already){ _cache.delete(section); _emit(); return false; }
     } catch(e){ if(!already){ _cache.delete(section); _emit(); } return false; }
+    // Une partie lue jusqu'au bout : la mission « lecture » des cartes.
+    if(!already && window.SHELL.cartes) window.SHELL.cartes.mission('lecture');
     return true;
   }
 

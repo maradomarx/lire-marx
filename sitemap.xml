@@ -36,6 +36,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://liremarx.com/cartes/</loc>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://liremarx.com/a-propos</loc>
     <lastmod>2026-10-25</lastmod>
     <changefreq>yearly</changefreq>
