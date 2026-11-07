@@ -1,6 +1,7 @@
 {
   "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/travail-aliene. Réécrit en octobre 2026 selon glossaire/mondes/CHARTE.md (enbref, retenir, questions, da). L'essai est dans essai.html, la scène dans monde.js.",
   "titre": "Travail aliéné",
+  "seo": "Aliénation et travail aliéné chez Marx : définition simple",
   "de": "Entfremdete Arbeit",
   "enbref": "Le travail aliéné désigne, chez Marx, la situation de l'ouvrier à qui ce qu'il fait devient étranger&nbsp;: l'objet qu'il produit, son activité, ce qui fait de lui un homme, et les autres hommes. Marx forme ce concept en 1844, à Paris, dans le premier des <i>Manuscrits de 1844</i>, restés inédits jusqu'en 1932. Il en tire une conclusion qui renverse l'économie de son temps&nbsp;: la propriété privée est le produit du travail aliéné.",
   "retenir": [
@@ -24,7 +25,7 @@
       "r": "Les économistes partent de la propriété privée comme d'un fait premier. Marx la déduit du travail aliéné&nbsp;: un produit qui n'appartient pas à l'ouvrier appartient à un autre homme. La propriété privée apparaît alors comme un rapport produit par le travail, qui le reproduit ensuite."
     }
   ],
-  "description": "Le travail aliéné chez Marx (Manuscrits de 1844), expliqué simplement : le produit, l'activité, l'être générique, l'autre homme, et la propriété privée.",
+  "description": "L'aliénation du travail chez Marx (Manuscrits de 1844), expliquée simplement : ses quatre formes, du produit à l'autre homme, et la propriété privée.",
   "source": {
     "work": "manuscrits-1844",
     "s": 3,

@@ -26,6 +26,30 @@ import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 
 const ORIGIN = 'https://liremarx.com';
+/* LE TITRE DE RÉSULTAT (mission seo-titres, nov. 2026). Google coupe un titre
+ * vers 600 px, soit une soixantaine de caractères : au-delà, la fin disparaît
+ * ou Google réécrit le titre à sa façon. Deux règles :
+ *  - « | Lire Marx » ne s'ajoute que s'il TIENT. Le nom du site est déjà
+ *    affiché par Google au-dessus de l'URL (bloc WebSite de l'accueil) :
+ *    le répéter au prix du mot cherché serait perdre deux fois.
+ *  - le mot cherché vient EN TÊTE, et ce qui peut être coupé vient à la fin. */
+const MARQUE = ' | Lire Marx';
+const TITRE_MAX = 60;
+// Après deux-points, la minuscule (sauf sigle ou nom propre en tête : « Le Capital »).
+const minusc = (t) => (/^[A-ZÀ-Ý][a-zà-ÿ’']/.test(t) && !/^Le Capital/.test(t) ? t[0].toLowerCase() + t.slice(1) : t);
+const titreRes = (t) => (t.length + MARQUE.length <= TITRE_MAX + 2 ? t + MARQUE : t);
+/* Une notion : « X chez Marx : définition et explication » (la forme des
+ * requêtes : « fétichisme de la marchandise marx », « plus-value définition »),
+ * raccourcie jusqu'à tenir. meta.seo garde le dernier mot quand la notion se
+ * cherche sous un autre nom (« forces productives », « subsomption formelle
+ * et réelle »). */
+const titreNotion = (nom) => {
+  let n = nom.replace(/^Les /, '');
+  n = n[0].toUpperCase() + n.slice(1);
+  const cs = [`${n} chez Marx : définition et explication`, `${n} chez Marx : définition simple`,
+              `${n} chez Marx : définition`, `${n} (Marx) : définition`];
+  return cs.find((c) => c.length <= TITRE_MAX) || cs[cs.length - 1];
+};
 /* La signature de l'auteur. Elle vit ici parce qu'elle est affirmée à DEUX
    endroits — le corps de /a-propos et le `founder` de son JSON-LD — et
    qu'un schéma qui nommerait l'auteur autrement que la page serait un
@@ -1348,7 +1372,7 @@ function identite(nom) {
     const desc = nu(meta.description || tete);
     // Le titre de résultat peut dire le mot tel qu'on le cherche (« définition »,
     // la forme courante) : meta.seo, choisi d'après Search Console.
-    const titreSeo = meta.seo || `${titre} — Marx, définition et explication`;
+    const titreSeo = meta.seo || titreNotion(titre);
     const src = meta.source || {};
     /* L'adresse de l'œuvre se lit dans bibliotheque.json (le `path` fait foi,
        pas l'id) : le Manifeste a pour id manifeste-parti-communiste et vit à
@@ -1582,7 +1606,7 @@ ${meta.questions.map((x) => `    <details>
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<title>${echap(titreSeo)} | Lire Marx</title>
+<title>${echap(titreRes(titreSeo))}</title>
 <!-- PAGE GÉNÉRÉE par tools/gen-seo.mjs depuis ${dossier}/ (essai.html,
      meta.json, monde.js). Ne pas éditer à la main : tout changement serait
      écrasé. Le texte se modifie dans l'essai, la scène dans monde.js, la
@@ -1759,7 +1783,7 @@ ${da && da.fond ? `<script src="/glossaire/fond.js?v=${hashV('glossaire/fond.js'
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<title>${echap(titre)} — Marx, définition et sources | Lire Marx</title>
+<title>${echap(titreRes(titreNotion(titre)))}</title>
 <!-- PAGE GÉNÉRÉE par tools/gen-seo.mjs depuis oeuvres/lexique.json.
      Ne pas éditer à la main : tout changement serait écrasé. Le texte se
      modifie dans le lexique, la forme dans le générateur, le style dans
@@ -2006,7 +2030,7 @@ ${PIED}
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<title>Le Capital, chapitre ${c.arabe} : ${echap(titre)} — résumé et explication | Lire Marx</title>
+<title>${echap(titreRes(`Le Capital, chapitre ${c.arabe}, résumé : ${minusc(nu(c.court || o.t))}`))}</title>
 <!-- PAGE GÉNÉRÉE par tools/gen-seo.mjs depuis ${c.dossier}/ (essai.html,
      meta.json) et depuis les données de l'atelier. Ne pas éditer à la main :
      le texte se modifie dans l'essai, la forme dans le générateur, le style
@@ -2115,7 +2139,7 @@ ${PIED}
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<title>${echap(o.title)} | Lire Marx</title>
+<title>${echap(titreRes(nu(o.title)))}</title>
 <!-- PAGE GÉNÉRÉE par tools/gen-seo.mjs depuis ${o.src}/ (essai.html,
      meta.json). Ne pas éditer à la main : le texte se modifie dans l'essai,
      la forme dans le générateur, le style dans commentaires/agregation.css. -->

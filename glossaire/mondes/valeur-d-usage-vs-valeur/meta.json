@@ -1,6 +1,7 @@
 {
   "_": "LA TÊTE, L'APPAREIL ET LE MONDE de /glossaire/valeur-d-usage-et-valeur (dossier valeur-d-usage-vs-valeur, adresse fixée par page.slug dans oeuvres/lexique.json). L'essai est dans essai.html, la scène dans monde.js. Assemblé par tools/gen-seo.mjs. Réécrit en octobre 2026 selon glossaire/mondes/CHARTE.md.",
   "titre": "Valeur d'usage et valeur",
+  "seo": "Valeur d'usage et valeur d'échange chez Marx : définition",
   "de": "Gebrauchswert / Wert",
   "enbref": "La valeur d'usage et la valeur sont, chez Marx, les deux faces de toute marchandise. La valeur d'usage est l'utilité d'une chose&nbsp;: elle tient à son corps, à ce que la chose est. La valeur est ce qui la rend échangeable&nbsp;: une quantité de travail humain, mesurée par le temps socialement nécessaire pour la produire. Marx pose cette distinction à la première page du <i>Capital</i> (1867). La difficulté est du côté de la valeur, qu'on ne trouve dans aucune chose prise à part.",
   "retenir": [

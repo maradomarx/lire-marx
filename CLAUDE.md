@@ -12120,3 +12120,34 @@ et **la vitrine dans la Collection**.
   « Réorganiser ». Les échanges ont un bouton **Nouvel échange** au lieu d'un
   onglet « Proposer », et le composeur s'ouvre avec « ← Retour aux échanges ».
 - ⚠️ `.ech-tabs{display:flex}` battait `[hidden]` : le piège connu, revécu.
+
+## Les titres et descriptions de résultat (mission `seo-titres`, nov. 2026)
+
+Mesuré dans Search Console (28 jours au 4 nov. : 116 clics, 2 736
+impressions, position 8) : des pages en première page sans clic
+(force de travail 196 impressions en position 7,4 pour 0 clic, travail
+aliéné 251 pour 3, Karl Marx 232 pour 2), et 41 titres sur 99 au-delà de ce
+que Google affiche (jusqu'à 159 caractères pour un chapitre).
+
+**Les règles vivent dans `tools/gen-seo.mjs`** (`titreRes`, `titreNotion`,
+`minusc`, en tête du fichier) :
+- **60 caractères**, le mot cherché en tête, ce qui peut être coupé à la fin ;
+- **« | Lire Marx » ne s'ajoute que s'il tient** : Google affiche déjà le nom
+  du site au-dessus de l'URL (bloc `WebSite`) ;
+- notion : « X chez Marx : définition et explication », raccourci jusqu'à
+  tenir ; `meta.seo` quand la notion se cherche sous un autre nom
+  (« forces productives », « subsomption formelle et réelle », « aliénation ») ;
+- chapitre : « Le Capital, chapitre N, résumé : titre court » — le numéro en
+  CHIFFRES (c'est ainsi qu'on le tape), `court` dans le `meta.json` du
+  chapitre quand le titre de Roy est long ; la description commence par
+  « Résumé du chapitre N du Capital (n en allemand) : » ;
+- commentaire : « … : commentaire de texte » (`title` du `meta.json`).
+
+Pages tenues à la main : `<title>`, `description`, `og:title` et
+`og:description` réécrits ensemble (même texte, sans la marque pour `og:`).
+Descriptions ramenées vers 150-160 caractères, le sujet dans les cent
+premiers. Les descriptions de chapitre et de commentaire restent plus longues
+(Google tronque, il ne pénalise pas) : le début porte l'essentiel.
+
+**Re-mesurer vers le 1er décembre 2026** les pages citées plus haut, et les
+huit notions retitrées en septembre (aucun clic sous l'ancien format).
