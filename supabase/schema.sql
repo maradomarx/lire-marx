@@ -546,9 +546,10 @@ create or replace function public._cartes_bouger(src uuid, dst uuid, l jsonb) re
 declare x record; t bigint := (extract(epoch from now()) * 1000)::bigint;
 begin
   for x in select * from _cartes_lot(l) loop
+    -- le dernier exemplaire part : on supprime la ligne (n > 0 interdit de la mettre à zéro)
+    delete from cartes_collection where user_id = src and carte = x.carte and n <= x.k;
     update cartes_collection set n = n - x.k, tetes = tetes - (case when x.tete then x.k else 0 end)
       where user_id = src and carte = x.carte;
-    delete from cartes_collection where user_id = src and carte = x.carte and n <= 0;
     insert into cartes_collection (user_id, carte, n, tetes, premiere)
       values (dst, x.carte, x.k, case when x.tete then x.k else 0 end, t)
       on conflict (user_id, carte) do update
@@ -591,8 +592,10 @@ create or replace function public.cartes_collection_de(u uuid) returns json
     from cartes_collection where user_id = u and auth.uid() is not null;
 $$;
 
+-- les paramètres portent le nom des colonnes (c'est l'API de la page) : on les fait gagner
 create or replace function public.cartes_proposer(dest uuid, donne jsonb, demande jsonb, parent uuid default null) returns uuid
   language plpgsql security definer set search_path = public as $$
+#variable_conflict use_variable
 declare u uuid := auth.uid(); p cartes_echanges; nid uuid; t bigint := (extract(epoch from now()) * 1000)::bigint;
 begin
   if u is null then raise exception 'connexion requise' using errcode = '28000'; end if;
