@@ -11923,6 +11923,19 @@ rare, et la carte entière (rang compris) dans le DOM. Maintenant :
 
 ### La page /cartes/ refaite en tableau de bord (mission `cartes-accueil`, nov. 2026)
 
+> **2e passe, même jour** — « trop de texte, choisis un logo et joue sur
+> l'ergonomie ». L'en-tête n'est plus un titre et une phrase : c'est le
+> **LOGO** (deux cartes en éventail, le sceau rouge « M », « Marx » en Fraunces
+> et la pastille rouge « TCG » ; le `<h1>` garde son nom complet en
+> `.sr-only`), sur la même ligne que la navigation. Plus aucune phrase dans la
+> scène du paquet : « 3 boosters », le bouton, un petit minuteur ; et quand il
+> n'y a plus rien à ouvrir, **un grand minuteur HH:MM:SS jusqu'à minuit
+> (Paris), rien d'autre** — il se met à jour chaque seconde et recharge l'état
+> à zéro. Les missions n'ont plus de libellé de lien, une flèche. Règles en
+> quatre tuiles d'une ligne, tableau des rangs en mots courts, FAQ toute
+> repliée. **La règle pour cette page : un mot plutôt qu'une phrase, un chiffre
+> plutôt qu'un mot.**
+
 « Plus ergonomique, plus beau, limiter le texte », en s'inspirant des jeux en
 ligne. Un en-tête court (le titre et une phrase), une barre collante
 **Boosters · Album · Règles** (ancres, la section courante marquée), puis un
