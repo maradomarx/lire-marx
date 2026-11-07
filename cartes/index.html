@@ -447,9 +447,9 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
 <!-- MARX-TCG:RANGS:DÉBUT — DÉRIVÉ par tools/cartes.mjs -->
 <table class="rangs"><thead><tr><th>Rang</th><th>À quoi la reconnaître</th><th>Cartes</th><th>Chance par carte</th></tr></thead><tbody>
 <tr><td>Manuscrit</td><td>noir, or et rouge, animé</td><td>73</td><td>0,7&nbsp;%</td></tr>
-<tr><td>Édition originale</td><td>papier d’or, filet d’or, fers dorés</td><td>215</td><td>4,1&nbsp;%</td></tr>
-<tr><td>Édition reliée</td><td>papier bleu ardoise, filet d’argent</td><td>835</td><td>12,4&nbsp;%</td></tr>
-<tr><td>Brochure</td><td>papier chamois, filet de cuivre</td><td>1&#8239;663</td><td>34,8&nbsp;%</td></tr>
+<tr><td>Édition originale</td><td>papier d’or, filet d’or, fers dorés</td><td>212</td><td>4,1&nbsp;%</td></tr>
+<tr><td>Édition reliée</td><td>papier bleu ardoise, filet d’argent</td><td>837</td><td>12,4&nbsp;%</td></tr>
+<tr><td>Brochure</td><td>papier chamois, filet de cuivre</td><td>1&#8239;664</td><td>34,8&nbsp;%</td></tr>
 <tr><td>Tract</td><td>papier gris</td><td>4&#8239;018</td><td>48&nbsp;%</td></tr>
 <tr><td>Irisée</td><td>holographique, l’image bouge</td><td>6&#8239;804</td><td>2&nbsp;%</td></tr>
 </tbody></table>
@@ -678,7 +678,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
 
   /* ---------------------------------------------------------- données */
   async function chargerCatalogue() {
-    var r = await fetch('/cartes/catalogue.json?v=4a16e7a3');
+    var r = await fetch('/cartes/catalogue.json?v=6ed3fd8a');
     var d = await r.json();
     cat = d.cartes; parId = {};
     cat.forEach(function (c) { parId[c.id] = c; });

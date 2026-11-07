@@ -304,7 +304,7 @@ function pers(r, src) {
     id: 'fig-' + q, q, f: 'fig', n: cap(clean(r.pLabel)), d: desc(r.descFr),
     a: n, b: m, pays: clean(r.pays), lieu: clean(r.lieuN),
     occ: lst(r.occs).slice(0, 3), cour: lst(r.ideos).map(qid).filter(x => COURANTS[x]).map(x => COURANTS[x]),
-    img: r.image || null, sl: +r.sl, src,
+    img: r.image || null, sl: +r.sl, occTout: lst(r.occs), src,
   };
 }
 
@@ -454,8 +454,24 @@ export const RANGS = ['tract', 'brochure', 'reliure', 'originale', 'manuscrit'];
 // soixantaine de classiques. La notoriété seule y faisait entrer Medvedev.
 const SEUILS = [0, 0.04, 0.15, 0.40]; // manuscrit (aucun), originale, reliure, brochure
 
+// Le coup de pouce de la maison : on est sur Lire Marx, pas sur un palmarès
+// mondial. Le nombre de Wikipédias favorise les chefs d'État et les dignitaires
+// soviétiques, que chaque Wikipédia d'une ancienne république traduit ; il
+// défavorise les penseurs, et plus encore les penseurs de langue française
+// (André Gorz : 33 Wikipédias, classé comme un ministre japonais). Les figures
+// qui pensent comptent donc davantage, et les Français davantage encore.
+const PENSEUR = /philosoph|sociolog|économiste|théoricien|historien|essayiste|penseu|politolog|anthropolog|géographe|psychanalyst/i;
+const BOOST_PENSEUR = 1.6, BOOST_FR = 1.5;
+function poids(c) {
+  let s = c.sl || 0;
+  if (c.f !== 'fig') return s;
+  if ((c.occTout || c.occ || []).some(o => PENSEUR.test(o))) s *= BOOST_PENSEUR;
+  if (c.pays === 'France' || /\bfrançaise?\b/i.test(c.d || '')) s *= BOOST_FR;
+  return s;
+}
+
 function rangs(liste) {
-  const tri = [...liste].sort((x, y) => (y.sl || 0) - (x.sl || 0));
+  const tri = [...liste].sort((x, y) => poids(y) - poids(x));
   tri.forEach((c, i) => {
     const p = i / tri.length;
     c.r = p < SEUILS[0] ? 4 : p < SEUILS[1] ? 3 : p < SEUILS[2] ? 2 : p < SEUILS[3] ? 1 : 0;
