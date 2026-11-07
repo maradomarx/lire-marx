@@ -12,9 +12,9 @@
 <meta name="apple-mobile-web-app-title" content="Lire Marx">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Marx TCG, le jeu de cartes à collectionner gratuit : 6 804 cartes sur Marx, Rosa Luxemburg, Lénine, le Che, la Commune, Le Capital. Trois boosters par jour, des manuscrits ultra-rares et des tirages brillants.">
+<meta name="description" content="Marx TCG, jeu de cartes à collectionner gratuit : 6 804 cartes sur Marx, Rosa Luxemburg, Lénine, la Commune. Trois boosters offerts par jour.">
 <meta property="og:title" content="Marx TCG : jeu de cartes à collectionner gratuit">
-<meta property="og:description" content="6 804 cartes, trois boosters gratuits par jour. Marx, Luxemburg, le Che, la Commune en manuscrits ultra-rares — lequel tirerez-vous ?">
+<meta property="og:description" content="Marx TCG, jeu de cartes à collectionner gratuit : 6 804 cartes sur Marx, Rosa Luxemburg, Lénine, la Commune. Trois boosters offerts par jour.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Lire Marx">
 <meta property="og:url" content="https://liremarx.com/cartes/">
@@ -1142,8 +1142,11 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
   /* ---------------------------------------------------------- la fiche */
   var ficheDe = null;
   function partager(c, tete) {
-    var url = 'https://liremarx.com/cartes/?carte=' + encodeURIComponent(c.id);
-    var texte = c.n + (tete ? ', irisée,' : '') + ' — ' + RANGS[c.r].l.toLowerCase() + ' sur Marx TCG, le jeu de cartes de Lire Marx.';
+    // un manuscrit a sa page de partage (tools/cartes-partage.mjs) : l'aperçu du lien
+    // montre la carte elle-même, et non l'image générale du jeu
+    var url = c.r === 4 ? 'https://liremarx.com/cartes/c/' + c.id + (tete ? '?irisee' : '')
+      : 'https://liremarx.com/cartes/?carte=' + encodeURIComponent(c.id);
+    var texte = c.n + ', ' + RANGS[c.r].l.toLowerCase() + (tete ? ' en version irisée' : '') + ', sur Marx TCG, le jeu de cartes gratuit de Lire Marx.';
     if (navigator.share) { navigator.share({ title: c.n + ' · Marx TCG', text: texte, url: url }).catch(function () {}); return; }
     var fin = function () { if (SHELL.announce) SHELL.announce('Lien copié'); var b = document.querySelector('[data-partager]'); if (b) { b.textContent = 'Lien copié'; setTimeout(function () { b.textContent = 'Partager'; }, 1800); } };
     if (navigator.clipboard) navigator.clipboard.writeText(texte + ' ' + url).then(fin, function () { prompt('Le lien de la carte :', url); });

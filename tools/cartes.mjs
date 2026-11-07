@@ -12,6 +12,10 @@
 //                                    retouche de carte.js ou carte.css)
 //   node tools/cartes.mjs cadrage    repose le cadrage des images (tools/
 //                                    cadrage.tsv, écrit par cadrage.swift)
+//
+// Après un build ou des versions : node tools/cartes-partage.mjs (les pages
+// de partage des manuscrits relisent les ?v= et le catalogue), --images si
+// une carte manuscrit a changé d'aspect.
 //   options : --refresh (ignore le cache), --max-img=N
 //
 // Règles, les mêmes que pour le reste du site :

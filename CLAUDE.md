@@ -12161,3 +12161,23 @@ Console ne montre que 63 requêtes sur 28 jours : le reste est anonymisé.
 
 **Re-mesurer vers le 1er décembre 2026** les pages citées plus haut, et les
 huit notions retitrées en septembre (aucun clic sous l'ancien format).
+
+### Le partage des manuscrits (mission `cartes-partage`, nov. 2026)
+
+Un tirage se montre, et c'est la meilleure source de liens entrants du site :
+les 73 manuscrits (rang 4) ont chacun une page **`/cartes/c/<id>`**
+(`cartes/c/<id>.html`) et une image de partage 1200 × 630
+(`assets/img/cartes/og/<id>.jpg`, le vrai rendu de la carte), toutes deux
+écrites par **`tools/cartes-partage.mjs`** (`--images` pour les images, le
+site servi par `tools/serveur.mjs`). `partager()` de `/cartes/` y envoie pour
+un manuscrit (`?irisee` pour l'irisée) ; les autres rangs gardent
+`/cartes/?carte=<id>`.
+
+**Ces pages sont en `noindex, follow`, et c'est voulu** : trois lignes de
+Wikidata par page seraient du contenu mince recopié de Wikipédia, que le site
+entier paierait. Elles servent l'aperçu du lien et montrent la carte (recto,
+verso au toucher) à qui clique, avec « Ouvrir mes boosters ». Ne pas les
+mettre au sitemap, ne pas en faire une par carte. Elles sont autonomes (ni
+shell ni bloc AFFICHAGE), comme la 404 ; elles relisent les `?v=` de
+`carte.js`/`carte.css` dans `cartes/index.html` : relancer l'outil après
+`cartes.mjs build` ou `versions`.
