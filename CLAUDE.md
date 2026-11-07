@@ -11818,7 +11818,7 @@ l'identifiant fait varier rosace, angles, encre.
 - `cartes/echantillons.html` (noindex) : la planche de design.
   `?ids=a,b*` (l'étoile = tirage de tête), `&verso=id`.
 
-### Le code couleur (mission `cartes-couleurs`, 7 nov. 2026, deux passes)
+### Le code couleur (mission `cartes-couleurs`, 7 nov. 2026, trois passes)
 
 Retour du propriétaire : « du rouge pour je ne sais plus quoi, du blanc pour
 autre chose » ; une commune rouge passait pour une rare, une commune noire
@@ -11828,14 +11828,17 @@ Une première passe (manuscrit en feuille d'or, brillante en cyanotype bleu) a
 noir et doré et un peu rouge, comme le paquet », une couleur par rang, un
 brillant bien plus voyant, et plus du tout le mot « tirage de tête ».
 
-- **Toutes les communes sur le même papier, à la même encre.** L'époque se
-  dit par la FORME et le caractère : médaillon ovale et taille-douce
+- **Chaque rang a son PAPIER** (3e passe, « le fond doit être bien distinct
+  entre les rangs ») : papier journal gris (tract), chamois cuivré (brochure),
+  bleu ardoise (reliure), papier d'or (originale), noir (manuscrit). Dégradé
+  léger sur `.ct-face.ct-recto`, `--art-fond` assorti. La même encre partout.
+  L'époque se dit par la FORME et le caractère : médaillon ovale et taille-douce
   (gravure), image aux angles coupés et guilloché (internationale), diagonale
   et barre (constructivisme), fenêtre cintrée et soleil (affiche), trame de
   points et pochoir incliné (sérigraphie), filets et réseau (contemporain).
   Motifs en `currentColor`, ton sur ton. Photographies en noir et blanc. Plus
-  de fond rouge, de bandeau noir, d'encres de couleur : **ne pas les
-  réintroduire**.
+  de fond rouge, de bandeau noir, d'encres de couleur : la couleur du fond
+  appartient au RANG, et à lui seul — **ne pas la rendre à l'époque**.
 - **Chaque rang a son MÉTAL** (variables `--m1/--m2/--m3` et `--mw`, la
   largeur du filet) : papier nu (tract), **cuivre** (brochure), **argent**
   (reliure), **or** large qui chatoie, fers et lueur (originale). Les losanges
@@ -11871,8 +11874,52 @@ de `.17em` : plus gros, on ne le reconnaît plus), le filet et la pastille
 « 5 cartes » au rouge de la maison, un reflet qui glisse. Le paquet n'est pas
 une carte : le rouge y est permis ; le manuscrit en reprend la livrée. ⚠️ Le masque coupe une ombre portée : l'ombre est un `filter`
 sur `.paquet`, le masque sur `.pq-corps`. La bande à arracher (`.bst-bande`)
-reprend le sertissage. Dans l'ouverture, les signaux d'une carte irisée
-(lueur du dos, éclair, badge « ✦ Nouvelle ») sont à l'arc-en-ciel.
+reprend le sertissage.
+
+### Les photos cadrées sur les visages (même mission, 3e passe)
+
+« Recentre les photos » : beaucoup de têtes étaient coupées. **La cause était
+un défaut de CSS, pas de cadrage** : `.ct-img` n'était pas en position
+absolue dans `.ct-art` (une grille), l'image gardait donc ses proportions,
+débordait, et la grille la centrait — l'`object-position: 50% 18%` n'a JAMAIS
+eu d'effet, on voyait toujours le milieu de la photo. L'image est désormais
+`position:absolute; inset:0`.
+
+Le cadre est un rectangle couché (1,32 à 1,47, `ASPECT` dans cartes.mjs) où
+entre le plus souvent un portrait debout : on n'en voit qu'une moitié. Le
+cadrage est donc calculé : **`tools/cadrage.swift`** (Vision de macOS, visages
+puis saillance) écrit `tools/cadrage.tsv` (3 302 visages sur 3 508 portraits),
+`node tools/cartes.mjs cadrage` (et `build`) en tire `o` dans le catalogue —
+`"x y"` en pourcents, les yeux posés aux deux cinquièmes du cadre, pour
+l'époque de la carte ; `"c"` = l'image entière (`.ct-img--entiere`,
+`contain`) pour une bannière très couchée sans visage (41 cartes). Après de
+nouvelles images : relancer le swift, puis `cadrage`. La trame de la
+sérigraphie est passée de `contrast(1.9)` à 1,45 : elle brûlait les visages.
+
+### L'ouverture ne trahit rien (même mission, 3e passe)
+
+« Un opening qui ne spoile pas et plus attractif ». Avant : cinq cartes face
+cachée dont le dos LUISAIT selon le rang, rangées de la moins rare à la plus
+rare, et la carte entière (rang compris) dans le DOM. Maintenant :
+
+- **une PILE de dos identiques** (`Carte.dos()`, un dos sans carte derrière :
+  rien dans le DOM ne dit ce qu'elle cache, vérifié) avec son compteur ; on
+  touche la pile, la carte du dessus se retourne AU CENTRE, en grand ;
+- **une carte banale se range d'elle-même** (1,1 s) dans une rangée de cinq
+  emplacements, par un FLIP animé ; toucher la pile range et retourne la
+  suivante ;
+- **une rare (originale, manuscrit, irisée) a son moment** : elle se
+  soulève et la lumière fuit par ses bords — BLANCHE pour toutes, elle ne dit
+  pas laquelle —, puis l'éclair, les rayons à la couleur du rang, le nom du
+  rang en pastille, le titre (« Un manuscrit ! ») ; elle attend qu'on la
+  touche pour se ranger, et ne s'enchaîne pas à la suivante ;
+- la fin : la rangée devient la scène, badges « Nouvelle », partage, suivant.
+- L'ordre reste « le meilleur pour la fin », comme un vrai paquet : on ne le
+  voit qu'en retournant. Reduced-motion : tout sans animation, mêmes étapes.
+  « Tout retourner » enchaîne sans le soulèvement.
+- ⚠️ La pile est un `<button>` qui contient des `<article>` ET le compteur :
+  les décalages s'écrivent en `:nth-last-of-type`, pas `:nth-last-child`.
+  Et elle porte `z-index:2` pour que son compteur passe SOUS la carte vue.
 
 ### Le serveur (Supabase, appliqué le 6 nov. 2026)
 
@@ -11897,9 +11944,9 @@ requête de tirage sur des données fictives, les droits et la RLS.
   le comptoir (paquet ficelé, boosters du jour, missions), la progression,
   l'album (filtres, fiche d'une carte, emplacements numérotés pour celles
   qui manquent — une carte manquante ne se cherche que par son numéro).
-  L'ouverture : paquet qui tremble, bande qui s'arrache, cinq cartes face
-  cachée dont le dos LUIT selon la rareté, rangées de la moins rare à la
-  plus rare, éclair sur un manuscrit ou un tirage de tête.
+  L'ouverture : paquet qui tremble, bande qui s'arrache, puis une pile de
+  dos identiques qu'on retourne une à une (voir « L'ouverture ne trahit
+  rien »).
 - **`SHELL.cartes` vit dans `shell.js`** (les missions se gagnent partout) :
   `etat/ouvrir/mission`, la pastille de la barre latérale (boosters
   restants), l'annonce cliquable « Un booster de plus ». Missions branchées :

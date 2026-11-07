@@ -10,6 +10,8 @@
 //   node tools/cartes.mjs tout       les trois, dans l'ordre
 //   node tools/cartes.mjs versions   repose les ?v= de /cartes/ (après une
 //                                    retouche de carte.js ou carte.css)
+//   node tools/cartes.mjs cadrage    repose le cadrage des images (tools/
+//                                    cadrage.tsv, écrit par cadrage.swift)
 //   options : --refresh (ignore le cache), --max-img=N
 //
 // Règles, les mêmes que pour le reste du site :
@@ -598,6 +600,7 @@ async function build() {
     return o;
   }).sort((x, y) => x.no - y.no);
 
+  cadrer(sortie);
   fs.mkdirSync(OUTDIR, { recursive: true });
   fs.writeFileSync(path.join(OUTDIR, 'catalogue.json'),
     JSON.stringify({ v: 1, n: sortie.length, rangs: RANGS, cartes: sortie }));
@@ -673,7 +676,7 @@ function pageTCG(sortie) {
   const pc = x => (Math.round(x * 10) / 10).toLocaleString('fr-FR') + '&nbsp;%';
   const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   const NOMS = ['Tract', 'Brochure', 'Édition reliée', 'Édition originale', 'Manuscrit'];
-  const DIT = ['un papier nu, gris et grainé', 'un filet de cuivre', 'un filet d’argent', 'un large filet d’or qui chatoie, des fers dorés aux angles', 'animé : une carte noire, dorée et rubriquée de rouge, une lumière, des éclats, un sceau de cire'];
+  const DIT = ['un papier journal gris, nu et grainé', 'un papier chamois et un filet de cuivre', 'un papier bleu ardoise et un filet d’argent', 'un papier d’or, un large filet d’or qui chatoie, des fers dorés aux angles', 'animé : une carte noire, dorée et rubriquée de rouge, une lumière, des éclats, un sceau de cire'];
   tous('MARX-TCG:N', nf(sortie.length));
   const man = sortie.filter(c => c.r === 4);
   tous('MARX-TCG:NM', String(man.length));
@@ -715,6 +718,43 @@ function pageTCG(sortie) {
   fs.writeFileSync(f, src);
 }
 
+// Le cadrage : l'image d'une carte est un rectangle couché (1,3 à 1,5 fois
+// plus large que haut) où l'on fait entrer, le plus souvent, un portrait
+// debout : on n'en voit qu'une moitié, et 50 % 18 % coupait les têtes ou les
+// laissait au bas du cadre. tools/cadrage.tsv dit où sont les visages (ou, à
+// défaut, ce qui attire l'œil) ; on en tire l'object-position de chaque carte,
+// pour SON époque (le cadre n'a pas les mêmes proportions d'une époque à
+// l'autre). o = "x y" en pourcents ; "c" = l'image entière (une bannière, un
+// sigle très couché, qu'un recadrage réduirait à trois lettres).
+const ASPECT = { gravure: 1.316, internationale: 1.361, constructivisme: 1.348, affiche: 1.367, serigraphie: 1.473, contemporain: 1.456 };
+function cadrer(sortie) {
+  const tsv = path.join(ROOT, 'tools/cadrage.tsv');
+  if (!fs.existsSync(tsv)) return;
+  const cad = new Map(fs.readFileSync(tsv, 'utf8').trim().split('\n').map(l => { const t = l.split('\t'); return [t[0], t]; }));
+  const borne = (x, a, b) => Math.max(a, Math.min(b, x));
+  for (const c of sortie) {
+    delete c.o;
+    const t = c.i && cad.get(c.id); if (!t) continue;
+    const w = +t[1], h = +t[2], k = t[3], A = ASPECT[c.e] || 1.4, r = w / h;
+    const [cx, cy, bw, bh, top] = t.slice(4).map(Number);
+    let x = 50, y = 50;
+    if (r < A) {                      // l'image déborde en hauteur : on choisit la bande
+      const v = r / A;                // la part de la hauteur qu'on voit
+      let haut;
+      if (k === 'F') haut = top + .42 * bh - .42 * v;          // les yeux aux deux cinquièmes
+      else if (k === 'S') haut = bh > v ? top - .03 : cy - v / 2;
+      else haut = .18 * (1 - v);
+      y = v >= 1 ? 50 : borne(haut, 0, 1 - v) / (1 - v) * 100;
+    } else {                          // elle déborde en largeur
+      const v = A / r;
+      if (v < .45 && k !== 'F') { c.o = 'c'; continue; }
+      if (k !== 'N') x = v >= 1 ? 50 : borne(cx - v / 2, 0, 1 - v) / (1 - v) * 100;
+    }
+    x = Math.round(x); y = Math.round(y);
+    if (x !== 50 || y !== 50) c.o = x + ' ' + y;
+  }
+}
+
 function versionner() {
   const h = f => createHash('sha1').update(fs.readFileSync(path.join(ROOT, f))).digest('hex').slice(0, 8);
   const v = { 'catalogue.json': h('cartes/catalogue.json'), 'carte.js': h('cartes/carte.js'), 'carte.css': h('cartes/carte.css') };
@@ -728,6 +768,15 @@ function versionner() {
 }
 
 if (cmd === 'versions') versionner();
+if (cmd === 'cadrage') {
+  const cat = JSON.parse(fs.readFileSync(path.join(OUTDIR, 'catalogue.json'), 'utf8'));
+  cadrer(cat.cartes);
+  fs.writeFileSync(path.join(OUTDIR, 'catalogue.json'), JSON.stringify(cat));
+  accueil(cat.cartes, lireJSON(path.join(OUTDIR, 'main.json'), {}));
+  versionner();
+  const o = cat.cartes.filter(c => c.o);
+  console.log(`cadrage : ${o.length} images recadrées, dont ${o.filter(c => c.o === 'c').length} montrées entières`);
+}
 if (cmd === 'page') { pageTCG(JSON.parse(fs.readFileSync(path.join(OUTDIR, 'catalogue.json'), 'utf8')).cartes); versionner(); }
 if (cmd === 'fetch' || cmd === 'tout') await fetchTout();
 if (cmd === 'build' || cmd === 'images' || cmd === 'tout') await build();

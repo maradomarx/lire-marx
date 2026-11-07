@@ -231,7 +231,10 @@
     var R = rnd(graine(c.id));
     R(); // (la graine gardait jadis une encre : on consomme son tirage pour que les motifs ne changent pas)
     var art = c.i
-      ? '<img class="ct-img" src="' + IMG + c.id + '.webp" alt="" loading="lazy" decoding="async" width="360" height="450">' +
+      // c.o : le cadrage calculé par tools/cartes.mjs (le visage, ou ce qui
+      // attire l'œil) ; « c » = l'image entière
+      ? '<img class="ct-img' + (c.o === 'c' ? ' ct-img--entiere' : '') + '" src="' + IMG + c.id + '.webp" alt="" loading="lazy" decoding="async" width="360" height="450"' +
+        (c.o && c.o !== 'c' ? ' style="object-position:' + c.o.replace(' ', '% ') + '%"' : '') + '>' +
         (o.tete ? '<span class="ct-tirage" aria-hidden="true"></span>' : '')
       : embleme(c);
     var rang = RANGS[c.r || 0];
@@ -320,5 +323,9 @@
       '<div class="ct-corps">' + recto(c, o) + (o.dos ? dos() : o.verso ? verso(c) : '') + '</div></article>';
   }
 
-  window.Carte = { html: html, FAMILLES: FAMILLES, RANGS: RANGS, EPOQUES: EPOQUES, graine: graine, rnd: rnd };
+  // Un dos seul, sans carte derrière : la pile du booster. Rien dans le DOM ne
+  // dit quelle carte il cache.
+  function dosSeul() { return '<article class="ct retournee" aria-hidden="true"><div class="ct-corps">' + dos() + '</div></article>'; }
+
+  window.Carte = { html: html, dos: dosSeul, FAMILLES: FAMILLES, RANGS: RANGS, EPOQUES: EPOQUES, graine: graine, rnd: rnd };
 })();

@@ -7,13 +7,14 @@
  *
  * LA RÈGLE DES COULEURS (refonte de novembre 2026) : la couleur et la lumière
  * ne disent QUE deux choses, le rang et l'holographie.
- *   - Toutes les cartes sont imprimées sur le même papier, à la même encre.
- *     L'époque se dit par la typographie, la forme du cadre et de l'image, le
+ *   - Le rang a son PAPIER et son MÉTAL, lisibles d'un coup d'œil : papier
+ *     journal gris et nu (tract), chamois et cuivre (brochure), papier bleu
+ *     ardoise et argent (reliure), papier d'or et or (originale) ; le
+ *     manuscrit est noir, or et rouge, comme le paquet. La même encre partout.
+ *   - L'époque se dit par la typographie, la forme du cadre et de l'image, le
  *     motif (ton sur ton) et la trame de la photographie ; la famille par son
- *     emblème. Plus de fond rouge, plus de cadre noir, plus d'encres de couleur
- *     sur une carte banale : une commune ne doit jamais passer pour une rare.
- *   - Le rang a son MÉTAL : papier nu, cuivre, argent, or ; le manuscrit est
- *     noir, or et rouge, comme le paquet.
+ *     emblème. Plus de fond rouge, plus d'encres de couleur : la couleur du
+ *     fond appartient au rang, et à lui seul.
  *   - L'holographique (une carte sur cinquante) est le seul ARC-EN-CIEL du
  *     jeu : feuille irisée, paillettes, image qui bouge.
  */
@@ -92,8 +93,12 @@
   background: var(--art-fond);
   display: grid; place-items: center; isolation: isolate;
 }
-.ct-img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; display: block;
+/* l'image prend EXACTEMENT le cadre : sans position absolue, elle gardait
+   ses proportions, débordait et la grille la centrait — object-position
+   n'avait alors aucun effet et l'on voyait toujours le milieu de la photo */
+.ct-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; display: block;
   filter: grayscale(1) contrast(1.06); }
+.ct-img--entiere { object-fit: contain; }
 .ct-art::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 2; }
 
 .ct-txt { flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; padding: .7em .2em .3em; min-height: 0; }
@@ -136,12 +141,12 @@
 
 /* --- gravure (avant 1848) : la taille-douce, le médaillon, le double filet */
 .ct--e-gravure .ct-cadre { outline: .08em solid var(--filet); outline-offset: .35em; border: .3em double var(--filet); padding: .55em; inset: 1.2em; }
-.ct--e-gravure .ct-art:not(.ct-art--em) { border-radius: 50% / 46%; box-shadow: inset 0 0 0 .1em var(--filet); background: #d9cdb3; }
+.ct--e-gravure .ct-art:not(.ct-art--em) { border-radius: 50% / 46%; box-shadow: inset 0 0 0 .1em var(--filet); background: var(--art-fond); }
 .ct--e-gravure .ct-img { filter: grayscale(1) sepia(.28) contrast(1.08); }
 /* la taille-douce posée sur l'image : des tailles parallèles, très fines */
 .ct--e-gravure .ct-art:not(.ct-art--em)::after { border-radius: inherit;
   background: repeating-linear-gradient(-32deg, rgba(40, 28, 14, .16) 0 .07em, transparent .07em .26em);
-  mix-blend-mode: multiply; box-shadow: inset 0 0 1.4em .3em #ece3cf; }
+  mix-blend-mode: multiply; box-shadow: inset 0 0 1.4em .3em var(--papier); }
 .ct--e-gravure .ct-nom { font-family: Fraunces, Georgia, serif; font-style: italic; font-weight: 500; text-align: center; }
 .ct--e-gravure .ct-sub { text-align: center; font-style: italic; }
 .ct--e-gravure .ct-top, .ct--e-gravure .ct-foot { font-family: Spectral, Georgia, serif; font-weight: 600; }
@@ -177,7 +182,7 @@
 
 /* --- sérigraphie (1968-1991) : la trame, le pochoir, l'encre qui déborde */
 .ct--e-serigraphie .ct-cadre { inset: .9em; }
-.ct--e-serigraphie .ct-img { filter: grayscale(1) contrast(1.9) brightness(1.1); }
+.ct--e-serigraphie .ct-img { filter: grayscale(1) contrast(1.45) brightness(1.04); }
 /* la trame de points posée sur la photographie */
 .ct--e-serigraphie .ct-art:not(.ct-art--em)::after {
   background: radial-gradient(circle, rgba(28, 22, 16, .55) 0 30%, transparent 34%) 0 0 / .32em .32em;
@@ -218,9 +223,16 @@
 .ct--r1 .ct-rang i.on, .ct--r2 .ct-rang i.on, .ct--r3 .ct-rang i.on { background: linear-gradient(135deg, var(--m2), var(--m3) 45%, var(--m1)); opacity: 1; }
 
 /* tract : le papier nu, plus gris, plus grainé, à peine d'ombre */
-.ct--r0 .ct-face.ct-recto { --papier: #e3ded3; }
-.ct--r0 .ct-face::before { opacity: .36; }
-.ct--r0 .ct-face { box-shadow: 0 .5em 1.2em -.5em rgba(0, 0, 0, .5); }
+/* LE PAPIER DU RANG : une couleur franche par rang, du gris au jaune d'or */
+.ct--r0 .ct-face.ct-recto { --papier: #dcd9d1; --art-fond: #c8c4ba; }
+.ct--r1 .ct-face.ct-recto { --papier: #ecc4a1; --art-fond: #d6a780;
+  background: linear-gradient(160deg, #f3d3b6, #e9bd97 55%, #e0ae84); }
+.ct--r2 .ct-face.ct-recto { --papier: #c8d4de; --art-fond: #a9b8c6; --doux: #3f4a56;
+  background: linear-gradient(160deg, #dbe4ec, #c5d2dd 55%, #b3c3d0); }
+.ct--r3 .ct-face.ct-recto { --papier: #efcf73; --art-fond: #d6ad4c;
+  background: linear-gradient(160deg, #f8e3a0, #ecc862 50%, #f2d684 75%, #e2b956); }
+.ct--r0 .ct-recto::before { opacity: .36; }
+.ct--r0 .ct-recto { box-shadow: 0 .5em 1.2em -.5em rgba(0, 0, 0, .5); }
 .ct--r0 .ct-img { opacity: .9; }
 
 /* brochure : le cuivre, fin */
@@ -230,7 +242,6 @@
 .ct--r2 .ct-recto { box-shadow: 0 0 0 .08em #3f444b, 0 .8em 1.8em -.6em rgba(0, 0, 0, .55); }
 /* originale : l'or, large, qui chatoie, des fers aux angles et une lueur */
 .ct--r3 { --mw: .44em; }
-.ct--r2 .ct-face.ct-recto, .ct--r3 .ct-face.ct-recto { --papier: #efe5cd; }
 .ct--r3 .ct-recto::after { animation: ct-chatoie 7s ease-in-out infinite; }
 .ct--r3 .ct-recto { box-shadow: 0 0 0 .1em #5d4512, 0 0 1.6em rgba(232, 186, 80, .35), 0 .9em 1.9em -.6em rgba(0, 0, 0, .6); }
 .ct-fers { position: absolute; inset: .5em; z-index: 5; pointer-events: none; }
@@ -296,7 +307,8 @@
   box-shadow: 0 0 0 .08em #3a2606, 0 0 1.4em rgba(244, 204, 110, .3); }
 .ct--r4 .ct-art:not(.ct-art--em)::after { box-shadow: none; }
 .ct--r4.ct--e-gravure .ct-art:not(.ct-art--em)::after { mix-blend-mode: multiply; }
-.ct--r4 .ct-img, .ct--r4 .ct-em { position: relative; z-index: 1; }
+.ct--r4 .ct-img { z-index: 1; }
+.ct--r4 .ct-em { position: relative; z-index: 1; }
 /* le nom à la feuille d'or : sur le noir, le reflet se lit */
 .ct--r4 .ct-nom, .ct--r4 .ct-art--em .ct-em, .ct--r4 .ct-tp-t {
   background: linear-gradient(100deg, #b8862a 0%, #e9c56a 25%, #fff3c6 48%, #f6dc8a 55%, #c9952a 75%, #b8862a 100%) 0 0 / 250% 100%;

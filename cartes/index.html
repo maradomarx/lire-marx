@@ -36,7 +36,7 @@
 <link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2"></noscript>
 <link rel="stylesheet" href="/oeuvres/shell.css?v=16">
-<link rel="stylesheet" href="/cartes/carte.css?v=8aff24b7">
+<link rel="stylesheet" href="/cartes/carte.css?v=df4db4bc">
 <style>
 /* ═══════════════════════════════════════════════════════════════════
    /cartes/ — LA COLLECTION (mission `cartes`)
@@ -206,7 +206,7 @@ dialog.fiche::backdrop{background:rgba(8,6,4,.82);backdrop-filter:blur(3px);}
 
 /* ---------------------------------------------------------- l'ouverture */
 dialog.bst{border:0;padding:0;margin:0;background:transparent;color:#f3e9d4;max-width:none;max-height:none;width:100%;height:100%;overflow:hidden;}
-dialog.bst::backdrop{background:radial-gradient(ellipse at 50% 55%,rgba(60,38,16,.92),rgba(6,4,2,.97));}
+dialog.bst::backdrop{background:radial-gradient(ellipse at 50% 50%,rgba(48,30,13,.97),rgba(6,4,2,.995));}
 .bst-in{position:relative;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(18px,3vh,30px);padding:20px;}
 .bst-titre{font:900 clamp(1.3rem,3vw,2rem)/1.1 'Fraunces',Georgia,serif;margin:0;text-align:center;min-height:1.2em;}
 .bst-aide{font-size:.9rem;color:#c7b599;margin:0;text-align:center;min-height:1.4em;}
@@ -224,35 +224,72 @@ dialog.bst::backdrop{background:radial-gradient(ellipse at 50% 55%,rgba(60,38,16
   transition:transform .6s cubic-bezier(.5,0,.75,0),opacity .6s;}
 .paquet.ouvert .bst-bande{transform:translate(30%,-60vh) rotate(28deg);opacity:0;}
 @keyframes bst-tremble{0%,100%{transform:rotate(-4deg)}20%{transform:rotate(-7deg) translateY(-3px)}40%{transform:rotate(-1deg)}60%{transform:rotate(-6deg) translateY(-2px)}80%{transform:rotate(-3deg)}}
-.bst-main{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(10px,2vw,22px);--ct-l:clamp(118px,15vw,210px);}
-.bst-c{border:0;padding:0;background:none;cursor:pointer;border-radius:12px;opacity:0;transform:translateY(50vh) rotate(var(--rot,0deg)) scale(.85);
-  transition:transform .8s cubic-bezier(.16,1,.3,1) var(--del,0s),opacity .4s var(--del,0s);}
-.bst-c.la{opacity:1;transform:none;}
-.bst-c:focus-visible{outline:3px solid #d8ad4c;outline-offset:6px;}
-.bst-c .ct{--ct-l:inherit;}
-/* la rareté se devine au dos avant qu'on retourne la carte */
-.bst-c.r2 .ct-dos{box-shadow:0 0 0 2px rgba(216,173,76,.55),0 0 22px rgba(216,173,76,.35);}
-.bst-c.r3 .ct-dos{box-shadow:0 0 0 2px rgba(240,200,110,.85),0 0 40px rgba(240,200,110,.55);}
-.bst-c.r4 .ct-dos{box-shadow:0 0 0 3px #ffe9a8,0 0 60px rgba(255,214,120,.8);animation:bst-pressent 1.2s ease-in-out infinite;}
-.bst-c.tete .ct-dos{box-shadow:0 0 0 3px #fff,0 0 30px rgba(255,60,150,.6),0 0 60px rgba(40,170,255,.55);}
-@keyframes bst-pressent{0%,100%{filter:brightness(1)}50%{filter:brightness(1.35)}}
-.bst-c.vue .ct-dos{box-shadow:none;animation:none;}
-/* la révélation : l'éclat derrière la carte, plus large selon le rang */
-.bst-c{position:relative;}
-.bst-c::before{content:"";position:absolute;inset:-40%;z-index:-1;border-radius:50%;pointer-events:none;opacity:0;
-  background:radial-gradient(closest-side,rgba(255,226,150,.85),rgba(255,180,80,.25) 55%,transparent);}
-.bst-c.vue.r3::before,.bst-c.vue.r4::before,.bst-c.vue.tete::before{animation:bst-eclair 1.4s ease-out forwards;}
-.bst-c.vue.tete::before{background:conic-gradient(from 0deg,rgba(255,45,117,.7),rgba(255,230,0,.6),rgba(61,220,132,.6),rgba(31,182,255,.7),rgba(123,92,255,.7),rgba(255,45,117,.7));-webkit-mask:radial-gradient(closest-side,#000,transparent);mask:radial-gradient(closest-side,#000,transparent);}
-.bst-c.vue.r4::before{inset:-90%;}
-@keyframes bst-eclair{0%{opacity:0;transform:scale(.4)}25%{opacity:1}100%{opacity:.18;transform:scale(1.1)}}
-.bst-badge{position:absolute;left:50%;top:-14px;transform:translateX(-50%);z-index:12;white-space:nowrap;padding:5px 10px;border-radius:100px;
-  font:700 .68rem/1 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;background:#d5402f;color:#fff;opacity:0;transition:opacity .3s .5s;}
-.bst-c.vue .bst-badge{opacity:1;}
-.bst-badge.or{background:linear-gradient(110deg,#a87f2a,#fff0b8,#c9952a);color:#3a2808;}
-.bst-badge.nacre{background:linear-gradient(110deg,#ff2d75,#ff9f1c 25%,#ffe600 45%,#3ddc84 62%,#1fb6ff 80%,#7b5cff);color:#1d1020;}
-.bst-flash{position:fixed;inset:0;pointer-events:none;z-index:5;background:radial-gradient(circle at 50% 50%,rgba(255,236,170,.9),rgba(255,200,100,.2) 45%,transparent 70%);opacity:0;}
-.bst-flash.on{animation:bst-flash 1.6s ease-out;}
-@keyframes bst-flash{0%{opacity:0}12%{opacity:1}100%{opacity:0}}
+.bst-flash{position:fixed;inset:0;pointer-events:none;z-index:5;background:radial-gradient(circle at 50% 46%,rgba(255,246,220,.95),rgba(255,214,140,.25) 40%,transparent 70%);opacity:0;}
+.bst-flash.on{animation:bst-flash 1.4s ease-out;}
+@keyframes bst-flash{0%{opacity:0}10%{opacity:1}100%{opacity:0}}
+/* L'OUVERTURE NE TRAHIT RIEN (nov. 2026) : les cinq cartes sortent du paquet
+   en PILE, face cachée, toutes du même dos ; on les retourne une à une au
+   centre, et la rareté ne se lit qu'une fois la carte retournée. Une carte
+   banale se range d'elle-même dans la rangée ; une rare (originale,
+   manuscrit, irisée) a son moment : la carte se soulève, de la lumière fuit
+   par ses bords (blanche pour toutes : elle ne dit pas laquelle), puis
+   l'éclat, les rayons, le nom du rang — et elle attend qu'on la range. */
+.bst-jeu{display:flex;flex-direction:column;align-items:center;gap:clamp(30px,4.2vh,40px);width:100%;
+  --ct-big:min(250px,58vw,calc(46vh * .716));--ct-sm:min(96px,calc((100vw - 64px) / 5.6));}
+.bst-table{position:relative;width:var(--ct-big);aspect-ratio:63/88;}
+/* la pile : cinq dos, légèrement décalés, qu'on prend par le dessus */
+.bst-pile{position:absolute;inset:0;z-index:2;border:0;padding:0;background:none;cursor:pointer;border-radius:12px;}
+.bst-pile:focus-visible{outline:3px solid #d8ad4c;outline-offset:8px;}
+.bst-pile .ct{--ct-l:var(--ct-big);position:absolute;inset:0;transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .3s;}
+.bst-pile .ct:nth-last-of-type(1){transform:none;}
+.bst-pile .ct:nth-last-of-type(2){transform:translate(.35%,.5%) rotate(1.4deg);}
+.bst-pile .ct:nth-last-of-type(3){transform:translate(-.6%,1%) rotate(-1.8deg);}
+.bst-pile .ct:nth-last-of-type(4){transform:translate(.8%,1.5%) rotate(2.4deg);}
+.bst-pile .ct:nth-last-of-type(5){transform:translate(-.9%,2%) rotate(-2.8deg);}
+.bst-pile.entre .ct{transform:translateY(46vh) rotate(-8deg) scale(.82)!important;opacity:0;}
+.bst-pile:hover .ct:nth-last-child(1){transform:translateY(-6px) rotate(-1deg);}
+.bst-compte{position:absolute;right:-.6em;top:-.6em;z-index:9;min-width:2.1em;height:2.1em;display:grid;place-items:center;border-radius:50%;
+  background:#d5402f;color:#fff;font:700 .9rem/1 'Inter',sans-serif;box-shadow:0 4px 12px rgba(0,0,0,.45);pointer-events:none;}
+.bst-table:has(.bst-vue) .bst-compte{opacity:0;}
+/* la carte qu'on vient de retourner, au-dessus de la pile */
+.bst-vue{position:absolute;inset:0;z-index:4;border:0;padding:0;background:none;border-radius:12px;cursor:pointer;}
+.bst-vue:focus-visible{outline:3px solid #d8ad4c;outline-offset:8px;}
+.bst-vue .ct{--ct-l:var(--ct-big);}
+.bst-vue.leve{animation:bst-leve .95s cubic-bezier(.4,0,.2,1) both;}
+@keyframes bst-leve{0%{transform:none}30%{transform:translateY(-4%) scale(1.04)}45%{transform:translateY(-4%) scale(1.04) rotate(-1.2deg)}55%{transform:translateY(-4%) scale(1.05) rotate(1.2deg)}65%{transform:translateY(-4%) scale(1.05) rotate(-.8deg)}80%{transform:translateY(-4%) scale(1.06) rotate(.6deg)}100%{transform:translateY(-4%) scale(1.06)}}
+/* la lumière qui fuit par les bords : blanche pour toutes les rares */
+.bst-vue.leve .ct-dos{box-shadow:0 0 0 2px rgba(255,250,235,.9),0 0 36px 6px rgba(255,248,226,.75),0 0 90px 20px rgba(255,240,200,.35);transition:box-shadow .8s;}
+.bst-vue.rare{transform:scale(1.04);transition:transform .7s cubic-bezier(.16,1,.3,1);}
+/* les rayons derrière la rare, à la couleur de son rang */
+.bst-rayons{position:absolute;left:50%;top:50%;width:calc(var(--ct-big) * 2.7);aspect-ratio:1;translate:-50% -50%;z-index:1;pointer-events:none;opacity:0;border-radius:50%;
+  -webkit-mask:radial-gradient(closest-side,#000 30%,transparent);mask:radial-gradient(closest-side,#000 30%,transparent);
+  background:repeating-conic-gradient(from 0deg,var(--ray,rgba(255,220,140,.4)) 0 5deg,transparent 5deg 15deg);transition:opacity .6s;}
+.bst-rayons.on{opacity:1;animation:bst-tourne 24s linear infinite;}
+@keyframes bst-tourne{to{rotate:360deg}}
+.bst-rayons[data-r="3"]{--ray:rgba(255,214,120,.55);}
+.bst-rayons[data-r="4"]{--ray:rgba(255,196,96,.6);background:repeating-conic-gradient(from 0deg,rgba(255,200,100,.6) 0 5deg,transparent 5deg 10deg,rgba(213,64,47,.45) 10deg 13deg,transparent 13deg 18deg);}
+.bst-rayons[data-r="t"]{background:repeating-conic-gradient(from 0deg,rgba(255,45,117,.42) 0 4deg,transparent 4deg 9deg,rgba(255,230,0,.36) 9deg 13deg,transparent 13deg 18deg,rgba(61,220,132,.36) 18deg 22deg,transparent 22deg 27deg,rgba(31,182,255,.42) 27deg 31deg,transparent 31deg 36deg);}
+.bst-rang{position:absolute;left:50%;bottom:-1.1em;translate:-50% 0;z-index:12;white-space:nowrap;padding:7px 14px;border-radius:100px;
+  font:700 .74rem/1 'Inter',sans-serif;letter-spacing:.12em;text-transform:uppercase;opacity:0;scale:.6;transition:opacity .4s .25s,scale .6s cubic-bezier(.34,1.56,.64,1) .25s;
+  background:linear-gradient(110deg,#a87f2a,#fff0b8,#c9952a);color:#3a2808;box-shadow:0 6px 18px rgba(0,0,0,.5);}
+.bst-rang.on{opacity:1;scale:1;}
+.bst-rang.manu{background:linear-gradient(110deg,#1b140d,#3a1510);color:#f6dc8a;box-shadow:0 0 0 1.5px #c9952a,0 0 0 4px #1b140d,0 0 0 5px #d5402f,0 6px 18px rgba(0,0,0,.6);}
+.bst-rang.nacre{background:linear-gradient(110deg,#ff2d75,#ff9f1c 25%,#ffe600 45%,#3ddc84 62%,#1fb6ff 80%,#7b5cff);color:#1d1020;}
+/* la rangée : cinq emplacements, où chaque carte se range une fois vue */
+.bst-rangee{display:flex;gap:8px;justify-content:center;--ct-l:var(--ct-sm);}
+.bst-slot{position:relative;width:var(--ct-sm);aspect-ratio:63/88;border-radius:.5em;border:1.5px dashed rgba(243,233,212,.22);}
+.bst-slot.plein{border-color:transparent;}
+.bst-slot .ct{--ct-l:var(--ct-sm);}
+.bst-slot .bst-nv{position:absolute;left:50%;top:-9px;translate:-50% 0;z-index:3;padding:3px 7px;border-radius:100px;background:#d5402f;color:#fff;
+  font:700 .58rem/1 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;}
+.bst-slot .bst-nv.nacre{background:linear-gradient(110deg,#ff2d75,#ffe600 45%,#3ddc84 62%,#1fb6ff 80%,#7b5cff);color:#1d1020;}
+/* la fin : la rangée devient la scène */
+.bst-jeu.fini .bst-table{display:none;}
+.bst-jeu.fini .bst-rangee{--ct-sm:clamp(104px,15vw,190px);flex-wrap:wrap;gap:clamp(10px,2vw,22px);}
+.bst-jeu.fini .bst-slot{border:0;}
+.bst-jeu.fini .bst-slot .bst-nv{top:-12px;font-size:.66rem;padding:4px 9px;}
+.bst-jeu.fini .bst-slot.eclat::before{content:"";position:absolute;inset:-35%;z-index:-1;border-radius:50%;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(255,226,150,.45),transparent);}
 .bst-acts{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;min-height:46px;}
 .bst .btn-p{background:#f3e9d4;color:#15100b;}
 .bst .btn-o{color:#f3e9d4;border-color:rgba(243,233,212,.34);}
@@ -305,12 +342,11 @@ dialog.bst::backdrop{background:radial-gradient(ellipse at 50% 55%,rgba(60,38,16
   .alb-fam button{flex:none;}
   .alb-sel{flex:1 1 30%;min-width:0;font-size:.8rem;padding:0 6px;}
   .alb-it{contain-intrinsic-size:148px 207px;}
-  .bst-main{--ct-l:clamp(100px,28vw,150px);}
-  .bst-badge{font-size:.56rem;padding:4px 7px;letter-spacing:.05em;top:-11px;}
+  .bst-jeu.fini .bst-rangee{--ct-sm:clamp(96px,27vw,150px);}
 }
 @media (prefers-reduced-motion:reduce){
-  .bst-c,.bst .paquet,.bst-bande,.pq-lustre{transition:none !important;animation:none !important;}
-  .bst-c::before,.bst-flash{display:none;}
+  .bst .paquet,.bst-bande,.pq-lustre,.bst-pile .ct,.bst-vue,.bst-rang,.bst-rayons{transition:none !important;animation:none !important;}
+  .bst-flash{display:none;}
 }
 html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{background:var(--surface);}
 </style>
@@ -402,10 +438,10 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
 <!-- MARX-TCG:RANGS:DÉBUT — DÉRIVÉ par tools/cartes.mjs -->
 <table class="rangs"><thead><tr><th>Rang</th><th>Ce qui le distingue</th><th>Cartes</th><th>Chance par carte</th></tr></thead><tbody>
 <tr><td>Manuscrit</td><td>animé : une carte noire, dorée et rubriquée de rouge, une lumière, des éclats, un sceau de cire</td><td>73</td><td>0,7&nbsp;%</td></tr>
-<tr><td>Édition originale</td><td>un large filet d’or qui chatoie, des fers dorés aux angles</td><td>215</td><td>4,1&nbsp;%</td></tr>
-<tr><td>Édition reliée</td><td>un filet d’argent</td><td>835</td><td>12,4&nbsp;%</td></tr>
-<tr><td>Brochure</td><td>un filet de cuivre</td><td>1&#8239;663</td><td>34,8&nbsp;%</td></tr>
-<tr><td>Tract</td><td>un papier nu, gris et grainé</td><td>4&#8239;018</td><td>48&nbsp;%</td></tr>
+<tr><td>Édition originale</td><td>un papier d’or, un large filet d’or qui chatoie, des fers dorés aux angles</td><td>215</td><td>4,1&nbsp;%</td></tr>
+<tr><td>Édition reliée</td><td>un papier bleu ardoise et un filet d’argent</td><td>835</td><td>12,4&nbsp;%</td></tr>
+<tr><td>Brochure</td><td>un papier chamois et un filet de cuivre</td><td>1&#8239;663</td><td>34,8&nbsp;%</td></tr>
+<tr><td>Tract</td><td>un papier journal gris, nu et grainé</td><td>4&#8239;018</td><td>48&nbsp;%</td></tr>
 <tr><td>Irisée</td><td>n’importe quelle carte, couverte d’une feuille holographique arc-en-ciel dont l’image bouge</td><td>6&#8239;804</td><td>2&nbsp;%</td></tr>
 </tbody></table>
 <!-- MARX-TCG:RANGS:FIN -->
@@ -576,7 +612,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
 </footer>
 <!-- PIED:FIN -->
 
-<script src="/cartes/carte.js?v=49c6ee34"></script>
+<script src="/cartes/carte.js?v=6430c4a6"></script>
 <script>
 (function () {
   'use strict';
@@ -639,7 +675,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
 
   /* ---------------------------------------------------------- données */
   async function chargerCatalogue() {
-    var r = await fetch('/cartes/catalogue.json?v=2cd636b2');
+    var r = await fetch('/cartes/catalogue.json?v=4a16e7a3');
     var d = await r.json();
     cat = d.cartes; parId = {};
     cat.forEach(function (c) { parId[c.id] = c; });
@@ -886,42 +922,110 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     await attendre(reduit ? 0 : 420);
     var cartes = res.cartes || [];
     etat && (etat.restants = res.restants);
-    // la rareté monte de gauche à droite : on garde le meilleur pour la fin
+    // Le meilleur pour la fin, comme dans un vrai paquet : on ne le sait
+    // qu'en retournant, la pile n'étant faite que de dos identiques (et le
+    // DOM ne contient rien d'autre que ces dos tant qu'une carte n'est pas
+    // retournée).
     cartes.sort(function (a, b) { return (parId[a.id].r + (a.tete ? .5 : 0)) - (parId[b.id].r + (b.tete ? .5 : 0)); });
-    $('bstScene').innerHTML = '<div class="bst-main" id="bstMain">' + cartes.map(function (o, i) {
-      var c = parId[o.id];
-      var badge = o.nouvelleTete ? '<span class="bst-badge nacre">✦ Nouvelle</span>'
-        : c.r === 4 ? '<span class="bst-badge or">Manuscrit</span>'
-        : o.nouvelle ? '<span class="bst-badge">Nouvelle</span>' : '';
-      return '<button class="bst-c r' + c.r + (o.tete ? ' tete' : '') + '" type="button" data-i="' + i + '" style="--del:' + (i * .09) + 's;--rot:' + ((i - 2) * 6) + 'deg" aria-label="Carte face cachée ' + (i + 1) + ' sur ' + cartes.length + ', la retourner">' +
-        badge + Carte.html(c, { dos: true, tete: o.tete }).replace('class="ct ', 'class="ct retournee ') + '</button>';
-    }).join('') + '</div>';
-    requestAnimationFrame(function () { requestAnimationFrame(function () {
-      document.querySelectorAll('.bst-c').forEach(function (b) { b.classList.add('la'); });
-    }); });
-    var vues = 0;
-    $('bstTitre').textContent = 'Cinq cartes';
-    $('bstAide').textContent = 'Retournez-les une à une.';
-    $('bstActs').innerHTML = '<button class="btn-o" type="button" id="bstTout">Tout retourner</button>';
-    function retourner(b) {
-      if (b.classList.contains('vue')) return;
-      b.classList.add('vue');
-      var o = cartes[+b.dataset.i], c = parId[o.id];
-      b.querySelector('.ct').classList.remove('retournee');
-      b.setAttribute('aria-label', c.n + ', ' + RANGS[c.r].l.toLowerCase() + (o.tete ? ', irisée' : '') + (o.nouvelle ? ', nouvelle' : ''));
-      if ((c.r === 4 || o.tete) && !reduit) { var f = $('bstFlash'); f.classList.remove('on'); void f.offsetWidth; f.classList.add('on'); }
-      var dire = c.n + ' — ' + RANGS[c.r].l + (o.tete ? ', irisée' : '') + (o.nouvelle ? ', nouvelle' : '');
-      $('bstAide').textContent = c.r === 4 ? 'Un manuscrit ! ' + c.n : o.tete ? 'Une carte irisée : ' + c.n : dire;
-      if (SHELL.announce) SHELL.announce(dire);
-      if (++vues === cartes.length) fin();
+    // les images se chargent pendant qu'on regarde la pile
+    cartes.forEach(function (o) { if (parId[o.id].i) { var im = new Image(); im.src = '/assets/img/cartes/' + o.id + '.webp'; } });
+    var N = cartes.length, dosHtml = Carte.dos(), pileHtml = '', slots = '';
+    for (var k = 0; k < N; k++) { pileHtml += dosHtml; slots += '<div class="bst-slot" data-i="' + k + '"></div>'; }
+    $('bstScene').innerHTML = '<div class="bst-jeu" id="bstJeu"><div class="bst-table" id="bstTable">' +
+      '<div class="bst-rayons" id="bstRayons" aria-hidden="true"></div>' +
+      '<button class="bst-pile entre" id="bstPile" type="button">' + pileHtml + '<span class="bst-compte" id="bstCompte" aria-hidden="true">' + N + '</span></button>' +
+      '</div><div class="bst-rangee" id="bstRangee" aria-label="Les cartes retournées">' + slots + '</div></div>';
+    var pile = $('bstPile'), table = $('bstTable'), rayons = $('bstRayons');
+    requestAnimationFrame(function () { requestAnimationFrame(function () { pile.classList.remove('entre'); }); });
+    var n = 0, vues = 0, courant = null, occupe = false, auto = 0;
+    function libellePile() {
+      pile.setAttribute('aria-label', 'Retourner la carte du dessus (' + (n + 1) + ' sur ' + N + ')');
+      $('bstCompte').textContent = N - n;
     }
-    $('bstMain').addEventListener('click', function (e) { var b = e.target.closest('.bst-c'); if (b) retourner(b); });
+    libellePile();
+    $('bstTitre').textContent = 'Cinq cartes';
+    $('bstAide').textContent = 'Touchez la pile pour retourner la carte du dessus.';
+    $('bstActs').innerHTML = '<button class="btn-o" type="button" id="bstTout">Tout retourner</button>';
+    pile.focus();
+    function etiquette(o, c) {
+      return o.tete ? { t: 'Irisée', k: 'nacre' } : c.r === 4 ? { t: 'Manuscrit', k: 'manu' } : c.r === 3 ? { t: 'Édition originale', k: '' } : null;
+    }
+    async function retourner(vite) {
+      if (occupe || n >= N) return;
+      occupe = true;
+      var i = n++, o = cartes[i], c = parId[o.id], rare = c.r >= 3 || o.tete, et = etiquette(o, c);
+      // la carte du dessus quitte la pile
+      var dessus = pile.querySelector('.ct:last-of-type'); if (dessus) dessus.remove();
+      if (n >= N) pile.hidden = true; else libellePile();
+      var v = document.createElement('button');
+      v.type = 'button'; v.className = 'bst-vue'; v.dataset.i = i;
+      v.innerHTML = Carte.html(c, { dos: true, tete: o.tete }).replace('class="ct ', 'class="ct retournee ');
+      v.setAttribute('aria-label', 'Carte ' + (i + 1) + ' sur ' + N + ', face cachée');
+      table.appendChild(v); courant = v;
+      if (rare) v.dataset.rare = '1';
+      // la rare a son moment : elle se soulève, la lumière fuit par les bords
+      if (rare && !reduit && !vite) { v.classList.add('leve'); await attendre(950); }
+      void v.offsetWidth;
+      v.querySelector('.ct').classList.remove('retournee');
+      var dire = c.n + ' — ' + RANGS[c.r].l + (o.tete ? ', irisée' : '') + (o.nouvelle ? ', nouvelle' : '');
+      v.setAttribute('aria-label', dire + (rare ? '. La ranger' : ''));
+      if (SHELL.announce) SHELL.announce(dire);
+      if (rare) {
+        v.classList.remove('leve'); v.classList.add('rare');
+        if (!reduit) { var f = $('bstFlash'); f.classList.remove('on'); void f.offsetWidth; f.classList.add('on'); }
+        rayons.dataset.r = o.tete ? 't' : String(c.r); rayons.classList.add('on');
+        var b = document.createElement('span'); b.className = 'bst-rang ' + et.k; b.textContent = et.t; b.setAttribute('aria-hidden', 'true');
+        v.appendChild(b); requestAnimationFrame(function () { b.classList.add('on'); });
+        $('bstTitre').textContent = c.r === 4 ? 'Un manuscrit !' : o.tete ? 'Une carte irisée !' : 'Une édition originale !';
+        $('bstAide').textContent = c.n + (vite ? '' : ' — touchez la carte pour la ranger.');
+      } else {
+        $('bstAide').textContent = dire;
+      }
+      await attendre(reduit ? 0 : 650);
+      occupe = false;
+      if (vite) return;
+      if (rare) v.focus();
+      else auto = setTimeout(function () { if (courant === v) ranger(); }, 1100);
+    }
+    async function ranger() {
+      if (!courant || occupe) return;
+      occupe = true; clearTimeout(auto);
+      var v = courant, i = +v.dataset.i, o = cartes[i], c = parId[o.id], rare = !!v.dataset.rare;
+      courant = null; rayons.classList.remove('on');
+      var b = v.querySelector('.bst-rang'); if (b) b.remove();
+      var slot = $('bstRangee').children[i];
+      if (!reduit && v.animate) {
+        var a = v.getBoundingClientRect(), z = slot.getBoundingClientRect();
+        v.style.transformOrigin = '0 0';
+        await v.animate([{ transform: getComputedStyle(v).transform === 'none' ? 'none' : getComputedStyle(v).transform },
+          { transform: 'translate(' + (z.left - a.left) + 'px,' + (z.top - a.top) + 'px) scale(' + (z.width / a.width) + ')' }],
+          { duration: 480, easing: 'cubic-bezier(.5,0,.2,1)', fill: 'forwards' }).finished.catch(function () {});
+      }
+      slot.innerHTML = (o.nouvelleTete ? '<span class="bst-nv nacre">✦ Nouvelle</span>' : o.nouvelle ? '<span class="bst-nv">Nouvelle</span>' : '') + Carte.html(c, { tete: o.tete });
+      slot.classList.add('plein'); if (rare) slot.classList.add('eclat');
+      v.remove();
+      if (!pile.hidden) { $('bstTitre').textContent = 'Cinq cartes'; if (rare) $('bstAide').textContent = 'Touchez la pile pour retourner la carte suivante.'; }
+      occupe = false;
+      if (++vues === N) fin(); else if (!pile.hidden) pile.focus();
+    }
+    // toucher la pile (ou la carte banale encore au centre) : on range ce qui
+    // est au centre et l'on retourne la suivante. Toucher une rare la range
+    // seulement : on ne lui enchaîne pas la suivante sous les yeux.
+    async function avancer() {
+      if (occupe) return;
+      if (courant) { var r = !!courant.dataset.rare; await ranger(); if (r) return; }
+      retourner();
+    }
+    pile.addEventListener('click', avancer);
+    table.addEventListener('click', function (e) { if (e.target.closest('.bst-vue')) avancer(); });
     $('bstTout').onclick = async function () {
-      var bs = [].slice.call(document.querySelectorAll('.bst-c:not(.vue)'));
-      for (var i = 0; i < bs.length; i++) { retourner(bs[i]); await attendre(reduit ? 0 : 260); }
+      this.disabled = true;
+      while (occupe) await attendre(60);
+      if (courant) await ranger();
+      while (n < N) { await retourner(true); await attendre(reduit ? 0 : 380); await ranger(); }
     };
-    var premiere = document.querySelector('.bst-c'); if (premiere) premiere.focus();
     function fin() {
+      $('bstJeu').classList.add('fini');
       var nv = cartes.filter(function (o) { return o.nouvelle; }).length, tt = cartes.filter(function (o) { return o.tete; }).length;
       $('bstTitre').textContent = nv ? (nv > 1 ? nv + ' nouvelles cartes' : 'Une nouvelle carte') : 'Aucune nouvelle cette fois';
       $('bstAide').textContent = (tt ? (tt > 1 ? tt + ' cartes irisées. ' : 'Une carte irisée. ') : '') + 'Elles sont rangées dans votre album.';
@@ -933,6 +1037,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
         '<button class="btn-o" type="button" data-bst-fermer>Voir mon album</button>';
       var bp = $('bstPartage'); if (bp) bp.onclick = function () { partager(parId[beau.id], beau.tete); };
       var enc = $('bstEncore'); if (enc) { enc.onclick = ouvrirBooster; enc.focus(); }
+      else { var fm = document.querySelector('#bstActs [data-bst-fermer]'); if (fm) fm.focus(); }
     }
   }
   $('bst').addEventListener('click', function (e) {
