@@ -12151,5 +12151,13 @@ Descriptions ramenées vers 150-160 caractères, le sujet dans les cent
 premiers. Les descriptions de chapitre et de commentaire restent plus longues
 (Google tronque, il ne pénalise pas) : le début porte l'essentiel.
 
+Seconde passe le même jour : les descriptions de chapitre et de commentaire
+ramenées à 131-159 caractères (récrites une à une) ; la numérotation
+allemande n'est dite que si elle DIFFÈRE (chapitres I à IV : « du Capital de
+Marx ») ; titres calés sur les requêtes relevées dans Search Console
+(« aliénation du travail », « travail aliénant », « accumulation primitive du
+capital », « abrégé du Capital » pour Salaire, prix et profit). Search
+Console ne montre que 63 requêtes sur 28 jours : le reste est anonymisé.
+
 **Re-mesurer vers le 1er décembre 2026** les pages citées plus haut, et les
 huit notions retitrées en septembre (aucun clic sous l'ancien format).
