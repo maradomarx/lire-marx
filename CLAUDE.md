@@ -12131,6 +12131,7 @@ que Google affiche (jusqu'à 159 caractères pour un chapitre).
 
 **Les règles vivent dans `tools/gen-seo.mjs`** (`titreRes`, `titreNotion`,
 `minusc`, en tête du fichier) :
+- l'accueil : « Lire Marx — Le Capital et ses grands textes, lus et expliqués » — six œuvres servies ne tiennent pas dans un titre, on nomme Le Capital (le plus cherché) et le reste d'un mot juste ; la description en nomme quatre ;
 - **60 caractères**, le mot cherché en tête, ce qui peut être coupé à la fin ;
 - **« | Lire Marx » ne s'ajoute que s'il tient** : Google affiche déjà le nom
   du site au-dessus de l'URL (bloc `WebSite`) ;
