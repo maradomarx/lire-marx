@@ -92,11 +92,45 @@ body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.55 var(--
 .tcg-logo-m{font:900 clamp(1.9rem,3vw,2.4rem)/1 'Fraunces',Georgia,serif;letter-spacing:-.03em;color:var(--ink);}
 .tcg-logo-t{align-self:center;font:800 .78rem/1 'Inter',sans-serif;letter-spacing:.2em;padding:6px 7px 6px 9px;border-radius:6px;
   background:#d5402f;color:#fff;transform:translateY(-.15em) rotate(-3deg);box-shadow:0 3px 10px -2px rgba(213,64,47,.55);}
-.tcg-nav{display:flex;gap:4px;width:max-content;max-width:100%;margin:0;padding:4px;
-  border-radius:100px;background:var(--surface);border:1px solid var(--line);box-shadow:0 8px 24px -14px rgba(var(--ombre-rgb,0,0,0),.6);}
-.tcg-nav a{font:600 .88rem/1 var(--f-ui);color:var(--ink-soft);text-decoration:none;padding:10px 18px;border-radius:100px;transition:background .2s,color .2s;}
-.tcg-nav a:hover{color:var(--ink);background:var(--hover);}
-.tcg-nav a[aria-current="true"]{background:var(--text);color:var(--bg);}
+/* les quatre vues : une seule à l'écran, comme les jeux de cartes en ligne
+   (Pokémon TCG Pocket, Marvel Snap). La barre d'onglets est en haut au
+   bureau, en bas sur téléphone. Sans script, toutes les vues sont visibles. */
+.tcg-onglets{display:flex;gap:4px;margin:0;padding:4px;border-radius:100px;background:var(--surface);border:1px solid var(--line);
+  box-shadow:0 8px 24px -14px rgba(var(--ombre-rgb,0,0,0),.6);}
+.tcg-onglets a{position:relative;display:inline-flex;align-items:center;gap:8px;font:600 .9rem/1 var(--f-ui);color:var(--ink-soft);text-decoration:none;
+  padding:10px 18px;border-radius:100px;transition:background .2s,color .2s;}
+.tcg-onglets a svg{width:19px;height:19px;flex:none;}
+.tcg-onglets a:hover{color:var(--ink);background:var(--hover);}
+.tcg-onglets a[aria-current="page"]{background:var(--text);color:var(--bg);}
+.tcg-onglets .nav-n{margin-left:0;}
+html.tcg-vues .vue:not(.on){display:none;}
+.vue{margin-top:clamp(22px,3vw,32px);scroll-margin-top:110px;}
+html:not(.tcg-vues) .vue + .vue{margin-top:clamp(44px,6vw,72px);}
+.tcg-pan-s{margin:4px 0 8px;font-size:.84rem;color:var(--muted);}
+.tcg-raccs{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,2vw,18px);}
+.tcg-racc{display:flex;flex-direction:column;gap:4px;padding:16px 18px;border-radius:16px;background:var(--surface);border:1px solid var(--line);
+  color:var(--ink);text-decoration:none;transition:border-color .2s,transform .2s;}
+.tcg-racc:hover{border-color:var(--gold);transform:translateY(-1px);}
+.tcg-racc-t{font:600 .72rem/1 var(--f-ui);letter-spacing:.11em;text-transform:uppercase;color:var(--gold);}
+.tcg-racc b{font:900 1.8rem/1.05 'Fraunces',Georgia,serif;font-variant-numeric:tabular-nums lining-nums;margin-top:4px;}
+.tcg-racc-s{font-size:.84rem;color:var(--ink-soft);}
+.tcg-racc.alerte{border-color:rgba(213,64,47,.55);}
+.tcg-racc.alerte b{color:var(--red-text);}
+.lien-b{border:0;background:none;padding:6px 0;font:600 .88rem/1 var(--f-ui);color:var(--red-text);cursor:pointer;text-decoration:none;}
+.lien-b:hover{text-decoration:underline;}
+.lien-b[hidden]{display:none;}
+.lien-b[aria-pressed="true"]{color:var(--ink);}
+/* la collection : le compte, la vitrine, l'album */
+.col-tete{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 28px;padding:clamp(16px,2.4vw,22px);
+  border-radius:18px;background:var(--surface);border:1px solid var(--line);}
+.col-tot{display:flex;align-items:center;gap:16px;}
+.col-tot h2{font:600 .72rem/1 var(--f-ui);letter-spacing:.11em;text-transform:uppercase;color:var(--gold);margin:0 0 6px;}
+.col-tete .prog-rangs{flex:0 1 460px;}
+.vit-bande{margin-top:clamp(18px,2.4vw,24px);scroll-margin-top:110px;}
+.vit-t{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:10px;}
+.vit-t h3{font:900 1.2rem/1.15 'Fraunces',Georgia,serif;margin:0;}
+.vit-t h3 span{font:500 .82rem var(--f-ui);color:var(--muted);margin-left:6px;}
+.vit-acts{display:inline-flex;gap:18px;}
 .tcg-home{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(16px,2.4vw,26px);margin-top:clamp(22px,3vw,32px);scroll-margin-top:110px;}
 /* la scène du paquet : la nuit du sachet, une lueur, le paquet qui flotte */
 .tcg-scene{position:relative;overflow:hidden;border-radius:22px;padding:clamp(26px,4vw,44px) 22px clamp(24px,3vw,34px);
@@ -179,6 +213,16 @@ body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.55 var(--
 .alb-q:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(var(--gold-rgb,216,173,76),.25);}
 .alb-sel{height:38px;border-radius:10px;border:1px solid var(--line-strong);background:var(--card);color:var(--ink);font:500 .86rem var(--f-ui);padding:0 10px;}
 .alb-fam{display:flex;flex-wrap:wrap;gap:6px;flex-basis:100%;}
+.alb-ligne{display:flex;gap:10px;align-items:center;flex-basis:100%;}
+.alb-f{position:relative;}
+.alb-f summary{list-style:none;display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 14px;border-radius:10px;border:1px solid var(--line-strong);
+  background:var(--card);color:var(--ink);font:600 .86rem var(--f-ui);cursor:pointer;}
+.alb-f summary::-webkit-details-marker{display:none;}
+.alb-f[open] summary{border-color:var(--gold);}
+.alb-f-in{position:absolute;right:0;top:calc(100% + 6px);z-index:30;display:grid;gap:12px;min-width:240px;padding:14px;border-radius:14px;
+  background:var(--surface);border:1px solid var(--line-strong);box-shadow:0 16px 36px -14px rgba(0,0,0,.7);}
+.alb-f-in label{display:grid;gap:6px;font:600 .72rem/1 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--gold);}
+.alb-f-in .alb-sel{width:100%;}
 .alb-fam button{font:600 .82rem/1 var(--f-ui);padding:8px 13px;border-radius:100px;border:1px solid var(--line);background:transparent;color:var(--ink-soft);cursor:pointer;}
 .alb-fam button[aria-pressed="true"]{background:var(--text);color:var(--bg);border-color:var(--text);}
 .alb-fam button span{opacity:.7;font-weight:500;margin-left:4px;font-variant-numeric:tabular-nums;}
@@ -337,10 +381,26 @@ dialog.bst::backdrop{background:radial-gradient(ellipse at 50% 50%,rgba(48,30,13
 @media (max-width:560px){ .regle{grid-template-columns:1fr;} .rangs th:nth-child(2),.rangs td:nth-child(2){display:none;} }
 @media (max-width:900px){
   .tcg-home{grid-template-columns:1fr;}
+  .col-tete .prog-rangs{flex-basis:100%;}
+}
+/* sur téléphone, les onglets passent en bas, comme dans une application */
+@media (max-width:720px){
+  .tcg-onglets{position:fixed;left:0;right:0;bottom:0;z-index:90;border-radius:0;border:0;border-top:1px solid var(--line-strong);
+    padding:6px 6px calc(6px + env(safe-area-inset-bottom));background:var(--surface);box-shadow:0 -10px 26px -16px rgba(0,0,0,.7);}
+  .tcg-onglets a{flex:1;flex-direction:column;gap:4px;padding:8px 4px;border-radius:12px;font-size:.72rem;}
+  .tcg-onglets a svg{width:22px;height:22px;}
+  .tcg-onglets a[aria-current="page"]{background:var(--hover);color:var(--ink);}
+  .tcg-onglets a[aria-current="page"] svg{color:var(--red-text);}
+  .tcg-onglets .nav-n{position:absolute;top:2px;left:calc(50% + 6px);}
+  .cx{padding-bottom:110px;}
+  .lm-haut{bottom:calc(84px + env(safe-area-inset-bottom)) !important;}
 }
 @media (max-width:560px){
-  .tcg-nav{width:100%;justify-content:space-between;}
-  .tcg-nav a{flex:1;text-align:center;padding:10px 8px;}
+  .tcg-raccs{grid-template-columns:1fr 1fr;}
+  .ech-tabs{flex-wrap:nowrap;overflow-x:auto;width:auto;scrollbar-width:none;}
+  .ech-tabs button{flex:none;padding:10px 13px;}
+  .alb-q{flex-basis:100%;}
+  .alb-ligne{flex-wrap:wrap;}
   .prog-rangs{gap:4px;}
   .prog-r i{width:24px;}
   .alb{--al-l:148px;}
@@ -366,18 +426,24 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
 .sec-lien{font:600 .9rem/1 var(--f-ui);color:var(--red-text);text-decoration:none;padding:6px 0;}
 .sec-lien:hover{text-decoration:underline;}
 .sec-lien[hidden]{display:none;}
-.vit{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(18px,2.4vw,26px) clamp(12px,2vw,20px);}
-.vit-s{position:relative;aspect-ratio:63/88;border-radius:10px;container-type:inline-size;}
-.vit-s > button{display:block;border:0;padding:0;background:none;cursor:pointer;width:100%;border-radius:10px;}
-.vit-s .ct{--ct-l:100cqi;}
-.vit-vide{border:1.5px dashed var(--line-strong);display:grid;place-items:center;text-align:center;padding:10px;color:var(--muted);font:600 .76rem/1.35 var(--f-ui);}
-.vit-vide b{display:block;font:900 1.4rem/1 'Fraunces',Georgia,serif;color:var(--ink-soft);margin-bottom:6px;}
-.vit-ctl{position:absolute;left:50%;bottom:-14px;translate:-50% 0;z-index:8;display:flex;gap:4px;padding:3px;border-radius:100px;background:var(--surface);border:1px solid var(--line-strong);box-shadow:0 6px 16px -6px rgba(0,0,0,.6);}
-.vit-ctl button{width:28px;height:28px;border:0;border-radius:50%;background:transparent;color:var(--ink);cursor:pointer;font:700 .95rem/1 var(--f-ui);}
+.vit{display:flex;gap:12px;overflow-x:auto;padding:4px 2px 18px;scrollbar-width:thin;}
+.vit-s{position:relative;flex:none;width:112px;aspect-ratio:63/88;border-radius:8px;}
+.vit-s > button{display:block;border:0;padding:0;background:none;cursor:pointer;border-radius:8px;}
+.vit-s .ct{--ct-l:112px;}
+.vit-vide{border:1.5px dashed var(--line-strong);display:grid;place-items:center;text-align:center;padding:8px;color:var(--muted);font:600 .74rem/1.3 var(--f-ui);}
+.vit-vide.seule{flex:1 1 auto;width:auto;max-width:420px;aspect-ratio:auto;min-height:70px;justify-items:start;text-align:left;padding:14px 16px;}
+.vit-ctl{position:absolute;left:50%;bottom:-12px;translate:-50% 0;z-index:8;display:none;gap:2px;padding:2px;border-radius:100px;background:var(--surface);border:1px solid var(--line-strong);box-shadow:0 6px 16px -6px rgba(0,0,0,.6);}
+.vit.edit .vit-ctl{display:flex;}
+.vit-ctl button{width:26px;height:26px;border:0;border-radius:50%;background:transparent;color:var(--ink);cursor:pointer;font:700 .9rem/1 var(--f-ui);}
 .vit-ctl button:hover{background:var(--hover);}
 .vit-ctl button[disabled]{opacity:.3;cursor:default;background:none;}
 .ech-msg{min-height:1.4em;margin:14px 0 0;color:var(--ink-soft);font-size:.92rem;}
 .ech-msg.err{color:var(--red-text);}
+#vitMsg:empty{display:none;}
+.ech-tabs[hidden]{display:none;}
+.ech-tete{display:flex;justify-content:space-between;align-items:flex-end;gap:12px 20px;flex-wrap:wrap;}
+.ech-tete .cx-sous{margin:0 0 4px;}
+.ech-retour{margin-bottom:16px;}
 .ech-tabs{display:flex;flex-wrap:wrap;gap:4px;width:max-content;max-width:100%;padding:4px;border-radius:100px;background:var(--surface);border:1px solid var(--line);margin:4px 0 22px;}
 .ech-tabs button{display:inline-flex;align-items:center;font:600 .88rem/1 var(--f-ui);color:var(--ink-soft);background:none;border:0;cursor:pointer;padding:10px 16px;border-radius:100px;}
 .ech-tabs button:hover{color:var(--ink);background:var(--hover);}
@@ -459,12 +525,15 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
       </svg>
       <span class="tcg-logo-m">Marx</span><span class="tcg-logo-t">TCG</span><span class="sr-only"> — les <!-- MARX-TCG:N:DÉBUT -->6&#8239;804<!-- MARX-TCG:N:FIN --> cartes à collectionner de Lire Marx</span>
     </h1>
-    <nav class="tcg-nav" aria-label="Sections de Marx TCG">
-      <a href="#boosters">Boosters</a><a href="#album">Album</a><a href="#vitrine">Vitrine</a><a href="#echanges">Échanges<span class="nav-n" id="navEch" hidden></span></a><a href="#regles">Règles</a>
+    <nav class="tcg-onglets" id="tcgOnglets" aria-label="Marx TCG">
+      <a href="#boosters" data-vue="boosters"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4.5h12l-1 1.2 1 1.2-1 1.2 1 1.1V20H6V9.2l1-1.1-1-1.2 1-1.2z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="14" r="2.6" fill="currentColor"/></svg><span>Boosters</span></a>
+      <a href="#collection" data-vue="collection"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="7" height="9.5" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="13.5" y="4" width="7" height="9.5" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 17.5h17M3.5 20.5h11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>Collection</span></a>
+      <a href="#echanges" data-vue="echanges"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h13l-3.5-3.5M19 16H6l3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Échanges</span><span class="nav-n" id="navEch" hidden></span></a>
+      <a href="#regles" data-vue="regles"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9.6 9.6a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .8-1 1.5v.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="16.9" r="1" fill="currentColor"/></svg><span>Règles</span></a>
     </nav>
   </header>
 
-  <section class="tcg-home" id="boosters" aria-label="Vos boosters">
+  <section class="vue tcg-home" id="boosters" data-vue="boosters" aria-label="Boosters">
     <div class="tcg-scene">
       <div class="tcg-halo" aria-hidden="true"></div>
       <div class="paquet" aria-hidden="true" id="cptPaquet"><span class="pq-corps"><span class="pq-art"></span><span class="pq-filet"></span><span class="pq-n">5<small>cartes</small></span><span class="pq-t"><small>Booster</small><b>Lire<br>Marx</b><span>Les cartes à collectionner</span></span><span class="pq-lustre"></span></span></div>
@@ -475,63 +544,74 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     </div>
     <div class="tcg-cote">
       <div class="tcg-pan">
-        <div class="tcg-pan-t"><h2>Ma collection</h2><a href="#album">L'album →</a></div>
-        <div class="tcg-col">
-          <div class="tcg-anneau" id="progAnneau" style="--p:0" aria-hidden="true"><b id="progPc">0&nbsp;%</b></div>
-          <p class="prog-tot" id="progTot">0 <span>cartes</span></p>
-        </div>
-        <ul class="prog-rangs" id="progRangs"></ul>
-      </div>
-      <div class="tcg-pan">
         <div class="tcg-pan-t"><h2>Missions du jour</h2><span class="tcg-score" id="misScore">0/3</span></div>
+        <p class="tcg-pan-s">Chaque mission rapporte un booster, trois par jour au plus.</p>
         <ul class="mis" id="mis"></ul>
+      </div>
+      <div class="tcg-raccs">
+        <a class="tcg-racc" href="#collection"><span class="tcg-racc-t">Ma collection</span><b id="raccCol">0</b><span class="tcg-racc-s" id="raccColS">sur 6&#8239;804 cartes</span></a>
+        <a class="tcg-racc" href="#echanges"><span class="tcg-racc-t">Échanges</span><b id="raccEch">0</b><span class="tcg-racc-s" id="raccEchS">proposition reçue</span></a>
       </div>
     </div>
   </section>
 
-  <section class="cx-sec" id="album" aria-labelledby="albT">
-    <h2 id="albT">L'album</h2>
-    <div class="alb-barre">
+  <section class="vue" id="collection" data-vue="collection" aria-labelledby="colT">
+    <div class="col-tete">
+      <div class="col-tot">
+        <div class="tcg-anneau" id="progAnneau" style="--p:0" aria-hidden="true"><b id="progPc">0&nbsp;%</b></div>
+        <div><h2 id="colT">Ma collection</h2><p class="prog-tot" id="progTot">0 <span>cartes</span></p></div>
+      </div>
+      <ul class="prog-rangs" id="progRangs"></ul>
+    </div>
+
+    <div class="vit-bande" id="vitrine">
+      <div class="vit-t"><h3>Ma vitrine <span id="vitN">0/10</span></h3>
+        <span class="vit-acts"><button class="lien-b" type="button" id="vitEdit" aria-pressed="false" hidden>Réorganiser</button><a class="lien-b" id="vitProfil" href="/oeuvres/forum" hidden>Voir mon profil</a></span></div>
+      <div class="vit" id="vit"></div>
+      <p class="ech-msg" id="vitMsg" aria-live="polite"></p>
+    </div>
+
+    <div class="alb-barre" id="album">
       <div class="alb-fam" id="albFam" role="group" aria-label="Familles"></div>
-      <input class="alb-q" id="albQ" type="search" placeholder="Chercher une carte" aria-label="Chercher une carte">
-      <select class="alb-sel" id="albRang" aria-label="Rang">
-        <option value="">Tous les rangs</option><option value="4">Manuscrits</option><option value="3">Éditions originales</option>
-        <option value="2">Éditions reliées</option><option value="1">Brochures</option><option value="0">Tracts</option>
-      </select>
-      <select class="alb-sel" id="albPoss" aria-label="Lesquelles">
-        <option value="">Toutes</option><option value="miennes">Les miennes</option><option value="manquent">Celles qui manquent</option><option value="tetes">Les irisées</option>
-      </select>
-      <select class="alb-sel" id="albTri" aria-label="Ordre">
-        <option value="no">Par numéro</option><option value="rang">Les plus rares d'abord</option><option value="recentes">Les dernières obtenues</option><option value="nom">Par nom</option>
-      </select>
+      <div class="alb-ligne">
+        <input class="alb-q" id="albQ" type="search" placeholder="Chercher une carte (nom ou numéro)" aria-label="Chercher une carte">
+        <select class="alb-sel" id="albPoss" aria-label="Lesquelles">
+          <option value="">Toutes</option><option value="miennes">Les miennes</option><option value="manquent">Celles qui manquent</option><option value="tetes">Les irisées</option>
+        </select>
+        <details class="alb-f"><summary>Filtres<span class="nav-n" id="albFN" hidden></span></summary>
+          <div class="alb-f-in">
+            <label>Rang<select class="alb-sel" id="albRang">
+              <option value="">Tous les rangs</option><option value="4">Manuscrits</option><option value="3">Éditions originales</option>
+              <option value="2">Éditions reliées</option><option value="1">Brochures</option><option value="0">Tracts</option>
+            </select></label>
+            <label>Ordre<select class="alb-sel" id="albTri">
+              <option value="no">Par numéro</option><option value="rang">Les plus rares d'abord</option><option value="recentes">Les dernières obtenues</option><option value="nom">Par nom</option>
+            </select></label>
+          </div>
+        </details>
+      </div>
     </div>
     <p class="alb-compte" id="albCompte" aria-live="polite"></p>
     <div class="alb" id="alb"></div>
     <div class="alb-plus"><button class="btn-o" id="albPlus" type="button" hidden>Afficher plus de cartes</button></div>
   </section>
 
-  <section class="cx-sec" id="vitrine" aria-labelledby="vitT">
-    <div class="sec-t"><h2 id="vitT">Ma vitrine</h2><a class="sec-lien" id="vitProfil" href="/oeuvres/forum" hidden>Voir mon profil →</a></div>
-    <p class="cx-sous">Dix cartes au plus, montrées sur votre profil du forum. On les choisit dans l'album, carte par carte.</p>
-    <div class="vit" id="vit"></div>
-    <p class="ech-msg" id="vitMsg" aria-live="polite"></p>
-  </section>
-
-  <section class="cx-sec" id="echanges" aria-labelledby="echT">
-    <h2 id="echT">Les échanges</h2>
-    <p class="cx-sous">Proposez un échange à un lecteur, ou mettez des cartes à la bourse. Rien ne bouge avant que l'autre accepte.</p>
+  <section class="vue" id="echanges" data-vue="echanges" aria-labelledby="echT">
+    <div class="ech-tete">
+      <div><h2 id="echT">Échanges</h2><p class="cx-sous">Rien ne bouge avant que l'autre accepte.</p></div>
+      <button class="btn-p" type="button" id="echNouveau">Nouvel échange</button>
+    </div>
     <div class="ech-tabs" id="echTabs" role="tablist" aria-label="Échanges">
       <button type="button" role="tab" data-o="recues" aria-selected="true">Reçues<span class="nav-n" id="echNR" hidden></span></button>
       <button type="button" role="tab" data-o="envoyees" aria-selected="false">Envoyées</button>
       <button type="button" role="tab" data-o="bourse" aria-selected="false">La bourse</button>
-      <button type="button" role="tab" data-o="proposer" aria-selected="false">Proposer</button>
       <button type="button" role="tab" data-o="historique" aria-selected="false">Terminés</button>
     </div>
     <div class="ech-pan" id="echPan" role="tabpanel" aria-labelledby="echT"></div>
     <p class="ech-msg" id="echMsg" aria-live="polite"></p>
   </section>
 
-  <section class="cx-sec" id="regles" aria-labelledby="regleT">
+  <section class="vue" id="regles" data-vue="regles" aria-labelledby="regleT">
     <h2 id="regleT">Règles et raretés</h2>
     <ol class="regle">
       <li><b>3 boosters par jour</b>Ils reviennent à minuit.</li>
@@ -976,19 +1056,34 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     for (var r = 4; r >= 0; r--) h += '<li class="prog-r r' + r + '" title="' + RANGS[r].l + ' : ' + parR[r] + ' sur ' + totR[r] + '"><i></i><b>' + nf.format(parR[r]) + '</b><span>' + COURT[r] + '</span></li>';
     h += '<li class="prog-r tete" title="Irisées : ' + tetes + '"><i></i><b>' + nf.format(tetes) + '</b><span>Irisée' + (tetes > 1 ? 's' : '') + '</span></li>';
     $('progRangs').innerHTML = h;
+    $('raccCol').textContent = nf.format(poss); $('raccColS').textContent = 'sur ' + nf.format(tot) + ' cartes';
   }
 
-  /* ---------------------------------------------------------- la navigation de la page */
-  (function () {
-    var liens = [].slice.call(document.querySelectorAll('.tcg-nav a'));
-    var secs = liens.map(function (a) { return document.querySelector(a.getAttribute('href')); });
-    function suivre() {
-      var y = 160, k = 0;
-      secs.forEach(function (s, i) { if (s && s.getBoundingClientRect().top <= y) k = i; });
-      liens.forEach(function (a, i) { if (i === k) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
-    }
-    addEventListener('scroll', suivre, { passive: true }); suivre();
-  })();
+  /* ---------------------------------------------------------- les vues
+     Une seule vue à l'écran ; l'adresse la nomme (#collection, #echanges…),
+     donc le bouton retour du navigateur marche et un lien mène à la bonne.
+     Les anciennes ancres (#album, #vitrine, #manuscrits) restent valables. */
+  var VUES = ['boosters', 'collection', 'echanges', 'regles'];
+  var ALIAS = { album: 'collection', vitrine: 'collection', manuscrits: 'regles', questions: 'regles' };
+  var vueCourante = null;
+  document.documentElement.classList.add('tcg-vues');
+  function vueDeHash() { var h = location.hash.slice(1).split('=')[0]; return VUES.indexOf(h) >= 0 ? h : ALIAS[h] || null; }
+  function vue(nom, cible) {
+    if (VUES.indexOf(nom) < 0) nom = 'boosters';
+    vueCourante = nom;
+    document.querySelectorAll('.vue').forEach(function (v) { v.classList.toggle('on', v.dataset.vue === nom); });
+    document.querySelectorAll('#tcgOnglets a').forEach(function (a) { if (a.dataset.vue === nom) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+    var el = cible && document.getElementById(cible);
+    if (el && el.tagName === 'DETAILS') el.open = true;
+    if (el && !el.classList.contains('vue')) el.scrollIntoView({ behavior: 'instant', block: 'start' });
+    else window.scrollTo({ top: 0, behavior: 'instant' });
+    if (nom === 'collection' && pret && !$('alb').children.length) filtrer();
+  }
+  function allerA(nom) { if (location.hash !== '#' + nom) location.hash = nom; else vue(nom); }
+  addEventListener('hashchange', function () { var n = vueDeHash(); if (n) vue(n, location.hash.slice(1)); });
+  vue(vueDeHash() || 'boosters', location.hash.slice(1));
+  // le navigateur saute à l'élément nommé par l'adresse une fois la page chargée : une vue s'ouvre en haut
+  addEventListener('load', function () { var h = location.hash.slice(1); if (VUES.indexOf(h) >= 0) window.scrollTo({ top: 0, behavior: 'instant' }); });
 
   /* ---------------------------------------------------------- l'album */
   var possChoisi = false, filtre = { f: '', q: '', r: '', poss: '', tri: 'no' }, liste = [], montre = 0, PAGE = 48;
@@ -1308,19 +1403,23 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     var el = $('vit');
     $('vitProfil').hidden = demo || !moi();
     if (moi()) $('vitProfil').href = '/oeuvres/forum#u=' + encodeURIComponent(moi());
-    if (!connecte()) { el.innerHTML = '<p class="ech-rien">Connectez-vous pour composer votre vitrine.</p>'; return; }
-    var h = '';
-    for (var i = 0; i < 10; i++) {
-      var e = ech.vit[i];
-      if (e && parId[e.c]) {
-        h += '<div class="vit-s">' + mini(e, 'data-voir') +
-          '<div class="vit-ctl"><button type="button" data-vit="g" data-i="' + i + '" aria-label="Avancer"' + (i ? '' : ' disabled') + '>‹</button>' +
-          '<button type="button" data-vit="x" data-i="' + i + '" aria-label="Retirer de la vitrine">×</button>' +
-          '<button type="button" data-vit="d" data-i="' + i + '" aria-label="Reculer"' + (i < ech.vit.length - 1 ? '' : ' disabled') + '>›</button></div></div>';
-      } else h += '<div class="vit-s vit-vide"><span><b>' + (i + 1) + '</b>' + (i === ech.vit.length ? 'Choisissez une carte dans l\'album' : '') + '</span></div>';
-    }
-    el.innerHTML = h;
+    var l = ech.vit.filter(function (e) { return parId[e.c]; });
+    $('vitN').textContent = l.length + '/10';
+    $('vitEdit').hidden = l.length < 2;
+    if (l.length < 2) { el.classList.remove('edit'); $('vitEdit').setAttribute('aria-pressed', 'false'); $('vitEdit').textContent = 'Réorganiser'; }
+    if (!connecte()) { el.innerHTML = '<p class="vit-s vit-vide seule">Connectez-vous pour montrer vos plus belles cartes sur votre profil.</p>'; return; }
+    if (!l.length) { el.innerHTML = '<p class="vit-s vit-vide seule">Dix cartes au plus, montrées sur votre profil du forum. Ouvrez une carte de votre album et choisissez « Mettre en vitrine ».</p>'; return; }
+    el.innerHTML = l.map(function (e, i) {
+      return '<div class="vit-s">' + mini(e, 'data-voir') +
+        '<div class="vit-ctl"><button type="button" data-vit="g" data-i="' + i + '" aria-label="Avancer"' + (i ? '' : ' disabled') + '>‹</button>' +
+        '<button type="button" data-vit="x" data-i="' + i + '" aria-label="Retirer de la vitrine">×</button>' +
+        '<button type="button" data-vit="d" data-i="' + i + '" aria-label="Reculer"' + (i < l.length - 1 ? '' : ' disabled') + '>›</button></div></div>';
+    }).join('');
   }
+  $('vitEdit').addEventListener('click', function () {
+    var on = $('vit').classList.toggle('edit');
+    this.setAttribute('aria-pressed', on ? 'true' : 'false'); this.textContent = on ? 'Terminé' : 'Réorganiser';
+  });
   async function poserVitrine(l, msg) {
     try {
       var r = await rpc('cartes_vitrine_poser', { l: l });
@@ -1413,9 +1512,12 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
   function rendreEchanges() {
     var nr = connecte() ? recues().length : 0;
     [$('navEch'), $('echNR')].forEach(function (b) { b.hidden = !nr; b.textContent = nr; });
+    $('raccEch').textContent = nr; $('raccEchS').textContent = nr > 1 ? 'propositions reçues' : 'proposition reçue';
+    $('raccEch').closest('.tcg-racc').classList.toggle('alerte', nr > 0);
     document.querySelectorAll('#echTabs [role=tab]').forEach(function (b) { b.setAttribute('aria-selected', b.dataset.o === ech.onglet ? 'true' : 'false'); });
     var pan = $('echPan');
     if (!connecte()) { pan.innerHTML = '<p class="ech-rien">Connectez-vous pour échanger des cartes.</p>'; return; }
+    $('echTabs').hidden = ech.onglet === 'proposer'; $('echNouveau').hidden = ech.onglet === 'proposer';
     if (ech.onglet === 'proposer') { rendreComposeur(); return; }
     var me = moi(), l;
     if (ech.onglet === 'recues') l = recues();
@@ -1464,7 +1566,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     if (o.dest) { ech.cmp.dest = o.dest; ech.cmp.destNom = o.destNom || nom(o.dest); }
     ech.onglet = 'proposer'; rendreEchanges();
     if (ech.cmp.dest && !ech.cmp.parent) chargerLeur();
-    document.getElementById('echanges').scrollIntoView({ behavior: 'instant', block: 'start' });
+    if (vueCourante !== 'echanges') allerA('echanges'); else window.scrollTo({ top: 0, behavior: 'instant' });
   }
   async function chargerLeur() {
     var d = ech.cmp.dest; ech.cmp.leur = null; rendreComposeur();
@@ -1527,7 +1629,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
       '<input class="cmp-in" id="cmpQM" type="search" placeholder="' + (k.bourse ? 'Chercher une carte (nom ou numéro)' : 'Chercher dans sa collection') + '" aria-label="Chercher une carte à demander" value="' + esc(k.qM) + '">' +
       (k.bourse && !k.qM ? '<p class="cmp-vide">Facultatif : laissez vide pour recevoir des propositions.</p>' : pickHtml(lignes(srcDem, k.qM, k.demande), 'demande')) + '</div>';
     var pret = (k.bourse ? k.donne.length > 0 : !!k.dest && (k.donne.length + k.demande.length > 0));
-    pan.innerHTML = '<div class="cmp">' + avec + '<div class="cmp-cols">' + colD + colM + '</div>' +
+    pan.innerHTML = '<button class="lien-b ech-retour" type="button" data-cmp="retour">← Retour aux échanges</button><div class="cmp">' + avec + '<div class="cmp-cols">' + colD + colM + '</div>' +
       '<div class="cmp-fin"><button class="btn-p" type="button" data-cmp="envoyer"' + (pret ? '' : ' disabled') + '>' + (k.bourse ? 'Mettre à la bourse' : 'Envoyer la proposition') + '</button>' +
       '<button class="btn-o" type="button" data-cmp="vider">Tout effacer</button></div></div>';
     if (foc && $(foc)) { var el = $(foc); el.focus(); if (el.setSelectionRange && el.value) el.setSelectionRange(el.value.length, el.value.length); }
@@ -1570,6 +1672,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     if ((t = e.target.closest('[data-retrait]'))) { (t.dataset.retrait === 'donne' ? k.donne : k.demande).splice(+t.dataset.i, 1); rendreComposeur(); return; }
     t = e.target.closest('[data-cmp]'); if (!t) return;
     if (t.dataset.cmp === 'autre') { k.dest = null; k.leur = null; k.demande = []; rendreComposeur(); var d = $('cmpDest'); if (d) d.focus(); return; }
+    if (t.dataset.cmp === 'retour') { onglet('recues'); return; }
     if (t.dataset.cmp === 'vider') { nouvelleProposition({ bourse: k.bourse }); return; }
     if (t.dataset.cmp === 'envoyer') {
       t.disabled = true;
@@ -1583,7 +1686,10 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
       } catch (er) { dire('echMsg', msgErr(er), true); t.disabled = false; }
     }
   });
+  document.addEventListener('click', function (e) { var f = document.querySelector('.alb-f[open]'); if (f && !e.target.closest('.alb-f')) f.open = false; });
   document.addEventListener('click', function (e) { var r = $('cmpRes'); if (r && !e.target.closest('.cmp-dest')) r.hidden = true; });
+
+  $('echNouveau').addEventListener('click', function () { nouvelleProposition({}); });
 
   async function demarrerEchanges() {
     if (!connecte()) { ech.vit = []; ech.liste = []; rendreVitrine(); rendreEchanges(); return; }
@@ -1606,9 +1712,10 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
   });
   var tq;
   $('albQ').addEventListener('input', function (e) { clearTimeout(tq); tq = setTimeout(function () { filtre.q = e.target.value.trim(); filtrer(); }, 180); });
-  $('albRang').addEventListener('change', function (e) { filtre.r = e.target.value; filtrer(); });
+  function badgeFiltres() { var n = (filtre.r !== '' ? 1 : 0) + (filtre.tri !== 'no' ? 1 : 0); $('albFN').hidden = !n; $('albFN').textContent = n; }
+  $('albRang').addEventListener('change', function (e) { filtre.r = e.target.value; badgeFiltres(); filtrer(); });
   $('albPoss').addEventListener('change', function (e) { filtre.poss = e.target.value; possChoisi = true; filtrer(); });
-  $('albTri').addEventListener('change', function (e) { filtre.tri = e.target.value; filtrer(); });
+  $('albTri').addEventListener('change', function (e) { filtre.tri = e.target.value; badgeFiltres(); filtrer(); });
   $('albPlus').addEventListener('click', plus);
   // la suite se charge d'elle-même quand on approche du bas de l'album
   if ('IntersectionObserver' in window) new IntersectionObserver(function (es) {

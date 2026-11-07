@@ -12093,3 +12093,30 @@ s'échangent (pas seulement les doubles) ; une irisée s'échange **comme irisé
   sont posés par `tools/cartes.mjs versions`, qui couvre désormais
   `oeuvres/forum.html`. Les cartes y font 150 px : en dessous de ~130 px le nom
   passe sur l'image.
+
+### Marx TCG en quatre vues (mission `tcg-vues`, nov. 2026)
+
+Demande du propriétaire : « pas clair, trop imbriqué ». Mesuré avant : une
+seule page de 4 800 px au bureau (8 000 sur téléphone) qui empilait boosters,
+album, vitrine, échanges et règles, sous trois niveaux de navigation.
+**Arbitrage : une vue par activité**, comme Pokémon TCG Pocket ou Marvel Snap,
+et **la vitrine dans la Collection**.
+
+- Quatre `<section class="vue" data-vue>` : **Boosters** (le paquet, les
+  missions, deux raccourcis chiffrés vers la collection et les échanges),
+  **Collection** (le compte par rang, la vitrine en bande, l'album),
+  **Échanges**, **Règles** (règles, rangs, manuscrits, FAQ). Une seule à
+  l'écran (`html.tcg-vues .vue:not(.on){display:none}`) ; **sans script, tout
+  reste visible**, et tout le texte reste dans le HTML servi (référencement).
+- L'adresse nomme la vue (`#collection`, `#echanges`…), donc le bouton retour
+  marche. Les anciennes ancres restent valables (`ALIAS` : `#album` et
+  `#vitrine` → Collection, `#manuscrits` et `#questions` → Règles).
+- La barre d'onglets (`#tcgOnglets`) est en haut au bureau, **fixée en bas
+  sous 720 px** comme une application, avec la pastille des échanges reçus.
+- L'album n'a plus que deux rangées : familles, puis recherche + « Les
+  miennes » + un bouton **Filtres** (rang, ordre) qui porte le nombre de
+  filtres actifs.
+- La vitrine est une bande de petites cartes ; on la réordonne avec
+  « Réorganiser ». Les échanges ont un bouton **Nouvel échange** au lieu d'un
+  onglet « Proposer », et le composeur s'ouvre avec « ← Retour aux échanges ».
+- ⚠️ `.ech-tabs{display:flex}` battait `[hidden]` : le piège connu, revécu.
