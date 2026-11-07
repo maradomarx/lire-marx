@@ -4396,6 +4396,13 @@ pages, aucun `/favicon.ico` à la racine. C'est ce globe que Google montrait.
 > `node tools/logo-portrait.mjs` (planche `tools/logo-portrait.html`, mêmes
 > noms de fichiers, donc aucune balise à changer). Ce qui suit décrit l'ancien
 > M ; le brandmark texte « Lire·Marx » de la barre du haut n'a pas changé.
+> Le portrait sert aussi à **Marx TCG** : la carte de devant du logo de
+> `/cartes/` (une `<image>` de `icon-192.png` découpée dans la carte), le
+> **dos des cartes** (médaillon serti d'or au milieu de la rosace, « Marx TCG »
+> dessous — il remplace le monogramme LM) et le **sachet du booster**
+> (`.pq-art`, `icon-512.png` en `mix-blend-mode:screen` : son fond brun-nuit
+> disparaît dans le sachet ; il s'arrête au-dessus de « Booster », sinon la
+> barbe passe sous le mot).
 
 Le mark reprend **le brandmark** (`Lire`**·**`Marx` de shell.js, Fraunces 900
 avec son point rouge) : carré brun-nuit à angles arrondis (18,75 %), dégradé

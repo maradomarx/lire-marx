@@ -36,7 +36,7 @@
 <link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2"></noscript>
 <link rel="stylesheet" href="/oeuvres/shell.css?v=17">
-<link rel="stylesheet" href="/cartes/carte.css?v=38cd450a">
+<link rel="stylesheet" href="/cartes/carte.css?v=a5838104">
 <style>
 /* ═══════════════════════════════════════════════════════════════════
    /cartes/ — LA COLLECTION (mission `cartes`)
@@ -516,12 +516,14 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
   <header class="tcg-tete">
     <h1 class="tcg-logo">
       <svg class="tcg-logo-ic" viewBox="0 0 64 60" aria-hidden="true">
-        <defs><linearGradient id="lgOr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff0b8"/><stop offset=".45" stop-color="#c9952a"/><stop offset="1" stop-color="#f6dc8a"/></linearGradient>
-        <radialGradient id="lgNuit" cx=".6" cy=".3" r=".9"><stop offset="0" stop-color="#5a1d12"/><stop offset=".7" stop-color="#1b130c"/></radialGradient></defs>
+        <defs><linearGradient id="lgOr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff0b8"/><stop offset=".45" stop-color="#c9952a"/><stop offset="1" stop-color="#f6dc8a"/></linearGradient></defs>
         <rect x="26" y="5" width="30" height="42" rx="3.5" transform="rotate(12 41 26)" fill="#2a1f16" stroke="url(#lgOr)" stroke-width="1.6"/>
-        <rect x="9" y="9" width="30" height="42" rx="3.5" transform="rotate(-8 24 30)" fill="url(#lgNuit)" stroke="url(#lgOr)" stroke-width="2"/>
-        <circle cx="24" cy="30" r="9.5" transform="rotate(-8 24 30)" fill="#d5402f"/>
-        <text x="24" y="35" transform="rotate(-8 24 30)" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="900" font-size="14" fill="#fff3d6">M</text>
+        <clipPath id="lgFace"><rect x="9" y="9" width="30" height="42" rx="3.5"/></clipPath>
+        <g transform="rotate(-8 24 30)">
+          <rect x="9" y="9" width="30" height="42" rx="3.5" fill="#1a140e"/>
+          <image href="/assets/img/logo/icon-192.png" x="2" y="12" width="44" height="44" clip-path="url(#lgFace)"/>
+          <rect x="9" y="9" width="30" height="42" rx="3.5" fill="none" stroke="url(#lgOr)" stroke-width="2"/>
+        </g>
       </svg>
       <span class="tcg-logo-m">Marx</span><span class="tcg-logo-t">TCG</span><span class="sr-only"> — les <!-- MARX-TCG:N:DÉBUT -->6&#8239;804<!-- MARX-TCG:N:FIN --> cartes à collectionner de Lire Marx</span>
     </h1>
@@ -791,7 +793,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
 </footer>
 <!-- PIED:FIN -->
 
-<script src="/cartes/carte.js?v=6430c4a6"></script>
+<script src="/cartes/carte.js?v=cc3bd168"></script>
 <script>
 (function () {
   'use strict';

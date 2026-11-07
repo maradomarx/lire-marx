@@ -299,14 +299,15 @@
   }
 
   // Le dos : le même pour toutes les cartes, comme le revers d'un jeu. Une
-  // rosace d'or tirée d'une graine fixe, le monogramme, le nom du site.
+  // rosace d'or tirée d'une graine fixe, le portrait du logo dans un médaillon
+  // serti d'or (le même que le favicon), le nom du jeu.
   var DOS = null;
   function dos() {
     if (!DOS) {
       var R = rnd(graine('dos·lire-marx'));
       DOS = '<div class="ct-face ct-dos" aria-hidden="true">' +
         '<svg class="ct-motif" viewBox="0 0 100 140" preserveAspectRatio="xMidYMid slice">' + guilloche(R, '#d8ad4c', .5) + '</svg>' +
-        '<div class="ct-dos-cadre"><span class="ct-dos-m">LM</span><span class="ct-dos-l">Lire Marx</span><span class="ct-dos-s">les cartes</span></div>' +
+        '<div class="ct-dos-cadre"><span class="ct-dos-med"><img src="/assets/img/logo/icon-512.png" alt="" loading="lazy" decoding="async"></span><span class="ct-dos-l">Marx TCG</span><span class="ct-dos-s">Lire Marx</span></div>' +
       '</div>';
     }
     return DOS;

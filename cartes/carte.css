@@ -436,11 +436,12 @@
 .ct-dos .ct-motif { opacity: .55; -webkit-mask-image: none; mask-image: none; }
 .ct-dos-cadre { position: absolute; inset: 1em; border: .12em solid rgba(216, 173, 76, .7); outline: .06em solid rgba(216, 173, 76, .4);
   outline-offset: .3em; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .5em; z-index: 2; }
-.ct-dos-m { font: 900 5.6em/1 Fraunces, Georgia, serif; letter-spacing: -.04em; color: #e8c66a;
-  text-shadow: 0 .04em 0 #5e430f, 0 0 .5em rgba(232, 198, 106, .35);
-  width: 1.9em; height: 1.9em; display: grid; place-items: center; border-radius: 50%;
-  background: radial-gradient(circle, #21180f 60%, transparent 61%); }
-.ct-dos-l { font: 600 1.1em/1 Inter, sans-serif; letter-spacing: .32em; text-transform: uppercase; color: #e8c66a; padding-left: .32em; }
+.ct-dos-med { width: 9.4em; height: 9.4em; border-radius: 50%; overflow: hidden; position: relative; background: #1a140e;
+  box-shadow: 0 0 0 .22em #c9952a, 0 0 0 .34em #21180f, 0 0 0 .44em rgba(216, 173, 76, .55), 0 .4em 1.2em rgba(0, 0, 0, .55); }
+.ct-dos-med img { position: absolute; inset: -6%; width: 112%; height: 112%; display: block; object-fit: cover; }
+.ct-dos-med::after { content: ""; position: absolute; inset: 0; border-radius: 50%;
+  background: radial-gradient(70% 55% at 35% 25%, rgba(255, 240, 200, .14), transparent 60%); }
+.ct-dos-l { margin-top: .7em; font: 700 1.1em/1 Inter, sans-serif; letter-spacing: .32em; text-transform: uppercase; color: #e8c66a; padding-left: .32em; }
 .ct-dos-s { font: italic 500 1.15em/1 Fraunces, Georgia, serif; color: #b7a888; }
 
 /* une carte qu'on n'a pas encore : sa silhouette dans l'album */
@@ -477,13 +478,11 @@
     linear-gradient(#3a3027,#1b150f);}
 .pq-corps::before{top:0;box-shadow:0 .06em 0 rgba(255,255,255,.12),0 .12em .3em rgba(0,0,0,.6);}
 .pq-corps::after{bottom:0;box-shadow:0 -.06em 0 rgba(255,255,255,.12),0 -.12em .3em rgba(0,0,0,.6);}
-/* le portrait tramé : la photographie ne passe que par des points */
-.pq-art{position:absolute;left:0;right:0;top:1.35em;bottom:4.2em;z-index:1;
-  background:url("/assets/img/archive/marx-portrait.webp") 50% 24% / cover;
-  filter:grayscale(1) contrast(1.7) brightness(1.55);mix-blend-mode:screen;opacity:1;
-  -webkit-mask:radial-gradient(circle,#000 50%,#0000 58%) 0 0 / .17em .17em,linear-gradient(#000 45%,#0000 96%);
-  -webkit-mask-composite:source-in;
-  mask:radial-gradient(circle,#000 50%,#0000 58%) 0 0 / .17em .17em,linear-gradient(#000 45%,#0000 96%);mask-composite:intersect;}
+/* le portrait du logo (pochoir tramé, assets/img/logo/) : en écran, son fond
+   brun-nuit disparaît dans le sachet, il ne reste que la lumière et la trame */
+.pq-art{position:absolute;left:0;right:0;top:1.35em;bottom:4.6em;z-index:1;
+  background:url("/assets/img/logo/icon-512.png") 50% 30% / cover;mix-blend-mode:screen;
+  -webkit-mask:linear-gradient(#000 45%,#0000 88%);mask:linear-gradient(#000 45%,#0000 88%);}
 /* le filet rouge de la maison, et le chiffre du paquet */
 .pq-filet{position:absolute;left:1em;top:2.2em;bottom:2.2em;width:.12em;z-index:2;background:linear-gradient(#d5402f,#8e1b12);}
 .pq-n{position:absolute;right:.9em;top:2.05em;z-index:2;display:grid;place-items:center;width:2.4em;height:2.4em;border-radius:50%;
