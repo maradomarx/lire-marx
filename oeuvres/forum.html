@@ -224,6 +224,18 @@
 .pf-comments-h{font-family:var(--f-ui);font-size:.74rem;font-weight:700;
   letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin:20px 0 10px;}
 .pf-replybox{margin-top:14px;}
+/* la vitrine Marx TCG du profil : dix cartes au plus, choisies dans /cartes/ */
+.pf-vit{margin:22px 0 6px;padding:18px;border-radius:16px;background:var(--card);border:1px solid var(--line);}
+.pf-vit .pf-comments-h{margin-top:0;}
+.pf-vit-st{font-family:var(--f-ui);font-size:.85rem;color:var(--muted);margin:0 0 14px;}
+.pf-vit-l{display:grid;grid-template-columns:repeat(auto-fill,150px);justify-content:start;gap:14px;}
+.pf-vit-l a{display:block;border-radius:8px;}
+.pf-vit-l .ct{--ct-l:150px;}
+.pf-vit-l a:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
+.pf-vit-ph{aspect-ratio:63/88;border-radius:8px;background:var(--hover);}
+.pf-vit-acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;}
+.pf-vit-acts a{text-decoration:none;}
+@media(max-width:620px){.pf-vit-l{grid-template-columns:repeat(auto-fill,128px);gap:10px;}.pf-vit-l .ct{--ct-l:128px;}}
 .pf-replybox .pf-ta{min-height:72px;}
 .pf-inlinebox{margin:10px 0 4px;}
 .pf-inlinebox .pf-ta{min-height:60px;background:var(--surface);}
@@ -768,10 +780,53 @@ installShell({
         '</div>' +
         actions +
       '</div>' +
+      vitrineHtml(uid, d.cartes) +
       '<div class="pf-comments-h">' + (nRoots ? 'Discussions ouvertes' : '') + '</div>' +
       (nRoots ? '<div class="pf-feed">' + d.notes.map(cardHtml).join('') + '</div>'
               : '<div class="pf-state">Aucune discussion publique pour l’instant.</div>') +
       '</div>';
+  }
+
+  /* La vitrine Marx TCG. Les cartes se dessinent avec /cartes/carte.js?v=6430c4a6 et le
+     catalogue, chargés seulement quand une vitrine a quelque chose à montrer. */
+  var cartesPret = null, cartesCat = null;
+  function chargerCartes(){
+    if(cartesPret) return cartesPret;
+    cartesPret = new Promise(function(ok, ko){
+      var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = '/cartes/carte.css?v=38cd450a'; document.head.appendChild(l);
+      var sc = document.createElement('script'); sc.src = '/cartes/carte.js?v=6430c4a6';
+      sc.onload = function(){
+        fetch('/cartes/catalogue.json?v=6ed3fd8a').then(function(r){ return r.json(); }).then(function(d){
+          cartesCat = {}; d.cartes.forEach(function(c){ cartesCat[c.id] = c; }); ok();
+        }, ko);
+      };
+      sc.onerror = ko; document.head.appendChild(sc);
+    });
+    return cartesPret;
+  }
+  function vitrineHtml(uid, k){
+    if(!k) return '';
+    var mien = isMine({ author_id: uid }), v = k.vitrine || [];
+    if(!v.length && !mien && !k.possedees) return '';
+    var st = k.possedees + ' carte' + (k.possedees > 1 ? 's' : '') +
+      (k.manuscrits ? ' · ' + k.manuscrits + ' manuscrit' + (k.manuscrits > 1 ? 's' : '') : '') +
+      (k.irisees ? ' · ' + k.irisees + ' irisée' + (k.irisees > 1 ? 's' : '') : '');
+    var cartes = '';
+    if(v.length){
+      if(cartesCat && window.Carte){
+        cartes = '<div class="pf-vit-l">' + v.map(function(e){
+          var c = cartesCat[e.c]; if(!c) return '';
+          return '<a href="/cartes/?carte=' + encodeURIComponent(c.id) + '" aria-label="' + esc(c.n) + (e.t ? ', irisée' : '') + '">' + window.Carte.html(c, { tete: !!e.t }) + '</a>';
+        }).join('') + '</div>';
+      } else {
+        cartes = '<div class="pf-vit-l" aria-hidden="true">' + v.map(function(){ return '<span class="pf-vit-ph"></span>'; }).join('') + '</div>';
+        chargerCartes().then(function(){ if(state.profileId === uid) render(); }, function(){});
+      }
+    } else if(mien) cartes = '<p class="pf-vit-st">Votre vitrine est vide : choisissez jusqu’à dix cartes dans votre album.</p>';
+    var acts = mien ? '<a class="pf-btn pf-btn-ghost" href="/cartes/#vitrine">Composer ma vitrine</a>'
+      : (window.SHELL && SHELL.auth && SHELL.auth.user ? '<a class="pf-btn pf-btn-ghost" href="/cartes/?avec=' + encodeURIComponent(uid) + '#echanges">Proposer un échange</a>' : '');
+    return '<section class="pf-vit" aria-label="Vitrine Marx TCG"><div class="pf-comments-h">' + (mien ? 'Ma vitrine' : 'Sa vitrine') + ' Marx TCG</div>' +
+      '<p class="pf-vit-st">' + esc(st) + '</p>' + cartes + (acts ? '<div class="pf-vit-acts">' + acts + '</div>' : '') + '</section>';
   }
 
   async function loadProfile(uid){
@@ -804,9 +859,11 @@ installShell({
          rebondirait en silence vers le fil (règle déjà écrite pour
          resolveDeepLink : un id absent de byId ne s'ouvre pas). */
       (rn.data || []).forEach(function(n){ byId[n.id] = n; });
+      var rk = await c.rpc('cartes_profil', { u: uid }).then(function(r){ return r; }, function(){ return {}; });
       profileCache[uid] = {
         loaded: true,
         profile: pr.data || null,
+        cartes: (rk && !rk.error && rk.data) || null,
         notes: rn.data || [],
         repliesN: (rc && typeof rc.count === 'number') ? rc.count : null
       };

@@ -453,3 +453,235 @@ revoke all on function public.cartes_mission(text) from public, anon;
 grant execute on function public.cartes_etat()        to authenticated;
 grant execute on function public.cartes_ouvrir()      to authenticated;
 grant execute on function public.cartes_mission(text) to authenticated;
+
+-- ============================================================================
+-- La vitrine et les échanges (mission `cartes-echanges`, nov. 2026)
+-- ============================================================================
+-- La vitrine : dix emplacements au plus, publics, montrés sur le profil du
+-- forum. Un emplacement dit une carte ET son état (irisée ou non). On ne la
+-- remplit que par cartes_vitrine_poser, qui vérifie qu'on possède bien ce
+-- qu'on expose ; cartes_profil ne montre que ce qui est encore possédé (une
+-- carte cédée depuis disparaît d'elle-même de la vitrine).
+--
+-- Les échanges : une proposition DIRECTE (a = le destinataire) ou une offre à
+-- la BOURSE (a null, visible de tous). On répond à une offre de la bourse par
+-- une contre-proposition (parent = l'offre, a = son auteur), ou on l'accepte
+-- telle quelle si elle demande quelque chose. Toutes les cartes s'échangent ;
+-- une irisée s'échange comme irisée. Rien ne bouge avant l'acceptation, et
+-- tout est REVÉRIFIÉ au moment d'accepter, sous verrou : ce qui a été cédé
+-- entre-temps fait échouer l'échange (statut « caduc »).
+-- Un élément : {"c": "<id de carte>", "t": true|false}. Une carte en double se
+-- met deux fois dans la liste.
+
+create table if not exists public.cartes_vitrine (
+  user_id uuid     not null references auth.users(id) on delete cascade,
+  pos     smallint not null check (pos between 0 and 9),
+  carte   text     not null references public.cartes_catalogue(id),
+  tete    boolean  not null default false,
+  primary key (user_id, pos)
+);
+alter table public.cartes_vitrine enable row level security;
+do $$ begin
+  if not exists (select 1 from pg_policies where schemaname = 'public'
+    and tablename = 'cartes_vitrine' and policyname = 'cv_select_all') then
+    execute 'create policy cv_select_all on public.cartes_vitrine for select using (true)';
+  end if;
+end $$;
+
+create table if not exists public.cartes_echanges (
+  id      uuid    primary key default gen_random_uuid(),
+  de      uuid    not null references auth.users(id) on delete cascade,
+  a       uuid             references auth.users(id) on delete cascade,
+  parent  uuid             references public.cartes_echanges(id) on delete cascade,
+  donne   jsonb   not null default '[]'::jsonb,
+  demande jsonb   not null default '[]'::jsonb,
+  statut  text    not null default 'ouvert'
+          check (statut in ('ouvert', 'accepte', 'refuse', 'annule', 'caduc')),
+  created bigint  not null,
+  maj     bigint  not null
+);
+create index if not exists cartes_echanges_de on public.cartes_echanges (de, statut);
+create index if not exists cartes_echanges_a on public.cartes_echanges (a, statut);
+create index if not exists cartes_echanges_bourse on public.cartes_echanges (statut) where a is null;
+alter table public.cartes_echanges enable row level security;
+do $$ begin
+  if not exists (select 1 from pg_policies where schemaname = 'public'
+    and tablename = 'cartes_echanges' and policyname = 'ce_select') then
+    execute 'create policy ce_select on public.cartes_echanges for select using (
+      de = auth.uid() or a = auth.uid() or (a is null and statut = ''ouvert''))';
+  end if;
+end $$;
+
+-- Une liste d'éléments, contrôlée et regroupée : (carte, irisée, combien).
+create or replace function public._cartes_lot(l jsonb) returns table (carte text, tete boolean, k int)
+  language plpgsql stable set search_path = public as $$
+begin
+  if l is null or jsonb_typeof(l) <> 'array' then raise exception 'liste invalide' using errcode = '22023'; end if;
+  if jsonb_array_length(l) > 10 then raise exception 'dix cartes au plus' using errcode = '22023'; end if;
+  if exists (select 1 from jsonb_array_elements(l) e
+             where jsonb_typeof(e) <> 'object' or not (e ? 'c')
+               or not exists (select 1 from cartes_catalogue cc where cc.id = e->>'c')) then
+    raise exception 'carte inconnue' using errcode = '22023';
+  end if;
+  return query select e->>'c', coalesce((e->>'t')::boolean, false), count(*)::int
+    from jsonb_array_elements(l) e group by 1, 2;
+end $$;
+
+-- u possède-t-il tout le lot ? Une irisée se compte dans les irisées, une
+-- carte ordinaire dans les exemplaires qui ne le sont pas.
+create or replace function public._cartes_possede(u uuid, l jsonb) returns boolean
+  language sql stable set search_path = public as $$
+  select not exists (
+    select 1 from (select carte, sum(k) filter (where tete) as kt, sum(k) filter (where not tete) as ko
+                   from _cartes_lot(l) group by carte) x
+    left join cartes_collection cc on cc.user_id = u and cc.carte = x.carte
+    where coalesce(cc.tetes, 0) < coalesce(x.kt, 0)
+       or coalesce(cc.n - cc.tetes, 0) < coalesce(x.ko, 0));
+$$;
+
+-- Déplace un lot de src vers dst. Suppose les vérifications faites et les
+-- lignes verrouillées.
+create or replace function public._cartes_bouger(src uuid, dst uuid, l jsonb) returns void
+  language plpgsql set search_path = public as $$
+declare x record; t bigint := (extract(epoch from now()) * 1000)::bigint;
+begin
+  for x in select * from _cartes_lot(l) loop
+    update cartes_collection set n = n - x.k, tetes = tetes - (case when x.tete then x.k else 0 end)
+      where user_id = src and carte = x.carte;
+    delete from cartes_collection where user_id = src and carte = x.carte and n <= 0;
+    insert into cartes_collection (user_id, carte, n, tetes, premiere)
+      values (dst, x.carte, x.k, case when x.tete then x.k else 0 end, t)
+      on conflict (user_id, carte) do update
+        set n = cartes_collection.n + excluded.n, tetes = cartes_collection.tetes + excluded.tetes;
+  end loop;
+end $$;
+
+create or replace function public.cartes_vitrine_poser(l jsonb) returns json
+  language plpgsql security definer set search_path = public as $$
+declare u uuid := auth.uid();
+begin
+  if u is null then raise exception 'connexion requise' using errcode = '28000'; end if;
+  perform 1 from _cartes_lot(l);
+  if not _cartes_possede(u, l) then raise exception 'carte absente de votre collection' using errcode = '22023'; end if;
+  delete from cartes_vitrine where user_id = u;
+  insert into cartes_vitrine (user_id, pos, carte, tete)
+    select u, (o - 1)::smallint, e->>'c', coalesce((e->>'t')::boolean, false)
+      from jsonb_array_elements(l) with ordinality z(e, o);
+  return cartes_profil(u);
+end $$;
+
+-- Le profil public d'un collectionneur : sa vitrine (ce qui est encore à lui)
+-- et trois chiffres. Lisible sans compte.
+create or replace function public.cartes_profil(u uuid) returns json
+  language sql stable security definer set search_path = public as $$
+  select json_build_object(
+    'possedees', (select count(*) from cartes_collection where user_id = u),
+    'manuscrits', (select count(*) from cartes_collection cc join cartes_catalogue k on k.id = cc.carte
+                   where cc.user_id = u and k.r = 4),
+    'irisees', (select count(*) from cartes_collection where user_id = u and tetes > 0),
+    'vitrine', (select coalesce(json_agg(json_build_object('c', v.carte, 't', v.tete) order by v.pos), '[]'::json)
+                from cartes_vitrine v join cartes_collection cc on cc.user_id = v.user_id and cc.carte = v.carte
+                where v.user_id = u and (not v.tete or cc.tetes > 0)));
+$$;
+
+-- La collection d'un autre lecteur, pour composer une proposition.
+create or replace function public.cartes_collection_de(u uuid) returns json
+  language sql stable security definer set search_path = public as $$
+  select coalesce(json_agg(json_build_object('c', carte, 'n', n, 't', tetes)), '[]'::json)
+    from cartes_collection where user_id = u and auth.uid() is not null;
+$$;
+
+create or replace function public.cartes_proposer(dest uuid, donne jsonb, demande jsonb, parent uuid default null) returns uuid
+  language plpgsql security definer set search_path = public as $$
+declare u uuid := auth.uid(); p cartes_echanges; nid uuid; t bigint := (extract(epoch from now()) * 1000)::bigint;
+begin
+  if u is null then raise exception 'connexion requise' using errcode = '28000'; end if;
+  donne := coalesce(donne, '[]'::jsonb); demande := coalesce(demande, '[]'::jsonb);
+  perform 1 from _cartes_lot(donne); perform 1 from _cartes_lot(demande);
+  if jsonb_array_length(donne) + jsonb_array_length(demande) = 0 then
+    raise exception 'proposition vide' using errcode = '22023'; end if;
+  if dest = u then raise exception 'pas d''échange avec soi-même' using errcode = '22023'; end if;
+  if parent is not null then
+    select * into p from cartes_echanges where id = parent;
+    if p.id is null or p.a is not null or p.statut <> 'ouvert' then
+      raise exception 'cette offre n''est plus ouverte' using errcode = 'P0001'; end if;
+    if p.de = u then raise exception 'pas d''échange avec soi-même' using errcode = '22023'; end if;
+    dest := p.de;
+  end if;
+  if dest is null and jsonb_array_length(donne) = 0 then
+    raise exception 'une offre à la bourse donne au moins une carte' using errcode = '22023'; end if;
+  if dest is not null and not exists (select 1 from auth.users where id = dest) then
+    raise exception 'lecteur introuvable' using errcode = '22023'; end if;
+  if (select count(*) from cartes_echanges where de = u and statut = 'ouvert') >= 30 then
+    raise exception 'trente propositions ouvertes au plus' using errcode = 'P0001'; end if;
+  if not _cartes_possede(u, donne) then
+    raise exception 'carte absente de votre collection' using errcode = '22023'; end if;
+  if dest is not null and not _cartes_possede(dest, demande) then
+    raise exception 'carte absente de sa collection' using errcode = '22023'; end if;
+  insert into cartes_echanges (de, a, parent, donne, demande, created, maj)
+    values (u, dest, parent, donne, demande, t, t) returning id into nid;
+  return nid;
+end $$;
+
+-- Accepter : le destinataire d'une proposition, ou n'importe qui (sauf
+-- l'auteur) pour une offre de la bourse qui demande quelque chose.
+create or replace function public.cartes_accepter(eid uuid) returns json
+  language plpgsql security definer set search_path = public as $$
+declare u uuid := auth.uid(); e cartes_echanges; autre uuid; t bigint := (extract(epoch from now()) * 1000)::bigint;
+begin
+  if u is null then raise exception 'connexion requise' using errcode = '28000'; end if;
+  select * into e from cartes_echanges where id = eid for update;
+  if e.id is null or e.statut <> 'ouvert' then raise exception 'cette proposition n''est plus ouverte' using errcode = 'P0001'; end if;
+  if e.a is not null and e.a <> u then raise exception 'cette proposition ne vous est pas adressée' using errcode = '42501'; end if;
+  if e.a is null and (e.de = u or jsonb_array_length(e.demande) = 0) then
+    raise exception 'répondez à cette offre par une proposition' using errcode = 'P0001'; end if;
+  autre := e.de;
+  -- verrou sur les deux collections, toujours dans le même ordre
+  perform 1 from cartes_collection where user_id in (u, autre) order by user_id, carte for update;
+  if not _cartes_possede(autre, e.donne) or not _cartes_possede(u, e.demande) then
+    update cartes_echanges set statut = 'caduc', maj = t where id = eid;
+    raise exception 'une des cartes n''est plus disponible' using errcode = 'P0001';
+  end if;
+  perform _cartes_bouger(autre, u, e.donne);
+  perform _cartes_bouger(u, autre, e.demande);
+  update cartes_echanges set statut = 'accepte', a = coalesce(a, u), maj = t where id = eid;
+  -- une offre de la bourse se referme, avec toutes les réponses qu'elle avait
+  if e.parent is not null then
+    update cartes_echanges set statut = 'accepte', maj = t where id = e.parent and statut = 'ouvert';
+    update cartes_echanges set statut = 'caduc', maj = t where parent = e.parent and id <> eid and statut = 'ouvert';
+  elsif e.a is null then
+    update cartes_echanges set statut = 'caduc', maj = t where parent = eid and statut = 'ouvert';
+  end if;
+  return json_build_object('ok', true);
+end $$;
+
+create or replace function public.cartes_refuser(eid uuid) returns json
+  language plpgsql security definer set search_path = public as $$
+declare u uuid := auth.uid(); n int;
+begin
+  if u is null then raise exception 'connexion requise' using errcode = '28000'; end if;
+  update cartes_echanges set statut = case when de = u then 'annule' else 'refuse' end,
+    maj = (extract(epoch from now()) * 1000)::bigint
+    where id = eid and statut = 'ouvert' and (de = u or a = u);
+  get diagnostics n = row_count;
+  if n = 0 then raise exception 'cette proposition n''est plus ouverte' using errcode = 'P0001'; end if;
+  -- retirer une offre de la bourse rend caduques les réponses qu'elle avait
+  update cartes_echanges set statut = 'caduc', maj = (extract(epoch from now()) * 1000)::bigint
+    where parent = eid and statut = 'ouvert';
+  return json_build_object('ok', true);
+end $$;
+
+revoke all on function public._cartes_lot(jsonb)                  from public, anon, authenticated;
+revoke all on function public._cartes_possede(uuid, jsonb)        from public, anon, authenticated;
+revoke all on function public._cartes_bouger(uuid, uuid, jsonb)   from public, anon, authenticated;
+revoke all on function public.cartes_vitrine_poser(jsonb)         from public, anon;
+revoke all on function public.cartes_collection_de(uuid)          from public, anon;
+revoke all on function public.cartes_proposer(uuid, jsonb, jsonb, uuid) from public, anon;
+revoke all on function public.cartes_accepter(uuid)               from public, anon;
+revoke all on function public.cartes_refuser(uuid)                from public, anon;
+grant execute on function public.cartes_profil(uuid)              to anon, authenticated;
+grant execute on function public.cartes_vitrine_poser(jsonb)      to authenticated;
+grant execute on function public.cartes_collection_de(uuid)       to authenticated;
+grant execute on function public.cartes_proposer(uuid, jsonb, jsonb, uuid) to authenticated;
+grant execute on function public.cartes_accepter(uuid)            to authenticated;
+grant execute on function public.cartes_refuser(uuid)             to authenticated;

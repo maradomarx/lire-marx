@@ -12048,3 +12048,32 @@ requête de tirage sur des données fictives, les droits et la RLS.
 - Pied de page commun (« Les cartes à collectionner », colonne Comprendre),
   recherche du site (entrée `page`), À propos (une phrase) et /jeu/ (un
   cycle bouclé rapporte un booster) en parlent.
+
+### La vitrine et les échanges (mission `cartes-echanges`, nov. 2026)
+
+Arbitrages du propriétaire : une vitrine de **dix cartes** par profil ; les
+échanges en **proposition directe ET à la bourse** ; **toutes** les cartes
+s'échangent (pas seulement les doubles) ; une irisée s'échange **comme irisée**.
+
+- **SQL** : bloc final de `supabase/schema.sql` — tables `cartes_vitrine`
+  (publique en lecture) et `cartes_echanges` (RLS : les siens, plus la bourse
+  ouverte) ; fonctions `cartes_vitrine_poser`, `cartes_profil` (lisible sans
+  compte), `cartes_collection_de`, `cartes_proposer`, `cartes_accepter`,
+  `cartes_refuser`. Aucune écriture directe. **Rien ne bouge avant
+  l'acceptation, et tout est revérifié à ce moment-là sous verrou** : une carte
+  cédée entre-temps rend l'échange « caduc ». Un élément de lot vaut
+  `{c: id, t: irisée}`, une carte en double se met deux fois.
+- **La bourse** : une offre sans destinataire (`a` null). On l'accepte telle
+  quelle si elle demande quelque chose, sinon on y répond par une
+  contre-proposition (`parent`). Accepter une réponse referme l'offre et rend
+  caduques les autres réponses.
+- **`/cartes/`** : sections `#vitrine` et `#echanges` (onglets Reçues, Envoyées,
+  La bourse, Proposer, Terminés), boutons « Mettre en vitrine » et « Mettre à
+  la bourse » dans la fiche d'une carte. `?avec=<uid>#echanges` ouvre une
+  proposition à ce lecteur. Le mode démo (`?demo`) imite tout avec une voisine
+  fictive, Rosa.
+- **Le profil du forum** (`#u=`) montre la vitrine : `carte.js`, `carte.css`
+  et le catalogue n'y sont chargés que si la vitrine a des cartes. Leurs `?v=`
+  sont posés par `tools/cartes.mjs versions`, qui couvre désormais
+  `oeuvres/forum.html`. Les cartes y font 150 px : en dessous de ~130 px le nom
+  passe sur l'image.
