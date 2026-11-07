@@ -286,7 +286,10 @@
 .ct-ecrin { position: absolute; inset: 0; z-index: 5; pointer-events: none; border-radius: inherit; }
 /* le filet rouge, à l'intérieur */
 .ct-ecrin::before { content: ""; position: absolute; inset: .88em; border-radius: .3em;
-  border: .08em solid #d5402f; box-shadow: 0 0 .4em rgba(213, 64, 47, .35); }
+  border: .08em solid #d5402f; box-shadow: 0 0 .4em rgba(213, 64, 47, .35);
+  animation: ct-braise 3.4s ease-in-out infinite; }
+/* la braise : le filet rouge et le halo de la carte rougeoient, doucement */
+.ct--r4 .ct-face.ct-recto { animation: ct-rougeoie 3.4s ease-in-out infinite; }
 /* la lumière qui fait le tour du filet d'or */
 .ct-ecrin::after { content: ""; position: absolute; inset: .45em; border-radius: .55em; padding: .18em;
   background: conic-gradient(from var(--ct-ang), transparent 0 78%, rgba(255, 252, 235, .2) 84%, #fffbe9 90%, rgba(255, 252, 235, .2) 95%, transparent 100%);
@@ -341,6 +344,10 @@
 .ct--r4 .ct-rang { display: none; }
 
 @keyframes ct-tourne { to { --ct-ang: 360deg; } }
+@keyframes ct-braise { 0%, 100% { border-color: #b8331f; box-shadow: 0 0 .3em rgba(213, 64, 47, .3), inset 0 0 .2em rgba(213, 64, 47, .15); }
+  50% { border-color: #ff6a4a; box-shadow: 0 0 .9em rgba(255, 90, 60, .75), inset 0 0 .7em rgba(255, 90, 60, .35); } }
+@keyframes ct-rougeoie { 0%, 100% { box-shadow: 0 0 0 .1em #8a6116, 0 0 2.4em rgba(232, 186, 80, .45), 0 1.2em 2.4em -.6em rgba(0, 0, 0, .75); }
+  50% { box-shadow: 0 0 0 .1em #8a6116, 0 0 2.8em rgba(220, 70, 45, .6), 0 1.2em 2.4em -.6em rgba(0, 0, 0, .75); } }
 @keyframes ct-chatoie { 0%, 100% { background-position: 0 0; } 50% { background-position: 100% 100%; } }
 @keyframes ct-passe { 0%, 60% { left: -60%; } 100% { left: 130%; } }
 @keyframes ct-dorure { 0%, 100% { background-position: 0 0; } 50% { background-position: 100% 0; } }
