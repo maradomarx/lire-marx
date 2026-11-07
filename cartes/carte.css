@@ -210,7 +210,7 @@
 
 /* le métal du rang : sombre, clair, moyen */
 .ct--r1 { --m1: #6b3a1c; --m2: #f2b98c; --m3: #b06a3c; }
-.ct--r2 { --m1: #5d636c; --m2: #f4f6f8; --m3: #9aa3ad; }
+.ct--r2 { --m1: #45576e; --m2: #eef5fd; --m3: #869fbd; }
 .ct--r3 { --m1: #6e5216; --m2: #fbe7a6; --m3: #c9952a; }
 .ct--r1 .ct-recto::after, .ct--r2 .ct-recto::after, .ct--r3 .ct-recto::after {
   content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 4;
@@ -224,11 +224,11 @@
 
 /* tract : le papier nu, plus gris, plus grainé, à peine d'ombre */
 /* LE PAPIER DU RANG : une couleur franche par rang, du gris au jaune d'or */
-.ct--r0 .ct-face.ct-recto { --papier: #dcd9d1; --art-fond: #c8c4ba; }
+.ct--r0 .ct-face.ct-recto { --papier: #d3d1cc; --art-fond: #bebcb6; }
 .ct--r1 .ct-face.ct-recto { --papier: #ecc4a1; --art-fond: #d6a780;
   background: linear-gradient(160deg, #f3d3b6, #e9bd97 55%, #e0ae84); }
-.ct--r2 .ct-face.ct-recto { --papier: #c8d4de; --art-fond: #a9b8c6; --doux: #3f4a56;
-  background: linear-gradient(160deg, #dbe4ec, #c5d2dd 55%, #b3c3d0); }
+.ct--r2 .ct-face.ct-recto { --papier: #b9cfe7; --art-fond: #96b2d2; --doux: #2c3d52;
+  background: linear-gradient(160deg, #d5e3f3, #b7cde6 55%, #9cb8da); }
 .ct--r3 .ct-face.ct-recto { --papier: #efcf73; --art-fond: #d6ad4c;
   background: linear-gradient(160deg, #f8e3a0, #ecc862 50%, #f2d684 75%, #e2b956); }
 .ct--r0 .ct-recto::before { opacity: .36; }
@@ -239,7 +239,7 @@
 .ct--r1 { --mw: .2em; }
 /* reliure : l'argent, plus large */
 .ct--r2 { --mw: .3em; }
-.ct--r2 .ct-recto { box-shadow: 0 0 0 .08em #3f444b, 0 .8em 1.8em -.6em rgba(0, 0, 0, .55); }
+.ct--r2 .ct-recto { box-shadow: 0 0 0 .08em #34445a, 0 .8em 1.8em -.6em rgba(0, 0, 0, .55); }
 /* originale : l'or, large, qui chatoie, des fers aux angles et une lueur */
 .ct--r3 { --mw: .44em; }
 .ct--r3 .ct-recto::after { animation: ct-chatoie 7s ease-in-out infinite; }
