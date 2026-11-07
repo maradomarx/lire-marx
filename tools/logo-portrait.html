@@ -1,0 +1,40 @@
+<!doctype html><meta charset="utf-8">
+<!-- Le logo de Lire Marx : le portrait de Mayall (1875) en pochoir trois tons,
+     demi-tons tramés en rouge. Rendu par tools/logo-portrait.mjs, jamais servi. --><body style="margin:0;background:#2a221a">
+<div id="out" style="display:flex;flex-wrap:wrap;gap:20px;padding:20px;align-items:center"></div>
+<script>
+const CR=[243,233,212],RE=[213,64,47];
+const load=s=>new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.src=s});
+const mk=s=>{const c=document.createElement('canvas');c.width=c.height=s;return c};
+function lum(img,x0,y0,w,N){const c=mk(N),k=c.getContext('2d');k.imageSmoothingQuality='high';k.drawImage(img,x0,y0,w,w,0,0,N,N);const d=k.getImageData(0,0,N,N).data,L=new Float32Array(N*N);for(let i=0;i<N*N;i++)L[i]=(.3*d[i*4]+.59*d[i*4+1]+.11*d[i*4+2])/255;let a=1,b=0;for(const v of L){a=Math.min(a,v);b=Math.max(b,v)}return L.map(v=>(v-a)/(b-a))}
+function fond(k,s,round){k.save();if(round){k.beginPath();k.roundRect(0,0,s,s,s*.1875);k.clip()}
+ k.fillStyle='#1a140e';k.fillRect(0,0,s,s)}
+// le portrait D, dessiné dans un carré (ox,oy,taille t)
+function portrait(k,face,ox,oy,t,o){
+ const X=60,Y=10,W=680,HI=o.hi,LO=o.lo;
+ const M=Math.round(Math.min(t*2,800)),L=lum(face,X,Y,W,M);
+ // aplats crème, lissés : on dessine à 2x puis on réduit
+ const im=new ImageData(M,M);for(let i=0;i<M*M;i++){const v=L[i];if(v>HI){im.data.set([...CR,255],i*4)}else if(o.flat&&v>LO){im.data.set([...RE,255],i*4)}}
+ const tc=mk(M);tc.getContext('2d').putImageData(im,0,0);k.imageSmoothingQuality='high';k.drawImage(tc,ox,oy,t,t);
+ if(o.flat)return;
+ // trame rouge des demi-tons, sans points isolés
+ const N=Math.round(t/o.pas),G=lum(face,X,Y,W,N),st=t/N,lim=LO*.7;
+ const on=(x,y)=>x>=0&&y>=0&&x<N&&y<N&&G[y*N+x]>lim;
+ k.fillStyle=`rgb(${RE})`;
+ for(let y=0;y<N;y++)for(let x=0;x<N;x++){const v=G[y*N+x];if(v>HI||v<lim)continue;
+  let n=0;for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++)if((dx||dy)&&on(x+dx,y+dy))n++;
+  if(n<3)continue;
+  const r=st*.64*Math.min(1,(v-lim)/(HI-lim));if(r<.45)continue;
+  k.beginPath();k.arc(ox+(x+.5)*st,oy+(y+.5)*st,r,0,7);k.fill()}}
+function icone(face,s,kind){const c=mk(s),k=c.getContext('2d');
+ const petit=s<=48;const o=petit?{hi:.55,lo:.33,flat:true}:{hi:.56,lo:.36,pas:s>=300?4:3.4};
+ if(kind==='mask'){fond(k,s,false);const t=s*.80;portrait(k,face,(s-t)/2,(s-t)/2+s*.02,t,o)}
+ else{fond(k,s,true);portrait(k,face,0,0,s,o);k.restore()}
+ return c}
+window.ICONES={};
+(async()=>{const face=await load('../assets/img/marx/face-1875.webp');
+ const L=[['icon-512',512,'r'],['icon-192',192,'r'],['apple-touch-icon',180,'r'],['icon-48',48,'r'],['icon-32',32,'r'],['icon-16',16,'r'],['icon-maskable-512',512,'mask'],['icon-maskable-192',192,'mask']];
+ for(const [n,s,kd] of L){const c=icone(face,s,kd);window.ICONES[n]=c.toDataURL('image/png');const w=document.createElement('div');w.style.cssText='display:flex;flex-direction:column;align-items:center;gap:6px;color:#b7a888;font:12px sans-serif';
+  const v=mk(s);v.getContext('2d').drawImage(c,0,0);if(kd==='mask'){v.style.borderRadius='50%'}w.append(v,n);document.getElementById('out').append(w)}
+ document.body.dataset.ok=1})();
+</script>

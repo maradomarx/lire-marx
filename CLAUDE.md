@@ -4381,6 +4381,22 @@ pages, aucun `/favicon.ico` à la racine. C'est ce globe que Google montrait.
 
 ### Le logo
 
+> **REMPLACÉ en novembre 2026** (mission `logo-portrait`) : le logo est
+> désormais **le portrait de Marx** — la photographie de Mayall (1875,
+> `assets/img/marx/face-1875.webp`, domaine public) en **pochoir trois tons** :
+> lumières en aplats crème `#f3e9d4`, demi-tons en **trame de points rouges**
+> `#d5402f` (points isolés retirés), ombres dans le brun-nuit `#1a140e` (fond
+> plat et non dégradé : il divise le poids des PNG par deux). Sous 48 px, la
+> trame disparaît et le rouge passe en aplat (une trame à 16 px n'est que du
+> bruit). Les versions maskables posent le portrait à 80 % sur fond plein.
+> Arbitré après trois tours : le M seul (trop générique), des formes abstraites
+> (« trop abstrait, il faut comprendre le lien avec Marx »), puis quatre
+> synthèses trame + pochoir — la D. **Il ne vit que sur fond sombre** : inversé
+> sur papier clair, le visage devient une tache. Tout se regénère par
+> `node tools/logo-portrait.mjs` (planche `tools/logo-portrait.html`, mêmes
+> noms de fichiers, donc aucune balise à changer). Ce qui suit décrit l'ancien
+> M ; le brandmark texte « Lire·Marx » de la barre du haut n'a pas changé.
+
 Le mark reprend **le brandmark** (`Lire`**·**`Marx` de shell.js, Fraunces 900
 avec son point rouge) : carré brun-nuit à angles arrondis (18,75 %), dégradé
 radial chaud `#241a11 → #130f0a`, **M de Fraunces 900** en crème `#f3e9d4`,

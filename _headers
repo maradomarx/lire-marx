@@ -106,3 +106,8 @@
   X-Robots-Tag: noindex
 /cartes/echantillons
   X-Robots-Tag: noindex
+
+# Les outils du dépôt sont servis (le site est la racine) : la planche qui
+# rend le logo ne doit pas être indexée.
+/tools/*
+  X-Robots-Tag: noindex
