@@ -1805,9 +1805,12 @@
     lastFocus = null;
   }
 
-  function openModal(){
+  // mode : 'signup' ou 'signin' ouvre directement sur ce volet (l'alerte des
+  // dix boosters ouvre sur « Créer un compte »).
+  function openModal(mode){
     if(!modalEl) modalEl = document.getElementById('acctModal');
     if(!modalEl) return;
+    if(mode === 'signup' || mode === 'signin') view.authMode = mode;
     // Reset busy/err/notice à chaque ouverture pour éviter qu'un état
     // bloqué d'une tentative précédente laisse le bouton "..." figé.
     view.busy = false; view.err = ''; view.notice = '';
@@ -2282,6 +2285,7 @@
        argumente, et l'on n'argumente pas auprès de qui revient. */
     if(signup){
       h += '<div class="ac-sec"><p class="ac-sec-h">Ce qu’un compte ajoute</p><ul class="ac-bens">'
+        + '<li class="ac-ben">' + MK_STEP + '<span><b>Dix boosters de Marx TCG offerts.</b> Puis trois par jour, pour commencer votre collection.</span></li>'
         + '<li class="ac-ben">' + MK_SYNC + '<span><b>Vos passages vous suivent.</b> Surlignages et notes se retrouvent sur tous vos appareils.</span></li>'
         + '<li class="ac-ben">' + MK_TALK + '<span><b>Vous pouvez écrire.</b> Ouvrir une discussion, répondre et appuyer une lecture sur le forum.</span></li>'
         + '<li class="ac-ben">' + MK_STEP + '<span><b>Votre progression se garde.</b> Les chapitres lus restent cochés d’une visite à l’autre.</span></li>'
@@ -3136,6 +3140,50 @@
   }
   if(!suivreSession()) document.addEventListener('DOMContentLoaded', suivreSession, { once: true });
   document.addEventListener('visibilitychange', function(){ if(!document.hidden) rafraichir(); });
+
+  // L'ALERTE DES VISITEURS : dix boosters offerts à l'inscription (déclencheur
+  // cartes_bienvenue, supabase/schema.sql). Une seule petite carte, sous la
+  // barre du haut à droite (en bas sur téléphone), après quelques secondes ; « Plus tard » la fait taire une semaine,
+  // et elle ne paraît ni pour qui est connecté, ni sur /cartes/ (la page dit
+  // déjà tout), ni sans serveur configuré (on ne pourrait pas s'inscrire).
+  var BV_K = 'liremarx.bienvenue.v1', bvFait = false;
+  function bienvenue(){
+    if(bvFait || connecte() || demo) return;
+    if(/^\/cartes(\/|$)/.test(location.pathname)) return;
+    if(!SHELL.auth || !SHELL.auth.isConfigured || !SHELL.auth.isConfigured()) return;
+    var vu = 0; try { vu = +localStorage.getItem(BV_K) || 0; } catch(e){}
+    if(Date.now() - vu < 7 * 864e5) return;
+    bvFait = true;
+    var a = document.createElement('aside');
+    a.className = 'lm-bv'; a.setAttribute('aria-label', 'Marx TCG : dix boosters offerts');
+    a.innerHTML = '<span class="lm-bv-paq" aria-hidden="true"><b>LM</b></span>' +
+      '<div class="lm-bv-t"><p><b>10 boosters offerts</b></p><p>Créez un compte gratuit et commencez votre collection de cartes Marx TCG.</p>' +
+      '<div class="lm-bv-acts"><button type="button" class="lm-bv-go">Créer mon compte</button><a href="/cartes/">Voir les cartes</a></div></div>' +
+      '<button type="button" class="lm-bv-x" aria-label="Plus tard">×</button>';
+    document.body.appendChild(a);
+    function fermer(){ try { localStorage.setItem(BV_K, String(Date.now())); } catch(e){} a.classList.remove('on'); setTimeout(function(){ a.remove(); }, 400); }
+    a.querySelector('.lm-bv-x').onclick = fermer;
+    a.querySelector('.lm-bv-go').onclick = function(){ fermer(); SHELL.auth.openModal('signup'); };
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ a.classList.add('on'); }); });
+  }
+  // La session se sait au second rappel d'onChange (le premier est immédiat) ;
+  // un filet de quatre secondes pour qui n'en reçoit qu'un.
+  (function(){
+    var n = 0, t = null;
+    function plus_tard(){ clearTimeout(t); t = setTimeout(bienvenue, 2600); }
+    function brancher(){
+      if(!SHELL.auth || !SHELL.auth.onChange) return false;
+      SHELL.auth.onChange(function(){
+        n++;
+        var b = document.querySelector('.lm-bv');
+        if(connecte()){ clearTimeout(t); if(b) b.remove(); return; }
+        if(n >= 2) plus_tard();
+      });
+      setTimeout(function(){ if(n < 2) plus_tard(); }, 4000);
+      return true;
+    }
+    if(!brancher()) document.addEventListener('DOMContentLoaded', brancher, { once: true });
+  })();
 
   SHELL.cartes = {
     MISSIONS: MISSIONS, demo: demo, jour: jour, rafraichir: rafraichir,

@@ -447,3 +447,51 @@
   .ct-ecrin::after { display: none; }
   .ct-holo::before { opacity: .6; }
 }
+
+/* ============================================================ LE PAQUET
+ * Partagé par /cartes/ (le comptoir, l'ouverture) et l'accueil (l'ouverture
+ * au défilement). */
+/* le paquet : un sachet de feuille métallisée, serti en dents de scie en haut et
+   en bas, le portrait de Marx tramé dans la nuit du sachet, un reflet qui glisse
+   sur le plastique. Tout est en em : --pw (largeur) met le paquet à l'échelle.
+   Le paquet n'est pas une carte : il porte le rouge de la maison, l'or et le
+   l'arc-en-ciel restent aux rangs et aux cartes irisées. */
+.paquet{--pw:118px;width:var(--pw);aspect-ratio:63/88;position:relative;flex:none;font-size:calc(var(--pw) / 12);
+  transform:rotate(-4deg);filter:drop-shadow(0 .9em 1em rgba(0,0,0,.6)) drop-shadow(0 .12em .18em rgba(0,0,0,.55));}
+.pq-corps{position:absolute;inset:0;overflow:hidden;border-radius:.2em;color:#f3e9d4;
+  background:radial-gradient(80% 50% at 60% 30%,#4a1810,transparent 74%),linear-gradient(172deg,#211a14,#0c0907);
+  --dents:conic-gradient(from 135deg at top,#0000,#000 1deg 89deg,#0000 90deg) top / .62em .32em repeat-x,
+    conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom / .62em .32em repeat-x,
+    linear-gradient(#000 0 0) 50% 50% / 100% calc(100% - .62em) no-repeat;
+  -webkit-mask:var(--dents);mask:var(--dents);}
+/* les deux sertissages : des stries fines, un peu plus claires que le sachet */
+.pq-corps::before,.pq-corps::after{content:"";position:absolute;left:0;right:0;height:1.35em;z-index:3;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.13) 0 .08em,rgba(0,0,0,.35) .08em .2em,transparent .2em .3em),
+    linear-gradient(#3a3027,#1b150f);}
+.pq-corps::before{top:0;box-shadow:0 .06em 0 rgba(255,255,255,.12),0 .12em .3em rgba(0,0,0,.6);}
+.pq-corps::after{bottom:0;box-shadow:0 -.06em 0 rgba(255,255,255,.12),0 -.12em .3em rgba(0,0,0,.6);}
+/* le portrait tramé : la photographie ne passe que par des points */
+.pq-art{position:absolute;left:0;right:0;top:1.35em;bottom:4.2em;z-index:1;
+  background:url("/assets/img/archive/marx-portrait.webp") 50% 24% / cover;
+  filter:grayscale(1) contrast(1.7) brightness(1.55);mix-blend-mode:screen;opacity:1;
+  -webkit-mask:radial-gradient(circle,#000 50%,#0000 58%) 0 0 / .17em .17em,linear-gradient(#000 45%,#0000 96%);
+  -webkit-mask-composite:source-in;
+  mask:radial-gradient(circle,#000 50%,#0000 58%) 0 0 / .17em .17em,linear-gradient(#000 45%,#0000 96%);mask-composite:intersect;}
+/* le filet rouge de la maison, et le chiffre du paquet */
+.pq-filet{position:absolute;left:1em;top:2.2em;bottom:2.2em;width:.12em;z-index:2;background:linear-gradient(#d5402f,#8e1b12);}
+.pq-n{position:absolute;right:.9em;top:2.05em;z-index:2;display:grid;place-items:center;width:2.4em;height:2.4em;border-radius:50%;
+  background:#d5402f;color:#fff6ea;font:800 .9em/1 'Bricolage Grotesque',Inter,sans-serif;letter-spacing:-.02em;
+  box-shadow:0 .1em .3em rgba(0,0,0,.5);}
+.pq-n small{display:block;font:600 .42em/1 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;margin-top:.15em;}
+.pq-t{position:absolute;left:1.55em;right:1em;bottom:1.95em;z-index:2;display:flex;flex-direction:column;gap:.25em;}
+.pq-t small{font:600 .56em/1 Inter,sans-serif;letter-spacing:.32em;text-transform:uppercase;color:#e8735f;}
+.pq-t b{font:900 2.55em/.86 'Fraunces',Georgia,serif;letter-spacing:-.03em;color:#f6ecd6;text-shadow:0 .04em .12em rgba(0,0,0,.6);}
+.pq-t span{font:500 .58em/1.2 Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#b7a888;margin-top:.35em;}
+/* le reflet du plastique : les bords plus sombres, une lumière qui passe */
+.pq-lustre{position:absolute;inset:0;z-index:4;pointer-events:none;
+  box-shadow:inset .3em 0 .5em rgba(255,255,255,.07),inset -.35em 0 .6em rgba(0,0,0,.45);
+  background:linear-gradient(104deg,transparent 30%,rgba(255,255,255,.18) 41%,rgba(255,255,255,.04) 47%,transparent 56%) 0 0 / 260% 100%;
+  mix-blend-mode:screen;animation:pq-lustre 6s ease-in-out infinite;}
+@keyframes pq-lustre{0%,15%{background-position:100% 0}60%,100%{background-position:-60% 0}}
+.paquet-vide{filter:grayscale(.6) brightness(.55);}
+@media (prefers-reduced-motion: reduce) { .pq-lustre { animation: none; } }

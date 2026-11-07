@@ -11921,6 +11921,48 @@ rare, et la carte entière (rang compris) dans le DOM. Maintenant :
   les décalages s'écrivent en `:nth-last-of-type`, pas `:nth-last-child`.
   Et elle porte `z-index:2` pour que son compteur passe SOUS la carte vue.
 
+### La page /cartes/ refaite en tableau de bord (mission `cartes-accueil`, nov. 2026)
+
+« Plus ergonomique, plus beau, limiter le texte », en s'inspirant des jeux en
+ligne. Un en-tête court (le titre et une phrase), une barre collante
+**Boosters · Album · Règles** (ancres, la section courante marquée), puis un
+seul écran : **la scène du paquet** à gauche (le paquet flotte dans sa nuit,
+des ronds pour les boosters du jour — dorés — et de réserve — rouges —, le
+bouton, « Les prochains dans 5 h 12 », compté jusqu'à minuit heure de Paris)
+et à droite **Ma collection** (anneau de pourcentage, un pion par rang au
+papier du rang) et **Missions du jour** (score sur 3). Le visiteur y lit
+« 10 boosters offerts » et deux boutons, « Créer mon compte » (qui ouvre la
+modale sur ce volet : `SHELL.auth.openModal('signup')`) et « Se connecter ».
+L'album s'ouvre sur « Les miennes » dès qu'on a une carte ; vide, il ne
+déroule que trois rangées d'emplacements. Les règles tiennent en quatre
+tuiles, le tableau des rangs suit, les 73 manuscrits sont repliés, la FAQ
+reste en bas (`#questions`, d'où gen-seo tire le FAQPage). Le paquet
+(`.paquet`, `.pq-*`) a déménagé dans **carte.css** : l'accueil l'utilise.
+
+### L'accueil ouvre un booster au défilement (même mission)
+
+La section Marx TCG de l'accueil s'épingle (`.hs-cartes-pin`, 280vh,
+`html.js-t3`) et la course du défilement ouvre un paquet en 3D : il entre et
+se tourne vers nous, la bande s'arrache avec une secousse, cinq manuscrits
+sortent par le haut, le sachet tombe, l'éventail s'ouvre et les cartes se
+retournent une à une (la dernière irisée). Tout est fonction de la POSITION,
+donc réversible. Sous reduced-motion, sans script ou sous 560 px de haut :
+l'éventail fini, face visible, sans paquet. ⚠️ **Pas de `preserve-3d`** sur la
+scène : le tri 3D faisait passer les cartes DEVANT le paquet dont elles
+sortent ; chaque couche garde sa perspective et le z-index décide.
+
+### Dix boosters à l'inscription, et l'alerte des visiteurs (même mission)
+
+Le déclencheur **`cartes_bienvenue`** (supabase/schema.sql, sur
+`auth.users`, à côté de `on_auth_user_created`) met dix boosters dans la
+réserve de chaque NOUVEAU compte ; les comptes antérieurs ne sont pas
+touchés. Un visiteur voit, quelques secondes après le chargement, une petite
+carte « 10 boosters offerts » (`.lm-bv`, `bienvenue()` dans le module
+`SHELL.cartes` de shell.js) sous la barre du haut à droite — en bas, sur une
+ligne, sur téléphone. Ni pour qui est connecté, ni sur /cartes/, ni sans
+serveur configuré ; « × » ou « Créer mon compte » la font taire une semaine
+(`liremarx.bienvenue.v1`). La modale d'inscription liste le bonus en premier.
+
 ### Le serveur (Supabase, appliqué le 6 nov. 2026)
 
 `supabase/schema.sql`, bloc « Les cartes à collectionner » : tables

@@ -312,6 +312,22 @@ do $$ begin
   end if;
 end $$;
 
+-- LA BIENVENUE : dix boosters dans la réserve de chaque NOUVEAU compte (l'alerte
+-- des visiteurs le promet, oeuvres/shell.js). Un déclencheur à la création du
+-- compte, à côté de on_auth_user_created ; les comptes antérieurs ne sont pas
+-- touchés. Rejouable : create or replace + drop trigger if exists.
+create or replace function public.cartes_bienvenue() returns trigger
+  language plpgsql security definer set search_path = public as $$
+begin
+  insert into public.cartes_reserve (user_id, boosters, maj)
+    values (new.id, 10, (extract(epoch from now()) * 1000)::bigint)
+    on conflict (user_id) do update set boosters = cartes_reserve.boosters + 10;
+  return new;
+end $$;
+drop trigger if exists cartes_bienvenue on auth.users;
+create trigger cartes_bienvenue after insert on auth.users
+  for each row execute function public.cartes_bienvenue();
+
 -- Trois boosters par jour, au plus trois de plus par les missions, et la réserve.
 create or replace function public.cartes_etat() returns json
   language plpgsql security definer set search_path = public as $$
