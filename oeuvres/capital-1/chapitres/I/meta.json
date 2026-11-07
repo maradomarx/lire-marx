@@ -2,7 +2,7 @@
   "_": "LA TÊTE de /oeuvres/capital-1/chapitre-1. Le titre, la section, les chapitres voisins, les dates, l'instrument et la marche sont DÉRIVÉS de l'atelier (ROY_STRUCT, META, CHRONO, STEPS) par tools/gen-seo.mjs : ce fichier ne porte que ce que l'atelier n'a pas. Les parties sont relevées dans le texte de Roy tel que la liseuse le sert, leur poids mesuré en caractères.",
   "rn": "I",
   "chapo": "C'est le chapitre où l'on abandonne, et le malentendu qui y conduit est mesurable&nbsp;: plus de la moitié de sa longueur est consacrée à la seule forme de la valeur, c'est-à-dire à une question que le lecteur ne s'est pas encore posée. Savoir cela avant d'entrer change la lecture.",
-  "description": "Résumé du chapitre 1 du Capital (1 en allemand) : la marchandise — ce qu'il établit, pourquoi le livre commence là, ses quatre parties et comment les lire.",
+  "description": "Résumé du chapitre 1 du Capital (1 en allemand), la marchandise : ce qu'il établit, pourquoi le livre commence là, ses quatre parties et comment les lire.",
   "notions": [
     "Valeur d’usage vs valeur",
     "Force productive",
