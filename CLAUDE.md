@@ -11809,7 +11809,7 @@ build : on le lance à la main. **6 804 cartes** : figures 4 275, organisations
   nombre de Wikipédias) s'arrête à l'édition originale : seul, il faisait
   entrer Medvedev, Loukachenko et *Le Bras de diamant*. Ne pas rouvrir.
 - **Identifiants stables** (`fig-Q9061`) et **numéros attribués une fois**
-  (`cartes/numeros.json`, registre qui ne fait que grandir) : regénérer ne
+  (`cartes/numeros.json` ; renuméroté une seule fois, en nov. 2026, de 1 à 6 803, pour retirer les trous laissés par les cartes écartées : les collections reposent sur l'id, pas sur le numéro) : regénérer ne
   fait perdre aucune carte à personne. Une carte retirée est DÉSACTIVÉE en
   base, jamais effacée.
 
@@ -12094,9 +12094,13 @@ Supersède la déchirure et le fond de « L'ouverture se déchire » (le geste, 
 - **Le retournement est une animation écrite** (`tournerCarte`, WAAPI) : les faces s'échangent à l'instant exact des 90°. Avec l'ancienne transition à durée fixe, l'échange tombait à côté dès qu'on changeait la courbe.
 - Pièges : un canevas en `display:none` mesure 0, la classe `gl3d` doit donc être posée AVANT `monter()` (sinon tout est déformé et flou) ; `.ct.retournee .ct-dos{visibility:visible}` traverse un parent `visibility:hidden`, la pile cachée est en `display:none` ; un élément en `visibility:hidden` ne prend pas le focus ; en three r137 sans lumières physiques, les intensités se comptent en unités (3 à 4 pour une bougie), pas en dizaines. `dos.webp` porte un `?v=` posé par `tools/cartes.mjs versions` (sans lui, un visiteur revenu dans les quatre heures voyait l'ancien dos en 3D, puis le nouveau dans la page) ; le relancer après `cartes-dos.mjs`. **Pour tester : `--use-angle=metal`**, SwiftShader rend à 1 image/s et les animations se traînent.
 
+**Le contour** : toutes les cartes ont une bordure pleine à la couleur de leur rang (`--contour`, outline négatif, dans carte.css) ; le dos aussi, donc `cartes-dos.mjs` après toute retouche.
+
+**L'en-tête de `/cartes/`** est un titre, à la grammaire des en-têtes d'œuvre : « Marx *TCG* » en Fraunces, l'italique en rouge, un filet dessous, et les quatre vues à droite. Le logo à cartes et sa pastille rouge penchée ont été refusés.
+
 ### Karl Marx a sa carte, et le Grand Soir (mission `carte-marx`, nov. 2026)
 
-**`fig-Q9061` a son propre dessin** (`rectoMarx` dans carte.js, classe `ct--marx`), dans la livrée du manuscrit : la page de 1846, une gloire gravée, le portrait de Mayall détouré (`assets/img/marx/marx-detoure.webp`, Vision de macOS, crop du buste) qui passe par-dessus le filet, le nom, et la dernière phrase du Manifeste, relevée dans le texte servi. Chaque plan glisse à sa vitesse sous la main. **N° 0000, hors numérotation et en tête de l'album** (`no(c)`, et `no = 0` au chargement de /cartes/) : le registre `numeros.json` n'a pas bougé. L'irisée colore le portrait dans sa matière (`.mx-iris`, masqué par le détourage). Après une retouche de cette carte : `node tools/cartes.mjs versions`, puis `node tools/cartes-partage.mjs --images --seul=fig-Q9061`.
+**`fig-Q9061` a son propre dessin** (`rectoMarx` dans carte.js, classe `ct--marx`), dans la livrée du manuscrit : la page de 1846, une gloire gravée, le portrait de Mayall détouré (`assets/img/marx/marx-detoure.webp`, Vision de macOS, crop du buste) qui passe par-dessus le filet, le nom, et la dernière phrase du Manifeste, relevée dans le texte servi. Chaque plan glisse à sa vitesse sous la main. **N° 0000, en tête de l'album** (le n° 0 du registre `numeros.json`). L'irisée colore le portrait dans sa matière (`.mx-iris`, masqué par le détourage). Après une retouche de cette carte : `node tools/cartes.mjs versions`, puis `node tools/cartes-partage.mjs --images --seul=fig-Q9061`.
 
 **Le Grand Soir** (le godpack) : **un booster sur deux cents** (0,5 %), décidé dans `cartes_ouvrir` qui renvoie `grandSoir`. Cinq cartes d'édition originale ou de manuscrit, la dernière toujours un manuscrit, une chance sur cinq d'être irisée. À 3 boosters par jour, environ un tous les deux mois : assez rare pour se montrer, assez fréquent pour qu'un lecteur régulier le voie un jour. Le taux est écrit deux fois (schema.sql, démo de /cartes/) et affiché dans les règles. Démo : `?demo&grandsoir`.
 

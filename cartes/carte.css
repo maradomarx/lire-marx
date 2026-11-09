@@ -458,6 +458,17 @@
 /* ============================================================ LE PAQUET
  * Partagé par /cartes/ (le comptoir, l'ouverture) et l'accueil (l'ouverture
  * au défilement). */
+/* LE CONTOUR : une bordure pleine et régulière tout autour de la carte, comme
+ * sur un jeu de cartes imprimé. Elle est tracée à l'intérieur (outline négatif),
+ * donc la carte garde ses dimensions, et elle prend la couleur du rang. */
+.ct .ct-face { --contour: #8d8373; outline: .34em solid var(--contour); outline-offset: -.34em; }
+.ct--r1 .ct-face.ct-recto { --contour: #a9683d; }
+.ct--r2 .ct-face.ct-recto { --contour: #7f93ad; }
+.ct--r3 .ct-face.ct-recto { --contour: #b98d33; }
+.ct--r4 .ct-face.ct-recto { --contour: #5a4114; }
+.ct .ct-face.ct-dos { --contour: #a08a6a; }
+.ct--tete .ct-face.ct-recto { --contour: #d8d2e6; }
+
 /* ---------------------------------------------------------------- KARL MARX
  * La carte d'où part la collection a son propre dessin, dans la livrée du
  * manuscrit. Plusieurs plans, du fond vers nous : la page de 1846, la gloire

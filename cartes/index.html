@@ -36,7 +36,7 @@
 <link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2"></noscript>
 <link rel="stylesheet" href="/oeuvres/shell.css?v=18">
-<link rel="stylesheet" href="/cartes/carte.css?v=93ff238b">
+<link rel="stylesheet" href="/cartes/carte.css?v=cd84cea5">
 <style>
 /* ═══════════════════════════════════════════════════════════════════
    /cartes/ — LA COLLECTION (mission `cartes`)
@@ -86,22 +86,16 @@ body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.55 var(--
    les missions à côté) : un écran, trois choses, presque pas de texte. */
 .cx:has(.tcg-tete){padding-top:clamp(18px,2.6vw,30px);}
 /* l'en-tête : le logo et la navigation, sur une ligne */
-.tcg-tete{display:flex;align-items:center;justify-content:space-between;gap:16px 28px;flex-wrap:wrap;}
-.tcg-logo{display:flex;align-items:center;gap:10px;margin:0;font:inherit;}
-.tcg-logo-ic{width:58px;height:54px;flex:none;filter:drop-shadow(0 6px 10px rgba(0,0,0,.45));}
-.tcg-logo-m{font:900 clamp(1.9rem,3vw,2.4rem)/1 'Fraunces',Georgia,serif;letter-spacing:-.03em;color:var(--ink);}
-.tcg-logo-t{align-self:center;font:800 .78rem/1 'Inter',sans-serif;letter-spacing:.2em;padding:6px 7px 6px 9px;border-radius:6px;
-  background:#d5402f;color:#fff;transform:translateY(-.15em) rotate(-3deg);box-shadow:0 3px 10px -2px rgba(213,64,47,.55);}
-/* les quatre vues : une seule à l'écran, comme les jeux de cartes en ligne
-   (Pokémon TCG Pocket, Marvel Snap). La barre d'onglets est en haut au
-   bureau, en bas sur téléphone. Sans script, toutes les vues sont visibles. */
+.tcg-tete{display:flex;align-items:flex-end;justify-content:space-between;gap:16px 28px;flex-wrap:wrap;padding-bottom:18px;border-bottom:1px solid var(--line);}
+.tcg-logo{margin:0;font:900 clamp(2.3rem,3.8vw,3.1rem)/1 'Fraunces',Georgia,serif;letter-spacing:-.03em;color:var(--ink);}
+.tcg-logo em{font-style:italic;font-weight:500;color:var(--red-text);letter-spacing:-.01em;}
 .tcg-onglets{display:flex;gap:4px;margin:0;padding:4px;border-radius:100px;background:var(--surface);border:1px solid var(--line);
   box-shadow:0 8px 24px -14px rgba(var(--ombre-rgb,0,0,0),.6);}
 .tcg-onglets a{position:relative;display:inline-flex;align-items:center;gap:8px;font:600 .9rem/1 var(--f-ui);color:var(--ink-soft);text-decoration:none;
   padding:10px 18px;border-radius:100px;transition:background .2s,color .2s;}
 .tcg-onglets a svg{width:19px;height:19px;flex:none;}
 .tcg-onglets a:hover{color:var(--ink);background:var(--hover);}
-.tcg-onglets a[aria-current="page"]{background:var(--text);color:var(--bg);}
+.tcg-onglets a[aria-current="page"]{background:var(--emphase);box-shadow:inset 0 0 0 1px var(--emphase-bord);color:var(--ink);}
 .tcg-onglets .nav-n{margin-left:0;}
 html.tcg-vues .vue:not(.on){display:none;}
 .vue{margin-top:clamp(22px,3vw,32px);scroll-margin-top:110px;}
@@ -577,17 +571,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
 <div class="cx">
   <header class="tcg-tete">
     <h1 class="tcg-logo">
-      <svg class="tcg-logo-ic" viewBox="0 0 64 60" aria-hidden="true">
-        <defs><linearGradient id="lgOr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff0b8"/><stop offset=".45" stop-color="#c9952a"/><stop offset="1" stop-color="#f6dc8a"/></linearGradient></defs>
-        <rect x="26" y="5" width="30" height="42" rx="3.5" transform="rotate(12 41 26)" fill="#2a1f16" stroke="url(#lgOr)" stroke-width="1.6"/>
-        <clipPath id="lgFace"><rect x="9" y="9" width="30" height="42" rx="3.5"/></clipPath>
-        <g transform="rotate(-8 24 30)">
-          <rect x="9" y="9" width="30" height="42" rx="3.5" fill="#1a140e"/>
-          <image href="/assets/img/logo/icon-192.png" x="2" y="12" width="44" height="44" clip-path="url(#lgFace)"/>
-          <rect x="9" y="9" width="30" height="42" rx="3.5" fill="none" stroke="url(#lgOr)" stroke-width="2"/>
-        </g>
-      </svg>
-      <span class="tcg-logo-m">Marx</span><span class="tcg-logo-t">TCG</span><span class="sr-only"> — les <!-- MARX-TCG:N:DÉBUT -->6&#8239;804<!-- MARX-TCG:N:FIN --> cartes à collectionner de Lire Marx</span>
+      Marx <em>TCG</em><span class="sr-only"> — les <!-- MARX-TCG:N:DÉBUT -->6&#8239;804<!-- MARX-TCG:N:FIN --> cartes à collectionner de Lire Marx</span>
     </h1>
     <nav class="tcg-onglets" id="tcgOnglets" aria-label="Marx TCG">
       <a href="#boosters" data-vue="boosters"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4.5h12l-1 1.2 1 1.2-1 1.2 1 1.1V20H6V9.2l1-1.1-1-1.2 1-1.2z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="14" r="2.6" fill="currentColor"/></svg><span>Boosters</span></a>
@@ -857,8 +841,8 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
 </footer>
 <!-- PIED:FIN -->
 
-<script src="/cartes/ouverture3d.js?v=e65f2c74" defer></script>
-<script src="/cartes/carte.js?v=a335aeda"></script>
+<script src="/cartes/ouverture3d.js?v=66269527" defer></script>
+<script src="/cartes/carte.js?v=de49c2dc"></script>
 <script>
 (function () {
   'use strict';
@@ -1004,12 +988,10 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
 
   /* ---------------------------------------------------------- données */
   async function chargerCatalogue() {
-    var r = await fetch('/cartes/catalogue.json?v=6ed3fd8a');
+    var r = await fetch('/cartes/catalogue.json?v=32db763d');
     var d = await r.json();
     cat = d.cartes; parId = {};
     cat.forEach(function (c) { parId[c.id] = c; });
-    // Karl Marx : hors numérotation, en tête de l'album
-    if (parId['fig-Q9061']) parId['fig-Q9061'].no = 0;
   }
   async function chargerCollection() {
     col = {};

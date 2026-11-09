@@ -212,7 +212,7 @@
 
   // Karl Marx : la carte d'où part toute la collection, hors numérotation.
   var MARX = 'fig-Q9061';
-  function no(c) { return 'n° ' + (c.id === MARX ? '0000' : String(c.no).padStart(4, '0')); }
+  function no(c) { return 'n° ' + String(c.no).padStart(4, '0'); }
 
   var IMG = '/assets/img/cartes/';
 

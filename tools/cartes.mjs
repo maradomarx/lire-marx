@@ -499,8 +499,10 @@ function numeros(cartes) {
   const f = path.join(OUTDIR, 'numeros.json');
   const reg = lireJSON(f, { prochain: 1, n: {} });
   // Les nouvelles cartes reçoivent les numéros suivants, par famille puis par
-  // date : le registre ne renumérote jamais une carte existante.
-  const neuves = cartes.filter(c => !reg.n[c.id]).sort((x, y) =>
+  // date : le registre ne renumérote jamais une carte existante. Karl Marx y
+  // tient le n° 0. (Renuméroté une fois, en nov. 2026, pour retirer les trous
+  // laissés par 2 369 cartes écartées du catalogue.)
+  const neuves = cartes.filter(c => reg.n[c.id] == null).sort((x, y) =>
     x.f.localeCompare(y.f) || (x.a ?? 9999) - (y.a ?? 9999) || x.n.localeCompare(y.n, 'fr'));
   for (const c of neuves) reg.n[c.id] = reg.prochain++;
   fs.writeFileSync(f, JSON.stringify(reg, null, 0));
