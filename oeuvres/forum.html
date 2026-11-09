@@ -787,14 +787,14 @@ installShell({
       '</div>';
   }
 
-  /* La vitrine Marx TCG. Les cartes se dessinent avec /cartes/carte.js?v=1b1aeaab et le
+  /* La vitrine Marx TCG. Les cartes se dessinent avec /cartes/carte.js?v=a335aeda et le
      catalogue, chargés seulement quand une vitrine a quelque chose à montrer. */
   var cartesPret = null, cartesCat = null;
   function chargerCartes(){
     if(cartesPret) return cartesPret;
     cartesPret = new Promise(function(ok, ko){
-      var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = '/cartes/carte.css?v=b2174805'; document.head.appendChild(l);
-      var sc = document.createElement('script'); sc.src = '/cartes/carte.js?v=1b1aeaab';
+      var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = '/cartes/carte.css?v=93ff238b'; document.head.appendChild(l);
+      var sc = document.createElement('script'); sc.src = '/cartes/carte.js?v=a335aeda';
       sc.onload = function(){
         fetch('/cartes/catalogue.json?v=6ed3fd8a').then(function(r){ return r.json(); }).then(function(d){
           cartesCat = {}; d.cartes.forEach(function(c){ cartesCat[c.id] = c; }); ok();

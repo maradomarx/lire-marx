@@ -430,14 +430,18 @@
 /* (0,3,0) : le dos passe devant le papier d'un rang ou d'une époque — le dos
    ne doit rien trahir de la carte avant qu'on la retourne. */
 .ct .ct-face.ct-dos { transform: rotateY(180deg); visibility: hidden; transition: visibility 0s .2s;
-  color: #d8ad4c;
-  background:
-    repeating-linear-gradient(0deg, rgba(255, 210, 180, .025) 0 .07em, rgba(0, 0, 0, .08) .07em .14em),
-    repeating-linear-gradient(90deg, rgba(255, 210, 180, .025) 0 .07em, rgba(0, 0, 0, .08) .07em .14em),
-    radial-gradient(90% 62% at 50% 42%, #3d100d, #280a08 62%, #190605); }
+  color: #f3e9d4;
+  background: radial-gradient(80% 50% at 60% 30%, #4a1810, transparent 74%), linear-gradient(172deg, #211a14, #0c0907); }
 .ct.retournee .ct-dos { visibility: visible; }
 .ct-dos::before { mix-blend-mode: screen; opacity: .05; }
-.ct-dos-fer { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ct-dos-art { position: absolute; left: 0; right: 0; top: 0; height: 80%; mix-blend-mode: screen;
+  background: url("/assets/img/logo/icon-512.png") 54% 22% / 112% auto no-repeat;
+  -webkit-mask: linear-gradient(#000 50%, transparent 92%); mask: linear-gradient(#000 50%, transparent 92%); }
+.ct-dos-voile { position: absolute; left: 0; right: 0; bottom: 0; height: 58%; background: linear-gradient(transparent, rgba(12, 9, 7, .94) 62%, #0c0907); }
+.ct-dos-filet { position: absolute; left: 2.1em; top: 2.2em; bottom: 2.2em; width: .24em; background: linear-gradient(#d5402f, #8e1b12); }
+.ct-dos-t { position: absolute; left: 3.2em; right: 1.6em; bottom: 2.4em; display: flex; flex-direction: column; gap: .5em; text-align: left; }
+.ct-dos-t small { font: 600 1em/1 Inter, sans-serif; letter-spacing: .3em; text-transform: uppercase; color: #e8735f; }
+.ct-dos-t b { font: 900 5em/.88 Fraunces, Georgia, serif; letter-spacing: -.03em; color: #f6ecd6; }
 
 /* une carte qu'on n'a pas encore : sa silhouette dans l'album */
 .ct--manque .ct-face { filter: grayscale(1) brightness(.35) contrast(.8); }

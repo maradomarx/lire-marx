@@ -23,7 +23,7 @@
       var s = document.createElement('script'); s.src = '/vendor/three.min.js'; s.onload = ok; s.onerror = ko; document.head.appendChild(s);
     }).then(function () {
       return Promise.all([
-        img('dos', '/assets/img/cartes/dos.webp?v=6d2d76de'), img('logo', '/assets/img/logo/icon-512.png'), 
+        img('dos', '/assets/img/cartes/dos.webp?v=4b83d5d4'), img('logo', '/assets/img/logo/icon-512.png'), 
         document.fonts ? Promise.all([document.fonts.load("900 120px Fraunces"), document.fonts.load("600 40px Inter"), document.fonts.load("italic 500 40px Fraunces")]) : null
       ]);
     });
