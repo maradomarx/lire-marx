@@ -12198,6 +12198,18 @@ Marx ») ; titres calés sur les requêtes relevées dans Search Console
 capital », « abrégé du Capital » pour Salaire, prix et profit). Search
 Console ne montre que 63 requêtes sur 28 jours : le reste est anonymisé.
 
+**L'extrait de l'accueil sur « lire marx » (9 nov. 2026).** Google remplaçait
+la description par la réponse de la FAQ sur la gratuité et le compte, qui
+commence par « Lire Marx » : la description disait « Lire et comprendre Marx »,
+sans l'expression exacte. La description commence donc par « Lire Marx en
+ligne et gratuitement », et cette réponse porte `data-nosnippet`. ⚠️ **Sur un
+`<span>` DANS le paragraphe, jamais sur `div.hs-faq-a`** : la dérivation du
+FAQPage cherche ce `div` à la lettre, et un attribut y ferait sortir la réponse
+de la lecture, la question se retrouvant en silence avec la réponse suivante.
+Google n'accepte `data-nosnippet` que sur `span`, `div` et `section`. Pour
+savoir si un résultat est à jour : l'inspection d'URL de Search Console donne
+la dernière exploration, et « Afficher la page explorée » le HTML retenu.
+
 **Re-mesurer vers le 1er décembre 2026** les pages citées plus haut, et les
 huit notions retitrées en septembre (aucun clic sous l'ancien format).
 
