@@ -7,6 +7,10 @@
 .brandmark{font-family:'Fraunces',serif;font-weight:900;letter-spacing:-.02em;font-size:1.05rem;line-height:1;color:var(--ink);text-decoration:none;background:transparent;border:0;padding:2px;cursor:pointer;transition:opacity .16s;}
 .brandmark:hover{opacity:.62;}
 .brandmark .d{color:var(--bright);}
+/* Le portrait du logo devant le nom. icon-48 et non icon-192 : sous 48 px la trame de points n'est que du bruit, cette taille porte le rouge en aplat. Son carré brun-nuit tient dans les trois modes. */
+.brandmark .bm-ic{width:24px;height:24px;border-radius:6px;margin-right:8px;flex:0 0 auto;display:block;}
+/* Sous 360 px la barre ne tient plus sur sa rangée avec le portrait : le nom reste, le portrait part. */
+@media(max-width:359px){.brandmark .bm-ic{display:none;}}
 /* ══════════════════════════════════════════════════════════════════════
    MON COMPTE — le panneau (mission « compte-refonte », septembre 2026)
 

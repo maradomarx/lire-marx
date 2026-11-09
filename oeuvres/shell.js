@@ -156,7 +156,7 @@
     return el(
       '<header class="topbar"><div class="topbar-in">' +
         '<button id="sbToggle" class="sb-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="sidebar"><span aria-hidden="true">☰</span></button>' +
-        '<a class="brandmark" id="shellBrand" href="/" aria-label="Lire Marx — retour à l\'accueil">Lire<span class="d">.</span>Marx</a>' +
+        '<a class="brandmark" id="shellBrand" href="/" aria-label="Lire Marx — retour à l\'accueil"><img class="bm-ic" src="/assets/img/logo/icon-48.png" width="24" height="24" alt="" decoding="async">Lire<span class="d">.</span>Marx</a>' +
         /* Sous 520 px la barre tient sur UNE rangée de 44 px (mission
            `coquille-mobile`) : le champ se replie derrière cette loupe et se
            déplie PAR-DESSUS la barre. Replié sur trois rangées, il faisait
