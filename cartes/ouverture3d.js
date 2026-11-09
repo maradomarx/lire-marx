@@ -23,7 +23,7 @@
       var s = document.createElement('script'); s.src = '/vendor/three.min.js'; s.onload = ok; s.onerror = ko; document.head.appendChild(s);
     }).then(function () {
       return Promise.all([
-        img('dos', '/assets/img/cartes/dos.webp'), img('logo', '/assets/img/logo/icon-512.png'), 
+        img('dos', '/assets/img/cartes/dos.webp?v=6d2d76de'), img('logo', '/assets/img/logo/icon-512.png'), 
         document.fonts ? Promise.all([document.fonts.load("900 120px Fraunces"), document.fonts.load("600 40px Inter"), document.fonts.load("italic 500 40px Fraunces")]) : null
       ]);
     });
@@ -93,7 +93,7 @@
 
     // le halo derrière le paquet
     var hl = new THREE.Sprite(mat(new THREE.SpriteMaterial({ map: tex(halo('rgba(150,84,36,.5)')), blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false })));
-    hl.scale.set(9, 9, 1); hl.position.set(0, 1.5, -2); scene.add(hl);
+    hl.scale.set(9, 9, 1); hl.position.set(0, 1.5, -2); hl.renderOrder = -10; hl.material.transparent = false; scene.add(hl);
     var HC = new THREE.Color(0xffffff), HR = new THREE.Color(0xff5030);
 
     // les lumières : celles qui font vivre la feuille du sachet
@@ -202,9 +202,12 @@
     function creerCartes(n) {
       retirerCartes();
       var t = new THREE.Texture(IM.dos); t.encoding = THREE.sRGBEncoding; t.needsUpdate = true; t.anisotropy = 8;
-      var m = new THREE.MeshBasicMaterial({ map: t, transparent: true, alphaTest: .5, toneMapped: false }), g = new THREE.PlaneGeometry(CW, CH);
+      // Les cartes sont dessinées AVANT le sachet et n'écrivent pas leur profondeur :
+      // le sachet, qui penche et pivote, passe toujours devant elles au lieu de les
+      // couper en biais là où les deux plans se croisent.
+      var m = new THREE.MeshBasicMaterial({ map: t, alphaTest: .5, depthWrite: false, toneMapped: false }), g = new THREE.PlaneGeometry(CW, CH);
       cartes = new THREE.Group(); cartes.userData = { t: t, m: m, g: g };
-      for (var i = n - 1; i >= 0; i--) { var o = new THREE.Mesh(g, m), d = DECAL[i] || DECAL[0]; o.position.set(d[0] * CW / 100, -d[1] * CH / 100, -i * .004 - .01); o.rotation.z = -d[2] * Math.PI / 180; cartes.add(o); }
+      for (var i = n - 1; i >= 0; i--) { var o = new THREE.Mesh(g, m), d = DECAL[i] || DECAL[0]; o.renderOrder = -1 - i; o.position.set(d[0] * CW / 100, -d[1] * CH / 100, -i * .004 - .01); o.rotation.z = -d[2] * Math.PI / 180; cartes.add(o); }
       cartes.position.set(PX, PY, -.03); scene.add(cartes);
     }
     function retirerCartes() { if (!cartes) return; scene.remove(cartes); cartes.userData.t.dispose(); cartes.userData.m.dispose(); cartes.userData.g.dispose(); cartes = null; }
@@ -241,6 +244,7 @@
       // la bande s'envole, le sachet tombe, les cartes restent en place
       ouvrir: async function (n) {
         creerCartes(n);
+        P.fond.visible = false;   // la paroi du fond passerait devant les cartes
         var p = P, ban = p.bande, s = p.sens; p.tear = 1; majBande();
         // la lumière s'élargit, la bande se détache d'un bloc, puis elle tombe
         anim(320, function (q) { p.lueur.scale.y = 1 + q * 1.1; p.lueur.material.opacity = .85 - q * .25; mouth.intensity = 1.5 + q * 1.5; }, EOUT);

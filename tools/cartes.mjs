@@ -777,6 +777,11 @@ function cadrer(sortie) {
 
 function versionner() {
   const h = f => createHash('sha1').update(fs.readFileSync(path.join(ROOT, f))).digest('hex').slice(0, 8);
+  // La photographie du dos est lue par la scène 3D. Sans version dans son URL, un
+  // visiteur garde l'ancienne quatre heures : le dos changeait de couleur au
+  // passage de la 3D à la page. La retouche précède le hachage du module.
+  const f3d = path.join(ROOT, 'cartes/ouverture3d.js');
+  fs.writeFileSync(f3d, fs.readFileSync(f3d, 'utf8').replace(/(\/assets\/img\/cartes\/dos\.webp)(\?v=[0-9a-z]+)?/g, '$1?v=' + h('assets/img/cartes/dos.webp')));
   const v = { 'catalogue.json': h('cartes/catalogue.json'), 'carte.js': h('cartes/carte.js'), 'carte.css': h('cartes/carte.css'), 'ouverture3d.js': h('cartes/ouverture3d.js') };
   for (const page of ['cartes/index.html', 'cartes/echantillons.html', 'index.html', 'oeuvres/forum.html']) {
     const f = path.join(ROOT, page);

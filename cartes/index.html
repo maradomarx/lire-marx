@@ -268,8 +268,6 @@ dialog.bst{border:0;padding:0;margin:0;background:transparent;color:#f3e9d4;max-
 dialog.bst::backdrop{background:#070504;}
 .bst-fond,.bst-noir,.bst-braises,.bst-gl{position:absolute;inset:0;pointer-events:none;}
 .bst-gl{width:100%;height:100%;display:none;}
-.bst-vign{position:absolute;inset:0;pointer-events:none;display:none;background:radial-gradient(70% 62% at 50% 42%,transparent 40%,rgba(7,5,3,.86) 100%);}
-.bst.gl3d .bst-vign{display:block;}
 .bst.gl3d .bst-gl{display:block;}
 .bst.gl3d .bst-fond,.bst.gl3d .bst-soir{display:none;}
 .bst.gl3d .bst-aide{text-shadow:0 1px 8px #000,0 0 2px #000;color:#f3e9d4;}
@@ -287,7 +285,8 @@ dialog.bst::backdrop{background:#070504;}
 .bst.grand-soir .bst-soir{opacity:1;}
 .bst.grand-soir .bst-titre{color:#ffdc9c;}
 .bst.grand-soir .bst-bouche{box-shadow:inset 0 -.1em .16em #ffc98a,0 .1em 1.4em rgba(255,110,70,.9);}
-.bst.grand-soir .bst-pile .ct:last-of-type .ct-dos{box-shadow:0 0 0 2px rgba(255,214,140,.85),0 0 34px 6px rgba(255,180,90,.6),0 0 90px 20px rgba(226,64,40,.4);}
+.bst.grand-soir .bst-pile .ct:last-of-type .ct-dos{box-shadow:0 0 0 2px rgba(255,214,140,.85),0 0 34px 6px rgba(255,180,90,.6),0 0 90px 20px rgba(226,64,40,.4);animation:bst-lueur .7s ease-out;}
+@keyframes bst-lueur{from{box-shadow:0 0 0 0 transparent}}
 .bst.dim .bst-noir{opacity:.84;}
 .bst-braises{width:100%;height:100%;}
 .bst-in{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(14px,2.4vh,24px);padding:20px;}
@@ -802,7 +801,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
 </dialog>
 
 <dialog class="bst" id="bst" aria-label="Ouverture d'un booster">
-  <canvas class="bst-gl" id="bstGl" aria-hidden="true"></canvas><div class="bst-vign" aria-hidden="true"></div><div class="bst-fond" aria-hidden="true"></div><div class="bst-soir" aria-hidden="true"></div><div class="bst-noir" aria-hidden="true"></div><canvas class="bst-braises" id="bstBraises" aria-hidden="true"></canvas>
+  <canvas class="bst-gl" id="bstGl" aria-hidden="true"></canvas><div class="bst-fond" aria-hidden="true"></div><div class="bst-soir" aria-hidden="true"></div><div class="bst-noir" aria-hidden="true"></div><canvas class="bst-braises" id="bstBraises" aria-hidden="true"></canvas>
   <div class="bst-flash" id="bstFlash"></div>
   <button class="bst-x" type="button" id="bstX" aria-label="Fermer">×</button>
   <div class="bst-in">
@@ -858,7 +857,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
 </footer>
 <!-- PIED:FIN -->
 
-<script src="/cartes/ouverture3d.js?v=c0cf9f41" defer></script>
+<script src="/cartes/ouverture3d.js?v=6d1b43e3" defer></script>
 <script src="/cartes/carte.js?v=1b1aeaab"></script>
 <script>
 (function () {
