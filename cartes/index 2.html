@@ -1,0 +1,762 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Les cartes — une collection sur Marx et le mouvement ouvrier | Lire Marx</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="/assets/img/logo/icon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/logo/icon-192.png">
+<link rel="apple-touch-icon" href="/assets/img/logo/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#15100b">
+<meta name="apple-mobile-web-app-title" content="Lire Marx">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Près de sept mille cartes à collectionner sur Marx, le mouvement ouvrier, ses penseurs, ses livres, ses organisations et ses dates. Trois boosters par jour, et d'autres à gagner en lisant.">
+<meta property="og:title" content="Les cartes — une collection sur Marx et le mouvement ouvrier">
+<meta property="og:description" content="Figures, œuvres, organisations, événements et notions : près de sept mille cartes, trois boosters par jour, et des missions de lecture.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lire Marx">
+<meta property="og:url" content="https://liremarx.com/cartes/">
+<meta property="og:image" content="https://liremarx.com/assets/img/archive/marx-portrait.png">
+<meta property="og:locale" content="fr_FR">
+<!-- Page-INDEX d'un dossier : elle se désigne AVEC son slash (/cartes/),
+     comme /jeu/ et /glossaire/ — Cloudflare répond 308 sur la forme nue. -->
+<link rel="canonical" href="https://liremarx.com/cartes/">
+<link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2"></noscript>
+<link rel="stylesheet" href="/oeuvres/shell.css?v=16">
+<link rel="stylesheet" href="/cartes/carte.css?v=1">
+<style>
+/* ═══════════════════════════════════════════════════════════════════
+   /cartes/ — LA COLLECTION (mission `cartes`)
+   -------------------------------------------------------------------
+   Trois temps, dans l'ordre de ce qu'on vient faire : le COMPTOIR (les
+   boosters du jour et les missions qui en rapportent d'autres), la
+   PROGRESSION, et l'ALBUM. L'ouverture d'un booster prend tout l'écran.
+   Page « de site » : pas d'atelier.css, jetons du shell redéclarés. Les
+   cartes, elles, sont des OBJETS : leurs couleurs ne suivent pas le mode
+   (cartes/carte.css) — seule la page autour d'elles le suit.
+   ═══════════════════════════════════════════════════════════════════ */
+:root{
+  --bg:#15100b;--surface:#1e1710;--text:#f3e9d4;
+  --muted:#b7a888;--accent:#d5402f;--border:rgba(243,233,212,.13);
+  --paper:#15100b;--paper-2:#1e1710;--card:#221a12;
+  --ink:#f3e9d4;--ink-soft:#c7b599;
+  --red:#d5402f;--red-deep:#e5644f;--red-text:#e5644f;--bright:#e5644f;
+  --line-strong:rgba(243,233,212,.34);--hover:rgba(243,233,212,.05);
+  --gold:#d8ad4c;--gold-deep:#bd8f38;--blue:#5c8aa3;--const:#9a8b72;
+  --line:rgba(243,233,212,.13);--line-soft:rgba(243,233,212,.07);--ok:#7fa855;
+  --f-ui:'Inter',system-ui,sans-serif;--f-serif:'Spectral',Georgia,serif;
+  --emphase:linear-gradient(150deg,#2c2117,#211a12,#1b150e);
+}
+html{background:var(--paper);}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.55 var(--f-ui);}
+.cx{max-width:1240px;margin:0 auto;padding:clamp(28px,5vw,64px) clamp(16px,4vw,48px) 80px;}
+.cx-label{font:600 .72rem/1 var(--f-ui);letter-spacing:.11em;text-transform:uppercase;color:var(--gold);margin:0 0 14px;}
+.cx h1{font:900 clamp(2.1rem,5vw,3.6rem)/1.02 'Fraunces',Georgia,serif;letter-spacing:-.02em;margin:0;text-wrap:balance;}
+.cx h1 em{font-style:italic;font-weight:500;color:var(--red-text);}
+.cx-lede{font:400 1.08rem/1.55 var(--f-serif);color:var(--ink-soft);max-width:44em;margin:16px 0 0;}
+.cx-lede a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--gold);text-underline-offset:3px;}
+.cx h2{font:900 clamp(1.45rem,2.6vw,2rem)/1.1 'Fraunces',Georgia,serif;letter-spacing:-.01em;margin:0 0 6px;}
+.cx-sec{margin-top:clamp(44px,6vw,72px);}
+.cx-sous{color:var(--ink-soft);margin:0 0 20px;font-size:.95rem;}
+.btn-p{display:inline-flex;align-items:center;gap:8px;font:600 .95rem/1 var(--f-ui);padding:13px 22px;border-radius:100px;border:0;
+  background:var(--text);color:var(--bg);cursor:pointer;text-decoration:none;transition:transform .2s cubic-bezier(.16,1,.3,1),box-shadow .2s;}
+.btn-p:hover{transform:translateY(-1px);box-shadow:0 8px 22px -8px rgba(var(--ombre-rgb,0,0,0),.6);}
+.btn-p[disabled]{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none;}
+.btn-o{display:inline-flex;align-items:center;gap:8px;font:600 .9rem/1 var(--f-ui);padding:11px 18px;border-radius:100px;
+  border:1px solid var(--line-strong);background:transparent;color:var(--ink);cursor:pointer;text-decoration:none;}
+.btn-o:hover{background:var(--hover);}
+/* un display explicite bat l'attribut hidden : le piège connu */
+.btn-o[hidden],.btn-p[hidden]{display:none;}
+
+/* ---------------------------------------------------------- le comptoir */
+.cpt{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(20px,3vw,36px);margin-top:clamp(28px,4vw,44px);}
+.cpt-boost{position:relative;overflow:hidden;border-radius:18px;padding:clamp(22px,3vw,34px);background:var(--emphase);
+  border:1px solid rgba(var(--gold-rgb,216,173,76),.22);display:grid;grid-template-columns:auto 1fr;gap:clamp(18px,3vw,32px);align-items:center;}
+.cpt-boost::before{content:"";position:absolute;inset:auto -10% -40% -10%;height:80%;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(var(--gold-rgb,216,173,76),.16),transparent);}
+.cpt-n{font:900 3.2rem/1 'Fraunces',Georgia,serif;font-variant-numeric:lining-nums;}
+.cpt-n small{font:500 italic 1.05rem/1.2 'Fraunces',Georgia,serif;color:var(--ink-soft);display:block;margin-top:6px;}
+.cpt-msg{margin:12px 0 18px;color:var(--ink-soft);font-size:.92rem;max-width:30em;}
+.cpt-msg b{color:var(--ink);font-weight:600;}
+/* le paquet : une liasse de kraft ficelée, scellée à la cire */
+.paquet{--pw:118px;width:var(--pw);aspect-ratio:63/88;position:relative;border-radius:6px;flex:none;
+  background:
+    repeating-linear-gradient(0deg,rgba(80,52,20,.07) 0 2px,transparent 2px 5px),
+    linear-gradient(160deg,#c9a26a,#a77d47 55%,#8b6436);
+  box-shadow:0 .2em 0 #6e4c25,0 14px 28px -8px rgba(0,0,0,.7),inset 0 0 0 1px rgba(255,235,200,.15);
+  transform:rotate(-4deg);}
+.paquet::before,.paquet::after{content:"";position:absolute;background:#efe2c4;box-shadow:0 1px 1px rgba(0,0,0,.35);}
+.paquet::before{left:0;right:0;top:46%;height:3px;}
+.paquet::after{top:0;bottom:0;left:56%;width:3px;}
+.paquet-sceau{position:absolute;left:56%;top:46%;width:34px;height:34px;margin:-15px 0 0 -16px;z-index:2;display:grid;place-items:center;
+  font:italic 900 .82rem/1 'Fraunces',Georgia,serif;color:#f3d6a6;border-radius:47% 53% 50% 50%/52% 48% 52% 48%;
+  background:radial-gradient(circle at 38% 32%,#c2382a,#8e1b12 55%,#5e0f09);box-shadow:inset 0 0 0 3px rgba(0,0,0,.18),0 2px 4px rgba(0,0,0,.5);}
+.paquet-l{position:absolute;left:10%;right:10%;top:12%;z-index:1;text-align:center;font:600 .52rem/1.3 var(--f-ui);letter-spacing:.14em;
+  text-transform:uppercase;color:#4a2f12;}
+.paquet-l b{display:block;font:900 1.02rem/1 'Fraunces',Georgia,serif;letter-spacing:-.01em;text-transform:none;margin-top:3px;}
+.paquet-vide{filter:grayscale(.6) brightness(.55);}
+.cpt-mis{border-radius:18px;padding:clamp(20px,3vw,30px);background:var(--surface);border:1px solid var(--line);}
+.cpt-mis h3{font:900 1.25rem/1.15 'Fraunces',Georgia,serif;margin:0 0 4px;}
+.cpt-mis p{margin:0 0 14px;color:var(--ink-soft);font-size:.9rem;}
+.mis{list-style:none;margin:0;padding:0;display:grid;gap:2px;}
+.mis li{display:grid;grid-template-columns:22px 1fr auto;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--line-soft);}
+.mis-c{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--line-strong);display:grid;place-items:center;}
+.mis li.fait .mis-c{border-color:var(--gold);background:var(--gold);}
+.mis li.fait .mis-c::after{content:"";width:8px;height:4px;border:2px solid var(--bg);border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px);}
+.mis-t{font-size:.92rem;}
+.mis li.fait .mis-t{color:var(--ink-soft);}
+.mis a{font:600 .82rem/1 var(--f-ui);color:var(--red-text);text-decoration:none;padding:6px 0;}
+.mis a:hover{text-decoration:underline;}
+.mis-plafond{margin-top:12px;font-size:.84rem;color:var(--const);}
+
+/* ---------------------------------------------------------- la progression */
+.prog{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,2fr);gap:clamp(18px,3vw,36px);align-items:start;}
+.prog-tot{font:900 clamp(2.2rem,4vw,3rem)/1 'Fraunces',Georgia,serif;font-variant-numeric:tabular-nums lining-nums;}
+.prog-tot span{font:500 italic 1.1rem/1 'Fraunces',Georgia,serif;color:var(--ink-soft);}
+.prog-barre{height:6px;border-radius:6px;background:var(--line);margin:14px 0 8px;overflow:hidden;}
+.prog-barre i{display:block;height:100%;background:linear-gradient(90deg,var(--gold-deep),var(--gold));width:0;transition:width .8s cubic-bezier(.16,1,.3,1);}
+.prog-p{font-size:.88rem;color:var(--ink-soft);margin:0;}
+.prog-rangs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;}
+.prog-r{padding:14px 12px;border-radius:12px;background:var(--surface);border:1px solid var(--line);}
+.prog-r b{display:block;font:900 1.35rem/1 'Fraunces',Georgia,serif;font-variant-numeric:tabular-nums lining-nums;}
+.prog-r span{display:block;font-size:.78rem;color:var(--ink-soft);margin-top:6px;line-height:1.25;}
+.prog-r.r4{border-color:rgba(var(--gold-rgb,216,173,76),.5);background:linear-gradient(150deg,rgba(var(--gold-rgb,216,173,76),.12),transparent 70%),var(--surface);}
+.prog-r.tete{background:linear-gradient(120deg,rgba(255,180,220,.10),rgba(170,230,255,.10),rgba(255,240,170,.10)),var(--surface);}
+
+/* ---------------------------------------------------------- l'album */
+.alb-barre{position:sticky;top:44px;z-index:20;display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:12px 0;margin-bottom:18px;
+  background:var(--paper);border-bottom:1px solid var(--line);}
+.alb-q{flex:1 1 220px;min-width:0;height:38px;border-radius:10px;border:1px solid var(--line-strong);background:var(--card);color:var(--ink);
+  font:400 .92rem var(--f-ui);padding:0 12px;}
+.alb-q:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(var(--gold-rgb,216,173,76),.25);}
+.alb-sel{height:38px;border-radius:10px;border:1px solid var(--line-strong);background:var(--card);color:var(--ink);font:500 .86rem var(--f-ui);padding:0 10px;}
+.alb-fam{display:flex;flex-wrap:wrap;gap:6px;flex-basis:100%;}
+.alb-fam button{font:600 .82rem/1 var(--f-ui);padding:8px 13px;border-radius:100px;border:1px solid var(--line);background:transparent;color:var(--ink-soft);cursor:pointer;}
+.alb-fam button[aria-pressed="true"]{background:var(--text);color:var(--bg);border-color:var(--text);}
+.alb-fam button span{opacity:.7;font-weight:500;margin-left:4px;font-variant-numeric:tabular-nums;}
+.alb-compte{font-size:.86rem;color:var(--ink-soft);margin:0 0 14px;}
+.alb{display:grid;grid-template-columns:repeat(auto-fill,var(--al-l));justify-content:space-between;gap:clamp(14px,2vw,22px);--al-l:182px;}
+.alb-it{position:relative;border:0;padding:0;background:none;cursor:pointer;border-radius:12px;content-visibility:auto;contain-intrinsic-size:182px 254px;}
+.alb-it .ct{--ct-l:var(--al-l);}
+.alb-it:focus-visible{outline:2px solid var(--gold);outline-offset:4px;}
+.alb-n{position:absolute;right:-6px;top:-6px;z-index:10;min-width:24px;height:24px;padding:0 6px;border-radius:100px;display:grid;place-items:center;
+  background:var(--text);color:var(--bg);font:700 .74rem/1 var(--f-ui);box-shadow:0 2px 6px rgba(0,0,0,.4);}
+.alb-tt{position:absolute;left:-6px;top:-6px;z-index:10;height:24px;padding:0 8px;border-radius:100px;display:grid;place-items:center;
+  background:linear-gradient(110deg,#ffd6e8,#d9f7ff 40%,#fff6c8);color:#2a1d2e;font:700 .72rem/1 var(--f-ui);box-shadow:0 2px 6px rgba(0,0,0,.4);}
+/* une carte qu'on n'a pas encore : un emplacement d'album, numéroté */
+.alb-vide{box-sizing:border-box;width:var(--al-l);aspect-ratio:63/88;border-radius:9px;border:1.5px dashed var(--line-strong);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:6px;color:var(--const);background:var(--line-soft);padding:12px;text-align:center;}
+.alb-vide b{font:900 1.5rem/1 'Fraunces',Georgia,serif;font-variant-numeric:tabular-nums lining-nums;color:var(--ink-soft);}
+.alb-vide span{font:600 .7rem/1.3 var(--f-ui);letter-spacing:.12em;text-transform:uppercase;}
+.alb-vide.r4{border-color:rgba(var(--gold-rgb,216,173,76),.6);background:linear-gradient(150deg,rgba(var(--gold-rgb,216,173,76),.10),transparent);}
+.alb-vide.r4 span{color:var(--gold);}
+.alb-plus{display:flex;justify-content:center;margin-top:28px;}
+.alb-rien{padding:40px 0;color:var(--ink-soft);text-align:center;}
+
+/* ---------------------------------------------------------- la fiche */
+dialog.fiche{border:0;padding:0;background:transparent;color:var(--ink);max-width:none;max-height:none;width:100%;height:100%;}
+dialog.fiche::backdrop{background:rgba(8,6,4,.82);backdrop-filter:blur(3px);}
+.fiche-in{min-height:100%;display:flex;align-items:center;justify-content:center;gap:clamp(20px,4vw,48px);padding:24px;flex-wrap:wrap;}
+.fiche .ct{--ct-l:min(330px,78vw);cursor:pointer;}
+.fiche-t{max-width:340px;}
+.fiche-t h2{font:900 1.7rem/1.1 'Fraunces',Georgia,serif;margin:0 0 8px;}
+.fiche-t p{color:var(--ink-soft);margin:0 0 10px;font-size:.94rem;}
+.fiche-acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;}
+.fiche-x{position:fixed;top:14px;right:14px;width:42px;height:42px;border-radius:50%;border:1px solid var(--line-strong);background:var(--card);
+  color:var(--ink);font-size:1.3rem;cursor:pointer;z-index:2;}
+
+/* ---------------------------------------------------------- l'ouverture */
+dialog.bst{border:0;padding:0;margin:0;background:transparent;color:#f3e9d4;max-width:none;max-height:none;width:100%;height:100%;overflow:hidden;}
+dialog.bst::backdrop{background:radial-gradient(ellipse at 50% 55%,rgba(60,38,16,.92),rgba(6,4,2,.97));}
+.bst-in{position:relative;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(18px,3vh,30px);padding:20px;}
+.bst-titre{font:900 clamp(1.3rem,3vw,2rem)/1.1 'Fraunces',Georgia,serif;margin:0;text-align:center;min-height:1.2em;}
+.bst-aide{font-size:.9rem;color:#c7b599;margin:0;text-align:center;min-height:1.4em;}
+.bst-scene{position:relative;display:flex;align-items:center;justify-content:center;min-height:min(56vh,440px);width:100%;}
+.bst .paquet{--pw:min(240px,46vw);cursor:pointer;transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .4s;}
+.bst .paquet:focus-visible{outline:3px solid #d8ad4c;outline-offset:8px;}
+.bst .paquet .paquet-l{font-size:.86rem;}
+.bst .paquet .paquet-l b{font-size:1.9rem;}
+.bst .paquet .paquet-sceau{width:62px;height:62px;margin:-28px 0 0 -30px;font-size:1.5rem;}
+.bst .paquet.tremble{animation:bst-tremble .5s ease-in-out;}
+.bst .paquet.ouvert{transform:translateY(40vh) rotate(-4deg) scale(.9);opacity:0;}
+.bst-bande{position:absolute;left:-3%;right:-3%;top:-2%;height:20%;border-radius:6px 6px 2px 2px;z-index:3;
+  background:linear-gradient(160deg,#d4ad74,#ad8550);box-shadow:0 2px 0 rgba(0,0,0,.25);transition:transform .6s cubic-bezier(.5,0,.75,0),opacity .6s;}
+.paquet.ouvert .bst-bande{transform:translate(30%,-60vh) rotate(28deg);opacity:0;}
+@keyframes bst-tremble{0%,100%{transform:rotate(-4deg)}20%{transform:rotate(-7deg) translateY(-3px)}40%{transform:rotate(-1deg)}60%{transform:rotate(-6deg) translateY(-2px)}80%{transform:rotate(-3deg)}}
+.bst-main{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(10px,2vw,22px);--ct-l:clamp(118px,15vw,210px);}
+.bst-c{border:0;padding:0;background:none;cursor:pointer;border-radius:12px;opacity:0;transform:translateY(50vh) rotate(var(--rot,0deg)) scale(.85);
+  transition:transform .8s cubic-bezier(.16,1,.3,1) var(--del,0s),opacity .4s var(--del,0s);}
+.bst-c.la{opacity:1;transform:none;}
+.bst-c:focus-visible{outline:3px solid #d8ad4c;outline-offset:6px;}
+.bst-c .ct{--ct-l:inherit;}
+/* la rareté se devine au dos avant qu'on retourne la carte */
+.bst-c.r2 .ct-dos{box-shadow:0 0 0 2px rgba(216,173,76,.55),0 0 22px rgba(216,173,76,.35);}
+.bst-c.r3 .ct-dos{box-shadow:0 0 0 2px rgba(240,200,110,.85),0 0 40px rgba(240,200,110,.55);}
+.bst-c.r4 .ct-dos{box-shadow:0 0 0 3px #ffe9a8,0 0 60px rgba(255,214,120,.8);animation:bst-pressent 1.2s ease-in-out infinite;}
+.bst-c.tete .ct-dos{box-shadow:0 0 0 3px rgba(200,230,255,.9),0 0 46px rgba(255,170,220,.6);}
+@keyframes bst-pressent{0%,100%{filter:brightness(1)}50%{filter:brightness(1.35)}}
+.bst-c.vue .ct-dos{box-shadow:none;animation:none;}
+/* la révélation : l'éclat derrière la carte, plus large selon le rang */
+.bst-c{position:relative;}
+.bst-c::before{content:"";position:absolute;inset:-40%;z-index:-1;border-radius:50%;pointer-events:none;opacity:0;
+  background:radial-gradient(closest-side,rgba(255,226,150,.85),rgba(255,180,80,.25) 55%,transparent);}
+.bst-c.vue.r3::before,.bst-c.vue.r4::before,.bst-c.vue.tete::before{animation:bst-eclair 1.4s ease-out forwards;}
+.bst-c.vue.tete::before{background:radial-gradient(closest-side,rgba(255,200,235,.8),rgba(170,230,255,.4) 55%,transparent);}
+.bst-c.vue.r4::before{inset:-90%;}
+@keyframes bst-eclair{0%{opacity:0;transform:scale(.4)}25%{opacity:1}100%{opacity:.18;transform:scale(1.1)}}
+.bst-badge{position:absolute;left:50%;top:-14px;transform:translateX(-50%);z-index:12;white-space:nowrap;padding:5px 10px;border-radius:100px;
+  font:700 .68rem/1 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;background:#d5402f;color:#fff;opacity:0;transition:opacity .3s .5s;}
+.bst-c.vue .bst-badge{opacity:1;}
+.bst-badge.or{background:linear-gradient(110deg,#a87f2a,#fff0b8,#c9952a);color:#3a2808;}
+.bst-badge.nacre{background:linear-gradient(110deg,#ffd6e8,#d9f7ff,#fff6c8);color:#2a1d2e;}
+.bst-flash{position:fixed;inset:0;pointer-events:none;z-index:5;background:radial-gradient(circle at 50% 50%,rgba(255,236,170,.9),rgba(255,200,100,.2) 45%,transparent 70%);opacity:0;}
+.bst-flash.on{animation:bst-flash 1.6s ease-out;}
+@keyframes bst-flash{0%{opacity:0}12%{opacity:1}100%{opacity:0}}
+.bst-acts{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;min-height:46px;}
+.bst .btn-p{background:#f3e9d4;color:#15100b;}
+.bst .btn-o{color:#f3e9d4;border-color:rgba(243,233,212,.34);}
+.bst-x{position:absolute;top:14px;right:14px;width:42px;height:42px;border-radius:50%;border:1px solid rgba(243,233,212,.34);
+  background:rgba(30,23,16,.8);color:#f3e9d4;font-size:1.3rem;cursor:pointer;z-index:8;}
+
+@media (max-width:900px){
+  .cpt{grid-template-columns:1fr;}
+  .prog{grid-template-columns:1fr;}
+  .prog-rangs{grid-template-columns:repeat(3,minmax(0,1fr));}
+}
+@media (max-width:560px){
+  .cpt-boost{grid-template-columns:1fr;justify-items:start;}
+  .prog-rangs{grid-template-columns:repeat(3,minmax(0,1fr));}
+  .alb{--al-l:148px;}
+  /* la barre de filtres ne colle plus : repliée sur cinq rangées, elle
+     mangeait la moitié de l'écran */
+  .alb-barre{position:static;}
+  .alb-fam{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;}
+  .alb-fam button{flex:none;}
+  .alb-sel{flex:1 1 30%;min-width:0;font-size:.8rem;padding:0 6px;}
+  .alb-it{contain-intrinsic-size:148px 207px;}
+  .bst-main{--ct-l:clamp(100px,28vw,150px);}
+}
+@media (prefers-reduced-motion:reduce){
+  .bst-c,.bst .paquet,.bst-bande{transition:none !important;animation:none !important;}
+  .bst-c::before,.bst-flash{display:none;}
+}
+html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{background:var(--surface);}
+</style>
+<!-- AFFICHAGE:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs (modes, fond, gestes), ne pas éditer à la main -->
+<script>(function(){var h=document.documentElement,K='liremarx.mode.v1',C=['auto','bougie','jour','edition'],T={'bougie':'#15100b','jour':'#f6efe0','edition':'#ebe1c9'},S=null,f=0;try{S=matchMedia('(prefers-color-scheme: light)')}catch(e){}function r(c){return c==='auto'?(S&&S.matches?'jour':'bougie'):c}function lu(){var c='';try{c=localStorage.getItem(K)||''}catch(e){}return C.indexOf(c)<0?'auto':c}function p(c){if(C.indexOf(c)<0)c='auto';var m=r(c),a=h.getAttribute('data-mode');h.setAttribute('data-mode-choix',c);if(m!==a){if(a){h.classList.add('lm-bascule');clearTimeout(f);f=setTimeout(function(){h.classList.remove('lm-bascule')},140)}h.setAttribute('data-mode',m);var x=document.getElementsByName('theme-color');for(var i=0;i<x.length;i++)x[i].setAttribute('content',T[m]);if(a)document.dispatchEvent(new CustomEvent('lm:mode',{detail:{mode:m,choix:c}}))}document.dispatchEvent(new CustomEvent('lm:choix',{detail:{mode:m,choix:c}}));return m}var L=window.LM=window.LM||{};L.MODES=C;L.TEINTES=T;L.resoudre=r;L.mode=function(m){if(m===undefined)return{mode:h.getAttribute('data-mode'),choix:h.getAttribute('data-mode-choix')};if(C.indexOf(m)<0)return null;try{localStorage.setItem(K,m)}catch(e){}return p(m)};try{if(localStorage.getItem('liremarx.rail.v1')==='1')h.classList.add('sb-rail')}catch(e){}p(lu());if(S&&S.addEventListener)S.addEventListener('change',function(){if(h.getAttribute('data-mode-choix')==='auto')p('auto')});addEventListener('storage',function(e){if(e.key===K)p(C.indexOf(e.newValue)<0?'auto':e.newValue)})})();</script>
+<link rel="stylesheet" href="/assets/modes.css?v=142992bc">
+<link rel="stylesheet" href="/assets/mouvement.css?v=cd43bc59">
+<link rel="stylesheet" href="/assets/fond.css?v=6f05a8a5">
+<script src="/assets/mouvement.js?v=e2121199" defer></script>
+<script src="/assets/fond.js?v=13b709ac" defer></script>
+<!-- AFFICHAGE:FIN -->
+</head>
+<body>
+
+<main class="wrap" id="contenu" tabindex="-1">
+<div class="cx">
+  <p class="cx-label">La collection</p>
+  <h1>Les cartes <em>à collectionner</em></h1>
+  <p class="cx-lede">Près de sept mille cartes sur Marx et le mouvement ouvrier&nbsp;: ses penseurs et ses militants, ses livres, ses films et ses chants, ses partis et ses Internationales, ses révolutions et ses grèves, et les notions du <a href="/glossaire/">glossaire</a>. Trois boosters de cinq cartes chaque jour, et d'autres à gagner en lisant.</p>
+
+  <section class="cpt" aria-label="Les boosters du jour">
+    <div class="cpt-boost">
+      <div class="paquet" aria-hidden="true" id="cptPaquet"><span class="paquet-l">Booster<b>Lire Marx</b></span><span class="paquet-sceau">LM</span></div>
+      <div>
+        <div class="cpt-n" id="cptN">·<small id="cptNl">boosters à ouvrir aujourd'hui</small></div>
+        <p class="cpt-msg" id="cptMsg">Chargement…</p>
+        <div id="cptActs"></div>
+      </div>
+    </div>
+    <div class="cpt-mis">
+      <h3>Les missions</h3>
+      <p>Chacune rapporte un booster de plus, une fois par jour, trois au plus.</p>
+      <ul class="mis" id="mis"></ul>
+      <p class="mis-plafond" id="misPlafond">Les boosters reviennent chaque jour à minuit, heure de Paris.</p>
+    </div>
+  </section>
+
+  <section class="cx-sec" aria-labelledby="progT">
+    <p class="cx-label">Votre collection</p>
+    <h2 id="progT">Où vous en êtes</h2>
+    <div class="prog">
+      <div>
+        <div class="prog-tot" id="progTot">0 <span>sur …</span></div>
+        <div class="prog-barre" aria-hidden="true"><i id="progBarre"></i></div>
+        <p class="prog-p" id="progP">Ouvrez votre premier booster pour commencer.</p>
+      </div>
+      <div class="prog-rangs" id="progRangs"></div>
+    </div>
+  </section>
+
+  <section class="cx-sec" aria-labelledby="albT">
+    <p class="cx-label">L'album</p>
+    <h2 id="albT">Toutes les cartes</h2>
+    <p class="cx-sous">Les emplacements vides attendent leur carte. Cliquez sur une carte pour la voir de près et la retourner.</p>
+    <div class="alb-barre">
+      <div class="alb-fam" id="albFam" role="group" aria-label="Familles"></div>
+      <input class="alb-q" id="albQ" type="search" placeholder="Chercher une carte : Luxemburg, Commune, plus-value…" aria-label="Chercher une carte">
+      <select class="alb-sel" id="albRang" aria-label="Rang">
+        <option value="">Tous les rangs</option><option value="4">Manuscrits</option><option value="3">Éditions originales</option>
+        <option value="2">Éditions reliées</option><option value="1">Brochures</option><option value="0">Tracts</option>
+      </select>
+      <select class="alb-sel" id="albPoss" aria-label="Lesquelles">
+        <option value="">Toutes</option><option value="miennes">Les miennes</option><option value="manquent">Celles qui manquent</option><option value="tetes">Tirages de tête</option>
+      </select>
+      <select class="alb-sel" id="albTri" aria-label="Ordre">
+        <option value="no">Par numéro</option><option value="rang">Les plus rares d'abord</option><option value="recentes">Les dernières obtenues</option><option value="nom">Par nom</option>
+      </select>
+    </div>
+    <p class="alb-compte" id="albCompte" aria-live="polite"></p>
+    <div class="alb" id="alb"></div>
+    <div class="alb-plus"><button class="btn-o" id="albPlus" type="button" hidden>Afficher plus de cartes</button></div>
+  </section>
+</div>
+</main>
+
+<dialog class="fiche" id="fiche" aria-labelledby="ficheT">
+  <button class="fiche-x" type="button" data-fermer aria-label="Fermer">×</button>
+  <div class="fiche-in" id="ficheIn"></div>
+</dialog>
+
+<dialog class="bst" id="bst" aria-label="Ouverture d'un booster">
+  <div class="bst-flash" id="bstFlash"></div>
+  <button class="bst-x" type="button" id="bstX" aria-label="Fermer">×</button>
+  <div class="bst-in">
+    <p class="bst-titre" id="bstTitre"></p>
+    <div class="bst-scene" id="bstScene"></div>
+    <p class="bst-aide" id="bstAide" aria-live="polite"></p>
+    <div class="bst-acts" id="bstActs"></div>
+  </div>
+</dialog>
+
+<!-- PIED:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs, ne pas éditer à la main -->
+<footer class="lm-foot wrap">
+  <div class="lm-foot-in">
+    <div class="lm-foot-id">
+      <p class="lm-foot-mark">Lire<span class="d">.</span>Marx</p>
+      <p class="lm-foot-lede">Marx en texte intégral, l&rsquo;appareil critique en marge du chapitre.</p>
+    </div>
+    <nav class="lm-foot-nav" aria-label="Pied de page">
+      <div class="lm-foot-col">
+        <p class="lm-foot-h">Le corpus</p>
+        <ul>
+        <li><a href="/oeuvres/capital-1">Le Capital — Livre I</a></li>
+        <li><a href="/oeuvres/contribution-1859">Contribution à la critique de l'économie politique</a></li>
+        <li><a href="/oeuvres/manuscrits-1844">Manuscrits de 1844</a></li>
+        <li><a href="/oeuvres/manifeste">Manifeste du parti communiste</a></li>
+        <li><a href="/oeuvres/18-brumaire">Le XVIII brumaire de Louis Bonaparte</a></li>
+        <li><a href="/oeuvres/salaire-prix-profit">Salaires, prix, profits</a></li>
+        <li><a href="/oeuvres/bibliotheque">Toute la bibliothèque</a></li>
+        </ul>
+      </div>
+      <div class="lm-foot-col">
+        <p class="lm-foot-h">Comprendre</p>
+        <ul>
+        <li><a href="/karl-marx">Qui était Karl Marx</a></li>
+        <li><a href="/glossaire/">L’abécédaire de Marx</a></li>
+        <li><a href="/jeu/">Le circuit du capital</a></li>
+        <li><a href="/agregation-2027">Marx à l’agrégation 2027</a></li>
+        </ul>
+      </div>
+      <div class="lm-foot-col">
+        <p class="lm-foot-h">Le site</p>
+        <ul>
+        <li><a href="/">Accueil</a></li>
+        <li><a href="/oeuvres/forum">Forum</a></li>
+        <li><a href="/a-propos">À propos</a></li>
+        <li><a href="https://liredebord.com/">Lire Debord, le site frère</a></li>
+        <li><a href="/mentions-legales">CGU &amp; confidentialité</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</footer>
+<!-- PIED:FIN -->
+
+<script src="/cartes/carte.js?v=1"></script>
+<script>
+(function () {
+  'use strict';
+  var FAM = Carte.FAMILLES, RANGS = Carte.RANGS;
+  var LIENS = {
+    lecture: ['/oeuvres/bibliotheque', 'Choisir une œuvre'],
+    annotation: ['/oeuvres/capital-1', 'Ouvrir Le Capital'],
+    notion: ['/glossaire/', 'Le glossaire'],
+    questions: ['/glossaire/fetichisme#nt-quiz-t', 'Une notion'],
+    commentaire: ['/agregation-2027', 'Les commentaires'],
+    forum: ['/oeuvres/forum', 'Le forum']
+  };
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var norm = function (s) { return String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); };
+  var nf = new Intl.NumberFormat('fr-FR');
+
+  var cat = [], parId = {}, col = {}, etat = null, pret = false;
+
+  /* ---------------------------------------------------------- MODE DÉMO
+     Sur localhost avec ?demo : le navigateur imite les trois fonctions du
+     serveur, pour éprouver l'interface sans base. N'existe pas en ligne. */
+  var local = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+  if (local && /[?&]demo\b/.test(location.search)) {
+    var K = 'liremarx.cartes.demo.v1';
+    var lire = function () { try { return JSON.parse(localStorage.getItem(K)) || {}; } catch (e) { return {}; } };
+    var ecrire = function (d) { try { localStorage.setItem(K, JSON.stringify(d)); } catch (e) {} };
+    var jourD = function (d) { var j = SHELL.cartes ? SHELL.cartes.jour() : ''; if (d.jour !== j) { d.jour = j; d.ouverts = 0; d.bonus = 0; d.missions = []; } d.col = d.col || {}; return d; };
+    var etatD = function (d) { return { jour: d.jour, parJour: 3, ouverts: d.ouverts, bonus: d.bonus, restants: Math.max(0, 3 + d.bonus - d.ouverts), missions: d.missions, possedees: Object.keys(d.col).length }; };
+    var parRang = null;
+    window.LM_CARTES_DEMO = {
+      cartes_etat: async function () { var d = jourD(lire()); ecrire(d); return { data: etatD(d) }; },
+      cartes_mission: async function (a) { var d = jourD(lire()), g = false; if (d.missions.indexOf(a.m) < 0) { d.missions.push(a.m); if (d.bonus < 3) { d.bonus++; g = true; } } ecrire(d); var e = etatD(d); e.gagne = g; return { data: e }; },
+      cartes_ouvrir: async function () {
+        var d = jourD(lire());
+        if (d.ouverts >= 3 + d.bonus) return { error: { code: 'P0001', message: 'plus de booster aujourd\'hui' } };
+        if (!parRang) { parRang = [[], [], [], [], []]; cat.forEach(function (c) { parRang[c.r].push(c.id); }); }
+        var forcer = (location.search.match(/[?&]force=(\d)/) || [])[1];
+        var out = [], vus = {};
+        for (var i = 1; i <= 5; i++) {
+          var x = Math.random() * 100, r;
+          if (i < 5) r = x < .5 ? 4 : x < 4 ? 3 : x < 14 ? 2 : x < 40 ? 1 : 0;
+          else r = x < 1.5 ? 4 : x < 8 ? 3 : x < 30 ? 2 : 1;
+          if (forcer && i === 5) r = +forcer;
+          var l = parRang[r], id = l[Math.floor(Math.random() * l.length)];
+          var tete = Math.random() < (/[?&]tetes\b/.test(location.search) ? .5 : .02);
+          var avant = d.col[id];
+          out.push({ id: id, tete: tete, nouvelle: !avant && !vus[id], nouvelleTete: tete && !(avant && avant.t) && !vus[id + 't'] });
+          vus[id] = 1; if (tete) vus[id + 't'] = 1;
+        }
+        out.forEach(function (o) { var e = d.col[o.id] || (d.col[o.id] = { n: 0, t: 0, p: Date.now() }); e.n++; if (o.tete) e.t++; });
+        d.ouverts++; ecrire(d);
+        return { data: { cartes: out, restants: 3 + d.bonus - d.ouverts } };
+      },
+      collection: function () { return jourD(lire()).col; }
+    };
+  }
+  var demo = !!window.LM_CARTES_DEMO;
+
+  /* ---------------------------------------------------------- données */
+  async function chargerCatalogue() {
+    var r = await fetch('/cartes/catalogue.json?v=1');
+    var d = await r.json();
+    cat = d.cartes; parId = {};
+    cat.forEach(function (c) { parId[c.id] = c; });
+  }
+  async function chargerCollection() {
+    col = {};
+    if (demo) { col = window.LM_CARTES_DEMO.collection(); return; }
+    if (!SHELL.auth || !SHELL.auth.user) return;
+    var c = await SHELL.auth.getClient();
+    if (!c) return;
+    for (var de = 0; de < 20000; de += 1000) {
+      var r = await c.from('cartes_collection').select('carte,n,tetes,premiere').range(de, de + 999);
+      if (r.error) throw r.error;
+      r.data.forEach(function (x) { col[x.carte] = { n: x.n, t: x.tetes, p: x.premiere }; });
+      if (r.data.length < 1000) break;
+    }
+  }
+
+  /* ---------------------------------------------------------- le comptoir */
+  function connecte() { return demo || !!(SHELL.auth && SHELL.auth.user); }
+  function rendreComptoir(err) {
+    var n = $('cptN'), msg = $('cptMsg'), acts = $('cptActs'), paq = $('cptPaquet');
+    if (!connecte()) {
+      n.innerHTML = '3<small>boosters par jour</small>';
+      msg.innerHTML = 'Un compte gratuit suffit : c\'est lui qui garde votre collection, d\'un appareil à l\'autre.';
+      acts.innerHTML = '<button class="btn-p" type="button" id="cptCo">Se connecter ou créer un compte</button>';
+      $('cptCo').onclick = function () { SHELL.auth && SHELL.auth.openModal(); };
+      paq.classList.remove('paquet-vide');
+      rendreMissions();
+      return;
+    }
+    if (err) {
+      n.innerHTML = '·<small>boosters à ouvrir aujourd\'hui</small>';
+      msg.textContent = err;
+      acts.innerHTML = '';
+      return;
+    }
+    if (!etat) { msg.textContent = 'Chargement…'; return; }
+    var r = etat.restants;
+    n.innerHTML = r + '<small>' + (r > 1 ? 'boosters à ouvrir' : r === 1 ? 'booster à ouvrir' : 'booster à ouvrir') + ' aujourd\'hui</small>';
+    msg.innerHTML = r > 0
+      ? 'Cinq cartes par booster. La cinquième est au moins une <b>brochure</b>, et chacune a une chance sur cinquante de sortir en <b>tirage de tête</b>.'
+      : 'Vous avez ouvert vos boosters du jour. Les missions en rapportent jusqu\'à trois de plus ; sinon, ils reviennent à minuit.';
+    acts.innerHTML = '<button class="btn-p" type="button" id="cptOuvrir"' + (r > 0 ? '' : ' disabled') + '>Ouvrir un booster</button>';
+    $('cptOuvrir').onclick = ouvrirBooster;
+    paq.classList.toggle('paquet-vide', r <= 0);
+    rendreMissions();
+  }
+  function rendreMissions() {
+    var faites = (etat && etat.missions) || [];
+    $('mis').innerHTML = Object.keys(SHELL.cartes.MISSIONS).map(function (k) {
+      var f = faites.indexOf(k) >= 0, l = LIENS[k];
+      return '<li class="' + (f ? 'fait' : '') + '"><span class="mis-c" aria-hidden="true"></span><span class="mis-t">' +
+        esc(SHELL.cartes.MISSIONS[k]) + (f ? '<span class="sr-only"> — faite aujourd\'hui</span>' : '') + '</span>' +
+        (f ? '' : '<a href="' + l[0] + '">' + esc(l[1]) + ' →</a>') + '</li>';
+    }).join('');
+    var b = etat ? etat.bonus : 0;
+    $('misPlafond').textContent = b >= 3
+      ? 'Vous avez gagné vos trois boosters de missions aujourd\'hui. Les boosters reviennent à minuit, heure de Paris.'
+      : (b ? b + (b > 1 ? ' boosters gagnés' : ' booster gagné') + ' aujourd\'hui par les missions. ' : '') + 'Les boosters reviennent chaque jour à minuit, heure de Paris.';
+  }
+  function messageErreur(e) {
+    var m = (e && (e.message || '')) + '';
+    if (/connexion/.test(m)) return 'Connectez-vous pour ouvrir vos boosters.';
+    if (/plus de booster/.test(m)) return 'Plus de booster à ouvrir aujourd\'hui.';
+    if (e && (e.code === 'PGRST202' || /function|does not exist|schema cache/i.test(m)))
+      return 'Les boosters ne sont pas encore ouverts sur le serveur. Revenez très bientôt.';
+    return 'Le serveur ne répond pas. Réessayez dans un instant.';
+  }
+  async function rafraichirEtat() {
+    if (!connecte()) { etat = null; rendreComptoir(); rendreProgression(); filtrer(); return; }
+    try {
+      etat = await SHELL.cartes.etat();
+      await chargerCollection();
+      rendreComptoir();
+    } catch (e) { rendreComptoir(messageErreur(e)); }
+    rendreProgression(); filtrer();
+  }
+
+  /* ---------------------------------------------------------- la progression */
+  function rendreProgression() {
+    var ids = Object.keys(col), tot = cat.length;
+    var poss = ids.length, tetes = ids.filter(function (id) { return col[id].t > 0; }).length;
+    $('progTot').innerHTML = nf.format(poss) + ' <span>sur ' + nf.format(tot) + ' cartes</span>';
+    $('progBarre').style.width = (tot ? Math.max(poss ? .6 : 0, poss / tot * 100) : 0).toFixed(2) + '%';
+    $('progP').textContent = poss
+      ? (poss / tot * 100).toLocaleString('fr-FR', { maximumFractionDigits: 1 }) + ' % de la collection, ' + nf.format(ids.reduce(function (s, id) { return s + col[id].n; }, 0)) + ' cartes tirées en tout.'
+      : 'Ouvrez votre premier booster pour commencer.';
+    var parR = [0, 0, 0, 0, 0], totR = [0, 0, 0, 0, 0];
+    cat.forEach(function (c) { totR[c.r]++; if (col[c.id]) parR[c.r]++; });
+    var h = '';
+    for (var r = 4; r >= 0; r--) h += '<div class="prog-r r' + r + '"><b>' + nf.format(parR[r]) + '</b><span>' + RANGS[r].l + (parR[r] > 1 && r ? 's' : '') + ' sur ' + nf.format(totR[r]) + '</span></div>';
+    h += '<div class="prog-r tete"><b>' + nf.format(tetes) + '</b><span>tirage' + (tetes > 1 ? 's' : '') + ' de tête</span></div>';
+    $('progRangs').innerHTML = h;
+  }
+
+  /* ---------------------------------------------------------- l'album */
+  var filtre = { f: '', q: '', r: '', poss: '', tri: 'no' }, liste = [], montre = 0, PAGE = 48;
+  function rendreFamilles() {
+    var cpt = {}; cat.forEach(function (c) { cpt[c.f] = (cpt[c.f] || 0) + 1; });
+    $('albFam').innerHTML = '<button type="button" data-f="" aria-pressed="true">Toutes<span>' + nf.format(cat.length) + '</span></button>' +
+      Object.keys(FAM).map(function (k) { return '<button type="button" data-f="' + k + '" aria-pressed="false">' + FAM[k].pl + '<span>' + nf.format(cpt[k] || 0) + '</span></button>'; }).join('');
+  }
+  function filtrer() {
+    if (!cat.length) return;
+    var q = norm(filtre.q);
+    liste = cat.filter(function (c) {
+      if (filtre.f && c.f !== filtre.f) return false;
+      if (filtre.r !== '' && c.r !== +filtre.r) return false;
+      var m = col[c.id];
+      if (filtre.poss === 'miennes' && !m) return false;
+      if (filtre.poss === 'manquent' && m) return false;
+      if (filtre.poss === 'tetes' && !(m && m.t)) return false;
+      // une carte qu'on n'a pas se cherche par son numéro, pas par son nom :
+      // le nom ferait la moitié du plaisir de la découverte.
+      if (q && !(m ? norm(c.n + ' ' + (c.d || '') + ' ' + (c.auteur || '')).indexOf(q) >= 0 : String(c.no) === q)) return false;
+      return true;
+    });
+    var t = filtre.tri;
+    if (t === 'rang') liste.sort(function (a, b) { return b.r - a.r || a.no - b.no; });
+    else if (t === 'nom') liste.sort(function (a, b) { return a.n.localeCompare(b.n, 'fr'); });
+    else if (t === 'recentes') liste.sort(function (a, b) { var x = col[a.id], y = col[b.id]; return (y ? y.p : 0) - (x ? x.p : 0) || a.no - b.no; });
+    else liste.sort(function (a, b) { return a.no - b.no; });
+    montre = 0;
+    $('alb').innerHTML = '';
+    var poss = liste.filter(function (c) { return col[c.id]; }).length;
+    $('albCompte').textContent = liste.length
+      ? nf.format(liste.length) + (liste.length > 1 ? ' cartes' : ' carte') + (connecte() ? ', dont ' + nf.format(poss) + ' dans votre collection.' : '.')
+      : '';
+    if (!liste.length) $('alb').innerHTML = '<p class="alb-rien">Aucune carte ne correspond' + (filtre.q ? ' — une carte que vous n\'avez pas encore se cherche par son numéro' : '') + '.</p>';
+    plus();
+  }
+  function vignette(c) {
+    var m = col[c.id];
+    if (!m) return '<div class="alb-vide r' + c.r + '" role="img" aria-label="Carte numéro ' + c.no + ', ' + FAM[c.f].l.toLowerCase() + ', pas encore trouvée">' +
+      '<b>' + String(c.no).padStart(4, '0') + '</b><span>' + FAM[c.f].l + '</span>' + (c.r === 4 ? '<span>Manuscrit</span>' : '') + '</div>';
+    return '<button class="alb-it" type="button" data-id="' + c.id + '" aria-label="' + esc(c.n) + ', voir la carte">' +
+      Carte.html(c, { tete: m.t > 0 }) + (m.n > 1 ? '<span class="alb-n" aria-hidden="true">×' + m.n + '</span>' : '') +
+      (m.t > 0 ? '<span class="alb-tt" aria-hidden="true">✦' + (m.t > 1 ? ' ×' + m.t : '') + '</span>' : '') + '</button>';
+  }
+  function plus() {
+    var fin = Math.min(liste.length, montre + PAGE), h = '';
+    for (var i = montre; i < fin; i++) h += vignette(liste[i]);
+    $('alb').insertAdjacentHTML('beforeend', h);
+    montre = fin;
+    $('albPlus').hidden = montre >= liste.length;
+  }
+
+  /* ---------------------------------------------------------- la fiche */
+  var ficheDe = null;
+  function ouvrirFiche(id, declencheur) {
+    var c = parId[id], m = col[id];
+    if (!c || !m) return;
+    ficheDe = declencheur;
+    var tete = m.t > 0;
+    function dessine(versTete) {
+      $('ficheIn').innerHTML = Carte.html(c, { verso: true, tete: versTete }) +
+        '<div class="fiche-t"><h2 id="ficheT">' + esc(c.n) + '</h2>' +
+        '<p>' + FAM[c.f].l + ' · ' + RANGS[c.r].l + ' · n° ' + c.no + '</p>' +
+        '<p>' + (m.n > 1 ? 'Vous l\'avez ' + m.n + ' fois.' : 'Vous l\'avez en un exemplaire.') +
+        (m.t ? ' Dont ' + (m.t > 1 ? m.t + ' tirages' : 'un tirage') + ' de tête.' : '') + '</p>' +
+        '<p>Obtenue le ' + new Date(m.p).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) + '.</p>' +
+        '<div class="fiche-acts"><button class="btn-p" type="button" data-retourner>Retourner la carte</button>' +
+        (tete ? '<button class="btn-o" type="button" data-variante>' + (versTete ? 'Voir l\'exemplaire courant' : 'Voir le tirage de tête') + '</button>' : '') +
+        (c.href ? '<a class="btn-o" href="' + esc(c.href) + '">Lire la page</a>' : '') + '</div></div>';
+      var v = $('ficheIn').querySelector('[data-variante]');
+      if (v) v.onclick = function () { dessine(!versTete); };
+    }
+    dessine(tete);
+    $('fiche').showModal();
+    var b = $('ficheIn').querySelector('[data-retourner]'); if (b) b.focus();
+  }
+  $('fiche').addEventListener('click', function (e) {
+    if (e.target.closest('[data-fermer]') || e.target === $('fiche') || e.target.classList.contains('fiche-in')) { $('fiche').close(); return; }
+    var ct = e.target.closest('.ct');
+    if (e.target.closest('[data-retourner]') || (ct && !e.target.closest('a'))) {
+      var k = $('ficheIn').querySelector('.ct'); if (k) k.classList.toggle('retournee');
+    }
+  });
+  $('fiche').addEventListener('close', function () { if (ficheDe && ficheDe.isConnected) ficheDe.focus(); });
+
+  /* ---------------------------------------------------------- l'ouverture */
+  var tirage = null;
+  async function ouvrirBooster() {
+    var bst = $('bst');
+    $('bstTitre').textContent = 'Votre booster';
+    $('bstAide').textContent = 'Touchez le paquet pour l\'ouvrir.';
+    $('bstActs').innerHTML = '';
+    $('bstScene').innerHTML = '<div class="paquet" id="bstPaquet" role="button" tabindex="0" aria-label="Ouvrir le paquet">' +
+      '<span class="bst-bande"></span><span class="paquet-l">Booster<b>Lire Marx</b>cinq cartes</span><span class="paquet-sceau">LM</span></div>';
+    if (!bst.open) bst.showModal();
+    var p = $('bstPaquet');
+    p.focus();
+    // Le tirage part tout de suite : le paquet s'ouvre pendant que le serveur répond.
+    tirage = SHELL.cartes.ouvrir().catch(function (e) { return { erreur: e }; });
+    var go = function () { p.removeEventListener('click', go); p.removeEventListener('keydown', kd); dechirer(p); };
+    var kd = function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } };
+    p.addEventListener('click', go); p.addEventListener('keydown', kd);
+  }
+  function attendre(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  var reduit = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  async function dechirer(p) {
+    $('bstAide').textContent = '';
+    p.classList.add('tremble');
+    await attendre(reduit ? 0 : 480);
+    var res = await tirage;
+    if (!res || res.erreur) {
+      p.classList.remove('tremble');
+      $('bstAide').textContent = messageErreur(res && res.erreur);
+      $('bstActs').innerHTML = '<button class="btn-o" type="button" data-bst-fermer>Fermer</button>';
+      return;
+    }
+    p.classList.add('ouvert');
+    await attendre(reduit ? 0 : 420);
+    var cartes = res.cartes || [];
+    etat && (etat.restants = res.restants);
+    // la rareté monte de gauche à droite : on garde le meilleur pour la fin
+    cartes.sort(function (a, b) { return (parId[a.id].r + (a.tete ? .5 : 0)) - (parId[b.id].r + (b.tete ? .5 : 0)); });
+    $('bstScene').innerHTML = '<div class="bst-main" id="bstMain">' + cartes.map(function (o, i) {
+      var c = parId[o.id];
+      var badge = o.nouvelleTete ? '<span class="bst-badge nacre">Tirage de tête</span>'
+        : c.r === 4 ? '<span class="bst-badge or">Manuscrit</span>'
+        : o.nouvelle ? '<span class="bst-badge">Nouvelle</span>' : '';
+      return '<button class="bst-c r' + c.r + (o.tete ? ' tete' : '') + '" type="button" data-i="' + i + '" style="--del:' + (i * .09) + 's;--rot:' + ((i - 2) * 6) + 'deg" aria-label="Carte face cachée ' + (i + 1) + ' sur ' + cartes.length + ', la retourner">' +
+        badge + Carte.html(c, { dos: true, tete: o.tete }).replace('class="ct ', 'class="ct retournee ') + '</button>';
+    }).join('') + '</div>';
+    requestAnimationFrame(function () { requestAnimationFrame(function () {
+      document.querySelectorAll('.bst-c').forEach(function (b) { b.classList.add('la'); });
+    }); });
+    var vues = 0;
+    $('bstTitre').textContent = 'Cinq cartes';
+    $('bstAide').textContent = 'Retournez-les une à une.';
+    $('bstActs').innerHTML = '<button class="btn-o" type="button" id="bstTout">Tout retourner</button>';
+    function retourner(b) {
+      if (b.classList.contains('vue')) return;
+      b.classList.add('vue');
+      var o = cartes[+b.dataset.i], c = parId[o.id];
+      b.querySelector('.ct').classList.remove('retournee');
+      b.setAttribute('aria-label', c.n + ', ' + RANGS[c.r].l.toLowerCase() + (o.tete ? ', tirage de tête' : '') + (o.nouvelle ? ', nouvelle' : ''));
+      if ((c.r === 4 || o.tete) && !reduit) { var f = $('bstFlash'); f.classList.remove('on'); void f.offsetWidth; f.classList.add('on'); }
+      var dire = c.n + ' — ' + RANGS[c.r].l + (o.tete ? ', tirage de tête' : '') + (o.nouvelle ? ', nouvelle' : '');
+      $('bstAide').textContent = c.r === 4 ? 'Un manuscrit ! ' + c.n : o.tete ? 'Un tirage de tête : ' + c.n : dire;
+      if (SHELL.announce) SHELL.announce(dire);
+      if (++vues === cartes.length) fin();
+    }
+    $('bstMain').addEventListener('click', function (e) { var b = e.target.closest('.bst-c'); if (b) retourner(b); });
+    $('bstTout').onclick = async function () {
+      var bs = [].slice.call(document.querySelectorAll('.bst-c:not(.vue)'));
+      for (var i = 0; i < bs.length; i++) { retourner(bs[i]); await attendre(reduit ? 0 : 260); }
+    };
+    var premiere = document.querySelector('.bst-c'); if (premiere) premiere.focus();
+    function fin() {
+      var nv = cartes.filter(function (o) { return o.nouvelle; }).length, tt = cartes.filter(function (o) { return o.tete; }).length;
+      $('bstTitre').textContent = nv ? (nv > 1 ? nv + ' nouvelles cartes' : 'Une nouvelle carte') : 'Aucune nouvelle cette fois';
+      $('bstAide').textContent = (tt ? (tt > 1 ? tt + ' tirages de tête. ' : 'Un tirage de tête. ') : '') + 'Elles sont rangées dans votre album.';
+      var r = res.restants;
+      $('bstActs').innerHTML = (r > 0 ? '<button class="btn-p" type="button" id="bstEncore">Ouvrir le suivant (' + r + ')</button>' : '') +
+        '<button class="btn-o" type="button" data-bst-fermer>Voir mon album</button>';
+      var enc = $('bstEncore'); if (enc) { enc.onclick = ouvrirBooster; enc.focus(); }
+    }
+  }
+  $('bst').addEventListener('click', function (e) {
+    if (e.target.closest('[data-bst-fermer]') || e.target.closest('#bstX')) $('bst').close();
+  });
+  $('bst').addEventListener('close', function () {
+    tirage = null;
+    rafraichirEtat().then(function () { $('cptOuvrir') && $('cptOuvrir').focus(); });
+    SHELL.cartes.rafraichir && SHELL.cartes.rafraichir();
+  });
+
+  /* ---------------------------------------------------------- câblage */
+  $('albFam').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    filtre.f = b.dataset.f;
+    $('albFam').querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+    filtrer();
+  });
+  var tq;
+  $('albQ').addEventListener('input', function (e) { clearTimeout(tq); tq = setTimeout(function () { filtre.q = e.target.value.trim(); filtrer(); }, 180); });
+  $('albRang').addEventListener('change', function (e) { filtre.r = e.target.value; filtrer(); });
+  $('albPoss').addEventListener('change', function (e) { filtre.poss = e.target.value; filtrer(); });
+  $('albTri').addEventListener('change', function (e) { filtre.tri = e.target.value; filtrer(); });
+  $('albPlus').addEventListener('click', plus);
+  // la suite se charge d'elle-même quand on approche du bas de l'album
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (es) {
+    if (es[0].isIntersecting && !$('albPlus').hidden) plus();
+  }, { rootMargin: '600px' }).observe($('albPlus'));
+  $('alb').addEventListener('click', function (e) { var b = e.target.closest('.alb-it'); if (b) ouvrirFiche(b.dataset.id, b); });
+
+  /* ---------------------------------------------------------- démarrage */
+  async function demarrer() {
+    try { await chargerCatalogue(); }
+    catch (e) { $('cptMsg').textContent = 'Le catalogue des cartes n\'a pas pu être chargé.'; return; }
+    rendreFamilles(); rendreProgression(); filtrer();
+    pret = true;
+    await rafraichirEtat();
+    window.__cartesPret = true;
+  }
+  function suivreSession() {
+    if (!window.SHELL || !SHELL.auth || !SHELL.auth.onChange) return false;
+    // jamais d'appel Supabase dans le rappel de GoTrue : on diffère
+    SHELL.auth.onChange(function () { if (pret) setTimeout(rafraichirEtat, 0); });
+    return true;
+  }
+  window.addEventListener('DOMContentLoaded', function () {
+    suivreSession();
+    // une mission accomplie sur cette page même (une notion lue dans un autre
+    // onglet ne passe pas par ici : la page se remet à jour au retour)
+    SHELL.cartes.onChange(function (e) { if (e && e.restants != null) { etat = e; rendreComptoir(); } });
+    document.addEventListener('visibilitychange', function () { if (!document.hidden && pret && connecte()) rafraichirEtat(); });
+    demarrer();
+  });
+})();
+</script>
+<script src="/config.js"></script>
+<script src="/oeuvres/shell.js?v=25"></script>
+<script src="/oeuvres/shell-social.js?v=2"></script>
+<script>installShell({ workTitle: 'Les cartes', tabs: [] });</script>
+</body>
+</html>
