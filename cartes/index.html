@@ -858,7 +858,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
 </footer>
 <!-- PIED:FIN -->
 
-<script src="/cartes/ouverture3d.js?v=60b2b2ca" defer></script>
+<script src="/cartes/ouverture3d.js?v=c0cf9f41" defer></script>
 <script src="/cartes/carte.js?v=1b1aeaab"></script>
 <script>
 (function () {
@@ -1301,7 +1301,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     function image(t) {
       raf = requestAnimationFrame(image);
       var dt = Math.min((t - av) / 1000, .05); av = t;
-      cumul += dt * 8; while (cumul > 1) { cumul--; if (P.length < 420) braise(); }
+      cumul += dt * 2.5; while (cumul > 1) { cumul--; if (P.length < 420) braise(); }
       g.clearRect(0, 0, W, H); g.globalCompositeOperation = 'lighter'; g.lineCap = 'round';
       for (var i = P.length - 1; i >= 0; i--) {
         var p = P[i]; p.age += dt;
@@ -1318,7 +1318,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
       }
     }
     return {
-      debut: function () { if (reduit || raf) return; taille(); P.length = 0; av = performance.now(); for (var i = 0; i < 26; i++) { braise(); var b = P[P.length - 1]; b.y = Math.random() * H; b.age = Math.random() * 3; } raf = requestAnimationFrame(image); },
+      debut: function () { if (reduit || raf) return; taille(); P.length = 0; av = performance.now(); for (var i = 0; i < 8; i++) { braise(); var b = P[P.length - 1]; b.y = Math.random() * H; b.age = Math.random() * 3; } raf = requestAnimationFrame(image); },
       fin: function () { cancelAnimationFrame(raf); raf = 0; P.length = 0; g.clearRect(0, 0, W, H); },
       taille: function () { if (raf) taille(); },
       eclat: function (x, y, cs, n, v, angle, ouv) {

@@ -1,9 +1,9 @@
 /* L'ouverture d'un booster en trois dimensions.
  *
- * Le manuscrit vivant : sur un noir chaud, des phrases de Marx en très grand,
- * tracées à la main, or pâle, dérivent sur trois plans en profondeur. Devant, le paquet, en vraie feuille métallisée : un trait
- * de lumière droit suit le doigt le long du sertissage, puis la bande se détache
- * d'un bloc et tombe. Les cartes sont dedans.
+ * Un fond sobre : un noir chaud, un halo discret derrière le paquet, rien
+ * d'autre. Devant, le paquet, en vraie feuille métallisée : un trait de lumière
+ * droit suit le doigt le long du sertissage, puis la bande se détache d'un bloc
+ * et s'envole. Les cartes sont dedans.
  *
  * Le plan z = 0 est parallèle à l'écran : un rectangle de la page s'y
  * transpose au pixel près, ce qui permet de passer la main aux cartes HTML (la
@@ -24,7 +24,7 @@
     }).then(function () {
       return Promise.all([
         img('dos', '/assets/img/cartes/dos.webp'), img('logo', '/assets/img/logo/icon-512.png'), 
-        document.fonts ? Promise.all([document.fonts.load("900 120px Fraunces"), document.fonts.load("500 118px Caveat"), document.fonts.load("600 40px Inter"), document.fonts.load("italic 500 40px Fraunces")]) : null
+        document.fonts ? Promise.all([document.fonts.load("900 120px Fraunces"), document.fonts.load("600 40px Inter"), document.fonts.load("italic 500 40px Fraunces")]) : null
       ]);
     });
     prom.catch(function () {});
@@ -38,32 +38,6 @@
   function melange(a, b, t) { return a + (b - a) * t; }
 
   // ---------------------------------------------------------- les matières
-  // Des phrases de Marx, relevées dans les textes que le site sert, tracées à
-  // la main. (La vraie page de 1846 a été essayée : ses ratures, à cette échelle,
-  // se lisaient comme des rayures.)
-  var PHRASES = [
-    "Un spectre hante l'Europe, le spectre du communisme.",
-    "Le capital est du travail mort, qui, semblable au vampire, ne s'anime qu'en suçant le travail vivant",
-    "L'histoire de toute société jusqu'à nos jours n'a été que l'histoire de luttes de classes.",
-    "Tout ce qui était solide et stable est ébranlé, tout ce qui était sacré est profané",
-    "Ils ont un monde à gagner."
-  ];
-    function encre() {
-    var R = hasard(2047), L = 7;
-    // une bande très large : aucune ligne ne se répète ni ne se coupe à l'écran
-    return toile(4096, 1024, function (g, w, h) {
-      g.fillStyle = '#fff'; g.textBaseline = 'middle'; g.font = "500 118px Caveat, cursive";
-      var pas = h / L, n = 0;
-      for (var l = 0; l < L; l++) {
-        var x = -R() * 500, y = pas * (l + .5);
-        while (x < w) {
-          var ph = PHRASES[n++ % PHRASES.length] + '   ';
-          g.save(); g.translate(x, y + (R() - .5) * 10); g.rotate((R() - .5) * .016); g.fillText(ph, 0, 0); g.restore();
-          x += g.measureText(ph).width;
-        }
-      }
-    });
-  }
   function halo(c1) {
     return toile(256, 256, function (g, w) { var d = g.createRadialGradient(w / 2, w / 2, 0, w / 2, w / 2, w / 2); d.addColorStop(0, c1); d.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = d; g.fillRect(0, 0, w, w); });
   }
@@ -117,18 +91,9 @@
     function mat(m) { aJeter.push(m); if (m.map) aJeter.push(m.map); return m; }
     function mesh(g, m, ombre) { var o = new THREE.Mesh(geo(g), mat(m)); if (ombre !== false) { o.castShadow = true; o.receiveShadow = true; } return o; }
 
-    // l'écriture, sur trois plans : le plus proche est le plus lisible
-    var ORC = new THREE.Color(0xd8ad4c), ROUGE = new THREE.Color(0xff5a30);
-    var ink = tex(encre()); ink.wrapS = ink.wrapT = THREE.RepeatWrapping; aJeter.push(ink);
-        var plans = [{ z: -3, op: .22, v: .0065, r: -.09, p: .34, dx: .08, ry: .72 }, { z: -9, op: .12, v: -.004, r: .07, p: .2, dx: .02, ry: .88 }, { z: -18, op: .07, v: .0024, r: -.04, p: .1, dx: 0, ry: .9 }].map(function (c) {
-      var h = 2 * (D + Math.abs(c.z)) * Math.tan(FOV * Math.PI / 360) * 1.25, w = h * 2.2, t = ink.clone(); t.needsUpdate = true; t.repeat.set(1.1 * c.ry, 2 * c.ry); t.offset.x = c.dx; aJeter.push(t);
-      var o = new THREE.Mesh(geo(new THREE.PlaneGeometry(w, h)), mat(new THREE.MeshBasicMaterial({ map: t, color: ORC.clone(), transparent: true, opacity: c.op, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false })));
-      o.position.set(0, 1.5, c.z); o.rotation.z = c.r; decor.add(o);
-      return { o: o, t: t, v: c.v, p: c.p };
-    });
     // le halo derrière le paquet
-    var hl = new THREE.Sprite(mat(new THREE.SpriteMaterial({ map: tex(halo('rgba(190,108,44,.75)')), blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false })));
-    hl.scale.set(10, 10, 1); hl.position.set(0, 1.5, -2); scene.add(hl);
+    var hl = new THREE.Sprite(mat(new THREE.SpriteMaterial({ map: tex(halo('rgba(150,84,36,.5)')), blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false })));
+    hl.scale.set(9, 9, 1); hl.position.set(0, 1.5, -2); scene.add(hl);
     var HC = new THREE.Color(0xffffff), HR = new THREE.Color(0xff5030);
 
     // les lumières : celles qui font vivre la feuille du sachet
@@ -253,7 +218,6 @@
         if (q >= 1) { anims.splice(i, 1); a.ok(); }
       }
       regard.x += (regard.tx - regard.x) * Math.min(1, dt * 7); regard.y += (regard.ty - regard.y) * Math.min(1, dt * 7);
-      for (var ip = 0; ip < plans.length; ip++) { var pl = plans[ip]; pl.t.offset.y += pl.v * dt; pl.o.position.x = -regard.x * pl.p; pl.o.position.y = 1.5 + regard.y * pl.p * .6; }
       if (P && P.vivant) {
         var e = P.entree, s = t / 1000;
         P.g.position.y = melange(P.baseY - 8, P.baseY, e) + Math.sin(s * 1.5) * .035 * e;
@@ -293,8 +257,8 @@
       cacherCartes: retirerCartes,
       // Le Grand Soir : l'aube rouge entre par la fenêtre
       soir: function (on) {
-        var b0 = scene.background.clone(), b1 = new THREE.Color(on ? 0x220806 : 0x0b0705), i0 = amb.intensity, enc0 = plans[0].o.material.color.clone(), enc1 = on ? ROUGE : ORC, h0 = hl.material.color.clone(), h1 = on ? HR : HC;
-        anim(on ? 1100 : 300, function (q) { scene.background.copy(b0).lerp(b1, q); amb.intensity = melange(i0, on ? .5 : .34, q); plans.forEach(function (pl) { pl.o.material.color.copy(enc0).lerp(enc1, q); }); hl.material.color.copy(h0).lerp(h1, q); }, EIO);
+        var b0 = scene.background.clone(), b1 = new THREE.Color(on ? 0x220806 : 0x0b0705), i0 = amb.intensity, h0 = hl.material.color.clone(), h1 = on ? HR : HC;
+        anim(on ? 1100 : 300, function (q) { scene.background.copy(b0).lerp(b1, q); amb.intensity = melange(i0, on ? .5 : .34, q); hl.material.color.copy(h0).lerp(h1, q); }, EIO);
       },
       taille: taille,
       demonter: function () {
