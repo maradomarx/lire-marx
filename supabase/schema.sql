@@ -363,6 +363,7 @@ declare
   tirage text[] := '{}';
   brill boolean[] := '{}';   -- pas « tetes » : ce serait le nom d'une colonne
   rang int; x float8; c text; i int;
+  grand boolean := random() < 0.005;   -- le Grand Soir : un booster sur deux cents
   out_json json;
 begin
   if u is null then raise exception 'connexion requise' using errcode = '28000'; end if;
@@ -376,7 +377,10 @@ begin
   end if;
   for i in 1..5 loop
     x := random() * 100;
-    if i < 5 then
+    if grand then
+      -- cinq rares, et la dernière est toujours un manuscrit
+      rang := case when i = 5 or x < 25 then 4 else 3 end;
+    elsif i < 5 then
       rang := case when x < 0.5 then 4 when x < 4 then 3 when x < 14 then 2 when x < 40 then 1 else 0 end;
     else
       rang := case when x < 1.5 then 4 when x < 8 then 3 when x < 30 then 2 else 1 end;
@@ -386,7 +390,7 @@ begin
       select id into c from cartes_catalogue where actif order by random() limit 1;
     end if;
     tirage := tirage || c;
-    brill := brill || (random() < 0.02);
+    brill := brill || (random() < case when grand then 0.2 else 0.02 end);
   end loop;
 
   -- « nouvelle » : absente de la collection avant ce booster, et seulement à
@@ -409,12 +413,12 @@ begin
 
   if du_jour then
     update cartes_jours set ouverts = ouverts + 1 where user_id = u and jour = jr;
-    return json_build_object('cartes', out_json, 'reserve', res,
+    return json_build_object('cartes', out_json, 'grandSoir', grand, 'reserve', res,
       'restants', 3 + lig.bonus - lig.ouverts - 1 + res);
   else
     update cartes_reserve set boosters = boosters - 1,
       maj = (extract(epoch from now()) * 1000)::bigint where user_id = u;
-    return json_build_object('cartes', out_json, 'reserve', res - 1, 'restants', res - 1);
+    return json_build_object('cartes', out_json, 'grandSoir', grand, 'reserve', res - 1, 'restants', res - 1);
   end if;
 end $$;
 

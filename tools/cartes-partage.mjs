@@ -175,7 +175,9 @@ h1{font:900 82px/.95 Fraunces,serif;letter-spacing:-.025em;margin:0;}
     await p.goto(BASE + '/.og-cartes-tmp.html', { waitUntil: 'networkidle0' });
     await p.evaluate(() => document.fonts.ready);
     const png = path.join(ROOT, '.og-cartes-tmp.png');
-    for (const c of man) {
+    // --seul=<id> : une seule image, quand une seule carte a changé
+    const seul = (process.argv.find((a) => a.startsWith('--seul=')) || '').slice(7);
+    for (const c of man.filter((m) => !seul || m.id === seul)) {
       await p.evaluate((c, s) => {
         document.getElementById('n').textContent = c.n;
         document.getElementById('n').style.fontSize = c.n.length > 22 ? '58px' : c.n.length > 15 ? '70px' : '82px';

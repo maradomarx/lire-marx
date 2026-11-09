@@ -210,7 +210,9 @@
     return l > 46 ? 'xs' : l > 32 ? 's' : l > 20 ? 'm' : 'l';
   }
 
-  function no(c) { return 'n° ' + String(c.no).padStart(4, '0'); }
+  // Karl Marx : la carte d'où part toute la collection, hors numérotation.
+  var MARX = 'fig-Q9061';
+  function no(c) { return 'n° ' + (c.id === MARX ? '0000' : String(c.no).padStart(4, '0')); }
 
   var IMG = '/assets/img/cartes/';
 
@@ -226,8 +228,43 @@
     return '<div class="ct-eclats" aria-hidden="true">' + out + '</div>';
   }
 
+  // La carte de Karl Marx n'a pas de cadre : elle a son propre dessin. Le
+  // portrait de Mayall (1875, détouré) sort de la page manuscrite de 1846 et
+  // de la gloire gravée derrière lui ; chaque plan glisse à sa vitesse sous la
+  // main. L'irisée colore le portrait lui-même, comme un billet de banque.
+  function gloireMarx() {
+    var s = '', i, a;
+    for (i = 0; i < 96; i++) {
+      a = i * Math.PI / 48;
+      var r = i % 2 ? 62 : (i % 8 ? 74 : 98);
+      s += '<line x1="' + f2(Math.cos(a) * 34) + '" y1="' + f2(Math.sin(a) * 34) + '" x2="' + f2(Math.cos(a) * r) + '" y2="' + f2(Math.sin(a) * r) + '"/>';
+    }
+    return '<svg class="mx-gloire" viewBox="-100 -100 200 200" aria-hidden="true"><g class="mx-rais">' + s + '</g><circle r="34"/><circle r="31.5"/><circle r="99"/></svg>';
+  }
+  function rectoMarx(c, o) {
+    return '<div class="ct-face ct-recto">' +
+      '<div class="ct-filigrane" aria-hidden="true"></div>' +
+      (o.tete ? '<div class="mx-aurore" aria-hidden="true"></div>' : '') +
+      gloireMarx() +
+      '<div class="ct-ecrin" aria-hidden="true"></div>' +
+      '<div class="mx-portrait"><img class="mx-img" src="/assets/img/marx/marx-detoure.webp" alt="" width="640" height="788" decoding="async">' +
+        (o.tete ? '<span class="mx-iris" aria-hidden="true"></span>' : '') + '</div>' +
+      '<header class="ct-top mx-top"><span class="ct-fam">' + FAMILLES[c.f].l + '</span><span class="ct-no">' +
+        (o.tete ? '<span class="ct-etoile" aria-label="irisée">✦</span>' : '') + no(c) + '</span></header>' +
+      '<div class="mx-bas">' +
+        '<h3 class="ct-nom">' + esc(c.n) + '</h3>' +
+        '<p class="mx-cite">Prolétaires de tous les pays, unissez-vous&nbsp;!</p>' +
+        '<footer class="ct-foot"><span class="ct-dates">' + esc(dates(c)) + '</span><span class="ct-sceau" title="Manuscrit" aria-label="Manuscrit">M</span></footer>' +
+      '</div>' +
+      (o.tete ? '<div class="ct-holo" aria-hidden="true"></div><div class="ct-argent" aria-hidden="true"></div>' : '') +
+      '<div class="ct-foil" aria-hidden="true"></div>' +
+      eclats(c, o.tete ? 14 : 10) +
+    '</div>';
+  }
+
   function recto(c, o) {
     o = o || {};
+    if (c.id === MARX) return rectoMarx(c, o);
     var R = rnd(graine(c.id));
     R(); // (la graine gardait jadis une encre : on consomme son tirage pour que les motifs ne changent pas)
     var art = c.i
@@ -302,12 +339,37 @@
   // rosace d'or tirée d'une graine fixe, le portrait du logo dans un médaillon
   // serti d'or (le même que le favicon), le nom du jeu.
   var DOS = null;
+  // Le dos : un plat de reliure en toile rouge, poussé à l'or — filets, fers
+  // d'angle, le portrait en médaillon. Le même pour toutes les cartes. La scène
+  // 3D de l'ouverture en utilise la photographie (tools/cartes-dos.mjs) : toute
+  // retouche ici doit la refaire.
   function dos() {
     if (!DOS) {
-      var R = rnd(graine('dos·lire-marx'));
+      var perles = '', i, a;
+      for (i = 0; i < 44; i++) { a = i * Math.PI / 22; perles += '<circle cx="' + f2(126 + Math.cos(a) * 56) + '" cy="' + f2(150 + Math.sin(a) * 56) + '" r="1.25"/>'; }
+      // un fer d'angle : une volute et sa feuille
+      var fer = '<g id="ct-fer"><path d="M0 34C2 16 16 2 34 0C30 8 24 13 16 15C13 21 8 28 0 34Z"/><path d="M38 3C47 3 55 8 58 17C51 12 44 10 38 11Z"/><path d="M3 38C3 47 8 55 17 58C12 51 10 44 11 38Z"/><circle cx="23" cy="23" r="2.3"/></g>';
+      var fleuron = '<path d="M126 -7C130 -2 137 -1 143 0C137 1 130 2 126 7C122 2 115 1 109 0C115 -1 122 -2 126 -7Z"/>';
       DOS = '<div class="ct-face ct-dos" aria-hidden="true">' +
-        '<svg class="ct-motif" viewBox="0 0 100 140" preserveAspectRatio="xMidYMid slice">' + guilloche(R, '#d8ad4c', .5) + '</svg>' +
-        '<div class="ct-dos-cadre"><span class="ct-dos-med"><img src="/assets/img/logo/icon-512.png" alt="" loading="lazy" decoding="async"></span><span class="ct-dos-l">Marx TCG</span><span class="ct-dos-s">Lire Marx</span></div>' +
+        '<svg class="ct-dos-fer" viewBox="0 0 252 352">' +
+          '<defs><linearGradient id="ct-or" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b98a2c"/><stop offset=".3" stop-color="#f6dc8a"/><stop offset=".55" stop-color="#c9952a"/><stop offset=".78" stop-color="#fff0b8"/><stop offset="1" stop-color="#9c6f1c"/></linearGradient>' +
+          '<clipPath id="ct-med"><circle cx="126" cy="150" r="49"/></clipPath></defs>' +
+          // le filet à froid, marqué dans la toile, puis les filets dorés
+          '<rect x="27" y="27" width="198" height="298" rx="3" fill="none" stroke="rgba(0,0,0,.34)" stroke-width="2"/>' +
+          '<g fill="none" stroke="url(#ct-or)"><rect x="11" y="11" width="230" height="330" rx="7" stroke-width="2.8"/><rect x="17" y="17" width="218" height="318" rx="4.5" stroke-width=".9"/><rect x="33" y="33" width="186" height="286" rx="2" stroke-width=".9"/></g>' +
+          '<g fill="url(#ct-or)">' + fer.replace('<g id="ct-fer">', '<g transform="translate(21 21)">') +
+            fer.replace('<g id="ct-fer">', '<g transform="translate(231 21) scale(-1 1)">') +
+            fer.replace('<g id="ct-fer">', '<g transform="translate(21 331) scale(1 -1)">') +
+            fer.replace('<g id="ct-fer">', '<g transform="translate(231 331) scale(-1 -1)">') +
+            perles +
+            '<g transform="translate(0 64)">' + fleuron + '</g><g transform="translate(0 288)">' + fleuron + '</g>' +
+          '</g>' +
+          '<circle cx="126" cy="150" r="62" fill="none" stroke="url(#ct-or)" stroke-width="1.2"/>' +
+          '<circle cx="126" cy="150" r="50.6" fill="#1a140e" stroke="url(#ct-or)" stroke-width="2.4"/>' +
+          '<image href="/assets/img/logo/icon-512.png" x="73" y="97" width="106" height="106" clip-path="url(#ct-med)"/>' +
+          '<text x="126" y="244" text-anchor="middle" fill="url(#ct-or)" font-family="Fraunces,Georgia,serif" font-weight="900" font-size="30" letter-spacing="-.5">Marx TCG</text>' +
+          '<text x="126" y="267" text-anchor="middle" fill="#e9c97c" font-family="Fraunces,Georgia,serif" font-style="italic" font-weight="500" font-size="14.5">Lire Marx</text>' +
+        '</svg>' +
       '</div>';
     }
     return DOS;
@@ -315,7 +377,7 @@
 
   function html(c, o) {
     o = o || {};
-    var cls = 'ct ct--' + c.f + ' ct--e-' + c.e + ' ct--r' + (c.r || 0) + (o.tete ? ' ct--tete' : '');
+    var cls = 'ct ct--' + c.f + ' ct--e-' + c.e + ' ct--r' + (c.r || 0) + (c.id === MARX ? ' ct--marx' : '') + (o.tete ? ' ct--tete' : '');
     var R = rnd(graine(c.id + '·encre'));
     R(); // (l'ancien tirage de l'encre : consommé pour garder la même inclinaison)
     var style = '--tilt:' + f2(R() * 2 - 1);

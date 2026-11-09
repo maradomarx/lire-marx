@@ -777,7 +777,7 @@ function cadrer(sortie) {
 
 function versionner() {
   const h = f => createHash('sha1').update(fs.readFileSync(path.join(ROOT, f))).digest('hex').slice(0, 8);
-  const v = { 'catalogue.json': h('cartes/catalogue.json'), 'carte.js': h('cartes/carte.js'), 'carte.css': h('cartes/carte.css') };
+  const v = { 'catalogue.json': h('cartes/catalogue.json'), 'carte.js': h('cartes/carte.js'), 'carte.css': h('cartes/carte.css'), 'ouverture3d.js': h('cartes/ouverture3d.js') };
   for (const page of ['cartes/index.html', 'cartes/echantillons.html', 'index.html', 'oeuvres/forum.html']) {
     const f = path.join(ROOT, page);
     let src = fs.readFileSync(f, 'utf8');

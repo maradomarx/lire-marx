@@ -12085,6 +12085,21 @@ Reprise de « L'ouverture ne trahit rien » : le principe tient (une pile de dos
 
 Pièges : **tirer une carte à la souris lance le glisser natif de son image, qui part en `pointercancel`** (d'où le `dragstart` annulé) ; et le focus posé par script après un clic peut allumer `:focus-visible` : l'anneau ne paraît que sous `.bst.clavier`.
 
+### L'ouverture en 3D : le bureau, la reliure (mission `ouverture-3d`, nov. 2026)
+
+Supersède la déchirure et le fond de « L'ouverture se déchire » (le geste, le moment des rares et l'éventail restent). **`cartes/ouverture3d.js`** (chargé à la demande, avec `vendor/three.min.js`) dessine le bureau à la bougie — table, feuillets de 1846, encrier, plume, livres, une bougie à ombres réelles, la fenêtre par où vient le Grand Soir — et le paquet, en vraie feuille : bande à bord irrégulier qui pivote autour du front de déchirure, intérieur argenté, lumière dans la bouche.
+
+- **Le plan z = 0 est parallèle à l'écran** : la pile 3D se pose au pixel près où sera la pile HTML, d'où le passage sans saut. Le paquet HTML reste comme cible du geste (`.paquet.gl`, invisible) et comme **repli** sans WebGL, sous reduced-motion ou si la scène tarde plus de 1,8 s.
+- **Le dos est une reliure** (`dos()` dans carte.js) ; `assets/img/cartes/dos.webp` en est la photographie, pour la 3D : `node tools/cartes-dos.mjs` après toute retouche.
+- **Le retournement est une animation écrite** (`tournerCarte`, WAAPI) : les faces s'échangent à l'instant exact des 90°. Avec l'ancienne transition à durée fixe, l'échange tombait à côté dès qu'on changeait la courbe.
+- Pièges : un canevas en `display:none` mesure 0, la classe `gl3d` doit donc être posée AVANT `monter()` (sinon tout est déformé et flou) ; `.ct.retournee .ct-dos{visibility:visible}` traverse un parent `visibility:hidden`, la pile cachée est en `display:none` ; un élément en `visibility:hidden` ne prend pas le focus ; en three r137 sans lumières physiques, les intensités se comptent en unités (3 à 4 pour une bougie), pas en dizaines. **Pour tester : `--use-angle=metal`**, SwiftShader rend à 1 image/s et les animations se traînent.
+
+### Karl Marx a sa carte, et le Grand Soir (mission `carte-marx`, nov. 2026)
+
+**`fig-Q9061` a son propre dessin** (`rectoMarx` dans carte.js, classe `ct--marx`), dans la livrée du manuscrit : la page de 1846, une gloire gravée, le portrait de Mayall détouré (`assets/img/marx/marx-detoure.webp`, Vision de macOS, crop du buste) qui passe par-dessus le filet, le nom, et la dernière phrase du Manifeste, relevée dans le texte servi. Chaque plan glisse à sa vitesse sous la main. **N° 0000, hors numérotation et en tête de l'album** (`no(c)`, et `no = 0` au chargement de /cartes/) : le registre `numeros.json` n'a pas bougé. L'irisée colore le portrait dans sa matière (`.mx-iris`, masqué par le détourage). Après une retouche de cette carte : `node tools/cartes.mjs versions`, puis `node tools/cartes-partage.mjs --images --seul=fig-Q9061`.
+
+**Le Grand Soir** (le godpack) : **un booster sur deux cents** (0,5 %), décidé dans `cartes_ouvrir` qui renvoie `grandSoir`. Cinq cartes d'édition originale ou de manuscrit, la dernière toujours un manuscrit, une chance sur cinq d'être irisée. À 3 boosters par jour, environ un tous les deux mois : assez rare pour se montrer, assez fréquent pour qu'un lecteur régulier le voie un jour. Le taux est écrit deux fois (schema.sql, démo de /cartes/) et affiché dans les règles. Démo : `?demo&grandsoir`.
+
 ### La vitrine et les échanges (mission `cartes-echanges`, nov. 2026)
 
 Arbitrages du propriétaire : une vitrine de **dix cartes** par profil ; les

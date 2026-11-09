@@ -36,7 +36,7 @@
 <link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2"></noscript>
 <link rel="stylesheet" href="/oeuvres/shell.css?v=18">
-<link rel="stylesheet" href="/cartes/carte.css?v=a5838104">
+<link rel="stylesheet" href="/cartes/carte.css?v=3c673318">
 <style>
 /* ═══════════════════════════════════════════════════════════════════
    /cartes/ — LA COLLECTION (mission `cartes`)
@@ -266,9 +266,26 @@ dialog.fiche::backdrop{background:rgba(8,6,4,.82);backdrop-filter:blur(3px);}
    flottement, l'inclinaison et la chute se composent sans se battre. */
 dialog.bst{border:0;padding:0;margin:0;background:transparent;color:#f3e9d4;max-width:none;max-height:none;width:100%;height:100%;overflow:hidden;}
 dialog.bst::backdrop{background:#070504;}
-.bst-fond,.bst-noir,.bst-braises{position:absolute;inset:0;pointer-events:none;}
+.bst-fond,.bst-noir,.bst-braises,.bst-gl{position:absolute;inset:0;pointer-events:none;}
+.bst-gl{width:100%;height:100%;display:none;}
+.bst.gl3d .bst-gl{display:block;}
+.bst.gl3d .bst-fond,.bst.gl3d .bst-soir{display:none;}
+.bst.gl3d .bst-aide{text-shadow:0 1px 8px #000,0 0 2px #000;color:#f3e9d4;}
+.bst.gl3d .bst-titre{text-shadow:0 2px 18px rgba(0,0,0,.85);}
+.bst.gl3d .btn-o{background:rgba(18,12,8,.78);}
+.bst.gl3d .bst-slot:not(.plein){background:rgba(0,0,0,.4);box-shadow:inset 0 0 0 1px rgba(243,233,212,.22);}
+/* En 3D la page ne garde du paquet que la cible du geste. */
+.bst .paquet.gl{animation:none;transform:none;filter:none;}
+.bst .paquet.gl .pq-corps,.bst .paquet.gl .bst-bouche,.bst .paquet.gl .bst-bande{visibility:hidden;}
 .bst-fond{background:radial-gradient(58% 50% at 50% 46%,rgba(150,82,28,.44),rgba(60,30,12,.3) 48%,transparent 80%),radial-gradient(90% 42% at 50% 106%,rgba(213,64,47,.24),transparent 72%);}
 .bst-noir{background:#030201;opacity:0;transition:opacity .55s;}
+/* LE GRAND SOIR : un booster sur deux cents, cinq rares. La salle rougeoie
+   d'en bas, et la pile entière luit : ici, l'annonce est le plaisir. */
+.bst-soir{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .9s;background:radial-gradient(90% 62% at 50% 104%,rgba(226,64,40,.82),rgba(132,26,14,.5) 48%,transparent 84%),radial-gradient(70% 34% at 50% -6%,rgba(216,173,76,.24),transparent 76%);}
+.bst.grand-soir .bst-soir{opacity:1;}
+.bst.grand-soir .bst-titre{color:#ffdc9c;}
+.bst.grand-soir .bst-bouche{box-shadow:inset 0 -.1em .16em #ffc98a,0 .1em 1.4em rgba(255,110,70,.9);}
+.bst.grand-soir .bst-pile .ct:last-of-type .ct-dos{box-shadow:0 0 0 2px rgba(255,214,140,.85),0 0 34px 6px rgba(255,180,90,.6),0 0 90px 20px rgba(226,64,40,.4);}
 .bst.dim .bst-noir{opacity:.84;}
 .bst-braises{width:100%;height:100%;}
 .bst-in{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(14px,2.4vh,24px);padding:20px;}
@@ -321,7 +338,7 @@ dialog.bst::backdrop{background:#070504;}
 
 /* la pile : cinq dos identiques, cachés derrière le sachet jusqu'à sa chute */
 .bst-pile{position:absolute;inset:0;z-index:2;border:0;padding:0;background:none;cursor:pointer;border-radius:12px;}
-.bst-pile.cachee{visibility:hidden;}
+.bst-pile.cachee{display:none;}
 .bst.clavier .bst-pile:focus-visible{outline:3px solid #d8ad4c;outline-offset:8px;}
 .bst-pile .ct{--ct-l:var(--ct-big);position:absolute;inset:0;transition:translate .35s cubic-bezier(.16,1,.3,1);}
 .bst-pile .ct:nth-last-of-type(2){transform:translate(.35%,.5%) rotate(1.4deg);}
@@ -334,7 +351,7 @@ dialog.bst::backdrop{background:#070504;}
 .bst-vue{position:absolute;inset:0;z-index:4;border:0;padding:0;background:none;border-radius:12px;cursor:pointer;touch-action:none;}
 .bst.clavier .bst-vue:focus-visible{outline:3px solid #d8ad4c;outline-offset:8px;}
 .bst-vue .ct{--ct-l:var(--ct-big);}
-.bst-vue .ct-corps{transition-duration:.62s;transition-timing-function:cubic-bezier(.2,.9,.25,1.08);}
+.bst-vue .ct .ct-face{transition:none;}
 .bst-vue.pose .ct-corps,.bst-jeu.fini .bst-slot .ct-corps{transition:transform .14s ease-out;}
 .bst-vue.relache{transition:translate .32s cubic-bezier(.16,1,.3,1),rotate .32s cubic-bezier(.16,1,.3,1);}
 .bst-vue.leve{animation:bst-leve 1.15s cubic-bezier(.4,0,.2,1) both;}
@@ -343,8 +360,6 @@ dialog.bst::backdrop{background:#070504;}
 /* la lumière qui fuit par les bords : blanche pour toutes les rares */
 .bst-vue.leve .ct-dos{box-shadow:0 0 0 2px rgba(255,250,235,.9),0 0 40px 8px rgba(255,248,226,.8),0 0 110px 26px rgba(255,240,200,.4);transition:box-shadow 1s;}
 .bst-vue.rare{scale:1.06;transition:scale .7s cubic-bezier(.16,1,.3,1);}
-.bst-vue.pop{animation:bst-pop .62s cubic-bezier(.2,.9,.25,1) both;}
-@keyframes bst-pop{0%{scale:1}42%{scale:1.075}100%{scale:1}}
 .bst-onde{position:absolute;left:50%;top:50%;width:var(--ct-big);aspect-ratio:1;border-radius:50%;translate:-50% -50%;z-index:1;pointer-events:none;opacity:0;border:2px solid var(--onde,#ffe3a6);}
 .bst-onde.on{animation:bst-onde .8s cubic-bezier(.16,1,.3,1);}
 @keyframes bst-onde{from{scale:.4;opacity:.95}to{scale:3.4;opacity:0}}
@@ -399,7 +414,7 @@ dialog.bst::backdrop{background:#070504;}
 /* ---------------------------------------------------------- règles, raretés, manuscrits, questions
    Le contenu que lit un moteur : il est servi dans le HTML (dérivé par
    tools/cartes.mjs), là où l'album, lui, se construit en script. */
-.regle{list-style:none;counter-reset:r;margin:18px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;}
+.regle{list-style:none;counter-reset:r;margin:18px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;}
 .regle li{counter-increment:r;position:relative;padding:18px 18px 18px 18px;border-radius:14px;background:var(--surface);border:1px solid var(--line);font-size:.92rem;color:var(--ink-soft);line-height:1.5;}
 .regle li::before{content:none;}
 .regle b{display:block;color:var(--ink);font:900 1.2rem/1.15 'Fraunces',Georgia,serif;margin-bottom:6px;}
@@ -665,6 +680,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
       <li><b>3 boosters par jour</b>Ils reviennent à minuit.</li>
       <li><b>5 cartes par booster</b>La dernière, au moins une brochure.</li>
       <li><b>1 sur 50 irisée</b>Holographique, l'image bouge.</li>
+      <li><b>1 booster sur 200</b>Le Grand Soir : cinq rares d'un coup.</li>
       <li><b>+3 en lisant</b>Les <a href="#boosters">missions</a> du jour.</li>
     </ol>
     <h3 class="tcg-h3">Du tract au manuscrit</h3>
@@ -784,7 +800,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
 </dialog>
 
 <dialog class="bst" id="bst" aria-label="Ouverture d'un booster">
-  <div class="bst-fond" aria-hidden="true"></div><div class="bst-noir" aria-hidden="true"></div><canvas class="bst-braises" id="bstBraises" aria-hidden="true"></canvas>
+  <canvas class="bst-gl" id="bstGl" aria-hidden="true"></canvas><div class="bst-fond" aria-hidden="true"></div><div class="bst-soir" aria-hidden="true"></div><div class="bst-noir" aria-hidden="true"></div><canvas class="bst-braises" id="bstBraises" aria-hidden="true"></canvas>
   <div class="bst-flash" id="bstFlash"></div>
   <button class="bst-x" type="button" id="bstX" aria-label="Fermer">×</button>
   <div class="bst-in">
@@ -840,7 +856,8 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
 </footer>
 <!-- PIED:FIN -->
 
-<script src="/cartes/carte.js?v=cc3bd168"></script>
+<script src="/cartes/ouverture3d.js?v=5411f429" defer></script>
+<script src="/cartes/carte.js?v=1b1aeaab"></script>
 <script>
 (function () {
   'use strict';
@@ -881,20 +898,22 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
         if (!parRang) { parRang = [[], [], [], [], []]; cat.forEach(function (c) { parRang[c.r].push(c.id); }); }
         var forcer = (location.search.match(/[?&]force=(\d)/) || [])[1];
         var out = [], vus = {};
+        var grand = /[?&]grandsoir\b/.test(location.search) || Math.random() < .005;
         for (var i = 1; i <= 5; i++) {
           var x = Math.random() * 100, r;
           if (i < 5) r = x < .5 ? 4 : x < 4 ? 3 : x < 14 ? 2 : x < 40 ? 1 : 0;
           else r = x < 1.5 ? 4 : x < 8 ? 3 : x < 30 ? 2 : 1;
           if (forcer && i === 5) r = +forcer;
+          if (grand) r = (i === 5 || x < 25) ? 4 : 3;
           var l = parRang[r], id = l[Math.floor(Math.random() * l.length)];
-          var tete = Math.random() < (/[?&]tetes\b/.test(location.search) ? .5 : .02);
+          var tete = Math.random() < (/[?&]tetes\b/.test(location.search) ? .5 : grand ? .2 : .02);
           var avant = d.col[id];
           out.push({ id: id, tete: tete, nouvelle: !avant && !vus[id], nouvelleTete: tete && !(avant && avant.t) && !vus[id + 't'] });
           vus[id] = 1; if (tete) vus[id + 't'] = 1;
         }
         out.forEach(function (o) { var e = d.col[o.id] || (d.col[o.id] = { n: 0, t: 0, p: Date.now() }); e.n++; if (o.tete) e.t++; });
         d.ouverts++; ecrire(d);
-        return { data: { cartes: out, restants: 3 + d.bonus - d.ouverts } };
+        return { data: { cartes: out, grandSoir: grand, restants: 3 + d.bonus - d.ouverts } };
       },
       collection: function () { return jourD(lire()).col; }
     };
@@ -988,6 +1007,8 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     var d = await r.json();
     cat = d.cartes; parId = {};
     cat.forEach(function (c) { parId[c.id] = c; });
+    // Karl Marx : hors numérotation, en tête de l'album
+    if (parId['fig-Q9061']) parId['fig-Q9061'].no = 0;
   }
   async function chargerCollection() {
     col = {};
@@ -1309,9 +1330,25 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
   })();
   addEventListener('resize', fx.taille);
 
+  // La scène 3D : préparée dès que la page est tranquille, pour que l'ouverture
+  // soit immédiate. Sans WebGL, ou si elle tarde, on retombe sur le paquet HTML.
+  var GL = null;
+  function pre3d() { if (!reduit && window.Ouverture3D && !(navigator.connection && navigator.connection.saveData)) Ouverture3D.pret().catch(function () {}); }
+  addEventListener('load', function () { setTimeout(pre3d, 900); });
+  async function scene3d() {
+    if (reduit || !window.Ouverture3D) return false;
+    try {
+      await Promise.race([Ouverture3D.pret(), attendre(1800).then(function () { throw new Error('lent'); })]);
+      $('bst').classList.add('gl3d');   // le canevas doit avoir sa taille avant de monter la scène
+      if (!GL) GL = Ouverture3D.monter($('bstGl'), function () { return $('bstTable'); });
+      else GL.taille();
+      return true;
+    } catch (e) { $('bst').classList.remove('gl3d'); return false; }
+  }
   async function ouvrirBooster() {
     var bst = $('bst');
-    bst.classList.remove('dim');
+    var etaitSoir = bst.classList.contains('grand-soir');
+    bst.classList.remove('dim', 'grand-soir');
     $('bstTitre').textContent = ''; $('bstTitre').classList.remove('eclat');
     $('bstAide').textContent = 'Déchirez le paquet';
     $('bstActs').innerHTML = '';
@@ -1324,12 +1361,17 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
         '<span class="pq-corps"><span class="pq-art"></span><span class="pq-filet"></span><span class="pq-n">5<small>cartes</small></span><span class="pq-t"><small>Booster</small><b>Lire<br>Marx</b><span>Les cartes à collectionner</span></span><span class="pq-lustre"></span><span class="bst-reflet"></span></span>' +
         '<span class="bst-dechire" id="bstDechire"><span class="bst-bouche"></span><span class="bst-bande bst-reste"></span><span class="bst-bande bst-arrache" id="bstArrache"></span><span class="bst-invite"></span></span>' +
       '</div></div><div class="bst-rangee" id="bstRangee" aria-label="Les cartes retournées">' + slots + '</div></div>';
+    var p = $('bstPaquet');
+    p.style.visibility = 'hidden';
     if (!bst.open) bst.showModal();
     fx.debut();
-    var p = $('bstPaquet');
-    p.focus({ preventScroll: true });
     // Le tirage part tout de suite : le paquet s'ouvre pendant que le serveur répond.
     tirage = SHELL.cartes.ouvrir().catch(function (e) { return { erreur: e }; });
+    var en3d = await scene3d();
+    bst.classList.toggle('gl3d', en3d);
+    if (en3d) { if (etaitSoir) GL.soir(false); p.classList.add('gl'); GL.regard(0, 0); GL.paquet(); }
+    p.style.visibility = '';
+    p.focus({ preventScroll: true });
     armerDechirure(p);
   }
 
@@ -1337,7 +1379,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
   // toucher (ou Entrée) la déchire d'un trait ; lâchée trop tôt, elle se referme.
   function armerDechirure(p) {
     var bande = $('bstDechire'), actif = false, x0 = 0, larg = 1, prog = 0, bouge = false, fini = false;
-    function poser(v) { prog = v; bande.style.setProperty('--tear', v.toFixed(3)); }
+    function poser(v) { prog = v; bande.style.setProperty('--tear', v.toFixed(3)); if (GL) GL.dechire(v, p.classList.contains('sens-g') ? -1 : 1); }
     function fil() { var r = p.getBoundingClientRect(), g = p.classList.contains('sens-g'); return { x: g ? r.right - prog * r.width : r.left + prog * r.width, y: r.top + r.height * .07 }; }
     function etincelle(n) { var f = fil(); fx.eclat(f.x, f.y, COULEURS.or, n, 190, -Math.PI / 2, 1.5); }
     function vers(cible, ms, puis) {
@@ -1353,6 +1395,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     function incliner(e) {
       if (reduit) return;
       var r = p.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      if (GL) { GL.regard(x * 2 - 1, y * 2 - 1); return; }
       p.style.setProperty('--ry', ((x - .5) * 18).toFixed(2) + 'deg'); p.style.setProperty('--rx', ((.5 - y) * 12).toFixed(2) + 'deg');
       p.style.setProperty('--sx', (100 - x * 100).toFixed(1) + '%');
     }
@@ -1381,7 +1424,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     }
     p.addEventListener('pointerup', lache);
     p.addEventListener('pointercancel', lache);
-    p.addEventListener('pointerleave', function () { if (actif || fini || reduit) return; p.style.setProperty('--rx', '0deg'); p.style.setProperty('--ry', '0deg'); });
+    p.addEventListener('pointerleave', function () { if (actif || fini || reduit) return; if (GL) GL.regard(0, 0); p.style.setProperty('--rx', '0deg'); p.style.setProperty('--ry', '0deg'); });
     p.addEventListener('keydown', function (e) {
       if ((e.key === 'Enter' || e.key === ' ') && !fini && !actif) { e.preventDefault(); actif = true; bouge = false; lache(); }
     });
@@ -1392,6 +1435,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     if (!$('bst').open || !p.isConnected) return;
     if (!res || res.erreur) {
       $('bstDechire').style.setProperty('--tear', '0');
+      if (GL) GL.dechire(0, 1);
       p.classList.remove('tient', 'sens-g');
       $('bstAide').textContent = messageErreur(res && res.erreur);
       $('bstActs').innerHTML = '<button class="btn-o" type="button" data-bst-fermer>Fermer</button>';
@@ -1410,9 +1454,34 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     while (pile.children.length > N) pile.lastElementChild.remove();
     while (rangee.children.length > N) rangee.lastElementChild.remove();
 
+    // Le Grand Soir s'annonce avant que le sachet tombe.
+    var soir = !!res.grandSoir;
+    if (soir) {
+      bst.classList.add('grand-soir');
+      if (GL) GL.soir(true);
+      var ts = $('bstTitre'); ts.textContent = 'Le Grand Soir !'; ts.classList.remove('eclat'); void ts.offsetWidth; ts.classList.add('eclat');
+      $('bstAide').textContent = 'Cinq cartes rares';
+      if (SHELL.announce) SHELL.announce('Le Grand Soir : cinq cartes rares dans ce booster.');
+      if (!reduit) {
+        var fl = $('bstFlash'); fl.classList.remove('on'); void fl.offsetWidth; fl.classList.add('on');
+        var rp = p.getBoundingClientRect(); fx.eclat(rp.left + rp.width / 2, rp.top + rp.height * .06, COULEURS.manu, 170, 560, -Math.PI / 2, 2.4);
+        var qs = document.querySelector('.bst-in'); qs.classList.remove('secousse'); void qs.offsetWidth; qs.classList.add('secousse');
+        vibre([30, 60, 30, 60, 50]);
+        await attendre(1500);
+      }
+    }
+
     // la bande s'envole, la lumière sort, le sachet tombe : les cartes restent
-    pile.classList.remove('cachee');
-    if (!reduit && p.animate) {
+    if (GL) {
+      var rg = p.getBoundingClientRect();
+      fx.eclat(rg.left + rg.width / 2, rg.top + rg.height * .06, COULEURS.or, 46, 330, -Math.PI / 2, 1.2);
+      vibre(20);
+      await GL.ouvrir(N);
+      pile.classList.remove('cachee');
+      await new Promise(function (r) { requestAnimationFrame(function () { requestAnimationFrame(r); }); });
+      GL.cacherCartes();
+    } else if (!reduit && p.animate) {
+      pile.classList.remove('cachee');
       var r = p.getBoundingClientRect(), cs = getComputedStyle(p), a = $('bstArrache'), droite = p.classList.contains('sens-g') ? -1 : 1;
       fx.eclat(r.left + r.width / 2, r.top + r.height * .06, COULEURS.or, 46, 330, -Math.PI / 2, 1.2);
       vibre(20);
@@ -1424,17 +1493,37 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
         { translate: '0 26vh', rotate: '3deg', opacity: 1, offset: .55 },
         { translate: '0 104vh', rotate: '10deg', opacity: 1 }], { duration: 720, easing: 'cubic-bezier(.5,0,.8,.5)', fill: 'forwards' }).finished.catch(function () {});
     }
+    pile.classList.remove('cachee');
     p.remove();
     jeu.classList.add('pret');
 
     var n = 0, vues = 0, courant = null, occupe = false;
     function libellePile() { pile.setAttribute('aria-label', 'Retourner la carte du dessus (' + (n + 1) + ' sur ' + N + ')'); }
     libellePile();
-    $('bstAide').textContent = 'Touchez pour retourner';
+    $('bstAide').textContent = soir ? 'Cinq cartes rares' : 'Touchez pour retourner';
     $('bstActs').innerHTML = '<button class="btn-o" type="button" id="bstTout">Tout retourner</button>';
     pile.focus({ preventScroll: true });
     function etiquette(o, c) {
       return o.tete ? { t: 'Irisée', k: 'nacre' } : c.r === 4 ? { t: 'Manuscrit', k: 'manu' } : c.r === 3 ? { t: 'Édition originale', k: '' } : null;
+    }
+    // Le retournement : la carte se soulève vers nous, tourne autour de son axe,
+    // dépasse à peine et se pose. Les faces s'échangent quand elle est vue par la
+    // tranche, à l'instant exact des 90° ; elle s'assombrit en tournant et
+    // accroche la lumière en arrivant.
+    function tournerCarte(v, vite) {
+      var ct = v.querySelector('.ct'), corps = ct.querySelector('.ct-corps');
+      if (reduit || !corps.animate) { ct.classList.remove('retournee'); return Promise.resolve(); }
+      var D = vite ? 420 : 780, M = .46;
+      setTimeout(function () { ct.classList.remove('retournee'); }, D * M);
+      ct.querySelectorAll('.ct-face').forEach(function (f) {
+        f.animate([{ filter: 'brightness(1)' }, { filter: 'brightness(.4)', offset: M }, { filter: 'brightness(1.3)', offset: .72 }, { filter: 'brightness(1)' }], { duration: D });
+      });
+      return corps.animate([
+        { transform: 'translateZ(0) rotateX(0deg) rotateY(180deg)', easing: 'cubic-bezier(.5,.02,.9,.55)' },
+        { transform: 'translateZ(9em) rotateX(4deg) rotateY(90deg)', offset: M, easing: 'cubic-bezier(.12,.55,.3,1)' },
+        { transform: 'translateZ(1.6em) rotateX(-1.4deg) rotateY(-8deg)', offset: .84, easing: 'ease-in-out' },
+        { transform: 'translateZ(0) rotateX(0deg) rotateY(0deg)' }
+      ], { duration: D }).finished.catch(function () {});
     }
     function centre() { var r = table.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; }
     async function retourner(vite) {
@@ -1453,7 +1542,8 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
       // la rare a son moment : la salle s'éteint, elle se soulève, la lumière fuit
       if (rare && !reduit && !vite) { bst.classList.add('dim'); v.classList.add('leve'); $('bstAide').textContent = ''; vibre(30); await attendre(1150); }
       void v.offsetWidth;
-      v.querySelector('.ct').classList.remove('retournee');
+      var tour = tournerCarte(v, vite);
+      if (rare && !reduit) await attendre((vite ? 420 : 780) * .56);
       var dire = c.n + ' — ' + RANGS[c.r].l + (o.tete ? ', irisée' : '') + (o.nouvelle ? ', nouvelle' : '');
       v.setAttribute('aria-label', dire + '. La ranger');
       if (SHELL.announce) SHELL.announce(dire);
@@ -1470,14 +1560,13 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
         rayons.dataset.r = o.tete ? 't' : String(c.r); rayons.classList.add('on');
         var b = document.createElement('span'); b.className = 'bst-rang ' + et.k; b.textContent = et.t; b.setAttribute('aria-hidden', 'true');
         v.appendChild(b); requestAnimationFrame(function () { b.classList.add('on'); });
-        var tt = $('bstTitre'); tt.textContent = c.r === 4 ? 'Un manuscrit !' : o.tete ? 'Une carte irisée !' : 'Une édition originale !';
+        var tt = $('bstTitre'); tt.textContent = c.id === 'fig-Q9061' ? 'Karl Marx !' : c.r === 4 ? 'Un manuscrit !' : o.tete ? 'Une carte irisée !' : 'Une édition originale !';
         tt.classList.remove('eclat'); void tt.offsetWidth; tt.classList.add('eclat');
         $('bstAide').textContent = c.n;
       } else {
-        v.classList.add('pop');
         $('bstAide').textContent = dire;
       }
-      await attendre(reduit ? 0 : 620);
+      await tour;
       v.classList.add('pose');
       occupe = false;
       if (!vite && rare) v.focus({ preventScroll: true });
@@ -1487,11 +1576,11 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
       occupe = true;
       var v = courant, i = +v.dataset.i, o = cartes[i], c = parId[o.id], rare = !!v.dataset.rare;
       courant = null; rayons.classList.remove('on'); bst.classList.remove('dim');
-      $('bstTitre').textContent = ''; $('bstTitre').classList.remove('eclat');
+      $('bstTitre').textContent = soir ? 'Le Grand Soir' : ''; $('bstTitre').classList.remove('eclat');
       var b = v.querySelector('.bst-rang'); if (b) b.remove();
       var slot = rangee.children[i];
       if (!reduit && v.animate) {
-        v.classList.remove('pop', 'relache');
+        v.classList.remove('relache');
         var a = v.getBoundingClientRect(), z = slot.getBoundingClientRect();
         v.style.transformOrigin = '0 0';
         var dx = z.left - a.left, dy = z.top - a.top, s = z.width / a.width;
@@ -1519,7 +1608,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     var gl = null;
     table.addEventListener('pointerdown', function (e) {
       var v = e.target.closest('.bst-vue'); if (!v || occupe) return;
-      gl = { v: v, x: e.clientX, dx: 0 }; v.classList.remove('relache', 'pop');
+      gl = { v: v, x: e.clientX, dx: 0 }; v.classList.remove('relache');
       try { v.setPointerCapture(e.pointerId); } catch (err) {}
     });
     table.addEventListener('pointermove', function (e) {
@@ -1549,8 +1638,8 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     function fin() {
       jeu.classList.add('fini');
       var nv = cartes.filter(function (o) { return o.nouvelle; }).length, tt = cartes.filter(function (o) { return o.tete; }).length;
-      $('bstTitre').textContent = nv ? (nv > 1 ? nv + ' nouvelles cartes' : 'Une nouvelle carte') : 'Aucune nouvelle cette fois';
-      $('bstAide').textContent = tt ? (tt > 1 ? tt + ' cartes irisées' : 'Une carte irisée') : '';
+      $('bstTitre').textContent = soir ? 'Le Grand Soir' : nv ? (nv > 1 ? nv + ' nouvelles cartes' : 'Une nouvelle carte') : 'Aucune nouvelle cette fois';
+      $('bstAide').textContent = (soir && nv ? (nv > 1 ? nv + ' nouvelles cartes' : 'Une nouvelle carte') + (tt ? ', ' : '') : '') + (tt ? (tt > 1 ? tt + ' cartes irisées' : (soir && nv ? 'une' : 'Une') + ' carte irisée') : '');
       var r = res.restants;
       // le plus beau tirage du paquet se partage d'un geste
       var beau = cartes.filter(function (o) { return parId[o.id].r >= 3 || o.tete; }).pop();
@@ -1587,6 +1676,8 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
   $('bst').addEventListener('close', function () {
     tirage = null;
     fx.fin();
+    if (GL) { GL.demonter(); GL = null; }
+    $('bst').classList.remove('gl3d', 'grand-soir', 'dim');
     rafraichirEtat().then(function () { $('cptOuvrir') && $('cptOuvrir').focus(); });
     SHELL.cartes.rafraichir && SHELL.cartes.rafraichir();
   });

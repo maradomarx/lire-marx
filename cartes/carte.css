@@ -430,19 +430,14 @@
 /* (0,3,0) : le dos passe devant le papier d'un rang ou d'une époque — le dos
    ne doit rien trahir de la carte avant qu'on la retourne. */
 .ct .ct-face.ct-dos { transform: rotateY(180deg); visibility: hidden; transition: visibility 0s .2s;
-  background: radial-gradient(120% 90% at 50% 40%, #2a1f14, #120d08); color: #d8ad4c; }
+  color: #d8ad4c;
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 210, 180, .05) 0 .07em, rgba(0, 0, 0, .07) .07em .14em),
+    repeating-linear-gradient(90deg, rgba(255, 210, 180, .05) 0 .07em, rgba(0, 0, 0, .07) .07em .14em),
+    radial-gradient(90% 62% at 50% 42%, #961f15, #6a120c 62%, #470b07); }
 .ct.retournee .ct-dos { visibility: visible; }
 .ct-dos::before { mix-blend-mode: screen; opacity: .05; }
-.ct-dos .ct-motif { opacity: .55; -webkit-mask-image: none; mask-image: none; }
-.ct-dos-cadre { position: absolute; inset: 1em; border: .12em solid rgba(216, 173, 76, .7); outline: .06em solid rgba(216, 173, 76, .4);
-  outline-offset: .3em; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .5em; z-index: 2; }
-.ct-dos-med { width: 9.4em; height: 9.4em; border-radius: 50%; overflow: hidden; position: relative; background: #1a140e;
-  box-shadow: 0 0 0 .22em #c9952a, 0 0 0 .34em #21180f, 0 0 0 .44em rgba(216, 173, 76, .55), 0 .4em 1.2em rgba(0, 0, 0, .55); }
-.ct-dos-med img { position: absolute; inset: -6%; width: 112%; height: 112%; display: block; object-fit: cover; }
-.ct-dos-med::after { content: ""; position: absolute; inset: 0; border-radius: 50%;
-  background: radial-gradient(70% 55% at 35% 25%, rgba(255, 240, 200, .14), transparent 60%); }
-.ct-dos-l { margin-top: .7em; font: 700 1.1em/1 Inter, sans-serif; letter-spacing: .32em; text-transform: uppercase; color: #e8c66a; padding-left: .32em; }
-.ct-dos-s { font: italic 500 1.15em/1 Fraunces, Georgia, serif; color: #b7a888; }
+.ct-dos-fer { position: absolute; inset: 0; width: 100%; height: 100%; }
 
 /* une carte qu'on n'a pas encore : sa silhouette dans l'album */
 .ct--manque .ct-face { filter: grayscale(1) brightness(.35) contrast(.8); }
@@ -459,6 +454,54 @@
 /* ============================================================ LE PAQUET
  * Partagé par /cartes/ (le comptoir, l'ouverture) et l'accueil (l'ouverture
  * au défilement). */
+/* ---------------------------------------------------------------- KARL MARX
+ * La carte d'où part la collection a son propre dessin, dans la livrée du
+ * manuscrit. Plusieurs plans, du fond vers nous : la page de 1846, la gloire
+ * gravée, le portrait détouré, le nom. Chacun glisse à sa vitesse sous la main
+ * (--mx, --my) : c'est ce qui lui donne sa profondeur. Le portrait passe
+ * par-dessus le filet : il sort du cadre. */
+.ct--marx .ct-filigrane { opacity: .34; inset: -4%; translate: calc((var(--mx) - 50%) * .03) calc((var(--my) - 30%) * .03); transition: translate .3s ease-out; }
+.ct--marx .ct-face.ct-recto { background: radial-gradient(70% 46% at 50% 34%, #7a2415, #3a120c 56%, transparent 86%), linear-gradient(172deg, #1d1610, #0a0705); }
+.mx-gloire { position: absolute; z-index: 2; left: 50%; top: 35%; width: 138%; aspect-ratio: 1; margin: -69% 0 0 -69%; pointer-events: none; overflow: visible;
+  stroke: #e0b64f; fill: none; stroke-width: .34; opacity: .72; translate: calc((var(--mx) - 50%) * .08) calc((var(--my) - 30%) * .08); transition: translate .3s ease-out;
+  -webkit-mask: radial-gradient(closest-side, #000 62%, transparent 100%); mask: radial-gradient(closest-side, #000 62%, transparent 100%); }
+.mx-rais { animation: mx-tourne 90s linear infinite; }
+@keyframes mx-tourne { to { transform: rotate(360deg); } }
+.mx-portrait { position: absolute; z-index: 5; left: -7%; right: -7%; top: 1.15em; isolation: isolate; pointer-events: none;
+  translate: calc((var(--mx) - 50%) * -.09) calc((var(--my) - 30%) * -.05); transition: translate .3s ease-out;
+  -webkit-mask: linear-gradient(#000 62%, transparent 84%); mask: linear-gradient(#000 62%, transparent 84%); }
+.mx-img { display: block; width: 100%; height: auto; filter: grayscale(1) sepia(.32) contrast(1.16) brightness(1.04) drop-shadow(-.14em -.04em 0 rgba(213, 64, 47, .9)) drop-shadow(.1em -.02em 0 rgba(236, 192, 92, .55)); }
+.ct--marx .ct-top.mx-top { position: absolute; z-index: 6; left: 1.55em; right: 1.55em; top: 1.3em; margin: 0; padding: 0; border: 0; color: #e7c46e; text-shadow: 0 .05em .3em rgba(0, 0, 0, .9); }
+.ct--marx .ct-no { opacity: 1; }
+.mx-bas { position: absolute; z-index: 6; left: 0; right: 0; bottom: 0; padding: 5.4em 1.65em 1.45em; text-align: center;
+  background: linear-gradient(transparent, rgba(10, 7, 5, .88) 44%, #0a0705 74%); }
+.ct--marx .ct-nom { font: 900 3.3em/.95 Fraunces, Georgia, serif; letter-spacing: -.03em; margin: 0; white-space: nowrap; }
+.mx-cite { font: italic 500 .86em/1.2 Fraunces, Georgia, serif; color: #ecdcb9; margin: .5em 0 0; }
+.ct--marx .ct-foot { display: flex; align-items: center; justify-content: center; gap: 1em; margin: .8em 0 0; padding: 0; border: 0; color: #d8ad4c; }
+.ct--marx .ct-sceau { margin: -.5em 0 -.5em; }
+.ct--marx .ct-ecrin { z-index: 4; }
+/* L'IRISÉE DE MARX : la nuit se change en aurore, le portrait se colore dans
+ * sa matière, comme une sécurité de billet, et la couleur suit la main. */
+.mx-aurore { position: absolute; z-index: 1; inset: -30%; pointer-events: none; mix-blend-mode: screen; opacity: .56;
+  background: conic-gradient(from var(--ct-ang) at 50% 40%, #ff2d75, #ff9f1c, #ffe600, #3ddc84, #1fb6ff, #7b5cff, #ff2d75);
+  -webkit-mask: radial-gradient(44% 40% at 50% 41%, #000 30%, transparent 100%); mask: radial-gradient(44% 40% at 50% 41%, #000 30%, transparent 100%);
+  animation: ct-tourne 9s linear infinite; }
+.ct--marx.ct--tete .ct-face.ct-recto { background: radial-gradient(90% 60% at 50% 34%, #1a1233, #0c0718 68%), linear-gradient(172deg, #100b1c, #06040b); }
+.ct--marx.ct--tete .mx-gloire { stroke: #fff; opacity: .55; }
+.ct--marx.ct--tete .ct-filigrane { filter: grayscale(1) invert(1) contrast(1.7) brightness(1.1); opacity: .3; }
+.ct--marx.ct--tete .mx-img { filter: grayscale(1) contrast(1.2) brightness(1.1) drop-shadow(-.14em -.04em 0 rgba(255, 45, 117, .85)) drop-shadow(.14em .02em 0 rgba(31, 182, 255, .85)); }
+.mx-iris { position: absolute; inset: 0; pointer-events: none;
+  -webkit-mask: url("/assets/img/marx/marx-detoure.webp") 0 0 / 100% 100% no-repeat; mask: url("/assets/img/marx/marx-detoure.webp") 0 0 / 100% 100% no-repeat;
+  background: linear-gradient(120deg, #ff2d75, #ff9f1c 16%, #ffe600 32%, #3ddc84 48%, #1fb6ff 64%, #7b5cff 80%, #ff2d75) 0 0 / 130% 130%;
+  background-position: calc(var(--mx) * 1.5) calc(var(--my) * 1.5); mix-blend-mode: color; opacity: .6; animation: ct-arc 7s linear infinite; }
+.mx-iris::after { content: ""; position: absolute; inset: 0; mix-blend-mode: color-dodge; opacity: .34;
+  background: radial-gradient(11em 9em at var(--mx) var(--my), #fff, transparent 70%); }
+.ct--marx.ct--tete .ct-holo { opacity: .16; }
+.ct--marx.ct--tete .ct-nom { background: linear-gradient(100deg, #ff7aa8, #ffc46b 20%, #fff27a 38%, #8cf0b8 54%, #7fd3ff 70%, #b7a2ff 86%, #ff7aa8) 0 0 / 250% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent; animation: ct-glisse 6s linear infinite; }
+.ct--marx.ct--tete .ct-top.mx-top, .ct--marx.ct--tete .ct-foot { color: #f3ecff; }
+@media (prefers-reduced-motion: reduce) { .mx-rais, .mx-aurore, .mx-iris { animation: none; } }
+
 /* le paquet : un sachet de feuille métallisée, serti en dents de scie en haut et
    en bas, le portrait de Marx tramé dans la nuit du sachet, un reflet qui glisse
    sur le plastique. Tout est en em : --pw (largeur) met le paquet à l'échelle.
