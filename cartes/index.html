@@ -35,7 +35,7 @@
 <!-- MARX-TCG:LD:FIN -->
 <link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2"></noscript>
-<link rel="stylesheet" href="/oeuvres/shell.css?v=17">
+<link rel="stylesheet" href="/oeuvres/shell.css?v=18">
 <link rel="stylesheet" href="/cartes/carte.css?v=a5838104">
 <style>
 /* ═══════════════════════════════════════════════════════════════════
@@ -258,69 +258,104 @@ dialog.fiche::backdrop{background:rgba(8,6,4,.82);backdrop-filter:blur(3px);}
   color:var(--ink);font-size:1.3rem;cursor:pointer;z-index:2;}
 
 /* ---------------------------------------------------------- l'ouverture */
+/* UN SEUL GESTE, TROIS TEMPS (nov. 2026). On DÉCHIRE le paquet du doigt, et
+   la déchirure suit la main ; les cartes restent là quand le sachet tombe ;
+   on les retourne une à une, et la rare a son moment. La salle est celle du
+   site : une bougie sous la table, des braises qui montent. Tout ce qui se
+   déplace passe par translate/rotate/scale (indépendants) pour que le
+   flottement, l'inclinaison et la chute se composent sans se battre. */
 dialog.bst{border:0;padding:0;margin:0;background:transparent;color:#f3e9d4;max-width:none;max-height:none;width:100%;height:100%;overflow:hidden;}
-dialog.bst::backdrop{background:radial-gradient(ellipse at 50% 50%,rgba(48,30,13,.97),rgba(6,4,2,.995));}
-.bst-in{position:relative;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(18px,3vh,30px);padding:20px;}
-.bst-titre{font:900 clamp(1.3rem,3vw,2rem)/1.1 'Fraunces',Georgia,serif;margin:0;text-align:center;min-height:1.2em;}
-.bst-aide{font-size:.9rem;color:#c7b599;margin:0;text-align:center;min-height:1.4em;}
-.bst-scene{position:relative;display:flex;align-items:center;justify-content:center;min-height:min(56vh,440px);width:100%;}
-.bst .paquet{--pw:min(240px,46vw);cursor:pointer;transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .4s;}
-.bst .paquet:focus-visible{outline:2px solid #f3e9d4;outline-offset:10px;border-radius:.3em;}
-.bst .paquet:hover{transform:rotate(-2deg) translateY(-6px) scale(1.02);}
-.bst .paquet.tremble{animation:bst-tremble .5s ease-in-out;}
-.bst .paquet.ouvert{transform:translateY(40vh) rotate(-4deg) scale(.9);opacity:0;}
-.bst-bande{position:absolute;left:0;right:0;top:0;height:1.35em;z-index:6;
-  background:repeating-linear-gradient(90deg,rgba(255,255,255,.13) 0 .08em,rgba(0,0,0,.35) .08em .2em,transparent .2em .3em),linear-gradient(#4a3d31,#221a13);
-  border-bottom:.08em dashed rgba(243,233,212,.45);
-  -webkit-mask:conic-gradient(from 135deg at top,#0000,#000 1deg 89deg,#0000 90deg) top / .62em .32em repeat-x,linear-gradient(#000 0 0) bottom / 100% calc(100% - .31em) no-repeat;
-  mask:conic-gradient(from 135deg at top,#0000,#000 1deg 89deg,#0000 90deg) top / .62em .32em repeat-x,linear-gradient(#000 0 0) bottom / 100% calc(100% - .31em) no-repeat;
-  transition:transform .6s cubic-bezier(.5,0,.75,0),opacity .6s;}
-.paquet.ouvert .bst-bande{transform:translate(30%,-60vh) rotate(28deg);opacity:0;}
-@keyframes bst-tremble{0%,100%{transform:rotate(-4deg)}20%{transform:rotate(-7deg) translateY(-3px)}40%{transform:rotate(-1deg)}60%{transform:rotate(-6deg) translateY(-2px)}80%{transform:rotate(-3deg)}}
-.bst-flash{position:fixed;inset:0;pointer-events:none;z-index:5;background:radial-gradient(circle at 50% 46%,rgba(255,246,220,.95),rgba(255,214,140,.25) 40%,transparent 70%);opacity:0;}
-.bst-flash.on{animation:bst-flash 1.4s ease-out;}
-@keyframes bst-flash{0%{opacity:0}10%{opacity:1}100%{opacity:0}}
-/* L'OUVERTURE NE TRAHIT RIEN (nov. 2026) : les cinq cartes sortent du paquet
-   en PILE, face cachée, toutes du même dos ; on les retourne une à une au
-   centre, et la rareté ne se lit qu'une fois la carte retournée. Une carte
-   banale se range d'elle-même dans la rangée ; une rare (originale,
-   manuscrit, irisée) a son moment : la carte se soulève, de la lumière fuit
-   par ses bords (blanche pour toutes : elle ne dit pas laquelle), puis
-   l'éclat, les rayons, le nom du rang — et elle attend qu'on la range. */
-.bst-jeu{display:flex;flex-direction:column;align-items:center;gap:clamp(30px,4.2vh,40px);width:100%;
-  --ct-big:min(250px,58vw,calc(46vh * .716));--ct-sm:min(96px,calc((100vw - 64px) / 5.6));}
+dialog.bst::backdrop{background:#070504;}
+.bst-fond,.bst-noir,.bst-braises{position:absolute;inset:0;pointer-events:none;}
+.bst-fond{background:radial-gradient(58% 50% at 50% 46%,rgba(150,82,28,.44),rgba(60,30,12,.3) 48%,transparent 80%),radial-gradient(90% 42% at 50% 106%,rgba(213,64,47,.24),transparent 72%);}
+.bst-noir{background:#030201;opacity:0;transition:opacity .55s;}
+.bst.dim .bst-noir{opacity:.84;}
+.bst-braises{width:100%;height:100%;}
+.bst-in{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(14px,2.4vh,24px);padding:20px;}
+.bst-in.secousse{animation:bst-secousse .38s linear;}
+@keyframes bst-secousse{0%,100%{translate:0 0}15%{translate:-5px 2px}30%{translate:5px -3px}48%{translate:-3px -2px}66%{translate:3px 2px}84%{translate:-1px 1px}}
+.bst-titre{font:900 clamp(1.5rem,3.4vw,2.3rem)/1.1 'Fraunces',Georgia,serif;letter-spacing:-.02em;margin:0;text-align:center;min-height:1.2em;}
+.bst-titre.eclat{animation:bst-titre .6s cubic-bezier(.16,1,.3,1) both;}
+@keyframes bst-titre{from{opacity:0;scale:1.25;filter:blur(6px)}to{opacity:1;scale:1;filter:blur(0)}}
+.bst-aide{font-size:.9rem;color:#d3c3a6;margin:0;text-align:center;min-height:1.4em;}
+.bst-scene{position:relative;display:flex;align-items:center;justify-content:center;width:100%;}
+.bst-flash{position:fixed;inset:0;pointer-events:none;z-index:5;background:radial-gradient(circle at 50% 44%,rgba(255,246,220,.95),rgba(255,214,140,.25) 40%,transparent 70%);opacity:0;}
+.bst-flash.on{animation:bst-flash 1.1s ease-out;}
+@keyframes bst-flash{0%{opacity:0}9%{opacity:1}100%{opacity:0}}
+
+.bst-jeu{display:flex;flex-direction:column;align-items:center;gap:clamp(26px,4vh,38px);width:100%;
+  --ct-big:min(270px,60vw,calc(52vh * .716));--ct-sm:min(96px,calc((100vw - 64px) / 5.6));}
 .bst-table{position:relative;width:var(--ct-big);aspect-ratio:63/88;}
-/* la pile : cinq dos, légèrement décalés, qu'on prend par le dessus */
+
+/* le paquet : il arrive, il flotte, il penche vers la main */
+.bst .paquet{--pw:calc(var(--ct-big) * 1.06);position:absolute;left:-3%;top:-3%;z-index:6;cursor:grab;touch-action:none;-webkit-user-select:none;user-select:none;
+  transform:perspective(60em) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .2s ease-out;
+  animation:bst-arrive .85s cubic-bezier(.16,1,.3,1) both,bst-flotte 4.2s ease-in-out .85s infinite;}
+.bst .paquet,.bst-pile,.bst-vue{outline:0;}
+.bst.clavier .paquet:focus-visible{outline:2px solid #f3e9d4;outline-offset:10px;border-radius:.3em;}
+.bst .paquet.tient{animation-play-state:paused;cursor:grabbing;}
+@keyframes bst-arrive{from{translate:0 70vh;rotate:-10deg;scale:.8;opacity:0}to{translate:0 0;rotate:0deg;scale:1;opacity:1}}
+@keyframes bst-flotte{0%,100%{translate:0 0;rotate:-.7deg}50%{translate:0 -9px;rotate:.7deg}}
+.bst-reflet{position:absolute;inset:0;z-index:5;pointer-events:none;mix-blend-mode:screen;background:linear-gradient(105deg,transparent 28%,rgba(255,240,205,.34) 47%,rgba(255,255,255,.06) 56%,transparent 72%) var(--sx,50%) 0 / 240% 100%;}
+
+/* la déchirure : --tear va de 0 à 1 et suit le doigt. La partie arrachée se
+   soulève autour du point de déchirure ; dessous, la bouche du sachet, et la
+   lumière des cartes. Déchiré de droite à gauche : tout est retourné. */
+.bst-dechire{position:absolute;left:0;right:0;top:0;height:1.6em;z-index:6;--tear:0;}
+.paquet.sens-g .bst-dechire{transform:scaleX(-1);}
+.bst-bouche{position:absolute;left:0;top:.2em;height:1.4em;width:calc(var(--tear) * 100%);
+  background:linear-gradient(#0b0705 58%,#3b2410);box-shadow:inset 0 -.1em .16em rgba(255,214,140,.9),0 .1em .9em rgba(255,206,120,.55);}
+.bst-bande{position:absolute;left:0;right:0;top:0;height:1.35em;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.13) 0 .08em,rgba(0,0,0,.35) .08em .2em,transparent .2em .3em),linear-gradient(#4a3d31,#221a13);
+  border-bottom:.08em dashed rgba(243,233,212,.5);
+  -webkit-mask:conic-gradient(from 135deg at top,#0000,#000 1deg 89deg,#0000 90deg) top / .62em .32em repeat-x,linear-gradient(#000 0 0) bottom / 100% calc(100% - .31em) no-repeat;
+  mask:conic-gradient(from 135deg at top,#0000,#000 1deg 89deg,#0000 90deg) top / .62em .32em repeat-x,linear-gradient(#000 0 0) bottom / 100% calc(100% - .31em) no-repeat;}
+.bst-reste{clip-path:inset(-1em 0 -1em calc(var(--tear) * 100%));}
+.bst-arrache{clip-path:inset(-1em calc(100% - var(--tear) * 100%) -1em 0);transform-origin:calc(var(--tear) * 100%) 100%;
+  rotate:calc(var(--tear) * -13deg);translate:0 calc(var(--tear) * -.4em);filter:drop-shadow(0 .2em .2em rgba(0,0,0,.55));}
+/* l'invite : une lumière court le long du pointillé, tant qu'on n'y a pas touché */
+.bst-invite{position:absolute;left:0;top:1.02em;width:100%;height:.5em;overflow:hidden;pointer-events:none;}
+.bst-invite::before{content:"";position:absolute;left:-3em;top:0;width:3em;height:100%;background:radial-gradient(closest-side,rgba(255,232,180,.95),transparent);animation:bst-invite 1.9s cubic-bezier(.5,0,.5,1) 1s infinite;}
+@keyframes bst-invite{0%{translate:0 0;opacity:0}12%{opacity:1}80%{opacity:1}100%{translate:calc(var(--pw) + 3em) 0;opacity:0}}
+.paquet.tient .bst-invite{display:none;}
+
+/* la pile : cinq dos identiques, cachés derrière le sachet jusqu'à sa chute */
 .bst-pile{position:absolute;inset:0;z-index:2;border:0;padding:0;background:none;cursor:pointer;border-radius:12px;}
-.bst-pile:focus-visible{outline:3px solid #d8ad4c;outline-offset:8px;}
-.bst-pile .ct{--ct-l:var(--ct-big);position:absolute;inset:0;transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .3s;}
-.bst-pile .ct:nth-last-of-type(1){transform:none;}
+.bst-pile.cachee{visibility:hidden;}
+.bst.clavier .bst-pile:focus-visible{outline:3px solid #d8ad4c;outline-offset:8px;}
+.bst-pile .ct{--ct-l:var(--ct-big);position:absolute;inset:0;transition:translate .35s cubic-bezier(.16,1,.3,1);}
 .bst-pile .ct:nth-last-of-type(2){transform:translate(.35%,.5%) rotate(1.4deg);}
 .bst-pile .ct:nth-last-of-type(3){transform:translate(-.6%,1%) rotate(-1.8deg);}
 .bst-pile .ct:nth-last-of-type(4){transform:translate(.8%,1.5%) rotate(2.4deg);}
 .bst-pile .ct:nth-last-of-type(5){transform:translate(-.9%,2%) rotate(-2.8deg);}
-.bst-pile.entre .ct{transform:translateY(46vh) rotate(-8deg) scale(.82)!important;opacity:0;}
-.bst-pile:hover .ct:nth-last-child(1){transform:translateY(-6px) rotate(-1deg);}
-.bst-compte{position:absolute;right:-.6em;top:-.6em;z-index:9;min-width:2.1em;height:2.1em;display:grid;place-items:center;border-radius:50%;
-  background:#d5402f;color:#fff;font:700 .9rem/1 'Inter',sans-serif;box-shadow:0 4px 12px rgba(0,0,0,.45);pointer-events:none;}
-.bst-table:has(.bst-vue) .bst-compte{opacity:0;}
+@media(hover:hover){.bst-pile:hover .ct:last-of-type{translate:0 -8px;}}
+
 /* la carte qu'on vient de retourner, au-dessus de la pile */
-.bst-vue{position:absolute;inset:0;z-index:4;border:0;padding:0;background:none;border-radius:12px;cursor:pointer;}
-.bst-vue:focus-visible{outline:3px solid #d8ad4c;outline-offset:8px;}
+.bst-vue{position:absolute;inset:0;z-index:4;border:0;padding:0;background:none;border-radius:12px;cursor:pointer;touch-action:none;}
+.bst.clavier .bst-vue:focus-visible{outline:3px solid #d8ad4c;outline-offset:8px;}
 .bst-vue .ct{--ct-l:var(--ct-big);}
-.bst-vue.leve{animation:bst-leve .95s cubic-bezier(.4,0,.2,1) both;}
-@keyframes bst-leve{0%{transform:none}30%{transform:translateY(-4%) scale(1.04)}45%{transform:translateY(-4%) scale(1.04) rotate(-1.2deg)}55%{transform:translateY(-4%) scale(1.05) rotate(1.2deg)}65%{transform:translateY(-4%) scale(1.05) rotate(-.8deg)}80%{transform:translateY(-4%) scale(1.06) rotate(.6deg)}100%{transform:translateY(-4%) scale(1.06)}}
+.bst-vue .ct-corps{transition-duration:.62s;transition-timing-function:cubic-bezier(.2,.9,.25,1.08);}
+.bst-vue.pose .ct-corps,.bst-jeu.fini .bst-slot .ct-corps{transition:transform .14s ease-out;}
+.bst-vue.relache{transition:translate .32s cubic-bezier(.16,1,.3,1),rotate .32s cubic-bezier(.16,1,.3,1);}
+.bst-vue.leve{animation:bst-leve 1.15s cubic-bezier(.4,0,.2,1) both;}
+/* la secousse GRANDIT : on sent que quelque chose vient */
+@keyframes bst-leve{0%{transform:none}24%{transform:translateY(-3%) scale(1.04)}36%{transform:translateY(-3%) scale(1.04) rotate(-.6deg)}46%{transform:translateY(-3%) scale(1.05) rotate(.8deg)}56%{transform:translateY(-4%) scale(1.05) rotate(-1.2deg)}66%{transform:translateY(-4%) scale(1.06) rotate(1.5deg)}76%{transform:translateY(-4%) scale(1.07) rotate(-1.9deg)}86%{transform:translateY(-5%) scale(1.08) rotate(2.2deg)}94%{transform:translateY(-5%) scale(1.1) rotate(-2.4deg)}100%{transform:translateY(-5%) scale(1.1)}}
 /* la lumière qui fuit par les bords : blanche pour toutes les rares */
-.bst-vue.leve .ct-dos{box-shadow:0 0 0 2px rgba(255,250,235,.9),0 0 36px 6px rgba(255,248,226,.75),0 0 90px 20px rgba(255,240,200,.35);transition:box-shadow .8s;}
-.bst-vue.rare{transform:scale(1.04);transition:transform .7s cubic-bezier(.16,1,.3,1);}
+.bst-vue.leve .ct-dos{box-shadow:0 0 0 2px rgba(255,250,235,.9),0 0 40px 8px rgba(255,248,226,.8),0 0 110px 26px rgba(255,240,200,.4);transition:box-shadow 1s;}
+.bst-vue.rare{scale:1.06;transition:scale .7s cubic-bezier(.16,1,.3,1);}
+.bst-vue.pop{animation:bst-pop .62s cubic-bezier(.2,.9,.25,1) both;}
+@keyframes bst-pop{0%{scale:1}42%{scale:1.075}100%{scale:1}}
+.bst-onde{position:absolute;left:50%;top:50%;width:var(--ct-big);aspect-ratio:1;border-radius:50%;translate:-50% -50%;z-index:1;pointer-events:none;opacity:0;border:2px solid var(--onde,#ffe3a6);}
+.bst-onde.on{animation:bst-onde .8s cubic-bezier(.16,1,.3,1);}
+@keyframes bst-onde{from{scale:.4;opacity:.95}to{scale:3.4;opacity:0}}
 /* les rayons derrière la rare, à la couleur de son rang */
-.bst-rayons{position:absolute;left:50%;top:50%;width:calc(var(--ct-big) * 2.7);aspect-ratio:1;translate:-50% -50%;z-index:1;pointer-events:none;opacity:0;border-radius:50%;
+.bst-rayons{position:absolute;left:50%;top:50%;width:calc(var(--ct-big) * 3);aspect-ratio:1;translate:-50% -50%;z-index:1;pointer-events:none;opacity:0;border-radius:50%;
   -webkit-mask:radial-gradient(closest-side,#000 30%,transparent);mask:radial-gradient(closest-side,#000 30%,transparent);
   background:repeating-conic-gradient(from 0deg,var(--ray,rgba(255,220,140,.4)) 0 5deg,transparent 5deg 15deg);transition:opacity .6s;}
 .bst-rayons.on{opacity:1;animation:bst-tourne 24s linear infinite;}
 @keyframes bst-tourne{to{rotate:360deg}}
 .bst-rayons[data-r="3"]{--ray:rgba(255,214,120,.55);}
-.bst-rayons[data-r="4"]{--ray:rgba(255,196,96,.6);background:repeating-conic-gradient(from 0deg,rgba(255,200,100,.6) 0 5deg,transparent 5deg 10deg,rgba(213,64,47,.45) 10deg 13deg,transparent 13deg 18deg);}
+.bst-rayons[data-r="4"]{background:repeating-conic-gradient(from 0deg,rgba(255,200,100,.6) 0 5deg,transparent 5deg 10deg,rgba(213,64,47,.45) 10deg 13deg,transparent 13deg 18deg);}
 .bst-rayons[data-r="t"]{background:repeating-conic-gradient(from 0deg,rgba(255,45,117,.42) 0 4deg,transparent 4deg 9deg,rgba(255,230,0,.36) 9deg 13deg,transparent 13deg 18deg,rgba(61,220,132,.36) 18deg 22deg,transparent 22deg 27deg,rgba(31,182,255,.42) 27deg 31deg,transparent 31deg 36deg);}
 .bst-rang{position:absolute;left:50%;bottom:-1.1em;translate:-50% 0;z-index:12;white-space:nowrap;padding:7px 14px;border-radius:100px;
   font:700 .74rem/1 'Inter',sans-serif;letter-spacing:.12em;text-transform:uppercase;opacity:0;scale:.6;transition:opacity .4s .25s,scale .6s cubic-bezier(.34,1.56,.64,1) .25s;
@@ -328,21 +363,32 @@ dialog.bst::backdrop{background:radial-gradient(ellipse at 50% 50%,rgba(48,30,13
 .bst-rang.on{opacity:1;scale:1;}
 .bst-rang.manu{background:linear-gradient(110deg,#1b140d,#3a1510);color:#f6dc8a;box-shadow:0 0 0 1.5px #c9952a,0 0 0 4px #1b140d,0 0 0 5px #d5402f,0 6px 18px rgba(0,0,0,.6);}
 .bst-rang.nacre{background:linear-gradient(110deg,#ff2d75,#ff9f1c 25%,#ffe600 45%,#3ddc84 62%,#1fb6ff 80%,#7b5cff);color:#1d1020;}
-/* la rangée : cinq emplacements, où chaque carte se range une fois vue */
-.bst-rangee{display:flex;gap:8px;justify-content:center;--ct-l:var(--ct-sm);}
-.bst-slot{position:relative;width:var(--ct-sm);aspect-ratio:63/88;border-radius:.5em;border:1.5px dashed rgba(243,233,212,.22);}
-.bst-slot.plein{border-color:transparent;}
+
+/* la rangée : cinq emplacements en creux, où chaque carte se range une fois vue */
+.bst-rangee{display:flex;gap:8px;justify-content:center;--ct-l:var(--ct-sm);opacity:0;transition:opacity .5s .1s;}
+.bst-jeu.pret .bst-rangee{opacity:1;}
+.bst-slot{position:relative;width:var(--ct-sm);aspect-ratio:63/88;border-radius:.5em;background:rgba(0,0,0,.28);box-shadow:inset 0 1px 3px rgba(0,0,0,.6),inset 0 0 0 1px rgba(243,233,212,.1);}
+.bst-slot.plein{background:none;box-shadow:none;}
 .bst-slot .ct{--ct-l:var(--ct-sm);}
+.bst-slot.arrive .ct{animation:bst-depose .34s cubic-bezier(.2,.9,.25,1);}
+@keyframes bst-depose{from{scale:1.14}to{scale:1}}
 .bst-slot .bst-nv{position:absolute;left:50%;top:-9px;translate:-50% 0;z-index:3;padding:3px 7px;border-radius:100px;background:#d5402f;color:#fff;
-  font:700 .58rem/1 'Inter',sans-serif;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;}
+  font:700 .69rem/1 'Inter',sans-serif;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;}
 .bst-slot .bst-nv.nacre{background:linear-gradient(110deg,#ff2d75,#ffe600 45%,#3ddc84 62%,#1fb6ff 80%,#7b5cff);color:#1d1020;}
-/* la fin : la rangée devient la scène */
+/* la fin : la rangée devient la scène, un éventail ouvert sur la table */
 .bst-jeu.fini .bst-table{display:none;}
-.bst-jeu.fini .bst-rangee{--ct-sm:clamp(104px,15vw,190px);flex-wrap:wrap;gap:clamp(10px,2vw,22px);}
-.bst-jeu.fini .bst-slot{border:0;}
-.bst-jeu.fini .bst-slot .bst-nv{top:-12px;font-size:.66rem;padding:4px 9px;}
-.bst-jeu.fini .bst-slot.eclat::before{content:"";position:absolute;inset:-35%;z-index:-1;border-radius:50%;pointer-events:none;
-  background:radial-gradient(closest-side,rgba(255,226,150,.45),transparent);}
+.bst-jeu.fini .bst-rangee{--ct-sm:clamp(104px,15vw,190px);flex-wrap:wrap;gap:clamp(10px,1.6vw,18px);}
+.bst-jeu.fini .bst-slot{box-shadow:none;background:none;--a:0deg;--y:0px;rotate:var(--a);translate:0 var(--y);transition:translate .3s cubic-bezier(.16,1,.3,1),rotate .3s cubic-bezier(.16,1,.3,1);animation:bst-etale .7s cubic-bezier(.16,1,.3,1) calc(var(--k,0) * 70ms) backwards;}
+@keyframes bst-etale{from{opacity:0;scale:.72;translate:0 34px}}
+.bst-jeu.fini .bst-slot .bst-nv{top:-12px;padding:4px 9px;}
+.bst-jeu.fini .bst-slot.eclat::before{content:"";position:absolute;inset:-35%;z-index:-1;border-radius:50%;pointer-events:none;background:radial-gradient(closest-side,rgba(255,226,150,.45),transparent);}
+@media(min-width:760px){
+  .bst-jeu.fini .bst-slot:nth-child(1){--a:-5deg;--y:16px;}
+  .bst-jeu.fini .bst-slot:nth-child(2){--a:-2.5deg;--y:4px;}
+  .bst-jeu.fini .bst-slot:nth-child(4){--a:2.5deg;--y:4px;}
+  .bst-jeu.fini .bst-slot:nth-child(5){--a:5deg;--y:16px;}
+  .bst-jeu.fini .bst-slot:hover{--a:0deg;--y:-12px;z-index:4;}
+}
 .bst-acts{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;min-height:46px;}
 .bst .btn-p{background:#f3e9d4;color:#15100b;}
 .bst .btn-o{color:#f3e9d4;border-color:rgba(243,233,212,.34);}
@@ -414,7 +460,7 @@ dialog.bst::backdrop{background:radial-gradient(ellipse at 50% 50%,rgba(48,30,13
   .bst-jeu.fini .bst-rangee{--ct-sm:clamp(96px,27vw,150px);}
 }
 @media (prefers-reduced-motion:reduce){
-  .tcg-halo,.tcg-scene .paquet,.tcg-scene .paquet::after,.bst .paquet,.bst-bande,.pq-lustre,.bst-pile .ct,.bst-vue,.bst-rang,.bst-rayons{transition:none !important;animation:none !important;}
+  .tcg-halo,.tcg-scene .paquet,.tcg-scene .paquet::after,.bst .paquet,.bst-invite::before,.pq-lustre,.bst-pile .ct,.bst-vue,.bst-rang,.bst-rayons,.bst-in,.bst-titre,.bst-onde,.bst-slot,.bst-slot .ct,.bst-noir{transition:none !important;animation:none !important;}
   .bst-flash{display:none;}
 }
 html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{background:var(--surface);}
@@ -738,6 +784,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
 </dialog>
 
 <dialog class="bst" id="bst" aria-label="Ouverture d'un booster">
+  <div class="bst-fond" aria-hidden="true"></div><div class="bst-noir" aria-hidden="true"></div><canvas class="bst-braises" id="bstBraises" aria-hidden="true"></canvas>
   <div class="bst-flash" id="bstFlash"></div>
   <button class="bst-x" type="button" id="bstX" aria-label="Fermer">×</button>
   <div class="bst-in">
@@ -1213,67 +1260,183 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
 
   /* ---------------------------------------------------------- l'ouverture */
   var tirage = null;
+  var reduit = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function attendre(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  function vibre(ms) { if (!reduit && navigator.vibrate) { try { navigator.vibrate(ms); } catch (e) {} } }
+
+  // Les braises : celles qui montent de la bougie, et les étincelles d'une
+  // déchirure ou d'une rare. Un seul canevas, arrêté dès que la scène se ferme.
+  var COULEURS = { or: ['255,214,130', '255,240,200', '255,186,96'], manu: ['255,214,130', '255,240,200', '213,64,47'],
+    irise: ['255,45,117', '255,230,0', '61,220,132', '31,182,255', '123,92,255'] };
+  var fx = (function () {
+    var cv = $('bstBraises'), g = cv.getContext('2d'), P = [], raf = 0, W = 0, H = 0, av = 0, cumul = 0, dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    function taille() { W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; g.setTransform(dpr, 0, 0, dpr, 0, 0); }
+    function braise() {
+      P.push({ x: Math.random() * W, y: H + 8, vx: (Math.random() - .5) * 12, vy: -(16 + Math.random() * 34), g: 0, drag: 1, age: 0, vie: 5 + Math.random() * 7,
+        r: .6 + Math.random() * 1.5, c: Math.random() < .16 ? '255,120,70' : '255,196,110', a: .22 + Math.random() * .46, ph: Math.random() * 6.28, trait: false });
+    }
+    function image(t) {
+      raf = requestAnimationFrame(image);
+      var dt = Math.min((t - av) / 1000, .05); av = t;
+      cumul += dt * 8; while (cumul > 1) { cumul--; if (P.length < 420) braise(); }
+      g.clearRect(0, 0, W, H); g.globalCompositeOperation = 'lighter'; g.lineCap = 'round';
+      for (var i = P.length - 1; i >= 0; i--) {
+        var p = P[i]; p.age += dt;
+        if (p.age > p.vie) { P.splice(i, 1); continue; }
+        p.vx *= Math.pow(p.drag, dt * 60); p.vy = p.vy * Math.pow(p.drag, dt * 60) + p.g * dt;
+        p.x += (p.vx + (p.trait ? 0 : Math.sin(t / 900 + p.ph) * 9)) * dt; p.y += p.vy * dt;
+        var k = 1 - p.age / p.vie, al = p.a * Math.min(1, k * 2.2) * (p.trait ? 1 : Math.min(1, p.age * 2));
+        if (p.trait) {
+          g.strokeStyle = 'rgba(' + p.c + ',' + al + ')'; g.lineWidth = p.r;
+          g.beginPath(); g.moveTo(p.x, p.y); g.lineTo(p.x - p.vx * .035, p.y - p.vy * .035); g.stroke();
+        } else {
+          g.fillStyle = 'rgba(' + p.c + ',' + al + ')'; g.beginPath(); g.arc(p.x, p.y, p.r, 0, 6.3); g.fill();
+        }
+      }
+    }
+    return {
+      debut: function () { if (reduit || raf) return; taille(); P.length = 0; av = performance.now(); for (var i = 0; i < 26; i++) { braise(); var b = P[P.length - 1]; b.y = Math.random() * H; b.age = Math.random() * 3; } raf = requestAnimationFrame(image); },
+      fin: function () { cancelAnimationFrame(raf); raf = 0; P.length = 0; g.clearRect(0, 0, W, H); },
+      taille: function () { if (raf) taille(); },
+      eclat: function (x, y, cs, n, v, angle, ouv) {
+        if (reduit || !raf) return;
+        for (var i = 0; i < n; i++) {
+          var a = angle == null ? Math.random() * 6.28 : angle + (Math.random() - .5) * ouv, s = v * (.35 + Math.random() * .75);
+          P.push({ x: x, y: y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, g: 340, drag: .955, age: 0, vie: .55 + Math.random() * .75, r: .9 + Math.random() * 1.5, c: cs[Math.floor(Math.random() * cs.length)], a: 1, ph: 0, trait: true });
+        }
+      }
+    };
+  })();
+  addEventListener('resize', fx.taille);
+
   async function ouvrirBooster() {
     var bst = $('bst');
-    $('bstTitre').textContent = 'Votre booster';
-    $('bstAide').textContent = 'Touchez le paquet pour l\'ouvrir.';
+    bst.classList.remove('dim');
+    $('bstTitre').textContent = ''; $('bstTitre').classList.remove('eclat');
+    $('bstAide').textContent = 'Déchirez le paquet';
     $('bstActs').innerHTML = '';
-    $('bstScene').innerHTML = '<div class="paquet" id="bstPaquet" role="button" tabindex="0" aria-label="Ouvrir le paquet">' +
-      '<span class="bst-bande"></span><span class="pq-corps"><span class="pq-art"></span><span class="pq-filet"></span><span class="pq-n">5<small>cartes</small></span><span class="pq-t"><small>Booster</small><b>Lire<br>Marx</b><span>Les cartes à collectionner</span></span><span class="pq-lustre"></span></span></div>';
+    var dosHtml = Carte.dos(), pileHtml = '', slots = '', k;
+    for (k = 0; k < 5; k++) { pileHtml += dosHtml; slots += '<div class="bst-slot" data-i="' + k + '" style="--k:' + k + '"></div>'; }
+    $('bstScene').innerHTML = '<div class="bst-jeu" id="bstJeu"><div class="bst-table" id="bstTable">' +
+      '<div class="bst-rayons" id="bstRayons" aria-hidden="true"></div><div class="bst-onde" id="bstOnde" aria-hidden="true"></div>' +
+      '<button class="bst-pile cachee" id="bstPile" type="button">' + pileHtml + '</button>' +
+      '<div class="paquet" id="bstPaquet" role="button" tabindex="0" aria-label="Ouvrir le paquet">' +
+        '<span class="pq-corps"><span class="pq-art"></span><span class="pq-filet"></span><span class="pq-n">5<small>cartes</small></span><span class="pq-t"><small>Booster</small><b>Lire<br>Marx</b><span>Les cartes à collectionner</span></span><span class="pq-lustre"></span><span class="bst-reflet"></span></span>' +
+        '<span class="bst-dechire" id="bstDechire"><span class="bst-bouche"></span><span class="bst-bande bst-reste"></span><span class="bst-bande bst-arrache" id="bstArrache"></span><span class="bst-invite"></span></span>' +
+      '</div></div><div class="bst-rangee" id="bstRangee" aria-label="Les cartes retournées">' + slots + '</div></div>';
     if (!bst.open) bst.showModal();
+    fx.debut();
     var p = $('bstPaquet');
-    p.focus();
+    p.focus({ preventScroll: true });
     // Le tirage part tout de suite : le paquet s'ouvre pendant que le serveur répond.
     tirage = SHELL.cartes.ouvrir().catch(function (e) { return { erreur: e }; });
-    var go = function () { p.removeEventListener('click', go); p.removeEventListener('keydown', kd); dechirer(p); };
-    var kd = function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } };
-    p.addEventListener('click', go); p.addEventListener('keydown', kd);
+    armerDechirure(p);
   }
-  function attendre(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
-  var reduit = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  async function dechirer(p) {
-    $('bstAide').textContent = '';
-    p.classList.add('tremble');
-    await attendre(reduit ? 0 : 480);
+
+  // Le geste : on tire le long de la bande, et --tear suit le doigt. Un simple
+  // toucher (ou Entrée) la déchire d'un trait ; lâchée trop tôt, elle se referme.
+  function armerDechirure(p) {
+    var bande = $('bstDechire'), actif = false, x0 = 0, larg = 1, prog = 0, bouge = false, fini = false;
+    function poser(v) { prog = v; bande.style.setProperty('--tear', v.toFixed(3)); }
+    function fil() { var r = p.getBoundingClientRect(), g = p.classList.contains('sens-g'); return { x: g ? r.right - prog * r.width : r.left + prog * r.width, y: r.top + r.height * .07 }; }
+    function etincelle(n) { var f = fil(); fx.eclat(f.x, f.y, COULEURS.or, n, 190, -Math.PI / 2, 1.5); }
+    function vers(cible, ms, puis) {
+      if (reduit || ms === 0) { poser(cible); if (puis) puis(); return; }
+      var d = prog, t0 = performance.now();
+      (function pas(t) {
+        var q = Math.min(1, (t - t0) / ms), e = q * q * (3 - 2 * q);
+        poser(d + (cible - d) * e); if (cible > d && Math.random() < .5) etincelle(2);
+        if (q < 1) requestAnimationFrame(pas); else if (puis) puis();
+      })(t0);
+    }
+    function achever() { if (fini) return; fini = true; p.classList.add('tient'); poser(1); ouvrirPaquet(p); }
+    function incliner(e) {
+      if (reduit) return;
+      var r = p.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      p.style.setProperty('--ry', ((x - .5) * 18).toFixed(2) + 'deg'); p.style.setProperty('--rx', ((.5 - y) * 12).toFixed(2) + 'deg');
+      p.style.setProperty('--sx', (100 - x * 100).toFixed(1) + '%');
+    }
+    p.addEventListener('pointerdown', function (e) {
+      if (fini) return;
+      actif = true; bouge = false; x0 = e.clientX; larg = p.getBoundingClientRect().width;
+      try { p.setPointerCapture(e.pointerId); } catch (err) {}
+    });
+    p.addEventListener('pointermove', function (e) {
+      if (fini) return;
+      if (!actif) { incliner(e); return; }
+      var dx = e.clientX - x0;
+      if (!bouge && Math.abs(dx) > 8) { bouge = true; p.classList.add('tient'); p.classList.toggle('sens-g', dx < 0); $('bstAide').textContent = ''; }
+      if (!bouge) return;
+      var v = Math.min(1, Math.max(0, Math.abs(dx) / (larg * .78)));
+      if (v > prog + .02) etincelle(3);
+      poser(v);
+      if (v >= 1) { actif = false; vibre(14); achever(); }
+    });
+    function lache() {
+      if (!actif || fini) return;
+      actif = false;
+      if (!bouge) { p.classList.add('tient'); $('bstAide').textContent = ''; vibre(14); vers(1, 460, achever); }
+      else if (prog > .5) vers(1, 180, achever);
+      else vers(0, 240, function () { p.classList.remove('tient', 'sens-g'); $('bstAide').textContent = 'Déchirez le paquet'; });
+    }
+    p.addEventListener('pointerup', lache);
+    p.addEventListener('pointercancel', lache);
+    p.addEventListener('pointerleave', function () { if (actif || fini || reduit) return; p.style.setProperty('--rx', '0deg'); p.style.setProperty('--ry', '0deg'); });
+    p.addEventListener('keydown', function (e) {
+      if ((e.key === 'Enter' || e.key === ' ') && !fini && !actif) { e.preventDefault(); actif = true; bouge = false; lache(); }
+    });
+  }
+
+  async function ouvrirPaquet(p) {
     var res = await tirage;
+    if (!$('bst').open || !p.isConnected) return;
     if (!res || res.erreur) {
-      p.classList.remove('tremble');
+      $('bstDechire').style.setProperty('--tear', '0');
+      p.classList.remove('tient', 'sens-g');
       $('bstAide').textContent = messageErreur(res && res.erreur);
       $('bstActs').innerHTML = '<button class="btn-o" type="button" data-bst-fermer>Fermer</button>';
       return;
     }
-    p.classList.add('ouvert');
-    await attendre(reduit ? 0 : 420);
-    var cartes = res.cartes || [];
+    var cartes = res.cartes || [], N = cartes.length;
     etat && (etat.restants = res.restants);
     // Le meilleur pour la fin, comme dans un vrai paquet : on ne le sait
     // qu'en retournant, la pile n'étant faite que de dos identiques (et le
     // DOM ne contient rien d'autre que ces dos tant qu'une carte n'est pas
     // retournée).
     cartes.sort(function (a, b) { return (parId[a.id].r + (a.tete ? .5 : 0)) - (parId[b.id].r + (b.tete ? .5 : 0)); });
-    // les images se chargent pendant qu'on regarde la pile
+    // les images se chargent pendant que le sachet tombe
     cartes.forEach(function (o) { if (parId[o.id].i) { var im = new Image(); im.src = '/assets/img/cartes/' + o.id + '.webp'; } });
-    var N = cartes.length, dosHtml = Carte.dos(), pileHtml = '', slots = '';
-    for (var k = 0; k < N; k++) { pileHtml += dosHtml; slots += '<div class="bst-slot" data-i="' + k + '"></div>'; }
-    $('bstScene').innerHTML = '<div class="bst-jeu" id="bstJeu"><div class="bst-table" id="bstTable">' +
-      '<div class="bst-rayons" id="bstRayons" aria-hidden="true"></div>' +
-      '<button class="bst-pile entre" id="bstPile" type="button">' + pileHtml + '<span class="bst-compte" id="bstCompte" aria-hidden="true">' + N + '</span></button>' +
-      '</div><div class="bst-rangee" id="bstRangee" aria-label="Les cartes retournées">' + slots + '</div></div>';
-    var pile = $('bstPile'), table = $('bstTable'), rayons = $('bstRayons');
-    requestAnimationFrame(function () { requestAnimationFrame(function () { pile.classList.remove('entre'); }); });
-    var n = 0, vues = 0, courant = null, occupe = false, auto = 0;
-    function libellePile() {
-      pile.setAttribute('aria-label', 'Retourner la carte du dessus (' + (n + 1) + ' sur ' + N + ')');
-      $('bstCompte').textContent = N - n;
+    var jeu = $('bstJeu'), pile = $('bstPile'), table = $('bstTable'), rayons = $('bstRayons'), onde = $('bstOnde'), rangee = $('bstRangee'), bst = $('bst');
+    while (pile.children.length > N) pile.lastElementChild.remove();
+    while (rangee.children.length > N) rangee.lastElementChild.remove();
+
+    // la bande s'envole, la lumière sort, le sachet tombe : les cartes restent
+    pile.classList.remove('cachee');
+    if (!reduit && p.animate) {
+      var r = p.getBoundingClientRect(), cs = getComputedStyle(p), a = $('bstArrache'), droite = p.classList.contains('sens-g') ? -1 : 1;
+      fx.eclat(r.left + r.width / 2, r.top + r.height * .06, COULEURS.or, 46, 330, -Math.PI / 2, 1.2);
+      vibre(20);
+      a.animate([{ translate: getComputedStyle(a).translate, rotate: getComputedStyle(a).rotate, opacity: 1 },
+        { translate: (34 * droite) + 'em -26em', rotate: '-52deg', opacity: 0 }], { duration: 620, easing: 'cubic-bezier(.3,.1,.7,.4)', fill: 'forwards' });
+      await attendre(170);
+      pile.animate([{ translate: '0 7%', scale: .94 }, { translate: '0 -3%', scale: 1.02, offset: .62 }, { translate: '0 0', scale: 1 }], { duration: 680, easing: 'cubic-bezier(.2,.8,.3,1)' });
+      await p.animate([{ translate: cs.translate === 'none' ? '0 0' : cs.translate, rotate: cs.rotate === 'none' ? '0deg' : cs.rotate, opacity: 1 },
+        { translate: '0 26vh', rotate: '3deg', opacity: 1, offset: .55 },
+        { translate: '0 104vh', rotate: '10deg', opacity: 1 }], { duration: 720, easing: 'cubic-bezier(.5,0,.8,.5)', fill: 'forwards' }).finished.catch(function () {});
     }
+    p.remove();
+    jeu.classList.add('pret');
+
+    var n = 0, vues = 0, courant = null, occupe = false;
+    function libellePile() { pile.setAttribute('aria-label', 'Retourner la carte du dessus (' + (n + 1) + ' sur ' + N + ')'); }
     libellePile();
-    $('bstTitre').textContent = 'Cinq cartes';
-    $('bstAide').textContent = 'Touchez la pile pour retourner la carte du dessus.';
+    $('bstAide').textContent = 'Touchez pour retourner';
     $('bstActs').innerHTML = '<button class="btn-o" type="button" id="bstTout">Tout retourner</button>';
-    pile.focus();
+    pile.focus({ preventScroll: true });
     function etiquette(o, c) {
       return o.tete ? { t: 'Irisée', k: 'nacre' } : c.r === 4 ? { t: 'Manuscrit', k: 'manu' } : c.r === 3 ? { t: 'Édition originale', k: '' } : null;
     }
+    function centre() { var r = table.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; }
     async function retourner(vite) {
       if (occupe || n >= N) return;
       occupe = true;
@@ -1287,72 +1450,107 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
       v.setAttribute('aria-label', 'Carte ' + (i + 1) + ' sur ' + N + ', face cachée');
       table.appendChild(v); courant = v;
       if (rare) v.dataset.rare = '1';
-      // la rare a son moment : elle se soulève, la lumière fuit par les bords
-      if (rare && !reduit && !vite) { v.classList.add('leve'); await attendre(950); }
+      // la rare a son moment : la salle s'éteint, elle se soulève, la lumière fuit
+      if (rare && !reduit && !vite) { bst.classList.add('dim'); v.classList.add('leve'); $('bstAide').textContent = ''; vibre(30); await attendre(1150); }
       void v.offsetWidth;
       v.querySelector('.ct').classList.remove('retournee');
       var dire = c.n + ' — ' + RANGS[c.r].l + (o.tete ? ', irisée' : '') + (o.nouvelle ? ', nouvelle' : '');
-      v.setAttribute('aria-label', dire + (rare ? '. La ranger' : ''));
+      v.setAttribute('aria-label', dire + '. La ranger');
       if (SHELL.announce) SHELL.announce(dire);
       if (rare) {
         v.classList.remove('leve'); v.classList.add('rare');
-        if (!reduit) { var f = $('bstFlash'); f.classList.remove('on'); void f.offsetWidth; f.classList.add('on'); }
+        if (!reduit) {
+          var f = $('bstFlash'); f.classList.remove('on'); void f.offsetWidth; f.classList.add('on');
+          var ci = centre(), jeuC = o.tete ? COULEURS.irise : c.r === 4 ? COULEURS.manu : COULEURS.or;
+          fx.eclat(ci.x, ci.y, jeuC, vite ? 40 : 130, 620);
+          onde.style.setProperty('--onde', o.tete ? '#ffffff' : c.r === 4 ? '#ff8a70' : '#ffe3a6');
+          onde.classList.remove('on'); void onde.offsetWidth; onde.classList.add('on');
+          if (!vite) { var q = document.querySelector('.bst-in'); q.classList.remove('secousse'); void q.offsetWidth; q.classList.add('secousse'); vibre([18, 40, 26]); }
+        }
         rayons.dataset.r = o.tete ? 't' : String(c.r); rayons.classList.add('on');
         var b = document.createElement('span'); b.className = 'bst-rang ' + et.k; b.textContent = et.t; b.setAttribute('aria-hidden', 'true');
         v.appendChild(b); requestAnimationFrame(function () { b.classList.add('on'); });
-        $('bstTitre').textContent = c.r === 4 ? 'Un manuscrit !' : o.tete ? 'Une carte irisée !' : 'Une édition originale !';
-        $('bstAide').textContent = c.n + (vite ? '' : ' — touchez la carte pour la ranger.');
+        var tt = $('bstTitre'); tt.textContent = c.r === 4 ? 'Un manuscrit !' : o.tete ? 'Une carte irisée !' : 'Une édition originale !';
+        tt.classList.remove('eclat'); void tt.offsetWidth; tt.classList.add('eclat');
+        $('bstAide').textContent = c.n;
       } else {
+        v.classList.add('pop');
         $('bstAide').textContent = dire;
       }
-      await attendre(reduit ? 0 : 650);
+      await attendre(reduit ? 0 : 620);
+      v.classList.add('pose');
       occupe = false;
-      if (vite) return;
-      if (rare) v.focus();
-      else auto = setTimeout(function () { if (courant === v) ranger(); }, 1100);
+      if (!vite && rare) v.focus({ preventScroll: true });
     }
     async function ranger() {
       if (!courant || occupe) return;
-      occupe = true; clearTimeout(auto);
+      occupe = true;
       var v = courant, i = +v.dataset.i, o = cartes[i], c = parId[o.id], rare = !!v.dataset.rare;
-      courant = null; rayons.classList.remove('on');
+      courant = null; rayons.classList.remove('on'); bst.classList.remove('dim');
+      $('bstTitre').textContent = ''; $('bstTitre').classList.remove('eclat');
       var b = v.querySelector('.bst-rang'); if (b) b.remove();
-      var slot = $('bstRangee').children[i];
+      var slot = rangee.children[i];
       if (!reduit && v.animate) {
+        v.classList.remove('pop', 'relache');
         var a = v.getBoundingClientRect(), z = slot.getBoundingClientRect();
         v.style.transformOrigin = '0 0';
-        await v.animate([{ transform: getComputedStyle(v).transform === 'none' ? 'none' : getComputedStyle(v).transform },
-          { transform: 'translate(' + (z.left - a.left) + 'px,' + (z.top - a.top) + 'px) scale(' + (z.width / a.width) + ')' }],
-          { duration: 480, easing: 'cubic-bezier(.5,0,.2,1)', fill: 'forwards' }).finished.catch(function () {});
+        var dx = z.left - a.left, dy = z.top - a.top, s = z.width / a.width;
+        await v.animate([{ transform: 'none' },
+          { transform: 'translate(' + (dx * .45) + 'px,' + (dy * .3 - 18) + 'px) scale(' + ((1 + s) / 2) + ') rotate(' + (dx > 0 ? 3 : -3) + 'deg)', offset: .5 },
+          { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(' + s + ')' }],
+          { duration: 440, easing: 'cubic-bezier(.45,.05,.2,1)', fill: 'forwards' }).finished.catch(function () {});
       }
       slot.innerHTML = (o.nouvelleTete ? '<span class="bst-nv nacre">✦ Nouvelle</span>' : o.nouvelle ? '<span class="bst-nv">Nouvelle</span>' : '') + Carte.html(c, { tete: o.tete });
-      slot.classList.add('plein'); if (rare) slot.classList.add('eclat');
+      slot.classList.add('plein', 'arrive'); if (rare) slot.classList.add('eclat');
       v.remove();
-      if (!pile.hidden) { $('bstTitre').textContent = 'Cinq cartes'; if (rare) $('bstAide').textContent = 'Touchez la pile pour retourner la carte suivante.'; }
+      if (!pile.hidden) $('bstAide').textContent = '';
       occupe = false;
-      if (++vues === N) fin(); else if (!pile.hidden) pile.focus();
+      if (++vues === N) fin(); else if (!pile.hidden) pile.focus({ preventScroll: true });
     }
-    // toucher la pile (ou la carte banale encore au centre) : on range ce qui
-    // est au centre et l'on retourne la suivante. Toucher une rare la range
-    // seulement : on ne lui enchaîne pas la suivante sous les yeux.
+    // Toucher (la pile ou la carte) range ce qui est au centre et retourne la
+    // suivante. Une rare se range seulement : on ne lui enchaîne pas la suivante.
     async function avancer() {
       if (occupe) return;
       if (courant) { var r = !!courant.dataset.rare; await ranger(); if (r) return; }
       retourner();
     }
     pile.addEventListener('click', avancer);
-    table.addEventListener('click', function (e) { if (e.target.closest('.bst-vue')) avancer(); });
+    // la carte au centre : un toucher, ou un geste de côté, pour passer
+    var gl = null;
+    table.addEventListener('pointerdown', function (e) {
+      var v = e.target.closest('.bst-vue'); if (!v || occupe) return;
+      gl = { v: v, x: e.clientX, dx: 0 }; v.classList.remove('relache', 'pop');
+      try { v.setPointerCapture(e.pointerId); } catch (err) {}
+    });
+    table.addEventListener('pointermove', function (e) {
+      if (!gl) return;
+      gl.dx = e.clientX - gl.x;
+      if (Math.abs(gl.dx) > 6 && !reduit) { gl.v.style.translate = gl.dx + 'px 0'; gl.v.style.rotate = (gl.dx * .03) + 'deg'; }
+    });
+    function finGlisse() {
+      if (!gl) return;
+      var g2 = gl; gl = null;
+      if (Math.abs(g2.dx) > 70) { g2.v.dataset.glisse = '1'; avancer(); }
+      else if (Math.abs(g2.dx) > 6) { g2.v.dataset.glisse = '1'; g2.v.classList.add('relache'); g2.v.style.translate = ''; g2.v.style.rotate = ''; }
+    }
+    table.addEventListener('pointerup', finGlisse);
+    table.addEventListener('pointercancel', finGlisse);
+    table.addEventListener('click', function (e) {
+      var v = e.target.closest('.bst-vue'); if (!v) return;
+      if (v.dataset.glisse) { delete v.dataset.glisse; return; }
+      avancer();
+    });
     $('bstTout').onclick = async function () {
       this.disabled = true;
       while (occupe) await attendre(60);
       if (courant) await ranger();
-      while (n < N) { await retourner(true); await attendre(reduit ? 0 : 380); await ranger(); }
+      while (n < N) { await retourner(true); await attendre(reduit ? 0 : 360); await ranger(); }
     };
     function fin() {
-      $('bstJeu').classList.add('fini');
+      jeu.classList.add('fini');
       var nv = cartes.filter(function (o) { return o.nouvelle; }).length, tt = cartes.filter(function (o) { return o.tete; }).length;
       $('bstTitre').textContent = nv ? (nv > 1 ? nv + ' nouvelles cartes' : 'Une nouvelle carte') : 'Aucune nouvelle cette fois';
-      $('bstAide').textContent = (tt ? (tt > 1 ? tt + ' cartes irisées. ' : 'Une carte irisée. ') : '') + 'Elles sont rangées dans votre album.';
+      $('bstAide').textContent = tt ? (tt > 1 ? tt + ' cartes irisées' : 'Une carte irisée') : '';
       var r = res.restants;
       // le plus beau tirage du paquet se partage d'un geste
       var beau = cartes.filter(function (o) { return parId[o.id].r >= 3 || o.tete; }).pop();
@@ -1364,11 +1562,31 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
       else { var fm = document.querySelector('#bstActs [data-bst-fermer]'); if (fm) fm.focus(); }
     }
   }
+  // L'anneau de focus ne paraît qu'au clavier : le focus posé par le script
+  // après un geste du doigt ne doit pas cerner le paquet.
+  document.addEventListener('keydown', function (e) { if (e.key === 'Tab' || e.key === 'Enter' || e.key === ' ') $('bst').classList.add('clavier'); }, true);
+  document.addEventListener('pointerdown', function () { $('bst').classList.remove('clavier'); }, true);
+  // Une carte retournée penche vers la main, et ses reflets la suivent.
+  function tiltCarte(e) {
+    if (reduit) return;
+    var ct = e.target.closest && e.target.closest('.bst-vue.pose .ct, .bst-jeu.fini .bst-slot .ct'); if (!ct) return;
+    var r = ct.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+    ct.style.setProperty('--mx', (x * 100).toFixed(1) + '%'); ct.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+    ct.style.setProperty('--ry', ((x - .5) * 18).toFixed(2) + 'deg'); ct.style.setProperty('--rx', ((.5 - y) * 13).toFixed(2) + 'deg');
+  }
+  // Tirer une carte à la souris lancerait le glisser natif de son image, qui annule le geste.
+  $('bst').addEventListener('dragstart', function (e) { e.preventDefault(); });
+  $('bst').addEventListener('pointermove', tiltCarte);
+  $('bst').addEventListener('pointerout', function (e) {
+    var ct = e.target.closest && e.target.closest('.bst .ct'); if (!ct || (e.relatedTarget && ct.contains(e.relatedTarget))) return;
+    ['--mx', '--my', '--rx', '--ry'].forEach(function (k) { ct.style.removeProperty(k); });
+  });
   $('bst').addEventListener('click', function (e) {
     if (e.target.closest('[data-bst-fermer]') || e.target.closest('#bstX')) $('bst').close();
   });
   $('bst').addEventListener('close', function () {
     tirage = null;
+    fx.fin();
     rafraichirEtat().then(function () { $('cptOuvrir') && $('cptOuvrir').focus(); });
     SHELL.cartes.rafraichir && SHELL.cartes.rafraichir();
   });
@@ -1759,7 +1977,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
 })();
 </script>
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=27"></script>
+<script src="/oeuvres/shell.js?v=28"></script>
 <script src="/oeuvres/shell-social.js?v=2"></script>
 <script>installShell({ workTitle: 'Les cartes', tabs: [] });</script>
 </body>

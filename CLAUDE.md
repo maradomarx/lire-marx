@@ -12072,6 +12072,19 @@ requête de tirage sur des données fictives, les droits et la RLS.
   recherche du site (entrée `page`), À propos (une phrase) et /jeu/ (un
   cycle bouclé rapporte un booster) en parlent.
 
+### L'ouverture se déchire (mission `ouverture-booster`, nov. 2026)
+
+Reprise de « L'ouverture ne trahit rien » : le principe tient (une pile de dos identiques, rien dans le DOM avant le retournement), la mise en scène change. **Corrige ce paragraphe sur un point : une carte banale ne se range plus d'elle-même**, elle reste au centre jusqu'au geste suivant.
+
+- **On déchire du doigt** : `--tear` (0 à 1) suit le geste le long de la bande, dans les deux sens (`sens-g` retourne la bande) ; un simple toucher ou Entrée la déchire d'un trait ; lâchée avant la moitié, elle se referme.
+- **Le sachet tombe, les cartes restent** : la pile est derrière lui dès le début (`.cachee`), un seul décor du début à la fin, plus de remplacement de scène.
+- **La rare** : la salle s'éteint (`.dim`), la secousse grandit, puis éclair, onde, étincelles à la couleur du rang. La lumière d'avant le retournement reste blanche pour toutes.
+- **`fx`** : un seul canevas de braises (celles de la bougie, et les étincelles), démarré à l'ouverture et arrêté à la fermeture, absent sous reduced-motion.
+- Une carte se range d'un toucher ou d'un geste de côté ; la carte retournée penche vers la main (`--rx/--ry/--mx/--my`). La fin est un éventail (≥ 760 px).
+- Tout ce qui se déplace passe par `translate`/`rotate`/`scale` : le flottement, l'inclinaison (`transform`) et la chute se composent sans se battre.
+
+Pièges : **tirer une carte à la souris lance le glisser natif de son image, qui part en `pointercancel`** (d'où le `dragstart` annulé) ; et le focus posé par script après un clic peut allumer `:focus-visible` : l'anneau ne paraît que sous `.bst.clavier`.
+
 ### La vitrine et les échanges (mission `cartes-echanges`, nov. 2026)
 
 Arbitrages du propriétaire : une vitrine de **dix cartes** par profil ; les
