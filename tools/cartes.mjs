@@ -10,6 +10,8 @@
 //   node tools/cartes.mjs tout       les trois, dans l'ordre
 //   node tools/cartes.mjs versions   repose les ?v= de /cartes/ (après une
 //                                    retouche de carte.js ou carte.css)
+//   node tools/cartes.mjs complement ajoute au catalogue EXISTANT les titres de
+//                                    main.json qui n'y sont pas (sans tout refaire)
 //   node tools/cartes.mjs cadrage    repose le cadrage des images (tools/
 //                                    cadrage.tsv, écrit par cadrage.swift)
 //
@@ -541,7 +543,161 @@ function notions() {
 
 // ---------------------------------------------------------------------------
 
+function oeuvreDe(r, nomFig) {
+  return {
+    id: 'oeu-' + qid(r.w), q: qid(r.w), f: 'oeu', n: cap(clean(r.wLabel)), d: desc(r.descFr),
+    a: year(r.date), auteur: nomFig.get(qid(r.auQ) || r.auQ) || nomFig.get(r.auQ) || clean(r.auteur), auQ: r.auQ, langue: clean(r.langue),
+    types: lst(r.types).slice(0, 2), genre: r.genre, img: r.image || null, sl: +r.sl,
+  };
+}
+
+// Une carte telle que le catalogue la garde.
+function sortir(c, meta) {
+  const aImg = fs.existsSync(path.join(IMGDIR, c.id + '.webp'));
+  const m0 = c.img ? meta[nomCommons(c.img)] || {} : {};
+  const m = { lic: (m0.lic || '').replace(/^Public domain$/i, 'domaine public'),
+    aut: (m0.aut || '').replace(/(unknown author|unknown|anonymous|anonyme|auteur inconnu)(\s+\1)*/gi, 'auteur inconnu').replace(/(auteur inconnu\s*)+/g, 'auteur inconnu ').trim() };
+  const o = { id: c.id, no: c.no, f: c.f, r: c.r, e: c.e, n: c.n };
+  for (const k of ['d', 'de', 'fo', 'oeuvre', 'a', 'b', 'pays', 'lieu', 'auteur', 'langue', 'href', 'q'])
+    if (c[k] != null && c[k] !== '') o[k] = c[k];
+  if (c.occ?.length) o.occ = c.occ;
+  if (c.cour?.length) o.cour = [...new Set(c.cour)];
+  if (c.types?.length) o.types = c.types;
+  if (c.classe) o.classe = c.classe;
+  if (c.genre) o.g = c.genre;
+  if (aImg) { o.i = 1; o.cr = [m.aut, m.lic].filter(Boolean).join(' · '); }
+  return o;
+}
+
+// Le catalogue, le SQL du serveur, la vitrine de l'accueil, la page, les versions.
+function ecrire(sortie, main) {
+  cadrer(sortie);
+  fs.mkdirSync(OUTDIR, { recursive: true });
+  fs.writeFileSync(path.join(OUTDIR, 'catalogue.json'),
+    JSON.stringify({ v: 1, n: sortie.length, rangs: RANGS, cartes: sortie }));
+  // Le serveur ne connaît que l'identifiant et le rang : c'est assez pour
+  // tirer. Une carte retirée du catalogue est DÉSACTIVÉE, jamais effacée —
+  // ceux qui l'ont déjà la gardent.
+  const vals = sortie.map(c => `('${c.id.replace(/'/g, "''")}',${c.r})`);
+  let sql = '-- Écrit par tools/cartes.mjs — ne pas éditer à la main.\n' +
+    '-- À rejouer dans Supabase après chaque regénération du catalogue.\nbegin;\n';
+  for (let i = 0; i < vals.length; i += 1000)
+    sql += 'insert into public.cartes_catalogue (id, r) values\n' + vals.slice(i, i + 1000).join(',\n') +
+      '\non conflict (id) do update set r = excluded.r, actif = true;\n';
+  sql += 'update public.cartes_catalogue set actif = false where id not in (' +
+    sortie.map(c => `'${c.id.replace(/'/g, "''")}'`).join(',') + ');\ncommit;\n';
+  fs.writeFileSync(path.join(ROOT, 'supabase/cartes-catalogue.sql'), sql);
+  accueil(sortie, main);
+  pageTCG(sortie);
+  versionner();
+  const cpt = k => sortie.filter(c => c.f === k).length;
+  const ci = sortie.filter(c => c.i).length;
+  console.log(`catalogue : ${sortie.length} cartes — figures ${cpt('fig')}, organisations ${cpt('org')}, événements ${cpt('evt')}, œuvres ${cpt('oeu')}, notions ${cpt('not')} ; ${ci} avec image`);
+  for (let r = 0; r < 5; r++) console.log(`  ${RANGS[r]} : ${sortie.filter(c => c.r === r).length}`);
+}
+
+// LE COMPLÉMENT : ajouter au catalogue EXISTANT les titres de main.json qui n'y
+// sont pas encore, sans réinterroger tout Wikidata ni rebattre les rangs des
+// six mille autres. Le rang d'une carte neuve vient de sa notoriété, par des
+// seuils fixes (le classement par centiles a besoin de la famille entière) ;
+// une date clé est au moins une édition reliée ; « rang » de main.json prime.
+async function complement() {
+  const main = lireJSON(path.join(OUTDIR, 'main.json'), {});
+  const catF = path.join(OUTDIR, 'catalogue.json');
+  const cat = JSON.parse(fs.readFileSync(catF, 'utf8')).cartes;
+  const connus = new Set(cat.map(c => c.id)), qConnus = new Set(cat.map(c => c.q).filter(Boolean));
+  const aj = main.ajouts || {};
+  // Par l'API de Wikipédia, qui suit les redirections (un titre approché suffit).
+  async function qids(titres, quoi) {
+    const out = [], rate = [];
+    for (let i = 0; i < titres.length; i += 40) {
+      const lot = titres.slice(i, i + 40);
+      const u = 'https://fr.wikipedia.org/w/api.php?' + new URLSearchParams({ action: 'query', format: 'json', redirects: '1',
+        prop: 'pageprops', ppprop: 'wikibase_item', titles: lot.join('|') });
+      const d = await (await fetch(u, { headers: { 'User-Agent': UA } })).json();
+      const vers = {};
+      for (const x of [...(d.query.normalized || []), ...(d.query.redirects || [])]) vers[x.from] = x.to;
+      const parTitre = {};
+      for (const p of Object.values(d.query.pages || {})) parTitre[p.title] = p.pageprops?.wikibase_item;
+      for (const t of lot) { let x = t; for (let k = 0; k < 3 && vers[x]; k++) x = vers[x]; if (parTitre[x]) out.push(parTitre[x]); else rate.push(t); }
+      await sleep(400);
+    }
+    if (rate.length) console.log(`  ${quoi} introuvables : ` + rate.join(' ; '));
+    return [...new Set(out)];
+  }
+  const neufs = async (titres, quoi) => (await qids(titres || [], quoi)).filter(q => !qConnus.has(q));
+  const qE = await neufs(main.dates, 'dates'), qF = await neufs(aj.fig, 'figures'), qO = await neufs(aj.org, 'organisations'), qW = await neufs(aj.oeu, 'œuvres');
+  console.log(`à ajouter : ${qE.length} événements, ${qF.length} figures, ${qO.length} organisations, ${qW.length} œuvres`);
+  for (const n of ['evt-cles', 'ajouts-fig', 'ajouts-org', 'ajouts-oeu']) for (const f of fs.readdirSync(CACHE)) if (f.startsWith('cmp-' + n)) fs.rmSync(path.join(CACHE, f));
+  for (const f of fs.readdirSync(CACHE)) if (f.startsWith('cmp-')) fs.rmSync(path.join(CACHE, f));
+  let rF = qF.length ? await details('cmp-ajouts-fig', qF, tPers, 80) : [];
+  // Un nom de personne dont l'article raconte en fait une AFFAIRE (« Mort de
+  // Rémi Fraisse », « Affaire Malik Oussekine ») est un événement, pas une figure.
+  const AFFAIRE = /^(affaire|mort|meurtre|assassinat|homicide|décès)\b/i;
+  const deplaces = rF.filter(r => AFFAIRE.test(clean(r.pLabel))).map(r => qid(r.p));
+  rF = rF.filter(r => !AFFAIRE.test(clean(r.pLabel)));
+  const tousE = [...new Set([...qE, ...deplaces])];
+  const rE = tousE.length ? await details('cmp-evt-cles', tousE, tEvt, 80) : [];
+  const rO = qO.length ? await details('cmp-ajouts-org', qO, tOrg, 80) : [];
+  const rW = qW.length ? await details('cmp-ajouts-oeu', qW, tOeu, 80) : [];
+  // Le service de libellés rend parfois le QID à la place du nom (Mélenchon,
+  // Pancho Villa : ils n'ont plus qu'un libellé « mul », commun à toutes les langues) : on redemande alors le libellé à l'API des entités.
+  for (const [rows, k] of [[rF, 'p'], [rO, 'o'], [rE, 'e'], [rW, 'w']]) {
+    const sans = rows.filter(r => /^Q\d+$/.test(r[k + 'Label'] || ''));
+    if (!sans.length) continue;
+    const u = 'https://www.wikidata.org/w/api.php?' + new URLSearchParams({ action: 'wbgetentities', format: 'json', props: 'labels', languages: 'fr|mul|en', ids: sans.map(r => qid(r[k])).join('|') });
+    const d = await (await fetch(u, { headers: { 'User-Agent': UA } })).json();
+    for (const r of sans) { const l = d.entities?.[qid(r[k])]?.labels; const v = l?.fr?.value || l?.mul?.value || l?.en?.value; if (v) r[k + 'Label'] = v; }
+  }
+  const vus = new Set();
+  const garde = c => lisible(c.n) && !connus.has(c.id) && !vus.has(c.q) && (vus.add(c.q), true);
+  // même règle que le build : sans description, il faut au moins une date et un métier (les homonymes tombent là)
+  const fig = rF.map(r => pers(r, 'main')).filter(c => c.d || (c.a && c.occ.length)).filter(garde);
+  const org = rO.map(r => { const types = lst(r.types); return { id: 'org-' + qid(r.o), q: qid(r.o), f: 'org', n: cap(clean(r.oLabel)), d: desc(r.descFr),
+    a: year(r.debut), b: year(r.fin), pays: clean(r.pays), types: types.slice(0, 2),
+    cour: lst(r.ideos).map(qid).filter(x => COURANTS[x]).map(x => COURANTS[x]), img: r.logo1 || r.image || null, sl: +r.sl }; }).filter(garde);
+  const nomFig = new Map([...cat.filter(c => c.f === 'fig'), ...fig].map(c => [c.q, c.n]));
+  const oeu = rW.map(r => oeuvreDe(r, nomFig)).filter(garde);
+  const evt = rE.map(r => ({ id: 'evt-' + qid(r.e), q: qid(r.e), f: 'evt', n: cap(clean(r.eLabel)), d: desc(r.descFr),
+    a: year(r.date) ?? year(r.debut), b: year(r.fin), pays: clean(r.pays), lieu: clean(r.lieu), classe: 'date clé', cle: true, img: r.image || null, sl: +r.sl })).filter(garde);
+  const neuves = [...fig, ...org, ...evt, ...oeu];
+  const ex0 = new Set(main.exclure || []);
+  const SEUIL = { fig: [18, 45, 90], org: [8, 20, 45], evt: [6, 14, 35], oeu: [8, 20, 45] };
+  for (const c of neuves) {
+    const p = poids(c), s = SEUIL[c.f];
+    c.r = p >= s[2] ? 3 : p >= s[1] ? 2 : p >= s[0] ? 1 : 0;
+    if (c.cle) c.r = Math.max(c.r, 2);
+    if (main.rang && main.rang[c.id] != null) c.r = main.rang[c.id];
+    const figA = c.f === 'oeu' && c.a == null ? cat.find(x => x.f === 'fig' && x.q === qid(c.auQ || '')) : null;
+    c.e = c.f === 'oeu' && c.a == null ? epoque({ f: 'fig', a: figA?.a }) : epoque(c);
+  }
+  for (let i = neuves.length - 1; i >= 0; i--) if (ex0.has(neuves[i].id)) neuves.splice(i, 1);
+  await images(neuves);
+  const meta = await commonsMeta(neuves.filter(c => c.img).map(c => nomCommons(c.img)));
+  numeros(neuves);
+  const ex = new Set(main.exclure || []);
+  const sortie = [...cat, ...neuves.map(c => sortir(c, meta))].filter(c => !ex.has(c.id)).sort((x, y) => x.no - y.no);
+  for (const c of sortie) if (main.rang && main.rang[c.id] != null) c.r = main.rang[c.id];
+  for (const [n, r] of Object.entries(main.rang_noms || {})) { const l = sortie.filter(x => x.n === n); if (l.length === 1) l[0].r = r; else console.log('  rang_noms : ' + n + (l.length ? ' (ambigu)' : ' (absent)')); }
+  // les manuscrits : la liste de main.json, comme au build
+  const absents = [];
+  for (const nom of main.legendaires || []) {
+    const [, f, n] = /^(?:(fig|org|evt|oeu|not):)?(.*)$/.exec(nom);
+    const l = sortie.filter(x => x.n === n && (!f || x.f === f));
+    if (l.length !== 1) { if (!l.some(x => x.r === 4)) absents.push(nom + (l.length ? ' (ambigu)' : '')); continue; }
+    l[0].r = 4;
+  }
+  if (absents.length) console.log('  manuscrits introuvables : ' + absents.join(' ; '));
+  ecrire(sortie, main);
+  fs.writeFileSync(path.join(CACHE, 'complement.json'), JSON.stringify(neuves.map(c => ({ id: c.id, r: c.r, n: c.n, a: c.a, sl: c.sl, d: c.d, i: !!c.img }))));
+  console.log('ajoutées :'); for (const c of neuves) console.log(`  ${c.id}  r${c.r}  ${c.a ?? '—'}  ${c.n}${c.img ? '' : '  (sans image)'}  [${c.sl}]`);
+}
+
 async function build() {
+  // Le build repart des réponses de Wikidata gardées en cache (dossier
+  // temporaire du système, qui se vide). Sans elles, il écrirait un catalogue
+  // réduit aux ajouts et désactiverait six mille cartes : on refuse.
+  if (!cache('pers-ideo').length) throw new Error('cache Wikidata vide : lancer « fetch » d\'abord, ou « complement » pour ajouter seulement les nouveaux titres de main.json');
   const main = lireJSON(path.join(OUTDIR, 'main.json'), { cartes: [], exclure: [], rang: {} });
   const fig = personnes(), org = organisations(), evt = evenements();
   const not = notions();
@@ -553,11 +709,8 @@ async function build() {
   const auteurs = fig.filter(c => c.src === 'parti' || c.cour.some(x => COMMU.has(x)) || ['Q9061', 'Q34787'].includes(c.q))
     .sort((x, y) => y.sl - x.sl).slice(0, 600).map(c => c.q);
   const nomFig = new Map(fig.map(c => [c.q, c.n]));
-  const oeu = [...cache('ajouts-oeu'), ...await fetchOeuvres(auteurs)].map(r => ({
-    id: 'oeu-' + qid(r.w), q: qid(r.w), f: 'oeu', n: cap(clean(r.wLabel)), d: desc(r.descFr),
-    a: year(r.date), auteur: nomFig.get(r.auQ) || clean(r.auteur), auQ: r.auQ, langue: clean(r.langue),
-    types: lst(r.types).slice(0, 2), genre: r.genre, img: r.image || null, sl: +r.sl,
-  })).filter(c => lisible(c.n) && !/^(Q\d+)$/.test(c.n));
+  const oeu = [...cache('ajouts-oeu'), ...await fetchOeuvres(auteurs)].map(r => oeuvreDe(r, nomFig))
+    .filter(c => lisible(c.n) && !/^(Q\d+)$/.test(c.n));
 
   const ex = new Set(main.exclure || []);
   // Une même entité n'a qu'une carte : une date clé qui désigne en fait une
@@ -578,6 +731,7 @@ async function build() {
   for (const [id, r] of Object.entries(main.rang || {})) {
     const c = toutes.find(x => x.id === id); if (c) c.r = r;
   }
+  for (const [n, r] of Object.entries(main.rang_noms || {})) { const l = toutes.filter(x => x.n === n); if (l.length === 1) l[0].r = r; }
   // Les cartes qui ont une page sur le site y mènent (la carte de Marx, les
   // œuvres servies) ; le générateur échoue si l'identifiant n'existe pas.
   for (const [id, href] of Object.entries(main.liens || {})) {
@@ -605,50 +759,8 @@ async function build() {
   const meta = await commonsMeta(toutes.filter(c => c.img).map(c => nomCommons(c.img)));
 
   numeros(toutes);
-  const sortie = toutes.map(c => {
-    const aImg = fs.existsSync(path.join(IMGDIR, c.id + '.webp'));
-    const m0 = c.img ? meta[nomCommons(c.img)] || {} : {};
-    const m = { lic: (m0.lic || '').replace(/^Public domain$/i, 'domaine public'),
-      aut: (m0.aut || '').replace(/(unknown author|unknown|anonymous|anonyme|auteur inconnu)(\s+\1)*/gi, 'auteur inconnu').replace(/(auteur inconnu\s*)+/g, 'auteur inconnu ').trim() };
-    const o = { id: c.id, no: c.no, f: c.f, r: c.r, e: c.e, n: c.n };
-    for (const k of ['d', 'de', 'fo', 'oeuvre', 'a', 'b', 'pays', 'lieu', 'auteur', 'langue', 'href', 'q'])
-      if (c[k] != null && c[k] !== '') o[k] = c[k];
-    if (c.occ?.length) o.occ = c.occ;
-    if (c.cour?.length) o.cour = [...new Set(c.cour)];
-    if (c.types?.length) o.types = c.types;
-    if (c.classe) o.classe = c.classe;
-    if (c.genre) o.g = c.genre;
-    if (aImg) { o.i = 1; o.cr = [m.aut, m.lic].filter(Boolean).join(' · '); }
-    return o;
-  }).sort((x, y) => x.no - y.no);
-
-  cadrer(sortie);
-  fs.mkdirSync(OUTDIR, { recursive: true });
-  fs.writeFileSync(path.join(OUTDIR, 'catalogue.json'),
-    JSON.stringify({ v: 1, n: sortie.length, rangs: RANGS, cartes: sortie }));
-  // Le serveur ne connaît que l'identifiant et le rang : c'est assez pour
-  // tirer. Une carte retirée du catalogue est DÉSACTIVÉE, jamais effacée —
-  // ceux qui l'ont déjà la gardent.
-  const vals = sortie.map(c => `('${c.id.replace(/'/g, "''")}',${c.r})`);
-  let sql = '-- Écrit par tools/cartes.mjs — ne pas éditer à la main.\n' +
-    '-- À rejouer dans Supabase après chaque regénération du catalogue.\nbegin;\n';
-  for (let i = 0; i < vals.length; i += 1000)
-    sql += 'insert into public.cartes_catalogue (id, r) values\n' + vals.slice(i, i + 1000).join(',\n') +
-      '\non conflict (id) do update set r = excluded.r, actif = true;\n';
-  sql += 'update public.cartes_catalogue set actif = false where id not in (' +
-    sortie.map(c => `'${c.id.replace(/'/g, "''")}'`).join(',') + ');\ncommit;\n';
-  fs.writeFileSync(path.join(ROOT, 'supabase/cartes-catalogue.sql'), sql);
-  // Les versions : la page /cartes/ n'est jamais mise en cache, le catalogue,
-  // carte.js et carte.css le sont. Chaque URL porte donc un ?v= tiré du
-  // CONTENU du fichier (règle du projet : un actif qui change avec un
-  // balisage change d'URL) — sans geste à la main.
-  accueil(sortie, main);
-  pageTCG(sortie);
-  versionner();
-  const cpt = k => sortie.filter(c => c.f === k).length;
-  const ci = sortie.filter(c => c.i).length;
-  console.log(`catalogue : ${sortie.length} cartes — figures ${cpt('fig')}, organisations ${cpt('org')}, événements ${cpt('evt')}, œuvres ${cpt('oeu')}, notions ${cpt('not')} ; ${ci} avec image`);
-  for (let r = 0; r < 5; r++) console.log(`  ${RANGS[r]} : ${sortie.filter(c => c.r === r).length}`);
+  const sortie = toutes.map(c => sortir(c, meta)).sort((x, y) => x.no - y.no);
+  ecrire(sortie, main);
 }
 
 // La vitrine de l'accueil : cinq cartes inscrites dans la page (pas de
@@ -811,5 +923,6 @@ if (cmd === 'cadrage') {
   console.log(`cadrage : ${o.length} images recadrées, dont ${o.filter(c => c.o === 'c').length} montrées entières`);
 }
 if (cmd === 'page') { pageTCG(JSON.parse(fs.readFileSync(path.join(OUTDIR, 'catalogue.json'), 'utf8')).cartes); versionner(); }
+if (cmd === 'complement') await complement();
 if (cmd === 'fetch' || cmd === 'tout') await fetchTout();
 if (cmd === 'build' || cmd === 'images' || cmd === 'tout') await build();

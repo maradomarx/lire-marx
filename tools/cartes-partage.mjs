@@ -145,8 +145,12 @@ for (const c of man) fs.writeFileSync(path.join(ROOT, `cartes/c/${c.id}.html`), 
 console.log(`pages : ${man.length} dans cartes/c/`);
 
 if (IMAGES) {
-  const require = createRequire(path.join(process.env.HOME, 'Desktop/circuit-du-capital/package.json'));
-  const puppeteer = require('puppeteer-core');
+  // puppeteer-core s'emprunte : au dossier que nomme LM_MODULES (un dossier qui
+  // contient node_modules), sinon au dépôt du jeu s'il est à sa place.
+  const ou = [process.env.LM_MODULES, path.join(process.env.HOME, 'Desktop/circuit-du-capital')].filter(Boolean);
+  let puppeteer = null;
+  for (const d of ou) { try { puppeteer = createRequire(path.join(d, 'package.json'))('puppeteer-core'); break; } catch (e) {} }
+  if (!puppeteer) throw new Error('puppeteer-core introuvable : npm i puppeteer-core dans un dossier, puis LM_MODULES=<ce dossier>');
   const dir = path.join(ROOT, 'assets/img/cartes/og');
   fs.mkdirSync(dir, { recursive: true });
   const gab = `<!doctype html><html><head><meta charset="utf-8">
