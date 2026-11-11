@@ -796,7 +796,7 @@ installShell({
       var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = '/cartes/carte.css?v=4641e410'; document.head.appendChild(l);
       var sc = document.createElement('script'); sc.src = '/cartes/carte.js?v=de49c2dc';
       sc.onload = function(){
-        fetch('/cartes/catalogue.json?v=08b47567').then(function(r){ return r.json(); }).then(function(d){
+        fetch('/cartes/catalogue.json?v=f952cf9b').then(function(r){ return r.json(); }).then(function(d){
           cartesCat = {}; d.cartes.forEach(function(c){ cartesCat[c.id] = c; }); ok();
         }, ko);
       };
