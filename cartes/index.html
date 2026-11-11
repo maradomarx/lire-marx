@@ -255,8 +255,18 @@ html:not(.tcg-vues) .vue + .vue{margin-top:clamp(44px,6vw,72px);}
 @media (prefers-reduced-motion: reduce){.fav.pop svg{animation:none;}}
 .bst-fav{position:absolute;left:-18px;top:-18px;z-index:14;}
 .bst-fav[hidden]{display:none;}
-.alb-fv{position:absolute;left:-6px;bottom:-6px;z-index:10;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:#15100b;box-shadow:0 0 0 1.5px #d8ad4c,0 2px 6px rgba(0,0,0,.4);}
-.alb-fv svg{width:14px;height:14px;fill:#f0c659;}
+/* l'étoile au coin de chaque carte de l'album : toujours là au doigt et quand
+   la carte est favorite ; à la souris, elle paraît au survol */
+.alb-c{position:relative;content-visibility:auto;contain-intrinsic-size:182px 254px;}
+.alb-fav{position:absolute;left:-8px;bottom:-8px;z-index:11;width:34px;height:34px;}
+.alb-fav svg{width:18px;height:18px;}
+@media (hover:hover){
+  .alb-fav[aria-pressed="false"]{opacity:0;transition:opacity .15s;}
+  .alb-c:hover .alb-fav,.alb-fav:focus-visible{opacity:1;}
+}
+.alb.serre .alb-c{contain-intrinsic-size:126px 176px;}
+.alb.serre .alb-fav{width:28px;height:28px;left:-6px;bottom:-6px;}
+.alb.serre .alb-fav svg{width:15px;height:15px;}
 .alb-seg button svg{width:14px;height:14px;fill:currentColor;vertical-align:-2px;margin-right:5px;}
 /* un titre par rang quand l'ordre est celui de la rareté */
 .alb-sec{grid-column:1/-1;display:flex;align-items:baseline;gap:12px;margin:14px 0 -4px;padding-bottom:8px;border-bottom:1px solid var(--line);}
@@ -275,9 +285,8 @@ html:not(.tcg-vues) .vue + .vue{margin-top:clamp(44px,6vw,72px);}
 .alb-compte{font-size:.86rem;color:var(--ink-soft);margin:0 0 14px;}
 .alb{display:grid;grid-template-columns:repeat(auto-fill,var(--al-l));justify-content:space-between;gap:clamp(14px,2vw,22px);--al-l:182px;}
 .alb.serre{--al-l:126px;gap:14px;}
-.alb.serre .alb-it{contain-intrinsic-size:126px 176px;}
 .alb.serre .alb-vide b{font-size:1.1rem;}
-.alb-it{position:relative;border:0;padding:0;background:none;cursor:pointer;border-radius:12px;content-visibility:auto;contain-intrinsic-size:182px 254px;}
+.alb-it{position:relative;display:block;border:0;padding:0;background:none;cursor:pointer;border-radius:12px;}
 .alb-it .ct{--ct-l:var(--al-l);}
 .alb-it:focus-visible{outline:2px solid var(--gold);outline-offset:4px;}
 .alb-n{position:absolute;right:-6px;top:-6px;z-index:10;min-width:24px;height:24px;padding:0 6px;border-radius:100px;display:grid;place-items:center;
@@ -580,7 +589,7 @@ dialog.bst::backdrop{background:#070504;}
   .alb-grp{grid-template-columns:1fr;}
   .alb-grp > span{padding-top:0;}
   .alb.serre{--al-l:calc((100vw - 60px) / 3);gap:10px;}
-  .alb-it{contain-intrinsic-size:148px 207px;}
+  .alb-c{contain-intrinsic-size:148px 207px;}
   .bst-jeu.fini .bst-rangee{--ct-sm:clamp(96px,27vw,150px);}
 }
 @media (prefers-reduced-motion:reduce){
@@ -1466,10 +1475,10 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     var m = col[c.id];
     if (!m) return '<div class="alb-vide r' + c.r + '" role="img" aria-label="Carte numéro ' + c.no + ', ' + FAM[c.f].l.toLowerCase() + ', pas encore trouvée">' +
       '<b>' + String(c.no).padStart(4, '0') + '</b><span>' + FAM[c.f].l + '</span>' + (c.r === 4 ? '<span>Manuscrit</span>' : '') + '</div>';
-    return '<button class="alb-it" type="button" data-id="' + c.id + '" aria-label="' + esc(c.n) + ', ' + RANGS[c.r].l.toLowerCase() + (m.n > 1 ? ', ' + m.n + ' exemplaires' : '') + (fav[c.id] ? ', favori' : '') + ', voir la carte">' +
+    return '<div class="alb-c"><button class="alb-it" type="button" data-id="' + c.id + '" aria-label="' + esc(c.n) + ', ' + RANGS[c.r].l.toLowerCase() + (m.n > 1 ? ', ' + m.n + ' exemplaires' : '') + (fav[c.id] ? ', favori' : '') + ', voir la carte">' +
       Carte.html(c, { tete: m.t > 0 }) + (m.n > 1 ? '<span class="alb-n" aria-hidden="true">×' + m.n + '</span>' : '') +
       (m.t > 0 ? '<span class="alb-tt" aria-hidden="true">✦' + (m.t > 1 ? ' ×' + m.t : '') + '</span>' : '') +
-      (fav[c.id] ? '<span class="alb-fv" aria-hidden="true">' + ETOILE + '</span>' : '') + '</button>';
+      '</button><button class="fav alb-fav" type="button" data-fav="' + c.id + '" aria-pressed="' + (fav[c.id] ? 'true' : 'false') + '" aria-label="' + (fav[c.id] ? 'Retirer ' : 'Mettre ') + esc(c.n) + (fav[c.id] ? ' des favoris' : ' en favori') + '" title="' + (fav[c.id] ? 'Retirer des favoris' : 'Mettre en favori') + '">' + ETOILE + '</button></div>';
   }
   function plus() {
     // un album encore vide ne déroule pas des pages d'emplacements : trois rangées suffisent à dire ce qui attend
@@ -2540,7 +2549,23 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     // cette borne, l'album ne finissait jamais et rien sous lui n'était atteignable
     if (es[0].isIntersecting && !$('albPlus').hidden && montre < 192) plus();
   }, { rootMargin: '600px' }).observe($('albPlus'));
-  $('alb').addEventListener('click', function (e) { var b = e.target.closest('.alb-it'); if (b) ouvrirFiche(b.dataset.id, b); });
+  $('alb').addEventListener('click', async function (e) {
+    // l'étoile au coin de la carte : en favori d'un toucher, sans ouvrir la fiche
+    var f = e.target.closest('.alb-fav');
+    if (f) {
+      var id = f.dataset.fav, c = parId[id];
+      await basculerFavori(id);
+      var on = !!fav[id];
+      f.setAttribute('aria-pressed', on ? 'true' : 'false'); f.title = on ? 'Retirer des favoris' : 'Mettre en favori';
+      f.setAttribute('aria-label', (on ? 'Retirer ' : 'Mettre ') + c.n + (on ? ' des favoris' : ' en favori'));
+      f.classList.remove('pop'); void f.offsetWidth; f.classList.add('pop');
+      if (SHELL.announce) SHELL.announce(on ? 'Ajoutée aux favoris' : 'Retirée des favoris');
+      // dans le volet des favoris, une carte qu'on retire s'en va ; ailleurs, rien ne bouge
+      if (filtre.poss === 'favoris' && !on) filtrer(); else majBarre();
+      return;
+    }
+    var b = e.target.closest('.alb-it'); if (b) ouvrirFiche(b.dataset.id, b);
+  });
 
   /* ---------------------------------------------------------- démarrage */
   async function demarrer() {
