@@ -448,7 +448,6 @@
    "Thomas Coutrot",
    "Jean-Marie Harribey",
    "Michel Husson",
-   "Susan George",
    "Annick Coupé",
    "Christophe Aguiton",
    "Éric Hazan",
@@ -480,14 +479,19 @@
    "Jean-Baptiste Eyraud",
    "Albert Jacquard",
    "Mickaël Wamen",
-   "Édouard Martin",
    "Olivier Leberquier",
    "Christian Mahieux",
    "Murielle Guilbert",
    "Simon Duteil",
    "Benoît Teste",
    "Laurent Berger",
-   "Marylise Léon"
+   "Marylise Léon",
+   "Raphaël Glucksmann",
+   "Olivier Faure",
+   "François Hollande",
+   "François Mitterrand",
+   "Lionel Jospin",
+   "Ségolène Royal"
   ],
   "oeu": [
    "Le Cuirassé Potemkine",
@@ -686,7 +690,11 @@
    "Bondy Blog",
    "Radio Lorraine cœur d'acier",
    "Groupe Medvedkine",
-   "Comités d'action lycéens"
+   "Comités d'action lycéens",
+   "Parti socialiste (France)",
+   "Place publique (parti politique)",
+   "Les Écologistes",
+   "Nouvelle Union populaire écologique et sociale"
   ]
  },
  "legendaires": [
@@ -936,6 +944,7 @@
   "Benoît Hamon": 2,
   "Jean-Marc Rouillan": 2,
   "Éric Hazan": 2,
-  "Maxime Nicolle": 2
+  "Maxime Nicolle": 2,
+  "François Mitterrand": 3
  }
 }
