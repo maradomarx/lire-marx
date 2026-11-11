@@ -692,3 +692,26 @@ grant execute on function public.cartes_collection_de(uuid)       to authenticat
 grant execute on function public.cartes_proposer(uuid, jsonb, jsonb, uuid) to authenticated;
 grant execute on function public.cartes_accepter(uuid)            to authenticated;
 grant execute on function public.cartes_refuser(uuid)             to authenticated;
+
+-- ---------------------------------------------------------------------------
+-- Les favoris : une collection dans la collection. Une ligne par carte marquée,
+-- lisible et modifiable par son seul propriétaire. (Appliqué le 11 nov. 2026.)
+create table if not exists public.cartes_favoris (
+  user_id uuid not null default auth.uid() references auth.users(id) on delete cascade,
+  carte   text not null references public.cartes_catalogue(id),
+  created timestamptz not null default now(),
+  primary key (user_id, carte)
+);
+alter table public.cartes_favoris enable row level security;
+do $$ begin
+  if not exists (select 1 from pg_policies where schemaname = 'public' and tablename = 'cartes_favoris' and policyname = 'cf_select_own') then
+    execute 'create policy cf_select_own on public.cartes_favoris for select using (user_id = auth.uid())';
+  end if;
+  if not exists (select 1 from pg_policies where schemaname = 'public' and tablename = 'cartes_favoris' and policyname = 'cf_insert_own') then
+    execute 'create policy cf_insert_own on public.cartes_favoris for insert with check (user_id = auth.uid())';
+  end if;
+  if not exists (select 1 from pg_policies where schemaname = 'public' and tablename = 'cartes_favoris' and policyname = 'cf_delete_own') then
+    execute 'create policy cf_delete_own on public.cartes_favoris for delete using (user_id = auth.uid())';
+  end if;
+end $$;
+grant select, insert, delete on public.cartes_favoris to authenticated;

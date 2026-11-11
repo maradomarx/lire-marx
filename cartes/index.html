@@ -243,6 +243,21 @@ html:not(.tcg-vues) .vue + .vue{margin-top:clamp(44px,6vw,72px);}
 .alb-actifs button::after{content:"×";font-weight:700;opacity:.7;}
 .alb-actifs .tout{border-color:transparent;background:none;color:var(--red-text);padding:7px 6px;}
 .alb-actifs .tout::after{content:none;}
+/* LES FAVORIS : une collection dans la collection. Une étoile sur la carte
+   qu'on vient de tirer, dans sa fiche, et un volet « Favoris » dans l'album. */
+.fav{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:50%;border:1px solid rgba(243,233,212,.4);background:rgba(18,12,8,.82);color:#f3e9d4;cursor:pointer;padding:0;}
+.fav svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linejoin:round;}
+.fav:hover{border-color:#d8ad4c;}
+.fav[aria-pressed="true"]{color:#f0c659;border-color:#d8ad4c;}
+.fav[aria-pressed="true"] svg{fill:currentColor;}
+.fav.pop svg{animation:fav-pop .45s cubic-bezier(.34,1.56,.64,1);}
+@keyframes fav-pop{from{scale:.4}}
+@media (prefers-reduced-motion: reduce){.fav.pop svg{animation:none;}}
+.bst-fav{position:absolute;left:-18px;top:-18px;z-index:14;}
+.bst-fav[hidden]{display:none;}
+.alb-fv{position:absolute;left:-6px;bottom:-6px;z-index:10;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:#15100b;box-shadow:0 0 0 1.5px #d8ad4c,0 2px 6px rgba(0,0,0,.4);}
+.alb-fv svg{width:14px;height:14px;fill:#f0c659;}
+.alb-seg button svg{width:14px;height:14px;fill:currentColor;vertical-align:-2px;margin-right:5px;}
 /* un titre par rang quand l'ordre est celui de la rareté */
 .alb-sec{grid-column:1/-1;display:flex;align-items:baseline;gap:12px;margin:14px 0 -4px;padding-bottom:8px;border-bottom:1px solid var(--line);}
 .alb-sec:first-child{margin-top:0;}
@@ -292,14 +307,33 @@ dialog.fiche::backdrop{background:rgba(8,6,4,.86);backdrop-filter:blur(3px);}
 .fiche-t{max-width:340px;}
 .fiche-t h2{font:900 1.7rem/1.1 'Fraunces',Georgia,serif;margin:0 0 8px;}
 .fiche-t p{color:var(--ink-soft);margin:0 0 10px;font-size:.94rem;}
-.oeuf{position:fixed;z-index:6;border:0;padding:0;background:none;cursor:pointer;rotate:-9deg;filter:drop-shadow(0 14px 16px rgba(0,0,0,.6));animation:oeuf-in .55s cubic-bezier(.34,1.56,.64,1) both;}
-.oeuf .ct{--ct-l:124px;pointer-events:none;}
-.oeuf-b{position:absolute;left:50%;bottom:calc(100% + 12px);translate:-50% 0;rotate:9deg;white-space:nowrap;padding:9px 13px;border-radius:14px;background:#f3e9d4;color:#15100b;font:700 .95rem/1 var(--f-ui);box-shadow:0 6px 16px rgba(0,0,0,.5);}
-.oeuf-b::after{content:"";position:absolute;left:50%;top:100%;translate:-50% -1px;border:7px solid transparent;border-top-color:#f3e9d4;}
-.oeuf.part{animation:oeuf-out .36s ease-in forwards;}
-@keyframes oeuf-in{from{opacity:0;scale:.3;translate:46px 34px}}
-@keyframes oeuf-out{to{opacity:0;scale:.5;translate:30px 24px}}
-@media (prefers-reduced-motion: reduce){.oeuf,.oeuf.part{animation:none;}}
+/* LE PETIT PERSONNAGE qui sort du coin d'une carte : une tête (la photo de sa
+   carte, cadrée sur le visage), un costume, deux bras levés. Il surgit, crie
+   en dodelinant, puis rentre dans la carte. */
+.oeuf{position:absolute;right:-13%;top:-15%;z-index:13;--d:calc(var(--ct-big,270px) * .3);border:0;padding:0;background:none;color:inherit;cursor:pointer;
+  filter:drop-shadow(0 10px 12px rgba(0,0,0,.6));animation:oeuf-in .6s cubic-bezier(.34,1.56,.64,1) both;transform-origin:20% 90%;}
+.oeuf.fiche-o{position:fixed;right:auto;--d:84px;z-index:6;}
+.gk{display:block;position:relative;width:calc(var(--d) * 1.5);height:calc(var(--d) * 1.56);}
+.gk-tete{position:absolute;left:50%;top:0;z-index:2;width:var(--d);height:var(--d);margin-left:calc(var(--d) * -.5);border-radius:50%;box-sizing:border-box;border:calc(var(--d) * .045) solid #f3e9d4;
+  background-color:#1c2740;background-repeat:no-repeat;filter:grayscale(1) contrast(1.12);transform-origin:50% 92%;}
+.gk-corps{position:absolute;left:50%;bottom:0;z-index:1;width:calc(var(--d) * .92);height:calc(var(--d) * .68);margin-left:calc(var(--d) * -.46);border-radius:46% 46% 14% 14% / 62% 62% 10% 10%;
+  background:linear-gradient(90deg,transparent 46.5%,#d5402f 46.5% 53.5%,transparent 53.5%) 50% 100% / 100% 78% no-repeat,
+    conic-gradient(from 150deg at 50% 100%,#f3e9d4 0 60deg,transparent 60deg) 50% 0 / 44% 62% no-repeat,#1c2740;}
+.gk-bras{position:absolute;bottom:calc(var(--d) * .34);z-index:0;width:calc(var(--d) * .2);height:calc(var(--d) * .62);border-radius:100px;background:#1c2740;transform-origin:50% 92%;}
+.gk-bras::before{content:"";position:absolute;left:8%;top:-12%;width:84%;aspect-ratio:1;border-radius:50%;background:#e9cfb4;}
+.gk-bras.g{left:calc(var(--d) * .12);rotate:-34deg;} .gk-bras.d{right:calc(var(--d) * .12);rotate:34deg;}
+.oeuf.crie .gk-tete{animation:gk-tete .34s ease-in-out infinite alternate;}
+.oeuf.crie .gk-bras.g{animation:gk-bg .3s ease-in-out infinite alternate;} .oeuf.crie .gk-bras.d{animation:gk-bd .3s ease-in-out infinite alternate;}
+@keyframes gk-tete{from{rotate:-9deg;scale:1}to{rotate:8deg;scale:1.1}}
+@keyframes gk-bg{from{rotate:-24deg}to{rotate:-52deg}} @keyframes gk-bd{from{rotate:24deg}to{rotate:52deg}}
+.oeuf-b{position:absolute;right:62%;bottom:calc(100% - var(--d) * .12);white-space:nowrap;padding:.6em .85em;border-radius:14px 14px 4px 14px;background:#f3e9d4;color:#15100b;
+  font:800 clamp(.8rem,calc(var(--d) * .19),1.05rem)/1.1 var(--f-ui);box-shadow:0 6px 16px rgba(0,0,0,.5);animation:oeuf-bulle .4s .35s cubic-bezier(.34,1.56,.64,1) both;transform-origin:100% 100%;}
+.oeuf.part{animation:oeuf-out .4s ease-in forwards;}
+@keyframes oeuf-in{from{opacity:0;scale:.15;translate:-55% 60%}}
+@keyframes oeuf-out{to{opacity:0;scale:.15;translate:-55% 60%}}
+@keyframes oeuf-bulle{from{opacity:0;scale:.4}}
+@media (prefers-reduced-motion: reduce){.oeuf,.oeuf.part,.oeuf-b,.oeuf.crie .gk-tete,.oeuf.crie .gk-bras{animation:none !important;}}
+@media (max-width:560px){.oeuf{right:-6%;} .oeuf-b{right:40%;}}
 .fiche-acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;}
 .fiche-x{position:fixed;top:14px;right:14px;width:42px;height:42px;border-radius:50%;border:1px solid var(--line-strong);background:var(--card);
   color:var(--ink);font-size:1.3rem;cursor:pointer;z-index:2;}
@@ -519,7 +553,8 @@ dialog.bst::backdrop{background:#070504;}
   .alb-fam{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;}
   .alb-fam button{flex:none;}
   .alb-seg{display:flex;width:100%;}
-  .alb-seg button{flex:1 1 0;padding:10px 6px;}
+  .alb-seg button{flex:1 1 0;padding:10px 4px;font-size:.8rem;}
+  .alb-seg button span{margin-left:3px;}
   .alb-q{flex-basis:100%;}
   .alb-tri{flex:1 1 0;min-width:0;}
   .alb-tri .alb-sel{flex:1 1 0;min-width:0;width:100%;}
@@ -735,6 +770,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
       <div class="alb-ligne">
         <div class="alb-seg" id="albPoss" role="group" aria-label="Quelles cartes">
           <button type="button" data-p="miennes" aria-pressed="false">Mes cartes<span id="albNM"></span></button>
+          <button type="button" data-p="favoris" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6l2.5 5.3 5.8.7-4.3 4 1.1 5.8-5.1-2.9-5.1 2.9 1.1-5.8-4.3-4 5.8-.7z"/></svg>Favoris<span id="albNFav"></span></button>
           <button type="button" data-p="manquent" aria-pressed="false">Manquantes</button>
           <button type="button" data-p="" aria-pressed="true">Toutes</button>
         </div>
@@ -1023,6 +1059,8 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
           if (forcer && i === 5) r = +forcer;
           if (grand) r = (i === 5 || x < 25) ? 4 : 3;
           var l = parRang[r], id = l[Math.floor(Math.random() * l.length)];
+          // ?demo&tire=<id> : la première carte du paquet est celle-là (pour essayer un œuf de Pâques)
+          var tire = (location.search.match(/[?&]tire=([\w-]+)/) || [])[1]; if (tire && i === 1 && parId[tire]) id = tire;
           var tete = Math.random() < (/[?&]tetes\b/.test(location.search) ? .5 : grand ? .2 : .02);
           var avant = d.col[id];
           out.push({ id: id, tete: tete, nouvelle: !avant && !vus[id], nouvelleTete: tete && !(avant && avant.t) && !vus[id + 't'] });
@@ -1125,8 +1163,46 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     cat = d.cartes; parId = {};
     cat.forEach(function (c) { parId[c.id] = c; });
   }
+  /* Les favoris : la table cartes_favoris (une ligne par carte, à soi seul). En
+     démo, le navigateur les garde. Un échec de lecture ne bloque rien : la
+     collection s'affiche sans étoiles. */
+  var fav = {}, K_FAV = 'liremarx.cartes.demo.fav.v1';
+  var ETOILE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6l2.5 5.3 5.8.7-4.3 4 1.1 5.8-5.1-2.9-5.1 2.9 1.1-5.8-4.3-4 5.8-.7z"/></svg>';
+  async function chargerFavoris() {
+    fav = {};
+    if (demo) { try { (JSON.parse(localStorage.getItem(K_FAV)) || []).forEach(function (id) { fav[id] = 1; }); } catch (e) {} return; }
+    if (!SHELL.auth || !SHELL.auth.user) return;
+    try {
+      var c = await SHELL.auth.getClient(); if (!c) return;
+      var r = await c.from('cartes_favoris').select('carte').limit(5000);
+      if (!r.error) r.data.forEach(function (x) { fav[x.carte] = 1; });
+    } catch (e) {}
+  }
+  // bascule optimiste : l'étoile répond tout de suite, et revient en arrière si le serveur refuse
+  async function basculerFavori(id) {
+    var on = !fav[id];
+    if (on) fav[id] = 1; else delete fav[id];
+    if (demo) { try { localStorage.setItem(K_FAV, JSON.stringify(Object.keys(fav))); } catch (e) {} return on; }
+    try {
+      var c = await SHELL.auth.getClient();
+      var r = on ? await c.from('cartes_favoris').upsert({ carte: id }, { onConflict: 'user_id,carte', ignoreDuplicates: true })
+                 : await c.from('cartes_favoris').delete().eq('carte', id);
+      if (r.error) throw r.error;
+    } catch (e) {
+      if (on) delete fav[id]; else fav[id] = 1;
+      if (SHELL.announce) SHELL.announce('Le favori n\'a pas pu être enregistré.');
+      return !on;
+    }
+    return on;
+  }
+  function majEtoile(b, id) {
+    var on = !!fav[id];
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    b.setAttribute('aria-label', on ? 'Retirer des favoris' : 'Ajouter aux favoris'); b.title = on ? 'Retirer des favoris' : 'Ajouter aux favoris';
+  }
   async function chargerCollection() {
     col = {};
+    await chargerFavoris();
     if (demo) { col = window.LM_CARTES_DEMO.collection(); return; }
     if (!SHELL.auth || !SHELL.auth.user) return;
     var c = await SHELL.auth.getClient();
@@ -1294,6 +1370,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     var ids = Object.keys(col), a = !!ids.length;
     $('albPoss').querySelectorAll('button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.p === filtre.poss ? 'true' : 'false'); });
     $('albNM').textContent = a ? nf.format(ids.length) : '';
+    var nfav = ids.filter(function (id) { return fav[id]; }).length; $('albNFav').textContent = nfav ? nfav : '';
     $('albTri').value = filtre.tri;
     $('albRang').innerHTML = [4, 3, 2, 1, 0].map(function (r) { return '<button type="button" class="r' + r + '" data-r="' + r + '" aria-pressed="' + (filtre.r === r ? 'true' : 'false') + '"><i></i>' + PLUR[r] + '</button>'; }).join('');
     $('albEp').innerHTML = EPOQ.map(function (e) { return '<button type="button" data-e="' + e[0] + '" aria-pressed="' + (filtre.ep === e[0] ? 'true' : 'false') + '">' + e[1] + '</button>'; }).join('');
@@ -1325,7 +1402,8 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
       if (filtre.r !== '' && c.r !== filtre.r) return false;
       if (filtre.ep && c.e !== filtre.ep) return false;
       var m = col[c.id];
-      if ((filtre.poss === 'miennes' || mes) && !m) return false;
+      if ((filtre.poss === 'miennes' || filtre.poss === 'favoris' || mes) && !m) return false;
+      if (filtre.poss === 'favoris' && !fav[c.id]) return false;
       if (filtre.poss === 'manquent' && m) return false;
       if (filtre.dbl && !(m.n > 1)) return false;
       if (filtre.iris && !(m.t > 0)) return false;
@@ -1344,13 +1422,13 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     else liste.sort(function (a, b) { return a.no - b.no; });
     montre = 0; dernierRang = null;
     // par rang : ce qu'on a de chaque rang dans ce qui est montré, pour les titres
-    parRang = {}; liste.forEach(function (c) { var o = parRang[c.r] || (parRang[c.r] = { n: 0, a: 0 }); o.n++; if (col[c.id]) o.a++; });
+    rangAlb = {}; liste.forEach(function (c) { var o = rangAlb[c.r] || (rangAlb[c.r] = { n: 0, a: 0 }); o.n++; if (col[c.id]) o.a++; });
     $('alb').innerHTML = '';
     var poss = liste.filter(function (c) { return col[c.id]; }).length, ex = 0;
     liste.forEach(function (c) { if (col[c.id]) ex += col[c.id].n; });
     $('albCompte').textContent = liste.length
       ? nf.format(liste.length) + (liste.length > 1 ? ' cartes' : ' carte') +
-        (connecte() && filtre.poss !== 'miennes' && filtre.poss !== 'manquent' && !mes ? ' · ' + nf.format(poss) + ' à vous' : '') +
+        (connecte() && filtre.poss === '' && !mes ? ' · ' + nf.format(poss) + ' à vous' : '') +
         (ex > poss && filtre.poss !== 'manquent' ? ' · ' + nf.format(ex) + ' exemplaires' : '')
       : '';
     majBarre();
@@ -1359,19 +1437,21 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
       var filtres = filtre.f || filtre.r !== '' || filtre.ep || mes || filtre.q;
       $('alb').innerHTML = '<div class="alb-vide-etat"><p>' + (vide ? 'Votre classeur est encore vide. Chaque booster y ajoute cinq cartes.'
         : filtre.q && filtre.poss !== 'miennes' ? 'Aucune carte ne correspond. Une carte que vous n\'avez pas encore se cherche par son numéro, pas par son nom.'
+        : filtre.poss === 'favoris' && !filtres ? 'Aucun favori pour l\'instant. Touchez l\'étoile d\'une carte, quand vous la tirez ou dans sa fiche, pour la retrouver ici.'
         : 'Aucune carte ne correspond à ces filtres.') + '</p>' +
         (vide ? '<a class="btn-p" href="#boosters">Ouvrir un booster</a>' : filtres ? '<button class="btn-o" type="button" id="albEffacer">Effacer les filtres</button>' : '') + '</div>';
     }
     plus();
   }
-  var dernierRang = null, parRang = {};
+  var dernierRang = null, rangAlb = {};   // (« parRang » est pris par le tirage du mode démo)
   function vignette(c) {
     var m = col[c.id];
     if (!m) return '<div class="alb-vide r' + c.r + '" role="img" aria-label="Carte numéro ' + c.no + ', ' + FAM[c.f].l.toLowerCase() + ', pas encore trouvée">' +
       '<b>' + String(c.no).padStart(4, '0') + '</b><span>' + FAM[c.f].l + '</span>' + (c.r === 4 ? '<span>Manuscrit</span>' : '') + '</div>';
-    return '<button class="alb-it" type="button" data-id="' + c.id + '" aria-label="' + esc(c.n) + ', ' + RANGS[c.r].l.toLowerCase() + (m.n > 1 ? ', ' + m.n + ' exemplaires' : '') + ', voir la carte">' +
+    return '<button class="alb-it" type="button" data-id="' + c.id + '" aria-label="' + esc(c.n) + ', ' + RANGS[c.r].l.toLowerCase() + (m.n > 1 ? ', ' + m.n + ' exemplaires' : '') + (fav[c.id] ? ', favori' : '') + ', voir la carte">' +
       Carte.html(c, { tete: m.t > 0 }) + (m.n > 1 ? '<span class="alb-n" aria-hidden="true">×' + m.n + '</span>' : '') +
-      (m.t > 0 ? '<span class="alb-tt" aria-hidden="true">✦' + (m.t > 1 ? ' ×' + m.t : '') + '</span>' : '') + '</button>';
+      (m.t > 0 ? '<span class="alb-tt" aria-hidden="true">✦' + (m.t > 1 ? ' ×' + m.t : '') + '</span>' : '') +
+      (fav[c.id] ? '<span class="alb-fv" aria-hidden="true">' + ETOILE + '</span>' : '') + '</button>';
   }
   function plus() {
     // un album encore vide ne déroule pas des pages d'emplacements : trois rangées suffisent à dire ce qui attend
@@ -1380,8 +1460,8 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     for (var i = montre; i < fin; i++) {
       var c = liste[i];
       if (groupe && c.r !== dernierRang) {
-        dernierRang = c.r; var o = parRang[c.r];
-        h += '<div class="alb-sec"><h3>' + PLUR[c.r] + '</h3><span>' + (connecte() && filtre.poss !== 'manquent' ? nf.format(o.a) + ' / ' : '') + nf.format(o.n) + '</span>' +
+        dernierRang = c.r; var o = rangAlb[c.r];
+        h += '<div class="alb-sec"><h3>' + PLUR[c.r] + '</h3><span>' + (connecte() && filtre.poss === '' ? nf.format(o.a) + ' / ' : '') + nf.format(o.n) + '</span>' +
           (connecte() && filtre.poss === '' ? '<i style="--p:' + (o.n ? (o.a / o.n).toFixed(4) : 0) + '" aria-hidden="true"></i>' : '') + '</div>';
       }
       h += vignette(c);
@@ -1438,10 +1518,13 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
         '<p>Obtenue le ' + new Date(m.p).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) + '.</p>' +
         '<div class="fiche-acts"><button class="btn-p" type="button" data-retourner>Retourner la carte</button>' +
         (tete ? '<button class="btn-o" type="button" data-variante>' + (versTete ? 'Voir l\'exemplaire courant' : 'Voir l\'exemplaire irisé') + '</button>' : '') +
+        '<button class="btn-o" type="button" data-favori aria-pressed="' + (fav[c.id] ? 'true' : 'false') + '">' + (fav[c.id] ? '★ Dans mes favoris' : '☆ Ajouter aux favoris') + '</button>' +
         '<button class="btn-o" type="button" data-vitrine>' + (enVitrine(c.id, versTete) >= 0 ? 'Retirer de la vitrine' : 'Mettre en vitrine') + '</button>' +
         '<button class="btn-o" type="button" data-echanger>Mettre à la bourse</button>' +
         '<button class="btn-o" type="button" data-partager>Partager</button>' +
         (c.href ? '<a class="btn-o" href="' + esc(c.href) + '">Lire la page</a>' : '') + '</div></div>';
+      var fb = $('ficheIn').querySelector('[data-favori]');
+      if (fb) fb.onclick = async function () { fb.disabled = true; await basculerFavori(c.id); dessine(versTete); filtrer(); var nb = $('ficheIn').querySelector('[data-favori]'); if (nb) nb.focus(); };
       var vb = $('ficheIn').querySelector('[data-vitrine]');
       if (vb) vb.onclick = async function () { vb.disabled = true; await basculerVitrine(c.id, versTete); dessine(versTete); var nb = $('ficheIn').querySelector('[data-vitrine]'); if (nb) nb.focus(); };
       var eb = $('ficheIn').querySelector('[data-echanger]');
@@ -1466,28 +1549,48 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
   /* LES ŒUFS DE PÂQUES. Une carte retournée trois fois de suite peut en faire
      sortir une autre, qui dit son mot. Un œuf peut porter un son (un extrait de
      deux secondes, fourni par le propriétaire) ; sans lui, c'est la voix du navigateur. */
-  var OEUFS = { 'org-Q170972': { carte: 'fig-Q556149', dit: 'Vive la Fraaaance !', son: '/assets/audio/vive-la-france.mp3?v=d39e8b36' } };
+  var OEUFS = { 'org-Q170972': { carte: 'fig-Q556149', dit: 'Allez, tous ensemble : vive la France !', court: 'Vive la France !',
+    son: '/assets/audio/vive-la-france.mp3?v=56c3d18b', tete: [1.354, -.215, -.389] } };
   var oeufN = 0, oeufT = null;
-  function oeufPart() {
-    clearTimeout(oeufT);
-    var o = document.querySelector('.oeuf'); if (!o) return;
-    if (reduit) { o.remove(); return; }
-    o.classList.add('part'); setTimeout(function () { o.remove(); }, 380);
+  // Le son se « déverrouille » pendant le geste du lecteur (Safari refuse de
+  // jouer un son hors d'un geste), puis se joue quand le personnage paraît.
+  function oeufSon(def) {
+    if (!def.son) return null;
+    try { var a = new Audio(def.son); a.preload = 'auto'; a.muted = true; var pr = a.play(); if (pr) pr.then(function () { a.pause(); a.currentTime = 0; a.muted = false; }).catch(function () { a.muted = false; }); return a; }
+    catch (er) { return null; }
   }
-  function oeuf(k) {
-    var def = OEUFS[ficheId], c = def && parId[def.carte];
-    if (!c) return;
-    if (++oeufN % 3 || document.querySelector('.oeuf')) return;
-    var r = k.getBoundingClientRect(), o = document.createElement('button');
-    o.type = 'button'; o.className = 'oeuf'; o.setAttribute('aria-label', c.n + ' : « ' + def.dit + ' » Fermer');
-    o.style.left = Math.max(8, r.left - 58) + 'px'; o.style.top = Math.max(64, r.top - 22) + 'px';
-    o.innerHTML = '<span class="oeuf-b">' + esc(def.dit) + '</span>' + Carte.html(c, {});
-    $('ficheIn').appendChild(o);
+  function oeufFaire(def, classe) {
+    var c = parId[def.carte]; if (!c) return null;
+    var o = document.createElement(classe ? 'button' : 'span'), t = def.tete || [1.3, -.15, -.3];
+    if (classe) o.type = 'button';
+    o.className = 'oeuf' + (classe ? ' ' + classe : '');
+    if (classe) o.setAttribute('aria-label', c.n + ' : « ' + def.dit + ' » Fermer'); else o.setAttribute('aria-hidden', 'true');
+    o.innerHTML = '<span class="oeuf-b">' + esc(def.court || def.dit) + '</span><span class="gk"><span class="gk-bras g"></span><span class="gk-bras d"></span><span class="gk-corps"></span>' +
+      '<span class="gk-tete" style="background-image:url(/assets/img/cartes/' + c.id + '.webp);background-size:calc(var(--d) * ' + t[0] + ') auto;background-position:calc(var(--d) * ' + t[1] + ') calc(var(--d) * ' + t[2] + ')"></span></span>';
+    return o;
+  }
+  // il crie (le son fourni, sinon la voix du navigateur), puis rentre dans la carte
+  function oeufJouer(o, def, au) {
+    var c = parId[def.carte];
     if (SHELL.announce) SHELL.announce(c.n + ' : « ' + def.dit + ' »');
-    // le son fourni s'il y en a un, sinon la voix du navigateur
+    o.classList.add('crie');
+    var fini = false, sortir = function () { if (fini) return; fini = true; clearTimeout(oeufT); o.classList.remove('crie'); if (reduit) { o.remove(); return; } o.classList.add('part'); setTimeout(function () { o.remove(); }, 420); };
     function voix() { try { if (window.speechSynthesis) { speechSynthesis.cancel(); var u = new SpeechSynthesisUtterance(def.dit); u.lang = 'fr-FR'; u.rate = 1.05; u.pitch = 1.15; speechSynthesis.speak(u); } } catch (er) {} }
-    if (def.son) { try { var au = new Audio(def.son); au.play().catch(voix); } catch (er) { voix(); } } else voix();
-    oeufT = setTimeout(oeufPart, 5200);
+    if (!au && def.son) { try { au = new Audio(def.son); } catch (er) {} }
+    if (au) { try { au.muted = false; au.currentTime = 0; au.addEventListener('ended', function () { setTimeout(sortir, 500); }); var pr = au.play(); if (pr) pr.catch(voix); } catch (er) { voix(); } } else voix();
+    oeufT = setTimeout(sortir, 6500);
+    return sortir;
+  }
+  function oeufPart() { var o = document.querySelector('.oeuf.fiche-o'); if (o && o._sortir) o._sortir(); }
+  // dans la fiche : la carte retournée trois fois
+  function oeuf(k) {
+    var def = OEUFS[ficheId];
+    if (!def || !parId[def.carte]) return;
+    if (++oeufN % 3 || document.querySelector('.oeuf')) return;
+    var r = k.getBoundingClientRect(), o = oeufFaire(def, 'fiche-o'); if (!o) return;
+    o.style.left = Math.min(innerWidth - 136, r.right - 66) + 'px'; o.style.top = Math.max(96, r.top - 40) + 'px';
+    $('ficheIn').appendChild(o);
+    o._sortir = oeufJouer(o, def, null);
   }
   $('fiche').addEventListener('close', function () { oeufN = 0; clearTimeout(oeufT); var o = document.querySelector('.oeuf'); if (o) o.remove(); if (ficheDe && ficheDe.isConnected) ficheDe.focus(); });
 
@@ -1569,6 +1672,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     $('bstScene').innerHTML = '<div class="bst-jeu" id="bstJeu"><div class="bst-table" id="bstTable">' +
       '<div class="bst-rayons" id="bstRayons" aria-hidden="true"></div><div class="bst-onde" id="bstOnde" aria-hidden="true"></div>' +
       '<button class="bst-pile cachee" id="bstPile" type="button">' + pileHtml + '</button>' +
+      '<button class="fav bst-fav" id="bstFav" type="button" aria-pressed="false" hidden>' + ETOILE + '</button>' +
       '<div class="paquet" id="bstPaquet" role="button" tabindex="0" aria-label="Ouvrir le paquet">' +
         '<span class="pq-corps"><span class="pq-art"></span><span class="pq-filet"></span><span class="pq-n">5<small>cartes</small></span><span class="pq-t"><small>Booster</small><b>Lire<br>Marx</b><span>Les cartes à collectionner</span></span><span class="pq-lustre"></span><span class="bst-reflet"></span></span>' +
         '<span class="bst-dechire" id="bstDechire"><span class="bst-bouche"></span><span class="bst-bande bst-reste"></span><span class="bst-bande bst-arrache" id="bstArrache"></span><span class="bst-invite"></span></span>' +
@@ -1742,6 +1846,8 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
       if (occupe || n >= N) return;
       occupe = true;
       var i = n++, o = cartes[i], c = parId[o.id], rare = c.r >= 3 || o.tete, et = etiquette(o, c);
+      // un œuf de Pâques : son déverrouillé pendant le geste, joué quand la carte est posée
+      var egg = OEUFS[o.id] && parId[OEUFS[o.id].carte] ? OEUFS[o.id] : null, eggSon = egg ? oeufSon(egg) : null;
       // la carte du dessus quitte la pile
       var dessus = pile.querySelector('.ct:last-of-type'); if (dessus) dessus.remove();
       if (n >= N) pile.hidden = true; else libellePile();
@@ -1780,6 +1886,9 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
       }
       await tour;
       v.classList.add('pose');
+      // l'étoile : mettre en favori la carte qu'on vient de tirer
+      var bf = $('bstFav'); if (bf) { bf.dataset.id = c.id; majEtoile(bf, c.id); bf.hidden = false; }
+      if (egg) { var eo = oeufFaire(egg, ''); if (eo) { v.appendChild(eo); oeufJouer(eo, egg, eggSon); } }
       occupe = false;
       if (!vite && rare) v.focus({ preventScroll: true });
     }
@@ -1788,6 +1897,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
       occupe = true;
       var v = courant, i = +v.dataset.i, o = cartes[i], c = parId[o.id], rare = !!v.dataset.rare;
       courant = null; rayons.classList.remove('on'); bst.classList.remove('dim');
+      var bf0 = $('bstFav'); if (bf0) bf0.hidden = true;
       $('bstTitre').textContent = soir ? 'Le Grand Soir' : ''; $('bstTitre').classList.remove('eclat');
       var b = v.querySelector('.bst-rang'); if (b) b.remove();
       var slot = rangee.children[i];
@@ -1816,6 +1926,13 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
       if (courant) ranger(); else retourner();
     }
     pile.addEventListener('click', avancer);
+    $('bstFav').addEventListener('click', async function (e) {
+      e.stopPropagation();
+      var b = this, id = b.dataset.id; if (!id) return;
+      await basculerFavori(id); majEtoile(b, id);
+      b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop');
+      if (SHELL.announce) SHELL.announce(fav[id] ? 'Ajoutée aux favoris' : 'Retirée des favoris');
+    });
     // la carte au centre : un toucher, ou un geste de côté, pour passer
     var gl = null;
     table.addEventListener('pointerdown', function (e) {
