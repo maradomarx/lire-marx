@@ -23,7 +23,7 @@
 <script src="/cartes/carte.js?v=de49c2dc"></script>
 <script>
 (async function () {
-  const cat = await fetch('/cartes/catalogue.json?v=08b47567').then(r => r.json());
+  const cat = await fetch('/cartes/catalogue.json?v=f952cf9b').then(r => r.json());
   const cs = cat.cartes;
   document.getElementById('info').textContent = cat.n + ' cartes au catalogue. Cliquer une carte la retourne.';
   const pl = document.getElementById('planche');
