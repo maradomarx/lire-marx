@@ -689,7 +689,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
               <option value="2">Éditions reliées</option><option value="1">Brochures</option><option value="0">Tracts</option>
             </select></label>
             <label>Ordre<select class="alb-sel" id="albTri">
-              <option value="no">Par numéro</option><option value="rang">Les plus rares d'abord</option><option value="recentes">Les dernières obtenues</option><option value="nom">Par nom</option>
+              <option value="rang">Les plus rares d'abord</option><option value="no">Par numéro</option><option value="recentes">Les dernières obtenues</option><option value="nom">Par nom</option>
             </select></label>
           </div>
         </details>
@@ -1208,7 +1208,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
   addEventListener('load', function () { var h = location.hash.slice(1); if (VUES.indexOf(h) >= 0) window.scrollTo({ top: 0, behavior: 'instant' }); });
 
   /* ---------------------------------------------------------- l'album */
-  var possChoisi = false, filtre = { f: '', q: '', r: '', poss: '', tri: 'no' }, liste = [], montre = 0, PAGE = 48;
+  var possChoisi = false, filtre = { f: '', q: '', r: '', poss: '', tri: 'rang' }, liste = [], montre = 0, PAGE = 48;
   function rendreFamilles() {
     var cpt = {}; cat.forEach(function (c) { cpt[c.f] = (cpt[c.f] || 0) + 1; });
     $('albFam').innerHTML = '<button type="button" data-f="" aria-pressed="true">Toutes<span>' + nf.format(cat.length) + '</span></button>' +
@@ -2205,7 +2205,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
   });
   var tq;
   $('albQ').addEventListener('input', function (e) { clearTimeout(tq); tq = setTimeout(function () { filtre.q = e.target.value.trim(); filtrer(); }, 180); });
-  function badgeFiltres() { var n = (filtre.r !== '' ? 1 : 0) + (filtre.tri !== 'no' ? 1 : 0); $('albFN').hidden = !n; $('albFN').textContent = n; }
+  function badgeFiltres() { var n = (filtre.r !== '' ? 1 : 0) + (filtre.tri !== 'rang' ? 1 : 0); $('albFN').hidden = !n; $('albFN').textContent = n; }
   $('albRang').addEventListener('change', function (e) { filtre.r = e.target.value; badgeFiltres(); filtrer(); });
   $('albPoss').addEventListener('change', function (e) { filtre.poss = e.target.value; possChoisi = true; filtrer(); });
   $('albTri').addEventListener('change', function (e) { filtre.tri = e.target.value; badgeFiltres(); filtrer(); });
