@@ -14,7 +14,7 @@ import path from 'node:path';
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 
-const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
+const ROOT = path.resolve(path.dirname(decodeURIComponent(new URL(import.meta.url).pathname)), '..');
 const BASE = process.argv[2] || 'http://localhost:8840';
 const require = createRequire(path.join(process.env.HOME, 'Desktop/circuit-du-capital/package.json'));
 const puppeteer = require('puppeteer-core');

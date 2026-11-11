@@ -12198,6 +12198,18 @@ Marx ») ; titres calés sur les requêtes relevées dans Search Console
 capital », « abrégé du Capital » pour Salaire, prix et profit). Search
 Console ne montre que 63 requêtes sur 28 jours : le reste est anonymisé.
 
+**L'extrait de l'accueil sur « lire marx » (9 nov. 2026).** Google remplaçait
+la description par la réponse de la FAQ sur la gratuité et le compte, qui
+commence par « Lire Marx » : la description disait « Lire et comprendre Marx »,
+sans l'expression exacte. La description commence donc par « Lire Marx en
+ligne et gratuitement », et cette réponse porte `data-nosnippet`. ⚠️ **Sur un
+`<span>` DANS le paragraphe, jamais sur `div.hs-faq-a`** : la dérivation du
+FAQPage cherche ce `div` à la lettre, et un attribut y ferait sortir la réponse
+de la lecture, la question se retrouvant en silence avec la réponse suivante.
+Google n'accepte `data-nosnippet` que sur `span`, `div` et `section`. Pour
+savoir si un résultat est à jour : l'inspection d'URL de Search Console donne
+la dernière exploration, et « Afficher la page explorée » le HTML retenu.
+
 **Re-mesurer vers le 1er décembre 2026** les pages citées plus haut, et les
 huit notions retitrées en septembre (aucun clic sous l'ancien format).
 
@@ -12220,3 +12232,14 @@ mettre au sitemap, ne pas en faire une par carte. Elles sont autonomes (ni
 shell ni bloc AFFICHAGE), comme la 404 ; elles relisent les `?v=` de
 `carte.js`/`carte.css` dans `cartes/index.html` : relancer l'outil après
 `cartes.mjs build` ou `versions`.
+
+### Logo fantôme, un geste par étape, Firefox, vitrine et échanges (mission `tcg-retouches`, 11 nov. 2026)
+
+- **L'ancien logo (le M) revenait sur le paquet et le dos.** `icon-512.png` a changé de dessin sous le même nom, il est au PRÉCACHE du service worker, et `actifCachePuisReseau` cherchait dans tous les caches : l'entrée du socle passait devant et n'était jamais renouvelée (le rafraîchissement n'écrit que dans les visites). Corrigé trois fois : `sw.js` cherche dans les VISITES d'abord, `VERSION` passe à `lm-3` (purge), et le logo porte un `?v=` dans `carte.css` et `ouverture3d.js`, posé par `tools/cartes.mjs versions`. **Un actif précaché qui change de contenu demande de monter `VERSION`.**
+- Les quatre outils des cartes décodent leur chemin (`decodeURIComponent`) : le dépôt vit dans un dossier dont le nom contient une espace.
+- **Ouverture : un geste par étape.** Un toucher retourne, le suivant range, le suivant retourne la prochaine (`avancer()`). Plus rien ne s'enchaîne, rare ou non. Supersède « toucher la pile range et retourne la suivante ».
+- **La fiche d'une carte redit les jetons de la bougie** (`dialog.fiche{--ink…}`) : son voile est sombre dans les trois modes, et au jour le texte et les boutons étaient sombres sur sombre.
+- **`.ct-face{isolation:isolate}`** : sans lui, Firefox dessine le verso en miroir et décalé d'une largeur de carte (une face tournée qui contient un mode de fusion). Firefox se teste avec Playwright (`npx playwright install firefox`, hors dépôt).
+- **Vitrine** : l'emplacement « + » ouvre un panneau (`#vitPick`) : recherche dans ses cartes, on touche pour ajouter, on retouche pour retirer. La fiche garde « Mettre en vitrine ».
+- **Échanges** : trois onglets (`encours` — « À vous de répondre » puis « En attente de leur réponse » —, `bourse`, `historique`), et un composeur en trois étapes (avec qui, je donne, je demande) où l'on choisit dans une GRILLE de petites cartes (`.pk`, `pickHtml`), avec un bilan collant et le bouton d'envoi. `.pk` sert aussi à la vitrine.
+- Piège : `.cmp-col h3` et `.ech-cote h3` attrapaient le NOM des cartes (un `h3.ct-nom`) : sélecteurs d'enfant direct (`>`).

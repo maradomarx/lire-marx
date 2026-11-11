@@ -31,7 +31,7 @@
    maîtresses. Le reste vient au fil des visites. */
 'use strict';
 
-var VERSION = 'lm-2';  /* lm-2 : la page hors ligne a ses trois modes (mission `affichage`) */
+var VERSION = 'lm-3';  /* lm-3 : purge l'ancien logo (le M), resté dans le précache sous le même nom de fichier */
 var SOCLE   = VERSION + '-socle';    /* précache, remplacé à chaque VERSION */
 var VISITES = VERSION + '-visites';  /* ce que le lecteur a ouvert */
 /* L'URL PROPRE, sans extension — et ce n'est pas une coquetterie : Cloudflare
@@ -119,7 +119,13 @@ function pageReseauDabord(req){
 /* Règle 2. Le cache répond tout de suite ; le réseau rafraîchit derrière
    pour la fois suivante. Une réponse d'erreur n'est jamais mise en cache. */
 function actifCachePuisReseau(req){
-  return caches.match(req).then(function(hit){
+  /* Les VISITES d'abord, le socle ensuite : le rafraîchissement n'écrit que
+     dans les visites. En cherchant dans tous les caches à la fois, une entrée
+     du précache (le logo) passait devant et n'était JAMAIS renouvelée : le
+     paquet des cartes gardait l'ancien logo jusqu'à un rechargement forcé. */
+  return caches.open(VISITES).then(function(c){ return c.match(req); }).then(function(h){
+    return h || caches.match(req);
+  }).then(function(hit){
     var reseau = fetch(req).then(function(res){
       if(res && res.ok){
         var copie = res.clone();

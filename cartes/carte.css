@@ -46,6 +46,10 @@
   position: absolute; inset: 0; overflow: hidden;
   border-radius: .9em;
   backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  /* Chaque face est son propre groupe de fusion. Sans cela, Firefox dessine
+     le verso EN MIROIR et décalé d'une largeur de carte dès qu'une face
+     tournée contient un mode de fusion (le grain) : mesuré, nov. 2026. */
+  isolation: isolate;
   background: var(--papier); color: var(--encre-t);
   box-shadow: 0 .1em 0 rgba(255, 255, 255, .25) inset, 0 .8em 1.8em -.6em rgba(0, 0, 0, .55), 0 .15em .4em rgba(0, 0, 0, .35);
 }
@@ -435,7 +439,7 @@
 .ct.retournee .ct-dos { visibility: visible; }
 .ct-dos::before { mix-blend-mode: screen; opacity: .05; }
 .ct-dos-art { position: absolute; left: 0; right: 0; top: 0; height: 80%; mix-blend-mode: screen;
-  background: url("/assets/img/logo/icon-512.png") 54% 22% / 112% auto no-repeat;
+  background: url("/assets/img/logo/icon-512.png?v=2b1354c7") 54% 22% / 112% auto no-repeat;
   -webkit-mask: linear-gradient(#000 50%, transparent 92%); mask: linear-gradient(#000 50%, transparent 92%); }
 .ct-dos-voile { position: absolute; left: 0; right: 0; bottom: 0; height: 58%; background: linear-gradient(transparent, rgba(12, 9, 7, .94) 62%, #0c0907); }
 .ct-dos-filet { position: absolute; left: 2.1em; top: 2.2em; bottom: 2.2em; width: .24em; background: linear-gradient(#d5402f, #8e1b12); }
@@ -539,7 +543,7 @@
 /* le portrait du logo (pochoir tramé, assets/img/logo/) : en écran, son fond
    brun-nuit disparaît dans le sachet, il ne reste que la lumière et la trame */
 .pq-art{position:absolute;left:0;right:0;top:1.35em;bottom:4.6em;z-index:1;
-  background:url("/assets/img/logo/icon-512.png") 50% 30% / cover;mix-blend-mode:screen;
+  background:url("/assets/img/logo/icon-512.png?v=2b1354c7") 50% 30% / cover;mix-blend-mode:screen;
   -webkit-mask:linear-gradient(#000 45%,#0000 88%);mask:linear-gradient(#000 45%,#0000 88%);}
 /* le filet rouge de la maison, et le chiffre du paquet */
 .pq-filet{position:absolute;left:1em;top:2.2em;bottom:2.2em;width:.12em;z-index:2;background:linear-gradient(#d5402f,#8e1b12);}

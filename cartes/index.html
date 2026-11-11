@@ -36,7 +36,7 @@
 <link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/oeuvres/fonts/fonts.css?v=2"></noscript>
 <link rel="stylesheet" href="/oeuvres/shell.css?v=18">
-<link rel="stylesheet" href="/cartes/carte.css?v=cd84cea5">
+<link rel="stylesheet" href="/cartes/carte.css?v=4641e410">
 <style>
 /* ═══════════════════════════════════════════════════════════════════
    /cartes/ — LA COLLECTION (mission `cartes`)
@@ -241,7 +241,12 @@ html:not(.tcg-vues) .vue + .vue{margin-top:clamp(44px,6vw,72px);}
 
 /* ---------------------------------------------------------- la fiche */
 dialog.fiche{border:0;padding:0;background:transparent;color:var(--ink);max-width:none;max-height:none;width:100%;height:100%;}
-dialog.fiche::backdrop{background:rgba(8,6,4,.82);backdrop-filter:blur(3px);}
+/* La fiche se pose sur une NUIT, dans les trois modes : elle redit donc les
+   jetons de la bougie. Sans cela, au jour et en édition, le texte et les
+   boutons étaient à l'encre sombre sur le voile sombre : on ne les voyait plus. */
+dialog.fiche{--ink:#f3e9d4;--ink-soft:#b7a888;--text:#f3e9d4;--muted:#b7a888;--bg:#15100b;--paper:#15100b;--card:#1e1710;--surface:#1e1710;
+  --line:rgba(243,233,212,.13);--line-strong:rgba(243,233,212,.34);--hover:rgba(243,233,212,.08);--gold:#d8ad4c;--red-text:#e5644f;--ink-rgb:243,233,212;--ombre-rgb:0,0,0;}
+dialog.fiche::backdrop{background:rgba(8,6,4,.86);backdrop-filter:blur(3px);}
 .fiche-in{min-height:100%;display:flex;align-items:center;justify-content:center;gap:clamp(20px,4vw,48px);padding:24px;flex-wrap:wrap;}
 .fiche .ct{--ct-l:min(330px,78vw);cursor:pointer;}
 .fiche-t{max-width:340px;}
@@ -512,7 +517,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
 .ech-quand{font-size:.8rem;color:var(--muted);}
 .ech-cols{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:14px;align-items:start;}
 .ech-fl{align-self:center;color:var(--gold);font:700 1.3rem/1 var(--f-ui);}
-.ech-cote h3{font:600 .72rem/1 var(--f-ui);letter-spacing:.11em;text-transform:uppercase;color:var(--gold);margin:0 0 10px;}
+.ech-cote > h3{font:600 .72rem/1 var(--f-ui);letter-spacing:.11em;text-transform:uppercase;color:var(--gold);margin:0 0 10px;}
 .ech-lot{display:flex;flex-wrap:wrap;gap:10px;}
 .ech-lot .ct{--ct-l:118px;}
 .ech-lot button{border:0;padding:0;background:none;cursor:pointer;border-radius:6px;}
@@ -523,10 +528,46 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
 .ech-statut{font:600 .72rem/1 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border-radius:100px;border:1px solid var(--line-strong);color:var(--ink-soft);}
 .ech-statut.accepte{border-color:rgba(127,168,85,.6);color:var(--ok);}
 .ech-rien{color:var(--ink-soft);font-style:italic;margin:6px 0;}
+/* LE CHOIX D'UNE CARTE (vitrine et échanges) : une grille de petites cartes,
+   le nom dessous. On touche pour choisir ; la pastille dit ce qui est pris. */
+.pk{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px 8px;}
+.pk-c{position:relative;display:flex;flex-direction:column;align-items:center;gap:7px;min-width:0;border:0;padding:8px 4px 9px;border-radius:12px;background:none;color:var(--ink);cursor:pointer;font:500 .74rem/1.25 var(--f-ui);text-align:center;}
+.pk-c:hover,.pk-c:focus-visible{background:var(--hover);}
+.pk-c .ct{--ct-l:84px;pointer-events:none;}
+.pk-n{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;max-width:100%;overflow-wrap:anywhere;}
+.pk-c[aria-pressed="true"] .ct{outline:3px solid var(--gold);outline-offset:2px;border-radius:5px;}
+.pk-b{position:absolute;top:2px;right:4px;z-index:9;min-width:22px;height:22px;box-sizing:border-box;padding:0 6px;border-radius:100px;background:var(--red);color:var(--sur-red,#fff);font:700 .74rem/22px var(--f-ui);}
+.pk-c[disabled]{opacity:.42;cursor:default;background:none;}
+.pk-note{grid-column:1/-1;margin:4px 0 0;font-size:.82rem;color:var(--muted);}
+/* la vitrine : l'emplacement « + » et le panneau où l'on choisit */
+.vit-plus{display:grid;place-content:center;justify-items:center;gap:6px;border:1.5px dashed var(--line-strong);background:none;color:var(--ink-soft);cursor:pointer;font:600 .76rem/1.2 var(--f-ui);padding:6px;}
+.vit-plus b{font:400 1.7rem/1 var(--f-ui);color:var(--gold);}
+.vit-plus:hover,.vit-plus:focus-visible{background:var(--hover);color:var(--ink);border-color:var(--gold);}
+.vit-plus[aria-expanded="true"]{border-style:solid;border-color:var(--gold);color:var(--ink);}
+.vit-pick{margin:2px 0 26px;padding:16px;border-radius:16px;background:var(--surface);border:1px solid var(--line);}
+.vit-pick[hidden]{display:none;}
+.vit-pick-t{display:flex;gap:10px;align-items:center;margin:0 0 14px;}
+.vit-pick-t .cmp-in{flex:1 1 auto;min-width:0;}
+.vit-pick-t .btn-o{flex:none;}
+.vit-pick-a{margin:0 0 12px;font-size:.88rem;color:var(--ink-soft);}
 /* le composeur */
 .cmp{display:grid;gap:18px;}
-.cmp-avec{display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
-.cmp-avec label{display:inline-flex;align-items:center;gap:6px;font-size:.95rem;cursor:pointer;}
+.cmp-etape{font:600 .72rem/1 var(--f-ui);letter-spacing:.11em;text-transform:uppercase;color:var(--gold);margin:0 0 10px;}
+.cmp-avec{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+.cmp-avec label{display:flex;align-items:flex-start;gap:10px;padding:14px 16px;border-radius:14px;border:1px solid var(--line-strong);cursor:pointer;font:600 .95rem/1.25 var(--f-ui);}
+.cmp-avec label small{display:block;margin-top:4px;font:400 .82rem/1.35 var(--f-ui);color:var(--ink-soft);}
+.cmp-avec label:hover{background:var(--hover);}
+.cmp-avec label.on{border-color:var(--gold);background:var(--surface);box-shadow:inset 0 0 0 1px var(--gold);}
+.cmp-avec input{margin:2px 0 0;accent-color:var(--red);}
+.cmp-qui{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px;}
+.ech-grp{font:900 1.15rem/1.2 'Fraunces',Georgia,serif;margin:0 0 12px;}
+.ech-grp span{font:500 .85rem var(--f-ui);color:var(--muted);margin-left:6px;}
+.ech-grp:not(:first-child){margin-top:28px;}
+.ech-vide{display:grid;justify-items:start;gap:12px;padding:22px;border-radius:16px;border:1.5px dashed var(--line-strong);color:var(--ink-soft);}
+.ech-vide p{margin:0;max-width:52ch;}
+.ech-vide .ech-vide-acts{display:flex;flex-wrap:wrap;gap:10px;}
+.ech-bourse-t{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 16px;color:var(--ink-soft);font-size:.92rem;}
+.ech-bourse-t p{margin:0;}
 .cmp-dest{position:relative;flex:1 1 240px;max-width:360px;}
 .cmp-in{width:100%;box-sizing:border-box;font:500 .95rem var(--f-ui);padding:11px 14px;border-radius:100px;border:1px solid var(--line-strong);background:var(--paper);color:var(--ink);}
 .cmp-res{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:20;list-style:none;margin:0;padding:6px;border-radius:14px;background:var(--surface);border:1px solid var(--line-strong);box-shadow:0 12px 30px -12px rgba(0,0,0,.7);}
@@ -538,13 +579,9 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
 .cmp-choisi button{border:0;background:none;color:var(--red-text);cursor:pointer;font:600 .85rem var(--f-ui);padding:6px;}
 .cmp-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;}
 .cmp-col{border-radius:16px;padding:16px;background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;gap:12px;min-width:0;}
-.cmp-col h3{font:900 1.1rem/1.15 'Fraunces',Georgia,serif;margin:0;}
-.cmp-col h3 span{font:500 .82rem var(--f-ui);color:var(--muted);margin-left:6px;}
-.cmp-pick{list-style:none;margin:0;padding:0;display:grid;gap:2px;max-height:260px;overflow:auto;}
-.cmp-pick button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:none;color:var(--ink);font:500 .9rem/1.3 var(--f-ui);padding:8px 8px;border-radius:9px;cursor:pointer;}
-.cmp-pick button:hover,.cmp-pick button:focus-visible{background:var(--hover);}
-.cmp-pick button[disabled]{opacity:.4;cursor:default;background:none;}
-.cmp-pick small{color:var(--muted);font-size:.78rem;margin-left:auto;white-space:nowrap;}
+/* « > » : le nom d'une carte est lui aussi un h3 */
+.cmp-col > h3{font:900 1.1rem/1.15 'Fraunces',Georgia,serif;margin:0;}
+.cmp-col > h3 span{font:500 .82rem var(--f-ui);color:var(--muted);margin-left:6px;}
 .rg{flex:none;width:10px;height:10px;border-radius:2px;transform:rotate(45deg);}
 .rg.r0{background:#c9c6bf;}.rg.r1{background:#c98a5a;}.rg.r2{background:#7f9fc6;}.rg.r3{background:#d9b04c;}.rg.r4{background:#d5402f;box-shadow:0 0 0 1.5px #c9952a;}
 .cmp-lot{display:flex;flex-wrap:wrap;gap:10px;min-height:40px;}
@@ -552,8 +589,11 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
 .cmp-lot button{position:relative;border:0;padding:0;background:none;cursor:pointer;border-radius:6px;}
 .cmp-lot button::after{content:"×";position:absolute;right:-6px;top:-6px;width:20px;height:20px;border-radius:50%;background:#d5402f;color:#fff;font:700 .8rem/20px var(--f-ui);text-align:center;}
 .cmp-vide{font-size:.85rem;color:var(--muted);margin:0;}
-.cmp-fin{display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
-@media (max-width:860px){ .vit{grid-template-columns:repeat(3,minmax(0,1fr));} .cmp-cols{grid-template-columns:1fr;} }
+.cmp-fin{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;padding:12px 16px;border-radius:16px;background:var(--surface);border:1px solid var(--line-strong);}
+.cmp-bilan{flex:1 1 220px;margin:0;font-size:.92rem;color:var(--ink-soft);}
+.cmp-bilan b{color:var(--ink);}
+@media (min-width:721px){ .cmp-fin{position:sticky;bottom:14px;z-index:15;box-shadow:0 14px 30px -14px rgba(var(--ombre-rgb,0,0,0),.7);} }
+@media (max-width:860px){ .vit{grid-template-columns:repeat(3,minmax(0,1fr));} .cmp-cols{grid-template-columns:1fr;} .cmp-avec{grid-template-columns:1fr;} }
 @media (max-width:560px){ .vit{grid-template-columns:repeat(2,minmax(0,1fr));} .ech-cols{grid-template-columns:1fr;} .ech-fl{transform:rotate(90deg);justify-self:center;} .ech-tabs{border-radius:16px;} }
 </style>
 <!-- AFFICHAGE:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs (modes, fond, gestes), ne pas éditer à la main -->
@@ -616,6 +656,11 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
       <div class="vit-t"><h3>Ma vitrine <span id="vitN">0/10</span></h3>
         <span class="vit-acts"><button class="lien-b" type="button" id="vitEdit" aria-pressed="false" hidden>Réorganiser</button><a class="lien-b" id="vitProfil" href="/oeuvres/forum" hidden>Voir mon profil</a></span></div>
       <div class="vit" id="vit"></div>
+      <div class="vit-pick" id="vitPick" role="group" aria-label="Ajouter une carte à la vitrine" hidden>
+        <div class="vit-pick-t"><input class="cmp-in" id="vitQ" type="search" placeholder="Chercher dans mes cartes (nom ou numéro)" aria-label="Chercher dans mes cartes" autocomplete="off"><button class="btn-o" type="button" id="vitPickX">Terminé</button></div>
+        <p class="vit-pick-a" id="vitPickA"></p>
+        <div class="pk" id="vitPickG"></div>
+      </div>
       <p class="ech-msg" id="vitMsg" aria-live="polite"></p>
     </div>
 
@@ -646,12 +691,11 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
 
   <section class="vue" id="echanges" data-vue="echanges" aria-labelledby="echT">
     <div class="ech-tete">
-      <div><h2 id="echT">Échanges</h2><p class="cx-sous">Rien ne bouge avant que l'autre accepte.</p></div>
+      <div><h2 id="echT">Échanges</h2><p class="cx-sous">Proposez vos cartes à un lecteur, ou à tout le monde à la bourse. Rien ne bouge avant que l'autre accepte.</p></div>
       <button class="btn-p" type="button" id="echNouveau">Nouvel échange</button>
     </div>
     <div class="ech-tabs" id="echTabs" role="tablist" aria-label="Échanges">
-      <button type="button" role="tab" data-o="recues" aria-selected="true">Reçues<span class="nav-n" id="echNR" hidden></span></button>
-      <button type="button" role="tab" data-o="envoyees" aria-selected="false">Envoyées</button>
+      <button type="button" role="tab" data-o="encours" aria-selected="true">En cours<span class="nav-n" id="echNR" hidden></span></button>
       <button type="button" role="tab" data-o="bourse" aria-selected="false">La bourse</button>
       <button type="button" role="tab" data-o="historique" aria-selected="false">Terminés</button>
     </div>
@@ -841,7 +885,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
 </footer>
 <!-- PIED:FIN -->
 
-<script src="/cartes/ouverture3d.js?v=66269527" defer></script>
+<script src="/cartes/ouverture3d.js?v=85a7d95c" defer></script>
 <script src="/cartes/carte.js?v=de49c2dc"></script>
 <script>
 (function () {
@@ -1575,16 +1619,16 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
       slot.innerHTML = (o.nouvelleTete ? '<span class="bst-nv nacre">✦ Nouvelle</span>' : o.nouvelle ? '<span class="bst-nv">Nouvelle</span>' : '') + Carte.html(c, { tete: o.tete });
       slot.classList.add('plein', 'arrive'); if (rare) slot.classList.add('eclat');
       v.remove();
-      if (!pile.hidden) $('bstAide').textContent = '';
+      if (!pile.hidden) $('bstAide').textContent = 'Touchez pour retourner';
       occupe = false;
       if (++vues === N) fin(); else if (!pile.hidden) pile.focus({ preventScroll: true });
     }
-    // Toucher (la pile ou la carte) range ce qui est au centre et retourne la
-    // suivante. Une rare se range seulement : on ne lui enchaîne pas la suivante.
-    async function avancer() {
+    // UN GESTE PAR ÉTAPE : un toucher retourne la carte du dessus, le suivant la
+    // range, le suivant retourne la prochaine. Rien ne s'enchaîne tout seul :
+    // c'est le lecteur qui retourne chaque carte.
+    function avancer() {
       if (occupe) return;
-      if (courant) { var r = !!courant.dataset.rare; await ranger(); if (r) return; }
-      retourner();
+      if (courant) ranger(); else retourner();
     }
     pile.addEventListener('click', avancer);
     // la carte au centre : un toucher, ou un geste de côté, pour passer
@@ -1669,7 +1713,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
      Le serveur fait tout ce qui compte (cartes_vitrine_poser, cartes_proposer,
      cartes_accepter, cartes_refuser) et revérifie au moment d'accepter ; la
      page ne fait que composer et montrer. Un élément : {c: id, t: irisée}. */
-  var ech = { liste: [], pseudos: {}, onglet: 'recues', vit: [], charge: false,
+  var ech = { liste: [], pseudos: {}, onglet: 'encours', vit: [], charge: false,
     cmp: { bourse: false, dest: null, destNom: '', parent: null, donne: [], demande: [], leur: null, qD: '', qM: '' } };
   function moi() { return demo ? window.LM_CARTES_DEMO.ech.moi : (SHELL.auth && SHELL.auth.user ? SHELL.auth.user.id : null); }
   async function rpc(nom, args) { var r = await SHELL.cartes._rpc(nom, args); if (r.error) throw r.error; return r.data; }
@@ -1704,15 +1748,64 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     $('vitN').textContent = l.length + '/10';
     $('vitEdit').hidden = l.length < 2;
     if (l.length < 2) { el.classList.remove('edit'); $('vitEdit').setAttribute('aria-pressed', 'false'); $('vitEdit').textContent = 'Réorganiser'; }
-    if (!connecte()) { el.innerHTML = '<p class="vit-s vit-vide seule">Connectez-vous pour montrer vos plus belles cartes sur votre profil.</p>'; return; }
-    if (!l.length) { el.innerHTML = '<p class="vit-s vit-vide seule">Dix cartes au plus, montrées sur votre profil du forum. Ouvrez une carte de votre album et choisissez « Mettre en vitrine ».</p>'; return; }
-    el.innerHTML = l.map(function (e, i) {
+    if (!connecte()) { fermerVitPick(); el.innerHTML = '<p class="vit-s vit-vide seule">Connectez-vous pour montrer vos plus belles cartes sur votre profil.</p>'; return; }
+    var plus = l.length < 10 ? '<button class="vit-s vit-plus" type="button" id="vitPlus" aria-expanded="' + (vitPick.ouvert ? 'true' : 'false') + '" aria-controls="vitPick"><b aria-hidden="true">+</b><span>Ajouter une carte</span></button>' : '';
+    if (!l.length) { el.innerHTML = plus + '<p class="vit-s vit-vide seule">Dix cartes au plus, montrées sur votre profil du forum.</p>'; return; }
+    el.innerHTML = plus + l.map(function (e, i) {
       return '<div class="vit-s">' + mini(e, 'data-voir') +
         '<div class="vit-ctl"><button type="button" data-vit="g" data-i="' + i + '" aria-label="Avancer"' + (i ? '' : ' disabled') + '>‹</button>' +
         '<button type="button" data-vit="x" data-i="' + i + '" aria-label="Retirer de la vitrine">×</button>' +
         '<button type="button" data-vit="d" data-i="' + i + '" aria-label="Reculer"' + (i < l.length - 1 ? '' : ' disabled') + '>›</button></div></div>';
     }).join('');
   }
+  /* Ajouter une carte SANS quitter la vitrine : on touche « + », on cherche
+     dans ses cartes, on touche celle qu'on veut. La retoucher la retire. */
+  var vitPick = { ouvert: false, q: '' };
+  function rendreVitPick() {
+    if (!vitPick.ouvert) return;
+    var q = vitPick.q.trim(), nq = norm(q), num = /^\d+$/.test(q), out = [];
+    Object.keys(col).forEach(function (id) {
+      var c = parId[id], m = col[id]; if (!c || !m) return;
+      if (q && !(num ? String(c.no) === q : norm(c.n).indexOf(nq) >= 0)) return;
+      if (m.n - m.t > 0) out.push({ c: c, t: false });
+      if (m.t > 0) out.push({ c: c, t: true });
+    });
+    out.sort(function (a, b) { return b.c.r - a.c.r || (b.t ? 1 : 0) - (a.t ? 1 : 0) || a.c.no - b.c.no; });
+    var total = out.length, plein = ech.vit.length >= 10, MAX = 30;
+    $('vitPickA').textContent = !Object.keys(col).length ? '' : plein ? 'La vitrine est pleine : touchez une carte choisie pour la retirer.' : 'Touchez une carte pour l\'ajouter. Il reste ' + (10 - ech.vit.length) + ' place' + (10 - ech.vit.length > 1 ? 's' : '') + '.';
+    $('vitPickG').innerHTML = !Object.keys(col).length ? '<p class="pk-note">Vous n\'avez pas encore de carte : ouvrez un booster.</p>'
+      : !total ? '<p class="pk-note">Aucune de vos cartes ne correspond.</p>'
+      : out.slice(0, MAX).map(function (x) {
+        var dans = enVitrine(x.c.id, x.t) >= 0;
+        return '<button class="pk-c" type="button" data-vp data-c="' + x.c.id + '" data-t="' + (x.t ? 1 : 0) + '" aria-pressed="' + (dans ? 'true' : 'false') + '"' + (plein && !dans ? ' disabled' : '') +
+          ' aria-label="' + esc(x.c.n) + (x.t ? ', irisée' : '') + ', ' + RANGS[x.c.r].l.toLowerCase() + (dans ? ', dans la vitrine' : '') + '">' +
+          Carte.html(x.c, { tete: x.t }) + '<span class="pk-n" aria-hidden="true">' + esc(x.c.n) + '</span>' + (dans ? '<span class="pk-b" aria-hidden="true">✓</span>' : '') + '</button>';
+      }).join('') + (total > MAX ? '<p class="pk-note">' + (total - MAX) + ' autres cartes : précisez la recherche.</p>' : '');
+  }
+  function ouvrirVitPick() {
+    if (!connecte()) return;
+    vitPick.ouvert = true; $('vitPick').hidden = false;
+    var b = $('vitPlus'); if (b) b.setAttribute('aria-expanded', 'true');
+    rendreVitPick(); $('vitQ').focus({ preventScroll: true });
+    $('vitPick').scrollIntoView({ block: 'nearest', behavior: 'instant' });
+  }
+  function fermerVitPick(rendFocus) {
+    if (!vitPick.ouvert) return;
+    vitPick.ouvert = false; vitPick.q = ''; $('vitQ').value = ''; $('vitPick').hidden = true;
+    var b = $('vitPlus'); if (b) { b.setAttribute('aria-expanded', 'false'); if (rendFocus) b.focus(); }
+  }
+  $('vitPickX').addEventListener('click', function () { fermerVitPick(true); });
+  $('vitPick').addEventListener('keydown', function (e) { if (e.key === 'Escape') { e.stopPropagation(); fermerVitPick(true); } });
+  var tvq;
+  $('vitQ').addEventListener('input', function () { var v = this.value; clearTimeout(tvq); tvq = setTimeout(function () { vitPick.q = v; rendreVitPick(); }, 140); });
+  $('vitPickG').addEventListener('click', async function (e) {
+    var b = e.target.closest('[data-vp]'); if (!b || b.disabled) return;
+    var id = b.dataset.c, t = b.dataset.t === '1';
+    b.disabled = true;
+    await basculerVitrine(id, t);
+    rendreVitPick();
+    var n = $('vitPickG').querySelector('[data-c="' + id + '"][data-t="' + (t ? 1 : 0) + '"]'); if (n && !n.disabled) n.focus({ preventScroll: true });
+  });
   $('vitEdit').addEventListener('click', function () {
     var on = $('vit').classList.toggle('edit');
     this.setAttribute('aria-pressed', on ? 'true' : 'false'); this.textContent = on ? 'Terminé' : 'Réorganiser';
@@ -1732,12 +1825,13 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     return true;
   }
   $('vit').addEventListener('click', function (e) {
+    if (e.target.closest('#vitPlus')) { if (vitPick.ouvert) fermerVitPick(); else ouvrirVitPick(); return; }
     var b = e.target.closest('[data-vit]');
     if (b) {
       var i = +b.dataset.i, l = ech.vit.slice(), k = b.dataset.vit;
       if (k === 'x') l.splice(i, 1);
       else { var j = k === 'g' ? i - 1 : i + 1; var x = l[i]; l[i] = l[j]; l[j] = x; }
-      poserVitrine(l); return;
+      poserVitrine(l).then(rendreVitPick); return;
     }
     var v = e.target.closest('[data-voir]'); if (v) ouvrirFiche(v.dataset.id, v);
   });
@@ -1790,7 +1884,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
       } else if (deMoi) {
         var nr = bourse ? ech.liste.filter(function (y) { return y.parent === x.id && y.statut === 'ouvert'; }).length : 0;
         acts = '<button class="btn-o" type="button" data-ech="refuser" data-e="' + x.id + '">' + (bourse ? 'Retirer de la bourse' : 'Annuler') + '</button>' +
-          (nr ? '<span class="ech-quand">' + nr + ' proposition' + (nr > 1 ? 's' : '') + ' reçue' + (nr > 1 ? 's' : '') + ', dans « Reçues »</span>' : '');
+          (nr ? '<span class="ech-quand">' + nr + ' proposition' + (nr > 1 ? 's' : '') + ' reçue' + (nr > 1 ? 's' : '') + ', à traiter plus haut</span>' : '');
       } else if (bourse) {
         var peut = x.demande.length && jePossede(x.demande);
         acts = (x.demande.length ? '<button class="btn-p" type="button" data-ech="accepter" data-e="' + x.id + '"' + (peut ? '' : ' disabled') + '>Accepter l\'échange</button>' : '') +
@@ -1817,12 +1911,25 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     $('echTabs').hidden = ech.onglet === 'proposer'; $('echNouveau').hidden = ech.onglet === 'proposer';
     if (ech.onglet === 'proposer') { rendreComposeur(); return; }
     var me = moi(), l;
-    if (ech.onglet === 'recues') l = recues();
-    else if (ech.onglet === 'envoyees') l = ouverts().filter(function (x) { return x.de === me; });
-    else if (ech.onglet === 'bourse') l = ouverts().filter(function (x) { return !x.a && x.de !== me; });
-    else l = ech.liste.filter(function (x) { return x.statut !== 'ouvert' && (x.de === me || x.a === me); }).slice(0, 30);
-    var vide = { recues: 'Aucune proposition en attente.', envoyees: 'Vous n\'avez rien proposé en ce moment.', bourse: 'La bourse est vide : mettez-y des cartes depuis « Proposer ».', historique: 'Aucun échange terminé.' }[ech.onglet];
-    pan.innerHTML = l.length ? '<div class="ech-liste">' + l.map(carteEchange).join('') + '</div>' : '<p class="ech-rien">' + vide + '</p>';
+    function liste(l2) { return '<div class="ech-liste">' + l2.map(carteEchange).join('') + '</div>'; }
+    var boutons = '<div class="ech-vide-acts"><button class="btn-p" type="button" data-nouv="lecteur">Proposer à un lecteur</button><button class="btn-o" type="button" data-nouv="bourse">Mettre une carte à la bourse</button></div>';
+    if (ech.onglet === 'encours') {
+      // ce qui attend VOTRE réponse d'abord, puis ce qui attend celle des autres
+      var r = recues(), env = ouverts().filter(function (x) { return x.de === me; });
+      pan.innerHTML = !r.length && !env.length
+        ? '<div class="ech-vide"><p>Aucun échange en cours. Proposez des cartes à un lecteur dont vous connaissez le pseudo, ou mettez-les à la bourse : tout le monde pourra vous faire une proposition.</p>' + boutons + '</div>'
+        : (r.length ? '<h3 class="ech-grp">À vous de répondre<span>' + r.length + '</span></h3>' + liste(r) : '') +
+          (env.length ? '<h3 class="ech-grp">En attente de leur réponse<span>' + env.length + '</span></h3>' + liste(env) : '');
+      return;
+    }
+    if (ech.onglet === 'bourse') {
+      l = ouverts().filter(function (x) { return !x.a && x.de !== me; });
+      pan.innerHTML = '<div class="ech-bourse-t"><p>' + (l.length ? 'Les cartes que les lecteurs proposent à tous. Acceptez une offre, ou répondez par la vôtre.' : 'Personne n\'a rien mis à la bourse pour le moment.') + '</p>' +
+        '<button class="btn-o" type="button" data-nouv="bourse">Mettre une carte à la bourse</button></div>' + (l.length ? liste(l) : '');
+      return;
+    }
+    l = ech.liste.filter(function (x) { return x.statut !== 'ouvert' && (x.de === me || x.a === me); }).slice(0, 30);
+    pan.innerHTML = l.length ? liste(l) : '<p class="ech-rien">Aucun échange terminé.</p>';
   }
   async function rafraichirEchanges() {
     try { await chargerEchanges(); } catch (e) { dire('echMsg', msgErr(e), true); }
@@ -1837,6 +1944,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
   });
   $('echPan').addEventListener('click', async function (e) {
     var v = e.target.closest('.ech-lot [data-id]'); if (v) { ouvrirFiche(v.dataset.id, v); return; }
+    var nv = e.target.closest('[data-nouv]'); if (nv) { nouvelleProposition({ bourse: nv.dataset.nouv === 'bourse' }); return; }
     var b = e.target.closest('[data-ech]'); if (!b) return;
     var x = ech.liste.find(function (y) { return y.id === b.dataset.e; }); if (!x) return;
     var k = b.dataset.ech;
@@ -1887,13 +1995,15 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     out.sort(function (a, b) { return b.c.r - a.c.r || a.c.no - b.c.no; });
     return out.slice(0, 40);
   }
-  function pickHtml(l, cote) {
+  function pickHtml(l, cote, choisis) {
     if (!l.length) return '<p class="cmp-vide">Aucune carte ne correspond.</p>';
-    return '<ul class="cmp-pick">' + l.map(function (x) {
-      return '<li><button type="button" data-ajout="' + cote + '" data-c="' + x.c.id + '" data-t="' + (x.t ? 1 : 0) + '"' + (x.reste > 0 ? '' : ' disabled') + '>' +
-        '<span class="rg r' + x.c.r + '" aria-hidden="true"></span><span>' + esc(x.c.n) + (x.t ? ' <b>✦ irisée</b>' : '') + '</span>' +
-        '<small>' + (x.reste > 0 ? '×' + x.reste : 'déjà choisie') + '</small></button></li>';
-    }).join('') + '</ul>';
+    var pris = compter(choisis), MAX = 18;
+    return '<div class="pk">' + l.slice(0, MAX).map(function (x) {
+      var n = pris[x.c.id + '|' + (x.t ? 1 : 0)] || 0;
+      return '<button class="pk-c" type="button" data-ajout="' + cote + '" data-c="' + x.c.id + '" data-t="' + (x.t ? 1 : 0) + '"' + (x.reste > 0 ? '' : ' disabled') +
+        ' aria-pressed="' + (n ? 'true' : 'false') + '" aria-label="' + esc(x.c.n) + (x.t ? ', irisée' : '') + ', ' + RANGS[x.c.r].l.toLowerCase() + (n ? ', choisie ' + n + ' fois' : '') + (x.reste > 0 ? '' : ', plus d\'exemplaire') + '">' +
+        Carte.html(x.c, { tete: x.t }) + '<span class="pk-n" aria-hidden="true">' + esc(x.c.n) + '</span>' + (n ? '<span class="pk-b" aria-hidden="true">' + (n > 1 ? '×' + n : '✓') + '</span>' : '') + '</button>';
+    }).join('') + (l.length > MAX ? '<p class="pk-note">' + (l.length - MAX) + (l.length >= 40 ? ' autres cartes ou plus' : ' autres cartes') + ' : précisez la recherche.</p>' : '') + '</div>';
   }
   function choisisHtml(l, cote, fixe) {
     if (!l.length) return '<p class="cmp-vide">' + (cote === 'donne' ? 'Choisissez les cartes que vous cédez.' : 'Choisissez les cartes que vous voulez.') + '</p>';
@@ -1908,27 +2018,36 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     // préserver la saisie pendant qu'on redessine
     var foc = document.activeElement && document.activeElement.id;
     var avec = k.parent
-      ? '<p>Proposition à ' + lienNom(k.parent.de) + ', en réponse à son offre à la bourse.</p>'
-      : '<div class="cmp-avec" role="radiogroup" aria-label="À qui"><label><input type="radio" name="cmpMode" value="lecteur"' + (k.bourse ? '' : ' checked') + '> À un lecteur</label>' +
-        '<label><input type="radio" name="cmpMode" value="bourse"' + (k.bourse ? ' checked' : '') + '> À la bourse, pour tout le monde</label>' +
-        (k.bourse ? '' : (k.dest
+      ? '<div><p class="cmp-etape">Avec qui</p><p style="margin:0">' + lienNom(k.parent.de) + ', en réponse à son offre à la bourse.</p></div>'
+      : '<div><p class="cmp-etape" id="cmpQuiT">1. Avec qui</p><div class="cmp-avec" role="radiogroup" aria-labelledby="cmpQuiT">' +
+        '<label' + (k.bourse ? '' : ' class="on"') + '><input type="radio" name="cmpMode" value="lecteur"' + (k.bourse ? '' : ' checked') + '><span>Un lecteur<small>Vous choisissez dans sa collection ce que vous voulez.</small></span></label>' +
+        '<label' + (k.bourse ? ' class="on"' : '') + '><input type="radio" name="cmpMode" value="bourse"' + (k.bourse ? ' checked' : '') + '><span>Tout le monde, à la bourse<small>Votre offre est visible de tous ; chacun peut y répondre.</small></span></label></div>' +
+        (k.bourse ? '' : '<div class="cmp-qui">' + (k.dest
           ? '<span class="cmp-choisi">' + lienNom(k.dest) + '<button type="button" data-cmp="autre">Changer</button></span>'
-          : '<div class="cmp-dest"><input class="cmp-in" id="cmpDest" type="search" placeholder="Pseudo du lecteur" aria-label="Pseudo du lecteur" autocomplete="off"><ul class="cmp-res" id="cmpRes" hidden></ul></div>')) + '</div>';
+          : '<div class="cmp-dest"><input class="cmp-in" id="cmpDest" type="search" placeholder="Son pseudo sur le forum" aria-label="Pseudo du lecteur" autocomplete="off"><ul class="cmp-res" id="cmpRes" hidden></ul></div>') + '</div>') + '</div>';
     var srcDem = k.bourse ? catTout() : k.leur;
-    var colD = '<div class="cmp-col"><h3>Je donne<span>' + k.donne.length + '/10</span></h3>' + choisisHtml(k.donne, 'donne') +
-      '<input class="cmp-in" id="cmpQD" type="search" placeholder="Chercher dans ma collection" aria-label="Chercher dans ma collection" value="' + esc(k.qD) + '">' +
-      pickHtml(lignes(col, k.qD, k.donne), 'donne') + '</div>';
+    var num = k.parent ? ['', ''] : ['2. ', '3. '];
+    var colD = '<div class="cmp-col"><h3>' + num[0] + 'Je donne<span>' + k.donne.length + '/10</span></h3>' + choisisHtml(k.donne, 'donne') +
+      (Object.keys(col).length
+        ? '<input class="cmp-in" id="cmpQD" type="search" placeholder="Chercher dans ma collection" aria-label="Chercher dans ma collection" value="' + esc(k.qD) + '">' + pickHtml(lignes(col, k.qD, k.donne), 'donne', k.donne)
+        : '<p class="cmp-vide">Vous n\'avez pas encore de carte à donner : ouvrez un booster.</p>') + '</div>';
     var colM;
     if (k.parent) colM = '<div class="cmp-col"><h3>Je reçois</h3>' + choisisHtml(k.demande, 'demande', true) + '</div>';
-    else if (!k.bourse && !k.dest) colM = '<div class="cmp-col"><h3>Je demande</h3><p class="cmp-vide">Choisissez d\'abord un lecteur : sa collection s\'affichera ici.</p></div>';
-    else if (!srcDem) colM = '<div class="cmp-col"><h3>Je demande</h3><p class="cmp-vide">Sa collection se charge…</p></div>';
-    else colM = '<div class="cmp-col"><h3>Je demande<span>' + k.demande.length + '/10</span></h3>' + choisisHtml(k.demande, 'demande') +
+    else if (!k.bourse && !k.dest) colM = '<div class="cmp-col"><h3>3. Je demande</h3><p class="cmp-vide">Choisissez d\'abord un lecteur : sa collection s\'affichera ici.</p></div>';
+    else if (!srcDem) colM = '<div class="cmp-col"><h3>3. Je demande</h3><p class="cmp-vide">Sa collection se charge…</p></div>';
+    else if (!k.bourse && !Object.keys(srcDem).length) colM = '<div class="cmp-col"><h3>3. Je demande</h3><p class="cmp-vide">Ce lecteur n\'a pas encore de carte. Vous pouvez lui en offrir.</p></div>';
+    else colM = '<div class="cmp-col"><h3>3. Je demande<span>' + k.demande.length + '/10</span></h3>' + choisisHtml(k.demande, 'demande') +
       '<input class="cmp-in" id="cmpQM" type="search" placeholder="' + (k.bourse ? 'Chercher une carte (nom ou numéro)' : 'Chercher dans sa collection') + '" aria-label="Chercher une carte à demander" value="' + esc(k.qM) + '">' +
-      (k.bourse && !k.qM ? '<p class="cmp-vide">Facultatif : laissez vide pour recevoir des propositions.</p>' : pickHtml(lignes(srcDem, k.qM, k.demande), 'demande')) + '</div>';
+      (k.bourse && !k.qM ? '<p class="cmp-vide">Facultatif : laissez vide pour recevoir des propositions.</p>' : pickHtml(lignes(srcDem, k.qM, k.demande), 'demande', k.demande)) + '</div>';
     var pret = (k.bourse ? k.donne.length > 0 : !!k.dest && (k.donne.length + k.demande.length > 0));
+    function nb(n) { return '<b>' + n + ' carte' + (n > 1 ? 's' : '') + '</b>'; }
+    var bilan = !k.bourse && !k.dest ? 'Choisissez d\'abord avec qui échanger.'
+      : !k.donne.length && !k.demande.length ? (k.bourse ? 'Choisissez au moins une carte à donner.' : 'Choisissez les cartes à donner ou à demander.')
+      : k.bourse && !k.donne.length ? 'À la bourse, il faut donner au moins une carte.'
+      : 'Vous donnez ' + nb(k.donne.length) + (k.demande.length ? ' et demandez ' + nb(k.demande.length) + '.' : k.bourse ? ' ; les lecteurs vous feront leurs propositions.' : ' sans rien demander : c\'est un cadeau.');
     pan.innerHTML = '<button class="lien-b ech-retour" type="button" data-cmp="retour">← Retour aux échanges</button><div class="cmp">' + avec + '<div class="cmp-cols">' + colD + colM + '</div>' +
-      '<div class="cmp-fin"><button class="btn-p" type="button" data-cmp="envoyer"' + (pret ? '' : ' disabled') + '>' + (k.bourse ? 'Mettre à la bourse' : 'Envoyer la proposition') + '</button>' +
-      '<button class="btn-o" type="button" data-cmp="vider">Tout effacer</button></div></div>';
+      '<div class="cmp-fin"><p class="cmp-bilan">' + bilan + '</p><button class="btn-o" type="button" data-cmp="vider">Tout effacer</button>' +
+      '<button class="btn-p" type="button" data-cmp="envoyer"' + (pret ? '' : ' disabled') + '>' + (k.bourse ? 'Mettre à la bourse' : 'Envoyer la proposition') + '</button></div></div>';
     if (foc && $(foc)) { var el = $(foc); el.focus(); if (el.setSelectionRange && el.value) el.setSelectionRange(el.value.length, el.value.length); }
   }
   // pour la bourse, on demande n'importe quelle carte du catalogue (celui qui accepte devra l'avoir)
@@ -1969,7 +2088,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     if ((t = e.target.closest('[data-retrait]'))) { (t.dataset.retrait === 'donne' ? k.donne : k.demande).splice(+t.dataset.i, 1); rendreComposeur(); return; }
     t = e.target.closest('[data-cmp]'); if (!t) return;
     if (t.dataset.cmp === 'autre') { k.dest = null; k.leur = null; k.demande = []; rendreComposeur(); var d = $('cmpDest'); if (d) d.focus(); return; }
-    if (t.dataset.cmp === 'retour') { onglet('recues'); return; }
+    if (t.dataset.cmp === 'retour') { onglet('encours'); return; }
     if (t.dataset.cmp === 'vider') { nouvelleProposition({ bourse: k.bourse }); return; }
     if (t.dataset.cmp === 'envoyer') {
       t.disabled = true;
@@ -1977,7 +2096,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
         await rpc('cartes_proposer', { dest: k.bourse ? null : k.dest, donne: k.donne, demande: k.demande, parent: k.parent ? k.parent.id : null });
         var bourse = k.bourse;
         nouvelleProposition({});
-        ech.onglet = 'envoyees';
+        ech.onglet = 'encours';
         await rafraichirEchanges();
         dire('echMsg', bourse ? 'Vos cartes sont à la bourse.' : 'Proposition envoyée. Les cartes ne bougent qu\'à son acceptation.');
       } catch (er) { dire('echMsg', msgErr(er), true); t.disabled = false; }

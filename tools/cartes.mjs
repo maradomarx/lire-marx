@@ -33,7 +33,7 @@ import os from 'node:os';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 
-const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
+const ROOT = path.resolve(path.dirname(decodeURIComponent(new URL(import.meta.url).pathname)), '..');
 const CACHE = path.join(os.tmpdir(), 'liremarx-cartes');
 const IMGDIR = path.join(ROOT, 'assets/img/cartes');
 const OUTDIR = path.join(ROOT, 'cartes');
@@ -783,7 +783,13 @@ function versionner() {
   // visiteur garde l'ancienne quatre heures : le dos changeait de couleur au
   // passage de la 3D à la page. La retouche précède le hachage du module.
   const f3d = path.join(ROOT, 'cartes/ouverture3d.js');
-  fs.writeFileSync(f3d, fs.readFileSync(f3d, 'utf8').replace(/(\/assets\/img\/cartes\/dos\.webp)(\?v=[0-9a-z]+)?/g, '$1?v=' + h('assets/img/cartes/dos.webp')));
+  // Le LOGO aussi (le portrait du sachet et du dos) : son fichier a changé de
+  // dessin sous le même nom, et le service worker servait l'ancien de son cache.
+  // Il porte donc une version partout où une carte ou un paquet le dessine.
+  const logo = s => s.replace(/(\/assets\/img\/logo\/icon-512\.png)(\?v=[0-9a-z]+)?/g, '$1?v=' + h('assets/img/logo/icon-512.png'));
+  fs.writeFileSync(f3d, logo(fs.readFileSync(f3d, 'utf8').replace(/(\/assets\/img\/cartes\/dos\.webp)(\?v=[0-9a-z]+)?/g, '$1?v=' + h('assets/img/cartes/dos.webp'))));
+  const fcss = path.join(ROOT, 'cartes/carte.css');
+  fs.writeFileSync(fcss, logo(fs.readFileSync(fcss, 'utf8')));
   const v = { 'catalogue.json': h('cartes/catalogue.json'), 'carte.js': h('cartes/carte.js'), 'carte.css': h('cartes/carte.css'), 'ouverture3d.js': h('cartes/ouverture3d.js') };
   for (const page of ['cartes/index.html', 'cartes/echantillons.html', 'index.html', 'oeuvres/forum.html']) {
     const f = path.join(ROOT, page);

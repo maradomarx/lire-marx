@@ -793,7 +793,7 @@ installShell({
   function chargerCartes(){
     if(cartesPret) return cartesPret;
     cartesPret = new Promise(function(ok, ko){
-      var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = '/cartes/carte.css?v=cd84cea5'; document.head.appendChild(l);
+      var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = '/cartes/carte.css?v=4641e410'; document.head.appendChild(l);
       var sc = document.createElement('script'); sc.src = '/cartes/carte.js?v=de49c2dc';
       sc.onload = function(){
         fetch('/cartes/catalogue.json?v=32db763d').then(function(r){ return r.json(); }).then(function(d){

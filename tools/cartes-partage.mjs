@@ -23,7 +23,7 @@ import path from 'node:path';
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 
-const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
+const ROOT = path.resolve(path.dirname(decodeURIComponent(new URL(import.meta.url).pathname)), '..');
 const ORIGIN = 'https://liremarx.com';
 const IMAGES = process.argv.includes('--images');
 const BASE = process.argv.find((a) => /^https?:/.test(a)) || 'http://localhost:8840';

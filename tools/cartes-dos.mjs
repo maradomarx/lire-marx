@@ -7,7 +7,7 @@ import { spawn, execFileSync } from 'node:child_process';
 import path from 'node:path';
 import os from 'node:os';
 import fs from 'node:fs';
-const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
+const ROOT = path.resolve(path.dirname(decodeURIComponent(new URL(import.meta.url).pathname)), '..');
 const require = createRequire(path.join(path.resolve(ROOT, '../circuit-du-capital'), 'package.json'));
 const puppeteer = require('puppeteer-core');
 const PORT = 8878;
