@@ -328,11 +328,29 @@ dialog.fiche::backdrop{background:rgba(8,6,4,.86);backdrop-filter:blur(3px);}
 @keyframes gk-bg{from{rotate:-24deg}to{rotate:-52deg}} @keyframes gk-bd{from{rotate:24deg}to{rotate:52deg}}
 .oeuf-b{position:absolute;right:62%;bottom:calc(100% - var(--d) * .12);white-space:nowrap;padding:.6em .85em;border-radius:14px 14px 4px 14px;background:#f3e9d4;color:#15100b;
   font:800 clamp(.8rem,calc(var(--d) * .19),1.05rem)/1.1 var(--f-ui);box-shadow:0 6px 16px rgba(0,0,0,.5);animation:oeuf-bulle .4s .35s cubic-bezier(.34,1.56,.64,1) both;transform-origin:100% 100%;}
+.oeuf-sc{position:absolute;left:50%;top:calc(100% + .5em);translate:-50% 0;display:grid;justify-items:center;gap:.25em;padding:.5em .8em;border-radius:10px;white-space:nowrap;
+  background:#15100b;color:#f3e9d4;box-shadow:0 0 0 1.5px #d8ad4c,0 6px 14px rgba(0,0,0,.55);animation:oeuf-bulle .4s .5s cubic-bezier(.34,1.56,.64,1) both;}
+.oeuf-sc small{font:600 .72rem/1 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:#d8ad4c;}
+.oeuf-sc small i{font-style:normal;}
+.oeuf-sc b{font:900 clamp(1.1rem,calc(var(--d) * .3),1.7rem)/1 'Fraunces',Georgia,serif;font-variant-numeric:tabular-nums lining-nums;}
+.oeuf-sc.chute b{animation:sc-chute .5s cubic-bezier(.3,1.4,.5,1);}
+.oeuf-sc.plancher b{color:#ff8a70;}
+@keyframes sc-chute{from{translate:0 -70%;opacity:0}}
+/* la rose au poing : elle pique du nez quand le score touche le fond */
+.gk-rose{position:absolute;left:50%;bottom:92%;width:calc(var(--d) * .07);height:calc(var(--d) * .34);margin-left:calc(var(--d) * -.035);border-radius:4px;background:#3f7d3a;transform-origin:50% 100%;transition:rotate .7s cubic-bezier(.5,0,.3,1.4);}
+.gk-rose::before{content:"";position:absolute;left:50%;top:-34%;width:340%;aspect-ratio:1;translate:-50% 0;border-radius:50% 50% 46% 46%;background:radial-gradient(circle at 40% 35%,#ff7a66,#d5402f 55%,#9c1f14);}
+.gk-rose::after{content:"";position:absolute;left:100%;top:46%;width:230%;height:26%;border-radius:0 100% 0 100%;background:#3f7d3a;}
+.oeuf.fane .gk-rose{rotate:128deg;}
+.oeuf.fane.crie .gk-bras.d{animation:none;rotate:34deg;}
+/* les confettis tricolores */
+.oeuf-cf{position:absolute;left:50%;top:-10%;width:0;height:0;z-index:3;pointer-events:none;}
+.oeuf-cf i{position:absolute;left:0;top:0;width:calc(var(--d) * .09);height:calc(var(--d) * .15);border-radius:1px;background:var(--c);opacity:0;animation:cf-tombe var(--t) var(--dl) ease-in both;}
+@keyframes cf-tombe{0%{opacity:0;translate:0 0;rotate:0deg}12%{opacity:1}100%{opacity:0;translate:var(--x) calc(var(--d) * 3.6);rotate:var(--r)}}
 .oeuf.part{animation:oeuf-out .4s ease-in forwards;}
 @keyframes oeuf-in{from{opacity:0;scale:.15;translate:-55% 60%}}
 @keyframes oeuf-out{to{opacity:0;scale:.15;translate:-55% 60%}}
 @keyframes oeuf-bulle{from{opacity:0;scale:.4}}
-@media (prefers-reduced-motion: reduce){.oeuf,.oeuf.part,.oeuf-b,.oeuf.crie .gk-tete,.oeuf.crie .gk-bras{animation:none !important;}}
+@media (prefers-reduced-motion: reduce){.oeuf,.oeuf.part,.oeuf-b,.oeuf-sc,.oeuf-sc.chute b,.oeuf.crie .gk-tete,.oeuf.crie .gk-bras{animation:none !important;} .gk-rose{transition:none;}}
 @media (max-width:560px){.oeuf{right:-6%;} .oeuf-b{right:40%;}}
 .fiche-acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;}
 .fiche-x{position:fixed;top:14px;right:14px;width:42px;height:42px;border-radius:50%;border:1px solid var(--line-strong);background:var(--card);
@@ -1550,6 +1568,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
      sortir une autre, qui dit son mot. Un œuf peut porter un son (un extrait de
      deux secondes, fourni par le propriétaire) ; sans lui, c'est la voix du navigateur. */
   var OEUFS = { 'org-Q170972': { carte: 'fig-Q556149', dit: 'Allez, tous ensemble : vive la France !', court: 'Vive la France !',
+    scores: [['2012', '28,6 %'], ['2017', '6,4 %'], ['2022', '1,7 %']], legende: 'Parti socialiste : pièce de collection, il n\'en reste presque plus.',
     son: '/assets/audio/vive-la-france.mp3?v=56c3d18b', tete: [1.354, -.215, -.389] } };
   var oeufN = 0, oeufT = null;
   // Le son se « déverrouille » pendant le geste du lecteur (Safari refuse de
@@ -1565,7 +1584,9 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     if (classe) o.type = 'button';
     o.className = 'oeuf' + (classe ? ' ' + classe : '');
     if (classe) o.setAttribute('aria-label', c.n + ' : « ' + def.dit + ' » Fermer'); else o.setAttribute('aria-hidden', 'true');
-    o.innerHTML = '<span class="oeuf-b">' + esc(def.court || def.dit) + '</span><span class="gk"><span class="gk-bras g"></span><span class="gk-bras d"></span><span class="gk-corps"></span>' +
+    o.innerHTML = '<span class="oeuf-b">' + esc(def.court || def.dit) + '</span>' + (def.scores ? '<span class="oeuf-sc"><small>Présidentielle <i>' + def.scores[0][0] + '</i></small><b>' + def.scores[0][1] + '</b></span>' : '') +
+      (reduit ? '' : '<span class="oeuf-cf">' + [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15].map(function (k) { return '<i style="--x:' + (Math.random() * 2400 - 1500).toFixed(0) + '%;--r:' + (Math.random() * 540 - 270).toFixed(0) + 'deg;--t:' + (1.4 + Math.random() * 1.4).toFixed(2) + 's;--dl:' + (Math.random() * 1.6).toFixed(2) + 's;--c:' + ['#2a4b9b', '#f3e9d4', '#d5402f'][k % 3] + '"></i>'; }).join('') + '</span>') +
+      '<span class="gk"><span class="gk-bras g"></span><span class="gk-bras d"><span class="gk-rose"></span></span><span class="gk-corps"></span>' +
       '<span class="gk-tete" style="background-image:url(/assets/img/cartes/' + c.id + '.webp);background-size:calc(var(--d) * ' + t[0] + ') auto;background-position:calc(var(--d) * ' + t[1] + ') calc(var(--d) * ' + t[2] + ')"></span></span>';
     return o;
   }
@@ -1578,6 +1599,17 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     function voix() { try { if (window.speechSynthesis) { speechSynthesis.cancel(); var u = new SpeechSynthesisUtterance(def.dit); u.lang = 'fr-FR'; u.rate = 1.05; u.pitch = 1.15; speechSynthesis.speak(u); } } catch (er) {} }
     if (!au && def.son) { try { au = new Audio(def.son); } catch (er) {} }
     if (au) { try { au.muted = false; au.currentTime = 0; au.addEventListener('ended', function () { setTimeout(sortir, 500); }); var pr = au.play(); if (pr) pr.catch(voix); } catch (er) { voix(); } } else voix();
+    // la satire : pendant qu'il crie, le score du parti à la présidentielle dégringole, et la rose pique du nez
+    var sc = o.querySelector('.oeuf-sc');
+    if (sc && def.scores) def.scores.forEach(function (x, k) {
+      if (!k) return;
+      setTimeout(function () {
+        if (!o.isConnected) return;
+        sc.querySelector('i').textContent = x[0]; sc.querySelector('b').textContent = x[1];
+        sc.classList.remove('chute'); void sc.offsetWidth; sc.classList.add('chute');
+        if (k === def.scores.length - 1) { sc.classList.add('plancher'); o.classList.add('fane'); }
+      }, 1250 * k);
+    });
     oeufT = setTimeout(sortir, 6500);
     return sortir;
   }
@@ -1888,7 +1920,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
       v.classList.add('pose');
       // l'étoile : mettre en favori la carte qu'on vient de tirer
       var bf = $('bstFav'); if (bf) { bf.dataset.id = c.id; majEtoile(bf, c.id); bf.hidden = false; }
-      if (egg) { var eo = oeufFaire(egg, ''); if (eo) { v.appendChild(eo); oeufJouer(eo, egg, eggSon); } }
+      if (egg) { var eo = oeufFaire(egg, ''); if (eo) { v.appendChild(eo); oeufJouer(eo, egg, eggSon); if (egg.legende) $('bstAide').textContent = egg.legende; } }
       occupe = false;
       if (!vite && rare) v.focus({ preventScroll: true });
     }
