@@ -1,2 +1,9 @@
 .impeccable/
 deploy-fonction/
+
+# Copies de conflit (« nom 2.ext ») et notes de travail : jamais en ligne
+* 2.*
+* 2
+diffusion-marx-tcg.md
+/three.min.js
+.DS_Store
