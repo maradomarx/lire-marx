@@ -1317,7 +1317,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     return 'Le serveur ne répond pas. Réessayez dans un instant.';
   }
   async function rafraichirEtat() {
-    if (!connecte()) { etat = null; rendreComptoir(); rendreProgression(); filtrer(); return; }
+    if (!connecte()) { etat = null; rendreComptoir(); rendreProgression(); filtrer(true); return; }
     try {
       etat = await SHELL.cartes.etat();
       await chargerCollection();
@@ -1325,7 +1325,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
       if (!possChoisi && Object.keys(col).length) filtre.poss = 'miennes';
       rendreComptoir();
     } catch (e) { rendreComptoir(messageErreur(e)); }
-    rendreProgression(); filtrer();
+    rendreProgression(); filtrer(true);
     if (pret) demarrerEchanges();
   }
 
@@ -1421,8 +1421,14 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     var bi = $('progRangs').querySelector('[data-iris]'); if (bi) bi.setAttribute('aria-pressed', filtre.iris ? 'true' : 'false');
   }
   function effacerFiltres() { filtre.f = ''; filtre.r = ''; filtre.ep = ''; filtre.dbl = filtre.iris = filtre.rec = false; filtre.q = ''; $('albQ').value = ''; rendreFamilles(); }
-  function filtrer() {
+  /* « garder » : l'album se redessine SANS perdre la place du lecteur (autant de
+     cartes montrées qu'avant, même défilement). C'est le cas dès que la
+     reconstruction ne vient pas d'un choix de filtre : un favori posé depuis
+     la fiche, la session qui se rafraîchit. Sans lui, on se retrouvait en haut
+     de l'album avec les 48 premières cartes. */
+  function filtrer(garder) {
     if (!cat.length) return;
+    var avantN = garder ? montre : 0, avantY = window.scrollY;
     var q = norm(filtre.q), mes = filtre.dbl || filtre.iris || filtre.rec;
     liste = cat.filter(function (c) {
       if (filtre.f && c.f !== filtre.f) return false;
@@ -1469,6 +1475,10 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
         (vide ? '<a class="btn-p" href="#boosters">Ouvrir un booster</a>' : filtres ? '<button class="btn-o" type="button" id="albEffacer">Effacer les filtres</button>' : '') + '</div>';
     }
     plus();
+    if (garder && avantN) {
+      while (montre < Math.min(avantN, liste.length)) plus();
+      window.scrollTo({ top: avantY, behavior: 'instant' });
+    }
   }
   var dernierRang = null, rangAlb = {};   // (« parRang » est pris par le tirage du mode démo)
   function vignette(c) {
@@ -1551,7 +1561,12 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
         '<button class="btn-o" type="button" data-partager>Partager</button>' +
         (c.href ? '<a class="btn-o" href="' + esc(c.href) + '">Lire la page</a>' : '') + '</div></div>';
       var fb = $('ficheIn').querySelector('[data-favori]');
-      if (fb) fb.onclick = async function () { fb.disabled = true; await basculerFavori(c.id); dessine(versTete); filtrer(); var nb = $('ficheIn').querySelector('[data-favori]'); if (nb) nb.focus(); };
+      if (fb) fb.onclick = async function () { fb.disabled = true; await basculerFavori(c.id); dessine(versTete);
+        // l'album suit sans bouger : l'étoile de la vignette change sur place ; dans le volet des favoris, la carte retirée s'en va
+        var et = $('alb').querySelector('.alb-fav[data-fav="' + c.id + '"]');
+        if (filtre.poss === 'favoris' && !fav[c.id]) filtrer(true);
+        else { if (et) { et.setAttribute('aria-pressed', fav[c.id] ? 'true' : 'false'); et.title = fav[c.id] ? 'Retirer des favoris' : 'Mettre en favori'; } majBarre(); }
+        var nb = $('ficheIn').querySelector('[data-favori]'); if (nb) nb.focus(); };
       var vb = $('ficheIn').querySelector('[data-vitrine]');
       if (vb) vb.onclick = async function () { vb.disabled = true; await basculerVitrine(c.id, versTete); dessine(versTete); var nb = $('ficheIn').querySelector('[data-vitrine]'); if (nb) nb.focus(); };
       var eb = $('ficheIn').querySelector('[data-echanger]');
@@ -1633,7 +1648,13 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     $('ficheIn').appendChild(o);
     o._sortir = oeufJouer(o, def, null);
   }
-  $('fiche').addEventListener('close', function () { oeufN = 0; clearTimeout(oeufT); var o = document.querySelector('.oeuf'); if (o) o.remove(); if (ficheDe && ficheDe.isConnected) ficheDe.focus(); });
+  $('fiche').addEventListener('close', function () { oeufN = 0; clearTimeout(oeufT); var o = document.querySelector('.oeuf'); if (o) o.remove(); 
+    var cible = ficheDe && ficheDe.isConnected ? ficheDe : (ficheId ? $('alb').querySelector('.alb-it[data-id="' + ficheId + '"]') : null);
+    var y = window.scrollY;
+    if (cible) cible.focus({ preventScroll: true });
+    // un dialogue qui se ferme rend parfois le focus en faisant défiler : on tient la place
+    requestAnimationFrame(function () { if (Math.abs(window.scrollY - y) > 2) window.scrollTo({ top: y, behavior: 'instant' }); });
+  });
 
   /* ---------------------------------------------------------- l'ouverture */
   var tirage = null;
@@ -2561,7 +2582,7 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
       f.classList.remove('pop'); void f.offsetWidth; f.classList.add('pop');
       if (SHELL.announce) SHELL.announce(on ? 'Ajoutée aux favoris' : 'Retirée des favoris');
       // dans le volet des favoris, une carte qu'on retire s'en va ; ailleurs, rien ne bouge
-      if (filtre.poss === 'favoris' && !on) filtrer(); else majBarre();
+      if (filtre.poss === 'favoris' && !on) filtrer(true); else majBarre();
       return;
     }
     var b = e.target.closest('.alb-it'); if (b) ouvrirFiche(b.dataset.id, b);
