@@ -1464,9 +1464,9 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     }
   });
   /* LES ŒUFS DE PÂQUES. Une carte retournée trois fois de suite peut en faire
-     sortir une autre, qui dit son mot. La voix est celle du navigateur
-     (synthèse vocale) : aucun enregistrement n'est embarqué. */
-  var OEUFS = { 'org-Q170972': { carte: 'fig-Q556149', dit: 'Allez la France !' } };
+     sortir une autre, qui dit son mot. Un œuf peut porter un son (un extrait de
+     deux secondes, fourni par le propriétaire) ; sans lui, c'est la voix du navigateur. */
+  var OEUFS = { 'org-Q170972': { carte: 'fig-Q556149', dit: 'Vive la Fraaaance !', son: '/assets/audio/vive-la-france.mp3?v=d39e8b36' } };
   var oeufN = 0, oeufT = null;
   function oeufPart() {
     clearTimeout(oeufT);
@@ -1484,9 +1484,9 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     o.innerHTML = '<span class="oeuf-b">' + esc(def.dit) + '</span>' + Carte.html(c, {});
     $('ficheIn').appendChild(o);
     if (SHELL.announce) SHELL.announce(c.n + ' : « ' + def.dit + ' »');
-    try {
-      if (window.speechSynthesis) { speechSynthesis.cancel(); var u = new SpeechSynthesisUtterance(def.dit); u.lang = 'fr-FR'; u.rate = 1.05; u.pitch = 1.15; speechSynthesis.speak(u); }
-    } catch (er) {}
+    // le son fourni s'il y en a un, sinon la voix du navigateur
+    function voix() { try { if (window.speechSynthesis) { speechSynthesis.cancel(); var u = new SpeechSynthesisUtterance(def.dit); u.lang = 'fr-FR'; u.rate = 1.05; u.pitch = 1.15; speechSynthesis.speak(u); } } catch (er) {} }
+    if (def.son) { try { var au = new Audio(def.son); au.play().catch(voix); } catch (er) { voix(); } } else voix();
     oeufT = setTimeout(oeufPart, 5200);
   }
   $('fiche').addEventListener('close', function () { oeufN = 0; clearTimeout(oeufT); var o = document.querySelector('.oeuf'); if (o) o.remove(); if (ficheDe && ficheDe.isConnected) ficheDe.focus(); });
