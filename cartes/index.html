@@ -1195,14 +1195,18 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
      collection s'affiche sans étoiles. */
   var fav = {}, K_FAV = 'liremarx.cartes.demo.fav.v1';
   var ETOILE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6l2.5 5.3 5.8.7-4.3 4 1.1 5.8-5.1-2.9-5.1 2.9 1.1-5.8-4.3-4 5.8-.7z"/></svg>';
+  // (comme la collection : on remplit un objet neuf et on l'échange à la fin,
+  // jamais de magasin vidé pendant que le réseau répond)
   async function chargerFavoris() {
-    fav = {};
-    if (demo) { try { (JSON.parse(localStorage.getItem(K_FAV)) || []).forEach(function (id) { fav[id] = 1; }); } catch (e) {} return; }
-    if (!SHELL.auth || !SHELL.auth.user) return;
+    var nv = {};
+    if (demo) { try { (JSON.parse(localStorage.getItem(K_FAV)) || []).forEach(function (id) { nv[id] = 1; }); } catch (e) {} fav = nv; return; }
+    if (!SHELL.auth || !SHELL.auth.user) { fav = nv; return; }
     try {
       var c = await SHELL.auth.getClient(); if (!c) return;
       var r = await c.from('cartes_favoris').select('carte').limit(5000);
-      if (!r.error) r.data.forEach(function (x) { fav[x.carte] = 1; });
+      if (r.error) return;            // une lecture ratée ne fait pas disparaître les étoiles
+      r.data.forEach(function (x) { nv[x.carte] = 1; });
+      fav = nv;
     } catch (e) {}
   }
   // bascule optimiste : l'étoile répond tout de suite, et revient en arrière si le serveur refuse
@@ -1227,20 +1231,27 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
     b.setAttribute('aria-pressed', on ? 'true' : 'false');
     b.setAttribute('aria-label', on ? 'Retirer des favoris' : 'Ajouter aux favoris'); b.title = on ? 'Retirer des favoris' : 'Ajouter aux favoris';
   }
+  /* La collection se lit dans un objet NEUF, échangé d'un coup à la fin. Avant,
+     `col` était vidé puis rempli pendant que le réseau répondait : tout rendu
+     tombant dans l'intervalle (deux rafraîchissements se croisent dès qu'on
+     revient sur l'onglet) voyait un classeur vide, et l'album repartait du haut. */
   async function chargerCollection() {
-    col = {};
     await chargerFavoris();
     if (demo) { col = window.LM_CARTES_DEMO.collection(); return; }
-    if (!SHELL.auth || !SHELL.auth.user) return;
+    if (!SHELL.auth || !SHELL.auth.user) { col = {}; return; }
     var c = await SHELL.auth.getClient();
     if (!c) return;
+    var nv = {};
     for (var de = 0; de < 20000; de += 1000) {
       var r = await c.from('cartes_collection').select('carte,n,tetes,premiere').range(de, de + 999);
       if (r.error) throw r.error;
-      r.data.forEach(function (x) { col[x.carte] = { n: x.n, t: x.tetes, p: x.premiere }; });
+      r.data.forEach(function (x) { nv[x.carte] = { n: x.n, t: x.tetes, p: x.premiere }; });
       if (r.data.length < 1000) break;
     }
+    col = nv;
   }
+  // ce que l'album montre dépend de ceci, et de rien d'autre
+  function empreinte() { return Object.keys(col).sort().map(function (id) { var m = col[id]; return id + ':' + m.n + ':' + m.t; }).join('|') + '#' + Object.keys(fav).sort().join('|'); }
 
   /* ---------------------------------------------------------- le comptoir */
   function connecte() { return demo || !!(SHELL.auth && SHELL.auth.user); }
@@ -1316,8 +1327,24 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
       return 'Les boosters ne sont pas encore ouverts sur le serveur. Revenez très bientôt.';
     return 'Le serveur ne répond pas. Réessayez dans un instant.';
   }
-  async function rafraichirEtat() {
-    if (!connecte()) { etat = null; rendreComptoir(); rendreProgression(); filtrer(true); return; }
+  /* Un seul rafraîchissement à la fois (revenir sur l'onglet en déclenche deux :
+     la visibilité et la session), et l'album n'est redessiné que si la
+     collection ou les favoris ont VRAIMENT changé : on ne touche pas à la page
+     de quelqu'un qui revient simplement d'un autre onglet. */
+  var enRafraichissement = null;
+  function rafraichirEtat() {
+    if (enRafraichissement) return enRafraichissement;
+    enRafraichissement = rafraichirEtat1().finally(function () { enRafraichissement = null; });
+    return enRafraichissement;
+  }
+  async function rafraichirEtat1() {
+    var avant = empreinte(), possAvant = filtre.poss, etaitCo = albumCo;
+    if (!connecte()) {
+      etat = null; col = {}; fav = {}; albumCo = false; rendreComptoir();
+      if (etaitCo || avant !== empreinte() || !$('alb').children.length) { rendreProgression(); filtrer(true); }
+      return;
+    }
+    albumCo = true;
     try {
       etat = await SHELL.cartes.etat();
       await chargerCollection();
@@ -1325,9 +1352,10 @@ html[data-mode="jour"] .cpt-boost, html[data-mode="edition"] .cpt-boost{backgrou
       if (!possChoisi && Object.keys(col).length) filtre.poss = 'miennes';
       rendreComptoir();
     } catch (e) { rendreComptoir(messageErreur(e)); }
-    rendreProgression(); filtrer(true);
+    if (!etaitCo || avant !== empreinte() || possAvant !== filtre.poss || !$('alb').children.length) { rendreProgression(); filtrer(true); }
     if (pret) demarrerEchanges();
   }
+  var albumCo = false;
 
   /* ---------------------------------------------------------- la progression */
   var COURT = ['Tract', 'Brochure', 'Reliée', 'Originale', 'Manuscrit'];
