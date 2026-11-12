@@ -639,6 +639,7 @@ ${lien('/', 'Accueil')}
 ${lien('/oeuvres/forum', 'Forum')}
 ${lien('/a-propos', 'À propos')}
 ${lien(DEBORD + '/', 'Lire Debord, le site frère')}
+${lien('https://philotcg.com/', 'Philo TCG, le jeu de cartes')}
 ${lien('/mentions-legales', 'CGU & confidentialité')}
         </ul>
       </div>
