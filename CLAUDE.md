@@ -8636,6 +8636,10 @@ l'**autorité**, c'est-à-dire les liens entrants, exactement ce que ce fichier
 dit depuis `a-propos`. Reconsulter dans trois à quatre semaines, quand les
 pages de chapitre auront produit des impressions.
 
+## Bing Webmaster Tools (12 nov. 2026)
+
+Le site est vérifié dans Bing Webmaster Tools (même compte que philotcg.com et liregraeber.com), par la **balise `msvalidate.01`** posée dans le `<head>` de l'accueil, juste sous celle de Google. **Ne pas la retirer** : la vérification et l'historique seraient perdus. Le fichier `BingSiteAuth.xml` n'a pas été retenu, pour la même raison que chez Google (les 308 de Cloudflare). Sitemap soumis le 12 nov. 2026. Bing a un rapport **« AI Performance »** (bêta) qui dit quand le site est cité dans les réponses de Copilot : à consulter avec Search Console. Pour qu'IndexNow prévienne Bing des pages modifiées, il suffit d'activer Crawler Hints dans Cloudflare (Caching → Configuration), sans rien changer au code.
+
 ## Marx à l'agrégation 2027 (mission `agregation-2027`, sept. 2026)
 
 **But : gagner de l'audience QUALIFIÉE, pas vendre.** Marx est l'un des deux
