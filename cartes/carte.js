@@ -254,7 +254,7 @@
       '<div class="mx-bas">' +
         '<h3 class="ct-nom">' + esc(c.n) + '</h3>' +
         '<p class="mx-cite">Prolétaires de tous les pays, unissez-vous&nbsp;!</p>' +
-        '<footer class="ct-foot"><span class="ct-dates">' + esc(dates(c)) + '</span><span class="ct-sceau" title="Manuscrit" aria-label="Manuscrit">M</span></footer>' +
+        '<footer class="ct-foot"><span class="ct-dates">' + esc(dates(c)) + '</span></footer>' +
       '</div>' +
       (o.tete ? '<div class="ct-holo" aria-hidden="true"></div><div class="ct-argent" aria-hidden="true"></div>' : '') +
       '<div class="ct-foil" aria-hidden="true"></div>' +
@@ -277,7 +277,7 @@
     var rang = RANGS[c.r || 0];
     var marques = '';
     for (var i = 0; i < 5; i++) marques += '<i' + (i <= (c.r || 0) ? ' class="on"' : '') + '></i>';
-    var sceau = c.r === 4 ? '<span class="ct-sceau" title="Manuscrit" aria-label="Manuscrit">M</span>' : '';
+    var sceau = '';
     return '<div class="ct-face ct-recto">' +
       (c.r === 4 ? '<div class="ct-filigrane" aria-hidden="true"></div>' : '') +
       '<svg class="ct-motif" viewBox="0 0 100 140" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' + motif(c, R) + '</svg>' +
@@ -355,7 +355,7 @@
 
   function html(c, o) {
     o = o || {};
-    var cls = 'ct ct--' + c.f + ' ct--e-' + c.e + ' ct--r' + (c.r || 0) + (c.id === MARX ? ' ct--marx' : '') + (o.tete ? ' ct--tete' : '');
+    var cls = 'ct ct--' + c.f + ' ct--e-' + c.e + ' ct--r' + (c.r || 0) + (c.id === MARX ? ' ct--marx' : c.r === 4 && c.i ? ' ct--full' : '') + (o.tete ? ' ct--tete' : '');
     var R = rnd(graine(c.id + '·encre'));
     R(); // (l'ancien tirage de l'encre : consommé pour garder la même inclinaison)
     var style = '--tilt:' + f2(R() * 2 - 1);

@@ -345,7 +345,59 @@
   background: radial-gradient(circle at 38% 32%, #d4402e, #94200f 55%, #5e0f09);
   border-radius: 47% 53% 50% 50% / 52% 48% 52% 48%;
   box-shadow: inset 0 0 0 .2em rgba(0, 0, 0, .18), inset .12em .12em .25em rgba(255, 180, 160, .35), 0 0 0 .08em #c9952a, 0 .15em .3em rgba(0, 0, 0, .5); }
-.ct--r4 .ct-rang { display: none; }
+/* plus de sceau « M » : les cinq losanges disent le rang, à l'or */
+.ct--r4 .ct-rang { color: #e3b95a; }
+.ct--r4 .ct-foot { padding-right: .95em; padding-left: .2em; }
+.ct--r4 .ct-rang i.on { box-shadow: 0 0 .35em rgba(255, 214, 120, .7); }
+
+/* ---------------------------------------------------------------- PLEINE CARTE
+ * Un manuscrit qui a une image la porte sur TOUTE la carte (« full art ») :
+ * la photographie virée à l'or occupe la carte entière, le nom se pose en bas
+ * sur une nuit qui monte, un reflet d'or la traverse. Le cadre de l'époque
+ * disparaît : il ne reste que le double filet d'or, le filet rouge, les fers.
+ * L'irisée garde tout son arc-en-ciel, et le pousse : l'image prend les
+ * couleurs, des bandes de prisme la balaient, le nom est irisé. */
+.ct.ct--r4.ct--full .ct-cadre { inset: 0; padding: 1.75em 1.8em 1.55em; border: 0; outline: 0; box-shadow: none; background: none; }
+.ct.ct--r4.ct--full .ct-art:not(.ct-art--em) { position: absolute; inset: 0; height: auto; z-index: 0;
+  border: 0; border-radius: 0; clip-path: none; transform: none; box-shadow: none; background: #0c0907; }
+.ct.ct--r4.ct--full .ct-img { opacity: 1; filter: grayscale(1) contrast(1.16) brightness(.92) sepia(.62) saturate(1.45) hue-rotate(-8deg); }
+.ct.ct--r4.ct--full .ct-motif, .ct.ct--r4.ct--full .ct-filigrane { display: none; }
+/* la nuit qui monte sous le nom, l'ombre du haut, la braise au coin */
+.ct.ct--r4.ct--full .ct-art:not(.ct-art--em)::after { border-radius: 0; box-shadow: none; mix-blend-mode: normal; opacity: 1; z-index: 3;
+  background:
+    linear-gradient(rgba(10, 7, 5, .78), rgba(10, 7, 5, 0) 17%),
+    linear-gradient(rgba(10, 7, 5, 0) 46%, rgba(12, 8, 5, .7) 66%, rgba(10, 7, 5, .95) 84%, #0a0705),
+    radial-gradient(70% 40% at 78% 18%, rgba(213, 64, 47, .28), transparent 70%); }
+/* le reflet d'or qui traverse la photographie */
+.ct.ct--r4.ct--full .ct-art:not(.ct-art--em)::before { content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: linear-gradient(112deg, transparent 32%, rgba(255, 205, 105, .5) 44%, rgba(255, 250, 225, .85) 50%, rgba(255, 205, 105, .5) 56%, transparent 68%) 0 0 / 320% 100%;
+  mix-blend-mode: overlay; animation: ct-reflet 5.5s ease-in-out infinite; }
+.ct.ct--r4.ct--full .ct-top, .ct.ct--r4.ct--full .ct-txt, .ct.ct--r4.ct--full .ct-foot { position: relative; z-index: 1; }
+.ct.ct--r4.ct--full .ct-top { margin: 0; padding: .2em .1em .55em; border: 0; justify-content: space-between; color: #f0d48a; text-shadow: 0 .05em .35em rgba(0, 0, 0, .95); }
+.ct.ct--r4.ct--full .ct-no { opacity: 1; }
+.ct.ct--r4.ct--full .ct-txt { justify-content: flex-end; padding-bottom: .5em; }
+.ct.ct--r4.ct--full .ct-nom { filter: drop-shadow(0 .06em .12em rgba(0, 0, 0, .9)); }
+.ct.ct--r4.ct--full .ct-sub { color: #f1e4c4; opacity: .92; text-shadow: 0 .05em .3em rgba(0, 0, 0, .9); }
+.ct.ct--r4.ct--full .ct-foot { border: 0; border-top: .08em solid rgba(216, 173, 76, .55); color: #ecdcb6; }
+.ct.ct--r4.ct--full .ct-foil::after { background: radial-gradient(20em 16em at var(--mx) var(--my), rgba(255, 226, 150, .34), transparent 62%); }
+/* l'irisée en pleine carte */
+.ct.ct--r4.ct--full.ct--tete .ct-img { filter: grayscale(1) contrast(1.2) brightness(.8); }
+.ct.ct--r4.ct--full.ct--tete .ct-tirage::before { opacity: .82; z-index: 2; }
+.ct.ct--r4.ct--full.ct--tete .ct-art:not(.ct-art--em)::before { z-index: 3;
+  background: linear-gradient(112deg, transparent 22%, rgba(255, 45, 117, .55) 34%, rgba(255, 230, 0, .6) 42%, rgba(255, 255, 255, .9) 50%, rgba(31, 182, 255, .6) 58%, rgba(123, 92, 255, .55) 66%, transparent 78%) 0 0 / 320% 100%;
+  mix-blend-mode: soft-light; opacity: .9; animation-duration: 4.2s; }
+.ct.ct--r4.ct--full.ct--tete .ct-art:not(.ct-art--em)::after {
+  background:
+    linear-gradient(rgba(9, 6, 20, .78), rgba(9, 6, 20, 0) 17%),
+    linear-gradient(rgba(9, 6, 20, 0) 46%, rgba(10, 6, 24, .72) 66%, rgba(8, 5, 18, .95) 84%, #07040f); }
+.ct.ct--r4.ct--full.ct--tete .ct-holo { opacity: .22; mix-blend-mode: soft-light; }
+.ct.ct--r4.ct--full.ct--tete .ct-holo::after { mix-blend-mode: soft-light; }
+.ct.ct--r4.ct--full.ct--tete .ct-nom {
+  background: linear-gradient(100deg, #ff7aa8, #ffc46b 20%, #fff27a 38%, #8cf0b8 54%, #7fd3ff 70%, #b7a2ff 86%, #ff7aa8) 0 0 / 250% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent; animation: ct-glisse 6s linear infinite; }
+.ct.ct--r4.ct--full.ct--tete .ct-top, .ct.ct--r4.ct--full.ct--tete .ct-foot { color: #f3ecff; }
+.ct.ct--r4.ct--full.ct--tete .ct-foot { border-top-color: rgba(200, 180, 255, .55); }
+@keyframes ct-reflet { 0%, 35% { background-position: 100% 0; } 100% { background-position: 0 0; } }
 
 @keyframes ct-tourne { to { --ct-ang: 360deg; } }
 @keyframes ct-braise { 0%, 100% { border-color: #b8331f; box-shadow: 0 0 .3em rgba(213, 64, 47, .3), inset 0 0 .2em rgba(213, 64, 47, .15); }
