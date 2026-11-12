@@ -1707,7 +1707,7 @@ ${neuf ? '' : monde}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=28"></script>
+<script src="/oeuvres/shell.js?v=29"></script>
 <script src="/oeuvres/shell-social.js?v=2"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 ${da && da.fond ? `<script src="/glossaire/fond.js?v=${hashV('glossaire/fond.js')}" defer></script>\n` : ''}${aScene || neuf ? `<script src="/glossaire/monde-driver.js?v=${hashV('glossaire/monde-driver.js')}" defer></script>` : ''}
@@ -1870,7 +1870,7 @@ ${voisines.map((v) => `      <a href="${v.href}">${v.nom}</a>`).join('\n')}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=28"></script>
+<script src="/oeuvres/shell.js?v=29"></script>
 <script src="/oeuvres/shell-social.js?v=2"></script>
 <script>installShell({ workTitle: 'Glossaire', tabs: [] });</script>
 </body>
@@ -2108,7 +2108,7 @@ ${marge}
 </main>
 ${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=28"></script>
+<script src="/oeuvres/shell.js?v=29"></script>
 <script src="/oeuvres/shell-social.js?v=2"></script>
 <script>installShell({ workTitle: 'Le Capital', tabs: [] });</script>
 </body>
@@ -2174,7 +2174,7 @@ ${AFFICHAGE}
 </head>`;
   const piedCm = (workTitle) => `${PIED}
 <script src="/config.js"></script>
-<script src="/oeuvres/shell.js?v=28"></script>
+<script src="/oeuvres/shell.js?v=29"></script>
 <script src="/oeuvres/shell-social.js?v=2"></script>
 <script>installShell({ workTitle: '${workTitle}', tabs: [] });</script>
 <script src="/commentaires/agregation.js?v=${hashV('commentaires/agregation.js')}" defer></script>
@@ -2737,7 +2737,7 @@ for (const [file, oeuvre] of [['oeuvres/capital-1.html', 'Le Capital'],
     ["Le glossaire — l'abécédaire de Marx", 'Les notions, de A à Z', '/glossaire/', 'définitions concepts vocabulaire lexique'],
     ['Forum', 'Les discussions des lecteurs', '/oeuvres/forum', 'discussions notes partagées forum'],
     ['Le circuit du capital', 'Le jeu de la plus-value', '/jeu/', 'jeu jouer simulation chariot'],
-    ['Marx TCG — les cartes à collectionner', 'Près de sept mille cartes, trois boosters par jour', '/cartes/', 'marx tcg cartes collection collectionner booster boosters manuscrit irisée holo holographique missions album jeu de cartes'],
+    ['Marx TCG — les cartes à collectionner', 'Près de sept mille cartes, trois boosters par heure', '/cartes/', 'marx tcg cartes collection collectionner booster boosters manuscrit irisée holo holographique missions album jeu de cartes'],
     ['Mon carnet', 'Vos passages et vos notes', '/oeuvres/carnet', 'surlignages annotations notes'],
     ['Messages', 'Vos conversations privées', '/oeuvres/messages', 'messagerie contacts'],
     ['Karl Marx', 'Sa vie, ses idées, ses livres, par où le lire', '/karl-marx', 'biographie vie exil trèves londres idées principales théorie philosophie livres œuvres commencer'],

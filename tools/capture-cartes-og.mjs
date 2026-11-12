@@ -39,7 +39,7 @@ h1{font:900 104px/.92 Fraunces,serif;letter-spacing:-.03em;margin:0;}
 .e .ct{--ct-l:200px;position:absolute;left:50%;top:52%;margin:-140px 0 0 -100px;transform-origin:50% 130%;}
 </style></head><body>
 <div class="t"><p class="l">Lire Marx</p><h1>Marx TCG</h1><p class="s">le jeu de cartes à collectionner</p>
-<p class="p">${n} cartes. Trois boosters gratuits par jour.</p></div>
+<p class="p">${n} cartes. Trois boosters gratuits par heure.</p></div>
 <div class="e" id="e"></div>
 <script src="${BASE}/cartes/carte.js"></script>
 <script>

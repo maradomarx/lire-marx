@@ -715,3 +715,172 @@ do $$ begin
   end if;
 end $$;
 grant select, insert, delete on public.cartes_favoris to authenticated;
+
+-- ============================================================ LA JAUGE (nov. 2026)
+-- Trois boosters par HEURE, plus par jour : un booster revient toutes les
+-- vingt minutes, et l'on en garde vingt au plus en attente. La jauge se
+-- calcule à la lecture (n, et l'instant d'où l'on compte) : rien ne tourne en
+-- tâche de fond. Pleine, elle ne compte plus ; on recommence à compter quand
+-- on en ouvre une. Les missions ne passent plus par la journée : elles mettent
+-- leur booster dans la RÉSERVE (qui ne périme pas), trois par jour au plus.
+-- On ouvre la jauge d'abord, la réserve ensuite.
+create table if not exists public.cartes_jauge (
+  user_id uuid    primary key references auth.users(id) on delete cascade,
+  n       integer not null default 3 check (n >= 0),
+  depuis  bigint  not null
+);
+alter table public.cartes_jauge enable row level security;
+do $$ begin
+  if not exists (select 1 from pg_policies where schemaname = 'public'
+    and tablename = 'cartes_jauge' and policyname = 'cjg_select_own') then
+    execute 'create policy cjg_select_own on public.cartes_jauge for select using (user_id = auth.uid())';
+  end if;
+end $$;
+
+-- La jauge à cet instant : la lit, la recharge, l'écrit (verrouillée).
+create or replace function public.cartes_jauge_lire(u uuid) returns public.cartes_jauge
+  language plpgsql security definer set search_path = public as $$
+declare
+  pas constant bigint := 1200000;   -- vingt minutes : trois par heure
+  maxi constant int := 20;
+  maintenant bigint := (extract(epoch from now()) * 1000)::bigint;
+  j cartes_jauge; gagne bigint;
+begin
+  insert into cartes_jauge (user_id, n, depuis) values (u, 3, maintenant) on conflict do nothing;
+  select * into j from cartes_jauge where user_id = u for update;
+  if j.n >= maxi then
+    j.n := maxi; j.depuis := maintenant;
+  else
+    gagne := (maintenant - j.depuis) / pas;
+    if gagne > 0 then
+      j.n := least(maxi, j.n + gagne);
+      j.depuis := case when j.n >= maxi then maintenant else j.depuis + gagne * pas end;
+    end if;
+  end if;
+  update cartes_jauge set n = j.n, depuis = j.depuis where user_id = u;
+  return j;
+end $$;
+revoke all on function public.cartes_jauge_lire(uuid) from public, anon, authenticated;
+
+create or replace function public.cartes_etat() returns json
+  language plpgsql security definer set search_path = public as $$
+declare
+  u uuid := auth.uid();
+  b smallint := 0; res int := 0; j cartes_jauge;
+  maintenant bigint := (extract(epoch from now()) * 1000)::bigint;
+begin
+  if u is null then raise exception 'connexion requise' using errcode = '28000'; end if;
+  j := cartes_jauge_lire(u);
+  select bonus into b from cartes_jours where user_id = u and jour = cartes_jour();
+  select boosters into res from cartes_reserve where user_id = u;
+  return json_build_object(
+    'jour', cartes_jour(), 'maintenant', maintenant,
+    'jauge', j.n, 'jaugeMax', 20, 'pas', 1200000,
+    'prochain', case when j.n >= 20 then null else j.depuis + 1200000 end,
+    'bonus', coalesce(b, 0), 'reserve', coalesce(res, 0),
+    'restants', j.n + coalesce(res, 0),
+    'missions', (select coalesce(json_agg(mission), '[]'::json) from cartes_missions
+                 where user_id = u and jour = cartes_jour()),
+    'possedees', (select count(*) from cartes_collection where user_id = u));
+end $$;
+
+create or replace function public.cartes_ouvrir() returns json
+  language plpgsql security definer set search_path = public as $$
+declare
+  u uuid := auth.uid();
+  res int := 0;
+  j cartes_jauge;
+  tirage text[] := '{}';
+  brill boolean[] := '{}';
+  rang int; x float8; c text; i int;
+  grand boolean := random() < 0.005;   -- le Grand Soir : un booster sur deux cents
+  out_json json;
+begin
+  if u is null then raise exception 'connexion requise' using errcode = '28000'; end if;
+  j := cartes_jauge_lire(u);
+  select boosters into res from cartes_reserve where user_id = u for update;
+  res := coalesce(res, 0);
+  if j.n <= 0 and res <= 0 then
+    raise exception 'plus de booster pour l''instant' using errcode = 'P0001';
+  end if;
+  for i in 1..5 loop
+    x := random() * 100;
+    if grand then
+      rang := case when i = 5 or x < 25 then 4 else 3 end;
+    elsif i < 5 then
+      rang := case when x < 0.5 then 4 when x < 4 then 3 when x < 14 then 2 when x < 40 then 1 else 0 end;
+    else
+      rang := case when x < 1.5 then 4 when x < 8 then 3 when x < 30 then 2 else 1 end;
+    end if;
+    select id into c from cartes_catalogue where actif and r = rang order by random() limit 1;
+    if c is null then
+      select id into c from cartes_catalogue where actif order by random() limit 1;
+    end if;
+    tirage := tirage || c;
+    brill := brill || (random() < case when grand then 0.2 else 0.02 end);
+  end loop;
+
+  select json_agg(json_build_object('id', t.id, 'tete', t.tete,
+           'nouvelle', cc.carte is null and t.k = 1,
+           'nouvelleTete', t.tete and coalesce(cc.tetes, 0) = 0 and t.kt = 1) order by t.o)
+    into out_json
+    from (select id, tete, o,
+                 row_number() over (partition by id order by o) as k,
+                 row_number() over (partition by id, tete order by o) as kt
+          from unnest(tirage, brill) with ordinality as z(id, tete, o)) t
+    left join cartes_collection cc on cc.user_id = u and cc.carte = t.id;
+
+  insert into cartes_collection (user_id, carte, n, tetes, premiere)
+    select u, id, count(*), count(*) filter (where tete), (extract(epoch from now()) * 1000)::bigint
+      from unnest(tirage, brill) as z(id, tete) group by id
+    on conflict (user_id, carte) do update
+      set n = cartes_collection.n + excluded.n, tetes = cartes_collection.tetes + excluded.tetes;
+
+  if j.n > 0 then
+    -- pleine, la jauge ne comptait plus : elle recommence à compter maintenant
+    update cartes_jauge set n = n - 1,
+      depuis = case when j.n >= 20 then (extract(epoch from now()) * 1000)::bigint else depuis end
+      where user_id = u;
+  else
+    update cartes_reserve set boosters = boosters - 1,
+      maj = (extract(epoch from now()) * 1000)::bigint where user_id = u;
+    res := res - 1;
+  end if;
+  return (cartes_etat()::jsonb || jsonb_build_object('cartes', out_json, 'grandSoir', grand))::json;
+end $$;
+
+-- Une mission : un booster dans la réserve, une fois par jour et par mission,
+-- trois au plus par jour.
+create or replace function public.cartes_mission(m text) returns json
+  language plpgsql security definer set search_path = public as $$
+declare
+  u uuid := auth.uid();
+  jr date := cartes_jour();
+  n int;
+  avant smallint;
+begin
+  if u is null then raise exception 'connexion requise' using errcode = '28000'; end if;
+  if m not in ('lecture', 'notion', 'annotation', 'questions', 'circuit', 'forum', 'commentaire') then
+    raise exception 'mission inconnue' using errcode = '22023';
+  end if;
+  insert into cartes_missions (user_id, mission, jour, created)
+    values (u, m, jr, (extract(epoch from now()) * 1000)::bigint) on conflict do nothing;
+  get diagnostics n = row_count;
+  select coalesce(bonus, 0) into avant from cartes_jours where user_id = u and jour = jr;
+  avant := coalesce(avant, 0);
+  if n > 0 and avant < 3 then
+    insert into cartes_jours (user_id, jour, bonus) values (u, jr, 1)
+      on conflict (user_id, jour) do update set bonus = cartes_jours.bonus + 1;
+    insert into cartes_reserve (user_id, boosters, maj)
+      values (u, 1, (extract(epoch from now()) * 1000)::bigint)
+      on conflict (user_id) do update set boosters = cartes_reserve.boosters + 1, maj = excluded.maj;
+  end if;
+  return (cartes_etat()::jsonb || jsonb_build_object('gagne', n > 0 and avant < 3))::json;
+end $$;
+
+revoke all on function public.cartes_etat()        from public, anon;
+revoke all on function public.cartes_ouvrir()      from public, anon;
+revoke all on function public.cartes_mission(text) from public, anon;
+grant execute on function public.cartes_etat()        to authenticated;
+grant execute on function public.cartes_ouvrir()      to authenticated;
+grant execute on function public.cartes_mission(text) to authenticated;

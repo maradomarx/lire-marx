@@ -12284,3 +12284,10 @@ Demande du propriétaire : les « cinq étoiles » en full art qui brillent, san
 - Toutes les règles sont préfixées `.ct.ct--r4.ct--full` (0,4,0) pour passer devant les règles d'époque (0,3,0).
 - **Le sceau « M » est retiré** de tous les manuscrits (Marx compris), à la demande du propriétaire : les cinq losanges, à l'or, disent le rang (ils étaient masqués sur ce rang).
 - Après une retouche : `cartes.mjs versions`, puis `cartes-partage.mjs --images` (il lui faut `tools/serveur.mjs` sur le port **8840** et `LM_MODULES`).
+
+### Trois boosters par heure, vingt en attente (mission `boosters-jauge`, 12 nov. 2026)
+
+**Supersède « 3 boosters de 5 cartes par jour ».** Une JAUGE (`cartes_jauge` : `n`, `depuis` en ms) se recharge d'un booster toutes les **vingt minutes**, jusqu'à **20**. Elle se calcule à la lecture (`cartes_jauge_lire(u)`, interne, verrouillée) : rien ne tourne en tâche de fond ; pleine, elle ne compte plus, et recommence à compter quand on en ouvre une. Un compte sans jauge part de 3. `cartes_etat` rend `jauge`, `jaugeMax`, `pas`, `prochain` (ms, null si pleine) et `maintenant` (l'heure du serveur fait foi pour le minuteur) ; `cartes_ouvrir` rend tout l'état plus `cartes` et `grandSoir`. On ouvre la jauge d'abord, la RÉSERVE ensuite (cadeaux, bienvenue, missions : elle ne périme pas et n'est pas plafonnée).
+- **Les missions** mettent désormais leur booster dans la réserve (trois par jour au plus, compteur `cartes_jours.bonus`), au lieu d'allonger la journée.
+- La page montre vingt crans (`.cpt-jauge`), les ronds rouges de la réserve, et un minuteur MM:SS jusqu'au prochain booster (« Jauge pleine » sinon) ; à zéro, elle relit l'état. Démo : `?demo&pas=<secondes>` pour voir la jauge se remplir vite.
+- Textes mis à jour partout (règles, FAQ, méta, Game JSON-LD, image de partage, modale d'inscription). `shell.js?v=29`.

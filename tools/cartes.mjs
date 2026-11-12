@@ -840,7 +840,7 @@ function pageTCG(sortie) {
     { '@context': 'https://schema.org', '@type': 'Game', name: 'Marx TCG', alternateName: 'Les cartes à collectionner de Lire Marx',
       url: 'https://liremarx.com/cartes/', inLanguage: 'fr', isAccessibleForFree: true, genre: 'Jeu de cartes à collectionner',
       image: 'https://liremarx.com/assets/img/cartes/marx-tcg-og.jpg',
-      description: `Jeu de cartes à collectionner gratuit sur Marx et le mouvement ouvrier : ${sortie.length} cartes (figures, œuvres, organisations, événements, notions), trois boosters par jour.`,
+      description: `Jeu de cartes à collectionner gratuit sur Marx et le mouvement ouvrier : ${sortie.length} cartes (figures, œuvres, organisations, événements, notions), trois boosters par heure.`,
       publisher: { '@id': 'https://liremarx.com/#organisation' } },
     { '@context': 'https://schema.org', '@type': 'FAQPage',
       mainEntity: qr.map(([, q, r]) => ({ '@type': 'Question', name: txt(q), acceptedAnswer: { '@type': 'Answer', text: txt(r) } })) },

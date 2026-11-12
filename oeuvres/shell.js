@@ -2285,7 +2285,7 @@
        argumente, et l'on n'argumente pas auprès de qui revient. */
     if(signup){
       h += '<div class="ac-sec"><p class="ac-sec-h">Ce qu’un compte ajoute</p><ul class="ac-bens">'
-        + '<li class="ac-ben">' + MK_STEP + '<span><b>Dix boosters de Marx TCG offerts.</b> Puis trois par jour, pour commencer votre collection.</span></li>'
+        + '<li class="ac-ben">' + MK_STEP + '<span><b>Dix boosters de Marx TCG offerts.</b> Puis trois par heure, pour commencer votre collection.</span></li>'
         + '<li class="ac-ben">' + MK_SYNC + '<span><b>Vos passages vous suivent.</b> Surlignages et notes se retrouvent sur tous vos appareils.</span></li>'
         + '<li class="ac-ben">' + MK_TALK + '<span><b>Vous pouvez écrire.</b> Ouvrir une discussion, répondre et appuyer une lecture sur le forum.</span></li>'
         + '<li class="ac-ben">' + MK_STEP + '<span><b>Votre progression se garde.</b> Les chapitres lus restent cochés d’une visite à l’autre.</span></li>'
