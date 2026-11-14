@@ -529,7 +529,7 @@
     pop.hidden = true;
     pop.innerHTML = '<div class="tb-pop-h">Soutenir le projet</div>'
       + '<div class="tb-pop-t">Lire Marx est libre, gratuit et sans publicité. Pour aider à le faire vivre :</div>'
-      + '<a class="tb-pop-cta" href="https://ko-fi.com/maradomarx" target="_blank" rel="noopener">Faire un don</a>';
+      + '<a class="tb-pop-cta" href="https://ko-fi.com/maradomarx" target="_blank" rel="noopener">Soutenir</a>';
     wrap.appendChild(pop);
     pop.id = pop.id || 'supportPop';
     btn.setAttribute('aria-haspopup', 'dialog');
