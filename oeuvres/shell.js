@@ -505,8 +505,7 @@
 
   // ----- Popover « Soutenir le projet » -----
   // Petit popover .tb-pop accroché à #supportBtn ; texte court + bouton
-  // externe « Faire un don ». Le href reste # tant que la cible n'est
-  // pas choisie — c'est juste un placeholder, à remplir plus tard.
+  // externe « Faire un don », vers la page Ko-fi de l'auteur.
   function wireSupportPopover(){
     var btn = document.getElementById('supportBtn');
     if(!btn || btn.dataset.w) return;
@@ -529,8 +528,8 @@
     pop.className = 'tb-pop';
     pop.hidden = true;
     pop.innerHTML = '<div class="tb-pop-h">Soutenir le projet</div>'
-      + '<div class="tb-pop-t">Lire.Marx est libre, gratuit et sans publicité. Pour aider à le faire vivre :</div>'
-      + '<a class="tb-pop-cta" href="#" target="_blank" rel="noopener">Faire un don</a>';
+      + '<div class="tb-pop-t">Lire Marx est libre, gratuit et sans publicité. Pour aider à le faire vivre :</div>'
+      + '<a class="tb-pop-cta" href="https://ko-fi.com/maradomarx" target="_blank" rel="noopener">Faire un don</a>';
     wrap.appendChild(pop);
     pop.id = pop.id || 'supportPop';
     btn.setAttribute('aria-haspopup', 'dialog');
