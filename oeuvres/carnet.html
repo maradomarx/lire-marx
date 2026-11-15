@@ -356,6 +356,54 @@ html[data-mode="edition"] #cnScene{filter:grayscale(1) sepia(.45) contrast(1.08)
 
 /* Au doigt (mission `cibles-tactiles`) : boutons du carnet à 32 px. */
 @media (pointer:coarse){ .cnb-btn{min-height:40px;} }
+
+/* ══════════════════════════════════════════════════════════════════════
+   LE CARNET, MODÈLE IPHONE (mission `carnet-iphone`, nov. 2026)
+   La barre : chercher, filtrer, écrire. Au bureau tout reste sur une
+   rangée ; sous 680 px elle tient en UNE rangée collante (elle en faisait
+   trois, et ne collait plus), les filtres se déplient par leur bouton.
+   Les gestes d'une note sont des pastilles sur le papier.
+   ══════════════════════════════════════════════════════════════════════ */
+.cnb-row,.cnb-more{display:contents;}
+.cnb-ico{display:none;position:relative;flex:none;width:40px;height:40px;border-radius:50%;place-items:center;cursor:pointer;
+  background:transparent;border:1px solid var(--line-strong);color:var(--text);}
+.cnb-ico svg{width:18px;height:18px;}
+.cnb-ico[aria-expanded="true"]{background:var(--card);color:var(--gold);border-color:var(--gold);}
+.cnb-ico-n{position:absolute;top:-4px;right:-4px;min-width:17px;height:17px;padding:0 4px;border-radius:100px;display:grid;place-items:center;box-sizing:border-box;
+  background:var(--red);color:var(--sur-red);font:600 .6875rem/1 var(--f-ui);}
+.cnb-ico-n[hidden]{display:none;}
+.cnb-write{order:5;display:inline-flex;align-items:center;gap:7px;}
+.cnb-write svg{width:15px;height:15px;}
+.cnb-tally{order:6;}
+.cnb-exp-it small{display:inline;margin:0 0 0 8px;}
+.cnb-sync button{font-weight:600;color:var(--pkred);text-decoration:underline;text-underline-offset:3px;}
+
+.cnb-acts{gap:8px;margin-top:11px;}
+.cnb-act{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:34px;height:34px;padding:0;box-sizing:border-box;
+  border:1px solid var(--pkline);border-radius:999px;background:rgba(255,255,255,.22);color:var(--pk2);
+  font:600 .76rem/1 var(--f-ui);text-decoration:none;transition:color .15s,border-color .15s,background .15s;}
+.cnb-act svg{width:15px;height:15px;display:block;}
+.cnb-act-w{padding:0 13px;}
+.cnb-act:hover{color:var(--pkred);border-color:var(--pkred);text-decoration:none;background:rgba(255,255,255,.4);}
+.cnb-act:focus-visible{outline:2px solid var(--pkred);outline-offset:2px;}
+.cnb-confirm{flex-wrap:wrap;gap:8px;margin-top:11px;}
+.cnb-confirm .cnb-act{border-color:var(--pkred);}
+@media (pointer:coarse){.cnb-act{min-width:40px;height:40px;}}
+
+@media(max-width:680px){
+  .cnb-tools{position:sticky;top:50px;display:block;padding:8px;margin-bottom:18px;border-radius:16px;}
+  .cnb-row{display:flex;align-items:center;gap:8px;}
+  .cnb-find{flex:1 1 0;min-width:0;height:40px;border-radius:999px;}
+  .cnb-ico{display:grid;}
+  .cnb-write{order:0;width:40px;height:40px;padding:0;justify-content:center;border-radius:50%;}
+  .cnb-write span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;}
+  .cnb-write svg{width:17px;height:17px;}
+  .cnb-more{display:none;}
+  .cnb-tools.filtres-on .cnb-more{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 2px 2px;margin-top:8px;border-top:1px solid var(--line);}
+  .cnb-dot{width:30px;height:30px;}
+  .cnb-exp-menu{right:auto;left:0;}
+}
+@media print{.cnb-ico{display:none!important;}}
 </style>
 <!-- AFFICHAGE:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs (modes, fond, gestes), ne pas éditer à la main -->
 <script>(function(){var h=document.documentElement,K='liremarx.mode.v1',C=['auto','bougie','jour','edition'],T={'bougie':'#15100b','jour':'#f6efe0','edition':'#ebe1c9'},S=null,f=0;try{S=matchMedia('(prefers-color-scheme: light)')}catch(e){}function r(c){return c==='auto'?(S&&S.matches?'jour':'bougie'):c}function lu(){var c='';try{c=localStorage.getItem(K)||''}catch(e){}return C.indexOf(c)<0?'auto':c}function p(c){if(C.indexOf(c)<0)c='auto';var m=r(c),a=h.getAttribute('data-mode');h.setAttribute('data-mode-choix',c);if(m!==a){if(a){h.classList.add('lm-bascule');clearTimeout(f);f=setTimeout(function(){h.classList.remove('lm-bascule')},140)}h.setAttribute('data-mode',m);var x=document.getElementsByName('theme-color');for(var i=0;i<x.length;i++)x[i].setAttribute('content',T[m]);if(a)document.dispatchEvent(new CustomEvent('lm:mode',{detail:{mode:m,choix:c}}))}document.dispatchEvent(new CustomEvent('lm:choix',{detail:{mode:m,choix:c}}));return m}var L=window.LM=window.LM||{};L.MODES=C;L.TEINTES=T;L.resoudre=r;L.mode=function(m){if(m===undefined)return{mode:h.getAttribute('data-mode'),choix:h.getAttribute('data-mode-choix')};if(C.indexOf(m)<0)return null;try{localStorage.setItem(K,m)}catch(e){}return p(m)};try{if(localStorage.getItem('liremarx.rail.v1')==='1')h.classList.add('sb-rail')}catch(e){}p(lu());if(S&&S.addEventListener)S.addEventListener('change',function(){if(h.getAttribute('data-mode-choix')==='auto')p('auto')});addEventListener('storage',function(e){if(e.key===K)p(C.indexOf(e.newValue)<0?'auto':e.newValue)})})();</script>
@@ -391,28 +439,39 @@ html[data-mode="edition"] #cnScene{filter:grayscale(1) sepia(.45) contrast(1.08)
   <div class="cnb">
 
     <div class="cnb-tools" id="cnTools" hidden>
-      <label class="sr-only" for="cnFind">Chercher dans le carnet</label>
-      <input class="cnb-find" id="cnFind" type="search" placeholder="Chercher dans le carnet…" autocomplete="off">
-      <div class="cnb-dots" role="group" aria-label="Filtrer par couleur de surligneur">
-        <button class="cnb-dot d-gold" type="button" data-color="gold" aria-pressed="false" aria-label="Surlignages or" title="Or"></button>
-        <button class="cnb-dot d-red" type="button" data-color="red" aria-pressed="false" aria-label="Surlignages rouges" title="Rouge"></button>
-        <button class="cnb-dot d-blue" type="button" data-color="blue" aria-pressed="false" aria-label="Surlignages bleus" title="Bleu"></button>
-        <button class="cnb-dot d-green" type="button" data-color="green" aria-pressed="false" aria-label="Surlignages verts" title="Vert"></button>
+      <div class="cnb-row">
+        <label class="sr-only" for="cnFind">Chercher dans le carnet</label>
+        <input class="cnb-find" id="cnFind" type="search" placeholder="Chercher…" autocomplete="off">
+        <button class="cnb-ico" id="cnFilt" type="button" aria-expanded="false" aria-controls="cnMore" aria-label="Filtres et export">
+          <svg viewBox="0 0 18 18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2.5 5h7M13.5 5h2M2.5 13h2M8.5 13h7"/><circle cx="11.5" cy="5" r="2"/><circle cx="6.5" cy="13" r="2"/></svg>
+          <span class="cnb-ico-n" id="cnFiltN" hidden></span>
+        </button>
+        <button class="cnb-pill cnb-write" id="cnWrite" type="button" aria-label="Écrire une page">
+          <svg viewBox="0 0 18 18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15l.8-3.4L12.6 2.8l2.6 2.6-8.8 8.8z"/><path d="M11 4.4l2.6 2.6"/></svg>
+          <span>Écrire</span>
+        </button>
       </div>
-      <button class="cnb-pill" id="cnNoted" type="button" aria-pressed="false">Avec note</button>
-      <div class="cnb-views" role="group" aria-label="Ordre du carnet">
-        <button class="cnb-view" id="cnViewC" type="button" aria-pressed="true">Par œuvre</button>
-        <button class="cnb-view" id="cnViewJ" type="button" aria-pressed="false">Par date</button>
-      </div>
-      <details class="cnb-exp" id="cnExp">
-        <summary class="cnb-pill">Exporter</summary>
-        <div class="cnb-exp-menu">
-          <button class="cnb-exp-it" id="cnExpMd" type="button">Texte lisible (Markdown)<small>citations et notes, par œuvre et section</small></button>
-          <button class="cnb-exp-it" id="cnExpJson" type="button">Sauvegarde (JSON)<small>le carnet complet, ré-importable</small></button>
+      <div class="cnb-more" id="cnMore">
+        <div class="cnb-dots" role="group" aria-label="Filtrer par couleur de surligneur">
+          <button class="cnb-dot d-gold" type="button" data-color="gold" aria-pressed="false" aria-label="Surlignages or" title="Or"></button>
+          <button class="cnb-dot d-red" type="button" data-color="red" aria-pressed="false" aria-label="Surlignages rouges" title="Rouge"></button>
+          <button class="cnb-dot d-blue" type="button" data-color="blue" aria-pressed="false" aria-label="Surlignages bleus" title="Bleu"></button>
+          <button class="cnb-dot d-green" type="button" data-color="green" aria-pressed="false" aria-label="Surlignages verts" title="Vert"></button>
         </div>
-      </details>
-      <button class="cnb-pill cnb-write" id="cnWrite" type="button">Écrire une page</button>
-      <span class="cnb-tally" id="cnTally"></span>
+        <button class="cnb-pill" id="cnNoted" type="button" aria-pressed="false">Avec note</button>
+        <div class="cnb-views" role="group" aria-label="Ordre du carnet">
+          <button class="cnb-view" id="cnViewC" type="button" aria-pressed="true">Par œuvre</button>
+          <button class="cnb-view" id="cnViewJ" type="button" aria-pressed="false">Par date</button>
+        </div>
+        <details class="cnb-exp" id="cnExp">
+          <summary class="cnb-pill">Exporter</summary>
+          <div class="cnb-exp-menu">
+            <button class="cnb-exp-it" id="cnExpMd" type="button">Texte<small>Markdown</small></button>
+            <button class="cnb-exp-it" id="cnExpJson" type="button">Sauvegarde<small>JSON</small></button>
+          </div>
+        </details>
+        <span class="cnb-tally" id="cnTally"></span>
+      </div>
     </div>
 
     <div class="cnb-book" id="cnBook">
@@ -428,7 +487,7 @@ html[data-mode="edition"] #cnScene{filter:grayscale(1) sepia(.45) contrast(1.08)
         </svg>
         <p class="cnb-envoi" id="cnCount">Ouverture du carnet…</p>
         <ul class="cnb-toc" id="cnToc" hidden></ul>
-        <p class="cnb-sync" id="cnSync" hidden>Votre carnet vit sur cet appareil. <button type="button" id="cnLogin">Connectez-vous</button> pour le retrouver d'un appareil à l'autre.</p>
+        <p class="cnb-sync" id="cnSync" hidden>Sur cet appareil seulement · <button type="button" id="cnLogin">Se connecter</button></p>
       </header>
 
       <div id="cnBody"><div class="cnb-state">Un instant, le carnet s'ouvre…</div></div>
@@ -653,23 +712,28 @@ installShell({
       '</div></div>';
   }
 
+  /* Les gestes d'une note : « Passage » garde son mot (c'est une destination),
+     modifier et effacer sont deux pictogrammes nommés pour les lecteurs d'écran. */
+  var IC_GO = '<svg viewBox="0 0 18 18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h11M10 4.5 14.5 9 10 13.5"/></svg>';
+  var IC_PEN = '<svg viewBox="0 0 18 18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15l.8-3.4L12.6 2.8l2.6 2.6-8.8 8.8z"/><path d="M11 4.4l2.6 2.6"/></svg>';
+  var IC_DEL = '<svg viewBox="0 0 18 18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 5h11M7 5V3.2h4V5M5 5l.7 9.8h6.6L13 5M7.6 7.8v4.4M10.4 7.8v4.4"/></svg>';
   function actsHtml(n, meta, isFree){
     if(state.confirm === n.id){
       return '<div class="cnb-confirm" role="alert">' +
-        (isFree ? 'Déchirer cette page ?' : 'Effacer ce passage du carnet ?') +
-        ' <button class="cnb-act" type="button" data-act="del-yes">Oui, effacer</button>' +
-        ' <button class="cnb-act" type="button" data-act="del-no">Garder</button></div>';
+        (isFree ? 'Déchirer cette page ?' : 'Effacer ce passage ?') +
+        ' <button class="cnb-act cnb-act-w" type="button" data-act="del-yes">Effacer</button>' +
+        ' <button class="cnb-act cnb-act-w" type="button" data-act="del-no">Garder</button></div>';
     }
     var h = '<div class="cnb-acts">';
     if(!isFree){
       var href = passageHref(meta, n);
       h += href
-        ? '<a class="cnb-act" href="' + esc(href) + '">Aller au passage&nbsp;→</a>'
+        ? '<a class="cnb-act cnb-act-w" href="' + esc(href) + '">' + IC_GO + '<span>Passage</span></a>'
         : '<span class="cnb-act-soon">atelier à venir</span>';
     }
-    h += '<button class="cnb-act" type="button" data-act="edit">' +
-        (isFree ? 'Reprendre la plume' : (n.note ? 'Modifier' : 'Annoter')) + '</button>' +
-      '<button class="cnb-act" type="button" data-act="del">Effacer</button></div>';
+    var lab = isFree ? 'Modifier la page' : (n.note ? 'Modifier la note' : 'Ajouter une note');
+    h += '<button class="cnb-act" type="button" data-act="edit" aria-label="' + lab + '" title="' + lab + '">' + IC_PEN + '</button>' +
+      '<button class="cnb-act" type="button" data-act="del" aria-label="Effacer" title="Effacer">' + IC_DEL + '</button></div>';
     return h;
   }
 
@@ -979,6 +1043,22 @@ installShell({
     state.view = 'journal'; syncViewButtons(); render();
   });
   document.getElementById('cnWrite').addEventListener('click', openWrite);
+  /* Sur téléphone la barre tient en une rangée : les filtres, l'ordre et
+     l'export se déplient par ce bouton, qui porte le nombre de filtres posés. */
+  (function(){
+    var tools = document.getElementById('cnTools'), b = document.getElementById('cnFilt'), n = document.getElementById('cnFiltN');
+    function compte(){
+      var c = tools.querySelectorAll('.cnb-dot[aria-pressed="true"]').length +
+        (document.getElementById('cnNoted').getAttribute('aria-pressed') === 'true' ? 1 : 0);
+      n.textContent = c || ''; n.hidden = !c;
+    }
+    b.addEventListener('click', function(){
+      var on = tools.classList.toggle('filtres-on');
+      b.setAttribute('aria-expanded', on ? 'true' : 'false');
+    });
+    tools.addEventListener('click', function(){ setTimeout(compte, 0); });
+    compte();
+  })();
 
   /* export lisible : le carnet recopié en Markdown, par œuvre et section */
   function download(name, text, mime){

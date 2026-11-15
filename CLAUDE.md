@@ -12330,3 +12330,13 @@ Troisième volet. **Supersède l'anatomie de la carte décrite plus haut** (colo
 - Pièges : la rangée de filtres en `nowrap` élargissait la colonne du fil (`1fr` sans `minmax(0,…)`, `.pf-main` sans `min-width:0`) — 60 px de débord à 375 px ; `.pf-post{overflow:hidden}` coupait le menu « ⋯ ».
 - Pour tester avec des discussions : intercepter les requêtes `rest/v1/public_notes` et `note_votes` dans puppeteer et rendre des lignes fictives ; forcer `SHELL.auth.user` et `.profile` par `defineProperty` pour ouvrir le composeur. La base locale ne rend aucune discussion.
 - Vérifié à 375 et 1440 px (fil, vue de fil, menu, composeur, Échap, « i »), bougie et jour à l'image. Non vérifié : publication réelle avec un compte, édition à l'image, sonde de contraste.
+
+## Le carnet, modèle iPhone (mission `carnet-iphone`, nov. 2026)
+
+Quatrième volet. Le cahier (papier, page de titre, cahiers par œuvre) ne change pas : c'est un document. Ce qui change, c'est l'outillage.
+
+- **La barre** (`#cnTools` > `.cnb-row` + `.cnb-more`) : au bureau, une rangée comme avant (les deux enveloppes sont en `display:contents`, l'ordre vient de `order`). **Sous 680 px, une rangée collante** — chercher, filtres, écrire — au lieu de trois rangées qui ne collaient plus (132 px) ; couleurs, « Avec note », l'ordre et l'export se déplient par `#cnFilt` (classe `filtres-on`), qui porte le nombre de filtres posés (`#cnFiltN`).
+- **Les gestes d'une note** : « Passage » (flèche + mot, c'est une destination), puis deux pictogrammes nommés, le crayon (ajouter ou modifier la note) et la corbeille. La confirmation reste en ligne (« Effacer ce passage ? » Effacer / Garder).
+- La ligne de synchronisation : « Sur cet appareil seulement · Se connecter ». L'export : « Texte · Markdown », « Sauvegarde · JSON ».
+- Pour tester : semer `liremarx.anno.v1` par `evaluateOnNewDocument` (clés `œuvre|section`, couleurs `gold|red|blue|green`), page ouverte avec `?skip-anim`.
+- Vérifié à 375 et 1440 px (barre, filtres et pastille, édition, confirmation). Non vérifié : jour et édition à l'image, synchronisation avec un compte.
