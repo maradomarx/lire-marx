@@ -12291,3 +12291,16 @@ Demande du propriétaire : les « cinq étoiles » en full art qui brillent, san
 - **Les missions** mettent désormais leur booster dans la réserve (trois par jour au plus, compteur `cartes_jours.bonus`), au lieu d'allonger la journée.
 - La page montre vingt crans (`.cpt-jauge`), les ronds rouges de la réserve, et un minuteur MM:SS jusqu'au prochain booster (« Jauge pleine » sinon) ; à zéro, elle relit l'état. Démo : `?demo&pas=<secondes>` pour voir la jauge se remplir vite.
 - Textes mis à jour partout (règles, FAQ, méta, Game JSON-LD, image de partage, modale d'inscription). `shell.js?v=29`.
+
+## La navigation du téléphone (mission `navigation-iphone`, nov. 2026)
+
+Premier volet d'une refonte « modèle iPhone » demandée par le propriétaire pour tout le site hors accueil : l'ergonomie et la place des commandes disent quoi faire, le texte d'INTERFACE se réduit à une icône et un mot. **On ne coupe pas le texte à lire** (essais, résumés, FAQ : c'est le produit et le référencement). Une icône de navigation garde son mot ; seule une commande répétée (précédent, plein écran) peut être une icône seule, avec son nom accessible. Suite prévue, une pièce à la fois, validée par le propriétaire : l'atelier de lecture, puis carnet, forum, messages, compte.
+
+- **Sous 861 px, une barre d'onglets en bas** (`nav.lm-tabbar`, `buildTabbar()` / `wireTabbar()` dans shell.js) : Lire, Glossaire, Carnet, Forum (des ANCRES) et **Plus** (un bouton). « Lire » couvre `/oeuvres/*` sauf carnet, forum, messages. Le bouton ☰ disparaît (`html.lm-tabs .sb-toggle`).
+- **« Plus » ouvre la barre latérale en FEUILLE** : même nœud `#sidebar`, mis en grille de tuiles par shell.css, qui monte du bas au-dessus de la barre. Les quatre destinations de la barre n'y sont pas redites. Échap referme et rend le focus ; fermée, la feuille est en `visibility:hidden` (hors tabulation).
+- **`--tab-h`** est la hauteur de la barre (0 au bureau) : `body` prend ce rembourrage, et tout ce qui est fixé en bas s'y cale (`.lm-haut`, toasts, pastilles de notes, `.lm-bv`…). Tout nouvel élément fixé en bas doit l'ajouter.
+- **En lecture** (`body.at-reading`) la barre s'efface quand on descend (`html.lm-tabs-bas`) et revient quand on remonte. Elle ne paraît pas en plein écran (`at-plein`), dans une conversation (`mg-convo`), ni pendant l'entrée du carnet.
+- **Une page qui a sa propre barre du bas n'en reçoit pas** (test : `#tcgOnglets`, Marx TCG) : ☰ y reste et ouvre la même feuille, complète.
+- z-index : barre 121 (au-dessus du voile 119 et de la feuille 120, sous la feuille de lecture 130 et les modales 140).
+- Pièges : les pages sans `box-sizing:border-box` global (/cartes/) faisaient déborder les tuiles ; `.lm-bv` passait par-dessus la feuille. puppeteer-core se trouve dans `~/Projets/Philo/circuit-du-capital/node_modules`.
+- `shell.css?v=19`, `shell.js?v=32`. Non vérifié : un vrai iPhone, le mode édition à l'image.
