@@ -12316,3 +12316,17 @@ Deuxième volet de la refonte « modèle iPhone ». Mesuré avant à 375 px : hu
 - Plein écran sur téléphone : la sortie se pose en bas à gauche (elle recouvrait la barre).
 - Vérifié à 375 px sur les six ateliers (rangée sans débordement, titre juste), réglages éprouvés (taille, interrupteurs, fond, plein écran, Échap), volets, notes ; 1000 et 1440 px inchangés hors le panneau de réglages. Non fait : sonde de contraste complète, vrai iPhone.
 - `atelier.css?v=20`, `reader-tools.js?v=8`.
+
+## Le forum, modèle iPhone (mission `forum-iphone`, nov. 2026)
+
+Troisième volet. **Supersède l'anatomie de la carte décrite plus haut** (colonne de soutien à gauche, carte « Ouvrir une discussion… », rail « La place commune »).
+
+- **En-tête** : « Forum », deux comptes (`#pfStats`), plus de sur-titre ni de phrase. Les usages restent dans le rail au bureau (une seule carte) ; sous 1020 px ils s'ouvrent par le bouton « i » (`#pfInfo`, classe `info-on` sur `#pfCols`).
+- **Barre collante** (`top:44px`, aussi sur téléphone) : les trois tris en sélecteur segmenté, **le bouton d'écriture à droite** (`.pf-write`, `data-act="compose"` ; rond avec un crayon sous 700 px, nom accessible gardé), les filtres par œuvre en rangée qui défile, avec leur compte.
+- **Carte** : œuvre, cachet + signature, ancienneté ; titre ; citation ; extrait ; puis des **pastilles** (`.pf-pill`) : soutien (flèche + compte, `voteHtml`, `data-act="vote"`), réponses (compte), « Passage ». Plus de colonne de vote ; `vote-txt` et `data-vote-t` n'existent plus.
+- **Fil** : retour « ‹ Forum » ; Soutien, Répondre, et les gestes rares (Signaler, Supprimer, Masquer) derrière **« ⋯ »** (`<details class="pf-more">`, sans script). La confirmation de suppression reste en ligne.
+- **Composeur** : feuille qui monte du bas sous 700 px (`.pf-scrim` + `.pf-composer` fixes), carte en tête du fil au bureau ; trois champs étiquetés d'un mot, un seul bouton « Publier », croix et Échap pour fermer, focus rendu au bouton d'écriture.
+- **États** : une marque, un mot, au plus un bouton. Toasts raccourcis et au vouvoiement.
+- Pièges : la rangée de filtres en `nowrap` élargissait la colonne du fil (`1fr` sans `minmax(0,…)`, `.pf-main` sans `min-width:0`) — 60 px de débord à 375 px ; `.pf-post{overflow:hidden}` coupait le menu « ⋯ ».
+- Pour tester avec des discussions : intercepter les requêtes `rest/v1/public_notes` et `note_votes` dans puppeteer et rendre des lignes fictives ; forcer `SHELL.auth.user` et `.profile` par `defineProperty` pour ouvrir le composeur. La base locale ne rend aucune discussion.
+- Vérifié à 375 et 1440 px (fil, vue de fil, menu, composeur, Échap, « i »), bougie et jour à l'image. Non vérifié : publication réelle avec un compte, édition à l'image, sonde de contraste.

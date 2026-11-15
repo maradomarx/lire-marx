@@ -97,13 +97,6 @@
 .pf-cols{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:24px;align-items:start;}
 @media(max-width:1020px){.pf-cols{grid-template-columns:1fr;}}
 
-/* ── ouvrir une discussion ── */
-.pf-launch{display:flex;gap:10px;align-items:center;background:var(--surface);
-  border:1px solid var(--line);border-radius:14px;padding:10px 12px;}
-.pf-launch-input{flex:1;text-align:left;font-family:var(--f-ui);font-size:.86rem;
-  color:var(--muted);background:var(--card);border:1px solid var(--line-strong);
-  border-radius:999px;padding:10px 16px;cursor:text;transition:border-color .15s;}
-.pf-launch-input:hover{border-color:var(--gold);}
 .pf-composer{background:var(--surface);border:1px solid var(--line);
   border-radius:14px;padding:16px;}
 .pf-composer[hidden]{display:none;}
@@ -165,18 +158,6 @@
 @keyframes pfIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
 @media(prefers-reduced-motion:reduce){.pf-post{animation:none;}}
 .pf-post.pf-hiddenpost{opacity:.45;}
-
-/* la colonne de soutien */
-.pf-vote{display:flex;flex-direction:column;align-items:center;gap:3px;
-  padding:14px 4px;background:var(--creux);}
-.pf-vote-btn{display:inline-flex;align-items:center;justify-content:center;
-  width:28px;height:26px;background:none;border:0;border-radius:7px;cursor:pointer;
-  color:var(--muted);transition:color .15s,background .15s;}
-.pf-vote-btn:hover{color:var(--gold);background:var(--hover);}
-.pf-vote-btn[aria-pressed="true"]{color:var(--gold);}
-.pf-vote-btn svg{width:16px;height:16px;display:block;}
-.pf-vote-n{font-family:var(--f-ui);font-weight:700;font-size:.8rem;color:var(--text);}
-.pf-vote-n:empty{display:none;}
 
 .pf-post-body{padding:12px 16px 11px;min-width:0;}
 .pf-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px;
@@ -314,6 +295,122 @@
   .pf-act{padding:11px 0;margin:-8px 0;}
   .pf-who{padding:11px 5px 11px 3px;margin:-11px -5px -11px -3px;}
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   LE FORUM, MODÈLE IPHONE (mission `forum-iphone`, nov. 2026)
+   Plus de phrase d'accueil ni de carte « Ouvrir une discussion » : le titre,
+   deux comptes, et une barre collante qui porte les tris ET le bouton
+   d'écriture. Une carte = qui, quoi, puis trois pastilles (soutien,
+   réponses, passage). Le composeur est une feuille sur téléphone. Les
+   usages vivent dans le rail au bureau, derrière « i » en dessous.
+   ══════════════════════════════════════════════════════════════════════ */
+.pf-head{display:flex;align-items:center;gap:14px;margin:4px 0 8px;}
+.pf-h1{margin:0;}
+.pf-stats{display:flex;gap:14px;border:0;padding:0;margin:6px 0 0;font-family:var(--f-ui);font-size:.8rem;color:var(--muted);}
+.pf-stats b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums;}
+.pf-info{display:none;margin-left:auto;width:40px;height:40px;border-radius:50%;place-items:center;cursor:pointer;
+  background:transparent;border:1px solid var(--line-strong);color:var(--ink-soft);}
+.pf-info svg{width:18px;height:18px;}
+.pf-info[aria-expanded="true"]{background:var(--card);color:var(--gold);border-color:var(--gold);}
+
+/* la colonne ne doit pas s'élargir à son contenu (la rangée de filtres défile) */
+.pf-main{min-width:0;}
+@media(max-width:1020px){.pf-cols{grid-template-columns:minmax(0,1fr);}}
+/* la barre : tris à gauche, écrire à droite, filtres dessous */
+.pf-bar{top:44px;margin:0 0 12px;padding:10px 0;gap:10px;}
+.pf-sorts{background:var(--paper-2);border-color:var(--line);padding:3px;}
+.pf-sort{font-weight:500;font-size:.8rem;padding:8px 14px;border:1px solid transparent;}
+.pf-sort[aria-pressed="true"]{background:var(--card);color:var(--ink);font-weight:600;border-color:var(--line-strong);}
+.pf-write{margin-left:auto;display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 18px 0 14px;border-radius:999px;cursor:pointer;
+  background:var(--text);color:var(--bg);border:1px solid var(--text);font:600 .84rem/1 var(--f-ui);}
+.pf-write svg{width:16px;height:16px;}
+.pf-write:hover{background:var(--ink-soft);}
+.pf-chips{margin-left:0;flex:1 1 100%;min-width:0;max-width:100%;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;}
+.pf-chips::-webkit-scrollbar{display:none;}
+.pf-chip{display:inline-flex;align-items:center;gap:7px;flex:none;border-color:var(--line);}
+.pf-chip i{font-style:normal;font-size:.7rem;font-variant-numeric:tabular-nums;opacity:.75;}
+@media(max-width:680px){.pf-bar{position:sticky;}}
+
+/* la carte */
+.pf-post{display:block;border-radius:16px;}
+.pf-post-body{padding:14px 16px 12px;}
+.pf-title{font-size:1.1rem;margin-top:9px;}
+.pf-foot{gap:8px;margin-top:12px;}
+.pf-pill{display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:0 12px;border-radius:999px;cursor:pointer;text-decoration:none;
+  background:var(--paper-2);border:1px solid var(--line);color:var(--ink-soft);font:600 .78rem/1 var(--f-ui);transition:color .15s,border-color .15s,background .15s;}
+.pf-pill svg{width:15px;height:15px;display:block;flex:none;}
+.pf-pill:hover{color:var(--ink);border-color:var(--line-strong);}
+.pf-pill-n{font-variant-numeric:tabular-nums;}
+.pf-pill-n:empty{display:none;}
+.pf-pill-flat{cursor:inherit;}
+.pf-pill-vote[aria-pressed="true"]{color:var(--gold);border-color:rgba(var(--gold-rgb),.55);background:rgba(var(--gold-rgb),.12);}
+.pf-pill-vote:active svg{transform:translateY(-2px);}
+.pf-more{position:relative;}
+.pf-more summary{list-style:none;padding:0 10px;}
+.pf-more summary::-webkit-details-marker{display:none;}
+.pf-more-m{position:absolute;left:0;top:calc(100% + 6px);z-index:5;min-width:150px;padding:5px;border-radius:12px;
+  background:var(--card);border:1px solid var(--line-strong);box-shadow:0 14px 34px -12px rgba(var(--ombre-rgb),.6);}
+.pf-more-m button{display:block;width:100%;text-align:left;min-height:40px;padding:0 12px;border:0;border-radius:8px;background:transparent;
+  color:var(--ink);cursor:pointer;font:500 .86rem/1 var(--f-ui);}
+.pf-more-m button:hover{background:var(--hover);}
+.pf-confirm{font-size:.82rem;}
+.pf-confirm .pf-act{min-height:34px;padding:0 10px;}
+
+/* dans un fil, le menu « ⋯ » dépasse de la carte ; et le titre reçoit le
+   focus par script (tabindex -1) : pas d'anneau pour un focus qu'on n'a pas demandé */
+.pf-detail .pf-post{overflow:visible;}
+#pfDetailH:focus{outline:none;}
+/* le retour : un chevron et le nom de l'endroit */
+.pf-back{display:inline-flex;align-items:center;gap:4px;min-height:40px;margin:0 0 8px -8px;padding:0 12px 0 6px;border:0;border-radius:999px;
+  background:transparent;color:var(--gold);cursor:pointer;font:600 .9rem/1 var(--f-ui);}
+.pf-back svg{width:18px;height:18px;}
+.pf-back:hover{background:var(--hover);}
+.pf-comments-h{letter-spacing:.02em;text-transform:none;font-size:.86rem;color:var(--ink-soft);}
+
+/* le composeur */
+.pf-scrim{display:none;}
+.pf-composer{margin-bottom:12px;border-radius:16px;}
+.pf-comp-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;}
+.pf-comp-h{margin:0;font-weight:900;font-size:1.12rem;letter-spacing:-.02em;}
+.pf-x{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;cursor:pointer;background:var(--card);border:1px solid var(--line-strong);color:var(--ink);}
+.pf-x svg{width:15px;height:15px;}
+.pf-field span{letter-spacing:.02em;text-transform:none;font-size:.8rem;font-weight:500;}
+.pf-sel,.pf-inp,.pf-ta{border-radius:12px;box-sizing:border-box;}
+.pf-comp-row .pf-btn{min-height:42px;padding:0 22px;font-size:.86rem;}
+.pf-btn{display:inline-flex;align-items:center;justify-content:center;}
+@media(max-width:700px){
+  .pf-scrim{display:block;position:fixed;inset:0;z-index:134;background:rgba(var(--voile-rgb),.62);}
+  .pf-composer{position:fixed;left:0;right:0;bottom:0;z-index:135;margin:0;max-height:88dvh;overflow-y:auto;box-sizing:border-box;
+    padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px));border-radius:20px 20px 0 0;border-bottom:0;background:var(--bg);
+    box-shadow:0 -18px 50px rgba(var(--ombre-rgb),.5);animation:pfSheet .28s cubic-bezier(.2,.75,.3,1) both;}
+  .pf-comp-row .pf-btn{flex:1;}
+  .pf-write span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;}
+  .pf-write{padding:0;width:44px;min-height:44px;justify-content:center;}
+  .pf-sorts{flex:1 1 0;min-width:0;}
+  .pf-sort{flex:1 1 0;padding:10px 4px;font-size:.78rem;}
+  .pf-post-body{padding:13px 14px 12px;}
+  .pf-pill{min-height:38px;}
+}
+@keyframes pfSheet{from{transform:translateY(28px);opacity:0}to{transform:none;opacity:1}}
+@media(prefers-reduced-motion:reduce){.pf-composer{animation:none;}}
+
+/* les états : une marque, un mot, au plus un bouton */
+.pf-state{font-style:normal;font-family:var(--f-ui);font-size:.9rem;color:var(--muted);}
+.pf-empty{display:flex;flex-direction:column;align-items:center;gap:12px;padding:44px 24px;text-align:center;}
+.pf-empty svg{width:34px;height:34px;color:var(--const);}
+.pf-empty b{font-family:'Fraunces',serif;font-weight:600;font-size:1.08rem;color:var(--ink);}
+.pf-empty .pf-btn{margin-top:4px;min-height:42px;padding:0 20px;}
+
+/* les usages : le rail au bureau, derrière « i » en dessous */
+.pf-rail{top:118px;}
+@media(max-width:1020px){
+  .pf-info{display:grid;}
+  .pf-cols.info-on .pf-rail{display:flex;position:static;order:-1;margin-bottom:4px;}
+}
+@media (pointer:coarse){
+  .pf-sort{padding:11px 6px;}
+  .pf-pill{min-height:40px;}
+}
 </style>
 <!-- AFFICHAGE:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs (modes, fond, gestes), ne pas éditer à la main -->
 <script>(function(){var h=document.documentElement,K='liremarx.mode.v1',C=['auto','bougie','jour','edition'],T={'bougie':'#15100b','jour':'#f6efe0','edition':'#ebe1c9'},S=null,f=0;try{S=matchMedia('(prefers-color-scheme: light)')}catch(e){}function r(c){return c==='auto'?(S&&S.matches?'jour':'bougie'):c}function lu(){var c='';try{c=localStorage.getItem(K)||''}catch(e){}return C.indexOf(c)<0?'auto':c}function p(c){if(C.indexOf(c)<0)c='auto';var m=r(c),a=h.getAttribute('data-mode');h.setAttribute('data-mode-choix',c);if(m!==a){if(a){h.classList.add('lm-bascule');clearTimeout(f);f=setTimeout(function(){h.classList.remove('lm-bascule')},140)}h.setAttribute('data-mode',m);var x=document.getElementsByName('theme-color');for(var i=0;i<x.length;i++)x[i].setAttribute('content',T[m]);if(a)document.dispatchEvent(new CustomEvent('lm:mode',{detail:{mode:m,choix:c}}))}document.dispatchEvent(new CustomEvent('lm:choix',{detail:{mode:m,choix:c}}));return m}var L=window.LM=window.LM||{};L.MODES=C;L.TEINTES=T;L.resoudre=r;L.mode=function(m){if(m===undefined)return{mode:h.getAttribute('data-mode'),choix:h.getAttribute('data-mode-choix')};if(C.indexOf(m)<0)return null;try{localStorage.setItem(K,m)}catch(e){}return p(m)};try{if(localStorage.getItem('liremarx.rail.v1')==='1')h.classList.add('sb-rail')}catch(e){}p(lu());if(S&&S.addEventListener)S.addEventListener('change',function(){if(h.getAttribute('data-mode-choix')==='auto')p('auto')});addEventListener('storage',function(e){if(e.key===K)p(C.indexOf(e.newValue)<0?'auto':e.newValue)})})();</script>
@@ -329,28 +426,23 @@
   <div class="pf">
 
     <header class="pf-head">
-      <div class="pf-label">Lire Marx</div>
       <h1 class="pf-h1">Forum</h1>
-      <p class="pf-lede">Le forum des lecteurs&nbsp;: ouvrez une discussion, répondez en fil, soutenez ce qui éclaire — et chaque fil né d'une lecture ramène à son passage.</p>
+      <div class="pf-stats" id="pfStats"></div>
+      <button type="button" class="pf-info" id="pfInfo" aria-expanded="false" aria-controls="pfRail" aria-label="Les usages du forum"><svg viewBox="0 0 18 18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="9" cy="9" r="6.6"/><path d="M9 8.2v4.2"/><path d="M9 5.6h.01" stroke-width="2.2"/></svg></button>
     </header>
 
-    <div class="pf-cols">
+    <div class="pf-cols" id="pfCols">
       <div class="pf-main" id="pfMain" aria-live="polite">
-        <div class="pf-state">La place s'ouvre…</div>
+        <div class="pf-state">Chargement…</div>
       </div>
 
-      <aside class="pf-rail" aria-label="À propos du forum">
-        <div class="pf-rail-card">
-          <h2 class="pf-rail-h">Le forum</h2>
-          <p>Ici se discute ce qui se lit dans les ateliers. Une discussion s'attache à une œuvre&nbsp;; celles nées d'un passage surligné y ramènent d'un clic.</p>
-          <div class="pf-stats" id="pfStats"></div>
-        </div>
+      <aside class="pf-rail" id="pfRail" aria-label="Les usages du forum">
         <div class="pf-rail-card">
           <h2 class="pf-rail-h">Les usages</h2>
           <ul class="pf-rules">
             <li><b>On parle du texte.</b> Citez, sourcez, ramenez au passage.</li>
-            <li><b>On soutient, on n'enterre pas.</b> Le soutien appuie une lecture&nbsp;; il n'y a pas de vote négatif.</li>
-            <li><b>On se répond, pas on ne s'attaque.</b> Le désaccord est bienvenu, l'invective se signale.</li>
+            <li><b>On soutient, on n'enterre pas.</b> Pas de vote négatif.</li>
+            <li><b>On se répond, on ne s'attaque pas.</b> L'invective se signale.</li>
           </ul>
         </div>
       </aside>
@@ -493,6 +585,10 @@ installShell({
   // icônes dessinées — un trait, jamais d'emoji
   var IC_UP = '<svg viewBox="0 0 18 18" aria-hidden="true" focusable="false"><path d="M9 2.5 L15.5 9.5 H11.6 V15.5 H6.4 V9.5 H2.5 Z" fill="currentColor"/></svg>';
   var IC_COM = '<svg viewBox="0 0 18 18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M2.5 3.5 h13 v8.5 h-8 l-3.5 3 v-3 h-1.5 Z"/></svg>';
+  var IC_PEN = '<svg viewBox="0 0 18 18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15l.8-3.4L12.6 2.8l2.6 2.6-8.8 8.8z"/><path d="M11 4.4l2.6 2.6"/></svg>';
+  var IC_BACK = '<svg viewBox="0 0 18 18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3.5 5.5 9l5.5 5.5"/></svg>';
+  var IC_MORE = '<svg viewBox="0 0 18 18" aria-hidden="true" focusable="false" fill="currentColor"><circle cx="4" cy="9" r="1.4"/><circle cx="9" cy="9" r="1.4"/><circle cx="14" cy="9" r="1.4"/></svg>';
+  var IC_X = '<svg viewBox="0 0 18 18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4.5 4.5l9 9M13.5 4.5l-9 9"/></svg>';
   var IC_GO = '<svg viewBox="0 0 18 18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 h11 M10 4.5 L14.5 9 L10 13.5"/></svg>';
 
   // ── données ──
@@ -623,20 +719,18 @@ installShell({
     }
     return '<div class="pf-meta">' + h + '</div>';
   }
-  function voteColHtml(note){
-    var n = votes[note.id] || 0;
-    return '<div class="pf-vote">' +
-      '<button type="button" class="pf-vote-btn" data-act="vote" data-id="' + esc(note.id) + '"' +
-        ' aria-pressed="' + (myVotes[note.id] ? 'true' : 'false') + '"' +
-        ' aria-label="Soutenir cette discussion">' + IC_UP + '</button>' +
-      '<span class="pf-vote-n" data-vote-n="' + esc(note.id) + '">' + (votesOK ? n : '') + '</span>' +
-      '</div>';
+  /* Le soutien est une pastille du pied (flèche + compte), plus une colonne :
+     sur téléphone elle prenait 38 px de large à chaque carte. */
+  function voteHtml(note){
+    return '<button type="button" class="pf-pill pf-pill-vote" data-act="vote" data-id="' + esc(note.id) + '"' +
+      ' aria-pressed="' + (myVotes[note.id] ? 'true' : 'false') + '" aria-label="Soutenir">' + IC_UP +
+      '<span class="pf-pill-n" data-vote-n="' + esc(note.id) + '">' + (votesOK ? (votes[note.id] || 0) : '') + '</span></button>';
   }
   function goHtml(note, w){
     if(!note.quote) return '';
     return (w.meta && w.meta.status === 'available' && w.meta.path)
-      ? '<a class="pf-act" href="' + esc(w.meta.path) + '#note=' + encodeURIComponent(note.id) + '">' +
-          IC_GO + 'Aller au passage</a>'
+      ? '<a class="pf-pill" href="' + esc(w.meta.path) + '#note=' + encodeURIComponent(note.id) + '">' +
+          IC_GO + '<span>Passage</span></a>'
       : '';
   }
 
@@ -647,14 +741,14 @@ installShell({
     var title = p.title || trunc(p.rest, 140);
     return '<article class="pf-post' + (note.hidden ? ' pf-hiddenpost' : '') + '"' +
       ' data-open="' + esc(note.id) + '" data-work="' + esc(w.id) + '">' +
-      voteColHtml(note) +
       '<div class="pf-post-body">' +
         metaHtml(note) +
         '<h2 class="pf-title"><a class="pf-title-a" href="#d=' + encodeURIComponent(note.id) + '" data-open-link="1" style="color:inherit;text-decoration:none;">' + esc(title) + '</a></h2>' +
         (note.quote ? '<div class="pf-quote">«&nbsp;' + esc(trunc(note.quote, 150)) + '&nbsp;»</div>' : '') +
         (p.title && p.rest ? '<p class="pf-excerpt">' + esc(trunc(p.rest, 240)) + '</p>' : '') +
         '<div class="pf-foot">' +
-          '<span class="pf-act">' + IC_COM + (rc ? rc + ' réponse' + (rc > 1 ? 's' : '') : 'Répondre') + '</span>' +
+          voteHtml(note) +
+          '<span class="pf-pill pf-pill-flat">' + IC_COM + '<span class="pf-pill-n">' + rc + '</span><span class="sr-only"> réponse' + (rc > 1 ? 's' : '') + '</span></span>' +
           goHtml(note, w) +
           (note.hidden ? '<span class="pf-hidden-tag">Masquée</span>' : '') +
         '</div>' +
@@ -670,12 +764,12 @@ installShell({
           esc(drafts['rep-' + note.id] || '') + '</textarea>' +
         '<div class="pf-comp-row">' +
           '<button type="button" class="pf-btn pf-btn-ghost" data-act="reply-cancel">Annuler</button>' +
-          '<button type="button" class="pf-btn" data-act="reply-send" data-id="' + esc(note.id) + '">Publier la réponse</button>' +
+          '<button type="button" class="pf-btn" data-act="reply-send" data-id="' + esc(note.id) + '">Publier</button>' +
         '</div></div>';
     }
     if(state.reportOpen === note.id){
       h += '<div class="pf-report">' +
-        '<textarea data-draft="sig-' + esc(note.id) + '" placeholder="Pourquoi signaler ? (facultatif)" aria-label="Motif du signalement (facultatif)">' +
+        '<textarea data-draft="sig-' + esc(note.id) + '" placeholder="Motif (facultatif)" aria-label="Motif du signalement (facultatif)">' +
           esc(drafts['sig-' + note.id] || '') + '</textarea>' +
         '<div class="pf-comp-row">' +
           '<button type="button" class="pf-btn pf-btn-ghost" data-act="report-cancel">Annuler</button>' +
@@ -690,18 +784,16 @@ installShell({
         ' <button type="button" class="pf-act" data-act="del-yes" data-id="' + esc(note.id) + '">Oui</button>' +
         ' <button type="button" class="pf-act" data-act="del-no">Non</button></span>';
     }
-    var h = '<button type="button" class="pf-act" data-act="vote-txt" data-id="' + esc(note.id) + '"' +
-      ' aria-pressed="' + (myVotes[note.id] ? 'true' : 'false') + '">' + IC_UP +
-      '<span data-vote-t="' + esc(note.id) + '">' +
-      (myVotes[note.id] ? 'Soutenu' : 'Soutenir') + ((votesOK && votes[note.id]) ? ' · ' + votes[note.id] : '') +
-      '</span></button>';
-    h += '<button type="button" class="pf-act" data-act="reply" data-id="' + esc(note.id) + '">Répondre</button>';
-    if(!isMine(note)) h += '<button type="button" class="pf-act" data-act="report" data-id="' + esc(note.id) + '">Signaler</button>';
+    var h = voteHtml(note) +
+      '<button type="button" class="pf-pill" data-act="reply" data-id="' + esc(note.id) + '">' + IC_COM + '<span>Répondre</span></button>';
+    /* les gestes rares vivent derrière « ⋯ » : signaler, supprimer, masquer */
+    var plus = '';
+    if(!isMine(note)) plus += '<button type="button" data-act="report" data-id="' + esc(note.id) + '">Signaler</button>';
     if(isMine(note) && !(repsBy[note.id] || []).length)
-      h += '<button type="button" class="pf-act" data-act="del" data-id="' + esc(note.id) + '">Supprimer</button>';
+      plus += '<button type="button" data-act="del" data-id="' + esc(note.id) + '">Supprimer</button>';
     if(isModNow())
-      h += '<button type="button" class="pf-act" data-act="mod" data-id="' + esc(note.id) + '">' +
-        (note.hidden ? 'Rétablir' : 'Masquer') + '</button>';
+      plus += '<button type="button" data-act="mod" data-id="' + esc(note.id) + '">' + (note.hidden ? 'Rétablir' : 'Masquer') + '</button>';
+    if(plus) h += '<details class="pf-more"><summary class="pf-pill" aria-label="Plus d’actions">' + IC_MORE + '</summary><div class="pf-more-m">' + plus + '</div></details>';
     if(note.hidden) h += '<span class="pf-hidden-tag">Masquée</span>';
     return h;
   }
@@ -730,9 +822,8 @@ installShell({
     var p = partsOf(note);
     var rc = countReplies(note.id);
     return '<div class="pf-detail">' +
-      '<button type="button" class="pf-btn pf-btn-ghost pf-back" data-act="back">← Retour au fil</button>' +
+      '<button type="button" class="pf-back" data-act="back">' + IC_BACK + '<span>Forum</span></button>' +
       '<article class="pf-post' + (note.hidden ? ' pf-hiddenpost' : '') + '">' +
-        voteColHtml(note) +
         '<div class="pf-post-body">' +
           metaHtml(note, { section: true }) +
           (p.title ? '<h2 class="pf-title" id="pfDetailH" tabindex="-1">' + esc(p.title) + '</h2>'
@@ -743,7 +834,7 @@ installShell({
           boxesHtml(note, true) +
         '</div>' +
       '</article>' +
-      '<div class="pf-comments-h">' + (rc ? rc + ' réponse' + (rc > 1 ? 's' : '') : 'Pas encore de réponse') + '</div>' +
+      (rc ? '<div class="pf-comments-h">' + rc + ' réponse' + (rc > 1 ? 's' : '') + '</div>' : '') +
       '<div class="pf-comments">' +
         (repsBy[note.id] || []).map(function(k){ return comHtml(k, 1); }).join('') +
       '</div></div>';
@@ -751,16 +842,16 @@ installShell({
 
   /* ── le profil d'un lecteur ── */
   function profileHtml(uid){
-    var backBtn = '<button type="button" class="pf-btn pf-btn-ghost pf-back" data-act="profile-back">← Retour au fil</button>';
+    var backBtn = '<button type="button" class="pf-back" data-act="profile-back">' + IC_BACK + '<span>Forum</span></button>';
     var d = profileCache[uid];
     if(!d || !d.loaded){
       return '<div class="pf-detail">' + backBtn +
         '<h2 class="pf-title" id="pfDetailH" tabindex="-1">' + esc(state.profileName || 'Profil') + '</h2>' +
-        '<div class="pf-state">Le profil s’ouvre…</div></div>';
+        '<div class="pf-state">Chargement…</div></div>';
     }
     if(d.error || !d.profile){
       return '<div class="pf-detail">' + backBtn +
-        '<div class="pf-state">Ce profil est introuvable — le lecteur a peut-être supprimé son compte.</div></div>';
+        '<div class="pf-state">Profil introuvable.</div></div>';
     }
     var pf = d.profile;
     var name = pf.username || state.profileName || 'ce lecteur';
@@ -768,7 +859,7 @@ installShell({
     var statsTxt = nRoots + ' discussion' + (nRoots > 1 ? 's' : '') +
       (d.repliesN != null ? ' ouverte' + (nRoots > 1 ? 's' : '') + ' · ' + d.repliesN + ' réponse' + (d.repliesN > 1 ? 's' : '') : '');
     var actions = isMine({ author_id: uid }) ? '' :
-      '<a class="pf-btn pf-profile-msg" href="/oeuvres/messages#c=' + encodeURIComponent(name) + '">Écrire un message</a>';
+      '<a class="pf-btn pf-profile-msg" href="/oeuvres/messages#c=' + encodeURIComponent(name) + '">Message</a>';
     return '<div class="pf-detail pf-profile">' + backBtn +
       '<div class="pf-profile-head">' +
         '<span class="pf-profile-seal" style="background:' + sealColor(uid) + '">' +
@@ -784,7 +875,7 @@ installShell({
       vitrineHtml(uid, d.cartes) +
       '<div class="pf-comments-h">' + (nRoots ? 'Discussions ouvertes' : '') + '</div>' +
       (nRoots ? '<div class="pf-feed">' + d.notes.map(cardHtml).join('') + '</div>'
-              : '<div class="pf-state">Aucune discussion publique pour l’instant.</div>') +
+              : '<div class="pf-state">Aucune discussion.</div>') +
       '</div>';
   }
 
@@ -888,30 +979,26 @@ installShell({
     loadProfile(uid);
   }
 
+  /* Le composeur : une FEUILLE qui monte du bas sur téléphone, une carte
+     en tête du fil au bureau. Il s'ouvre par le bouton de la barre. */
   function composerHtml(){
-    if(!state.composing){
-      return '<div class="pf-launch">' +
-        '<button type="button" class="pf-launch-input" data-act="compose">Ouvrir une discussion…</button>' +
-        '<button type="button" class="pf-btn" data-act="compose">Écrire</button>' +
-        '</div>';
-    }
+    if(!state.composing) return '';
     var opts = biblioOrder.map(function(id){
       return '<option value="' + esc(id) + '"' + (drafts['comp-work'] === id ? ' selected' : '') + '>' +
         esc(biblio[id].full) + '</option>';
     }).join('');
-    return '<div class="pf-composer">' +
-      '<h2 class="pf-comp-h">Ouvrir une discussion</h2>' +
+    return '<div class="pf-scrim" data-act="compose-cancel"></div>' +
+      '<div class="pf-composer" role="dialog" aria-label="Nouvelle discussion">' +
+      '<div class="pf-comp-top"><h2 class="pf-comp-h">Nouvelle discussion</h2>' +
+        '<button type="button" class="pf-x" data-act="compose-cancel" aria-label="Fermer">' + IC_X + '</button></div>' +
       '<label class="pf-field"><span>Œuvre</span>' +
         '<select class="pf-sel" data-draft="comp-work">' + opts + '</select></label>' +
       '<label class="pf-field"><span>Titre</span>' +
-        '<input class="pf-inp" type="text" maxlength="160" data-draft="comp-title" ' +
-        'placeholder="La question ou la thèse, en une ligne" value="' + esc(drafts['comp-title'] || '') + '"></label>' +
-      '<label class="pf-field"><span>Texte (facultatif)</span>' +
-        '<textarea class="pf-ta" data-draft="comp-body" placeholder="Développez, citez, questionnez…">' +
-        esc(drafts['comp-body'] || '') + '</textarea></label>' +
+        '<input class="pf-inp" type="text" maxlength="160" data-draft="comp-title" value="' + esc(drafts['comp-title'] || '') + '"></label>' +
+      '<label class="pf-field"><span>Texte</span>' +
+        '<textarea class="pf-ta" data-draft="comp-body">' + esc(drafts['comp-body'] || '') + '</textarea></label>' +
       '<div class="pf-comp-row">' +
-        '<button type="button" class="pf-btn pf-btn-ghost" data-act="compose-cancel">Annuler</button>' +
-        '<button type="button" class="pf-btn" data-act="compose-send">Publier la discussion</button>' +
+        '<button type="button" class="pf-btn" data-act="compose-send">Publier</button>' +
       '</div></div>';
   }
 
@@ -921,7 +1008,8 @@ installShell({
       sorts.map(function(s){
         return '<button type="button" class="pf-sort" data-act="sort" data-sort="' + s[0] + '"' +
           ' aria-pressed="' + (state.sort === s[0] ? 'true' : 'false') + '">' + s[1] + '</button>';
-      }).join('') + '</div>';
+      }).join('') + '</div>' +
+      '<button type="button" class="pf-write" data-act="compose" aria-label="Ouvrir une discussion">' + IC_PEN + '<span>Écrire</span></button>';
     var counts = {};
     tops.forEach(function(n){
       var id = workOf(n).id;
@@ -935,7 +1023,7 @@ installShell({
         ids.map(function(id){
           return '<button type="button" class="pf-chip" data-act="filter" data-w="' + esc(id) + '"' +
             ' aria-pressed="' + (state.filter === id ? 'true' : 'false') + '">' +
-            esc(biblio[id].title) + ' (' + counts[id] + ')</button>';
+            esc(biblio[id].title) + '<i>' + counts[id] + '</i></button>';
         }).join('') + '</div>';
     }
     return h + '</div>';
@@ -957,8 +1045,8 @@ installShell({
   function renderStats(){
     var nr = 0;
     Object.keys(repsBy).forEach(function(k){ nr += repsBy[k].length; });
-    statsEl.textContent = tops.length + ' discussion' + (tops.length > 1 ? 's' : '') +
-      ' · ' + nr + ' réponse' + (nr > 1 ? 's' : '');
+    statsEl.innerHTML = '<span><b>' + tops.length + '</b> discussion' + (tops.length > 1 ? 's' : '') + '</span>' +
+      '<span><b>' + nr + '</b> réponse' + (nr > 1 ? 's' : '') + '</span>';
   }
 
   function render(){
@@ -980,11 +1068,11 @@ installShell({
     var h = composerHtml() + barHtml();
     if(!tops.length){
       var conf = !!(window.SHELL && SHELL.auth && SHELL.auth.isConfigured && SHELL.auth.isConfigured());
-      h += '<div class="pf-state">' + (conf
-        ? 'La place est encore silencieuse. Ouvrez la première discussion, ou surlignez un passage en lisant — il deviendra un fil.'
-        : 'Le forum s\'anime en ligne, une fois la synchronisation des comptes activée.') + '</div>';
+      h += '<div class="pf-state pf-empty">' + IC_COM + (conf
+        ? '<b>Aucune discussion</b><button type="button" class="pf-btn" data-act="compose">Écrire la première</button>'
+        : '<b>Forum hors ligne</b>') + '</div>';
     } else if(!list.length){
-      h += '<div class="pf-state">Aucune discussion pour cette œuvre.</div>';
+      h += '<div class="pf-state pf-empty">' + IC_COM + '<b>Aucune discussion</b></div>';
     } else {
       h += '<div class="pf-feed">' + list.map(cardHtml).join('') + '</div>';
     }
@@ -1027,7 +1115,7 @@ installShell({
     if(!a || !a.isConfigured || !a.isConfigured()){ toast('Le compte n\'est pas configuré.'); return false; }
     if(!a.user){ a.openModal(); return false; }
     if(!(a.profile && a.profile.username)){
-      toast('Choisis d\'abord un pseudo (Mon compte).');
+      toast('Choisissez d\'abord un pseudo.');
       a.openModal();
       return false;
     }
@@ -1037,7 +1125,7 @@ installShell({
     var work = drafts['comp-work'] || biblioOrder[0];
     var title = (drafts['comp-title'] || '').trim();
     var text = (drafts['comp-body'] || '').trim();
-    if(!title){ toast('Donne un titre à la discussion.'); return; }
+    if(!title){ toast('Il manque un titre.'); return; }
     if(!ensurePoster()) return;
     var a = window.SHELL.auth;
     var c = await a.getClient();
@@ -1064,7 +1152,7 @@ installShell({
   }
   async function postReply(parent){
     var body = (drafts['rep-' + parent.id] || '').trim();
-    if(!body){ toast('Écris ta réponse.'); return; }
+    if(!body){ toast('Réponse vide.'); return; }
     if(!ensurePoster()) return;
     var a = window.SHELL.auth;
     var c = await a.getClient();
@@ -1089,7 +1177,7 @@ installShell({
     render();
   }
   async function toggleVote(id){
-    if(!votesOK){ toast('Les soutiens s\'activeront à la prochaine mise à jour de la base.'); return; }
+    if(!votesOK){ toast('Soutiens indisponibles.'); return; }
     var a = window.SHELL && SHELL.auth;
     if(!a || !a.isConfigured || !a.isConfigured()){ toast('Le compte n\'est pas configuré.'); return; }
     if(!a.user){ a.openModal(); return; }
@@ -1117,10 +1205,6 @@ installShell({
     main.querySelectorAll('[data-vote-n="' + CSS.escape(id) + '"]').forEach(function(el){
       el.textContent = votesOK ? (votes[id] || 0) : '';
     });
-    main.querySelectorAll('[data-vote-t="' + CSS.escape(id) + '"]').forEach(function(el){
-      el.textContent = (myVotes[id] ? 'Soutenu' : 'Soutenir') +
-        ((votesOK && votes[id]) ? ' · ' + votes[id] : '');
-    });
   }
   async function reportNote(note){
     var reason = (drafts['sig-' + note.id] || '').trim();
@@ -1128,7 +1212,7 @@ installShell({
     if(res.error){ toast('Signalement : ' + res.error.message); return; }
     drafts['sig-' + note.id] = '';
     state.reportOpen = null;
-    toast('Merci — le fil a été signalé à la modération.');
+    toast('Signalé à la modération.');
     render();
   }
   async function modToggle(note){
@@ -1177,10 +1261,15 @@ installShell({
         case 'compose':
           if(!ensurePoster()) return;
           state.composing = true; render();
+          var cp = main.querySelector('.pf-composer');
+          if(cp && window.matchMedia('(min-width:701px)').matches) cp.scrollIntoView({ block: 'center', behavior: 'instant' });
           var t = main.querySelector('[data-draft="comp-title"]');
-          if(t) t.focus();
+          if(t) t.focus({ preventScroll: true });
           return;
-        case 'compose-cancel': state.composing = false; render(); return;
+        case 'compose-cancel':
+          state.composing = false; render();
+          var w0 = main.querySelector('.pf-write'); if(w0) w0.focus({ preventScroll: true });
+          return;
         case 'compose-send': postDiscussion(); return;
         case 'sort':
           state.sort = btn.dataset.sort; render();
@@ -1234,14 +1323,29 @@ installShell({
     }
   });
 
+  document.addEventListener('keydown', function(ev){
+    if(ev.key === 'Escape' && state.composing){
+      state.composing = false; render();
+      var w0 = main.querySelector('.pf-write'); if(w0) w0.focus({ preventScroll: true });
+    }
+  });
+  /* « i » : les usages, sur les écrans où le rail n'est pas affiché */
+  (function(){
+    var b = document.getElementById('pfInfo'), cols = document.getElementById('pfCols');
+    if(b && cols) b.addEventListener('click', function(){
+      var on = cols.classList.toggle('info-on');
+      b.setAttribute('aria-expanded', on ? 'true' : 'false');
+    });
+  })();
+
   // ── chargement ──
   async function load(){
-    main.innerHTML = '<div class="pf-state">La place s\'ouvre…</div>';
+    main.innerHTML = '<div class="pf-state">Chargement…</div>';
     await loadBiblio();
     try { await fetchAll(); }
     catch(e){
-      main.innerHTML = '<div class="pf-state">Discussions momentanément indisponibles.' +
-        '<br><button type="button" class="pf-btn" data-act="__retry">Réessayer</button></div>';
+      main.innerHTML = '<div class="pf-state pf-empty">' + IC_COM + '<b>Forum indisponible</b>' +
+        '<button type="button" class="pf-btn" data-act="__retry">Réessayer</button></div>';
       main.querySelector('[data-act="__retry"]').addEventListener('click', load);
       return;
     }
