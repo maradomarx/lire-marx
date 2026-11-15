@@ -155,7 +155,10 @@
     ecoute:'<path d="M2.5 6h2.5l3.5-3v10L5 10H2.5z"/><path d="M11 5.5a3.5 3.5 0 0 1 0 5M12.8 3.5a6.3 6.3 0 0 1 0 9"/>',
     pause:'<path d="M5.5 3.5v9M10.5 3.5v9"/>',
     toc:'<path d="M5.5 4h8M5.5 8h8M5.5 12h8"/><path d="M2.5 4h.01M2.5 8h.01M2.5 12h.01" stroke-width="2.2"/>',
-    notes:'<path d="M3.5 2.5h6l3 3v8h-9z"/><path d="M6 8h4.5M6 10.5h3"/>'
+    notes:'<path d="M3.5 2.5h6l3 3v8h-9z"/><path d="M6 8h4.5M6 10.5h3"/>',
+    idee:'<path d="M5.6 10.2A4 4 0 1 1 10.4 10.2c-.5.4-.7.9-.7 1.5H6.3c0-.6-.2-1.1-.7-1.5z"/><path d="M6.6 13.9h2.8"/>',
+    chev:'<path d="m4 6 4 4 4-4"/>',
+    plein:'<path d="M2.5 6V2.5H6M10 2.5h3.5V6M13.5 10v3.5H10M6 13.5H2.5V10"/>'
   };
   function IC(n,cls){ return '<span class="rd-ic'+(cls?' '+cls:'')+'" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'+ICONS[n]+'</svg></span>'; }
   function pauseAudio(){ A.playing=false; A.stopping=true; try{if(synth)synth.cancel();}catch(e){} clearSent(); setAudioBtn(); }
@@ -166,6 +169,8 @@
        pictogramme, et le nom accessible doit rester « Pause » ou « Écouter ». */
     b.innerHTML = A.playing ? IC('pause')+'<span class="rd-lbl"> Pause</span>' : IC('ecoute')+'<span class="rd-lbl"> Écouter</span>';
     b.classList.toggle('on', A.playing);
+    var l=document.querySelector('[data-rs="audio"]');
+    if(l){ l.innerHTML=IC(A.playing?'pause':'ecoute')+'<span>'+(A.playing?'Pause':'Écouter')+'</span>'; l.setAttribute('aria-pressed',A.playing?'true':'false'); }
   }
 
   /* ---- progression ---- */
@@ -213,50 +218,56 @@
     });
   }
 
-  /* ---- panneau Réglages (re-rendu à chaque changement) ---- */
+  /* ---- panneau Réglages ----
+     Refait en nov. 2026 (mission `atelier-iphone`) : des groupes de lignes,
+     une valeur ou un interrupteur par ligne, plus aucune phrase d'explication.
+     Sous 600 px il s'ouvre en FEUILLE et porte aussi « Écouter » et « Plein
+     écran », qui quittent la barre. Les attributs data-set / data-dec /
+     data-inc / data-rate / data-sw sont le contrat des écouteurs. */
   function renderSet(r){
-    var box=r.querySelector('[data-pop="set"]'); if(!box)return;
-    /* Les groupes segmentés portaient l'état par la SEULE classe .on :
-       invisible pour une aide technique. aria-pressed l'expose, et
-       role=group + aria-label rattachent le groupe à son intitulé, qui
-       n'était qu'un <span> décoratif. WCAG 4.1.2. */
-    function seg(name,opts){ // opts: [[val,label],...]
-      return '<div class="rd-seg" role="group" aria-label="'+segLab(name)+'" data-seg="'+name+'">'+opts.map(function(o){
-        var on = (''+stateVal(name))===(''+o[0]);
-        return '<button type="button" data-set="'+name+'" data-v="'+o[0]+'" aria-pressed="'+(on?'true':'false')+'"'+(on?' class="on"':'')+'>'+o[1]+'</button>';
+    var box=r.querySelector('[data-pop="set"]')||(SH.el&&SH.src==='set'?SH.el:null); if(!box)return;
+    function stateVal(n){ return n==='fond'?choixFond() : n==='font'?S.font : ''; }
+    function swVal(n){ return n==='align'?S.align==='justify' : n==='focus'?!!S.focus : n==='gloss'?!!S.gloss : false; }
+    function seg(name,lab,opts,cls){
+      return '<div class="rs-seg'+(cls?' '+cls:'')+'" role="group" aria-label="'+lab+'" data-seg="'+name+'">'+opts.map(function(o){
+        var on=(''+stateVal(name))===(''+o[0]);
+        return '<button type="button" data-set="'+name+'" data-v="'+o[0]+'" aria-pressed="'+(on?'true':'false')+'"'+(on?' class="on"':'')+'>'
+          +(name==='fond'?'<i class="rs-fond rs-fond-'+o[0]+'" aria-hidden="true"></i>':'')+'<span>'+o[1]+'</span></button>';
       }).join('')+'</div>';
     }
-    function segLab(n){
-      return n==='fond'?'Fond':n==='align'?'Alignement':n==='font'?'Police':n==='focus'?'Mode focus':n==='gloss'?'Mots du glossaire':n;
+    function stepRow(lab,name,disp,moins,plus,cls){
+      return '<div class="rs-row'+(cls?' '+cls:'')+'"><span class="rs-lab">'+lab+'</span><span class="rs-step">'
+        +'<button type="button" class="rs-mini" data-dec="'+name+'" aria-label="Diminuer : '+lab.toLowerCase()+'"><span aria-hidden="true">'+(moins||'−')+'</span></button>'
+        +'<span class="rs-val" data-val="'+name+'" role="status" aria-live="polite" aria-atomic="true">'+disp+'</span>'
+        +'<button type="button" class="rs-mini" data-inc="'+name+'" aria-label="Augmenter : '+lab.toLowerCase()+'"><span aria-hidden="true">'+(plus||'+')+'</span></button></span></div>';
     }
-    /* Les huit boutons − / + n'avaient pour nom accessible que « − » ou
-       « + » : huit contrôles indiscernables. */
-    function stepRow(lab,name,disp){
-      return '<div class="rd-setrow"><span class="lab" id="rdlab-'+name+'">'+lab+'</span><span class="rd-step">'
-        +'<button type="button" class="rd-mini" data-dec="'+name+'" aria-label="Diminuer : '+lab.toLowerCase()+'"><span aria-hidden="true">−</span></button>'
-        +'<span class="rd-val" data-val="'+name+'" role="status" aria-live="polite" aria-atomic="true">'+disp+'</span>'
-        +'<button type="button" class="rd-mini" data-inc="'+name+'" aria-label="Augmenter : '+lab.toLowerCase()+'"><span aria-hidden="true">+</span></button></span></div>';
+    function sw(lab,name){
+      return '<button type="button" class="rs-row rs-sw" role="switch" data-sw="'+name+'" aria-checked="'+(swVal(name)?'true':'false')+'"><span class="rs-lab">'+lab+'</span><i class="rs-knob" aria-hidden="true"></i></button>';
     }
-    function stateVal(n){ return n==='fond'?choixFond() : n==='align'?S.align : n==='font'?S.font : n==='focus'?(S.focus?1:0) : n==='gloss'?(S.gloss?1:0) : ''; }
-    var h='<h5>Réglages de lecture</h5>';
-    if(window.LM&&LM.mode) h+='<div class="rd-setrow"><span class="lab">Fond</span>'+seg('fond',FOND_NOMS)+'</div>';
-    h+=stepRow('Taille du texte','fs',Math.round(S.fs*100/1.04)+' %');
-    h+=stepRow('Interligne','lh',S.lh.toFixed(2));
-    h+=stepRow('Largeur','width',S.width+' px');
-    h+='<div class="rd-setrow"><span class="lab">Alignement</span>'+seg('align',[['justify','Justifié'],['left','À gauche']])+'</div>';
-    h+='<div class="rd-setrow"><span class="lab">Police</span>'+seg('font',[['standard','Standard'],['atkinson','Atkinson'],['lexend','Lexend'],['opendyslexic','Dyslexie']])+'</div>';
-    h+='<div class="rd-setrow"><span class="lab">Mode focus</span>'+seg('focus',[['0','Off'],['1','On']])+'</div>';
-    h+='<div class="rd-setrow"><span class="lab">Mots du glossaire</span>'+seg('gloss',[['0','Off'],['1','On']])+'</div>';
-    h+='<div class="rd-note">Le mode focus estompe tout sauf le paragraphe survolé (ou lu à voix haute). Les mots du glossaire se soulignent dans le texte et s\'expliquent au survol. Réglages mémorisés sur cet appareil.</div>';
+    var plein=document.getElementById('atlFullBtn');
+    var h='<div class="rs">';
+    if(synth||plein){
+      h+='<div class="rs-grp rs-actions">'
+        +(synth?'<button type="button" class="rs-act" data-rs="audio" aria-pressed="'+(A.playing?'true':'false')+'">'+IC(A.playing?'pause':'ecoute')+'<span>'+(A.playing?'Pause':'Écouter')+'</span></button>':'')
+        +(plein?'<button type="button" class="rs-act" data-rs="plein">'+IC('plein')+'<span>Plein écran</span></button>':'')
+        +'</div>';
+    }
+    if(window.LM&&LM.mode) h+='<div class="rs-grp">'+seg('fond','Fond',FOND_NOMS,'rs-fonds')+'</div>';
+    h+='<div class="rs-grp">'
+      +stepRow('Taille','fs',Math.round(S.fs*100/1.04)+' %','<small>A</small>','<big>A</big>')
+      +stepRow('Interligne','lh',S.lh.toFixed(2))
+      +stepRow('Largeur','width',S.width+' px','','','rs-large')
+      +'</div>';
+    h+='<div class="rs-grp">'+seg('font','Police',[['standard','Standard'],['atkinson','Atkinson'],['lexend','Lexend'],['opendyslexic','Dyslexie']])+'</div>';
+    h+='<div class="rs-grp">'+sw('Texte justifié','align')+sw('Mode focus','focus')+sw('Mots du glossaire','gloss')+'</div>';
     if(synth){
-      h+='<h5>Écoute</h5>';
-      h+='<div class="rd-setrow"><span class="lab" id="rdlab-rate">Vitesse de lecture</span><span class="rd-step">'
-        +'<button type="button" class="rd-mini" data-rate="dn" aria-label="Diminuer : vitesse de lecture"><span aria-hidden="true">−</span></button>'
-        +'<span class="rd-val" data-ratev role="status" aria-live="polite" aria-atomic="true">'+S.rate.toFixed(1)+'×</span>'
-        +'<button type="button" class="rd-mini" data-rate="up" aria-label="Augmenter : vitesse de lecture"><span aria-hidden="true">+</span></button></span></div>';
-      h+='<div class="rd-vwrap"></div>';
-      h+='<div class="rd-note">Le surlignage suit le paragraphe lu. La qualité dépend des voix installées sur votre appareil.</div>';
+      h+='<div class="rs-grp"><div class="rs-row"><span class="rs-lab">Vitesse de la voix</span><span class="rs-step">'
+        +'<button type="button" class="rs-mini" data-rate="dn" aria-label="Diminuer : vitesse de la voix"><span aria-hidden="true">−</span></button>'
+        +'<span class="rs-val" data-ratev role="status" aria-live="polite" aria-atomic="true">'+S.rate.toFixed(1)+'×</span>'
+        +'<button type="button" class="rs-mini" data-rate="up" aria-label="Augmenter : vitesse de la voix"><span aria-hidden="true">+</span></button></span></div>'
+        +'<div class="rd-vwrap"></div></div>';
     }
+    h+='</div>';
     box.innerHTML=h;
     if(synth){
       renderVoiceSelect();
@@ -265,34 +276,37 @@
         saveS(); var v=box.querySelector('[data-ratev]'); if(v)v.textContent=S.rate.toFixed(1)+'×';
       };});
     }
-    /* CHAQUE réglage terminait par renderSet(r), qui réécrit box.innerHTML :
-       le bouton qu'on venait d'activer disparaissait, et le focus retombait
-       sur <body>. Impossible d'agrandir le texte deux fois de suite sans
-       re-tabuler tout le panneau. WCAG 2.4.3. On met donc à jour SEULEMENT
-       ce qui change : l'état pressé du groupe, ou la valeur affichée. */
+    var ba=box.querySelector('[data-rs="audio"]');
+    if(ba) ba.onclick=function(){ if(A.playing) pauseAudio(); else playAudio(); };
+    var bp=box.querySelector('[data-rs="plein"]');
+    if(bp) bp.onclick=function(){ if(SH.open) closeSheet(false); else togglePop(r,'set'); var f=document.getElementById('atlFullBtn'); if(f) f.click(); };
+    /* On ne réécrit jamais le panneau après un réglage : le bouton qu'on
+       vient d'activer disparaîtrait et le focus retomberait sur <body>
+       (WCAG 2.4.3). On met à jour ce qui change, en place. */
     function syncSeg(n){
-      var g=box.querySelector('[data-seg="'+n+'"]');
-      if(!g)return;
+      var g=box.querySelector('[data-seg="'+n+'"]'); if(!g)return;
       g.querySelectorAll('[data-set]').forEach(function(x){
         var on=(''+stateVal(n))===(''+x.getAttribute('data-v'));
-        x.classList.toggle('on',on);
-        x.setAttribute('aria-pressed',on?'true':'false');
+        x.classList.toggle('on',on); x.setAttribute('aria-pressed',on?'true':'false');
       });
     }
     function syncVal(n){
-      var v=box.querySelector('[data-val="'+n+'"]');
-      if(!v)return;
-      v.textContent = n==='fs' ? Math.round(S.fs*100/1.04)+' %'
-                    : n==='lh' ? S.lh.toFixed(2)
-                    : S.width+' px';
+      var v=box.querySelector('[data-val="'+n+'"]'); if(!v)return;
+      v.textContent = n==='fs' ? Math.round(S.fs*100/1.04)+' %' : n==='lh' ? S.lh.toFixed(2) : S.width+' px';
     }
     box.querySelectorAll('[data-set]').forEach(function(b){ b.onclick=function(){
       var n=b.getAttribute('data-set'), v=b.getAttribute('data-v');
       if(n==='fond'){ choisirFond(v,b); syncSeg(n); return; }
-      if(n==='align')S.align=v;
-      else if(n==='font')S.font=v; else if(n==='focus')S.focus=(v==='1');
-      else if(n==='gloss'){ S.gloss=(v==='1'); if(S.gloss)wrapGloss(); else unwrapGloss(); }
+      if(n==='font')S.font=v;
       saveS(); applyTo(r); syncSeg(n);
+    };});
+    box.querySelectorAll('[data-sw]').forEach(function(b){ b.onclick=function(){
+      var n=b.getAttribute('data-sw'), on=b.getAttribute('aria-checked')!=='true';
+      if(n==='align')S.align=on?'justify':'left';
+      else if(n==='focus')S.focus=on;
+      else if(n==='gloss'){ S.gloss=on; if(on)wrapGloss(); else unwrapGloss(); }
+      b.setAttribute('aria-checked',on?'true':'false');
+      saveS(); applyTo(r);
     };});
     box.querySelectorAll('[data-dec],[data-inc]').forEach(function(b){ b.onclick=function(){
       var inc=b.hasAttribute('data-inc'); var n=b.getAttribute(inc?'data-inc':'data-dec');
@@ -306,17 +320,15 @@
 
   /* ---- voix ---- */
   function renderVoiceSelect(){
-    if(!cur)return; var box=cur.readerEl.querySelector('.rd-vwrap'); if(!box)return;
+    if(!cur)return; var box=cur.readerEl.querySelector('.rd-vwrap')||(SH.el?SH.el.querySelector('.rd-vwrap'):null); if(!box)return;
     if(!synth){ box.innerHTML='<div class="rd-note">La synthèse vocale n’est pas disponible dans ce navigateur.</div>'; return; }
     var fv=frVoices().slice().sort(function(a,b){return voiceScore(b)-voiceScore(a);});
     var best=fv[0];
-    var auto = best ? ('Auto — la plus naturelle : '+best.name+(best.localService===false?' (en ligne)':'')) : 'Voix par défaut';
+    var auto = best ? ('Auto · '+best.name) : 'Voix par défaut';
     var opts='<option value="">'+esc(auto)+'</option>';
     fv.forEach(function(v){ opts+='<option value="'+esc(v.voiceURI||v.name)+'"'+((S.voice===(v.voiceURI||v.name))?' selected':'')+'>'+esc(v.name)+(v.localService===false?' · en ligne':'')+'</option>'; });
-    var warn = fv.length
-      ? '<div class="rd-note">La voix la plus humaine est choisie automatiquement. Les voix « en ligne » (Google sur Chrome, Siri/améliorées sur Mac et iPhone) sont de loin les plus naturelles — c’est dans Chrome que le français sonne le mieux.</div>'
-      : '<div class="rd-note">Aucune voix française détectée : ouvrez la page dans Chrome (voix Google en ligne) ou installez une voix française améliorée dans les réglages de votre système pour une lecture naturelle.</div>';
-    box.innerHTML='<div class="rd-setrow"><span class="lab" id="rdlab-voice">Voix</span><select class="rd-vsel" data-rd-voice aria-labelledby="rdlab-voice">'+opts+'</select></div>'+warn;
+    box.innerHTML='<div class="rs-row"><span class="rs-lab" id="rdlab-voice">Voix</span><select class="rd-vsel" data-rd-voice aria-labelledby="rdlab-voice">'+opts+'</select></div>'
+      +(fv.length?'':'<div class="rd-note">Aucune voix française sur cet appareil.</div>');
     var sels=box.querySelector('[data-rd-voice]');
     if(sels)sels.onchange=function(){ S.voice=sels.value; saveS(); };
   }
@@ -333,18 +345,35 @@
   /* Deux sources depuis `sommaire-refonte` : la marge (sous 1240 px) et le
      sommaire (sous 900 px, où la colonne de gauche disparaît). Une seule
      feuille, un seul contrôleur ; `SH.src` dit laquelle est dedans. */
-  var SH={box:null,scrim:null,body:null,mark:null,btn:null,open:false,src:null};
+  var SH={box:null,scrim:null,body:null,mark:null,btn:null,open:false,src:null,el:null};
   var SH_MQ=window.matchMedia?matchMedia('(max-width:1240px)'):{matches:false};
   var SH_MQ_TOC=window.matchMedia?matchMedia('(max-width:900px)'):{matches:false};
+  /* sous 600 px, les réglages et les notes s'ouvrent eux aussi en feuille */
+  var SH_MQ_POP=window.matchMedia?matchMedia('(max-width:600px)'):{matches:false};
+  var SH_RD={atl3Toc:'toc',atl3Marge:'clear',set:'set',notes:'notes'};
+  function sheetEl(id){
+    if(id==='set'||id==='notes') return cur?cur.readerEl.querySelector('[data-pop="'+id+'"]'):null;
+    return sheetSrc(id);
+  }
+  function sheetMq(id){ return id==='atl3Toc'?SH_MQ_TOC:(id==='set'||id==='notes')?SH_MQ_POP:SH_MQ; }
   function sheetSrc(id){ var el=document.getElementById(id||'atl3Marge'); return el&&el.hasAttribute('data-sheet-lbl')?el:null; }
-  function sheetBtnFor(id){ return document.querySelector('.atl3-mid .rd-btn[data-rd="'+(id==='atl3Toc'?'toc':'clear')+'"]'); }
+  function sheetBtnFor(id){ return document.querySelector('.rd-toolbar .rd-btn[data-rd="'+(SH_RD[id]||'clear')+'"]'); }
   function sheetBuild(){
     if(SH.box) return;
     SH.scrim=document.createElement('div'); SH.scrim.className='atl3-sheet-scrim'; SH.scrim.hidden=true;
     SH.box=document.createElement('div'); SH.box.className='atl3-sheet'; SH.box.id='atl3Sheet'; SH.box.hidden=true;
     SH.box.setAttribute('role','dialog'); SH.box.setAttribute('aria-modal','true');
+    /* En tête : sous 900 px le sommaire et la marge sont deux volets de la
+       même feuille, on passe de l'un à l'autre sans la refermer. */
     SH.box.innerHTML='<div class="atl3-sheet-bar"><span class="atl3-sheet-grip" aria-hidden="true"></span>'
-      +'<button type="button" class="atl3-sheet-x">Fermer</button></div><div class="atl3-sheet-body"></div>';
+      +'<div class="atl3-sheet-seg" role="group" aria-label="Volet" hidden></div><span class="atl3-sheet-t" hidden></span>'
+      +'<button type="button" class="atl3-sheet-x" aria-label="Fermer"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div><div class="atl3-sheet-body"></div>';
+    SH.seg=SH.box.querySelector('.atl3-sheet-seg'); SH.titre=SH.box.querySelector('.atl3-sheet-t');
+    SH.seg.addEventListener('click',function(e){
+      var b=e.target.closest('[data-src]'); if(!b||b.getAttribute('aria-pressed')==='true')return;
+      var id=b.getAttribute('data-src'); closeSheet(false); openSheet(sheetBtnFor(id),id);
+      var n=SH.seg.querySelector('[data-src="'+id+'"]'); if(n) n.focus({preventScroll:true});
+    });
     SH.body=SH.box.querySelector('.atl3-sheet-body');
     document.body.appendChild(SH.scrim); document.body.appendChild(SH.box);
     SH.scrim.addEventListener('click',function(){ closeSheet(true); });
@@ -373,20 +402,32 @@
     window.addEventListener('keydown',function(e){
       if(SH.open && e.key==='Escape'){ e.preventDefault(); e.stopImmediatePropagation(); closeSheet(true); }
     },true);
-    var onMq=function(){ if(SH.open && !(SH.src==='atl3Toc'?SH_MQ_TOC:SH_MQ).matches) closeSheet(false); };
-    if(SH_MQ.addEventListener){ SH_MQ.addEventListener('change',onMq); SH_MQ_TOC.addEventListener('change',onMq); }
+    var onMq=function(){ if(SH.open && !sheetMq(SH.src).matches) closeSheet(false); };
+    if(SH_MQ.addEventListener){ SH_MQ.addEventListener('change',onMq); SH_MQ_TOC.addEventListener('change',onMq); SH_MQ_POP.addEventListener('change',onMq); }
   }
   function openSheet(btn,id){
     id=id||'atl3Marge';
-    var el=sheetSrc(id); if(!el) return;
+    var el=sheetEl(id); if(!el) return;
     sheetBuild();
-    if(SH.open){ closeSheet(true); return; }
-    stopAudio();
-    SH.btn=btn||null; SH.src=id;
+    if(SH.open){ var meme=SH.src===id; closeSheet(true); if(meme) return; }
+    var pop=(id==='set'||id==='notes');
+    if(!pop) stopAudio();
+    SH.btn=btn||null; SH.src=id; SH.el=el;
     SH.mark=document.createComment(id);
     el.parentNode.insertBefore(SH.mark, el);
     SH.body.appendChild(el);
+    if(pop) el.hidden=false;
     SH.box.setAttribute('aria-label', el.getAttribute('aria-label')||'Dans ce chapitre');
+    /* l'en-tête : deux volets (sommaire, marge) ou un titre */
+    var deux=!pop && SH_MQ_TOC.matches && sheetSrc('atl3Toc') && sheetSrc('atl3Marge');
+    SH.seg.hidden=!deux; SH.titre.hidden=!!deux;
+    if(deux){
+      SH.seg.innerHTML=['atl3Toc','atl3Marge'].map(function(k){
+        return '<button type="button" data-src="'+k+'" aria-pressed="'+(k===id?'true':'false')+'">'+esc(sheetSrc(k).getAttribute('data-sheet-lbl')||'')+'</button>';
+      }).join('');
+    } else {
+      SH.titre.textContent = id==='set'?'Réglages' : id==='notes'?'Notes' : (el.getAttribute('data-sheet-lbl')||'');
+    }
     SH.box.hidden=false; SH.scrim.hidden=false; SH.open=true;
     document.body.classList.add('at3-sheet-on');
     SH.body.scrollTop=0;
@@ -395,17 +436,19 @@
   }
   function closeSheet(restore){
     if(!SH.open) return;
-    var el=document.getElementById(SH.src||'atl3Marge');
+    var el=SH.el, pop=(SH.src==='set'||SH.src==='notes');
+    if(pop && el) el.hidden=true;
     if(el && SH.mark && SH.mark.parentNode){ SH.mark.parentNode.insertBefore(el, SH.mark); }
+    else if(pop && el && el.parentNode===SH.body){ el.remove(); }   /* la barre a été reconstruite : ce panneau n'a plus de place */
     if(SH.mark && SH.mark.parentNode) SH.mark.parentNode.removeChild(SH.mark);
-    SH.mark=null; SH.box.hidden=true; SH.scrim.hidden=true; SH.open=false;
+    SH.mark=null; SH.el=null; SH.box.hidden=true; SH.scrim.hidden=true; SH.open=false;
     document.body.classList.remove('at3-sheet-on');
     /* la barre a pu être reconstruite pendant que la feuille était ouverte */
     var b=sheetBtnFor(SH.src)||SH.btn; SH.src=null;
     /* preventScroll : le bouton vit dans une barre COLLANTE, et le
        scroll-padding-top de la lecture fait croire au navigateur qu'il est
        masqué — sans cela, rendre le focus déplaçait le lecteur dans le texte. */
-    if(b){ b.setAttribute('aria-expanded','false'); if(restore) b.focus({preventScroll:true}); }
+    if(b){ b.setAttribute('aria-expanded','false'); b.classList.remove('on'); if(restore) b.focus({preventScroll:true}); }
   }
 
   /* ---- « Notes » (téléphone) : les deux panneaux du shell ----
@@ -414,17 +457,18 @@
      interface. On ouvre le panneau en cliquant la vraie pastille, qui en
      tient l'état — la marge de l'atelier fait déjà ainsi. */
   function renderNotesGo(r){
-    var box=r.querySelector('.rd-notes-go'); if(!box)return;
+    var box=r.querySelector('.rd-notes-go')||(SH.el?SH.el.querySelector('.rd-notes-go'):null); if(!box)return;
     var An=window.SHELL&&SHELL.annotations; if(!An){ box.innerHTML=''; return; }
     var c=An.context?An.context():{}, mine=0, pub=0;
     try{ mine=(c.work&&An.notesFor)?An.notesFor(c.work,c.section).length:0; }catch(e){}
     try{ pub=An.publicCount?An.publicCount():0; }catch(e){}
     var hasPub=!!document.getElementById('pubFab');
-    box.innerHTML='<button type="button" class="rd-note-go" data-go="notesFab"><b>Mes notes</b><span>'+(mine?mine+(mine>1?' passages':' passage'):'aucune sur cette section')+'</span></button>'
-      +(hasPub?'<button type="button" class="rd-note-go" data-go="pubFab"><b>Notes partagées</b><span>'+(pub?pub+(pub>1?' fils':' fil'):'aucun fil sur cette section')+'</span></button>':'');
+    box.innerHTML='<button type="button" class="rd-note-go" data-go="notesFab"><b>Mes notes</b><span class="rd-note-n">'+mine+'</span></button>'
+      +(hasPub?'<button type="button" class="rd-note-go" data-go="pubFab"><b>Notes partagées</b><span class="rd-note-n">'+pub+'</span></button>':'');
     box.querySelectorAll('[data-go]').forEach(function(b){ b.onclick=function(){
       var id=b.getAttribute('data-go'), fab=document.getElementById(id);
-      togglePop(r,'notes');
+      var np=r.querySelector('[data-pop="notes"]');
+      if(SH.open) closeSheet(false); else if(np&&!np.hidden) togglePop(r,'notes');
       if(!fab)return;
       var panelId=fab.getAttribute('aria-controls'), p=panelId&&document.getElementById(panelId);
       if(!p||p.hidden) fab.click();
@@ -458,10 +502,10 @@
      + '<div class="rd-row" role="toolbar" aria-label="Outils de lecture">'
      +   '<button type="button" class="rd-btn" data-rd="prev" aria-label="Chapitre précédent">'+IC('prev')+'<span class="rd-lbl"> Préc.</span></button>'
      +   '<button type="button" class="rd-btn" data-rd="next" aria-label="Chapitre suivant"><span class="rd-lbl">Suiv. </span>'+IC('next')+'</button>'
-     +   '<button type="button" class="rd-btn" data-rd="toc" aria-expanded="false"'+(sheetSrc('atl3Toc')?' aria-haspopup="dialog" aria-controls="atl3Sheet"':' aria-controls="rdpop-toc"')+'>'+IC('toc','rd-mob')+'<span class="rd-lbl">Sommaire</span></button>'
+     +   '<button type="button" class="rd-btn" data-rd="toc" aria-expanded="false"'+(sheetSrc('atl3Toc')?' aria-haspopup="dialog" aria-controls="atl3Sheet"':' aria-controls="rdpop-toc"')+'>'+IC('toc','rd-mob')+'<span class="rd-lbl">Sommaire</span><span class="rd-titre" aria-hidden="true"></span>'+IC('chev','rd-mob rd-chev')+'</button>'
      +   '<button type="button" class="rd-btn" data-rd="audio"'+(synth?'':' aria-expanded="false" aria-controls="rdpop-audio"')+'>'+IC('ecoute')+'<span class="rd-lbl"> Écouter</span></button>'
      +   (sheetSrc()
-           ? '<button type="button" class="rd-btn" data-rd="clear" aria-haspopup="dialog" aria-expanded="false" aria-controls="atl3Sheet"><span class="rd-sh-l">'+esc(sheetSrc().getAttribute('data-sheet-lbl')||'Ce chapitre')+'</span><span class="rd-sh-s" aria-hidden="true">'+esc(sheetSrc().getAttribute('data-sheet-short')||'Chapitre')+'</span></button>'
+           ? '<button type="button" class="rd-btn" data-rd="clear" aria-haspopup="dialog" aria-expanded="false" aria-controls="atl3Sheet">'+IC('idee','rd-mob')+'<span class="rd-sh-l">'+esc(sheetSrc().getAttribute('data-sheet-lbl')||'Ce chapitre')+'</span><span class="rd-sh-s" aria-hidden="true">'+esc(sheetSrc().getAttribute('data-sheet-short')||'Chapitre')+'</span></button>'
            : '<button type="button" class="rd-btn" data-rd="clear" aria-expanded="false" aria-controls="rdpop-clear">En clair</button>')
      +   '<button type="button" class="rd-btn" data-rd="set" aria-expanded="false" aria-controls="rdpop-set"><span aria-hidden="true">Aa</span><span class="rd-lbl"> Réglages</span></button>'
      /* « Notes » n'existe que sous 600 px (CSS) : les deux pastilles
@@ -516,9 +560,16 @@
     tb.querySelector('[data-rd="toc"]').onclick=function(){ if(sheetSrc('atl3Toc')) openSheet(this,'atl3Toc'); else togglePop(r,'toc'); };
     if(sheetSrc()||sheetSrc('atl3Toc')) sheetBuild();   /* aria-controls doit désigner un nœud qui existe */
     tb.querySelector('[data-rd="clear"]').onclick=function(){ if(sheetSrc()) openSheet(this,'atl3Marge'); else togglePop(r,'clear'); };
-    tb.querySelector('[data-rd="set"]').onclick=function(){ renderSet(r); togglePop(r,'set'); };
+    tb.querySelector('[data-rd="set"]').onclick=function(){
+      if(SH_MQ_POP.matches){ r.querySelectorAll('.rd-pop').forEach(function(p){p.hidden=true;}); sheetBuild(); if(!(SH.open&&SH.src==='set')) renderSet(r); openSheet(this,'set'); }
+      else { renderSet(r); togglePop(r,'set'); }
+    };
     var nb=tb.querySelector('[data-rd="notes"]');
-    if(nb) nb.onclick=function(){ renderNotesGo(r); togglePop(r,'notes'); };
+    if(nb) nb.onclick=function(){
+      renderNotesGo(r);
+      if(SH_MQ_POP.matches){ r.querySelectorAll('.rd-pop').forEach(function(p){p.hidden=true;}); sheetBuild(); openSheet(this,'notes'); }
+      else togglePop(r,'notes');
+    };
     /* Le surlignage des termes du glossaire n'est plus un bouton de la
        barre : c'est un réglage de lecture, dans « Aa Réglages » (segment
        « Mots du glossaire »). Il disait « Glossaire » comme l'entrée de
@@ -536,6 +587,35 @@
     renderVoiceSelect();
     if(S.gloss) wrapGloss();
     updateProgress();
+    syncTitre(); suivreTitre();
+  }
+
+  /* ---- le titre dans la barre (téléphone) ----
+     Sous 600 px le bouton « Sommaire » dit OÙ l'on est : le numéro et le
+     titre de l'entrée courante du sommaire. Il les LIT dans le sommaire
+     (c'est lui qui suit la lecture), et le suit par un observateur — la page
+     n'a rien à appeler. */
+  function syncTitre(){
+    var t=document.querySelector('.rd-toolbar .rd-titre'); if(!t)return;
+    var toc=document.getElementById('atl3Toc'), c=toc&&toc.querySelector('.sm-it.is-cur');
+    var h='';
+    if(c){
+      var n=c.querySelector('.sm-it-n'), tt=c.querySelector('.sm-it-t'), txt='';
+      if(tt){ var k=tt.cloneNode(true); var kk=k.querySelector('.sm-it-k'); if(kk) kk.remove(); txt=k.textContent.trim(); }
+      var num=n?n.textContent.trim():'';
+      h=(num?'<b>'+esc(num)+'</b>':'')+'<span>'+esc(txt)+'</span>';
+    }
+    if(!h) h='<span>Sommaire</span>';
+    if(t.innerHTML!==h) t.innerHTML=h;
+  }
+  var titreObs=false;
+  function suivreTitre(){
+    if(titreObs) return;
+    var toc=document.getElementById('atl3Toc'); if(!toc||!window.MutationObserver)return;
+    titreObs=true;
+    var q=false;
+    new MutationObserver(function(){ if(q)return; q=true; setTimeout(function(){ q=false; syncTitre(); },60); })
+      .observe(toc,{subtree:true,childList:true,attributes:true,attributeFilter:['class']});
   }
 
   // stopper l'audio quand on change d'onglet

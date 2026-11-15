@@ -12304,3 +12304,15 @@ Premier volet d'une refonte « modèle iPhone » demandée par le propriétaire 
 - z-index : barre 121 (au-dessus du voile 119 et de la feuille 120, sous la feuille de lecture 130 et les modales 140).
 - Pièges : les pages sans `box-sizing:border-box` global (/cartes/) faisaient déborder les tuiles ; `.lm-bv` passait par-dessus la feuille. puppeteer-core se trouve dans `~/Projets/Philo/circuit-du-capital/node_modules`.
 - `shell.css?v=20`, `shell.js?v=33`. Non vérifié : un vrai iPhone, le mode édition à l'image.
+
+## La liseuse, modèle iPhone (mission `atelier-iphone`, nov. 2026)
+
+Deuxième volet de la refonte « modèle iPhone ». Mesuré avant à 375 px : huit boutons dans la barre de lecture, qui débordait (« Notes » coupé) ; des réglages en long panneau qui poussait le texte, avec des segments « Off / On » et deux paragraphes d'explication.
+
+- **Les réglages** (`renderSet` de reader-tools.js, classes `.rs-*` en fin d'atelier.css) : des groupes de lignes, une valeur ou un **interrupteur** (`role="switch"`, `data-sw`) par ligne, les fonds en quatre pastilles, **aucune phrase**. Popover au bureau, **feuille** sous 600 px, où ils portent aussi « Écouter » et « Plein écran » (`.rs-actions`, `data-rs`). Le panneau n'est jamais réécrit après un réglage (focus).
+- **La barre sous 600 px** tient sur une rangée sans défiler : précédent, **le titre de ce qu'on lit** (numéro en or + titre tronqué ; il ouvre le sommaire), suivant, l'appareil (ampoule), les notes, Aa. Le titre est LU dans le sommaire (`.sm-it.is-cur`) par `syncTitre()` et suivi par un observateur : la page n'appelle rien. L'ordre est fait en CSS (`order`), « Écouter » et « Plein écran » y sont masqués.
+- **La feuille a quatre sources** (`sheetEl`, `SH.el`) : `atl3Toc`, `atl3Marge`, et les popovers `set` et `notes` sous 600 px (déplacés, remis à leur place ; retirés si la barre a été reconstruite entre-temps). Son en-tête porte **deux volets** « Sommaire · Ce chapitre » sous 900 px (on passe de l'un à l'autre sans refermer), sinon un titre ; la fermeture est une croix ronde. `.atl3-lab` est masqué dans la feuille (l'en-tête le dit).
+- « Notes » : deux lignes, un nom et un compte, plus de phrase.
+- Plein écran sur téléphone : la sortie se pose en bas à gauche (elle recouvrait la barre).
+- Vérifié à 375 px sur les six ateliers (rangée sans débordement, titre juste), réglages éprouvés (taille, interrupteurs, fond, plein écran, Échap), volets, notes ; 1000 et 1440 px inchangés hors le panneau de réglages. Non fait : sonde de contraste complète, vrai iPhone.
+- `atelier.css?v=20`, `reader-tools.js?v=8`.
