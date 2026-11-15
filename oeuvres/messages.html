@@ -244,6 +244,64 @@ html[data-mode="edition"] .mg-welcome::before{display:none;}
 @media (prefers-reduced-motion:reduce){
   .mg-ct,.mg-btn,.mg-inp,.mg-ta{transition:none;}
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   LES MESSAGES, MODÈLE IPHONE (mission `messages-iphone`, nov. 2026)
+   Plus de sur-titre ni de phrase. La liste : un champ pour écrire à
+   quelqu'un, puis les conversations sans intitulé. La conversation : le
+   nom, les bulles, un champ et un bouton d'envoi rond. Sous 900 px elle
+   prend TOUT l'écran sous la barre du haut, le champ collé en bas (la barre
+   d'onglets s'efface : body.mg-convo).
+   ══════════════════════════════════════════════════════════════════════ */
+.mg-head{margin:4px 0 16px;}
+.mg-h1{margin:0;}
+.mg-seek{padding:12px;}
+.mg-round{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;cursor:pointer;
+  border:1px solid var(--line-strong);background:transparent;color:var(--text);transition:background .18s,border-color .18s,transform .12s;}
+.mg-round svg{width:18px;height:18px;}
+.mg-round.pri{background:var(--text);border-color:var(--text);color:var(--bg);}
+.mg-round.pri:hover{background:var(--gold);border-color:var(--gold);}
+.mg-round:active{transform:scale(.94);}
+.mg-round[disabled]{opacity:.5;cursor:default;}
+.mg-inp{min-height:44px;box-sizing:border-box;}
+.mg-rail-scroll{padding-top:8px;}
+.mg-group{letter-spacing:.02em;text-transform:none;font-size:.8rem;font-weight:500;color:var(--const);margin:16px 8px 6px;}
+.mg-ava{width:44px;height:44px;}
+.mg-ct{padding:9px 10px;min-height:62px;}
+.mg-ct.unread .mg-ct-name{color:var(--text);}
+.mg-ct.unread .mg-ct-prev{color:var(--ink);font-weight:500;}
+.mg-sug .mg-ct-prev{font-style:normal;}
+.mg-back{width:40px;height:40px;border:0;color:var(--gold);}
+.mg-back svg{width:20px;height:20px;}
+.mg-back:hover{background:var(--hover);}
+.mg-conv-who{min-width:0;}
+.mg-conv-sub[hidden]{display:none;}
+.mg-compose{align-items:flex-end;gap:8px;padding:10px 12px;}
+.mg-ta{border-radius:22px;padding:10px 16px;font-family:var(--f-ui);font-size:.95rem;}
+.mg-b{font-family:var(--f-ui);font-size:.95rem;border-radius:20px;padding:9px 15px;}
+.mg-b.me{border-bottom-right-radius:6px;}
+.mg-b.them{border-bottom-left-radius:6px;}
+.mg-b-t{font-size:.6875rem;margin-top:3px;}
+.mg-day{border:0;letter-spacing:.02em;text-transform:none;font-weight:500;font-size:.74rem;}
+.mg-new{bottom:76px;}
+.mg-state{gap:12px;}
+.mg-state-ic{width:38px;height:38px;color:var(--const);}
+.mg-state p[hidden]{display:none;}
+.mg-empty{text-align:center;color:var(--const);}
+@media(max-width:900px){
+  body.mg-convo .mg-head{display:none;}
+  body.mg-convo .lm-foot{display:none;}
+  body.mg-convo .mg-thread-pane{position:fixed;left:0;right:0;top:44px;bottom:0;z-index:50;height:auto;min-height:0;
+    border:0;border-radius:0;background:var(--bg);}
+  body.mg-convo .mg-conv-head{border-radius:0;padding:8px 10px;gap:10px;}
+  body.mg-convo .mg-thread{max-height:none;}
+  body.mg-convo .mg-compose{padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));background:var(--paper-2);}
+  .mg-rail{background:transparent;border:0;}
+  .mg-seek{padding:0 0 10px;border-bottom:0;}
+  .mg-rail-scroll{padding:0;}
+  .mg-ct{border-radius:0;padding:10px 4px;border-bottom:1px solid var(--line-soft);}
+  body:not(.mg-convo) #mgWelcome{display:none;}
+}
 </style>
 <!-- AFFICHAGE:DÉBUT — DÉRIVÉ par tools/gen-seo.mjs (modes, fond, gestes), ne pas éditer à la main -->
 <script>(function(){var h=document.documentElement,K='liremarx.mode.v1',C=['auto','bougie','jour','edition'],T={'bougie':'#15100b','jour':'#f6efe0','edition':'#ebe1c9'},S=null,f=0;try{S=matchMedia('(prefers-color-scheme: light)')}catch(e){}function r(c){return c==='auto'?(S&&S.matches?'jour':'bougie'):c}function lu(){var c='';try{c=localStorage.getItem(K)||''}catch(e){}return C.indexOf(c)<0?'auto':c}function p(c){if(C.indexOf(c)<0)c='auto';var m=r(c),a=h.getAttribute('data-mode');h.setAttribute('data-mode-choix',c);if(m!==a){if(a){h.classList.add('lm-bascule');clearTimeout(f);f=setTimeout(function(){h.classList.remove('lm-bascule')},140)}h.setAttribute('data-mode',m);var x=document.getElementsByName('theme-color');for(var i=0;i<x.length;i++)x[i].setAttribute('content',T[m]);if(a)document.dispatchEvent(new CustomEvent('lm:mode',{detail:{mode:m,choix:c}}))}document.dispatchEvent(new CustomEvent('lm:choix',{detail:{mode:m,choix:c}}));return m}var L=window.LM=window.LM||{};L.MODES=C;L.TEINTES=T;L.resoudre=r;L.mode=function(m){if(m===undefined)return{mode:h.getAttribute('data-mode'),choix:h.getAttribute('data-mode-choix')};if(C.indexOf(m)<0)return null;try{localStorage.setItem(K,m)}catch(e){}return p(m)};try{if(localStorage.getItem('liremarx.rail.v1')==='1')h.classList.add('sb-rail')}catch(e){}p(lu());if(S&&S.addEventListener)S.addEventListener('change',function(){if(h.getAttribute('data-mode-choix')==='auto')p('auto')});addEventListener('storage',function(e){if(e.key===K)p(C.indexOf(e.newValue)<0?'auto':e.newValue)})})();</script>
@@ -259,9 +317,7 @@ html[data-mode="edition"] .mg-welcome::before{display:none;}
   <div class="mg">
 
     <header class="mg-head">
-      <div class="mg-label">Lire Marx</div>
       <h1 class="mg-h1">Messages</h1>
-      <p class="mg-lede">Le pendant privé du forum&nbsp;: là-bas on écrit devant tout le monde, ici à quelqu'un.</p>
     </header>
 
     <!-- Préalables (non configuré / déconnecté / sans pseudo). Une seule
@@ -278,20 +334,19 @@ html[data-mode="edition"] .mg-welcome::before{display:none;}
 
       <aside class="mg-pane mg-rail" aria-label="Vos conversations">
         <div class="mg-seek">
-          <label class="mg-seek-lab" for="mgSeek">Écrire à un lecteur</label>
+          <label class="sr-only" for="mgSeek">Écrire à un lecteur : son pseudo</label>
           <div class="mg-seek-row">
             <input class="mg-inp" id="mgSeek" type="text" autocomplete="off"
-                   spellcheck="false" placeholder="son pseudo…" list="mgSeekList">
+                   spellcheck="false" placeholder="Écrire à… (pseudo)" list="mgSeekList">
             <datalist id="mgSeekList"></datalist>
-            <button class="mg-btn" id="mgSeekBtn" type="button">Ouvrir</button>
+            <button class="mg-round pri" id="mgSeekBtn" type="button" aria-label="Ouvrir la conversation"><svg viewBox="0 0 18 18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15l.8-3.4L12.6 2.8l2.6 2.6-8.8 8.8z"/><path d="M11 4.4l2.6 2.6"/></svg></button>
           </div>
         </div>
         <div class="mg-rail-scroll">
-          <p class="mg-group" id="mgListH">Vos conversations</p>
+          <p class="sr-only" id="mgListH">Vos conversations</p>
           <div id="mgList"></div>
           <div id="mgSugWrap" hidden>
-            <p class="mg-group">Des lecteurs du forum</p>
-            <p class="mg-sug-note">Ils ont écrit publiquement&nbsp;; vous pouvez leur écrire en privé.</p>
+            <p class="mg-group">Lecteurs du forum</p>
             <div class="mg-sug" id="mgSug"></div>
           </div>
         </div>
@@ -299,30 +354,29 @@ html[data-mode="edition"] .mg-welcome::before{display:none;}
 
       <section class="mg-pane mg-thread-pane" id="mgConv" hidden aria-label="Conversation">
         <div class="mg-conv-head">
-          <button class="mg-back" id="mgBack" type="button" aria-label="Revenir aux conversations">&lsaquo;</button>
+          <button class="mg-back" id="mgBack" type="button" aria-label="Revenir aux conversations"><svg viewBox="0 0 18 18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3.5 5.5 9l5.5 5.5"/></svg></button>
           <span class="mg-ava" id="mgConvAva"></span>
-          <div>
+          <div class="mg-conv-who">
             <h2 class="mg-conv-name" id="mgConvName"></h2>
-            <p class="mg-conv-sub" id="mgConvSub"></p>
+            <p class="mg-conv-sub" id="mgConvSub" hidden></p>
           </div>
           <a class="mg-btn mg-profile-link" id="mgProfileLink" href="#" aria-label="Voir le profil">
             <svg viewBox="0 0 18 18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="6.2" r="3"/><path d="M3 15c0-3 2.7-5 6-5s6 2 6 5"/></svg>
-            <span class="txt">Voir le profil</span>
+            <span class="txt">Profil</span>
           </a>
         </div>
         <div class="mg-thread" id="mgThread" role="log" aria-live="polite" aria-label="Messages"></div>
-        <button class="mg-new" id="mgNew" type="button" hidden>Nouveau message ↓</button>
+        <button class="mg-new" id="mgNew" type="button" hidden aria-label="Nouveau message, aller en bas">Nouveau ↓</button>
         <div class="mg-compose">
           <textarea class="mg-ta" id="mgTa" rows="1" aria-label="Votre message" placeholder="Votre message…"></textarea>
-          <button class="mg-btn pri" id="mgSend" type="button">Envoyer</button>
+          <button class="mg-round pri" id="mgSend" type="button" aria-label="Envoyer" title="Envoyer (Entrée)"><svg viewBox="0 0 18 18" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14.5v-11M4.5 8 9 3.5 13.5 8"/></svg></button>
         </div>
-        <p class="mg-hint">Entrée envoie, Maj+Entrée va à la ligne.</p>
       </section>
 
       <section class="mg-pane mg-welcome" id="mgWelcome">
         <div class="mg-state">
-          <h2 class="mg-state-h">Choisissez une conversation</h2>
-          <p id="mgWelcomeP">Ou écrivez à un lecteur&nbsp;: son pseudo suffit.</p>
+          <svg class="mg-state-ic" viewBox="0 0 20 20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><rect x="2.5" y="4.5" width="15" height="11" rx="1.4"/><path d="M3 5.3l7 5.5 7-5.5"/></svg>
+          <h2 class="mg-state-h">Aucune conversation ouverte</h2>
         </div>
       </section>
 
@@ -447,7 +501,7 @@ installShell({
     gate.hidden = false;
     cols.hidden = true;
     gateH.textContent = h;
-    gateP.innerHTML = p;
+    gateP.innerHTML = p; gateP.hidden = !p;
     if(label){
       gateBtn.hidden = false;
       gateBtn.textContent = label;
@@ -465,7 +519,7 @@ installShell({
   // ── rendu : le rail ──────────────────────────────────────────────────
   function ctHtml(c, active){
     var prev = c.last ? esc(String(c.last.body || '').slice(0, 64))
-                      : 'Aucun message échangé';
+                      : 'Nouveau';
     return '<button class="mg-ct' + (active ? ' on' : '') + (c.unread ? ' unread' : '')
       + '" type="button" data-id="' + esc(c.id) + '" data-name="' + esc(c.username) + '">'
       + '<span class="mg-ava">' + DM.ava(c.username, c.avatar) + '</span>'
@@ -479,12 +533,10 @@ installShell({
   function renderRail(){
     var list = DM.contacts();
     var cur = DM.convo();
-    listH.textContent = list.length
-      ? ('Vos conversations · ' + list.length)
-      : 'Vos conversations';
+    listH.textContent = 'Vos conversations' + (list.length ? ' · ' + list.length : '');
     listEl.innerHTML = list.length
       ? list.map(function(c){ return ctHtml(c, cur && cur.id === c.id); }).join('')
-      : '<p class="mg-empty">Aucune conversation pour l’instant. <b>Écrivez à un lecteur</b> — son pseudo suffit, et ceux qui parlent sur le forum sont proposés ci-dessous.</p>';
+      : '<p class="mg-empty">Aucune conversation.</p>';
     // La liste des pseudos connus alimente l'autocomplétion du champ.
     seekList.innerHTML = list.map(function(c){
       return '<option value="' + esc(c.username) + '"></option>';
@@ -498,7 +550,7 @@ installShell({
       return '<button class="mg-ct" type="button" data-id="' + esc(s.id) + '" data-name="' + esc(s.username) + '">'
         + '<span class="mg-ava">' + DM.ava(s.username, s.avatar) + '</span>'
         + '<span class="mg-ct-main"><span class="mg-ct-name">' + esc(s.username) + '</span>'
-        + '<span class="mg-ct-prev">a écrit ' + esc(DM.ago(s.last)) + '</span></span></button>';
+        + '<span class="mg-ct-prev">' + esc(DM.ago(s.last)) + '</span></span></button>';
     }).join('');
   }
 
@@ -544,7 +596,7 @@ installShell({
     }
     var msgs = DM.messages();
     if(!msgs.length && !Object.keys(seenIds).length){
-      thread.innerHTML = '<p class="mg-empty">Aucun message. <b>Écrivez le premier.</b></p>';
+      thread.innerHTML = '<p class="mg-empty">Aucun message.</p>';
       return;
     }
     var me = DM.me();
@@ -587,7 +639,6 @@ installShell({
     for(var i = 0; i < list.length; i++){ if(list[i].id === cur.id){ found = list[i]; break; } }
     convAva.innerHTML = DM.ava(cur.username, found ? found.avatar : '');
     convName.textContent = cur.username;
-    convSub.textContent = 'Conversation privée';
     /* le profil vit sur le forum (contrat #u=<id>, mission
        `profil-membre`) — cette page ne fait que pointer vers lui */
     if(profileLink) profileLink.href = '/oeuvres/forum#u=' + encodeURIComponent(cur.id);
@@ -603,24 +654,24 @@ installShell({
        sur deux : on attend que SHELL.auth ait parlé (authSettled). Même
        précaution que la modale Mon compte avec `configured === null`. */
     if(!authSettled){
-      showGate('Un instant', 'Vos conversations arrivent.', '', null);
+      showGate('Chargement…', '', '', null);
       return;
     }
     if(!st.configured){
       showGate('Messagerie indisponible',
-        'La synchronisation par compte n’est pas branchée sur cette installation. La messagerie s’activera avec elle.', '', null);
+        '', '', null);
       return;
     }
     if(!st.signedIn){
-      showGate('Connectez-vous pour écrire',
-        'Les messages privés demandent un compte&nbsp;: c’est lui qui vous identifie auprès des autres lecteurs.',
+      showGate('Connectez-vous',
+        'Les messages privés demandent un compte.',
         'Se connecter', openAccount);
       return;
     }
     if(!st.named){
       showGate('Choisissez un pseudo',
-        'Les autres lecteurs vous reconnaissent à votre pseudo. Il se choisit dans <b>Mon compte</b>, onglet Profil.',
-        'Ouvrir mon compte', openAccount);
+        'C’est le nom que voient les autres lecteurs.',
+        'Mon compte', openAccount);
       return;
     }
     gate.hidden = true;
@@ -748,7 +799,7 @@ installShell({
   function boot(){
     if(!(window.SHELL && SHELL.social && SHELL.social.dm)){
       showGate('Messagerie indisponible',
-        'Le module de messagerie ne s’est pas chargé. Rechargez la page&nbsp;; si cela persiste, c’est un problème du site.', '', null);
+        'Rechargez la page.', '', null);
       return;
     }
     DM = SHELL.social.dm;

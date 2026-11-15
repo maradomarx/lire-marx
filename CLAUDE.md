@@ -12340,3 +12340,15 @@ Quatrième volet. Le cahier (papier, page de titre, cahiers par œuvre) ne chang
 - La ligne de synchronisation : « Sur cet appareil seulement · Se connecter ». L'export : « Texte · Markdown », « Sauvegarde · JSON ».
 - Pour tester : semer `liremarx.anno.v1` par `evaluateOnNewDocument` (clés `œuvre|section`, couleurs `gold|red|blue|green`), page ouverte avec `?skip-anim`.
 - Vérifié à 375 et 1440 px (barre, filtres et pastille, édition, confirmation). Non vérifié : jour et édition à l'image, synchronisation avec un compte.
+
+## Les messages, modèle iPhone (mission `messages-iphone`, nov. 2026)
+
+Cinquième volet. Le partage des rôles ne change pas (`SHELL.social.dm` possède les données, la page rend ; squelette écrit une fois, fil qui s'ajoute).
+
+- **En-tête** : « Messages », sans sur-titre ni phrase.
+- **La liste** : un champ « Écrire à… (pseudo) » et un bouton rond (crayon) ; les conversations sans intitulé (il reste en `.sr-only`), avatar de 44 px, aperçu, heure ou pastille de non-lus ; « Lecteurs du forum » sans phrase d'explication. Sous 900 px la liste n'est plus une carte : des lignes réglées, pleine largeur.
+- **La conversation** : le nom seul (plus de « Conversation privée »), bulles en Inter, séparateurs de jour sans cadre, champ arrondi et **bouton d'envoi rond** (flèche ; `aria-label` « Envoyer »). La ligne « Entrée envoie… » est partie (elle vit dans le `title` du bouton).
+- **Sous 900 px une conversation prend tout l'écran** sous la barre du haut (`body.mg-convo .mg-thread-pane` en `position:fixed`, `top:44px`, `bottom:0`), le champ collé en bas ; l'en-tête de page, le pied de page et la barre d'onglets s'effacent. Retour par le chevron doré.
+- **Les états** : un titre, au plus une ligne, au plus un bouton (`gateP` masqué quand il est vide).
+- Pour tester : intercepter `shell-social.js` dans puppeteer et lui ajouter un faux `dm` (status, contacts, convo, messages, open, close, send, onChange…) ; **un navigateur NEUF par largeur**, sinon le service worker enregistré par la première page sert le script du cache et le faux n'est pas chargé.
+- Vérifié à 375 et 1440 px (liste, conversation, envoi). Non vérifié : envoi réel, réception en direct, jour et édition à l'image.
