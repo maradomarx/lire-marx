@@ -368,8 +368,8 @@
       '<nav class="lm-tabbar" id="lmTabbar" aria-label="Navigation principale">' +
         a('/oeuvres/bibliotheque', 'lire', 'biblio', 'Lire') +
         a('/glossaire/', 'glossaire', 'glossaire', 'Glossaire') +
-        a('/oeuvres/carnet', 'carnet', 'carnet', 'Carnet') +
         a('/oeuvres/forum', 'forum', 'forum', 'Forum') +
+        '<a class="tbar-it" href="/cartes/" data-tab="cartes">' + IC('cartes') + '<span class="tbar-l">Marx TCG</span><span class="tbar-badge" id="tbarCartesN" hidden></span></a>' +
         '<button class="tbar-it" type="button" id="tbarPlus" data-tab="plus" aria-expanded="false" aria-controls="sidebar">' +
           '<svg class="sb-ic" viewBox="0 0 20 20" aria-hidden="true" focusable="false">' + TB_IC_PLUS + '</svg>' +
           '<span class="tbar-l">Plus</span><span class="tbar-dot" id="tbarDot" hidden></span></button>' +
@@ -394,10 +394,16 @@
     /* « Lire » couvre la bibliothèque, les ateliers et les chapitres
        expliqués : tout ce qui est le texte des œuvres. */
     if(/^\/glossaire(\/|$)/.test(here)) on('glossaire');
-    else if(/\/carnet$/.test(here)) on('carnet');
     else if(/\/forum$/.test(here)) on('forum');
-    else if(/^\/oeuvres\//.test(here) && !/\/messages$/.test(here)) on('lire');
+    else if(/^\/oeuvres\//.test(here) && !/\/(messages|carnet)$/.test(here)) on('lire');
     else on('plus');
+    /* les boosters à ouvrir : la pastille de la barre latérale, redite ici */
+    var src = document.getElementById('sbCartesN'), dst = document.getElementById('tbarCartesN');
+    if(src && dst){
+      var copie = function(){ dst.textContent = src.textContent; dst.hidden = src.hidden || !src.textContent; };
+      copie();
+      new MutationObserver(copie).observe(src, {attributes:true, childList:true, characterData:true, subtree:true});
+    }
     function fermer(rendre){
       if(!document.body.classList.contains('sb-open')) return;
       document.body.classList.remove('sb-open');

@@ -794,6 +794,8 @@ html{--tab-h:0px;}
   .tbar-it:focus-visible{outline:2px solid var(--gold);outline-offset:-4px;border-radius:12px;}
   .tbar-dot{position:absolute;top:9px;left:calc(50% + 9px);width:7px;height:7px;border-radius:50%;background:var(--red);}
   .tbar-dot[hidden]{display:none;}
+  .tbar-badge{position:absolute;top:5px;left:calc(50% + 6px);min-width:17px;height:17px;padding:0 4px;border-radius:100px;display:grid;place-items:center;background:var(--red);color:var(--sur-red);font:600 .6875rem/1 var(--f-ui,Inter,sans-serif);font-variant-numeric:tabular-nums;}
+  .tbar-badge[hidden]{display:none;}
   /* en lecture, elle s'efface quand on descend */
   html.lm-tabs-bas .lm-tabbar{transform:translateY(100%);}
   /* et ne paraît pas là où l'écran est pris : lecture plein écran,
@@ -823,7 +825,7 @@ html{--tab-h:0px;}
   .sidebar .sb-work,.sidebar .sb-app{grid-column:1/-1;margin:0;padding:0;border-top:0;}
   .sidebar .sb-app .sb-item{width:100%;flex-direction:row;min-height:48px;gap:9px;}
   /* les quatre destinations de la barre n'ont pas à être redites */
-  html.lm-tabs .sidebar .sb-item:is([data-act="biblio"],[data-act="glossaire"],[data-act="carnet"],[data-act="forum"]){display:none;}
+  html.lm-tabs .sidebar .sb-item:is([data-act="biblio"],[data-act="glossaire"],[data-act="forum"],[data-act="cartes"]){display:none;}
 
   /* ── ce qui est fixé en bas passe au-dessus de la barre ── */
   .lm-haut{bottom:calc(16px + var(--tab-h));}
