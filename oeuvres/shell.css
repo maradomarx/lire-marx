@@ -842,3 +842,33 @@ html{--tab-h:0px;}
   .lm-tabbar,.sidebar,body.sb-open .sidebar{transition:none;}
 }
 @media print{.lm-tabbar{display:none!important;}}
+
+
+/* ══════════════════════════════════════════════════════════════════════
+   MON COMPTE, MODÈLE IPHONE (mission `compte-iphone`, nov. 2026)
+   L'onglet « Compte » est fait de groupes de lignes (.ac-list > .ac-li),
+   comme des réglages : une valeur ou un geste par ligne. Les sur-titres et
+   les phrases d'explication sont partis ; seule la suppression du compte
+   garde son avertissement.
+   ══════════════════════════════════════════════════════════════════════ */
+#acctView .ac-list{border:1px solid var(--line);border-radius:14px;background:var(--paper);overflow:hidden;}
+#acctView .ac-list .ac-facts{gap:0;}
+#acctView .ac-list .ac-facts>div{min-height:48px;align-items:center;padding:0 14px;border-top:1px solid var(--line);}
+#acctView .ac-list .ac-facts>div:first-child{border-top:0;}
+#acctView .ac-list .ac-facts dd{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+#acctView .ac-li{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:48px;padding:0 14px;box-sizing:border-box;
+  background:transparent;border:0;border-top:1px solid var(--line);color:var(--ink);cursor:pointer;text-align:left;text-decoration:none;
+  font:500 .9rem/1.2 var(--f-ui);transition:background .15s;}
+#acctView .ac-list>.ac-li:first-child{border-top:0;}
+#acctView .ac-li:hover{background:var(--hover);}
+#acctView .ac-li:focus-visible{outline:2px solid var(--gold);outline-offset:-2px;}
+#acctView .ac-chev{flex:none;width:15px;height:15px;color:var(--const);}
+#acctView .ac-li-v{font-size:.78rem;color:var(--const);}
+#acctView .ac-li-out{justify-content:center;font-weight:600;}
+#acctView .ac-li-danger{justify-content:center;font-weight:600;color:#f0917f;}
+html[data-mode="jour"] #acctView .ac-li-danger,html[data-mode="edition"] #acctView .ac-li-danger{color:var(--red-text);}
+#acctView .ac-li-form{padding:12px 14px 14px;}
+#acctView .ac-ben{align-items:center;}
+#acctView .ac-ben svg{margin-top:0;}
+#acctView .ac-go{position:relative;padding-right:40px;}
+#acctView .ac-go-s{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:1rem;}

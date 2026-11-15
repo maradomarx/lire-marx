@@ -2214,7 +2214,7 @@
       if(!isNaN(d.getTime())) since = 'membre depuis ' + moisAn(d);
     }
     var line = [esc((u && u.email) || ''), since].filter(Boolean).join(' · ');
-    return '<header class="ac-head"><p class="ac-kicker">Mon compte</p>'
+    return '<header class="ac-head">'
       + '<div class="ac-id"><span class="ac-ava">' + avaHtml(pseudo || (u && u.email), p && p.avatar_url) + '</span>'
       + '<div class="ac-id-main"><h3 class="ac-name">'
       + (pseudo ? esc(pseudo) : '<i>Sans pseudo</i>') + '</h3>'
@@ -2238,64 +2238,64 @@
     var u = state.user, p = state.profile;
     var pseudo = (p && p.username) || '';
     var bio = (p && p.bio) || '';
-    return '<div class="ac-sec"><p class="ac-sec-h">Votre identité publique</p>'
+    return '<div class="ac-sec">'
       + '<label class="ac-lab" for="acUser">Pseudo</label>'
       + '<input type="text" id="acUser" value="' + esc(pseudo) + '" placeholder="votre-pseudo"'
       + ' maxlength="24" autocomplete="nickname" spellcheck="false">'
       + '<label class="ac-lab gap" for="acBio">Description</label>'
-      + '<textarea id="acBio" maxlength="280" placeholder="Quelques mots sur vous — 280 caractères.">'
+      + '<textarea id="acBio" maxlength="280" placeholder="280 caractères">'
       + esc(bio) + '</textarea>'
       + '<div class="ac-actions"><button class="ac-btn pri" data-act="save-profile" type="button"'
       + (view.busy ? ' disabled' : '') + '>' + (view.busy ? 'Enregistrement…' : 'Enregistrer') + '</button></div></div>'
 
-      + '<div class="ac-sec"><p class="ac-sec-h">Photo</p>'
+      + '<div class="ac-sec">'
       + '<div class="ac-avarow"><span class="ac-ava ac-ava-edit">'
       + avaHtml(pseudo || (u && u.email), p && p.avatar_url) + '</span>'
       + '<div class="ac-avabtns"><input type="file" id="acAvaFile" accept="image/*" hidden>'
-      + '<button class="ac-btn" data-act="ava-pick" type="button"' + (view.busy ? ' disabled' : '') + '>Choisir une image…</button>'
+      + '<button class="ac-btn" data-act="ava-pick" type="button"' + (view.busy ? ' disabled' : '') + '>Changer la photo</button>'
       + ((p && p.avatar_url) ? '<button class="ac-quiet" data-act="ava-clear" type="button">Retirer</button>' : '')
       + '</div></div></div>'
 
-      + '<div class="ac-sec"><p class="ac-sec-h">Sur le forum, on vous lit ainsi</p>'
+      + '<div class="ac-sec"><p class="ac-sec-h">Aperçu sur le forum</p>'
       + '<div class="ac-preview"><span class="ac-ava" id="acPvAva">'
       + avaHtml(pseudo || '?', p && p.avatar_url) + '</span>'
       + '<div><div class="ac-pv-sig" id="acPvSig">' + esc(pseudo || 'votre pseudo') + '</div>'
-      + '<div class="ac-pv-when">à l’instant · Le Capital, chapitre I</div></div></div>'
-      + '<p class="ac-note">Votre adresse e-mail n’apparaît nulle part : elle ne sert qu’à vous connecter.</p></div>';
+      + '<div class="ac-pv-when">à l’instant · Le Capital</div></div></div>'
+      + '<p class="ac-note">Votre e-mail reste privé.</p></div>';
   }
 
   function secLecture(){
     var x = view.extras || { loading:true };
-    var tiles = [{ n:x.pass, l:'passages surlignés' },
-                 { n:x.notes, l:'notes écrites' },
+    var tiles = [{ n:x.pass, l:'passages' },
+                 { n:x.notes, l:'notes' },
                  { n:x.chap, l:'chapitres lus' },
-                 { n:x.pub, l:'notes publiques' }];
+                 { n:x.pub, l:'sur le forum' }];
     /* Règle tenue : on n'affiche jamais une case qu'on ne peut pas
        remplir. Tant qu'on cherche, elle attend ; si la table n'a pas
        répondu, elle disparaît plutôt que d'annoncer un faux zéro. */
     var shown = x.loading ? tiles : tiles.filter(function(t){ return t.n != null; });
-    var h = '<div class="ac-sec"><p class="ac-sec-h">Ce que votre compte porte</p>';
+    var h = '<div class="ac-sec">';
     if(shown.length){
       h += '<div class="ac-stats">' + shown.map(function(t){
         return '<div class="ac-stat"><div class="ac-stat-n">' + chiffre(t.n) + '</div>'
              + '<div class="ac-stat-l">' + t.l + '</div></div>';
       }).join('') + '</div>';
     } else {
-      h += '<p class="ac-empty">Les chiffres de votre compte n’ont pas pu être lus. Réessayez plus tard.</p>';
+      h += '<p class="ac-empty">Chiffres indisponibles.</p>';
     }
     h += '</div>';
 
     var b = bestResume();
     if(b){
-      h += '<div class="ac-sec"><p class="ac-sec-h">Reprendre sur cet appareil</p>'
+      h += '<div class="ac-sec"><p class="ac-sec-h">Reprendre</p>'
         + '<a class="ac-go" href="' + esc(b.w.path) + '">'
         + '<span class="ac-go-k">' + esc(b.w.title) + '</span>'
         + '<span class="ac-go-t">' + (b.r.num ? 'Chapitre ' + esc(b.r.num) + ' — ' : '') + esc(b.r.title) + '</span>'
-        + '<span class="ac-go-s">Rouvrir le texte →</span></a></div>';
+        + '<span class="ac-go-s" aria-hidden="true">→</span></a></div>';
     }
 
     var L = (x.latest || []).filter(function(a){ return a && a.quote; }).slice(0, 3);
-    h += '<div class="ac-sec"><p class="ac-sec-h">Vos derniers passages</p>';
+    h += '<div class="ac-sec"><p class="ac-sec-h">Derniers passages</p>';
     if(L.length){
       h += '<ul class="ac-pass">' + L.map(function(a){
         var w = acBiblio ? acBiblio[a.work] : null;
@@ -2311,11 +2311,11 @@
           : '<span class="ac-pass-item">' + inner + '</span>') + '</li>';
       }).join('') + '</ul>';
     } else if(x.loading){
-      h += '<p class="ac-empty">Lecture de votre compte…</p>';
+      h += '<p class="ac-empty">Chargement…</p>';
     } else {
-      h += '<p class="ac-empty">Aucun passage sur ce compte pour l’instant. <b>Surlignez une phrase</b> en lisant : elle vous suivra d’un appareil à l’autre.</p>';
+      h += '<p class="ac-empty">Aucun passage.</p>';
     }
-    h += '<div class="ac-actions"><a class="ac-btn" href="/oeuvres/carnet">Ouvrir mon carnet</a></div></div>';
+    h += '<div class="ac-actions"><a class="ac-btn" href="/oeuvres/carnet">Mon carnet</a></div></div>';
     return h;
   }
 
@@ -2326,43 +2326,41 @@
       var d = new Date(u.created_at);
       if(!isNaN(d.getTime())) créé = jourComplet(d);
     }
-    var h = '<div class="ac-sec"><p class="ac-sec-h">Connexion</p><dl class="ac-facts">'
-      + '<div><dt>Adresse e-mail</dt><dd>' + esc((u && u.email) || '') + '</dd></div>'
-      + (créé ? '<div><dt>Compte créé le</dt><dd>' + créé + '</dd></div>' : '')
-      + '</dl>'
-      + '<div class="ac-actions"><button class="ac-btn" data-act="signout" type="button">Se déconnecter</button></div></div>';
+    var CHEV = '<svg class="ac-chev" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3.5 12.5 9 7 14.5"/></svg>';
+    var carnet = !!(window.SHELL && window.SHELL.annotations && window.SHELL.annotations.allNotes);
+    /* Des groupes de lignes, comme des réglages : une valeur ou un geste par
+       ligne, plus de paragraphe. La suppression garde, elle, son avertissement. */
+    var h = '<div class="ac-sec"><div class="ac-list"><dl class="ac-facts">'
+      + '<div><dt>E-mail</dt><dd>' + esc((u && u.email) || '') + '</dd></div>'
+      + (créé ? '<div><dt>Créé le</dt><dd>' + créé + '</dd></div>' : '')
+      + '</dl></div></div>';
 
-    h += '<div class="ac-sec"><p class="ac-sec-h">Mot de passe</p>';
+    h += '<div class="ac-sec"><div class="ac-list">';
     if(view.pwOpen){
-      h += '<label class="ac-lab" for="acNew">Nouveau mot de passe</label>'
+      h += '<div class="ac-li-form"><label class="ac-lab" for="acNew">Nouveau mot de passe</label>'
         + '<input type="password" id="acNew" placeholder="6 caractères minimum" autocomplete="new-password">'
         + '<div class="ac-actions"><button class="ac-quiet" data-act="pw-cancel" type="button">Annuler</button>'
         + '<button class="ac-btn pri" data-act="setpw" type="button"' + (view.busy ? ' disabled' : '') + '>'
-        + (view.busy ? 'Enregistrement…' : 'Enregistrer') + '</button></div>';
+        + (view.busy ? 'Enregistrement…' : 'Enregistrer') + '</button></div></div>';
     } else {
-      h += '<div class="ac-row"><button class="ac-btn" data-act="pw-open" type="button">Changer mon mot de passe</button></div>';
+      h += '<button class="ac-li" data-act="pw-open" type="button"><span>Changer le mot de passe</span>' + CHEV + '</button>';
     }
-    h += '</div>';
+    h += '<a class="ac-li" href="/mentions-legales#confidentialite"><span>Confidentialité</span>' + CHEV + '</a>'
+      + (carnet ? '<button class="ac-li" data-act="export" type="button"><span>Télécharger mon carnet</span><span class="ac-li-v">JSON</span></button>' : '')
+      + '</div></div>';
 
-    var carnet = !!(window.SHELL && window.SHELL.annotations && window.SHELL.annotations.allNotes);
-    h += '<div class="ac-sec"><p class="ac-sec-h">Vos données</p><div class="ac-row">'
-      + '<a class="ac-btn" href="/mentions-legales#confidentialite">Confidentialité &amp; données</a>'
-      + (carnet ? '<button class="ac-btn" data-act="export" type="button">Télécharger mon carnet</button>' : '')
-      + '</div>'
-      + (carnet ? '<p class="ac-note">Un fichier JSON avec les passages et les notes de ce navigateur.</p>' : '')
-      + '</div>';
+    h += '<div class="ac-sec"><div class="ac-list"><button class="ac-li ac-li-out" data-act="signout" type="button"><span>Se déconnecter</span></button></div></div>';
 
-    h += '<div class="ac-sec"><div class="ac-danger"><p class="ac-danger-h">Zone de danger</p>';
+    h += '<div class="ac-sec">';
     if(view.eraseConfirm){
-      h += '<p><b>Supprimer définitivement votre compte ?</b> Cela efface votre compte et toutes vos données — annotations privées, notes et réponses publiques, pseudo, signalements. Vous serez déconnecté et ne pourrez plus vous reconnecter. Action irréversible.</p>'
+      h += '<div class="ac-danger"><p><b>Supprimer définitivement ?</b> Compte, notes, messages et pseudo seront effacés. Irréversible.</p>'
         + '<div class="ac-row"><button class="ac-btn danger" data-act="erase-yes" type="button"' + (view.busy ? ' disabled' : '') + '>'
-        + (view.busy ? 'Suppression…' : 'Oui, supprimer mon compte') + '</button>'
-        + '<button class="ac-quiet" data-act="erase-no" type="button">Annuler</button></div>';
+        + (view.busy ? 'Suppression…' : 'Supprimer') + '</button>'
+        + '<button class="ac-quiet" data-act="erase-no" type="button">Annuler</button></div></div>';
     } else {
-      h += '<p>La suppression efface votre compte et l’ensemble de vos données, sans retour possible.</p>'
-        + '<div class="ac-row"><button class="ac-btn danger" data-act="erase" type="button">Supprimer mon compte</button></div>';
+      h += '<div class="ac-list"><button class="ac-li ac-li-danger" data-act="erase" type="button"><span>Supprimer mon compte</span></button></div>';
     }
-    return h + '</div></div>';
+    return h + '</div>';
   }
 
   function guestBody(signup, inv){
@@ -2384,11 +2382,11 @@
     /* La liste des trois gains ne s'affiche qu'à l'inscription : elle
        argumente, et l'on n'argumente pas auprès de qui revient. */
     if(signup){
-      h += '<div class="ac-sec"><p class="ac-sec-h">Ce qu’un compte ajoute</p><ul class="ac-bens">'
-        + '<li class="ac-ben">' + MK_STEP + '<span><b>Dix boosters de Marx TCG offerts.</b> Puis trois par heure, pour commencer votre collection.</span></li>'
-        + '<li class="ac-ben">' + MK_SYNC + '<span><b>Vos passages vous suivent.</b> Surlignages et notes se retrouvent sur tous vos appareils.</span></li>'
-        + '<li class="ac-ben">' + MK_TALK + '<span><b>Vous pouvez écrire.</b> Ouvrir une discussion, répondre et appuyer une lecture sur le forum.</span></li>'
-        + '<li class="ac-ben">' + MK_STEP + '<span><b>Votre progression se garde.</b> Les chapitres lus restent cochés d’une visite à l’autre.</span></li>'
+      h += '<div class="ac-sec"><ul class="ac-bens">'
+        + '<li class="ac-ben">' + MK_STEP + '<span><b>10 boosters Marx TCG offerts</b></span></li>'
+        + '<li class="ac-ben">' + MK_SYNC + '<span><b>Vos notes sur tous vos appareils</b></span></li>'
+        + '<li class="ac-ben">' + MK_TALK + '<span><b>Écrire sur le forum</b></span></li>'
+        + '<li class="ac-ben">' + MK_STEP + '<span><b>Votre progression gardée</b></span></li>'
         + '</ul></div>';
     }
     return h;
@@ -2412,14 +2410,13 @@
     // afficher la vue invité — le bootstrap re-rendra dès qu'il a fini.
     if(configured === false){
       slot.innerHTML = '<div class="ac-panel"><header class="ac-head">'
-        + '<p class="ac-kicker">Mon compte</p><h3 class="ac-name">Compte non configuré</h3></header>'
-        + '<div class="ac-pane"><p class="ac-p">La synchronisation par compte n’est pas branchée : il reste à renseigner les clés Supabase dans <code>config.js</code> à la racine. En attendant, le site reste 100 % local — vos surlignages vivent dans ce navigateur.</p></div></div>';
+        + '<h3 class="ac-name">Compte indisponible</h3></header>'
+        + '<div class="ac-pane"><p class="ac-p">Vos notes restent dans ce navigateur.</p></div></div>';
       return;
     }
     if(view.recovery){
       slot.innerHTML = '<div class="ac-panel"><header class="ac-head">'
-        + '<p class="ac-kicker">Mon compte</p><h3 class="ac-name">Nouveau mot de passe</h3>'
-        + '<p class="ac-meta">Choisissez-en un, puis vous serez connecté.</p></header>'
+        + '<h3 class="ac-name">Nouveau mot de passe</h3></header>'
         + '<div class="ac-pane">' + err + ok
         + '<label class="ac-lab" for="acNew">Nouveau mot de passe</label>'
         + '<input type="password" id="acNew" placeholder="6 caractères minimum" autocomplete="new-password"' + inv + '>'
@@ -2450,16 +2447,14 @@
     // Vue invité — se connecter / créer un compte
     var signup = view.authMode === 'signup';
     slot.innerHTML = '<div class="ac-panel"><header class="ac-head">'
-      + '<p class="ac-kicker">Mon compte</p>'
-      + '<h3 class="ac-name">' + (signup ? 'Créer un compte' : 'Se connecter') + '</h3>'
-      + '<p class="ac-meta">Vos passages vivent dans ce navigateur. Un compte les emmène partout.</p></header>'
+      + '<h3 class="ac-name">Mon compte</h3></header>'
       + segHtml([{ id:'signin', label:'Se connecter', act:'mode-signin' },
                  { id:'signup', label:'Créer un compte', act:'mode-signup' }],
                 signup ? 'signup' : 'signin', 'Se connecter ou créer un compte')
       + '<div class="ac-pane" id="acPane" role="tabpanel" aria-labelledby="acTab-' + (signup ? 'signup' : 'signin') + '">'
       + err + ok + guestBody(signup, inv)
       + '<div class="ac-foot"><a class="ac-quiet" href="/mentions-legales#confidentialite">Confidentialité &amp; données</a>'
-      + '<span class="ac-pv-when">Aucun pistage, aucun cookie publicitaire.</span></div>'
+      + '<span class="ac-pv-when">Aucun pistage</span></div>'
       + '</div></div>';
     wireModalActions(slot);
   }

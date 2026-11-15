@@ -12352,3 +12352,16 @@ Cinquième volet. Le partage des rôles ne change pas (`SHELL.social.dm` possèd
 - **Les états** : un titre, au plus une ligne, au plus un bouton (`gateP` masqué quand il est vide).
 - Pour tester : intercepter `shell-social.js` dans puppeteer et lui ajouter un faux `dm` (status, contacts, convo, messages, open, close, send, onChange…) ; **un navigateur NEUF par largeur**, sinon le service worker enregistré par la première page sert le script du cache et le faux n'est pas chargé.
 - Vérifié à 375 et 1440 px (liste, conversation, envoi). Non vérifié : envoi réel, réception en direct, jour et édition à l'image.
+
+## Mon compte, modèle iPhone (mission `compte-iphone`, nov. 2026)
+
+Sixième et dernier volet de la refonte. Le panneau garde sa forme de septembre (tête d'identité, trois onglets) ; ce qui change :
+
+- **Plus de sur-titre « Mon compte »** ni de phrase sous le titre. En invité, le titre est « Mon compte » et le sélecteur dit « Se connecter / Créer un compte ».
+- **Inscription** : les quatre gains tiennent en une ligne chacun (icône + quelques mots).
+- **Profil** : les intitulés « Votre identité publique » et « Photo » sont partis (les champs ont leurs étiquettes), « Changer la photo », « Aperçu sur le forum », « Votre e-mail reste privé. »
+- **Lecture** : quatre chiffres aux libellés d'un ou deux mots (passages, notes, chapitres lus, sur le forum), « Reprendre », « Derniers passages », « Mon carnet ».
+- **Compte** : des **groupes de lignes** (`.ac-list` > `.ac-li`, fin de shell.css) — e-mail et date, puis « Changer le mot de passe » et « Confidentialité » avec un chevron, « Télécharger mon carnet » (JSON), « Se déconnecter », « Supprimer mon compte ». **La confirmation de suppression garde son avertissement** (ce qui est effacé, irréversible), raccourci ; le focus va toujours sur Annuler.
+- Pour tester connecté : semer `sb-<ref>-auth-token` dans localStorage (session à faux JWT, `expires_at` futur) et intercepter `supabase.co` (profils, comptes en `HEAD` avec `content-range`, annotations). Un navigateur neuf par passe.
+- Vérifié à 375 et 1440 px : connexion, inscription, profil, lecture, compte, mot de passe déplié, suppression. Non vérifié : connexion et enregistrement réels, jour et édition à l'image.
+- `shell.css?v=21`, `shell.js?v=34`.
