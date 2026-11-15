@@ -352,6 +352,95 @@
     });
   }
 
+  /* ── LA BARRE D'ONGLETS DU TÉLÉPHONE (mission `navigation-iphone`, nov. 2026) ──
+     Sous 861 px, la navigation n'est plus un tiroir caché derrière ☰ : quatre
+     destinations et « Plus » tiennent en bas de l'écran, sous le pouce, icône
+     et un mot. « Plus » ouvre le reste en feuille (c'est la barre latérale,
+     remise en tuiles par shell.css). Les quatre destinations sont des ANCRES.
+     Pas de barre sur une page qui a déjà la sienne en bas (Marx TCG) : ☰ y
+     reste, et ouvre la même feuille. */
+  var TB_IC_PLUS = '<circle cx="4.5" cy="10" r="1.3"/><circle cx="10" cy="10" r="1.3"/><circle cx="15.5" cy="10" r="1.3"/>';
+  function buildTabbar(){
+    function a(href, act, ic, lbl){
+      return '<a class="tbar-it" href="' + href + '" data-tab="' + act + '">' + IC(ic) + '<span class="tbar-l">' + lbl + '</span></a>';
+    }
+    return el(
+      '<nav class="lm-tabbar" id="lmTabbar" aria-label="Navigation principale">' +
+        a('/oeuvres/bibliotheque', 'lire', 'biblio', 'Lire') +
+        a('/glossaire/', 'glossaire', 'glossaire', 'Glossaire') +
+        a('/oeuvres/carnet', 'carnet', 'carnet', 'Carnet') +
+        a('/oeuvres/forum', 'forum', 'forum', 'Forum') +
+        '<button class="tbar-it" type="button" id="tbarPlus" data-tab="plus" aria-expanded="false" aria-controls="sidebar">' +
+          '<svg class="sb-ic" viewBox="0 0 20 20" aria-hidden="true" focusable="false">' + TB_IC_PLUS + '</svg>' +
+          '<span class="tbar-l">Plus</span><span class="tbar-dot" id="tbarDot" hidden></span></button>' +
+      '</nav>'
+    );
+  }
+  function wireTabbar(here, direBascule){
+    var bar = document.getElementById('lmTabbar');
+    var sb = document.getElementById('sidebar');
+    if(!bar){
+      /* page sans barre d'onglets : ☰ ouvre la feuille, Échap la referme */
+      document.addEventListener('keydown', function(e){
+        if(e.key === 'Escape' && document.body.classList.contains('sb-open') && window.matchMedia('(max-width:860px)').matches){
+          document.body.classList.remove('sb-open'); direBascule();
+          var t = document.getElementById('sbToggle'); if(t) t.focus({preventScroll:true});
+        }
+      });
+      return;
+    }
+    var plus = document.getElementById('tbarPlus');
+    function on(k){ var t = bar.querySelector('[data-tab="' + k + '"]'); if(t){ t.classList.add('on'); if(k !== 'plus') t.setAttribute('aria-current', 'page'); } }
+    /* « Lire » couvre la bibliothèque, les ateliers et les chapitres
+       expliqués : tout ce qui est le texte des œuvres. */
+    if(/^\/glossaire(\/|$)/.test(here)) on('glossaire');
+    else if(/\/carnet$/.test(here)) on('carnet');
+    else if(/\/forum$/.test(here)) on('forum');
+    else if(/^\/oeuvres\//.test(here) && !/\/messages$/.test(here)) on('lire');
+    else on('plus');
+    function fermer(rendre){
+      if(!document.body.classList.contains('sb-open')) return;
+      document.body.classList.remove('sb-open');
+      plus.setAttribute('aria-expanded', 'false');
+      direBascule();
+      if(rendre) plus.focus({preventScroll:true});
+    }
+    plus.addEventListener('click', function(e){
+      e.stopPropagation();
+      if(document.body.classList.contains('sb-open')){ fermer(false); return; }
+      document.body.classList.add('sb-open');
+      plus.setAttribute('aria-expanded', 'true');
+      direBascule();
+      /* la feuille est en visibility:hidden jusqu'à son ouverture : le focus
+         ne prend qu'une fois la classe appliquée */
+      setTimeout(function(){
+        var vis = [].filter.call(sb.querySelectorAll('.sb-item'), function(x){ return x.getClientRects().length; });
+        if(vis[0]) vis[0].focus({preventScroll:true});
+      }, 30);
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && document.body.classList.contains('sb-open') && window.matchMedia('(max-width:860px)').matches){
+        fermer(true);
+      }
+    });
+    /* la feuille se referme par plusieurs chemins (le voile, une tuile, le
+       soutien) : l'état du bouton suit la classe, où qu'elle change */
+    new MutationObserver(function(){
+      plus.setAttribute('aria-expanded', document.body.classList.contains('sb-open') ? 'true' : 'false');
+    }).observe(document.body, {attributes:true, attributeFilter:['class']});
+    /* En lecture, la barre s'efface quand on descend et revient dès qu'on
+       remonte : le texte reprend l'écran, comme dans une liseuse. Ailleurs
+       elle ne bouge pas. */
+    var dernier = window.scrollY, cache = false;
+    window.addEventListener('scroll', function(){
+      var y = window.scrollY, d = y - dernier;
+      if(Math.abs(d) < 8) return;
+      dernier = y;
+      var veut = d > 0 && y > 200 && document.body.classList.contains('at-reading') && !document.body.classList.contains('sb-open');
+      if(veut !== cache){ cache = veut; document.documentElement.classList.toggle('lm-tabs-bas', cache); }
+    }, {passive:true});
+  }
+
   function buildBackdrop(){
     return el('<div class="sb-backdrop" id="sbBackdrop"></div>');
   }
@@ -500,6 +589,7 @@
     wireSharedSearch();
     wireMode();
     wireInstall(sb);
+    wireTabbar(here, direBascule);
     registerSW();
   }
 
@@ -1613,6 +1703,11 @@
     var sidebar = buildSidebar(cfg);
     document.querySelector('header.topbar').after(sidebar);
     sidebar.after(buildBackdrop());
+    /* la barre d'onglets du téléphone, sauf là où la page a la sienne */
+    if(!document.getElementById('tcgOnglets')){
+      body.appendChild(buildTabbar());
+      document.documentElement.classList.add('lm-tabs');
+    }
     body.appendChild(buildAcctModal());
     wire(cfg);
     // Branche SHELL.auth sur le shell installé (chip + modales) et amorce
